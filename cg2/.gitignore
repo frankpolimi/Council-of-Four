@@ -1,7 +1,8 @@
 /target/
+
 bin/
 
-.classpath
+
 .settings
 *~
 .metadata
