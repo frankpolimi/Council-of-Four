@@ -7,5 +7,4 @@ public abstract class Bonus implements Bonuser{
 	/**
 	 * @author Francesco Vetrò
 	 */
-	
 }

@@ -7,9 +7,12 @@ package bonus;
  * @author Francesco Vetrò
  * 
  */
-public class BonusMonete extends BonusTessere {
-	
-	public BonusMonete(Integer importo) {
+public class CoinBonus extends TileBonus {
+	/**
+	 * construct a coin bonus with the given amount as parameter
+	 * @param importo
+	 */
+	public CoinBonus(Integer importo) {
 		super(importo);
 	}
 
@@ -22,8 +25,9 @@ public class BonusMonete extends BonusTessere {
 	 * @param player
 	 */
 	@Override
-	public void update(Giocatore player) {
-		player.getStatus.setMonete(player.getStatus.getMonete() + this.getImporto());
+	public <T> void update(T playerorgame) {
+		((Giocatore) playerorgame).getStatus().setCoin(
+				((Giocatore) playerorgame).getStatus().getCoin() + this.getAmount());
 	}
 
 }
