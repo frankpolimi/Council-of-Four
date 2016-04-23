@@ -7,9 +7,9 @@ package bonus;
  * @author Francesco Vetrò
  *
  */
-public class HelperBonus extends TileBonus {
-	
-	public HelperBonus(Integer aiutanti) {
+public class BonusAiutante extends BonusTessera {
+
+	public BonusAiutante(Integer aiutanti) {
 		super(aiutanti);
 	}
 

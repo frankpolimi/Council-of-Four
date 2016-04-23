@@ -6,7 +6,7 @@ package cg2.model;
 import java.awt.Color;
 import java.util.*;
 
-import bonus.TileBonus;
+import bonus.BonusTessera;;
 
 /**
  * @author Emanuele Ricciardelli
@@ -18,11 +18,11 @@ public class Citta {
 	private final char firstChar;
 	private final Color cityColor;
 	private final Set<Citta> linkedCities;
-	private final TileBonus bonus;
+	private final BonusTessera bonus;
 	
 	//i collegamenti saranno letti da file, perciò ci sarà una fase di creazione
 	//del vettore collegamenti da parte dell'inizializzatore della partita.
-	public Citta(String name, Color color, Set<Citta> link, TileBonus bonus){
+	public Citta(String name, Color color, Set<Citta> link, BonusTessera bonus){
 		this.name=name;
 		firstChar=name.charAt(0);
 		linkedCities = link;
@@ -61,7 +61,7 @@ public class Citta {
 	/**
 	 * @return the bonus
 	 */
-	public TileBonus getBonus() {
+	public BonusTessera getBonus() {
 		return bonus;	
 	}
 }

@@ -8,7 +8,7 @@ package bonus;
  * first type of bonuses that works on the player
  */
 
-public abstract class TileBonus extends Bonus {
+public abstract class BonusTessera extends Bonus {
 
 	private Integer amount;
 	
@@ -16,7 +16,7 @@ public abstract class TileBonus extends Bonus {
 	 * constructor specifing the amount of bonus
 	 * @param importo
 	 */
-	public TileBonus(Integer amount){
+	public BonusTessera(Integer amount){
 		this.amount = new Integer(amount);
 	}
 
