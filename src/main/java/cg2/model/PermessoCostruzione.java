@@ -1,6 +1,8 @@
 package cg2.model;
 import java.util.*;
 
+import bonus.TileBonus;
+
 /**
  * 
  * @author Emanuele Ricciardelli
@@ -9,10 +11,10 @@ import java.util.*;
 public class PermessoCostruzione {
 	private final Regione region;
 	private final Set<Character> firstChars;
-	private final Set<BonusTessere> bonusList;
+	private final Set<TileBonus> bonusList;
 	private final Set<Citta> buildingAvaliableCities;
 	
-	public PermessoCostruzione(Regione region, Set<Citta> ba, Set<BonusTessere> bonus){
+	public PermessoCostruzione(Regione region, Set<Citta> ba, Set<TileBonus> bonus){
 		this.region=region;
 		buildingAvaliableCities=ba;
 		bonusList=bonus;
@@ -39,7 +41,7 @@ public class PermessoCostruzione {
 	/**
 	 * @return the bonusList
 	 */
-	public Set<BonusTessere> getBonusList() {
+	public Set<TileBonus> getBonusList() {
 		return bonusList;
 	}
 
