@@ -5,14 +5,13 @@ package bonus;
 
 /**
  * @author Francesco Vetrò
- * 
  */
-public class BonusMoneta extends BonusTessera {
+public class CoinBonus extends TileBonus {
 	/**
 	 * construct a coin bonus with the given amount as parameter
 	 * @param importo
 	 */
-	public BonusMoneta(Integer importo) {
+	public CoinBonus(Integer importo) {
 		super(importo);
 	}
 
