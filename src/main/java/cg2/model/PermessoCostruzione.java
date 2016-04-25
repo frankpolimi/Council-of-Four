@@ -2,6 +2,7 @@ package cg2.model;
 import java.util.*;
 
 import bonus.TileBonus;
+import topology.Region;
 
 /**
  * 
@@ -9,12 +10,12 @@ import bonus.TileBonus;
  *
  */
 public class PermessoCostruzione {
-	private final Regione region;
+	private final Region region;
 	private final Set<Character> firstChars;
 	private final Set<TileBonus> bonusList;
 	private final Set<Citta> buildingAvaliableCities;
 	
-	public PermessoCostruzione(Regione region, Set<Citta> ba, Set<TileBonus> bonus){
+	public PermessoCostruzione(Region region, Set<Citta> ba, Set<TileBonus> bonus){
 		this.region=region;
 		buildingAvaliableCities=ba;
 		bonusList=bonus;
@@ -27,7 +28,7 @@ public class PermessoCostruzione {
 	/**
 	 * @return the region
 	 */
-	public Regione getRegion() {
+	public Region getRegion() {
 		return region;
 	}
 
