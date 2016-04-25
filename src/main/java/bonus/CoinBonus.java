@@ -24,9 +24,9 @@ public class CoinBonus extends TileBonus {
 	 * @param player
 	 */
 	@Override
-	public <T> void update(T playerorgame) {
-		((Giocatore) playerorgame).getStatus().setCoin(
-				((Giocatore) playerorgame).getStatus().getCoin() + this.getAmount());
+	public <T> void update(T playerOrGame) {
+		((Player) playerOrGame).getStatus().setCoin(
+				((Player) playerOrGame).getStatus().getCoin() + this.getAmount());
 	}
 
 }

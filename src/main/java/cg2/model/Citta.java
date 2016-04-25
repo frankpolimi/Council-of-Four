@@ -6,7 +6,6 @@ package cg2.model;
 import java.awt.Color;
 import java.util.*;
 
-import bonus.BonusTessera;
 import bonus.TileBonus;;
 
 /**
