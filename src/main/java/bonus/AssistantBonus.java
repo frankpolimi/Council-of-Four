@@ -7,9 +7,9 @@ package bonus;
  * @author Francesco Vetrò
  *
  */
-public class HelperBonus extends TileBonus {
-	
-	public HelperBonus(Integer aiutanti) {
+public class AssistantBonus extends TileBonus {
+
+	public AssistantBonus(Integer aiutanti) {
 		super(aiutanti);
 	}
 
@@ -19,9 +19,9 @@ public class HelperBonus extends TileBonus {
 	 * @param player
 	 */
 	@Override
-	public <T> void update(T playerorgame) {
-		((Giocatore) playerorgame).getStatus().setHelper(
-				((Giocatore) playerorgame).getStatus().getHelper() + this.getAmount());
+	public <T> void update(T playerOrGame) {
+		((Player) playerOrGame).getStatus().setHelper(
+				((Player) playerOrGame).getStatus().getHelper() + this.getAmount());
 		
 	}
 

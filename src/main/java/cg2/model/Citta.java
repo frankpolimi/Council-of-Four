@@ -14,6 +14,7 @@ import bonus.bonusers.Bonusable;
  *	
  */
 public class Citta  extends Bonusable{
+
 	private final String name;
 	private final char firstChar;
 	private final Color cityColor;
@@ -59,6 +60,4 @@ public class Citta  extends Bonusable{
 	public Set<Citta> getLinkedCities() {
 		return linkedCities;
 	}
-
-	
 }
