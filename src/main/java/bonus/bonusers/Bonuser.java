@@ -11,6 +11,6 @@ package bonus.bonusers;
  */
 public interface Bonuser {
 		
-	public <T> void update(T playerorgame);
+	public <T> void update(T playerOrGame);
 
 }
