@@ -1,23 +1,26 @@
 package cg2.model;
+import topology.*;
 import java.util.*;
+
+import bonus.TileBonus;
 
 /**
  * 
  * @author Emanuele Ricciardelli
  *
  */
-public class PermessoCostruzione {
-	private final Regione region;
+public class BuildingLicense {
+	private final Region region;
 	private final Set<Character> firstChars;
-	private final Set<BonusTessere> bonusList;
-	private final Set<Citta> buildingAvaliableCities;
+	private final Set<TileBonus> bonusList;
+	private final Set<City> buildingAvaliableCities;
 	
-	public PermessoCostruzione(Regione region, Set<Citta> ba, Set<BonusTessere> bonus){
+	public BuildingLicense(Region region, Set<City> ba, Set<TileBonus> bonus){
 		this.region=region;
 		buildingAvaliableCities=ba;
 		bonusList=bonus;
 		firstChars=new HashSet<Character>();
-		for(Citta c: buildingAvaliableCities){
+		for(City c: buildingAvaliableCities){
 			firstChars.add(c.getFirstChar());
 		}	
 	}
@@ -25,7 +28,7 @@ public class PermessoCostruzione {
 	/**
 	 * @return the region
 	 */
-	public Regione getRegion() {
+	public Region getRegion() {
 		return region;
 	}
 
@@ -39,14 +42,14 @@ public class PermessoCostruzione {
 	/**
 	 * @return the bonusList
 	 */
-	public Set<BonusTessere> getBonusList() {
+	public Set<TileBonus> getBonusList() {
 		return bonusList;
 	}
 
 	/**
 	 * @return the buildingAvaliableCities
 	 */
-	public Set<Citta> getBuildingAvaliableCities() {
+	public Set<City> getBuildingAvaliableCities() {
 		return buildingAvaliableCities;
 	}
 	

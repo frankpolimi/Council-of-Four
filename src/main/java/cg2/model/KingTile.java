@@ -7,12 +7,12 @@ package cg2.model;
  * @author Emanuele Ricciardelli
  *
  */
-public class TessereRe extends TesserePuntiVittoria {
+public class KingTile extends PointsTile {
 
 	/**
 	 * 
 	 */
-	public TessereRe(int amount) {
+	public KingTile(int amount) {
 		super(amount);
 	}
 

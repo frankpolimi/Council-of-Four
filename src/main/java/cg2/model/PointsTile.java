@@ -7,7 +7,7 @@ import bonus.CoinBonus;
  * @author Emanuele Ricciardelli
  * This is the abstract class that represents the abstraction of the VPs on the game.
  */
-public abstract class TesserePuntiVittoria {
+public abstract class PointsTile {
 	/**
 	 * The first attribute represents the amount won by the player who caught it.
 	 * The second one is a link for handling the lists of Tessere Punti Vittoria in the game.
@@ -18,7 +18,7 @@ public abstract class TesserePuntiVittoria {
 	 * 
 	 * @param amount
 	 */
-	public TesserePuntiVittoria(int amount){
+	public PointsTile(int amount){
 		VPs=amount;
 		
 	}
@@ -26,7 +26,7 @@ public abstract class TesserePuntiVittoria {
 	/**
 	 * @return the puntiVittoria
 	 */
-	public int getPuntiVittoria() {
+	public int getVPs() {
 		return VPs;
 	}
 	

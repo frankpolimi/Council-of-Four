@@ -13,15 +13,15 @@ import bonus.bonusers.Bonusable;
  * @author Emanuele Ricciardelli
  *	
  */
-public class Citta  extends Bonusable{
+public class City  extends Bonusable{
 	private final String name;
 	private final char firstChar;
 	private final Color cityColor;
-	private final Set<Citta> linkedCities;
+	private final Set<City> linkedCities;
 	
 	//i collegamenti saranno letti da file, perciò ci sarà una fase di creazione
 	//del vettore collegamenti da parte dell'inizializzatore della partita.
-	public Citta(String name, Color color, Set<Citta> link, List<TileBonus> bonus){
+	public City(String name, Color color, Set<City> link, List<TileBonus> bonus){
 		super();
 		this.name=name;
 		firstChar=name.charAt(0);
@@ -56,7 +56,7 @@ public class Citta  extends Bonusable{
 	/**
 	 * @return the linkedCities
 	 */
-	public Set<Citta> getLinkedCities() {
+	public Set<City> getLinkedCities() {
 		return linkedCities;
 	}
 

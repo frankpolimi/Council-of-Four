@@ -5,11 +5,11 @@ import java.util.*;
  * @author Emanuele Ricciardelli
  *
  */
-public class MazzoPermesso {
-	private Set<PermessoCostruzione> buildingPermitsDeck;
+public class LicenseDeck {
+	private Set<BuildingLicense> buildingPermitsDeck;
 	
 	
-	public MazzoPermesso(Set<PermessoCostruzione> deck){
+	public LicenseDeck(Set<BuildingLicense> deck){
 		buildingPermitsDeck=deck;
 	}
 
@@ -17,7 +17,7 @@ public class MazzoPermesso {
 	/**
 	 * @return the buildingPermitsDeck
 	 */
-	public Set<PermessoCostruzione> getBuildingPermitsDeck() {
+	public Set<BuildingLicense> getBuildingPermitsDeck() {
 		return buildingPermitsDeck;
 	}
 
@@ -25,12 +25,12 @@ public class MazzoPermesso {
 	/**
 	 * @param buildingPermitsDeck the buildingPermitsDeck to set
 	 */
-	public void setBuildingPermitsDeck(Set<PermessoCostruzione> buildingPermitsDeck) {
+	public void setBuildingPermitsDeck(Set<BuildingLicense> buildingPermitsDeck) {
 		this.buildingPermitsDeck = buildingPermitsDeck;
 	}
 	
 	public void deckViewer(){
-		for(PermessoCostruzione p:buildingPermitsDeck){
+		for(BuildingLicense p:buildingPermitsDeck){
 			p.toString();
 		}
 	}
