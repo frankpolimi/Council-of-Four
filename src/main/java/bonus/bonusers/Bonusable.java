@@ -39,7 +39,7 @@ public abstract class Bonusable {
 		this.bonuses.remove(bonus);
 	}
 	
-	public <T> void notify(T playerorgame){
+	public <T> void applyBonus(T playerorgame){
 		for(Bonuser b: bonuses)
 			b.update(playerorgame);
 	}
