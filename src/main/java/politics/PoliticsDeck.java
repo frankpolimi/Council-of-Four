@@ -10,11 +10,18 @@ public class PoliticsDeck
 	ArrayList<PoliticsCard> politicsDeck;
 	
 	
-	/* Non so se fare dare le carte da qua o meno, poi vediamo. In ogni caso non sapendo come implementato player con
-	 * le sue carte in mano, mi fermo qua
-	public giveCard(Player player, int quantity)
+	/**
+	 * Makes given player draw a card from politics deck.
+	 * @param player that wants to draw a card
+	 * @throws NullPointerException if the deck is empty (caught in Game class)
+	 */
+	public void drawCard(Player player)
 	{
-		
+		if(!politicsDeck.isEmpty())
+		{
+			player.addCard(politicsDeck.remove(0));return;
+		}
+		throw new NullPointerException();
 	}
-	*/
+	
 }
