@@ -12,7 +12,7 @@ import cg2.model.*;
  */
 public class Player {
 	private final String name;
-	private final int PlayerID;
+	private final int playerID;
 	private final Status status;
 	private int remainingEmporiums;
 	private final Game refGame;
@@ -20,11 +20,11 @@ public class Player {
 	
 	public Player(String name, int playerID, Status status, int remainingEmporiums, Game refGame) {
 		this.name = name;
-		PlayerID = playerID;
+		playerID = playerID;
 		this.status = status;
 		this.remainingEmporiums = remainingEmporiums;//caricato da file
 		this.refGame = refGame;
-		emporiumsOwned=new HashSet<Emporium>();
+		emporiumsOwned=new HashSet<>();
 	}
 
 	/**
@@ -52,7 +52,7 @@ public class Player {
 	 * @return the playerID
 	 */
 	public int getPlayerID() {
-		return PlayerID;
+		return playerID;
 	}
 
 	/**

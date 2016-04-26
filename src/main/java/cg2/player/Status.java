@@ -24,8 +24,8 @@ public class Status {
 		this.nobilityPoints = 0;
 		this.points = 0;
 		this.helpers = helpers;
-		this.cardsOwned = new ArrayList<PoliticsCard>();
-		this.buildingLicensesObtained = new ArrayList<BuildingLicense>();
+		this.cardsOwned = new ArrayList<>();
+		this.buildingLicensesObtained = new ArrayList<>();
 		//scelta implementativa: anche se all'inizio il regolamento dice che il giocatore parte
 		//con 6 carte politica già nel mazzo, meglio farle caricare dalla partita in fase di 
 		//init.

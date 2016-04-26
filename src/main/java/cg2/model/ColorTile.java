@@ -1,9 +1,24 @@
 package cg2.model;
 
-public class ColorTile extends PointsTile {
+import java.awt.Color;
 
-	public ColorTile(int amount) {
+public class ColorTile extends PointsTile {
+	private final Color cityColor;
+	
+	public ColorTile(int amount, Color color) {
 		super(amount);
+		cityColor=color;
 	}
+
+	/**
+	 * @return the cityColor
+	 */
+	public Color getCityColor() {
+		return cityColor;
+	}
+
+	
+	
+	
 
 }

@@ -19,7 +19,7 @@ public class BuildingLicense {
 		this.region=region;
 		buildingAvaliableCities=ba;
 		bonusList=bonus;
-		firstChars=new HashSet<Character>();
+		firstChars=new HashSet<>();
 		for(City c: buildingAvaliableCities){
 			firstChars.add(c.getFirstChar());
 		}	
