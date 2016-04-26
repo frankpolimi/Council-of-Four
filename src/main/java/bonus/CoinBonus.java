@@ -3,6 +3,8 @@
  */
 package bonus;
 
+import cg2.player.*;
+
 /**
  * @author Francesco Vetrò
  */
@@ -25,8 +27,8 @@ public class CoinBonus extends TileBonus {
 	 */
 	@Override
 	public <T> void update(T playerOrGame) {
-		((Player) playerOrGame).getStatus().setCoin(
-				((Player) playerOrGame).getStatus().getCoin() + this.getAmount());
+		((Player) playerOrGame).getStatus().setCoins(
+				((Player) playerOrGame).getStatus().getCoins() + this.getAmount());
 	}
 
 }

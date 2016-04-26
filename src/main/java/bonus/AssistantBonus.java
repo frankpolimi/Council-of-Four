@@ -3,6 +3,8 @@
  */
 package bonus;
 
+import cg2.player.*;
+
 /**
  * @author Francesco Vetrò
  *
@@ -20,8 +22,8 @@ public class AssistantBonus extends TileBonus {
 	 */
 	@Override
 	public <T> void update(T playerOrGame) {
-		((Player) playerOrGame).getStatus().setHelper(
-				((Player) playerOrGame).getStatus().getHelper() + this.getAmount());
+		((Player) playerOrGame).getStatus().setHelpers(
+				((Player) playerOrGame).getStatus().getHelpers() + this.getAmount());
 		
 	}
 
