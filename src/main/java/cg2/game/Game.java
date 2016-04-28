@@ -10,7 +10,12 @@ import cg2.player.*;
 import council.Councillor;
 import topology.*;
 
+/**
+ * @author Emanuele Ricciardelli
+ *
+ */
 public class Game extends Observable {
+	
 	private final LicenseDeck licenseDeck;
 	private final PoliticsDeck politicsDeck;
 	private final List<Player> players;
@@ -20,6 +25,9 @@ public class Game extends Observable {
 	private final List<ColorTile> colorTileList;
 	private final List<RegionTile> regionTileList;
 	private Player currentPlayer;
+	
+	private int mainActionNumber;
+	private int quickActionNumber;
 	
 	
 	public Game(LicenseDeck licenseDeck, PoliticsDeck politicsDeck, List<Player> players, Set<Region> regions,
@@ -34,6 +42,31 @@ public class Game extends Observable {
 		this.kingTileList = kingTileList;
 		this.colorTileList = colorTileList;
 		this.regionTileList = regionTileList;
+	}
+
+	
+	/**
+	 * @return the number of mainActionNumber
+	 */
+	public int getMainActionNumber() {
+		return mainActionNumber;
+	}
+
+
+	/**
+	 * @param mainActionNumber2
+	 * set the number of main action still to be done
+	 */
+	public void setMainActionNumber(int mainActionNumber2) {
+		this.mainActionNumber = mainActionNumber2;		
+	}
+
+
+	/**
+	 * @return the set of region
+	 */
+	public Set<Region> getRegions() {
+		return regions;
 	}
 	
 	
