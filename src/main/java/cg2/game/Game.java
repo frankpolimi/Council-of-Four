@@ -24,6 +24,7 @@ public class Game extends Observable {
 	private final List<KingTile> kingTileList;
 	private final List<ColorTile> colorTileList;
 	private final List<RegionTile> regionTileList;
+	private final NobilityLane nobilityLane;
 	private Player currentPlayer;
 	
 	private int mainActionNumber;
@@ -32,7 +33,7 @@ public class Game extends Observable {
 	
 	public Game(LicenseDeck licenseDeck, PoliticsDeck politicsDeck, List<Player> players, Set<Region> regions,
 			List<Councillor> avaliableCouncillors, List<KingTile> kingTileList, List<ColorTile> colorTileList,
-			List<RegionTile> regionTileList) {
+			List<RegionTile> regionTileList, NobilityLane nobilityLane) {
 		super();
 		this.licenseDeck = licenseDeck;
 		this.politicsDeck = politicsDeck;
@@ -42,6 +43,7 @@ public class Game extends Observable {
 		this.kingTileList = kingTileList;
 		this.colorTileList = colorTileList;
 		this.regionTileList = regionTileList;
+		this.nobilityLane = nobilityLane;
 	}
 
 	
@@ -68,12 +70,6 @@ public class Game extends Observable {
 	public Set<Region> getRegions() {
 		return regions;
 	}
-	
-	
-	
-	
-	
-	
 	
 	
 	

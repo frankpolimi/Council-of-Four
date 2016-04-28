@@ -18,6 +18,7 @@ public class Status {
 	private int helpers;
 	private final List<PoliticsCard> cardsOwned;
 	private final List<BuildingLicense> buildingLicensesObtained;
+	private final List<BuildingLicense> usedBuildingLicenses;
 	
 	public Status(int coins, int helpers){
 		this.coins = coins;
@@ -26,6 +27,7 @@ public class Status {
 		this.helpers = helpers;
 		this.cardsOwned = new ArrayList<>();
 		this.buildingLicensesObtained = new ArrayList<>();
+		this.usedBuildingLicenses = new ArrayList<>();
 		//scelta implementativa: anche se all'inizio il regolamento dice che il giocatore parte
 		//con 6 carte politica già nel mazzo, meglio farle caricare dalla partita in fase di 
 		//init.
@@ -116,9 +118,18 @@ public class Status {
 	public void addBuildingLicense(BuildingLicense bl){
 		buildingLicensesObtained.add(bl);
 	}
+
+	/**
+	 * @return the usedBuildingLicenses
+	 */
+	public List<BuildingLicense> getUsedBuildingLicenses() {
+		return usedBuildingLicenses;
+	}
 	
-	//scegliere poi se implementare un reuseBuildingLicense oppure col getBuildingLicense perché
-	//magari questa funzione è implementata da qualcun altro.
+	public void useLicense(BuildingLicense bl){
+		int index = buildingLicensesObtained.indexOf(bl);
+		usedBuildingLicenses.add(buildingLicensesObtained.remove(index));
+	}
 	
 	
 	

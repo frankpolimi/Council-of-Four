@@ -3,8 +3,8 @@
  */
 package bonus;
 
+import cg2.controller.Controller;
 import cg2.game.*;
-import cg2.view.View;
 
 /**
  * @author Francesco Vetrò
@@ -12,8 +12,8 @@ import cg2.view.View;
  */
 public class FreeBuildingLicenseBonus extends ActionBonus {
 	
-	public FreeBuildingLicenseBonus(View view) {
-		this.registerObserver(view);
+	public FreeBuildingLicenseBonus(Controller controller) {
+		this.registerObserver(controller);
 	}
 
 	/* (non-Javadoc)
@@ -21,15 +21,12 @@ public class FreeBuildingLicenseBonus extends ActionBonus {
 	 */
 	/**
 	 * @param the game
-	 * don't know what to notify
-	 * give the set of regions or just the output "pick a region" and
-	 * then the controller should provide all things??
+	 * gives to the controller the region from where to choose
+	 * the controller will notify the view for the input
 	 */
 	@Override
 	public <T> void update(T playerOrGame) {
-		
-		//this.notifyObservers(((Game)playerOrGame).getRegions());
-		//this.notifyObservers("Scegli la regione di cui vuoi prendere un permesso");
+		this.notifyObservers(((Game)playerOrGame).getRegions());
 	}
 
 }
