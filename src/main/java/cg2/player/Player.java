@@ -3,6 +3,8 @@
  */
 package cg2.player;
 import java.util.*;
+
+import cg2.game.Game;
 import cg2.model.*;
 
 /**
@@ -20,7 +22,7 @@ public class Player {
 	
 	public Player(String name, int playerID, Status status, int remainingEmporiums, Game refGame) {
 		this.name = name;
-		playerID = playerID;
+		this.playerID = playerID;
 		this.status = status;
 		this.remainingEmporiums = remainingEmporiums;//caricato da file
 		this.refGame = refGame;
