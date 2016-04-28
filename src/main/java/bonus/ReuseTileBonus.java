@@ -4,12 +4,17 @@
 package bonus;
 
 import cg2.player.*;
+import cg2.view.View;
 
 /**
  * @author Francesco Vetrò
  *
  */
 public class ReuseTileBonus extends ActionBonus {
+	
+	public ReuseTileBonus(View view) {
+		this.registerObserver(view);
+	}
 
 	/* (non-Javadoc)
 	 * @see bonus.bonusers.Bonuser#update(java.lang.Object)
@@ -22,12 +27,9 @@ public class ReuseTileBonus extends ActionBonus {
 	@Override
 	public <T> void update(T playerOrGame) {
 		
-		/*
-		 * ((Player)playerOrGame).getStatus().getUsedBuildingLicense();
-		 * need the view for the selection
-		 * change the implementation of the status:
-		 * - the used building license must be in a different arraylist
-		 */
+		//this.notifyObservers(((Player)playerOrGame).getStatus().getUsedBuildingLicense());
+		//this.notifyObservers("Scegli di quale permesso vuoi riusare il bonus");
+		
 	}
 
 }

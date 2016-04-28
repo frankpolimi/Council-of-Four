@@ -9,7 +9,11 @@ import cg2.game.Game;
  * @author Francesco Vetrò
  *
  */
-public class MainActionBonus extends Bonus {
+public class MainActionBonus extends ActionBonus {
+	
+	public MainActionBonus() {
+		super();
+	}
 
 	/* (non-Javadoc)
 	 * @see bonus.bonusers.Bonuser#update(java.lang.Object)

@@ -2,6 +2,8 @@ package politics;
 
 import java.util.ArrayList;
 
+import cg2.player.Player;
+
 /**
  * @author Vitaliy Pakholko
  */
@@ -19,7 +21,7 @@ public class PoliticsDeck
 	{
 		if(!politicsDeck.isEmpty())
 		{
-			player.addCard(politicsDeck.remove(0));return;
+			player.getStatus().addPoliticsCard(politicsDeck.remove(0));return;
 		}
 		throw new NullPointerException();
 	}
