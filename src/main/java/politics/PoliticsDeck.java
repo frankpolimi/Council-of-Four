@@ -1,6 +1,7 @@
 package politics;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import cg2.player.Player;
 
@@ -9,7 +10,7 @@ import cg2.player.Player;
  */
 public class PoliticsDeck 
 {
-	ArrayList<PoliticsCard> politicsDeck;
+	private ArrayList<PoliticsCard> politicsDeck;
 	
 	
 	/**
@@ -25,5 +26,33 @@ public class PoliticsDeck
 		}
 		throw new NullPointerException();
 	}
+	
+	public void shuffle()
+	{
+		Collections.shuffle(politicsDeck);
+	}
+	
+	public boolean isEmpty()
+	{
+		return politicsDeck.isEmpty();
+	}
+	
+	public void addUsedPolitics(PoliticsDeck politicsDeck)
+	{
+		for(PoliticsCard p:politicsDeck.politicsDeck)
+			this.politicsDeck.add(p);
+	}
+	
+	public void clear()
+	{
+		politicsDeck.clear();
+	}
+
+	public PoliticsDeck() 
+	{
+		
+	}
+	
+	
 	
 }

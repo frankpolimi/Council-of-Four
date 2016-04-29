@@ -7,7 +7,7 @@ import java.util.concurrent.ArrayBlockingQueue;
  */
 public abstract class Council 
 {
-	ArrayBlockingQueue<Councillor> councillors;
+	private ArrayBlockingQueue<Councillor> councillors;
 	
 	/**
 	 * Adds given councillor in tail position and returns the one removed from head position

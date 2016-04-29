@@ -6,15 +6,14 @@ import java.awt.*;
  */
 public class Councillor
 {
-	Color color;
+	private final Color color;
 
 	public Color getColor() 
 	{
 		return color;
 	}
 
-	//Set color potrebbe non essere utile, anzi, probabile che sia da togliere e basta
-	public void setColor(Color color) 
+	public Councillor(Color color)
 	{
 		this.color = color;
 	}

@@ -18,6 +18,7 @@ public class Game extends Observable {
 	
 	private final LicenseDeck licenseDeck;
 	private final PoliticsDeck politicsDeck;
+	private final PoliticsDeck usedPolitics;
 	private final List<Player> players;
 	private final Set<Region> regions;
 	private final List<Councillor> avaliableCouncillors;
@@ -44,8 +45,19 @@ public class Game extends Observable {
 		this.colorTileList = colorTileList;
 		this.regionTileList = regionTileList;
 		this.nobilityLane = nobilityLane;
+		this.usedPolitics = new PoliticsDeck();
 	}
 
+	
+	public void shuffleUsedPolitics()
+	{
+		if(usedPolitics.isEmpty())
+			throw new NullPointerException();
+		politicsDeck.addUsedPolitics(usedPolitics);
+		usedPolitics.clear();
+		politicsDeck.shuffle();
+	}
+	
 	
 	/**
 	 * @return the number of mainActionNumber
