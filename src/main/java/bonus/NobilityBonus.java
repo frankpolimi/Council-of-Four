@@ -3,6 +3,7 @@
  */
 package bonus;
 
+import cg2.model.NobilityLane;
 import cg2.player.*;
 
 /**
@@ -14,8 +15,9 @@ public class NobilityBonus extends TileBonus {
 	 * construct a bonus with the given amount of nobility points as parameter
 	 * @param amount
 	 */
-	public NobilityBonus(Integer amount) {
+	public NobilityBonus(Integer amount, NobilityLane nobilityLane) {
 		super(amount);
+		this.registerObserver(nobilityLane);
 	}
 
 	/* (non-Javadoc)
@@ -28,9 +30,10 @@ public class NobilityBonus extends TileBonus {
 	 */
 	@Override
 	public <T> void update(T playerOrGame) {
-		((Player) playerOrGame).getStatus().setNobilityPoints(
-				((Player) playerOrGame).getStatus().getNobilityPoints() + this.getAmount());
-
+		Status s = ((Player)playerOrGame).getStatus();
+		s.setNobilityPoints(
+				s.getNobilityPoints() + this.getAmount());
+		this.notifyObservers((Player)playerOrGame);
 	}
 
 }

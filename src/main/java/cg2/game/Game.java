@@ -26,10 +26,15 @@ public class Game extends Observable {
 	private final List<ColorTile> colorTileList;
 	private final List<RegionTile> regionTileList;
 	private final NobilityLane nobilityLane;
-	private Player currentPlayer;
+	
+	private int currentPlayer;
 	
 	private int mainActionNumber;
 	private int quickActionNumber;
+	
+	/*
+	 * aggiungere mosse
+	 */
 	
 	
 	public Game(LicenseDeck licenseDeck, PoliticsDeck politicsDeck, List<Player> players, Set<Region> regions,
@@ -46,9 +51,40 @@ public class Game extends Observable {
 		this.regionTileList = regionTileList;
 		this.nobilityLane = nobilityLane;
 		this.usedPolitics = new PoliticsDeck();
+		this.currentPlayer = 1;
+	}
+	
+	public void gioca(){
+		boolean endOfGame;
+		do{
+			while(currentPlayer < players.size()){
+				this.setActionNumber();
+				politicsDeck.drawCard(players.get(currentPlayer));
+				do{
+					//notifico view scelta mosse
+					//mossa principale obbligatoria
+					//possibilità skip mossa secondaria
+					//controllore esegue mossa
+					//diminuzione counter mosse	
+				}while(mainActionNumber != 0 && quickActionNumber != 0);
+				currentPlayer = (currentPlayer++)%players.size();
+			}
+			endOfGame = checkEndOfGame();
+		}while(endOfGame);
 	}
 
-	
+	private void setActionNumber() {
+		mainActionNumber = 1;
+		quickActionNumber = 1;
+	}
+
+	private boolean checkEndOfGame() {
+		for(Player p: players)
+			if(p.getRemainingEmporiums() == 0)
+				return true;
+		return false;
+	}
+
 	public void shuffleUsedPolitics()
 	{
 		if(usedPolitics.isEmpty())
