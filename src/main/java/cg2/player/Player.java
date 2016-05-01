@@ -71,11 +71,20 @@ public class Player {
 		return refGame;
 	}
 	
+	/**
+	 * @param emporium
+	 * add the emporium to the set of owned emporiums
+	 */
 	public void addEmporium(Emporium e){
 		emporiumsOwned.add(e);
 	}
 	
-	
+	/**
+	 * @return the set of emporiums a player possess
+	 */
+	public HashSet<Emporium> getEmporium(){
+		return this.emporiumsOwned;
+	}
 	
 	
 	

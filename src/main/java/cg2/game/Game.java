@@ -51,7 +51,7 @@ public class Game extends Observable {
 		this.regionTileList = regionTileList;
 		this.nobilityLane = nobilityLane;
 		this.usedPolitics = new PoliticsDeck();
-		this.currentPlayer = 1;
+		this.currentPlayer = 0;
 	}
 	
 	public void gioca(){

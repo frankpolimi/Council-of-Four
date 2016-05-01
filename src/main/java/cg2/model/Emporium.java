@@ -11,9 +11,11 @@ import cg2.player.Player;
  */
 public class Emporium {
 	private final Player player;
+	private final City city;
 	
-	public Emporium(Player p){
+	public Emporium(Player p, City c){
 		player=p;
+		city = c;
 	}
 
 	/**
@@ -21,6 +23,13 @@ public class Emporium {
 	 */
 	public Player getPlayer() {
 		return player;
+	}
+	
+	/**
+	 * @return the city
+	 */
+	public City getCity(){
+		return city;
 	}
 	
 	

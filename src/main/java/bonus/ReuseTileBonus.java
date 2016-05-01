@@ -3,8 +3,12 @@
  */
 package bonus;
 
-import cg2.controller.Controller;
+import java.util.ArrayList;
+import java.util.List;
+
+import cg2.view.*;
 import cg2.player.*;
+import cg2.model.BuildingLicense;;
 
 /**
  * @author Francesco Vetrò
@@ -12,8 +16,8 @@ import cg2.player.*;
  */
 public class ReuseTileBonus extends ActionBonus {
 	
-	public ReuseTileBonus(Controller controller) {
-		this.registerObserver(controller);
+	public ReuseTileBonus(View view) {
+		this.registerObserver(view);
 	}
 
 	/* (non-Javadoc)
@@ -21,12 +25,18 @@ public class ReuseTileBonus extends ActionBonus {
 	 */
 	/**
 	 * @param the player
-	 * this bonus will get the used building licenses of the player and notify
-	 * the controller. the controller will ask the view for input 
+	 * this bonus will get the building licenses of the player and notify
+	 * the view. the view will manage the input for selecting the tile
+	 * the player wants to earn its bonus again 
 	 */
 	@Override
 	public <T> void update(T playerOrGame) {
-		this.notifyObservers(((Player)playerOrGame).getStatus().getUsedBuildingLicenses());
+		List<BuildingLicense> total = new ArrayList<BuildingLicense>();
+		total.addAll(
+				((Player)playerOrGame).getStatus().getBuildingLicensesObtained());
+		total.addAll(
+				((Player)playerOrGame).getStatus().getUsedBuildingLicenses());
+		this.notifyObservers(total);
 	}
 
 }

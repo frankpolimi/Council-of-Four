@@ -3,7 +3,7 @@
  */
 package bonus;
 
-import cg2.controller.Controller;
+import cg2.view.*;
 import cg2.game.*;
 
 /**
@@ -12,8 +12,8 @@ import cg2.game.*;
  */
 public class FreeBuildingLicenseBonus extends ActionBonus {
 	
-	public FreeBuildingLicenseBonus(Controller controller) {
-		this.registerObserver(controller);
+	public FreeBuildingLicenseBonus(View view) {
+		this.registerObserver(view);
 	}
 
 	/* (non-Javadoc)
