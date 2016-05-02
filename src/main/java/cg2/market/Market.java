@@ -45,7 +45,7 @@ public class Market {
 		productsForPlayer = this.getAvailableProducts(customer);
 		for(int i=0; i < products.size(); i++){
 			elementDisplayed = (int) Math.random()*productsForPlayer.size();
-			// to print productsForPlayer.get(i);
+			// to print productsForPlayer.get(elementDisplayed);
 		}
 	}
 
@@ -69,9 +69,19 @@ public class Market {
 	 * @param customer
 	 */
 	public void buyElement(Player customer){
-		//TODO
+		MarketObject<?> x = products.get(elementDisplayed);
+		this.transferCoin(customer, x);
+		if(x.getObject().getClass().equals(Assistant.class))
+			this.assignAssistants(customer, ((Assistant)x.getObject()));
+		else if(x.getObject().getClass().equals(PoliticsCard.class))
+			this.assignPoliticsCard(customer, ((PoliticsCard)x.getObject()));
+		else if(x.getObject().getClass().equals(BuildingLicense.class))
+			this.assignBuildingLicense(customer, ((BuildingLicense)x.getObject()));
+		products.remove(elementDisplayed);
 	}
+
 	
+
 	/**
 	 * @param <T> the type of the object in MarketObject
 	 * @param the owner of the element
@@ -80,13 +90,51 @@ public class Market {
 		for(MarketObject<T> o : products)
 			if(o.getSellingPlayer().getPlayerID() == owner.getPlayerID()){
 				if(o.getObject().getClass().equals(Assistant.class))
-					owner.getStatus().setHelpers(
-							owner.getStatus().getHelpers() + 
-							((Assistant)o.getObject()).getNumber());
-				else if(o.getObject().getClass().equals(PoliticsCard.class));
-					//TODO politics card
-				else if(o.getObject().getClass().equals(BuildingLicense.class));
-					//TODO building license
+					this.assignAssistants(owner, ((Assistant)o.getObject()));
+				else if(o.getObject().getClass().equals(PoliticsCard.class))
+					this.assignPoliticsCard(owner, ((PoliticsCard)o.getObject()));
+				else if(o.getObject().getClass().equals(BuildingLicense.class))
+					this.assignBuildingLicense(owner, ((BuildingLicense)o.getObject()));
 			}
+	}
+
+	/**
+	 * transfer the building license
+	 * @param owner
+	 * @param buildingLicense
+	 */
+	private void assignBuildingLicense(Player owner, BuildingLicense buildingLicense) {
+		owner.getStatus().addBuildingLicense(buildingLicense);
+	}
+
+	/**
+	 * transfer the amount of assistants
+	 * @param owner
+	 * @param the object assistant
+	 */
+	private void assignAssistants(Player owner, Assistant a) {
+		owner.getStatus().setHelpers(owner.getStatus().getHelpers() + a.getNumber());
+	}
+	
+	/**
+	 * transfer the politics card
+	 * @param customer
+	 * @param politicsCard
+	 */
+	private void assignPoliticsCard(Player customer, PoliticsCard politicsCard) {
+		customer.getStatus().addPoliticsCard(politicsCard);
+	}
+	
+	/**
+	 * the owner gets paid from the customer
+	 * @param customer
+	 * @param the whole object
+	 */
+	private void transferCoin(Player customer, MarketObject<?> x) {
+		customer.getStatus().setCoins(
+				customer.getStatus().getCoins() - x.getPrice());
+		x.getSellingPlayer().getStatus().setCoins(
+				x.getSellingPlayer().getStatus().getCoins() + x.getPrice());
+		
 	}
 }

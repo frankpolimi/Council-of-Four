@@ -6,7 +6,6 @@ package cg2.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import bonus.Bonus;
 import bonus.bonusers.Bonusable;
 import cg2.observers.Observer;
 import cg2.player.*;
