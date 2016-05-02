@@ -94,6 +94,11 @@ public class Game extends Observable {
 		politicsDeck.shuffle();
 	}
 	
+	public void addCouncillor(Councillor councillor)
+	{
+		this.avaliableCouncillors.add(councillor);
+	}
+	
 	
 	/**
 	 * @return the number of mainActionNumber

@@ -2,12 +2,15 @@
 package council;
 import java.util.concurrent.ArrayBlockingQueue;
 
+import cg2.model.LicenseDeck;
+
 /**
  * @author Vitaliy Pakholko
  */
 public abstract class Council 
 {
 	private ArrayBlockingQueue<Councillor> councillors;
+	private /*PermitsDeck*/LicenseDeck licenseDeck;
 	
 	/**
 	 * Adds given councillor in tail position and returns the one removed from head position
@@ -23,4 +26,20 @@ public abstract class Council
 		councillors.add(councillor);
 		return temp;
 	}
+
+	public ArrayBlockingQueue<Councillor> getCouncillors() {
+		return councillors;
+	}
+
+	public void setCouncillors(ArrayBlockingQueue<Councillor> councillors) {
+		this.councillors = councillors;
+	}
+
+	public Council(ArrayBlockingQueue<Councillor> councillors, LicenseDeck licenseDeck) 
+	{
+		super();
+		this.councillors = councillors;
+		this.licenseDeck = licenseDeck;
+	}
+	
 }
