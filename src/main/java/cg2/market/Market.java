@@ -6,7 +6,7 @@ package cg2.market;
 import java.util.ArrayList;
 import java.util.List;
 
-import cg2.model.BuildingLicense;
+import cg2.model.BuildingPermit;
 import cg2.player.Player;
 import politics.PoliticsCard;
 
@@ -75,8 +75,8 @@ public class Market {
 			this.assignAssistants(customer, ((Assistant)x.getObject()));
 		else if(x.getObject().getClass().equals(PoliticsCard.class))
 			this.assignPoliticsCard(customer, ((PoliticsCard)x.getObject()));
-		else if(x.getObject().getClass().equals(BuildingLicense.class))
-			this.assignBuildingLicense(customer, ((BuildingLicense)x.getObject()));
+		else if(x.getObject().getClass().equals(BuildingPermit.class))
+			this.assignBuildingLicense(customer, ((BuildingPermit)x.getObject()));
 		products.remove(elementDisplayed);
 	}
 
@@ -93,8 +93,8 @@ public class Market {
 					this.assignAssistants(owner, ((Assistant)o.getObject()));
 				else if(o.getObject().getClass().equals(PoliticsCard.class))
 					this.assignPoliticsCard(owner, ((PoliticsCard)o.getObject()));
-				else if(o.getObject().getClass().equals(BuildingLicense.class))
-					this.assignBuildingLicense(owner, ((BuildingLicense)o.getObject()));
+				else if(o.getObject().getClass().equals(BuildingPermit.class))
+					this.assignBuildingLicense(owner, ((BuildingPermit)o.getObject()));
 			}
 	}
 
@@ -103,7 +103,7 @@ public class Market {
 	 * @param owner
 	 * @param buildingLicense
 	 */
-	private void assignBuildingLicense(Player owner, BuildingLicense buildingLicense) {
+	private void assignBuildingLicense(Player owner, BuildingPermit buildingLicense) {
 		owner.getStatus().addBuildingLicense(buildingLicense);
 	}
 

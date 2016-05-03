@@ -16,7 +16,7 @@ import topology.*;
  */
 public class Game extends Observable {
 	
-	private final LicenseDeck licenseDeck;
+	private final PermitsDeck licenseDeck;
 	private final PoliticsDeck politicsDeck;
 	private final PoliticsDeck usedPolitics;
 	private final List<Player> players;
@@ -37,7 +37,7 @@ public class Game extends Observable {
 	 */
 	
 
-	public Game(LicenseDeck licenseDeck, PoliticsDeck politicsDeck, List<Player> players, Set<Region> regions,
+	public Game(PermitsDeck licenseDeck, PoliticsDeck politicsDeck, List<Player> players, Set<Region> regions,
 			List<Councillor> avaliableCouncillors, List<KingTile> kingTileList, List<ColorTile> colorTileList,
 			List<RegionTile> regionTileList, NobilityLane nobilityLane) {
 		super();

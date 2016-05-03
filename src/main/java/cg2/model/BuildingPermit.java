@@ -9,13 +9,13 @@ import bonus.TileBonus;
  * @author Emanuele Ricciardelli
  *
  */
-public class BuildingLicense {
+public class BuildingPermit {
 	private final Region region;
 	private final Set<Character> firstChars;
 	private final Set<TileBonus> bonusList;
 	private final Set<City> buildingAvaliableCities;
 	
-	public BuildingLicense(Region region, Set<City> ba, Set<TileBonus> bonus){
+	public BuildingPermit(Region region, Set<City> ba, Set<TileBonus> bonus){
 		this.region=region;
 		buildingAvaliableCities=ba;
 		bonusList=bonus;
