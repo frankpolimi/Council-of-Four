@@ -32,10 +32,6 @@ public class Game extends Observable {
 	private int mainActionNumber;
 	private int quickActionNumber;
 	
-	/*
-	 * aggiungere mosse
-	 */
-	
 
 	public Game(LicenseDeck licenseDeck, PoliticsDeck politicsDeck, List<Player> players, Set<Region> regions,
 			List<Councillor> avaliableCouncillors, List<KingTile> kingTileList, List<ColorTile> colorTileList,

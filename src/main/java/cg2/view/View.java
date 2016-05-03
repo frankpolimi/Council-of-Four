@@ -40,40 +40,59 @@ public class View extends Observable implements Observer {
 	 */
 	@Override
 	public <C> void update(C change) {
-		if(change.getClass() == String.class)
-			if(change.equals("action phase"))
-				this.selectAction();
+	}
+	
+	/* (non-Javadoc)
+	 * @see cg2.observers.Observer#update(java.lang.String)
+	 */
+	@Override
+	public void update(String communication) {
+		String selection;
+		if(communication.equals("action phase")){
+			selection = this.selectAction();
+			this.input(selection);
+		}
+		if(communication.equals("main action")){
+			selection = this.selectMainAction();
+			this.input(selection);
+		}
+		
 	}
 
 	/**
 	 * selection of the two classes of action a player can perform
 	 */
-	private void selectAction() {
+	private String selectAction() {
 		Scanner in = new Scanner(System.in);
 		boolean condition;
 		do{
 			condition = false;
 			System.out.println("Scegli che tipo di mossa vuoi eseguire "
 					+ "(scrivi il comando)\n"
-					+ "1 - Principale (principale)"
-					+ "2 - Secondaria (secondaria)"
-					+ "3 - Salta mossa secondaria (salta)");
+					+ "1 - Principale (principale)\n"
+					+ "2 - Secondaria (secondaria)\n"
+					+ "3 - Salta mossa secondaria (salta)\n");
 
 			String selection = in.nextLine();
 			switch(selection){
-				case "principale":{
-					this.selectMainAction();
+				case "principale":
+				/*{
 					in.close();
-					break;
-				}
-				case "secondaria":{
-					this.selectQuickAction();
+					return selection;
+				}*/
+				case "secondaria":
+				/*{
 					in.close();
-					break;
-				}
+					return selection;
+				}*/
 				case "salta":{
-					game.setQuickActionNumber(0);
-					in.close();
+					
+					/*
+					 * game.setQuickActionNumber(0);
+					 * TODO this method must be moved to the controller 
+					 * for the modification to the game
+					 */
+					
 					break;
 				}
 				default:{
@@ -82,16 +101,21 @@ public class View extends Observable implements Observer {
 				}
 			}
 		}while(condition);
+		
+		in.close();
+		
+		//as a default move the player will always start with a main action
+		return "principale";
 	}
 
-	private void selectQuickAction() {
+	private String selectQuickAction() {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
-	private void selectMainAction() {
+	private String selectMainAction() {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 }

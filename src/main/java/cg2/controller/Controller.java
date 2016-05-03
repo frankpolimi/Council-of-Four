@@ -39,4 +39,10 @@ public class Controller implements Observer {
 		//con relativi input e Strategy
 	}
 
+	@Override
+	public void update(String communication) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
