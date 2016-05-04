@@ -58,6 +58,12 @@ public class BuildingPermit extends Bonusable{
 	public Set<City> getBuildingAvaliableCities() {
 		return buildingAvaliableCities;
 	}
+
+	@Override
+	public String toString() {
+		return "BuildingPermit [buildingAvaliableCities=" + buildingAvaliableCities + "]";
+	}
+	
 	
 	//mancano HashCode, toString
 }

@@ -1,7 +1,7 @@
 package cg2.model;
 import java.util.*;
 import java.util.concurrent.ArrayBlockingQueue;
-
+import cg2.player.Player;
 import council.Council;
 /**
  * 
@@ -13,6 +13,13 @@ public class PermitsDeck {
 	private ArrayBlockingQueue<BuildingPermit> faceUpPermits;
 	private final Council council;
 	
+	public void givePermit(Player player, BuildingPermit permit)
+	{
+		if(faceUpPermits.contains(permit))
+			Player.addPermit(permit);
+		System.out.println("No such permit in this deck's face up permits");
+		
+	}
 	
 	public ArrayBlockingQueue<BuildingPermit> getFaceUpPermits() {
 		return faceUpPermits;
