@@ -24,7 +24,7 @@ public class Action implements Act
 			council.setCouncillors(counc.getCouncillors()); //Oppure Council council=(Council)permitsDeck.getCouncil().clone(); ma e' brutto
 			for(PoliticsCard card:politics) //Tra l'altro sta roba non posso manco farla
 			{
-				if(card instanceof JollyPoliticsCard)
+				if(card.getClass()== JollyPoliticsCard.class)
 				{
 					jollies++;
 					continue;
