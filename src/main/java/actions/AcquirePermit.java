@@ -16,7 +16,7 @@ public class AcquirePermit extends MainAction
 {
 
 
-	public void takeAction(Player player, PermitsDeck permitsDeck, BuildingPermit buildingPermit, ArrayList<PoliticsCard> politics)
+	/*public void takeAction(Player player, PermitsDeck permitsDeck, BuildingPermit buildingPermit, ArrayList<PoliticsCard> politics)
 	{
 		if(permitsDeck.getFaceUpPermits().contains(buildingPermit))
 		{
@@ -28,7 +28,7 @@ public class AcquirePermit extends MainAction
 				if(card instanceof JollyPoliticsCard)
 				{
 					jollies++;
-					break;
+					continue;
 				}
 				
 				for(Councillor councillor:council.getCouncillors())
@@ -36,7 +36,7 @@ public class AcquirePermit extends MainAction
 					if(card.payCouncillor(councillor))
 					{
 						council.getCouncillors().remove(councillor);
-						break;
+						continue;
 					}
 				}
 			}
@@ -53,5 +53,5 @@ public class AcquirePermit extends MainAction
 			
 				
 		}
-	}
+	}*/
 }
