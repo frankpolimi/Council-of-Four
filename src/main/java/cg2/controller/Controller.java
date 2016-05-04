@@ -3,8 +3,6 @@
  */
 package cg2.controller;
 
-import java.util.Set;
-
 import cg2.game.Game;
 import cg2.observers.Observer;
 import cg2.view.View;

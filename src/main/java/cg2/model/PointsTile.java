@@ -1,7 +1,5 @@
 package cg2.model;
 
-import bonus.CoinBonus;
-
 /**
  * 
  * @author Emanuele Ricciardelli
