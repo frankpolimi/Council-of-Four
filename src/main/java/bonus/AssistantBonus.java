@@ -27,4 +27,14 @@ public class AssistantBonus extends TileBonus {
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "AssistantBonus: "+super.toString();
+	}
+	
+	
+
 }

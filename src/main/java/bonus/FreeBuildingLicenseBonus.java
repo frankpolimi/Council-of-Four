@@ -29,4 +29,12 @@ public class FreeBuildingLicenseBonus extends ActionBonus {
 		this.notifyObservers(((Game)playerOrGame).getRegions());
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "FreeBuildingLicenseBonus";
+	}
+
 }

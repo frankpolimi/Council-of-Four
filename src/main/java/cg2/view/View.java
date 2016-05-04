@@ -80,9 +80,9 @@ public class View extends Observable implements Observer {
 			System.out.println("Scegli che tipo di mossa vuoi eseguire "
 					+ "(comando)\n"
 					+ "1 - Principale (principale)\n"
-					+ "2 - Secondaria (secondaria)\n"
-					//display on MainActionNumber = 0
-					+ "3 - Salta mossa secondaria (salta)\n");
+					+ "2 - Secondaria (secondaria)\n");
+			if(game.getMainActionNumber() == 0)
+				System.out.println("3 - Salta mossa secondaria (salta)\n");
 
 			String selection = in.nextLine();
 			switch(selection){
@@ -97,13 +97,11 @@ public class View extends Observable implements Observer {
 					return selection;
 				}*/
 				case "salta":{
-					
 					/*
 					 * game.setQuickActionNumber(0);
 					 * TODO this method must be moved to the controller 
 					 * for the modification to the game
 					 */
-					
 					break;
 				}
 				default:{

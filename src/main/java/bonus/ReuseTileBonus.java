@@ -39,4 +39,12 @@ public class ReuseTileBonus extends ActionBonus {
 		this.notifyObservers(total);
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "ReuseTileBonus";
+	}
+
 }

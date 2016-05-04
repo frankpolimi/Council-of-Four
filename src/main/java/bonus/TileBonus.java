@@ -33,4 +33,12 @@ public abstract class TileBonus extends Bonus {
 	public void setAmount(Integer amount) {
 		this.amount = amount;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "amount = " + amount;
+	}
 }

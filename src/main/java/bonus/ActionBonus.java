@@ -14,6 +14,10 @@ public class ActionBonus extends Bonus {
 
 	@Override
 	public <T> void update(T playerOrGame) {
+		/*
+		 * method empty
+		 * forced to write because of hierarchy and interface
+		 */
 	}
 
 }

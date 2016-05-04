@@ -36,4 +36,12 @@ public class NobilityBonus extends TileBonus {
 		this.notifyObservers((Player)playerOrGame);
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "NobilityBonus: "+super.toString();
+	}
+
 }
