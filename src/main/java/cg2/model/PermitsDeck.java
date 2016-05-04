@@ -16,7 +16,7 @@ public class PermitsDeck {
 	public void givePermit(Player player, BuildingPermit permit)
 	{
 		if(faceUpPermits.contains(permit))
-			Player.addPermit(permit);
+			player.getStatus().addBuildingPermit(permit);
 		System.out.println("No such permit in this deck's face up permits");
 		
 	}

@@ -17,8 +17,8 @@ public class Status {
 	private int points;
 	private int helpers;
 	private final List<PoliticsCard> cardsOwned;
-	private final List<BuildingPermit> buildingLicensesObtained;
-	private final List<BuildingPermit> usedBuildingLicenses;
+	private final List<BuildingPermit> buildingPermits;
+	private final List<BuildingPermit> usedBuildingPermits;
 	
 	public Status(int coins, int helpers){
 		this.coins = coins;
@@ -26,8 +26,8 @@ public class Status {
 		this.points = 0;
 		this.helpers = helpers;
 		this.cardsOwned = new ArrayList<>();
-		this.buildingLicensesObtained = new ArrayList<>();
-		this.usedBuildingLicenses = new ArrayList<>();
+		this.buildingPermits = new ArrayList<>();
+		this.usedBuildingPermits = new ArrayList<>();
 		//scelta implementativa: anche se all'inizio il regolamento dice che il giocatore parte
 		//con 6 carte politica già nel mazzo, meglio farle caricare dalla partita in fase di 
 		//init.
@@ -99,8 +99,8 @@ public class Status {
 	/**
 	 * @return the buildingLicensesObtained
 	 */
-	public List<BuildingPermit> getBuildingLicensesObtained() {
-		return buildingLicensesObtained;
+	public List<BuildingPermit> getBuildingPermits() {
+		return buildingPermits;
 	}
 	
 	public void addPoliticsCard(PoliticsCard pc){
@@ -115,20 +115,20 @@ public class Status {
 		return cardsOwned.get(position);
 	}
 	
-	public void addBuildingLicense(BuildingPermit bl){
-		buildingLicensesObtained.add(bl);
+	public void addBuildingPermit(BuildingPermit bl){
+		buildingPermits.add(bl);
 	}
 
 	/**
 	 * @return the usedBuildingLicenses
 	 */
-	public List<BuildingPermit> getUsedBuildingLicenses() {
-		return usedBuildingLicenses;
+	public List<BuildingPermit> getUsedBuildingPermits() {
+		return usedBuildingPermits;
 	}
 	
 	public void useLicense(BuildingPermit bl){
-		int index = buildingLicensesObtained.indexOf(bl);
-		usedBuildingLicenses.add(buildingLicensesObtained.remove(index));
+		int index = buildingPermits.indexOf(bl);
+		usedBuildingPermits.add(buildingPermits.remove(index));
 	}
 	
 	

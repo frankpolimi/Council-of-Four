@@ -104,7 +104,7 @@ public class Market {
 	 * @param buildingLicense
 	 */
 	private void assignBuildingLicense(Player owner, BuildingPermit buildingLicense) {
-		owner.getStatus().addBuildingLicense(buildingLicense);
+		owner.getStatus().addBuildingPermit(buildingLicense);
 	}
 
 	/**
