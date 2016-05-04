@@ -32,10 +32,6 @@ public class Game extends Observable {
 	private int mainActionNumber;
 	private int quickActionNumber;
 	
-	/*
-	 * aggiungere mosse
-	 */
-	
 
 	public Game(PermitsDeck licenseDeck, PoliticsDeck politicsDeck, List<Player> players, Set<Region> regions,
 			List<Councillor> avaliableCouncillors, List<KingTile> kingTileList, List<ColorTile> colorTileList,
@@ -61,7 +57,7 @@ public class Game extends Observable {
 				this.setActionNumber();
 				politicsDeck.drawCard(players.get(currentPlayer));
 				do{
-					this.notifyObservers("action phase");
+					this.notifyObservers("action_phase");
 					//mossa principale obbligatoria
 					//possibilità skip mossa secondaria
 					//controllore esegue mossa
@@ -136,6 +132,20 @@ public class Game extends Observable {
 	 */
 	public void setQuickActionNumber(int quickActionNumber) {
 		this.quickActionNumber = quickActionNumber;
+	}
+
+	/**
+	 * @return the players
+	 */
+	public List<Player> getPlayers() {
+		return players;
+	}
+
+	/**
+	 * @return the currentPlayer
+	 */
+	public int getCurrentPlayer() {
+		return currentPlayer;
 	}
 	
 	

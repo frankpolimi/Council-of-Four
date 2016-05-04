@@ -45,4 +45,10 @@ public class NobilityLane extends Bonusable implements Observer{
 		int place = ((Player)change).getStatus().getNobilityPoints();
 		lane.get(place).applyBonus(change);
 	}
+
+	@Override
+	public void update(String communication) {
+		// TODO Auto-generated method stub
+		
+	}
 }

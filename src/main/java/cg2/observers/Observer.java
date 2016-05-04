@@ -8,4 +8,5 @@ package cg2.observers;
 public interface Observer {
 	public void update();
 	public <C> void update(C change);
+	public void update(String communication);
 }
