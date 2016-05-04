@@ -8,7 +8,7 @@ import java.util.List;
 
 import cg2.view.*;
 import cg2.player.*;
-import cg2.model.BuildingLicense;;
+import cg2.model.BuildingPermit;;
 
 /**
  * @author Francesco Vetrò
@@ -31,7 +31,7 @@ public class ReuseTileBonus extends ActionBonus {
 	 */
 	@Override
 	public <T> void update(T playerOrGame) {
-		List<BuildingLicense> total = new ArrayList<BuildingLicense>();
+		List<BuildingPermit> total = new ArrayList<BuildingPermit>();
 		total.addAll(
 				((Player)playerOrGame).getStatus().getBuildingLicensesObtained());
 		total.addAll(

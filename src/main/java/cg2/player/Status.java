@@ -4,7 +4,7 @@
 package cg2.player;
 import java.util.*;
 
-import cg2.model.BuildingLicense;
+import cg2.model.BuildingPermit;
 import politics.*;
 
 /**
@@ -17,8 +17,8 @@ public class Status {
 	private int points;
 	private int helpers;
 	private final List<PoliticsCard> cardsOwned;
-	private final List<BuildingLicense> buildingLicensesObtained;
-	private final List<BuildingLicense> usedBuildingLicenses;
+	private final List<BuildingPermit> buildingLicensesObtained;
+	private final List<BuildingPermit> usedBuildingLicenses;
 	
 	public Status(int coins, int helpers){
 		this.coins = coins;
@@ -99,7 +99,7 @@ public class Status {
 	/**
 	 * @return the buildingLicensesObtained
 	 */
-	public List<BuildingLicense> getBuildingLicensesObtained() {
+	public List<BuildingPermit> getBuildingLicensesObtained() {
 		return buildingLicensesObtained;
 	}
 	
@@ -115,18 +115,18 @@ public class Status {
 		return cardsOwned.get(position);
 	}
 	
-	public void addBuildingLicense(BuildingLicense bl){
+	public void addBuildingLicense(BuildingPermit bl){
 		buildingLicensesObtained.add(bl);
 	}
 
 	/**
 	 * @return the usedBuildingLicenses
 	 */
-	public List<BuildingLicense> getUsedBuildingLicenses() {
+	public List<BuildingPermit> getUsedBuildingLicenses() {
 		return usedBuildingLicenses;
 	}
 	
-	public void useLicense(BuildingLicense bl){
+	public void useLicense(BuildingPermit bl){
 		int index = buildingLicensesObtained.indexOf(bl);
 		usedBuildingLicenses.add(buildingLicensesObtained.remove(index));
 	}

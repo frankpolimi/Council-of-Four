@@ -3,6 +3,7 @@ import topology.*;
 import java.util.*;
 
 import bonus.Bonus;
+import bonus.TileBonus;
 import bonus.bonusers.Bonusable;
 
 /**
@@ -10,13 +11,15 @@ import bonus.bonusers.Bonusable;
  * @author Emanuele Ricciardelli
  *
  */
-public class BuildingLicense  extends Bonusable{
+
+public class BuildingPermit extends Bonusable{
+
 	private final Region region;
 	private final Set<Character> firstChars;
 	private final Set<Bonus> bonusList;
 	private final Set<City> buildingAvaliableCities;
-	
-	public BuildingLicense(Region region, Set<City> ba, Set<Bonus> bonus){
+
+	public BuildingPermit(Region region, Set<City> ba, Set<Bonus> bonus){
 		this.region=region;
 		buildingAvaliableCities=ba;
 		firstChars=new HashSet<>();
