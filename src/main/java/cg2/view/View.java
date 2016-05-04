@@ -78,9 +78,10 @@ public class View extends Observable implements Observer {
 		do{
 			condition = false;
 			System.out.println("Scegli che tipo di mossa vuoi eseguire "
-					+ "(scrivi il comando)\n"
+					+ "(comando)\n"
 					+ "1 - Principale (principale)\n"
 					+ "2 - Secondaria (secondaria)\n"
+					//display on MainActionNumber = 0
 					+ "3 - Salta mossa secondaria (salta)\n");
 
 			String selection = in.nextLine();

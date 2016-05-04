@@ -27,6 +27,9 @@ public class Game extends Observable {
 	private final List<RegionTile> regionTileList;
 	private final NobilityLane nobilityLane;
 	
+	//private final Set<MainAction> mainAction;
+	//private final Set<QuickAction> quickAction;
+	
 	private int currentPlayer;
 	
 	private int mainActionNumber;
@@ -142,6 +145,23 @@ public class Game extends Observable {
 	public int getCurrentPlayer() {
 		return currentPlayer;
 	}
+
+	/**
+	 * @return the mainAction
+	 */
+	/*
+	public Set<MainAction> getMainAction() {
+		return mainAction;
+	}
+	*/
 	
+	/**
+	 * @return the quickAction
+	 */
+	/*
+	public Set<QuickAction> getQuickAction() {
+		return quickAction;
+	}
+	*/
 	
 }

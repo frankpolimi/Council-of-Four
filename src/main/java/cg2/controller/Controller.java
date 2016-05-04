@@ -64,7 +64,7 @@ public class Controller implements Observer {
 				System.err.println("FATAL ERROR IN COMMUNICATION!");
 		}
 	}
-
+	
 	/*
 	private void showAction(Set<Action> action){
 		
