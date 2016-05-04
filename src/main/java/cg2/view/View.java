@@ -48,15 +48,25 @@ public class View extends Observable implements Observer {
 	@Override
 	public void update(String communication) {
 		String selection;
-		if(communication.equals("action phase")){
-			selection = this.selectAction();
-			this.input(selection);
+		switch(communication){
+			case "action_phase":{
+				selection = this.selectAction();
+				this.input(selection);
+				break;
+			}
+			case "main_action":{
+				selection = this.selectMainAction();
+				this.input(selection);
+				break;
+			}
+			case "quick_action":{
+				selection = this.selectQuickAction();
+				this.input(selection);
+				break;
+			}
+			default:
+				System.err.println("FATAL ERROR IN COMMUNICATION!");
 		}
-		if(communication.equals("main action")){
-			selection = this.selectMainAction();
-			this.input(selection);
-		}
-		
 	}
 
 	/**
@@ -114,7 +124,7 @@ public class View extends Observable implements Observer {
 	}
 
 	private String selectMainAction() {
-		// TODO Auto-generated method stub
+		//TODO
 		return null;
 	}
 

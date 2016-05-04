@@ -57,7 +57,7 @@ public class Game extends Observable {
 				this.setActionNumber();
 				politicsDeck.drawCard(players.get(currentPlayer));
 				do{
-					this.notifyObservers("action phase");
+					this.notifyObservers("action_phase");
 					//mossa principale obbligatoria
 					//possibilità skip mossa secondaria
 					//controllore esegue mossa
@@ -127,6 +127,20 @@ public class Game extends Observable {
 	 */
 	public void setQuickActionNumber(int quickActionNumber) {
 		this.quickActionNumber = quickActionNumber;
+	}
+
+	/**
+	 * @return the players
+	 */
+	public List<Player> getPlayers() {
+		return players;
+	}
+
+	/**
+	 * @return the currentPlayer
+	 */
+	public int getCurrentPlayer() {
+		return currentPlayer;
 	}
 	
 	

@@ -3,6 +3,8 @@
  */
 package cg2.controller;
 
+import java.util.Set;
+
 import cg2.game.Game;
 import cg2.observers.Observer;
 import cg2.view.View;
@@ -41,8 +43,31 @@ public class Controller implements Observer {
 
 	@Override
 	public void update(String communication) {
-		// TODO Auto-generated method stub
-		
+		switch(communication){
+			case "principale":{
+				//this.showAction(game.getMainAction());
+				this.update("main_action");
+				break;
+			}
+			case "secondaria":{
+				//this.showAction(game.getQuickAction());
+				this.update("quick_action");
+				break;
+			}
+			case "salta":{
+				game.setQuickActionNumber(0);
+				System.out.println(game.getPlayers().get(game.getCurrentPlayer()).getName()
+						+" non puoi più eseguire azioni secondarie per questo turno");
+				break;
+			}
+			default:
+				System.err.println("FATAL ERROR IN COMMUNICATION!");
+		}
 	}
 
+	/*
+	private void showAction(Set<Action> action){
+		
+	}
+	*/
 }
