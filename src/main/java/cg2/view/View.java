@@ -6,6 +6,7 @@ package cg2.view;
 import java.util.Scanner;
 
 import cg2.game.Game;
+import cg2.model.BuildingPermit;
 import cg2.observers.Observable;
 import cg2.observers.Observer;
 
@@ -32,7 +33,7 @@ public class View extends Observable implements Observer {
 	 */
 	@Override
 	public void update() {
-		//qua le notifiche che arriveranno dalla view senza comandi
+		//not used at the moment
 	}
 
 	/* (non-Javadoc)
@@ -40,6 +41,7 @@ public class View extends Observable implements Observer {
 	 */
 	@Override
 	public <C> void update(C change) {
+		//not used at the moment
 	}
 	
 	/* (non-Javadoc)

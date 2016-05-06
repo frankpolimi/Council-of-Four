@@ -6,7 +6,7 @@ package bonus;
 import java.util.ArrayList;
 import java.util.List;
 
-import cg2.view.*;
+import cg2.controller.*;
 import cg2.player.*;
 import cg2.model.BuildingPermit;;
 
@@ -16,8 +16,8 @@ import cg2.model.BuildingPermit;;
  */
 public class ReuseTileBonus extends ActionBonus {
 	
-	public ReuseTileBonus(View view) {
-		this.registerObserver(view);
+	public ReuseTileBonus(Controller controller) {
+		this.registerObserver(controller);
 	}
 
 	/* (non-Javadoc)
@@ -26,7 +26,7 @@ public class ReuseTileBonus extends ActionBonus {
 	/**
 	 * @param the player
 	 * this bonus will get the building licenses of the player and notify
-	 * the view. the view will manage the input for selecting the tile
+	 * the controller. the view will manage the input for selecting the tile
 	 * the player wants to earn its bonus again 
 	 */
 	@Override
@@ -36,7 +36,7 @@ public class ReuseTileBonus extends ActionBonus {
 				((Player)playerOrGame).getStatus().getBuildingPermits());
 		total.addAll(
 				((Player)playerOrGame).getStatus().getUsedBuildingPermits());
-		this.notifyObservers(total);
+		this.notifyObservers(this.toString());
 	}
 
 	/* (non-Javadoc)

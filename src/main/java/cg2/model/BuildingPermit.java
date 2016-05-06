@@ -62,6 +62,10 @@ public class BuildingPermit extends Bonusable{
 	public String toString() {
 		return "BuildingPermit [buildingAvaliableCities=" + buildingAvaliableCities + "]";
 	}
+
+	public String displayBonus() {
+		return bonusList.toString();
+	}
 	
 	
 	//mancano HashCode, toString
