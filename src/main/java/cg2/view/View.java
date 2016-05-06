@@ -6,7 +6,6 @@ package cg2.view;
 import java.util.Scanner;
 
 import cg2.game.Game;
-import cg2.model.BuildingPermit;
 import cg2.observers.Observable;
 import cg2.observers.Observer;
 
@@ -41,7 +40,10 @@ public class View extends Observable implements Observer {
 	 */
 	@Override
 	public <C> void update(C change) {
-		//not used at the moment
+		/*if(change.)
+		System.out.println("Inserisci il numero del bonus che vuoi ottenere");
+		for(BuildingPermit x : total)
+			System.out.println(total.indexOf(x) + " - " + x.displayBonus());*/
 	}
 	
 	/* (non-Javadoc)
@@ -66,11 +68,23 @@ public class View extends Observable implements Observer {
 				this.input(selection);
 				break;
 			}
+			/*case "ReuseTileBonus":{
+				selection = Integer.toString(this.numberIn());
+				this.input(selection);
+				break;
+			}*/
 			default:
 				System.err.println("FATAL ERROR IN COMMUNICATION!");
 		}
 	}
 
+	/*
+	private int numberIn() {
+		Scanner in = new Scanner(System.in);
+		in.nextInt();
+	}
+*/
+	
 	/**
 	 * selection of the two classes of action a player can perform
 	 */

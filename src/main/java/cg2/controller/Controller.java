@@ -9,7 +9,6 @@ import java.util.List;
 import cg2.game.Game;
 import cg2.model.BuildingPermit;
 import cg2.observers.Observer;
-import cg2.player.Player;
 import cg2.view.View;
 
 /**
@@ -63,24 +62,9 @@ public class Controller implements Observer {
 						+" non puoi più eseguire azioni secondarie per questo turno");
 				break;
 			}
-			case "ReuseTileBonus":{
-				this.pickPermitsBonus();
-				break;
-			}
 			default:
 				System.err.println("FATAL ERROR IN COMMUNICATION!");
 		}
-	}
-
-	private void pickPermitsBonus() {
-		List<BuildingPermit> total = new ArrayList<BuildingPermit>();
-		total.addAll(
-				(game.getPlayers().get(game.getCurrentPlayer()).getStatus().getBuildingPermits()));
-		total.addAll(
-				(game.getPlayers().get(game.getCurrentPlayer()).getStatus().getUsedBuildingPermits()));
-		System.out.println("Inserisci il numero del bonus che vuoi ottenere");
-		for(BuildingPermit x : total)
-			System.out.println(total.indexOf(x) + " - " + x.displayBonus());
 	}
 	
 	/*
