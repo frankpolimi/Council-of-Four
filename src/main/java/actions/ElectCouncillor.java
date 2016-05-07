@@ -9,5 +9,6 @@ public class ElectCouncillor extends MainAction
 	public void takeAction(Player player, Councillor councillor, Council council)
 	{	
 		this.game.addCouncillor(council.electCouncillor(councillor));
+		player.getStatus().setCoins(player.getStatus().getCoins()+4);
 	}
 }

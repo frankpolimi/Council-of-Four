@@ -113,7 +113,7 @@ public class Market {
 	 * @param the object assistant
 	 */
 	private void assignAssistants(Player owner, Assistant a) {
-		owner.getStatus().setHelpers(owner.getStatus().getHelpers() + a.getNumber());
+		owner.getStatus().setAssistants(owner.getStatus().getAssistants() + a.getNumber());
 	}
 	
 	/**

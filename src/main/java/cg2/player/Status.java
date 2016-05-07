@@ -15,7 +15,7 @@ public class Status {
 	private int coins;
 	private int nobilityPoints;
 	private int points;
-	private int helpers;
+	private int assistants;
 	private final List<PoliticsCard> cardsOwned;
 	private final List<BuildingPermit> buildingPermits;
 	private final List<BuildingPermit> usedBuildingPermits;
@@ -24,7 +24,7 @@ public class Status {
 		this.coins = coins;
 		this.nobilityPoints = 0;
 		this.points = 0;
-		this.helpers = helpers;
+		this.assistants = helpers;
 		this.cardsOwned = new ArrayList<>();
 		this.buildingPermits = new ArrayList<>();
 		this.usedBuildingPermits = new ArrayList<>();
@@ -78,15 +78,15 @@ public class Status {
 	/**
 	 * @return the helpers
 	 */
-	public int getHelpers() {
-		return helpers;
+	public int getAssistants() {
+		return assistants;
 	}
 
 	/**
 	 * @param helpers the helpers to set
 	 */
-	public void setHelpers(int helpers) {
-		this.helpers = helpers;
+	public void setAssistants(int helpers) {
+		this.assistants = helpers;
 	}
 
 	/**

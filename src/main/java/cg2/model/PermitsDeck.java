@@ -21,6 +21,11 @@ public class PermitsDeck {
 		
 	}
 	
+	public void shuffleFaceUpPermits()
+	{
+		//TODO method after the deck is changed to an array list
+	}
+	
 	public ArrayBlockingQueue<BuildingPermit> getFaceUpPermits() {
 		return faceUpPermits;
 	}

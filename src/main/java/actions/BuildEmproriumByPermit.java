@@ -5,7 +5,7 @@ import cg2.model.City;
 import cg2.model.Emporium;
 import cg2.player.Player;
 
-public class BuildEmproriumPermit extends MainAction 
+public class BuildEmproriumByPermit extends MainAction 
 {
 	public void takeAction(Player player, BuildingPermit permit, City city)
 	{
@@ -20,8 +20,9 @@ public class BuildEmproriumPermit extends MainAction
 		
 		int otherEmporiums=city.getEmporiums().size();
 		
-		if(player.getStatus().getHelpers()-otherEmporiums>=0)
-			player.getStatus().setHelpers(player.getStatus().getHelpers()-otherEmporiums);
+		if(player.getStatus().getAssistants()-otherEmporiums>=0)
+			player.getStatus().setAssistants(player.getStatus().getAssistants()-otherEmporiums);
+		else System.out.println("Not enough assistants to build in this city. For each other player's emporium you have to pay 1 assistant");
 		
 		city.addEmporium(player);
 	}
