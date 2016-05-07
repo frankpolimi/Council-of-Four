@@ -3,6 +3,8 @@ package cg2.game;
 import java.util.List;
 import java.util.Set;
 
+import actions.MainAction;
+import actions.QuickAction;
 import cg2.model.*;
 import cg2.observers.Observable;
 import politics.PoliticsDeck;
@@ -27,8 +29,8 @@ public class Game extends Observable {
 	private final List<RegionTile> regionTileList;
 	private final NobilityLane nobilityLane;
 	
-	//private final Set<MainAction> mainAction;
-	//private final Set<QuickAction> quickAction;
+	private final Set<MainAction> mainAction = null; //just for avoiding errors
+	private final Set<QuickAction> quickAction = null;
 	
 	private int currentPlayer;
 	
@@ -154,19 +156,15 @@ public class Game extends Observable {
 	/**
 	 * @return the mainAction
 	 */
-	/*
 	public Set<MainAction> getMainAction() {
 		return mainAction;
 	}
-	*/
 	
 	/**
 	 * @return the quickAction
 	 */
-	/*
 	public Set<QuickAction> getQuickAction() {
 		return quickAction;
 	}
-	*/
 	
 }

@@ -40,10 +40,6 @@ public class View extends Observable implements Observer {
 	 */
 	@Override
 	public <C> void update(C change) {
-		/*if(change.)
-		System.out.println("Inserisci il numero del bonus che vuoi ottenere");
-		for(BuildingPermit x : total)
-			System.out.println(total.indexOf(x) + " - " + x.displayBonus());*/
 	}
 	
 	/* (non-Javadoc)
@@ -52,30 +48,26 @@ public class View extends Observable implements Observer {
 	@Override
 	public void update(String communication) {
 		String selection;
-		switch(communication){
-			case "action_phase":{
+		if(communication.contains("action_phase")){
 				selection = this.selectAction();
 				this.input(selection);
-				break;
-			}
-			case "main_action":{
-				selection = this.selectMainAction();
-				this.input(selection);
-				break;
-			}
-			case "quick_action":{
-				selection = this.selectQuickAction();
-				this.input(selection);
-				break;
-			}
-			/*case "ReuseTileBonus":{
-				selection = Integer.toString(this.numberIn());
-				this.input(selection);
-				break;
-			}*/
-			default:
-				System.err.println("FATAL ERROR IN COMMUNICATION!");
 		}
+		else if(communication.contains("main_action")){
+				selection = this.selectMainAction(
+						communication.substring("main_action".length()));
+				this.input(selection);
+		}
+		else if(communication.contains("quick_action")){
+				selection = this.selectQuickAction(
+						communication.substring("main_action".length()));
+				this.input(selection);
+		}
+		/*"ReuseTileBonus"{
+			selection = Integer.toString(this.numberIn());
+			this.input(selection);
+		}*/
+		else
+			System.err.println("FATAL ERROR IN COMMUNICATION!");
 	}
 
 	/*
@@ -84,7 +76,7 @@ public class View extends Observable implements Observer {
 		in.nextInt();
 	}
 */
-	
+
 	/**
 	 * selection of the two classes of action a player can perform
 	 */
@@ -133,14 +125,22 @@ public class View extends Observable implements Observer {
 		return "principale";
 	}
 
-	private String selectQuickAction() {
-		// TODO Auto-generated method stub
-		return null;
+	private String selectQuickAction(String numberOfActions) {
+		int ins;
+		Scanner in = new Scanner(System.in);
+		do{
+			ins = in.nextInt();
+		}while(ins > Integer.parseInt(numberOfActions));
+		return "quick_action"+Integer.toString(ins);
 	}
 
-	private String selectMainAction() {
-		//TODO
-		return null;
+	private String selectMainAction(String numberOfActions) {
+		int ins;
+		Scanner in = new Scanner(System.in);
+		do{
+			ins = in.nextInt();
+		}while(ins > Integer.parseInt(numberOfActions));
+		return "main_action"+Integer.toString(ins);
 	}
 
 }

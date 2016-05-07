@@ -6,7 +6,7 @@ package bonus;
 import cg2.player.*;
 
 /**
- * @author 7ev
+ * @author Francesco Vetrò
  *
  */
 public class PointBonus extends TileBonus {
