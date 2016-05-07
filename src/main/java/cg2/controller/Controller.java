@@ -3,11 +3,7 @@
  */
 package cg2.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import cg2.game.Game;
-import cg2.model.BuildingPermit;
 import cg2.observers.Observer;
 import cg2.view.View;
 

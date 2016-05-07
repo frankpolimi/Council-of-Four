@@ -18,7 +18,11 @@ public class BuildEmproriumPermit extends MainAction
 		if(!permit.getBuildingAvaliableCities().contains(city))
 			throw new IllegalStateException("The city where the player is trying to build is not present on the permit");
 		
+		int otherEmporiums=city.getEmporiums().size();
 		
+		if(player.getStatus().getHelpers()-otherEmporiums>=0)
+			player.getStatus().setHelpers(player.getStatus().getHelpers()-otherEmporiums);
 		
+		city.addEmporium(player);
 	}
 }

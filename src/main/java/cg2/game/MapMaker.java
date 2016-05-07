@@ -2,15 +2,10 @@ package cg2.game;
 
 import java.awt.Color;
 import java.io.*;
-import java.lang.reflect.Field;
 import java.util.*;
-import java.util.stream.Stream;
-
 import org.jdom2.*;
 import org.jdom2.input.SAXBuilder;
 import org.jgrapht.*;
-import org.jgrapht.generate.RandomGraphGenerator;
-import org.jgrapht.graph.ClassBasedEdgeFactory;
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.SimpleGraph;
 
