@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<map>
+	<region name="land">
+		<city name="Arhon" initial="A" color="blue"></city>  <!-- Vedere se inizializzare già qua i bonus -->
+		<city name="Burgon" initial="B" color="yellow"></city>
+		<city name="Castrum" initial="C" color="grey"></city>
+		<city name="Dodul" initial="D" color="grey"></city>
+		<city name="Esti" initial="E" color="red"></city>
+	</region>
+	<region name="hill">
+		<city name="Franick" initial="F" color="yellow"></city>  <!-- Vedere se inizializzare già qua i bonus -->
+		<city name="Indur" initial="I" color="red"></city>
+		<city name="Gruden" initial="G" color="grey"></city>
+		<city name="Juvelar" initial="J" color="purple"></city>
+		<city name="Hellar" initial="H" color="yellow"></city>
+	</region>
+	<region name="Mountain">
+		<city name="Kultos" initial="K" color="yellow"></city>  <!-- Vedere se inizializzare già qua i bonus -->
+		<city name="Lyrum" initial="L" color="grey"></city>
+		<city name="Naris" initial="N" color="red"></city>
+		<city name="Oslum" initial="O" color="yellow"></city>
+		<city name="Merkatim" initial="M" color="blue"></city>
+	</region>
+	
+	<links>
+		<edge city1="A" city2="B"
+	</links>
+	
+	
+</map>

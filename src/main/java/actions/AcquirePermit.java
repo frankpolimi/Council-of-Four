@@ -14,7 +14,7 @@ public class AcquirePermit extends MainAction
 	{
 		if(payCouncil(player,council,politics))
 		{
-			
+			council.getPermitsDeck().givePermit(player, permit); //E se non ci fosse il permit?
 		}
 	}
 
