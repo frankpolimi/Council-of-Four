@@ -17,19 +17,19 @@ public class City  extends Bonusable{
 	private final String name;
 	private final char firstChar;
 	private final Color cityColor;
-	private final Set<City> linkedCities;
+	//private final Set<City> linkedCities;
 	
 	//i collegamenti saranno letti da file, perciò ci sarà una fase di creazione
 	//del vettore collegamenti da parte dell'inizializzatore della partita.
-	public City(String name, Color color, Set<City> link, List<TileBonus> bonus){
+	public City(String name, Color color, List<TileBonus> bonus){
 		super();
 		this.name=name;
 		firstChar=name.charAt(0);
-		linkedCities = link;
+		//linkedCities = link;
 		cityColor=color;
-		for(TileBonus b: bonus){
+		/*for(TileBonus b: bonus){
 			super.registerBonus(b);
-		}
+		}*/
 	}
 
 	/**
@@ -53,12 +53,20 @@ public class City  extends Bonusable{
 		return cityColor;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "City [name=" + name + ", firstChar=" + firstChar + ", cityColor=" + cityColor + "]";
+	}
+
 	/**
 	 * @return the linkedCities
 	 */
-	public Set<City> getLinkedCities() {
+	/*public Set<City> getLinkedCities() {
 		return linkedCities;
-	}
+	}*/
 
 	
 }
