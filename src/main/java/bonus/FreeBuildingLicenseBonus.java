@@ -21,8 +21,8 @@ public class FreeBuildingLicenseBonus extends ActionBonus {
 	 */
 	/**
 	 * @param the game
-	 * gives to the controller the region from where to choose
-	 * the controller will notify the view for the input
+	 * gives to the view the region from where to choose
+	 * the view will notify the view for the input
 	 */
 	@Override
 	public <T> void update(T playerOrGame) {
