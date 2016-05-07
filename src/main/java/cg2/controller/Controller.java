@@ -46,24 +46,29 @@ public class Controller implements Observer {
 
 	@Override
 	public void update(String communication) {
-		switch(communication){
-			case "principale":{
-				this.showMainAction(game.getMainAction());
-				break;
-			}
-			case "secondaria":{
-				this.showQuickAction(game.getQuickAction());
-				break;
-			}
-			case "salta":{
-				game.setQuickActionNumber(0);
-				System.out.println(game.getPlayers().get(game.getCurrentPlayer()).getName()
-						+" non puoi più eseguire azioni secondarie per questo turno");
-				break;
-			}
-			default:
-				System.err.println("FATAL ERROR IN COMMUNICATION!");
+		if(communication.equals("principale"))
+			this.showMainAction(game.getMainAction());
+		else if(communication.equals("secondaria"))
+			this.showQuickAction(game.getQuickAction());
+		else if(communication.equals("salta")){
+			game.setQuickActionNumber(0);
+			System.out.println(game.getPlayers().get(game.getCurrentPlayer()).getName()
+					+" non puoi più eseguire azioni secondarie per questo turno");
 		}
+		else if(communication.contains("main_action"));
+			/*
+			 * TODO 
+			 * skim through the MainAction
+			 * pick right one (iterator and for combined)
+			 * execute the action (how the I/O)
+			 */
+		else if(communication.contains("quick_action"));
+			/*
+			 * TODO 
+			 * skim through the MainAction
+			 * pick right one (iterator and for combined)
+			 * execute the action (how the I/O)
+			 */
 	}
 	
 	private void showMainAction(Set<? extends MainAction> action){

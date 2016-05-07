@@ -126,18 +126,21 @@ public class View extends Observable implements Observer {
 	}
 
 	private String selectQuickAction(String numberOfActions) {
+		int ins;
+		Scanner in = new Scanner(System.in);
+		do{
+			ins = in.nextInt();
+		}while(ins > Integer.parseInt(numberOfActions));
+		return "quick_action"+Integer.toString(ins);
+	}
 
+	private String selectMainAction(String numberOfActions) {
 		int ins;
 		Scanner in = new Scanner(System.in);
 		do{
 			ins = in.nextInt();
 		}while(ins > Integer.parseInt(numberOfActions));
 		return "main_action"+Integer.toString(ins);
-	}
-
-	private String selectMainAction(String numberOfActions) {
-		//TODO
-		return null;
 	}
 
 }
