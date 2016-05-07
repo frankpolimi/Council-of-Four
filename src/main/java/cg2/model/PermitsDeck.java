@@ -9,7 +9,7 @@ import council.Council;
  *
  */
 public class PermitsDeck {
-	private Set<BuildingPermit> buildingPermitsDeck;
+	private List<BuildingPermit> buildingPermitsDeck;
 	private ArrayBlockingQueue<BuildingPermit> faceUpPermits;
 	private final Council council;
 	
@@ -34,7 +34,7 @@ public class PermitsDeck {
 		this.faceUpPermits = faceUpPermits;
 	}
 
-	public PermitsDeck(Set<BuildingPermit> deck, Council council){
+	public PermitsDeck(List<BuildingPermit> deck, Council council){
 		buildingPermitsDeck=deck;
 		this.council=council;
 	}
@@ -46,7 +46,7 @@ public class PermitsDeck {
 	/**
 	 * @return the buildingPermitsDeck
 	 */
-	public Set<BuildingPermit> getBuildingPermitsDeck() {
+	public List<BuildingPermit> getBuildingPermitsDeck() {
 		return buildingPermitsDeck;
 	}
 
@@ -54,7 +54,7 @@ public class PermitsDeck {
 	/**
 	 * @param buildingPermitsDeck the buildingPermitsDeck to set
 	 */
-	public void setBuildingPermitsDeck(Set<BuildingPermit> buildingPermitsDeck) {
+	public void setBuildingPermitsDeck(List<BuildingPermit> buildingPermitsDeck) {
 		this.buildingPermitsDeck = buildingPermitsDeck;
 	}
 	
