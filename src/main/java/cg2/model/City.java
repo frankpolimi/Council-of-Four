@@ -19,6 +19,8 @@ public class City  extends Bonusable{
 	private final Color cityColor;
 	private final Set<City> linkedCities;
 	
+	
+	
 	//i collegamenti saranno letti da file, perciò ci sarà una fase di creazione
 	//del vettore collegamenti da parte dell'inizializzatore della partita.
 	public City(String name, Color color, Set<City> link, List<TileBonus> bonus){

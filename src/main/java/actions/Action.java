@@ -20,7 +20,7 @@ public class Action implements Act
 	{
 
 			int jollies=0;
-			Council council=new RegionalCouncil(); //Per ora e' cosi ma poi verra semplicemente clonato
+			Council council=new RegionalCouncil(null, null); //Per ora e' cosi ma poi verra semplicemente clonato
 			council.setCouncillors(counc.getCouncillors()); //Oppure Council council=(Council)permitsDeck.getCouncil().clone(); ma e' brutto
 			for(PoliticsCard card:politics) //Tra l'altro sta roba non posso manco farla
 			{
