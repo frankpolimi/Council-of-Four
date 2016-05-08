@@ -50,9 +50,9 @@ public class PoliticsDeck
 	/**
 	 * modified by Emanuele Ricciardelli
 	 */
-	public PoliticsDeck() 
+	public PoliticsDeck(ArrayList<PoliticsCard> array) 
 	{
-		politicsDeck=new ArrayList<>();
+		politicsDeck=array;
 	}
 	
 	

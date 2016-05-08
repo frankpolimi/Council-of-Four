@@ -51,7 +51,7 @@ public class Game extends Observable {
 		this.colorTileList = colorTileList;
 		this.regionTileList = regionTileList;
 		this.nobilityLane = nobilityLane;
-		this.usedPolitics = new PoliticsDeck();
+		this.usedPolitics = new PoliticsDeck(null); //da cambiare
 		this.currentPlayer = 0;
 	}
 	

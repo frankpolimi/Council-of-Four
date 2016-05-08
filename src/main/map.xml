@@ -71,4 +71,64 @@
 		</regionTileList> 
 	</decks>
 	
+	<nobilityLane>
+		<position number="0">
+		</position>
+		<position number="1">
+		</position>
+		<position number="2">
+			<bonus className="CoinBonus" amount="2"></bonus>
+			<bonus className="PointBonus" amount="2"></bonus>
+		</position>
+		<position number="3">
+		</position>
+		<position number="4">
+			<bonus className="CityBonus" amount=""></bonus>
+		</position>
+		<position number="5">
+		</position>
+		<position number="6">
+			<bonus className="MainActionBonus" amount=""></bonus>
+		</position>
+		<position number="7">
+		</position>
+		<position number="8">
+			<bonus className="GetPoliticBonus" amount=""></bonus>
+			<bonus className="PointBonus" amount="3"></bonus>
+		</position>
+		<position number="9">
+		</position>
+		<position number="10">
+			<bonus className="FreeBuildingLicenseBonus" amount=""></bonus>
+		</position>
+		<position number="11">
+		</position>
+		<position number="12">
+			<bonus className="PointBonus" amount="5"></bonus>
+			<bonus className="AssistantBonus" amount="1"></bonus>
+		</position>
+		<position number="13">
+		</position>
+		<position number="14">
+			<bonus className="ReuseTileBonus" amount=""></bonus>
+		</position>
+		<position number="15">
+		</position>
+		<position number="16">
+			<bonus className="CityBonus" amount=""></bonus>
+			<bonus className="CityBonus" amount=""></bonus>
+		</position>
+		<position number="17">
+		</position>
+		<position number="18">
+			<bonus className="PointBonus" amount="8"></bonus>
+		</position>
+		<position number="19">
+			<bonus className="PointBonus" amount="2"></bonus>
+		</position>
+		<position number="20">
+			<bonus className="PointBonus" amount="3"></bonus>
+		</position>
+	</nobilityLane>
+	
 </map>

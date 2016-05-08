@@ -57,7 +57,9 @@ public class MapMaker {
 			for(City c:reg.getCities()){
 				graph.addVertex(c);
 			}
-		}//questa parte nuova è da testare
+		}
+		
+		
 		//extraction and creation of edges
 		List<Element> links=children.get(1).getChildren();
 		Iterator<Element> edgeIt=links.iterator();
@@ -75,9 +77,9 @@ public class MapMaker {
 						System.out.println("Insertion not correct. One of those city doesn't exist");
 					}
 				}
-			}			
+			}
 		}
-		
+				
 		return graph;
 	}
 
@@ -88,7 +90,7 @@ public class MapMaker {
 	 * @throws IOException  when an I/O error prevents a document from being fully parsed
 	 */
 	public PoliticsDeck createPoliticsDeck() throws JDOMException, IOException{
-		PoliticsDeck politicsCards= new PoliticsDeck();
+		//PoliticsDeck politicsCards= new PoliticsDeck();
 		List<PoliticsCard> cards=new ArrayList<>();
 		Element root=getRootFromFile();
 		List<Element> cardChild=root.getChild("decks").getChild("deck").getChildren();
@@ -138,6 +140,12 @@ public class MapMaker {
 		return tilesList;
 	}
 	
+	/**
+	 * 
+	 * @return the set of Regions used in the game
+	 * @throws JDOMException when errors occur in parsing
+	 * @throws IOException  when an I/O error prevents a document from being fully parsed
+	 */
 	public Set<Region> createRegionSet() throws JDOMException, IOException{
 		Element root=this.getRootFromFile();
 		List<Element> children=root.getChildren();
@@ -167,8 +175,12 @@ public class MapMaker {
 		}
 		return allRegions;
 	}
+	/*
+	public NobilityLane createNobilityLane(){
+		
+	}
 	
-	
+	*/
 	private Element getRootFromFile() throws JDOMException, IOException{
 		//my choise: the XML file pathname is imposed by me to don't improve any errors with the 
 		//file opening. The map is always avaliable at that pathname and it is not allowed to change it.
@@ -179,7 +191,7 @@ public class MapMaker {
 	
 	public static void main(String[] args)throws IOException, JDOMException {
 		MapMaker mp=new MapMaker();
-		mp.createColorTiles();
+		mp.generateMap();
 	}
 	
 	
