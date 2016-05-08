@@ -47,10 +47,12 @@ public class PoliticsDeck
 	{
 		politicsDeck.clear();
 	}
-
-	public PoliticsDeck() 
+	/**
+	 * modified by Emanuele Ricciardelli
+	 */
+	public PoliticsDeck(ArrayList<PoliticsCard> array) 
 	{
-		
+		politicsDeck=array;
 	}
 	
 	
