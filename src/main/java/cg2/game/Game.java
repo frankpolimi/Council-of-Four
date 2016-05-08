@@ -109,12 +109,14 @@ public class Game extends Observable {
 	}
 
 
-	/**
-	 * @param mainActionNumber2
-	 * set the number of main action still to be done
-	 */
-	public void setMainActionCounter(int mainActionNumber2) {
-		this.mainActionCounter = mainActionNumber2;		
+	public void incrementMainAction()
+	{
+		mainActionCounter++;
+	}
+	
+	public void decrementMainAction()
+	{
+		mainActionCounter--;
 	}
 
 
@@ -131,12 +133,15 @@ public class Game extends Observable {
 	public int getQuickActionCounter() {
 		return quickActionCounter;
 	}
-
-	/**
-	 * @param quickActionNumber the quickActionNumber to set
-	 */
-	public void setQuickActionCounter(int quickActionNumber) {
-		this.quickActionCounter = quickActionNumber;
+	
+	public void incrementQuickAction()
+	{
+		quickActionCounter++;
+	}
+	
+	public void decrementQuickAction()
+	{
+		quickActionCounter--;
 	}
 
 	/**
