@@ -2,6 +2,7 @@ package cg2.game;
 
 import java.awt.Color;
 import java.io.*;
+import java.lang.reflect.Constructor;
 import java.util.*;
 import org.jdom2.*;
 import org.jdom2.input.SAXBuilder;
@@ -9,6 +10,7 @@ import org.jgrapht.*;
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.SimpleGraph;
 
+import bonus.*;
 import cg2.model.*;
 import politics.ColoredPoliticsCard;
 import politics.JollyPoliticsCard;
@@ -90,7 +92,7 @@ public class MapMaker {
 	 * @throws IOException  when an I/O error prevents a document from being fully parsed
 	 */
 	public PoliticsDeck createPoliticsDeck() throws JDOMException, IOException{
-		//PoliticsDeck politicsCards= new PoliticsDeck();
+		PoliticsDeck politicsCards= new PoliticsDeck();
 		List<PoliticsCard> cards=new ArrayList<>();
 		Element root=getRootFromFile();
 		List<Element> cardChild=root.getChild("decks").getChild("deck").getChildren();
@@ -175,12 +177,27 @@ public class MapMaker {
 		}
 		return allRegions;
 	}
-	/*
-	public NobilityLane createNobilityLane(){
-		
+	
+	public NobilityLane createNobilityLane() throws JDOMException, IOException{
+		NobilityLane nobilityLane=new NobilityLane();
+		Element root=this.getRootFromFile();
+		List<Element> nobilityPosition=root.getChild("nobilityLane").getChildren();
+		Iterator<Element> nobIt=nobilityPosition.iterator();
+		/*while(nobIt.hasNext()){
+			Element position=nobIt.next();
+			//int pos=Integer.parseInt(position.getAttributeValue("number"));
+			
+		}*/
+		try{
+			Bonus bonus =(Bonus) Class.forName("bonus.ReuseTileBonus").newInstance();
+		}catch(Exception e){
+			e.printStackTrace();
+			System.out.println(e.getMessage());
+		}
+		System.out.println("OK");
+		return null;
 	}
 	
-	*/
 	private Element getRootFromFile() throws JDOMException, IOException{
 		//my choise: the XML file pathname is imposed by me to don't improve any errors with the 
 		//file opening. The map is always avaliable at that pathname and it is not allowed to change it.
@@ -191,7 +208,7 @@ public class MapMaker {
 	
 	public static void main(String[] args)throws IOException, JDOMException {
 		MapMaker mp=new MapMaker();
-		mp.generateMap();
+		mp.createNobilityLane();
 	}
 	
 	

@@ -11,6 +11,7 @@ import cg2.view.*;
  */
 public class ReuseTileBonus extends ActionBonus {
 	
+	
 	public ReuseTileBonus(View view) {
 		this.registerObserver(view);
 	}
