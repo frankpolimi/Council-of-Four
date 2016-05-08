@@ -47,10 +47,12 @@ public class PoliticsDeck
 	{
 		politicsDeck.clear();
 	}
-
+	/**
+	 * modified by Emanuele Ricciardelli
+	 */
 	public PoliticsDeck() 
 	{
-		
+		politicsDeck=new ArrayList<>();
 	}
 	
 	
