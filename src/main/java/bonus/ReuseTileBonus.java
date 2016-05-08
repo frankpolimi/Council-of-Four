@@ -16,6 +16,7 @@ import cg2.model.BuildingPermit;;
  */
 public class ReuseTileBonus extends ActionBonus {
 	
+	
 	public ReuseTileBonus(View view) {
 		this.registerObserver(view);
 	}
