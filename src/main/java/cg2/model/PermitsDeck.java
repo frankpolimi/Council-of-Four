@@ -13,11 +13,15 @@ public class PermitsDeck {
 	private ArrayBlockingQueue<BuildingPermit> faceUpPermits;
 	private final Council council;
 	
-	public void givePermit(Player player, BuildingPermit permit)
+	public boolean givePermit(Player player, BuildingPermit permit)
 	{
 		if(faceUpPermits.contains(permit))
+		{
 			player.getStatus().addBuildingPermit(permit);
+			return true;
+		}
 		System.out.println("No such permit in this deck's face up permits");
+		return false;
 		
 	}
 	

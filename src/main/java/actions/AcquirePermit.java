@@ -13,9 +13,8 @@ public class AcquirePermit extends MainAction
 	public void takeAction(Player player, Council council, ArrayList<PoliticsCard> politics, BuildingPermit permit)
 	{
 		if(payCouncil(player,council,politics))
-		{
-			council.getPermitsDeck().givePermit(player, permit); //E se non ci fosse il permit?
-		}
+			if(council.getPermitsDeck().givePermit(player, permit))
+				this.game.decrementMainAction();
 	}
 
 
