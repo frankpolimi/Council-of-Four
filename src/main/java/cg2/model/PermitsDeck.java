@@ -21,9 +21,17 @@ public class PermitsDeck {
 		
 	}
 	
-	public void shuffleFaceUpPermits()
+	public void changeFaceUpPermits()
 	{
-		//TODO method after the deck is changed to an array list
+		if(faceUpPermits.size()==2)
+		{
+			faceUpPermits.drainTo(buildingPermitsDeck);
+			for(int i=faceUpPermits.remainingCapacity();i>0;i--)
+			{
+				faceUpPermits.add(buildingPermitsDeck.remove(0));
+			}
+		}
+		else System.out.println("Not enought permits to change");
 	}
 	
 	public ArrayBlockingQueue<BuildingPermit> getFaceUpPermits() {
