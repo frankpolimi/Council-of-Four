@@ -34,6 +34,12 @@ public class AssistantBonus extends TileBonus {
 	public String toString() {
 		return "AssistantBonus: "+super.toString();
 	}
+
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 

@@ -42,4 +42,10 @@ public class PointBonus extends TileBonus {
 		return "PointBonus: " + super.toString();
 	}
 
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

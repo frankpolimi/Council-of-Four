@@ -166,5 +166,13 @@ public class Game extends Observable {
 	public Set<QuickAction> getQuickAction() {
 		return quickAction;
 	}
+
+	/**
+	 * @return the politicsDeck
+	 */
+	public PoliticsDeck getPoliticsDeck() {
+		return politicsDeck;
+	}
+	
 	
 }

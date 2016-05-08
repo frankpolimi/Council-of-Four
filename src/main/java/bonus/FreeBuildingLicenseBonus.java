@@ -4,7 +4,6 @@
 package bonus;
 
 import cg2.view.*;
-import cg2.game.*;
 
 /**
  * @author Francesco Vetrò
@@ -19,14 +18,19 @@ public class FreeBuildingLicenseBonus extends ActionBonus {
 	/* (non-Javadoc)
 	 * @see bonus.bonusers.Bonuser#update(java.lang.Object)
 	 */
-	/**
-	 * @param the game
-	 * gives to the view the region from where to choose
-	 * the view will notify the view for the input
-	 */
 	@Override
 	public <T> void update(T playerOrGame) {
-		this.notifyObservers(((Game)playerOrGame).getRegions());
+	}
+	
+	/* (non-Javadoc)
+	 * @see bonus.bonusers.Bonuser#update(java.lang.Object)
+	 */
+	/**
+	 * this will start the view and the selection for the bonus
+	 */
+	@Override
+	public void update() {
+		this.notifyObservers(this.toString());
 	}
 
 	/* (non-Javadoc)
