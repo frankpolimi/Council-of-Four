@@ -43,5 +43,16 @@
 		<edge city1="O" city2="M" city3="L" city4="N"></edge>
 	</links>
 	
+	<decks>
+		<deck name="politics">
+			<card type="coloured" RGB="255,20,147" number="13"></card><!-- dark pink -->
+			<card type="coloured" RGB="255,255,255" number="13"></card><!-- white -->
+			<card type="coloured" RGB="255,165,0" number="13"></card><!-- orange -->
+			<card type="coloured" RGB="0,0,0" number="13"></card><!-- black -->
+			<card type="coloured" RGB="128,0,128" number="13"></card><!-- purple -->
+			<card type="coloured" RGB="0,0,255" number="13"></card><!-- blue -->
+			<card type="jolly" RGB="" number="13"></card>
+		</deck>
+	</decks>
 	
 </map>

@@ -5,7 +5,7 @@ import cg2.player.Player;
 import council.Council;
 /**
  * 
- * @author Emanuele Ricciardelli
+ * @author Emanuele Ricciardelli modified by someone
  *
  */
 public class PermitsDeck {

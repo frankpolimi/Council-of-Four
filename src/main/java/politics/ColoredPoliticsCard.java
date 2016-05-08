@@ -11,7 +11,11 @@ public class ColoredPoliticsCard extends PoliticsCard
 {
 	
 	Color color;
-	
+
+	public ColoredPoliticsCard(Color color) {
+		this.color = color;
+	}
+
 	public Color getColor() 
 	{
 		return color;

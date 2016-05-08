@@ -10,6 +10,7 @@ import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.SimpleGraph;
 
 import cg2.model.City;
+import politics.PoliticsDeck;
 
 
 public class MapMaker {
@@ -40,14 +41,10 @@ public class MapMaker {
 	 * @throws JDOMException 
 	 */
 	public UndirectedGraph<City, DefaultEdge> generateMap() throws JDOMException, IOException{
-		//my choise: the XML file pathname is imposed by me to don't improve any errors with the 
-		//file opening. The map is always avaliable at that pathname and it is not allowed to change it.
-		SAXBuilder builder=new SAXBuilder();
 		//inizializzazione grafo
 		UndirectedGraph<City, DefaultEdge> graph=new SimpleGraph<>(DefaultEdge.class);
 		//XML Reader objects needed
-		Document document= builder.build(new File("src/main/map.xml"));
-		Element root=document.getRootElement();
+		Element root=this.getRootFromFile();
 		List<Element> children=root.getChildren();
 		List<Element> regions=children.get(0).getChildren();
 		Iterator<Element> iterator=regions.iterator();
@@ -90,8 +87,33 @@ public class MapMaker {
 		return graph;
 	}
 	
-	public static void main(String[] args)throws IOException, JDOMException {
+	public PoliticsDeck createPoliticsDeck() throws JDOMException, IOException{
+		Element root=getRootFromFile();
+		List<Element> cardChild=root.getChild("decks").getChild("deck").getChildren();
+		Iterator<Element> cardIt=cardChild.iterator();
+		while(cardIt.hasNext()){
+			Element card=cardIt.next();
+			int num=Integer.parseInt(card.getAttributeValue("number"));
+			Color color=this.convert(card.getAttributeValue("RGB"));
+			for(int i=0;i<num;i++){
+				ColouredPoliticsCard cpc=new C
+			}
+		}
+		return null;
+		
+		
+	}
 	
+	private Element getRootFromFile() throws JDOMException, IOException{
+		//my choise: the XML file pathname is imposed by me to don't improve any errors with the 
+		//file opening. The map is always avaliable at that pathname and it is not allowed to change it.
+		SAXBuilder builder=new SAXBuilder();
+		Document document= builder.build(new File("src/main/map.xml"));
+		return document.getRootElement();
+	}
+	
+	public static void main(String[] args)throws IOException, JDOMException {
+		createPoliticsDeck();
 	}
 	
 	
