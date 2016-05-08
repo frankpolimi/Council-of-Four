@@ -10,7 +10,8 @@ package bonus.bonusers;
  * @author Francesco Vetrò
  */
 public interface Bonuser {
-		
+	
+	public void update();	
 	public <T> void update(T playerOrGame);
 
 }

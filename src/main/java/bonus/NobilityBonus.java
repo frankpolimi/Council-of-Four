@@ -44,4 +44,10 @@ public class NobilityBonus extends TileBonus {
 		return "NobilityBonus: "+super.toString();
 	}
 
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

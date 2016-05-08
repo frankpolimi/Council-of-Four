@@ -4,7 +4,7 @@ import cg2.player.Player;
 import council.Council;
 import council.Councillor;
 
-public class ElectCouncillorByAssistant 
+public class ElectCouncillorByAssistant extends QuickAction
 {
 	public void takeAction(Player player, Council council, Councillor councillor)
 	{

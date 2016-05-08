@@ -39,4 +39,10 @@ public class CoinBonus extends TileBonus {
 		return "CoinBonus: "+super.toString();
 	}
 
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
