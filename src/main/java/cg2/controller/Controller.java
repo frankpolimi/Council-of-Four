@@ -44,7 +44,7 @@ public class Controller implements Observer {
 	@Override
 	public void update(String communication) {
 		if(communication.equals("salta")){
-			game.setQuickActionNumber(0);
+			game.setQuickActionCounter(0);
 			System.out.println(game.getPlayers().get(game.getCurrentPlayer()).getName()
 					+" non puoi più eseguire azioni secondarie per questo turno");
 		}

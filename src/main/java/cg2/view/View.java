@@ -83,11 +83,11 @@ public class View extends Observable implements Observer {
 			condition = false;
 			
 			System.out.println("Scegli che tipo di mossa vuoi eseguire (comando)");
-			if(game.getMainActionNumber() != 0)
+			if(game.getMainActionCounter() != 0)
 				System.out.println("1 - Principale (principale)\n");
-			if(game.getQuickActionNumber() != 0)
+			if(game.getQuickActionCounter() != 0)
 				System.out.println("2 - Secondaria (secondaria)\n");
-			if(game.getMainActionNumber() == 0)
+			if(game.getMainActionCounter() == 0)
 				System.out.println("3 - Salta mossa secondaria (salta)\n");
 
 			selection = in.nextLine();
@@ -172,9 +172,9 @@ public class View extends Observable implements Observer {
 			else if(a.getClass().equals(EnageAssistant.class))
 				System.out.println(i+" - "+
 						((EnageAssistant)a).toString());
-			else if(a.getClass().equals(ShuffleFaceUpPermits.class))
+			/*else if(a.getClass().equals(ShuffleFaceUpPermits.class))
 				System.out.println(i+" - "+
-						((ShuffleFaceUpPermits)a).toString());
+						((ShuffleFaceUpPermits)a).toString());*/
 			//TODO complete
 		}
 		return l;

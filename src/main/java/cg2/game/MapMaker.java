@@ -2,7 +2,6 @@ package cg2.game;
 
 import java.awt.Color;
 import java.io.*;
-import java.lang.reflect.Constructor;
 import java.util.*;
 import org.jdom2.*;
 import org.jdom2.input.SAXBuilder;
