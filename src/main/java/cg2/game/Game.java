@@ -109,12 +109,12 @@ public class Game extends Observable {
 	}
 
 
-	public void incrementMainAction()
+	public void incrementMainActionCounter()
 	{
 		mainActionCounter++;
 	}
 	
-	public void decrementMainAction()
+	public void decrementMainActionCounter()
 	{
 		mainActionCounter--;
 	}
@@ -134,12 +134,12 @@ public class Game extends Observable {
 		return quickActionCounter;
 	}
 	
-	public void incrementQuickAction()
+	public void incrementQuickActionCounter()
 	{
 		quickActionCounter++;
 	}
 	
-	public void decrementQuickAction()
+	public void decrementQuickActionCounter()
 	{
 		quickActionCounter--;
 	}

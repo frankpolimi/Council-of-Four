@@ -86,6 +86,26 @@ public class Player {
 		return this.emporiumsOwned;
 	}
 	
+	public boolean checkCoins(int coins)
+	{
+		if(this.getStatus().getCoins()>=coins)
+		{
+			this.getStatus().setCoins(this.getStatus().getCoins()-coins);
+			return true;
+		}
+		return false;		
+	}
+	
+	public boolean checkAssistants(int assistants)
+	{
+		if(this.getStatus().getAssistants()>=assistants)
+		{
+			this.getStatus().setAssistants(this.getStatus().getAssistants()-assistants);
+			return true;
+		}
+		return false;		
+	}
+	
 	
 	
 }

@@ -7,10 +7,10 @@ public class ChangeFaceUpPermits extends QuickAction
 {
 	public void takeAction(Player player, PermitsDeck deck)
 	{
-		if(player.getStatus().getCoins()>=2)
+		if(player.checkCoins(2))
 		{
-			player.getStatus().setCoins(player.getStatus().getCoins()-2);
 			deck.changeFaceUpPermits();
+			this.game.decrementQuickActionCounter();
 		}
 		else System.out.println("Not enough coins to change the Permits");
 	}
