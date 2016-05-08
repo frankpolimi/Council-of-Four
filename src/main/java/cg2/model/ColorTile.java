@@ -17,6 +17,15 @@ public class ColorTile extends PointsTile {
 		return cityColor;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		
+		return "ColorTile [cityColor=" + cityColor + ", amounts="+ super.getVPs()+"]";
+	}
+
 	
 	
 	

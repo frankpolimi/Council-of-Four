@@ -34,8 +34,8 @@ public class Game extends Observable {
 	
 	private int currentPlayer;
 	
-	private int mainActionNumber;
-	private int quickActionNumber;
+	private int mainActionCounter;
+	private int quickActionCounter;
 	
 
 	public Game(PermitsDeck licenseDeck, PoliticsDeck politicsDeck, List<Player> players, Set<Region> regions,
@@ -51,7 +51,7 @@ public class Game extends Observable {
 		this.colorTileList = colorTileList;
 		this.regionTileList = regionTileList;
 		this.nobilityLane = nobilityLane;
-		this.usedPolitics = new PoliticsDeck();
+		this.usedPolitics = new PoliticsDeck(null); //da cambiare
 		this.currentPlayer = 0;
 	}
 	
@@ -59,7 +59,7 @@ public class Game extends Observable {
 		boolean endOfGame;
 		do{
 			while(currentPlayer < players.size()){
-				this.setActionNumber();
+				this.resetActionCounters();
 				politicsDeck.drawCard(players.get(currentPlayer));
 				do{
 					this.notifyObservers("action_phase");
@@ -67,16 +67,16 @@ public class Game extends Observable {
 					//possibilità skip mossa secondaria
 					//controllore esegue mossa
 					//diminuzione counter mosse	
-				}while(mainActionNumber != 0 && quickActionNumber != 0);
+				}while(mainActionCounter != 0 && quickActionCounter != 0);
 				currentPlayer = (currentPlayer++)%players.size();
 			}
 			endOfGame = checkEndOfGame();
 		}while(endOfGame);
 	}
 
-	private void setActionNumber() {
-		mainActionNumber = 1;
-		quickActionNumber = 1;
+	private void resetActionCounters() {
+		mainActionCounter = 1;
+		quickActionCounter = 1;
 	}
 
 	private boolean checkEndOfGame() {
@@ -104,8 +104,8 @@ public class Game extends Observable {
 	/**
 	 * @return the number of mainActionNumber
 	 */
-	public int getMainActionNumber() {
-		return mainActionNumber;
+	public int getMainActionCounter() {
+		return mainActionCounter;
 	}
 
 
@@ -113,8 +113,8 @@ public class Game extends Observable {
 	 * @param mainActionNumber2
 	 * set the number of main action still to be done
 	 */
-	public void setMainActionNumber(int mainActionNumber2) {
-		this.mainActionNumber = mainActionNumber2;		
+	public void setMainActionCounter(int mainActionNumber2) {
+		this.mainActionCounter = mainActionNumber2;		
 	}
 
 
@@ -128,15 +128,15 @@ public class Game extends Observable {
 	/**
 	 * @return the quickActionNumber
 	 */
-	public int getQuickActionNumber() {
-		return quickActionNumber;
+	public int getQuickActionCounter() {
+		return quickActionCounter;
 	}
 
 	/**
 	 * @param quickActionNumber the quickActionNumber to set
 	 */
-	public void setQuickActionNumber(int quickActionNumber) {
-		this.quickActionNumber = quickActionNumber;
+	public void setQuickActionCounter(int quickActionNumber) {
+		this.quickActionCounter = quickActionNumber;
 	}
 
 	/**

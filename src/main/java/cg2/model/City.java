@@ -19,7 +19,6 @@ public class City  extends Bonusable{
 	private final char firstChar;
 	private final Color cityColor;
 	//private final Set<City> linkedCities;
-	
 	private ArrayList<Emporium> emporiums;
 	
 	//i collegamenti saranno letti da file, perciò ci sarà una fase di creazione

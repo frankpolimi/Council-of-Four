@@ -81,6 +81,7 @@ public class View extends Observable implements Observer {
 		boolean condition;
 		do{
 			condition = false;
+			
 			System.out.println("Scegli che tipo di mossa vuoi eseguire (comando)");
 			if(game.getMainActionNumber() != 0)
 				System.out.println("1 - Principale (principale)\n");
