@@ -182,23 +182,22 @@ public class View extends Observable implements Observer {
 	
 	private <T> void selectBonus(String type) {
 		System.out.println("Inserisci il numero del bonus che vuoi ricevere");
-		List<T> tmp = null;
 		if(type.equals("ReuseTileBonus")){
-			List<T> buildingPermits = (List<T>) game.getPlayers().get(game.getCurrentPlayer()).getStatus().getBuildingPermits();
-			tmp = buildingPermits;
-			for(T b: tmp)
-				System.out.println(tmp.indexOf(b)+" - "+
+			List<BuildingPermit> buildingPermits = game.getPlayers().get(game.getCurrentPlayer()).getStatus().getBuildingPermits();
+			for(BuildingPermit b: buildingPermits)
+				System.out.println(buildingPermits.indexOf(b)+" - "+
 						((BuildingPermit) b).displayBonus());
 			//TODO
 		}
-		
+		/*
 		Scanner in = new Scanner(System.in);
 		int ins;
 		do{
 			ins = in.nextInt();
 		}while(ins < 0 || ins > tmp.size());
 		in.close();
-		this.update(tmp.get(ins));;
+		this.update(tmp.get(ins));
+		*/
 	}
 	
 	
