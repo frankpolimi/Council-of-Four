@@ -20,10 +20,11 @@ public class BuildEmproriumByPermit extends MainAction
 		
 		int otherEmporiums=city.getEmporiums().size();
 		
-		if(player.getStatus().getAssistants()-otherEmporiums>=0)
-			player.getStatus().setAssistants(player.getStatus().getAssistants()-otherEmporiums);
+		if(player.checkAssistants(otherEmporiums))
+			this.game.decrementMainActionCounter();
 		else System.out.println("Not enough assistants to build in this city. For each other player's emporium you have to pay 1 assistant");
 		
 		city.addEmporium(player);
+		game.decrementMainActionCounter();
 	}
 }

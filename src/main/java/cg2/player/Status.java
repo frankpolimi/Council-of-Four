@@ -20,11 +20,11 @@ public class Status {
 	private final List<BuildingPermit> buildingPermits;
 	private final List<BuildingPermit> usedBuildingPermits;
 	
-	public Status(int coins, int helpers){
+	public Status(int coins, int assistants){
 		this.coins = coins;
 		this.nobilityPoints = 0;
 		this.points = 0;
-		this.assistants = helpers;
+		this.assistants = assistants;
 		this.cardsOwned = new ArrayList<>();
 		this.buildingPermits = new ArrayList<>();
 		this.usedBuildingPermits = new ArrayList<>();
@@ -76,17 +76,17 @@ public class Status {
 	}
 
 	/**
-	 * @return the helpers
+	 * @return the assistants
 	 */
 	public int getAssistants() {
 		return assistants;
 	}
 
 	/**
-	 * @param helpers the helpers to set
+	 * @param assistants to set
 	 */
-	public void setAssistants(int helpers) {
-		this.assistants = helpers;
+	public void setAssistants(int assistants) {
+		this.assistants = assistants;
 	}
 
 	/**
@@ -118,6 +118,8 @@ public class Status {
 	public void addBuildingPermit(BuildingPermit bl){
 		buildingPermits.add(bl);
 	}
+	
+	
 
 	/**
 	 * @return the usedBuildingLicenses

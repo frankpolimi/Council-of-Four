@@ -14,7 +14,7 @@ public class AcquirePermit extends MainAction
 	{
 		if(payCouncil(player,council,politics))
 			if(council.getPermitsDeck().givePermit(player, permit))
-				this.game.decrementMainAction();
+				this.game.decrementMainActionCounter();
 	}
 
 

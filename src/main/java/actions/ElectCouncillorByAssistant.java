@@ -8,10 +8,11 @@ public class ElectCouncillorByAssistant extends QuickAction
 {
 	public void takeAction(Player player, Council council, Councillor councillor)
 	{
-		if(player.getStatus().getAssistants()>0)
+		if(player.checkAssistants(1))
 		{
-			player.getStatus().setAssistants(player.getStatus().getAssistants()-1);
 			council.electCouncillor(councillor);
+			this.game.decrementQuickActionCounter();
 		}
+		else System.out.println("You need at least 1 assistant to elect a councillor by quick action");
 	}
 }

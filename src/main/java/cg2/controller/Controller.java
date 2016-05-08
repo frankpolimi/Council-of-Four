@@ -44,7 +44,7 @@ public class Controller implements Observer {
 	@Override
 	public void update(String communication) {
 		if(communication.equals("salta")){
-			game.decrementQuickAction(); //Messo decrement perche' non sara' mai maggiore di 1 e quindi fare set 0 e' la stessa cosa
+			game.decrementQuickActionCounter(); //Messo decrement perche' non sara' mai maggiore di 1 e quindi fare set 0 e' la stessa cosa
 			System.out.println(game.getPlayers().get(game.getCurrentPlayer()).getName()
 					+" non puoi più eseguire azioni secondarie per questo turno");
 		}
