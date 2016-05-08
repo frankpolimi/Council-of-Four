@@ -51,7 +51,7 @@ public class Controller implements Observer {
 		else if(communication.equals("secondaria"))
 			this.showQuickAction(game.getQuickAction());
 		else if(communication.equals("salta")){
-			game.setQuickActionNumber(0);
+			game.setQuickActionCounter(0);
 			System.out.println(game.getPlayers().get(game.getCurrentPlayer()).getName()
 					+" non puoi più eseguire azioni secondarie per questo turno");
 		}
