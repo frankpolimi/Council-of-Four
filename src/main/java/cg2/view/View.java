@@ -89,7 +89,7 @@ public class View extends Observable implements Observer {
 					+ "(comando)\n"
 					+ "1 - Principale (principale)\n"
 					+ "2 - Secondaria (secondaria)\n");
-			if(game.getMainActionNumber() == 0)
+			if(game.getMainActionCounter() == 0)
 				System.out.println("3 - Salta mossa secondaria (salta)\n");
 
 			String selection = in.nextLine();

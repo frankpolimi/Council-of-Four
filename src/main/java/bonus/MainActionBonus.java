@@ -25,8 +25,8 @@ public class MainActionBonus extends ActionBonus {
 	@Override
 	public <T> void update(T playerOrGame) {
 		
-		((Game)playerOrGame).setMainActionNumber(
-				((Game)playerOrGame).getMainActionNumber()+1);
+		((Game)playerOrGame).setMainActionCounter(
+				((Game)playerOrGame).getMainActionCounter()+1);
 	}
 
 }
