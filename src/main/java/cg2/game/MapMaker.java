@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.io.*;
 import java.lang.reflect.Constructor;
 import java.util.*;
+import java.util.concurrent.ArrayBlockingQueue;
+
 import org.jdom2.*;
 import org.jdom2.input.SAXBuilder;
 import org.jgrapht.*;
@@ -17,13 +19,32 @@ import politics.JollyPoliticsCard;
 import politics.PoliticsCard;
 import politics.PoliticsDeck;
 import topology.Region;
+import council.*;
 
 
 public class MapMaker {
 	
-	private Map<Character, City> cityMap=new HashMap<>();
+	private final Map<Character, City> cityMap;
+	private Game game;
 	
+	private Council extractNewRegionalCouncil(Region region){
+		Random random= new Random();
+		RegionalCouncil regional;
+		List<Councillor> list=game.getAvaliableCouncillor();
+		ArrayBlockingQueue<Councillor> elected= new ArrayBlockingQueue<>(4);
+		while(elected.remainingCapacity()!=0){
+			Councillor councillor=list.remove(random.nextInt(list.size()));
+			elected.add(councillor);
+		}
+		regional=new RegionalCouncil(elected, this.createBuildingPermitDeck(region));
+		
+	}
 	
+	public MapMaker(Game game) {
+		this.cityMap = new HashMap<>();
+		this.game = game;
+	}
+
 	/**
 	 * This Method converts a colorRBG String like "r,g,b" where r,g and b are the integer values
 	 * of red, green and blue of the color represented.
@@ -150,6 +171,52 @@ public class MapMaker {
 		return tilesList;
 	}
 	
+	public PermitsDeck createBuildingPermitDeck(Region region) throws JDOMException, IOException{
+		Element root=this.getRootFromFile();
+		List<Element> reg=root.getChild("Regions").getChildren();
+		int i=0;
+		Element selectedReg;
+		while(i<reg.size()&&
+				!reg.get(i).getAttributeValue("name").toLowerCase().equals(region.getName().toLowerCase())){
+			selectedReg=reg.get(i);
+			i++;
+		}
+		
+		if(i==reg.size()){
+			throw new IllegalArgumentException();
+		}
+		
+		List<Element> permitList=selectedReg.getChild("permitsDeck").getChildren();
+		Iterator <Element> permitIt=permitList.iterator();
+		Set<BuildingPermit> permits=new HashSet<>();
+		while(permitIt.hasNext()){
+			BuildingPermit building;
+			Set<City> avCities=new HashSet<>();
+			Set<Bonus> bonusList=new HashSet<>();
+			Element permit=permitIt.next();
+			List<Attribute> permitCities=permit.getAttributes();
+			Iterator<Attribute> permitCitiesAttr=permitCities.iterator();
+			while(permitCitiesAttr.hasNext()){
+				Attribute attr=permitCitiesAttr.next();
+				City c=cityMap.get(attr.getValue().charAt(0));
+				avCities.add(c);
+			}
+			List<Element> permitBonus=permit.getChildren();
+			Iterator<Element> permitBonusIt=permitBonus.iterator();
+			while(permitBonusIt.hasNext()){
+				Element bonus=permitBonusIt.next();
+				try{
+				Bonus obj=this.getBonus(bonus.getAttributeValue("className"), Integer.parseInt(bonus.getAttributeValue("amount")));
+				bonusList.add(obj);
+				}catch(Exception e){e.printStackTrace();}
+				
+			}
+			building=new BuildingPermit(region, avCities, bonusList);
+			permits.add(building);
+		}
+		return permits;
+	}
+	
 	/**
 	 * 
 	 * @return the set of Regions used in the game
@@ -181,12 +248,14 @@ public class MapMaker {
 				cityMap.put(c.getFirstChar(), c);
 			}
 			
+				
+		}
 			
 			//r=new Region(regionName, arrayCity);
 			//allRegions.add(r);
-		}
-		return allRegions;
 	}
+		
+	
 	
 	public NobilityLane createNobilityLane() throws JDOMException, IOException{
 		NobilityLane nobilityLane=new NobilityLane();

@@ -179,5 +179,8 @@ public class Game extends Observable {
 		return politicsDeck;
 	}
 	
+	public List<Councillor> getAvaliableCouncillor(){
+		return this.avaliableCouncillors;
+	}
 	
 }
