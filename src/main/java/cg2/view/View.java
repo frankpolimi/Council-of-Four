@@ -180,7 +180,9 @@ public class View extends Observable implements Observer {
 			else if(a.getClass().equals(ChangeFaceUpPermits.class))
 				System.out.println(i+" - "+
 						((ChangeFaceUpPermits)a).toString());
-			//TODO complete
+			else if(a.getClass().equals(ExtraMainAction.class))
+				System.out.println(i+" - "+
+						((ExtraMainAction)a).toString());
 		}
 		return l;
 	}
@@ -210,6 +212,8 @@ public class View extends Observable implements Observer {
 				council.add(r.getCouncil());
 			for(Council c: council)
 				shown.addAll(c.getPermitsDeck().getFaceUpPermits());
+			for(BuildingPermit b: shown)
+				System.out.println(shown.indexOf(b)+" - "+b.displayBonus());
 				
 		}
 		/*

@@ -2,7 +2,6 @@ package cg2.model;
 import java.util.*;
 import java.util.concurrent.ArrayBlockingQueue;
 import cg2.player.Player;
-import council.Council;
 /**
  * 
  * @author Emanuele Ricciardelli modified by someone
