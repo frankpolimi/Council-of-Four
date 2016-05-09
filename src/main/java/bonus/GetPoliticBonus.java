@@ -40,7 +40,8 @@ public class GetPoliticBonus extends TileBonus {
 	public <T> void update(T playerOrGame) {
 		Game g = ((Game)playerOrGame);
 		Player p = g.getPlayers().get(g.getCurrentPlayer());
-		((Game)playerOrGame).getPoliticsDeck().drawCard(p);;
+		for(int i=0;i<super.getAmount();i++)
+			g.getPoliticsDeck().drawCard(p);
 	}
 	
 	@Override

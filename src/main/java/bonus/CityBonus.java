@@ -11,7 +11,11 @@ import cg2.view.View;
  */
 public class CityBonus extends ActionBonus {
 	
-	public CityBonus(View view) {
+	public CityBonus (int repeat){
+		this.amount = repeat;
+	}
+	
+	public void setView(View view) {
 		this.registerObserver(view);
 	}
 
@@ -30,7 +34,8 @@ public class CityBonus extends ActionBonus {
 	 */
 	@Override
 	public void update(){
-		this.notifyObservers(this.toString());
+		for(int i=0; i< this.amount;i++)
+			this.notifyObservers(this.toString());
 	}
 
 	/* (non-Javadoc)

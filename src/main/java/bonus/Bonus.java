@@ -9,4 +9,6 @@ public abstract class Bonus extends Observable implements Bonuser{
 	 * @author Francesco Vetrò
 	 */
 	
+	Integer amount;
+	
 }

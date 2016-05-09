@@ -11,7 +11,11 @@ import cg2.view.*;
  */
 public class FreeBuildingLicenseBonus extends ActionBonus {
 	
-	public FreeBuildingLicenseBonus(View view) {
+	public FreeBuildingLicenseBonus(int repeat) {
+		this.amount = repeat;
+	}
+	
+	public void setView(View view) {
 		this.registerObserver(view);
 	}
 
@@ -30,7 +34,8 @@ public class FreeBuildingLicenseBonus extends ActionBonus {
 	 */
 	@Override
 	public void update() {
-		this.notifyObservers(this.toString());
+		for(int i=0; i< this.amount;i++)
+			this.notifyObservers(this.toString());
 	}
 
 	/* (non-Javadoc)

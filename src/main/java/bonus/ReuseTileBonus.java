@@ -11,8 +11,12 @@ import cg2.view.*;
  */
 public class ReuseTileBonus extends ActionBonus {
 	
+	public ReuseTileBonus(int repeat) {
+		this.amount = repeat;
+	}
 	
-	public ReuseTileBonus(View view) {
+	
+	public void setView(View view) {
 		this.registerObserver(view);
 	}
 
@@ -31,7 +35,8 @@ public class ReuseTileBonus extends ActionBonus {
 	 */
 	@Override
 	public void update() {
-		this.notifyObservers(this.toString());
+		for(int i=0;i<this.amount;i++)
+			this.notifyObservers(this.toString());
 	}
 
 	/* (non-Javadoc)

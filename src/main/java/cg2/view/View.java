@@ -3,13 +3,14 @@
  */
 package cg2.view;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
-import java.util.Set;
 
 import actions.*;
 import cg2.observers.*;
+import council.Council;
 import cg2.game.Game;
 import cg2.model.BuildingPermit;
 import cg2.model.City;
@@ -196,14 +197,19 @@ public class View extends Observable implements Observer {
 		else if(type.equals("CityBonus")){
 			Iterator<Emporium> builtOn = 
 					game.getPlayers().get(game.getCurrentPlayer()).getEmporium().iterator();
-			List<City> cityWithE = null;
+			List<City> cityWithE = new ArrayList<City>();
 			while(builtOn.hasNext())
 				cityWithE.add(builtOn.next().getCity());
 			for(City c: cityWithE)
 				System.out.println(cityWithE.indexOf(c)+" - "+c.displayBonus());
 		}
 		else if(type.equals("FreeBuildingLicenseBonus")){
-			for(Region r: game.getRegions());
+			List<BuildingPermit> shown = new ArrayList<BuildingPermit>();
+			List<Council> council = new ArrayList<Council>();
+			for(Region r: game.getRegions())
+				council.add(r.getCouncil());
+			for(Council c: council)
+				shown.addAll(c.getPermitsDeck().getFaceUpPermits());
 				
 		}
 		/*

@@ -9,8 +9,6 @@ package bonus;
  */
 
 public abstract class TileBonus extends Bonus {
-
-	private Integer amount;
 	
 	/**
 	 * constructor specifing the amount of bonus
