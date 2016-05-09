@@ -6,11 +6,14 @@ package cg2.view;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
 
 import actions.*;
 import cg2.observers.*;
 import cg2.game.Game;
 import cg2.model.BuildingPermit;
+import cg2.model.City;
+import cg2.model.Emporium;
 
 
 /**
@@ -169,9 +172,9 @@ public class View extends Observable implements Observer {
 			if(a.getClass().equals(ElectCouncillorByAssistant.class))
 				System.out.println(i+" - "+
 						((ElectCouncillorByAssistant)a).toString());
-			else if(a.getClass().equals(EnageAssistant.class))
+			else if(a.getClass().equals(EngageAssistant.class))
 				System.out.println(i+" - "+
-						((EnageAssistant)a).toString());
+						((EngageAssistant)a).toString());
 			/*else if(a.getClass().equals(ShuffleFaceUpPermits.class))
 				System.out.println(i+" - "+
 						((ShuffleFaceUpPermits)a).toString());*/
@@ -183,11 +186,18 @@ public class View extends Observable implements Observer {
 	private <T> void selectBonus(String type) {
 		System.out.println("Inserisci il numero del bonus che vuoi ricevere");
 		if(type.equals("ReuseTileBonus")){
-			List<BuildingPermit> buildingPermits = game.getPlayers().get(game.getCurrentPlayer()).getStatus().getBuildingPermits();
+			List<BuildingPermit> buildingPermits = 
+					game.getPlayers().get(game.getCurrentPlayer()).getStatus().getBuildingPermits();
 			for(BuildingPermit b: buildingPermits)
 				System.out.println(buildingPermits.indexOf(b)+" - "+
 						((BuildingPermit) b).displayBonus());
-			//TODO
+		}
+		else if(type.equals("CityBonus")){
+			Iterator<Emporium> builtOn = 
+					game.getPlayers().get(game.getCurrentPlayer()).getEmporium().iterator();
+			for(int i=0;builtOn.hasNext();i++)
+				System.out.println(i+" - "+
+						builtOn.next().getCity().displayBonus());
 		}
 		/*
 		Scanner in = new Scanner(System.in);

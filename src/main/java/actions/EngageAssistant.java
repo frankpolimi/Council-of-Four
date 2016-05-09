@@ -2,7 +2,7 @@ package actions;
 
 import cg2.player.Player;
 
-public class EnageAssistant extends QuickAction 
+public class EngageAssistant extends QuickAction 
 {
 	public void takeAction(Player player)
 	{

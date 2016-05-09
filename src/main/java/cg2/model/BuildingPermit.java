@@ -63,6 +63,10 @@ public class BuildingPermit extends Bonusable{
 		return "BuildingPermit [buildingAvaliableCities=" + buildingAvaliableCities + "]";
 	}
 
+	/**
+	 * @author Francesco vetrò
+	 * @return the bonuses applied to the permit
+	 */
 	public String displayBonus() {
 		Iterator<Bonus> i = bonusList.iterator();
 		String x = "";
