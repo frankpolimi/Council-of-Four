@@ -27,7 +27,7 @@ public class MapMaker {
 	private final Map<Character, City> cityMap;
 	private Game game;
 	
-	private Council extractNewRegionalCouncil(Region region){
+	private Council extractNewRegionalCouncil(Region region) throws JDOMException, IOException{
 		Random random= new Random();
 		RegionalCouncil regional;
 		List<Councillor> list=game.getAvaliableCouncillor();
@@ -37,7 +37,7 @@ public class MapMaker {
 			elected.add(councillor);
 		}
 		regional=new RegionalCouncil(elected, this.createBuildingPermitDeck(region));
-		
+		return regional;
 	}
 	
 	public MapMaker(Game game) {
@@ -175,7 +175,7 @@ public class MapMaker {
 		Element root=this.getRootFromFile();
 		List<Element> reg=root.getChild("Regions").getChildren();
 		int i=0;
-		Element selectedReg;
+		Element selectedReg=new Element("");
 		while(i<reg.size()&&
 				!reg.get(i).getAttributeValue("name").toLowerCase().equals(region.getName().toLowerCase())){
 			selectedReg=reg.get(i);
@@ -188,7 +188,7 @@ public class MapMaker {
 		
 		List<Element> permitList=selectedReg.getChild("permitsDeck").getChildren();
 		Iterator <Element> permitIt=permitList.iterator();
-		Set<BuildingPermit> permits=new HashSet<>();
+		List<BuildingPermit> permits=new ArrayList<>();
 		while(permitIt.hasNext()){
 			BuildingPermit building;
 			Set<City> avCities=new HashSet<>();
@@ -214,7 +214,8 @@ public class MapMaker {
 			building=new BuildingPermit(region, avCities, bonusList);
 			permits.add(building);
 		}
-		return permits;
+		PermitsDeck pd=new PermitsDeck(permits);
+		return pd;
 	}
 	
 	/**
@@ -247,10 +248,10 @@ public class MapMaker {
 				arrayCity.add(c);
 				cityMap.put(c.getFirstChar(), c);
 			}
+			//da finire, controllare il macello creato con il rif di game(che è errato).
 			
-				
 		}
-			
+			return null;
 			//r=new Region(regionName, arrayCity);
 			//allRegions.add(r);
 	}
@@ -291,7 +292,7 @@ public class MapMaker {
 	}
 	
 	public static void main(String[] args)throws IOException, JDOMException {
-		MapMaker mp=new MapMaker();
+		MapMaker mp=new MapMaker(null);
 		mp.createNobilityLane();
 	}
 	
