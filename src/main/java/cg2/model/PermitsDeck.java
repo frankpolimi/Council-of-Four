@@ -11,7 +11,13 @@ import council.Council;
 public class PermitsDeck {
 	private List<BuildingPermit> buildingPermitsDeck;
 	private ArrayBlockingQueue<BuildingPermit> faceUpPermits;
+
 	
+	public PermitsDeck(List<BuildingPermit> buildingPermitsDeck) {
+		this.buildingPermitsDeck = buildingPermitsDeck;
+		this.faceUpPermits = new ArrayBlockingQueue<>(2);
+	}
+
 	public boolean givePermit(Player player, BuildingPermit permit)
 	{
 		if(faceUpPermits.contains(permit))
