@@ -3,25 +3,204 @@
 <map>
 	<regions>
 	<region name="land">
-		<city name="Arhon" initial="A" RGB="0,0,255"></city>  <!-- Vedere se inizializzare già qua i bonus -->
-		<city name="Burgon" initial="B" RGB="255,255,0"></city>
-		<city name="Castrum" initial="C" RGB="190,190,190"></city>
-		<city name="Dodul" initial="D" RGB="190,190,190"></city>
-		<city name="Esti" initial="E" RGB="255,0,0"></city>
+		<cities>
+			<city name="Arhon" initial="A" RGB="0,0,255"></city>  <!-- Vedere se inizializzare già qua i bonus -->
+			<city name="Burgon" initial="B" RGB="255,255,0"></city>
+			<city name="Castrum" initial="C" RGB="190,190,190"></city>
+			<city name="Dodul" initial="D" RGB="190,190,190"></city>
+			<city name="Esti" initial="E" RGB="255,0,0"></city>
+		</cities>
+		<permitsDeck>
+			<permit initial1="A" initial2="B" initial3="C">
+				<bonus className="AssistantBonus" amount="2"></bonus>
+			</permit>
+			<permit initial1="C">
+				<bonus className="AssistantBonus" amount="2"></bonus>
+				<bonus className="CoinBonus" amount="3"></bonus>
+			</permit>
+			<permit initial1="B" initial2="C" initial3="D">
+				<bonus className="AssistantBonus" amount="1"></bonus>
+				<bonus className="PointBonus" amount="1"></bonus>
+			</permit>
+			<permit initial1="A" initial2="B">
+				<bonus className="CoinBonus" amount="3"></bonus>
+				<bonus className="GetPoliticBonus" amount="1"></bonus>
+			</permit>
+			<permit initial1="A" initial2="B" initial3="E">
+				<bonus className="CoinBonus" amount="3"></bonus>
+			</permit>
+			<permit initial1="E">
+				<bonus className="CoinBonus" amount="2"></bonus>
+				<bonus className="MainActionBonus" amount="1"></bonus>
+			</permit>
+			<permit initial1="B" initial2="C">
+				<bonus className="CoinBonus" amount="3"></bonus>
+				<bonus className="PointBonus" amount="3"></bonus>
+			</permit>
+			<permit initial1="D">
+				<bonus className="PointBonus" amount="7"></bonus>
+			</permit>
+			<permit initial1="C" initial2="D" initial3="E">
+				<bonus className="GetPoliticBonus" amount="1"></bonus>
+				<bonus className="NobilityBonus" amount="1"></bonus>
+			</permit>
+			<permit initial1="A" initial2="E">
+				<bonus className="NobilityBonus" amount="2"></bonus>
+			</permit>
+			<permit initial1="C" initial2="D">
+				<bonus className="PointBonus" amount="3"></bonus>
+				<bonus className="AssistantBonus" amount="1"></bonus>
+			</permit>
+			<permit initial1="A" initial2="D" initial3="E">
+				<bonus className="CoinBonus" amount="1"></bonus>
+				<bonus className="PointBonus" amount="2"></bonus>
+			</permit>
+			<permit initial1="B">
+				<bonus className="GetPoliticBonus" amount="3"></bonus>
+				<bonus className="AssistantBonus" amount="1"></bonus>
+			</permit>
+			<permit initial1="D" initial2="E">
+				<bonus className="PointBonus" amount="3"></bonus>
+				<bonus className="AssistantBonus" amount="1"></bonus>
+			</permit>
+			<permit initial1="A">
+				<bonus className="PointBonus" amount="4"></bonus>
+				<bonus className="CoinBonus" amount="3"></bonus>
+			</permit>
+		</permitsDeck>
 	</region>
 	<region name="hill">
-		<city name="Franick" initial="F" RGB="255,255,0"></city>  <!-- Vedere se inizializzare già qua i bonus -->
-		<city name="Indur" initial="I" RGB="255,0,0"></city>
-		<city name="Gruden" initial="G" RGB="190,190,190"></city>
-		<city name="Juvelar" initial="J" RGB="160,32,240"></city>
-		<city name="Hellar" initial="H" RGB="255,255,0"></city>
+		<cities>
+			<city name="Franick" initial="F" RGB="255,255,0"></city>  <!-- Vedere se inizializzare già qua i bonus -->
+			<city name="Indur" initial="I" RGB="255,0,0"></city>
+			<city name="Gruden" initial="G" RGB="190,190,190"></city>
+			<city name="Juvelar" initial="J" RGB="160,32,240"></city>
+			<city name="Hellar" initial="H" RGB="255,255,0"></city>
+		</cities>
+		<permitsDeck>
+			<permit initial1="F" initial2="G" initial3="H">
+				<bonus className="NobilityBonus" amount="1"></bonus>
+				<bonus className="CoinBonus" amount="1"></bonus>
+			</permit>
+			<permit initial1="H" initial2="I">
+				<bonus className="PointBonus" amount="5"></bonus>
+			</permit>
+			<permit initial1="F">
+				<bonus className="GetPoliticBonus" amount="2"></bonus>
+				<bonus className="CoinBonus" amount="4"></bonus>
+			</permit>
+			<permit initial1="I" initial2="J">
+				<bonus className="NobilityBonus" amount="1"></bonus>
+				<bonus className="GetPoliticBonus" amount="2"></bonus>
+			</permit>
+			<permit initial1="I">
+				<bonus className="GetPoliticBonus" amount="2"></bonus>
+				<bonus className="AssistantBonus" amount="2"></bonus>
+			</permit>
+			<permit initial1="I" initial2="J" initial3="H">
+				<bonus className="GetPoliticBonus" amount="2"></bonus>
+			</permit>
+			<permit initial1="F" initial2="G">
+				<bonus className="CoinBonus" amount="5"></bonus>
+			</permit>
+			<permit initial1="H" initial2="G">
+				<bonus className="AssistantBonus" amount="3"></bonus>
+			</permit>
+			<permit initial1="J">
+				<bonus className="PointBonus" amount="2"></bonus>
+				<bonus className="MainActionBonus" amount="1"></bonus>
+			</permit>
+			<permit initial1="G">
+				<bonus className="NobilityBonus" amount="1"></bonus>
+				<bonus className="AssistantBonus" amount="2"></bonus>
+				<bonus className="PointBonus" amount="2"></bonus>
+			</permit>
+			<permit initial1="H">
+				<bonus className="AssistantBonus" amount="4"></bonus>
+			</permit>
+			<permit initial1="F" initial2="G" initial3="H">
+				<bonus className="CoinBonus" amount="2"></bonus>
+				<bonus className="PointBonus" amount="1"></bonus>
+			</permit>
+			<permit initial1="F" initial2="I" initial3="J">
+				<bonus className="NobilityBonus" amount="1"></bonus>
+				<bonus className="AssistantBonus" amount="1"></bonus>
+			</permit>
+			<permit initial1="F" initial2="J">
+				<bonus className="CoinBonus" amount="1"></bonus>
+				<bonus className="AssistantBonus" amount="2"></bonus>
+			</permit>
+			<permit initial1="G" initial2="I" initial3="H">
+				<bonus className="AssistantBonus" amount="1"></bonus>
+				<bonus className="GetPoliticBonus" amount="1"></bonus>
+			</permit>
+		</permitsDeck>
 	</region>
 	<region name="mountain">
-		<city name="Kultos" initial="K" RGB="255,255,0"></city>  <!-- Vedere se inizializzare già qua i bonus -->
-		<city name="Lyrum" initial="L" RGB="190,190,190"></city>
-		<city name="Naris" initial="N" RGB="255,0,0"></city>
-		<city name="Oslum" initial="O" RGB="255,255,0"></city>
-		<city name="Merkatim" initial="M" RGB="0,0,255"></city>
+		<cities>
+			<city name="Kultos" initial="K" RGB="255,255,0"></city>  <!-- Vedere se inizializzare già qua i bonus -->
+			<city name="Lyrum" initial="L" RGB="190,190,190"></city>
+			<city name="Naris" initial="N" RGB="255,0,0"></city>
+			<city name="Oslum" initial="O" RGB="255,255,0"></city>
+			<city name="Merkatim" initial="M" RGB="0,0,255"></city>
+		</cities>
+		<permitsDeck>
+			<permit initial1="M" initial2="N">
+				<bonus className="MainActionBonus" amount="1"></bonus>
+			</permit>
+			<permit initial1="M" initial2="L">
+				<bonus className="GetPoliticBonus" amount="3"></bonus>
+			</permit>
+			<permit initial1="M">
+				<bonus className="PointBonus" amount="5"></bonus>
+				<bonus className="NobilityBonus" amount="1"></bonus>
+			</permit>
+			<permit initial1="K">
+				<bonus className="GetPoliticBonus" amount="4"></bonus>
+			</permit>
+			<permit initial1="K" initial2="L">
+				<bonus className="GetPoliticBonus" amount="1"></bonus>
+				<bonus className="AssistantBonus" amount="2"></bonus>
+			</permit>
+			<permit initial1="K" initial2="L" initial3="O">
+				<bonus className="GetPoliticBonus" amount="1"></bonus>
+				<bonus className="CoinBonus" amount="1"></bonus>
+			</permit>
+			<permit initial1="K" initial2="L" initial3="M">
+				<bonus className="CoinBonus" amount="1"></bonus>
+				<bonus className="AssistantBonus" amount="1"></bonus>
+			</permit>
+			<permit initial1="N" initial2="O">
+				<bonus className="PointBonus" amount="2"></bonus>
+				<bonus className="GetPoliticBonus" amount="2"></bonus>
+			</permit>
+			<permit initial1="M" initial2="N" initial3="O">
+				<bonus className="PointBonus" amount="1"></bonus>
+				<bonus className="NobilityBonus" amount="1"></bonus>
+			</permit>
+			<permit initial1="M" initial2="N" initial3="L">
+				<bonus className="PointBonus" amount="3"></bonus>
+			</permit>
+			<permit initial1="K" initial2="N" initial3="O">
+				<bonus className="PointBonus" amount="1"></bonus>
+				<bonus className="GetPoliticBonus" amount="1"></bonus>
+			</permit>
+			<permit initial1="O" initial2="K">
+				<bonus className="GetPoliticBonus" amount="2"></bonus>
+				<bonus className="NobilityBonus" amount="1"></bonus>
+			</permit>
+			<permit initial1="O">
+				<bonus className="NobilityBonus" amount="1"></bonus>
+				<bonus className="GetPoliticBonus" amount="3"></bonus>
+			</permit>
+			<permit initial1="N">
+				<bonus className="CoinBonus" amount="7"></bonus>
+			</permit>
+			<permit initial1="L">
+				<bonus className="AssistantBonus" amount="3"></bonus>
+				<bonus className="CoinBonus" amount="1"></bonus>
+			</permit>
+		</permitsDeck>
 	</region>
 	</regions>
 	
@@ -53,8 +232,6 @@
 			<card type="coloured" RGB="0,0,255" number="13"></card><!-- blue -->
 			<card type="jolly" RGB="" number="13"></card>
 		</politicsDeck>
-		<permitsDeck name="permits">
-		</permitsDeck>
 		<helperDeck name="helper">
 			<helper number="30"></helper>
 		</helperDeck>
@@ -69,6 +246,63 @@
 			<tile type="regionTile" RGB="hill" points="5"></tile>
 			<tile type="regionTile" RGB="mountain" points="5"></tile>
 		</regionTileList> 
+		<kingTileList name="kingTileList">
+			<tile type="kingTile" points="25"></tile>
+			<tile type="kingTile" points="18"></tile>
+			<tile type="kingTile"  points="12"></tile>
+			<tile type="kingTile" points="7"></tile>
+			<tile type="kingTile" points="3"></tile>
+		</kingTileList>
+		<cityBonusList>
+			<cityBonus>
+				<bonus className="NobilityBonus" amount="1"></bonus>
+			</cityBonus>
+			<cityBonus>
+				<bonus className="NobilityBonus" amount="1"></bonus>
+			</cityBonus>
+			<cityBonus>
+				<bonus className="NobilityBonus" amount="1"></bonus>
+			</cityBonus>
+			<cityBonus>
+				<bonus className="GetPoliticBonus" amount="1"></bonus>
+				<bonus className="AssistantBonus" amount="1"></bonus>
+			</cityBonus>
+			<cityBonus>
+				<bonus className="PointBonus" amount="2"></bonus>
+			</cityBonus>
+			<cityBonus>
+				<bonus className="GetPoliticBonus" amount="1"></bonus>
+			</cityBonus>
+			<cityBonus>
+				<bonus className="CoinBonus" amount="3"></bonus>
+			</cityBonus>
+			<cityBonus>
+				<bonus className="GetPoliticBonus" amount="1"></bonus>
+				<bonus className="PointBonus" amount="1"></bonus>
+			</cityBonus>
+			<cityBonus>
+				<bonus className="CoinBonus" amount="1"></bonus>
+			</cityBonus>
+			<cityBonus>
+				<bonus className="AssistantBonus" amount="2"></bonus>
+			</cityBonus>
+			<cityBonus>
+				<bonus className="PointBonus" amount="1"></bonus>
+			</cityBonus>
+			<cityBonus>
+				<bonus className="PointBonus" amount="3"></bonus>
+			</cityBonus>
+			<cityBonus>
+				<bonus className="AssistantBonus" amount="1"></bonus>
+			</cityBonus>
+			<cityBonus>
+				<bonus className="AssistantBonus" amount="1"></bonus>
+				<bonus className="CoinBonus" amount="1"></bonus>
+			</cityBonus>
+			<cityBonus>
+				<bonus className="CoinBonus" amount="2"></bonus>
+			</cityBonus>
+		</cityBonusList>
 	</decks>
 	
 	<nobilityLane>
@@ -83,23 +317,23 @@
 		<position number="3">
 		</position>
 		<position number="4">
-			<bonus className="CityBonus" repeat="1"></bonus>
+			<bonus className="CityBonus" amount="1"></bonus>
 		</position>
 		<position number="5">
 		</position>
 		<position number="6">
-			<bonus className="MainActionBonus" repeat="1"></bonus>
+			<bonus className="MainActionBonus" amount="1"></bonus>
 		</position>
 		<position number="7">
 		</position>
 		<position number="8">
-			<bonus className="GetPoliticBonus" repeat="1"></bonus>
+			<bonus className="GetPoliticBonus" amount="1"></bonus>
 			<bonus className="PointBonus" amount="3"></bonus>
 		</position>
 		<position number="9">
 		</position>
 		<position number="10">
-			<bonus className="FreeBuildingLicenseBonus" repeat="1"></bonus>
+			<bonus className="FreeBuildingLicenseBonus" amount="1"></bonus>
 		</position>
 		<position number="11">
 		</position>
@@ -110,12 +344,11 @@
 		<position number="13">
 		</position>
 		<position number="14">
-			<bonus className="ReuseTileBonus" repeat="1"></bonus>
+			<bonus className="ReuseTileBonus" amount="1"></bonus>
 		</position>
 		<position number="15">
 		</position>
 		<position number="16">
-			<bonus className="CityBonus" repeat="2"></bonus>
 		</position>
 		<position number="17">
 		</position>

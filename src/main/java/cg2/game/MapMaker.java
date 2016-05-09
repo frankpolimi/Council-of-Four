@@ -40,6 +40,13 @@ public class MapMaker {
 		c=new Color(rgb.get(0),rgb.get(1),rgb.get(2));
 		return c;	
 	}
+	
+	private Bonus getBonus(String className, int amount) throws Exception{
+		Class<?> tile= Class.forName("bonus."+className);
+		Constructor<?> constructor= tile.getConstructor(Integer.class);
+		Bonus obj=(Bonus)constructor.newInstance(amount);
+		return obj;
+	}
 	/**
 	 * This method creates the graph that contains the game cities
 	 * @return
@@ -161,7 +168,7 @@ public class MapMaker {
 			Region r;
 			String regionName=region.getAttributeValue("name");
 			ArrayList<City> arrayCity=new ArrayList<>();
-			List<Element> cities=region.getChildren();
+			List<Element> cities=region.getChild("cities").getChildren();
 			Iterator<Element> cityIt=cities.iterator();
 			while(cityIt.hasNext()){
 				Element city=cityIt.next();
@@ -173,8 +180,10 @@ public class MapMaker {
 				arrayCity.add(c);
 				cityMap.put(c.getFirstChar(), c);
 			}
-			r=new Region(regionName, arrayCity);
-			allRegions.add(r);
+			
+			
+			//r=new Region(regionName, arrayCity);
+			//allRegions.add(r);
 		}
 		return allRegions;
 	}
@@ -191,22 +200,14 @@ public class MapMaker {
 			Iterator<Element> bonusIt=bonuses.iterator();
 			while(bonusIt.hasNext()){
 				Element bonus=bonusIt.next();
-				if(bonus.getAttributeValue("amount")==null){//modificare in base ai cambiamenti di oggi
-					try{
-					ActionBonus action=(ActionBonus) Class.forName("bonus."+bonus.getAttributeValue("className")).newInstance();
-					System.out.println("Posizione: "+pos+"Bonus:"+action.toString());
+				//da provare
+				try{
+					Bonus obj=this.getBonus(bonus.getAttributeValue("className"), Integer.parseInt(bonus.getAttributeValue("amount")));
+					System.out.println("Posizione: "+pos+"Bonus:"+obj.toString());
 					}catch(Exception e){e.printStackTrace();}
-				}else{
-					try{
-						Class<?> tile= Class.forName("bonus."+bonus.getAttributeValue("className"));
-						Constructor<?> constructor= tile.getConstructor(Integer.class);
-						TileBonus obj=(TileBonus)constructor.newInstance(Integer.parseInt(bonus.getAttributeValue("amount")));
-						System.out.println("Posizione: "+pos+"Bonus:"+obj.toString());
-						}catch(Exception e){e.printStackTrace();}
-				}
 			}
 		}
-		
+		//da finire
 		
 		
 		return null;
