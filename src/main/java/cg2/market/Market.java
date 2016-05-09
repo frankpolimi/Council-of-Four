@@ -12,9 +12,10 @@ import politics.PoliticsCard;
 
 /**
  * @author Francesco Vetrò
+ * @param <T> the type of the object 
  *
  */
-public class Market {
+public class Market<T> {
 
 	private List<MarketObject> products;
 	private int elementDisplayed;
@@ -31,7 +32,7 @@ public class Market {
 	 * add the selected product to the sellable items
 	 * @param product
 	 */
-	public <T> void addProduct(MarketObject<T> product){
+	public <T> void addProduct(MarketObject product){
 		this.products.add(product);
 	}
 	

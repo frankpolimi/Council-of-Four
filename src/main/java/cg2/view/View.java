@@ -14,6 +14,7 @@ import cg2.game.Game;
 import cg2.model.BuildingPermit;
 import cg2.model.City;
 import cg2.model.Emporium;
+import topology.Region;
 
 
 /**
@@ -175,9 +176,9 @@ public class View extends Observable implements Observer {
 			else if(a.getClass().equals(EngageAssistant.class))
 				System.out.println(i+" - "+
 						((EngageAssistant)a).toString());
-			/*else if(a.getClass().equals(ShuffleFaceUpPermits.class))
+			else if(a.getClass().equals(ChangeFaceUpPermits.class))
 				System.out.println(i+" - "+
-						((ShuffleFaceUpPermits)a).toString());*/
+						((ChangeFaceUpPermits)a).toString());
 			//TODO complete
 		}
 		return l;
@@ -195,9 +196,15 @@ public class View extends Observable implements Observer {
 		else if(type.equals("CityBonus")){
 			Iterator<Emporium> builtOn = 
 					game.getPlayers().get(game.getCurrentPlayer()).getEmporium().iterator();
-			for(int i=0;builtOn.hasNext();i++)
-				System.out.println(i+" - "+
-						builtOn.next().getCity().displayBonus());
+			List<City> cityWithE = null;
+			while(builtOn.hasNext())
+				cityWithE.add(builtOn.next().getCity());
+			for(City c: cityWithE)
+				System.out.println(cityWithE.indexOf(c)+" - "+c.displayBonus());
+		}
+		else if(type.equals("FreeBuildingLicenseBonus")){
+			for(Region r: game.getRegions());
+				
 		}
 		/*
 		Scanner in = new Scanner(System.in);
