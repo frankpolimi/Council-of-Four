@@ -15,7 +15,7 @@ public abstract class TileBonus extends Bonus {
 	 * @param importo
 	 */
 	public TileBonus(Integer amount){
-		this.amount = new Integer(amount);
+		super(amount);
 	}
 
 	/**

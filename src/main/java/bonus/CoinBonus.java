@@ -13,8 +13,8 @@ public class CoinBonus extends TileBonus {
 	 * construct a coin bonus with the given amount as parameter
 	 * @param importo
 	 */
-	public CoinBonus(Integer importo) {
-		super(importo);
+	public CoinBonus(Integer amount) {
+		super(amount);
 	}
 
 	/* (non-Javadoc)

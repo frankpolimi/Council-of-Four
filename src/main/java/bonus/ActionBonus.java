@@ -8,8 +8,8 @@ package bonus;
  */
 public class ActionBonus extends Bonus {
 	
-	public ActionBonus() {
-		super();
+	public ActionBonus(Integer repeat) {
+		super(repeat);
 	}
 
 	@Override

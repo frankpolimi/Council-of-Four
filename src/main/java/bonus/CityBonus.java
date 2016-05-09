@@ -11,8 +11,8 @@ import cg2.view.View;
  */
 public class CityBonus extends ActionBonus {
 	
-	public CityBonus (int repeat){
-		this.amount = repeat;
+	public CityBonus (Integer repeat){
+		super(repeat);
 	}
 	
 	public void setView(View view) {

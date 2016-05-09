@@ -11,8 +11,8 @@ import cg2.view.*;
  */
 public class FreeBuildingLicenseBonus extends ActionBonus {
 	
-	public FreeBuildingLicenseBonus(int repeat) {
-		this.amount = repeat;
+	public FreeBuildingLicenseBonus(Integer repeat) {
+		super(repeat);
 	}
 	
 	public void setView(View view) {

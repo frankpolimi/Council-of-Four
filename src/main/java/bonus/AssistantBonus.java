@@ -11,8 +11,8 @@ import cg2.player.*;
  */
 public class AssistantBonus extends TileBonus {
 
-	public AssistantBonus(Integer aiutanti) {
-		super(aiutanti);
+	public AssistantBonus(Integer amount) {
+		super(amount);
 	}
 
 	/**

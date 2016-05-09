@@ -11,4 +11,8 @@ public abstract class Bonus extends Observable implements Bonuser{
 	
 	Integer amount;
 	
+	public Bonus(Integer amount) {
+		this.amount = amount;
+	} 
+	
 }

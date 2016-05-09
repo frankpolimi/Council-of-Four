@@ -11,8 +11,8 @@ import cg2.game.Game;
  */
 public class MainActionBonus extends ActionBonus {
 	
-	public MainActionBonus() {
-		super();
+	public MainActionBonus(Integer repeat) {
+		super(repeat);
 	}
 
 	/* (non-Javadoc)

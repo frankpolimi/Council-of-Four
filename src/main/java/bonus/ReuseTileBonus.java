@@ -11,8 +11,8 @@ import cg2.view.*;
  */
 public class ReuseTileBonus extends ActionBonus {
 	
-	public ReuseTileBonus(int repeat) {
-		this.amount = repeat;
+	public ReuseTileBonus(Integer repeat) {
+		super(repeat);
 	}
 	
 	
