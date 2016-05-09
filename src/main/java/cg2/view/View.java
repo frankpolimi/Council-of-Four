@@ -128,24 +128,22 @@ public class View extends Observable implements Observer {
 	 * @return the message main_action and the number of the action to perform
 	 */
 	private void selectAction(String type) {
-		int ins;
-		int lenght;
+		int selection;
 		if(type.equals("main_action"))
-			lenght = this.showMainAction();
+			selection = this.numberSelection(this.showMainAction());
 		else
-			lenght = this.showQuickAction();
-		Scanner in = new Scanner(System.in);
-		do{
-			ins = in.nextInt();
-		}while(ins > lenght || ins < 0);
-		in.close();
-		//TODO select action
+			selection = this.numberSelection(this.showQuickAction());
+		
+		//TODO complete with send to the controller
 	}
 	
+	/**
+	 * display the main actions that can be performed
+	 * @return the number of main actions
+	 */
 	private int showMainAction(){
 		System.out.println("Inserisci il numero dell'azione che vuoi eseguire");
 		Iterator<? extends MainAction> x = game.getMainAction().iterator();
-		int l = game.getMainAction().size();
 		MainAction a;
 		for(int i = 1;x.hasNext(); i++){
 			a = x.next();
@@ -161,9 +159,13 @@ public class View extends Observable implements Observer {
 						((BuildEmproriumByPermit)a).toString());
 			//TODO complete
 		}
-		return l;
+		return game.getMainAction().size();
 	}
 	
+	/**
+	 * display the quick actions that can be performed
+	 * @return the number of quick actions
+	 */
 	private int showQuickAction(){
 		System.out.println("Inserisci il numero dell'azione che vuoi eseguire");
 		Iterator<? extends QuickAction> x = game.getQuickAction().iterator();
@@ -187,47 +189,89 @@ public class View extends Observable implements Observer {
 		return l;
 	}
 	
-	private <T> void selectBonus(String type) {
+	/**
+	 * displays 
+	 * @param type
+	 */
+	private void selectBonus(String type) {
+		int selection;
+		int length = 0;
+		if(type.equals("ReuseTileBonus"))
+			length = this.showBonusPermits();
+		else if(type.equals("CityBonus"))
+			length = this.showBonusCities();
+		else if(type.equals("FreeBuildingLicenseBonus"))
+			length = this.showFreeBuildingPermits();
+		selection = this.numberSelection(length);
+		//TODO complete with the send to the controller
+	}
+
+	
+
+	/**
+	 * display the bonus on the permits owned by the current player
+	 * @return the number of used and unused permits 
+	 */
+	private int showBonusPermits() {
 		System.out.println("Inserisci il numero del bonus che vuoi ricevere");
-		if(type.equals("ReuseTileBonus")){
-			List<BuildingPermit> buildingPermits = 
-					game.getPlayers().get(game.getCurrentPlayer()).getStatus().getBuildingPermits();
-			for(BuildingPermit b: buildingPermits)
-				System.out.println(buildingPermits.indexOf(b)+" - "+
-						((BuildingPermit) b).displayBonus());
-		}
-		else if(type.equals("CityBonus")){
-			Iterator<Emporium> builtOn = 
-					game.getPlayers().get(game.getCurrentPlayer()).getEmporium().iterator();
-			List<City> cityWithE = new ArrayList<City>();
-			while(builtOn.hasNext())
-				cityWithE.add(builtOn.next().getCity());
-			for(City c: cityWithE)
-				System.out.println(cityWithE.indexOf(c)+" - "+c.displayBonus());
-		}
-		else if(type.equals("FreeBuildingLicenseBonus")){
-			List<BuildingPermit> shown = new ArrayList<BuildingPermit>();
-			List<Council> council = new ArrayList<Council>();
-			for(Region r: game.getRegions())
-				council.add(r.getCouncil());
-			for(Council c: council)
-				shown.addAll(c.getPermitsDeck().getFaceUpPermits());
-			for(BuildingPermit b: shown)
-				System.out.println(shown.indexOf(b)+" - "+b.displayBonus());
-				
-		}
-		/*
+		List<BuildingPermit> buildingPermits = new ArrayList<BuildingPermit>();
+		buildingPermits.addAll(
+				game.getPlayers().get(game.getCurrentPlayer()).getStatus().getBuildingPermits());
+		buildingPermits.addAll(
+				game.getPlayers().get(game.getCurrentPlayer()).getStatus().getUsedBuildingPermits());
+		for(BuildingPermit b: buildingPermits)
+			System.out.println(buildingPermits.indexOf(b)+" - "+
+					((BuildingPermit) b).displayBonus());
+		return buildingPermits.size();
+	}
+	
+	/**
+	 * display the bonus on the cities in which is built an emporium
+	 * owned by the current player
+	 * @return the number of cities as specified above 
+	 */
+	private int showBonusCities() {
+		System.out.println("Inserisci il numero del bonus che vuoi ricevere");
+		Iterator<Emporium> builtOn = 
+				game.getPlayers().get(game.getCurrentPlayer()).getEmporium().iterator();
+		List<City> cityWithE = new ArrayList<City>();
+		while(builtOn.hasNext())
+			cityWithE.add(builtOn.next().getCity());
+		for(City c: cityWithE)
+			System.out.println(cityWithE.indexOf(c)+" - "+c.displayBonus());
+		return cityWithE.size();
+	}
+	
+	/**
+	 * display the face up permits for each region
+	 * @return the number of face up permits
+	 */
+	private int showFreeBuildingPermits() {
+		System.out.println("Inserisci il numero del permesso che vuoi ricevere");
+		List<BuildingPermit> shown = new ArrayList<BuildingPermit>();
+		List<Council> council = new ArrayList<Council>();
+		for(Region r: game.getRegions())
+			council.add(r.getCouncil());
+		for(Council c: council)
+			shown.addAll(c.getPermitsDeck().getFaceUpPermits());
+		for(BuildingPermit b: shown)
+			System.out.println(shown.indexOf(b)+" - "+b.toString());
+		return shown.size();
+	}
+
+	/**
+	 * perform the input and check if the number is between 0 (zero)
+	 * and the parameter specified by the methods above
+	 * @param maxAvailable the maximum number available in the selection menu
+	 * @return the desired entry of the menu as an int
+	 */
+	private int numberSelection(int maxAvailable){
 		Scanner in = new Scanner(System.in);
 		int ins;
 		do{
 			ins = in.nextInt();
-		}while(ins < 0 || ins > tmp.size());
+		}while(ins > maxAvailable || ins < 0);
 		in.close();
-		this.update(tmp.get(ins));
-		*/
+		return ins;
 	}
-	
-	
-	
-
 }
