@@ -11,7 +11,6 @@ import council.Council;
 public class PermitsDeck {
 	private List<BuildingPermit> buildingPermitsDeck;
 	private ArrayBlockingQueue<BuildingPermit> faceUpPermits;
-	private final Council council;
 	
 	public boolean givePermit(Player player, BuildingPermit permit)
 	{
@@ -46,15 +45,7 @@ public class PermitsDeck {
 		this.faceUpPermits = faceUpPermits;
 	}
 
-	public PermitsDeck(List<BuildingPermit> deck, Council council){
-		buildingPermitsDeck=deck;
-		this.council=council;
-	}
-
-	public Council getCouncil() {
-		return council;
-	}
-
+	
 	/**
 	 * @return the buildingPermitsDeck
 	 */
