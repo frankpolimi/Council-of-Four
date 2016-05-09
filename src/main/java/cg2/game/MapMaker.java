@@ -2,6 +2,7 @@ package cg2.game;
 
 import java.awt.Color;
 import java.io.*;
+import java.lang.reflect.Constructor;
 import java.util.*;
 import org.jdom2.*;
 import org.jdom2.input.SAXBuilder;
@@ -91,10 +92,10 @@ public class MapMaker {
 	 * @throws IOException  when an I/O error prevents a document from being fully parsed
 	 */
 	public PoliticsDeck createPoliticsDeck() throws JDOMException, IOException{
-		PoliticsDeck politicsCards= new PoliticsDeck();
-		List<PoliticsCard> cards=new ArrayList<>();
+		PoliticsDeck politicsCards;
+		ArrayList<PoliticsCard> cards=new ArrayList<>();
 		Element root=getRootFromFile();
-		List<Element> cardChild=root.getChild("decks").getChild("deck").getChildren();
+		List<Element> cardChild=root.getChild("decks").getChild("politicsDeck").getChildren();
 		Iterator<Element> cardIt=cardChild.iterator();
 		while(cardIt.hasNext()){
 			Element card=cardIt.next();
@@ -113,8 +114,9 @@ public class MapMaker {
 				}
 			}
 		}	
-		//manca la parte di inserimento nel mazzo
-		return null;
+		politicsCards=new PoliticsDeck(cards);
+		
+		return politicsCards;
 		
 	}
 	
@@ -182,18 +184,31 @@ public class MapMaker {
 		Element root=this.getRootFromFile();
 		List<Element> nobilityPosition=root.getChild("nobilityLane").getChildren();
 		Iterator<Element> nobIt=nobilityPosition.iterator();
-		/*while(nobIt.hasNext()){
+		while(nobIt.hasNext()){
 			Element position=nobIt.next();
-			//int pos=Integer.parseInt(position.getAttributeValue("number"));
-			
-		}*/
-		try{
-			Bonus bonus =(Bonus) Class.forName("bonus.ReuseTileBonus").newInstance();
-		}catch(Exception e){
-			e.printStackTrace();
-			System.out.println(e.getMessage());
+			int pos=Integer.parseInt(position.getAttributeValue("number"));
+			List<Element> bonuses=position.getChildren();
+			Iterator<Element> bonusIt=bonuses.iterator();
+			while(bonusIt.hasNext()){
+				Element bonus=bonusIt.next();
+				if(bonus.getAttributeValue("amount")==null){//modificare in base ai cambiamenti di oggi
+					try{
+					ActionBonus action=(ActionBonus) Class.forName("bonus."+bonus.getAttributeValue("className")).newInstance();
+					System.out.println("Posizione: "+pos+"Bonus:"+action.toString());
+					}catch(Exception e){e.printStackTrace();}
+				}else{
+					try{
+						Class<?> tile= Class.forName("bonus."+bonus.getAttributeValue("className"));
+						Constructor<?> constructor= tile.getConstructor(Integer.class);
+						TileBonus obj=(TileBonus)constructor.newInstance(Integer.parseInt(bonus.getAttributeValue("amount")));
+						System.out.println("Posizione: "+pos+"Bonus:"+obj.toString());
+						}catch(Exception e){e.printStackTrace();}
+				}
+			}
 		}
-		System.out.println("OK");
+		
+		
+		
 		return null;
 	}
 	
