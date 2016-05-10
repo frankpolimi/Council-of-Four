@@ -46,7 +46,7 @@ public class GetPoliticBonus extends TileBonus {
 	
 	@Override
 	public String toString(){
-		return "PoliticBonus";
+		return "PoliticBonus"+super.toString();
 	}
 
 }

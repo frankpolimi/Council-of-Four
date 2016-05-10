@@ -357,6 +357,7 @@
 		<position number="15">
 		</position>
 		<position number="16">
+			<bonus className="CityBonus" amount="2"></bonus>
 		</position>
 		<position number="17">
 		</position>

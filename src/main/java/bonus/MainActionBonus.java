@@ -28,4 +28,13 @@ public class MainActionBonus extends ActionBonus {
 		((Game)playerOrGame).incrementMainActionCounter();
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "MainActionBonus [amount=" + amount + "]";
+	}
+
+	
 }

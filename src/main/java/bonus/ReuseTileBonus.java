@@ -44,7 +44,7 @@ public class ReuseTileBonus extends ActionBonus {
 	 */
 	@Override
 	public String toString() {
-		return "ReuseTileBonus";
+		return "ReuseTileBonus"+super.toString();
 	}
 
 }

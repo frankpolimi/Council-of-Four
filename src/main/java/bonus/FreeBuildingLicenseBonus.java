@@ -43,7 +43,7 @@ public class FreeBuildingLicenseBonus extends ActionBonus {
 	 */
 	@Override
 	public String toString() {
-		return "FreeBuildingLicenseBonus";
+		return "FreeBuildingLicenseBonus"+super.toString();
 	}
 
 }

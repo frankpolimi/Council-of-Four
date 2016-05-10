@@ -43,4 +43,14 @@ public class Bonusable {
 		for(Bonuser b: bonuses)
 			b.update(playerorgame);
 	}
+
+	/**
+	 * @return the bonuses
+	 */
+	public List<Bonuser> getBonuses() {
+		return bonuses;
+	}
+
+	
+	
 }

@@ -43,7 +43,7 @@ public class CityBonus extends ActionBonus {
 	 */
 	@Override
 	public String toString() {
-		return "CityBonus";
+		return "CityBonus" + super.toString();
 	}
 	
 	
