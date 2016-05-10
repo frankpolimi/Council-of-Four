@@ -6,7 +6,6 @@ package cg2.view;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Scanner;
 
 import actions.*;
 import cg2.observers.*;
@@ -33,11 +32,13 @@ public class View extends Observable implements Observer {
 	 * possible client a which is connected the view
 	 * 1:1 mapping client-view
 	 */
+	private final int playerID;
 	
-	public View(Game game) {
+	public View(Game game, int playerID) {
 		super();
 		this.game = game;
 		game.registerObserver(this);
+		this.playerID = playerID;
 	}
 
 	/**
@@ -45,11 +46,29 @@ public class View extends Observable implements Observer {
 	 * @param command the input coming from the client
 	 */
 	public void input(String command){
+		String selection = null;
+		/*
+		 * just the display of the actions
+		 * can be performed as a help to the player without checking
+		 */
 		if(command.equals("main action"))
 			this.showMainAction();
 		else if(command.equals("quick action"))
 			this.showQuickAction();
-			
+		/*
+		 * must check if it's player's input turn
+		 */
+		if(this.playerID == game.getCurrentPlayer().getPlayerID()){
+			for(MainAction a: game.getMainAction()){
+				if(command.equals(a.toString()));
+					//get parameters ready for the action
+			}
+			for(QuickAction a: game.getQuickAction()){
+				if(command.equals(a.toString()));
+					//get parameters ready for the action
+			}
+		}
+		
 	}
 	
 	/* (non-Javadoc)
@@ -168,8 +187,7 @@ public class View extends Observable implements Observer {
 		buildingPermits.addAll(
 				game.getCurrentPlayer().getStatus().getUsedBuildingPermits());
 		for(BuildingPermit b: buildingPermits)
-			System.out.println(buildingPermits.indexOf(b)+" - "+
-					((BuildingPermit) b).displayBonus());
+			System.out.println(buildingPermits.indexOf(b)+" - "+b.displayBonus());
 		//int x = this.numberSelection(buildingPermits.size());
 		//this.input(buildingPermits.get(x));
 	}
@@ -208,21 +226,5 @@ public class View extends Observable implements Observer {
 			System.out.println(shown.indexOf(b)+" - "+b.toString());
 		//int x = this.numberSelection(shown.size());
 		//this.input(x);
-	}
-
-	/**
-	 * perform the input and check if the number is between 0 (zero)
-	 * and the parameter specified by the methods above
-	 * @param maxAvailable the maximum number available in the selection menu
-	 * @return the desired entry of the menu as an int
-	 */
-	private int numberSelection(int maxAvailable){
-		Scanner in = new Scanner(System.in);
-		int ins;
-		do{
-			ins = in.nextInt();
-		}while(ins > maxAvailable || ins < 0);
-		in.close();
-		return ins;
 	}
 }
