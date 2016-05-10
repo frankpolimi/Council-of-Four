@@ -17,7 +17,7 @@ public class BuildingPermit extends Bonusable{
 	private final Set<Bonus> bonusList;
 	private final Set<City> buildingAvaliableCities;
 
-	public BuildingPermit(Region region, Set<City> ba, Set<Bonus> bonus){
+	public BuildingPermit(Set<City> ba, Set<Bonus> bonus){
 		buildingAvaliableCities=ba;
 		firstChars=new HashSet<>();
 		this.bonusList = bonus;

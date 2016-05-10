@@ -25,25 +25,43 @@ import council.*;
 public class MapMaker {
 	
 	private final Map<Character, City> cityMap;
-	private Game game;
+	private final List<Councillor> extractedCouncillors;
 	
-	private Council extractNewRegionalCouncil(Region region) throws JDOMException, IOException{
+	//Constructor
+	public MapMaker() throws JDOMException, IOException {
+		this.cityMap = new HashMap<>();
+		this.extractedCouncillors = new ArrayList<>();
+		this.fillExtractedCouncillors();
+	}
+	
+	//Council
+	private void fillExtractedCouncillors() throws JDOMException, IOException{
+		Element root=this.getRootFromFile();
+		List<Element> avCouncillors=root.getChild("decks").getChild("avaliableCouncillors").getChildren();
+		Iterator<Element> avIt=avCouncillors.iterator();
+		while(avIt.hasNext()){
+			Element councillorEl=avIt.next();
+			int num=Integer.parseInt(councillorEl.getAttributeValue("number"));
+			for(int i=0;i<num;i++){
+				Color color=this.convert(councillorEl.getAttributeValue("RGB"));
+				Councillor cons= new Councillor(color);
+				extractedCouncillors.add(cons);
+			}
+		}
+	}
+	
+	private RegionalCouncil extractNewRegionalCouncil(String regionName) throws JDOMException, IOException{
 		Random random= new Random();
 		RegionalCouncil regional;
-		List<Councillor> list=game.getAvaliableCouncillor();
 		ArrayBlockingQueue<Councillor> elected= new ArrayBlockingQueue<>(4);
 		while(elected.remainingCapacity()!=0){
-			Councillor councillor=list.remove(random.nextInt(list.size()));
+			Councillor councillor=extractedCouncillors.remove(random.nextInt(extractedCouncillors.size()));
 			elected.add(councillor);
 		}
-		regional=new RegionalCouncil(elected, this.createBuildingPermitDeck(region));
+		regional=new RegionalCouncil(elected, this.createBuildingPermitDeck(regionName));
 		return regional;
 	}
 	
-	public MapMaker(Game game) {
-		this.cityMap = new HashMap<>();
-		this.game = game;
-	}
 
 	/**
 	 * This Method converts a colorRBG String like "r,g,b" where r,g and b are the integer values
@@ -171,13 +189,13 @@ public class MapMaker {
 		return tilesList;
 	}
 	
-	public PermitsDeck createBuildingPermitDeck(Region region) throws JDOMException, IOException{
+	public PermitsDeck createBuildingPermitDeck(String regionName) throws JDOMException, IOException{
 		Element root=this.getRootFromFile();
 		List<Element> reg=root.getChild("Regions").getChildren();
 		int i=0;
 		Element selectedReg=new Element("");
 		while(i<reg.size()&&
-				!reg.get(i).getAttributeValue("name").toLowerCase().equals(region.getName().toLowerCase())){
+				!reg.get(i).getAttributeValue("name").toLowerCase().equals(regionName.toLowerCase())){
 			selectedReg=reg.get(i);
 			i++;
 		}
@@ -211,7 +229,7 @@ public class MapMaker {
 				}catch(Exception e){e.printStackTrace();}
 				
 			}
-			building=new BuildingPermit(region, avCities, bonusList);
+			building=new BuildingPermit(avCities, bonusList);
 			permits.add(building);
 		}
 		PermitsDeck pd=new PermitsDeck(permits);
@@ -248,12 +266,13 @@ public class MapMaker {
 				arrayCity.add(c);
 				cityMap.put(c.getFirstChar(), c);
 			}
-			//da finire, controllare il macello creato con il rif di game(che è errato).
-			
+			RegionalCouncil rc=this.extractNewRegionalCouncil(regionName);
+			PermitsDeck permits= rc.getPermitsDeck();
+			r=new Region(regionName, arrayCity, rc, permits);
+			allRegions.add(r);
 		}
-			return null;
-			//r=new Region(regionName, arrayCity);
-			//allRegions.add(r);
+			return allRegions;
+		
 	}
 		
 	
@@ -292,7 +311,7 @@ public class MapMaker {
 	}
 	
 	public static void main(String[] args)throws IOException, JDOMException {
-		MapMaker mp=new MapMaker(null);
+		MapMaker mp=new MapMaker();
 		mp.createNobilityLane();
 	}
 	

@@ -303,6 +303,14 @@
 				<bonus className="CoinBonus" amount="2"></bonus>
 			</cityBonus>
 		</cityBonusList>
+		<avaliableCouncillors>
+			<councillor type="coloured" RGB="255,20,147" number="4"></councillor><!-- dark pink -->
+			<councillor type="coloured" RGB="255,255,255" number="4"></councillor><!-- white -->
+			<councillor type="coloured" RGB="255,165,0" number="4"></councillor><!-- orange -->
+			<councillor type="coloured" RGB="0,0,0" number="4"></councillor><!-- black -->
+			<councillor type="coloured" RGB="128,0,128" number="4"></councillor><!-- purple -->
+			<councillor type="coloured" RGB="0,0,255" number="4"></councillor><!-- blue -->
+		</avaliableCouncillors>
 	</decks>
 	
 	<nobilityLane>
