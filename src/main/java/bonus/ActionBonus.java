@@ -26,4 +26,13 @@ public class ActionBonus extends Bonus {
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "ActionBonus [amount=" + amount + "]";
+	}
+
+	
 }
