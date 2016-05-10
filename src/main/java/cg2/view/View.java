@@ -84,33 +84,33 @@ public class View extends Observable implements Observer {
 		Scanner in = new Scanner(System.in);
 		
 		//as a default move the player will always start with a main action
-		String selection = "principale";
+		int selection = 1;
 		
 		boolean condition;
 		do{
 			condition = false;
 			
-			System.out.println("Scegli che tipo di mossa vuoi eseguire (comando)");
+			System.out.println("Scegli che tipo di mossa vuoi eseguire");
 			if(game.getMainActionCounter() != 0)
-				System.out.println("1 - Principale (principale)\n");
+				System.out.println("1 - Principale");
 			if(game.getQuickActionCounter() != 0)
-				System.out.println("2 - Secondaria (secondaria)\n");
+				System.out.println("2 - Secondaria");
 			if(game.getMainActionCounter() == 0)
-				System.out.println("3 - Salta mossa secondaria (salta)\n");
+				System.out.println("3 - Salta mossa secondaria");
 
-			selection = in.nextLine();
+			selection = in.nextInt();
 			switch(selection){
-				case "principale":{
+				case 1:{
 					in.close();
 					this.selectAction("main_action");
 					break;
 				}
-				case "secondaria":{
+				case 2:{
 					in.close();
 					this.selectAction("quick_action");
 					break;
 				}
-				case "salta":{
+				case 3:{
 					in.close();
 					break;
 				}
