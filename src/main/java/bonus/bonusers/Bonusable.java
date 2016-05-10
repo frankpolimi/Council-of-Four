@@ -3,25 +3,15 @@
  * tiles of the game.
  */
 package bonus.bonusers;
-
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author Francesco Vetrò
  * 
  */
-public class Bonusable {
+public abstract class Bonusable {
 
 	List<Bonuser> bonuses;
-	
-	
-	/**
-	 * create the list of bonuses
-	 */
-	public Bonusable(){
-		bonuses = new ArrayList<Bonuser>();
-	}
 	
 	/**
 	 * add a bonus
@@ -42,15 +32,5 @@ public class Bonusable {
 	public <T> void applyBonus(T playerorgame){
 		for(Bonuser b: bonuses)
 			b.update(playerorgame);
-	}
-
-	/**
-	 * @return the bonuses
-	 */
-	public List<Bonuser> getBonuses() {
-		return bonuses;
-	}
-
-	
-	
+	}	
 }

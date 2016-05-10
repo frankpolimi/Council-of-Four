@@ -19,12 +19,20 @@ import topology.Region;
 
 
 /**
- * @author Emanuele
- *
+ * this class will provide the selections that leads to an opportunity
+ * for a creation of an action. this will be submitted to the judgment that will
+ * validate if is the player's turn and will prepare the action. the view will 
+ * prompt the right parameters to set from the right client 
+ * and will transfer to the controller a complete action to execute.
+ * @author Francesco Vetrò
  */
 public class View extends Observable implements Observer {
 	
 	private final Game game;
+	/*
+	 * possible client a which is connected the view
+	 * 1:1 mapping client-view
+	 */
 	
 	public View(Game game) {
 		super();
@@ -34,13 +42,14 @@ public class View extends Observable implements Observer {
 
 	/**
 	 * gives the input to the controller
-	 * @param <T> command: the generic type of command to be given to the controller
+	 * @param command the input coming from the client
 	 */
-	public <T> void input(T command){
-		if(command.getClass().equals(String.class))
-			this.notifyObservers((String)command);
-		else
-			this.notifyObservers(command);
+	public void input(String command){
+		if(command.equals("main action"))
+			this.showMainAction();
+		else if(command.equals("quick action"))
+			this.showQuickAction();
+			
 	}
 	
 	/* (non-Javadoc)
@@ -97,8 +106,9 @@ public class View extends Observable implements Observer {
 				System.out.println("2 - Secondaria");
 			if(game.getMainActionCounter() == 0)
 				System.out.println("3 - Salta mossa secondaria");
+			
+			selection = this.numberSelection(3);
 
-			selection = in.nextInt();
 			switch(selection){
 				case 1:{
 					in.close();
@@ -131,11 +141,11 @@ public class View extends Observable implements Observer {
 	 * @return the message main_action and the number of the action to perform
 	 */
 	private void selectAction(String type) {
-		int selection;
-		if(type.equals("main_action"))
-			selection = this.numberSelection(this.showMainAction());
-		else
-			selection = this.numberSelection(this.showQuickAction());
+		//int selection;
+		//if(type.equals("main_action"))
+			//selection = this.numberSelection(this.showMainAction());
+		//else
+			//selection = this.numberSelection(this.showQuickAction());
 		
 		//TODO complete with send to the controller
 	}
@@ -144,52 +154,25 @@ public class View extends Observable implements Observer {
 	 * display the main actions that can be performed
 	 * @return the number of main actions
 	 */
-	private int showMainAction(){
+	private void showMainAction(){
 		System.out.println("Inserisci il numero dell'azione che vuoi eseguire");
 		Iterator<? extends MainAction> x = game.getMainAction().iterator();
-		MainAction a;
 		for(int i = 1;x.hasNext(); i++){
-			a = x.next();
-			if(a.getClass().equals(AcquirePermit.class)){
-				System.out.println(i+" - "+
-						((AcquirePermit)a).toString());
-			}
-			else if(a.getClass().equals(ElectCouncillor.class))
-				System.out.println(i+" - "+
-						((ElectCouncillor)a).toString());
-			else if(a.getClass().equals(BuildEmproriumByPermit.class))
-				System.out.println(i+" - "+
-						((BuildEmproriumByPermit)a).toString());
-			//TODO complete missing king action
+			System.out.println(i+" - "+x.next().toString());
 		}
-		return game.getMainAction().size();
+		//return game.getMainAction().size();
 	}
 	
 	/**
 	 * display the quick actions that can be performed
 	 * @return the number of quick actions
 	 */
-	private int showQuickAction(){
+	private void showQuickAction(){
 		System.out.println("Inserisci il numero dell'azione che vuoi eseguire");
 		Iterator<? extends QuickAction> x = game.getQuickAction().iterator();
-		int l = game.getQuickAction().size();
-		QuickAction a;
-		for(int i = 1;x.hasNext(); i++){
-			a = x.next();
-			if(a.getClass().equals(ElectCouncillorByAssistant.class))
-				System.out.println(i+" - "+
-						((ElectCouncillorByAssistant)a).toString());
-			else if(a.getClass().equals(EngageAssistant.class))
-				System.out.println(i+" - "+
-						((EngageAssistant)a).toString());
-			else if(a.getClass().equals(ChangeFaceUpPermits.class))
-				System.out.println(i+" - "+
-						((ChangeFaceUpPermits)a).toString());
-			else if(a.getClass().equals(ExtraMainAction.class))
-				System.out.println(i+" - "+
-						((ExtraMainAction)a).toString());
-		}
-		return l;
+		for(int i = 1;x.hasNext(); i++)
+				System.out.println(i+" - "+x.toString());
+		//return l;
 	}
 	
 	/**
@@ -221,8 +204,8 @@ public class View extends Observable implements Observer {
 		for(BuildingPermit b: buildingPermits)
 			System.out.println(buildingPermits.indexOf(b)+" - "+
 					((BuildingPermit) b).displayBonus());
-		int x = this.numberSelection(buildingPermits.size());
-		this.input(buildingPermits.get(x));
+		//int x = this.numberSelection(buildingPermits.size());
+		//this.input(buildingPermits.get(x));
 	}
 	
 	/**
@@ -239,8 +222,8 @@ public class View extends Observable implements Observer {
 			cityWithE.add(builtOn.next().getCity());
 		for(City c: cityWithE)
 			System.out.println(cityWithE.indexOf(c)+" - "+c.displayBonus());
-		int x = this.numberSelection(cityWithE.size());
-		this.input(cityWithE.get(x));
+		//int x = this.numberSelection(cityWithE.size());
+		//this.input(cityWithE.get(x));
 	}
 	
 	/**
@@ -257,8 +240,8 @@ public class View extends Observable implements Observer {
 			shown.addAll(c.getPermitsDeck().getFaceUpPermits());
 		for(BuildingPermit b: shown)
 			System.out.println(shown.indexOf(b)+" - "+b.toString());
-		int x = this.numberSelection(shown.size());
-		this.input(x);
+		//int x = this.numberSelection(shown.size());
+		//this.input(x);
 	}
 
 	/**
