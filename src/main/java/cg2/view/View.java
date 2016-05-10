@@ -34,10 +34,13 @@ public class View extends Observable implements Observer {
 
 	/**
 	 * gives the input to the controller
-	 * @param command
+	 * @param <T> command: the generic type of command to be given to the controller
 	 */
-	public void input(String command){
-		this.notifyObservers(command);
+	public <T> void input(T command){
+		if(command.getClass().equals(String.class))
+			this.notifyObservers((String)command);
+		else
+			this.notifyObservers(command);
 	}
 	
 	/* (non-Javadoc)
@@ -157,7 +160,7 @@ public class View extends Observable implements Observer {
 			else if(a.getClass().equals(BuildEmproriumByPermit.class))
 				System.out.println(i+" - "+
 						((BuildEmproriumByPermit)a).toString());
-			//TODO complete
+			//TODO complete missing king action
 		}
 		return game.getMainAction().size();
 	}
@@ -190,29 +193,25 @@ public class View extends Observable implements Observer {
 	}
 	
 	/**
-	 * displays 
-	 * @param type
+	 * displays the different bonuses that require an input from the user
+	 * @param type of the bonus
 	 */
 	private void selectBonus(String type) {
-		int selection;
-		int length = 0;
 		if(type.equals("ReuseTileBonus"))
-			length = this.showBonusPermits();
+			this.showBonusPermits();
 		else if(type.equals("CityBonus"))
-			length = this.showBonusCities();
+			this.showBonusCities();
 		else if(type.equals("FreeBuildingLicenseBonus"))
-			length = this.showFreeBuildingPermits();
-		selection = this.numberSelection(length);
-		//TODO complete with the send to the controller
+			this.showFreeBuildingPermits();
 	}
 
 	
 
 	/**
 	 * display the bonus on the permits owned by the current player
-	 * @return the number of used and unused permits 
+	 * gives the controller the desired permit to reuse the bonus
 	 */
-	private int showBonusPermits() {
+	private void showBonusPermits() {
 		System.out.println("Inserisci il numero del bonus che vuoi ricevere");
 		List<BuildingPermit> buildingPermits = new ArrayList<BuildingPermit>();
 		buildingPermits.addAll(
@@ -222,15 +221,16 @@ public class View extends Observable implements Observer {
 		for(BuildingPermit b: buildingPermits)
 			System.out.println(buildingPermits.indexOf(b)+" - "+
 					((BuildingPermit) b).displayBonus());
-		return buildingPermits.size();
+		int x = this.numberSelection(buildingPermits.size());
+		this.input(buildingPermits.get(x));
 	}
 	
 	/**
 	 * display the bonus on the cities in which is built an emporium
 	 * owned by the current player
-	 * @return the number of cities as specified above 
+	 * gives the controller the desired city 
 	 */
-	private int showBonusCities() {
+	private void showBonusCities() {
 		System.out.println("Inserisci il numero del bonus che vuoi ricevere");
 		Iterator<Emporium> builtOn = 
 				game.getPlayers().get(game.getCurrentPlayer()).getEmporium().iterator();
@@ -239,14 +239,15 @@ public class View extends Observable implements Observer {
 			cityWithE.add(builtOn.next().getCity());
 		for(City c: cityWithE)
 			System.out.println(cityWithE.indexOf(c)+" - "+c.displayBonus());
-		return cityWithE.size();
+		int x = this.numberSelection(cityWithE.size());
+		this.input(cityWithE.get(x));
 	}
 	
 	/**
 	 * display the face up permits for each region
-	 * @return the number of face up permits
+	 * gives the controller the desired building permits to acquire
 	 */
-	private int showFreeBuildingPermits() {
+	private void showFreeBuildingPermits() {
 		System.out.println("Inserisci il numero del permesso che vuoi ricevere");
 		List<BuildingPermit> shown = new ArrayList<BuildingPermit>();
 		List<Council> council = new ArrayList<Council>();
@@ -256,7 +257,8 @@ public class View extends Observable implements Observer {
 			shown.addAll(c.getPermitsDeck().getFaceUpPermits());
 		for(BuildingPermit b: shown)
 			System.out.println(shown.indexOf(b)+" - "+b.toString());
-		return shown.size();
+		int x = this.numberSelection(shown.size());
+		this.input(x);
 	}
 
 	/**
