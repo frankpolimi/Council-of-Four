@@ -11,7 +11,7 @@ import java.util.List;
  * @author Francesco Vetrò
  * 
  */
-public abstract class Bonusable {
+public class Bonusable {
 
 	List<Bonuser> bonuses;
 	
