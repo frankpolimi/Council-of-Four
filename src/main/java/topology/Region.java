@@ -2,6 +2,7 @@ package topology;
 
 import java.util.*;
 import cg2.model.City;
+import cg2.model.PermitsDeck;
 import council.Council;
 
 /**
@@ -12,6 +13,7 @@ public class Region
 	private final String name;
 	private ArrayList<City> cities;
 	private final Council council;
+	private final PermitsDeck permitsDeck;
 	
 	
 	public String getName() 
@@ -24,11 +26,12 @@ public class Region
 		return cities;
 	}
 
-	public Region(String name, ArrayList<City> cities, Council council) 
+	public Region(String name, ArrayList<City> cities, Council council, PermitsDeck permitsDeck) 
 	{
 		this.name = name;
 		this.cities = cities;
 		this.council = council;
+		this.permitsDeck= permitsDeck;
 	}
 
 	/**
@@ -37,5 +40,14 @@ public class Region
 	public Council getCouncil() {
 		return council;
 	}
+
+	/**
+	 * @return the permitsDeck
+	 */
+	public PermitsDeck getPermitsDeck() {
+		return permitsDeck;
+	}
+	
+	
 	
 }
