@@ -3,8 +3,12 @@
  */
 package cg2.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import cg2.game.Game;
 import cg2.model.BuildingPermit;
+import cg2.model.City;
 import cg2.observers.Observer;
 import cg2.view.View;
 
@@ -36,9 +40,24 @@ public class Controller implements Observer {
 	 */
 	@Override
 	public <C> void update(C change) {
-		if(change.getClass().equals(BuildingPermit.class))
-			((BuildingPermit)change).applyBonus(
-					game.getPlayers().get(game.getCurrentPlayer()));
+		if(change.getClass().equals(BuildingPermit.class)){
+			BuildingPermit p = ((BuildingPermit)change);
+			if(this.checkInPlayer(p))
+				p.applyBonus(game.getPlayers().get(game.getCurrentPlayer()));
+			else
+				game.getPlayers().get(game.getCurrentPlayer()).getStatus().addBuildingPermit(p);
+		}
+		else if(change.getClass().equals(City.class))
+			((City)change).applyBonus(game.getPlayers().get(game.getCurrentPlayer()));
+	}
+
+	private boolean checkInPlayer(BuildingPermit p) {
+		List<BuildingPermit> buildingPermits = new ArrayList<BuildingPermit>();
+		buildingPermits.addAll(
+				game.getPlayers().get(game.getCurrentPlayer()).getStatus().getBuildingPermits());
+		buildingPermits.addAll(
+				game.getPlayers().get(game.getCurrentPlayer()).getStatus().getUsedBuildingPermits());
+		return buildingPermits.contains(p);
 	}
 
 	@Override
@@ -48,19 +67,21 @@ public class Controller implements Observer {
 			System.out.println(game.getPlayers().get(game.getCurrentPlayer()).getName()
 					+" non puoi più eseguire azioni secondarie per questo turno");
 		}
-		else if(communication.contains("main_action"));
+		else if(communication.contains("main_action")){
 			/*
 			 * TODO 
 			 * skim through the MainAction
 			 * pick right one (iterator and for combined)
 			 * execute the action (how the I/O)
 			 */
-		else if(communication.contains("quick_action"));
+		}
+		else if(communication.contains("quick_action")){
 			/*
 			 * TODO 
 			 * skim through the MainAction
 			 * pick right one (iterator and for combined)
 			 * execute the action (how the I/O)
 			 */
+		}
 	}
 }
