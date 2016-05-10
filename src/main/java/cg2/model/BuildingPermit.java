@@ -13,13 +13,11 @@ import bonus.bonusers.*;
 
 public class BuildingPermit extends Bonusable{
 
-	private final Region region;
 	private final Set<Character> firstChars;
 	private final Set<Bonus> bonusList;
 	private final Set<City> buildingAvaliableCities;
 
 	public BuildingPermit(Region region, Set<City> ba, Set<Bonus> bonus){
-		this.region=region;
 		buildingAvaliableCities=ba;
 		firstChars=new HashSet<>();
 		this.bonusList = bonus;
@@ -30,12 +28,7 @@ public class BuildingPermit extends Bonusable{
 			this.registerBonus(b);
 	}
 
-	/**
-	 * @return the region
-	 */
-	public Region getRegion() {
-		return region;
-	}
+	
 
 	/**
 	 * @return the firstChars
