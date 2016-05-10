@@ -191,18 +191,22 @@ public class MapMaker {
 	
 	public PermitsDeck createBuildingPermitDeck(String regionName) throws JDOMException, IOException{
 		Element root=this.getRootFromFile();
-		List<Element> reg=root.getChild("Regions").getChildren();
-		int i=0;
-		Element selectedReg=new Element("");
-		while(i<reg.size()&&
-				!reg.get(i).getAttributeValue("name").toLowerCase().equals(regionName.toLowerCase())){
-			selectedReg=reg.get(i);
-			i++;
+		List<Element> reg=root.getChild("regions").getChildren();
+		Iterator<Element> regIt=reg.iterator();
+		Element key=new Element("region");
+		key.setAttribute("name", regionName);
+		System.out.println("Elemento ref"+key.toString());
+		for(Element e:reg){
+			System.out.println("Elemento "+e.toString());
+			System.out.println("è uguale?:"+e.equals(key));//guardare qua
 		}
+		int i=reg.indexOf(key);
 		
-		if(i==reg.size()){
+		System.out.println("Index"+i);
+		if(i==-1){
 			throw new IllegalArgumentException();
 		}
+		Element selectedReg = reg.get(i);
 		
 		List<Element> permitList=selectedReg.getChild("permitsDeck").getChildren();
 		Iterator <Element> permitIt=permitList.iterator();
@@ -312,7 +316,11 @@ public class MapMaker {
 	
 	public static void main(String[] args)throws IOException, JDOMException {
 		MapMaker mp=new MapMaker();
-		mp.createNobilityLane();
+		Set<Region> regions=mp.createRegionSet();
+		System.out.println("Visualizza Regioni");
+		for(Region r:regions){
+			System.out.println(r.toString());
+		}
 	}
 	
 	
