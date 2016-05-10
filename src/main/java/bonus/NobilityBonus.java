@@ -15,8 +15,12 @@ public class NobilityBonus extends TileBonus {
 	 * construct a bonus with the given amount of nobility points as parameter
 	 * @param amount
 	 */
-	public NobilityBonus(Integer amount, NobilityLane nobilityLane) {
+	public NobilityBonus(Integer amount) {
 		super(amount);
+		
+	}
+	
+	public void setNobilityLane(NobilityLane nobilityLane){
 		this.registerObserver(nobilityLane);
 	}
 
