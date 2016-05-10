@@ -7,8 +7,7 @@ import cg2.model.PermitsDeck;
 /**
  * @author Vitaliy Pakholko
  */
-public abstract class Council 
-{
+public abstract class Council{
 	private ArrayBlockingQueue<Councillor> councillors;
 	private final PermitsDeck permitsDeck;
 	
@@ -49,6 +48,5 @@ public abstract class Council
 	public PermitsDeck getPermitsDeck() {
 		return permitsDeck;
 	}
-
-
+	
 }

@@ -17,5 +17,12 @@ public class AcquirePermit extends MainAction
 				this.game.decrementMainActionCounter();
 	}
 
+	@Override
+	public String toString() {
+		return "AcquirePermit: The player tries to pay a council, using a nunmber a cards equals or less the number of councillors in a council,"
+				+ "with the intent to acquire a BuildingPermit situated in the council's corresponding deck";
+	}
+	
+	
 
 }

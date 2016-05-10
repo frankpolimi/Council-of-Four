@@ -1,12 +1,12 @@
 package actions;
 
 import java.util.ArrayList;
+import java.util.concurrent.ArrayBlockingQueue;
 
 import cg2.game.Game;
 import cg2.player.Player;
 import council.Council;
 import council.Councillor;
-import council.RegionalCouncil;
 import politics.JollyPoliticsCard;
 import politics.PoliticsCard;
 
@@ -14,15 +14,17 @@ public class Action implements Act
 {
 	Game game;
 	
-	public void takeAction(Player player){}
+	public boolean takeAction(Player player)
+	{
+		return false;
+	}
 	
 	public boolean payCouncil(Player player, Council counc, ArrayList<PoliticsCard> politics)
 	{
 
 			int jollies=0;
-			Council council=new RegionalCouncil(null, null); //Per ora e' cosi ma poi verra semplicemente clonato
-			council.setCouncillors(counc.getCouncillors()); //Oppure Council council=(Council)permitsDeck.getCouncil().clone(); ma e' brutto
-			for(PoliticsCard card:politics) //Tra l'altro sta roba non posso manco farla
+			ArrayBlockingQueue<Councillor> councillors=counc.getCouncillors();
+			for(PoliticsCard card:politics)
 			{
 				if(card.getClass()== JollyPoliticsCard.class)
 				{
@@ -30,17 +32,17 @@ public class Action implements Act
 					continue;
 				}
 				
-				for(Councillor councillor:council.getCouncillors())
+				for(Councillor councillor:councillors)
 				{
 					if(card.payCouncillor(councillor))
 					{
-						council.getCouncillors().remove(councillor);
+						councillors.remove(councillor);
 						continue;
 					}
 				}
 			}
 			
-			int diff=council.getCouncillors().size()-jollies;
+			int diff=councillors.size()-jollies;
 			int coins=player.getStatus().getCoins();
 			switch (diff)
 			{

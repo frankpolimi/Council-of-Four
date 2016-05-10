@@ -7,24 +7,40 @@ import cg2.player.Player;
 
 public class BuildEmproriumByPermit extends MainAction 
 {
-	public void takeAction(Player player, BuildingPermit permit, City city)
+	public boolean takeAction(Player player, BuildingPermit permit, City city)
 	{
 		if (player.getRemainingEmporiums()<=0)
-			throw new IllegalStateException("No avaiable emporiums");
+		{
+			System.out.println("No avaiable emporiums");
+			return false;
+		}
 		for(Emporium e:player.getEmporium())
 			if(e.getCity()==city)
-				throw new IllegalStateException("The player has already built an emporium in this city");
+			{
+				System.out.println("The player has already built an emporium in this city");
+				return false;
+			}
 		
 		if(!permit.getBuildingAvaliableCities().contains(city))
-			throw new IllegalStateException("The city where the player is trying to build is not present on the permit");
+		{
+			System.out.println("The city where the player is trying to build is not present on the permit");
+			return false;
+		}
 		
 		int otherEmporiums=city.getEmporiums().size();
 		
 		if(player.checkAssistants(otherEmporiums))
+		{
 			this.game.decrementMainActionCounter();
-		else System.out.println("Not enough assistants to build in this city. For each other player's emporium you have to pay 1 assistant");
+			city.addEmporium(player);
+			return true;
+		}
+		else 
+		{
+			System.out.println("Not enough assistants to build in this city. For each other player's emporium you have to pay 1 assistant");
+			return false;
+		}
 		
-		city.addEmporium(player);
-		game.decrementMainActionCounter();
+		
 	}
 }
