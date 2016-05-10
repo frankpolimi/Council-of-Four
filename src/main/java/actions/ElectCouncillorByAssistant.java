@@ -1,4 +1,4 @@
-\package actions;
+package actions;
 
 import cg2.player.Player;
 import council.Council;
