@@ -53,7 +53,7 @@ public class Game extends Observable {
 		this.nobilityLane = nobilityLane;
 		this.usedPolitics = new PoliticsDeck(null); //da cambiare
 	}
-	
+
 	public void gioca(){
 		boolean endOfGame;
 		do{

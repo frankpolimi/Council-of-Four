@@ -77,8 +77,8 @@ public class View extends Observable implements Observer {
 	 */
 	@Override
 	public void update(String communication) {
-		if(communication.equals("action_phase"))
-			this.selectActionType();
+		if(communication.equals("action phase"))
+			this.displayActionType();
 		else if(communication.contains("Bonus"))
 			this.selectBonus(communication);
 		else
@@ -89,47 +89,15 @@ public class View extends Observable implements Observer {
 	 * selection of the two classes of action a player can perform
 	 * @param string 
 	 */
-	private void selectActionType() {
-		Scanner in = new Scanner(System.in);
-		
-		//as a default move the player will always start with a main action
-		int selection = 1;
-		
-		boolean condition;
-		do{
-			condition = false;
-			
-			System.out.println("Scegli che tipo di mossa vuoi eseguire");
-			if(game.getMainActionCounter() != 0)
-				System.out.println("1 - Principale");
-			if(game.getQuickActionCounter() != 0)
-				System.out.println("2 - Secondaria");
-			if(game.getMainActionCounter() == 0)
-				System.out.println("3 - Salta mossa secondaria");
-			
-			selection = this.numberSelection(3);
-
-			switch(selection){
-				case 1:{
-					in.close();
-					this.selectAction("main_action");
-					break;
-				}
-				case 2:{
-					in.close();
-					this.selectAction("quick_action");
-					break;
-				}
-				case 3:{
-					in.close();
-					break;
-				}
-				default:{
-					System.err.println("Errore nell'inserimento. Riprova");
-					condition = true;
-				}
-			}
-		}while(condition);
+	private void displayActionType() {
+		System.out.println("Select the action you want to perform "
+				+ "(insert the command in brackets)");
+		if(game.getMainActionCounter() != 0)
+			System.out.println("1 - Main action [main action]");
+		if(game.getQuickActionCounter() != 0)
+			System.out.println("2 - Quick action [quick action]");
+		if(game.getMainActionCounter() == 0)
+			System.out.println("3 - Skip the quick action [skip action]");
 	}
 
 	/**
@@ -160,7 +128,6 @@ public class View extends Observable implements Observer {
 		for(int i = 1;x.hasNext(); i++){
 			System.out.println(i+" - "+x.next().toString());
 		}
-		//return game.getMainAction().size();
 	}
 	
 	/**
@@ -172,7 +139,6 @@ public class View extends Observable implements Observer {
 		Iterator<? extends QuickAction> x = game.getQuickAction().iterator();
 		for(int i = 1;x.hasNext(); i++)
 				System.out.println(i+" - "+x.toString());
-		//return l;
 	}
 	
 	/**
