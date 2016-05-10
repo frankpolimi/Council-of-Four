@@ -47,6 +47,16 @@ public class Region
 	public PermitsDeck getPermitsDeck() {
 		return permitsDeck;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Region [name=" + name + ", cities=" + cities + "]";
+	}
+	
+	
 	
 	
 	
