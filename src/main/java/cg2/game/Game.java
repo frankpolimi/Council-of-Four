@@ -32,7 +32,7 @@ public class Game extends Observable {
 	private final Set<MainAction> mainAction = null; //just for avoiding errors
 	private final Set<QuickAction> quickAction = null;
 	
-	private int currentPlayer;
+	private Player currentPlayer;
 	
 	private int mainActionCounter;
 	private int quickActionCounter;
@@ -52,25 +52,22 @@ public class Game extends Observable {
 		this.regionTileList = regionTileList;
 		this.nobilityLane = nobilityLane;
 		this.usedPolitics = new PoliticsDeck(null); //da cambiare
-		this.currentPlayer = 0;
 	}
 	
 	public void gioca(){
 		boolean endOfGame;
 		do{
-			while(currentPlayer < players.size()){
-				this.resetActionCounters();
-				politicsDeck.drawCard(players.get(currentPlayer));
-				do{
-					this.notifyObservers("action_phase");
-					//mossa principale obbligatoria
-					//possibilità skip mossa secondaria
-					//controllore esegue mossa
-					//diminuzione counter mosse	
-				}while(mainActionCounter != 0 && quickActionCounter != 0);
-				currentPlayer = (currentPlayer++)%players.size();
-			}
-			endOfGame = checkEndOfGame();
+			this.resetActionCounters();
+			politicsDeck.drawCard(currentPlayer);
+			do{
+				this.notifyObservers("action_phase");
+				//mossa principale obbligatoria
+				//possibilità skip mossa secondaria
+				//controllore esegue mossa
+				//diminuzione counter mosse	
+			}while(mainActionCounter != 0 && quickActionCounter != 0);
+			//this.setCurrentPlayer(); gestione dei turni in controller
+		endOfGame = checkEndOfGame();
 		}while(endOfGame);
 	}
 
@@ -154,7 +151,7 @@ public class Game extends Observable {
 	/**
 	 * @return the currentPlayer
 	 */
-	public int getCurrentPlayer() {
+	public Player getCurrentPlayer() {
 		return currentPlayer;
 	}
 

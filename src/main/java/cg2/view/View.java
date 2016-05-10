@@ -215,9 +215,9 @@ public class View extends Observable implements Observer {
 		System.out.println("Inserisci il numero del bonus che vuoi ricevere");
 		List<BuildingPermit> buildingPermits = new ArrayList<BuildingPermit>();
 		buildingPermits.addAll(
-				game.getPlayers().get(game.getCurrentPlayer()).getStatus().getBuildingPermits());
+				game.getCurrentPlayer().getStatus().getBuildingPermits());
 		buildingPermits.addAll(
-				game.getPlayers().get(game.getCurrentPlayer()).getStatus().getUsedBuildingPermits());
+				game.getCurrentPlayer().getStatus().getUsedBuildingPermits());
 		for(BuildingPermit b: buildingPermits)
 			System.out.println(buildingPermits.indexOf(b)+" - "+
 					((BuildingPermit) b).displayBonus());
@@ -233,7 +233,7 @@ public class View extends Observable implements Observer {
 	private void showBonusCities() {
 		System.out.println("Inserisci il numero del bonus che vuoi ricevere");
 		Iterator<Emporium> builtOn = 
-				game.getPlayers().get(game.getCurrentPlayer()).getEmporium().iterator();
+				game.getCurrentPlayer().getEmporium().iterator();
 		List<City> cityWithE = new ArrayList<City>();
 		while(builtOn.hasNext())
 			cityWithE.add(builtOn.next().getCity());

@@ -43,20 +43,20 @@ public class Controller implements Observer {
 		if(change.getClass().equals(BuildingPermit.class)){
 			BuildingPermit p = ((BuildingPermit)change);
 			if(this.checkInPlayer(p))
-				p.applyBonus(game.getPlayers().get(game.getCurrentPlayer()));
+				p.applyBonus(game.getCurrentPlayer());
 			else
-				game.getPlayers().get(game.getCurrentPlayer()).getStatus().addBuildingPermit(p);
+				game.getCurrentPlayer().getStatus().addBuildingPermit(p);
 		}
 		else if(change.getClass().equals(City.class))
-			((City)change).applyBonus(game.getPlayers().get(game.getCurrentPlayer()));
+			((City)change).applyBonus(game.getCurrentPlayer());
 	}
 
 	private boolean checkInPlayer(BuildingPermit p) {
 		List<BuildingPermit> buildingPermits = new ArrayList<BuildingPermit>();
 		buildingPermits.addAll(
-				game.getPlayers().get(game.getCurrentPlayer()).getStatus().getBuildingPermits());
+				game.getCurrentPlayer().getStatus().getBuildingPermits());
 		buildingPermits.addAll(
-				game.getPlayers().get(game.getCurrentPlayer()).getStatus().getUsedBuildingPermits());
+				game.getCurrentPlayer().getStatus().getUsedBuildingPermits());
 		return buildingPermits.contains(p);
 	}
 
@@ -64,7 +64,7 @@ public class Controller implements Observer {
 	public void update(String communication) {
 		if(communication.equals("salta")){
 			game.decrementQuickActionCounter(); //Messo decrement perche' non sara' mai maggiore di 1 e quindi fare set 0 e' la stessa cosa
-			System.out.println(game.getPlayers().get(game.getCurrentPlayer()).getName()
+			System.out.println(game.getCurrentPlayer().getName()
 					+" non puoi più eseguire azioni secondarie per questo turno");
 		}
 		else if(communication.contains("main_action")){
