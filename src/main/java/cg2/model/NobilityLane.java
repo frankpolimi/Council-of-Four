@@ -16,18 +16,18 @@ import cg2.player.*;
  */
 public class NobilityLane extends Bonusable implements Observer{
 	
-	List<Bonusable> lane;
+	List<NobilityCell> lane;
 	
 	public NobilityLane(){
-		lane = new ArrayList<Bonusable>();
+		lane = new ArrayList<NobilityCell>();
 	}
 	
 	/**
 	 * the list of bonuses can even be null
 	 * @param bonus
 	 */
-	public void setLane(Bonusable bonus){
-		lane.add(bonus);
+	public void setLane(NobilityCell bonuses){
+		lane.add(bonuses);
 	}
 
 	@Override
