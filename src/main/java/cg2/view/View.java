@@ -26,7 +26,7 @@ import topology.Region;
  * @author Francesco Vetrò
  */
 public class View extends Observable implements Observer {
-	
+	//la view non ha un reference a game
 	private final Game game;
 	/*
 	 * possible client a which is connected the view
@@ -36,6 +36,7 @@ public class View extends Observable implements Observer {
 	
 	public View(Game game, int playerID) {
 		super();
+		//togliere
 		this.game = game;
 		game.registerObserver(this);
 		this.playerID = playerID;
@@ -46,7 +47,6 @@ public class View extends Observable implements Observer {
 	 * @param command the input coming from the client
 	 */
 	public void input(String command){
-		String selection = null;
 		/*
 		 * just the display of the actions
 		 * can be performed as a help to the player without checking
@@ -60,11 +60,11 @@ public class View extends Observable implements Observer {
 		 */
 		if(this.playerID == game.getCurrentPlayer().getPlayerID()){
 			for(MainAction a: game.getMainAction()){
-				if(command.equals(a.toString()));
+				if(command.equals(a.getClass().getSimpleName()));
 					//get parameters ready for the action
 			}
 			for(QuickAction a: game.getQuickAction()){
-				if(command.equals(a.toString()));
+				if(command.equals(a.getClass().getSimpleName()));
 					//get parameters ready for the action
 			}
 		}
@@ -118,24 +118,6 @@ public class View extends Observable implements Observer {
 		if(game.getMainActionCounter() == 0)
 			System.out.println("3 - Skip the quick action [skip action]");
 	}
-
-	/**
-	 * select the main action by a number
-	 * (1 - firstAction
-	 *  2 - secondAction
-	 *  and so on)
-	 * @param numberOfActions
-	 * @return the message main_action and the number of the action to perform
-	 */
-	private void selectAction(String type) {
-		//int selection;
-		//if(type.equals("main_action"))
-			//selection = this.numberSelection(this.showMainAction());
-		//else
-			//selection = this.numberSelection(this.showQuickAction());
-		
-		//TODO complete with send to the controller
-	}
 	
 	/**
 	 * display the main actions that can be performed
@@ -144,7 +126,7 @@ public class View extends Observable implements Observer {
 	private void showMainAction(){
 		System.out.println("Inserisci il numero dell'azione che vuoi eseguire");
 		Iterator<? extends MainAction> x = game.getMainAction().iterator();
-		for(int i = 1;x.hasNext(); i++){
+		for(int i = 0;x.hasNext(); i++){
 			System.out.println(i+" - "+x.next().toString());
 		}
 	}
@@ -156,7 +138,7 @@ public class View extends Observable implements Observer {
 	private void showQuickAction(){
 		System.out.println("Inserisci il numero dell'azione che vuoi eseguire");
 		Iterator<? extends QuickAction> x = game.getQuickAction().iterator();
-		for(int i = 1;x.hasNext(); i++)
+		for(int i = 0;x.hasNext(); i++)
 				System.out.println(i+" - "+x.toString());
 	}
 	
@@ -206,8 +188,6 @@ public class View extends Observable implements Observer {
 			cityWithE.add(builtOn.next().getCity());
 		for(City c: cityWithE)
 			System.out.println(cityWithE.indexOf(c)+" - "+c.displayBonus());
-		//int x = this.numberSelection(cityWithE.size());
-		//this.input(cityWithE.get(x));
 	}
 	
 	/**
@@ -224,7 +204,5 @@ public class View extends Observable implements Observer {
 			shown.addAll(c.getPermitsDeck().getFaceUpPermits());
 		for(BuildingPermit b: shown)
 			System.out.println(shown.indexOf(b)+" - "+b.toString());
-		//int x = this.numberSelection(shown.size());
-		//this.input(x);
 	}
 }
