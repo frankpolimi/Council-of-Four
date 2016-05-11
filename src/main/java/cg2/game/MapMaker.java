@@ -77,7 +77,7 @@ public class MapMaker {
 			while(bonusIt.hasNext()){
 				Element bonusCore=bonusIt.next();
 				try{
-					Bonus obj=this.getBonus(bonusCore.getAttributeValue("classFile"), 
+					Bonus obj=this.getBonus(bonusCore.getAttributeValue("className"), 
 							Integer.parseInt(bonusCore.getAttributeValue("amount")));	
 					bonuses.add(obj);
 				}catch(Exception e){e.printStackTrace();};
@@ -104,10 +104,12 @@ public class MapMaker {
 	}
 	
 	private Bonus getBonus(String className, int amount) throws Exception{
-		Class<?> tile= Class.forName("bonus."+className);
-		Constructor<?> constructor= tile.getConstructor(Integer.class);
-		Bonus obj=(Bonus)constructor.newInstance(amount);
-		return obj;
+	
+			Class<?> tile= Class.forName("bonus."+className);
+			Constructor<?> constructor= tile.getConstructor(Integer.class);
+			Bonus obj=(Bonus)constructor.newInstance(amount);
+			return obj;
+
 	}
 	/**
 	 * This method creates the graph that contains the game cities
@@ -287,27 +289,35 @@ public class MapMaker {
 	
 	
 	public NobilityLane createNobilityLane() throws JDOMException, IOException{
-		NobilityLane nobilityLane=new NobilityLane();
 		Element root=this.getRootFromFile();
 		List<Element> nobilityPosition=root.getChild("nobilityLane").getChildren();
 		Iterator<Element> nobIt=nobilityPosition.iterator();
+		NobilityLane lane=new NobilityLane();
 		while(nobIt.hasNext()){
 			Element position=nobIt.next();
 			int pos=Integer.parseInt(position.getAttributeValue("number"));
 			List<Element> bonuses=position.getChildren();
 			Iterator<Element> bonusIt=bonuses.iterator();
-			Bonusable bonusable = new Bonusable();
+			List<Bonus> bonusList=new ArrayList<>();
 			while(bonusIt.hasNext()){
-				Element bonus=bonusIt.next();
+				Element bonusElement=bonusIt.next();
+				System.out.println("Stampo ClassName"+bonusElement.getAttributeValue("className"));
 				try{
-					Bonus obj=this.getBonus(bonus.getAttributeValue("className"), Integer.parseInt(bonus.getAttributeValue("amount")));
+					Bonus obj=this.getBonus(bonusElement.getAttributeValue("className"), Integer.parseInt(bonusElement.getAttributeValue("amount")));
 					System.out.println("Posizione: "+pos+"Bonus:"+obj.toString());
-					bonusable.registerBonus(obj);//FRA: Obj è già il tuo bonus fatto e finito.. come lo inserisci??
-					}catch(Exception e){e.printStackTrace();}
+					bonusList.add(obj);
+					}catch(Exception e){
+						System.out.println("ma boh!");
+					}
 			}
-			nobilityLane.setLane(bonusable);//qua sei dentro la posizione. hai già estratto tutti i bonus di quella posizione.. inseriscili nella corretta poszione nella lane. 
+			System.out.println("Stampo lista!");
+			for(Bonuser b:bonusList){
+				System.out.println(b.toString());
+			}
+			NobilityCell cell=new NobilityCell(bonusList);
+			lane.setLane(pos,cell);
 		}
-		return nobilityLane;
+		return lane;
 	}
 	
 	private Element getRootFromFile() throws JDOMException, IOException{
@@ -320,9 +330,7 @@ public class MapMaker {
 
 	public static void main(String[] args)throws IOException, JDOMException {
 		MapMaker mp=new MapMaker();
-		for(List<Bonus> list:mp.extractedCityBonus){
-			
-		}
+		
 		
 	}
 	

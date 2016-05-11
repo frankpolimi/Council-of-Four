@@ -4,7 +4,11 @@
 package cg2.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import bonus.bonusers.Bonusable;
 import cg2.observers.Observer;
@@ -16,18 +20,18 @@ import cg2.player.*;
  */
 public class NobilityLane extends Bonusable implements Observer{
 	
-	List<NobilityCell> lane;
+	Map<Integer, NobilityCell> lane;
 	
 	public NobilityLane(){
-		lane = new ArrayList<NobilityCell>();
+		lane = new HashMap<>();
 	}
 	
 	/**
 	 * the list of bonuses can even be null
 	 * @param bonus
 	 */
-	public void setLane(NobilityCell bonuses){
-		lane.add(bonuses);
+	public void setLane(int pos, NobilityCell bonuses){
+		lane.put(pos, bonuses);
 	}
 
 	@Override
@@ -51,4 +55,15 @@ public class NobilityLane extends Bonusable implements Observer{
 		// TODO Auto-generated method stub
 		
 	}
+	
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "NobilityLane [lane=" + lane + "]";
+	}
+	
+	
 }

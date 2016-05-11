@@ -3,7 +3,10 @@
  * tiles of the game.
  */
 package bonus.bonusers;
+import java.util.ArrayList;
 import java.util.List;
+
+import bonus.Bonus;
 
 /**
  * @author Francesco Vetrò
@@ -13,11 +16,16 @@ public abstract class Bonusable {
 
 	List<Bonuser> bonuses;
 	
+	public Bonusable(){
+		bonuses=new ArrayList<>();
+	}
+	
 	/**
 	 * add a bonus
 	 * @param bonus
 	 */
 	public void registerBonus(Bonuser bonus){
+		System.out.println(bonus.toString());
 		this.bonuses.add(bonus);
 	}
 	
