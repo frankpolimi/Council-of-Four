@@ -13,6 +13,7 @@ import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.SimpleGraph;
 
 import bonus.*;
+import bonus.bonusers.*;
 import cg2.model.*;
 import politics.ColoredPoliticsCard;
 import politics.JollyPoliticsCard;
@@ -26,12 +27,15 @@ public class MapMaker {
 	
 	private final Map<Character, City> cityMap;
 	private final List<Councillor> extractedCouncillors;
+	private final List<List<Bonus>> extractedCityBonus;
 	
 	//Constructor
 	public MapMaker() throws JDOMException, IOException {
 		this.cityMap = new HashMap<>();
 		this.extractedCouncillors = new ArrayList<>();
+		this.extractedCityBonus=new ArrayList<>();
 		this.fillExtractedCouncillors();
+		this.fillExtractedCityBonuses();
 	}
 	
 	//Council
@@ -50,7 +54,7 @@ public class MapMaker {
 		}
 	}
 	
-	private RegionalCouncil extractNewRegionalCouncil(String regionName) throws JDOMException, IOException{
+	private RegionalCouncil extractNewRegionalCouncil(Element region) throws JDOMException, IOException{
 		Random random= new Random();
 		RegionalCouncil regional;
 		ArrayBlockingQueue<Councillor> elected= new ArrayBlockingQueue<>(4);
@@ -58,10 +62,29 @@ public class MapMaker {
 			Councillor councillor=extractedCouncillors.remove(random.nextInt(extractedCouncillors.size()));
 			elected.add(councillor);
 		}
-		regional=new RegionalCouncil(elected, this.createBuildingPermitDeck(regionName));
+		regional=new RegionalCouncil(elected, this.createBuildingPermitDeck(region));
 		return regional;
 	}
 	
+	private void fillExtractedCityBonuses() throws JDOMException, IOException{
+		Element root=this.getRootFromFile();
+		List<Element> bonusList=root.getChild("decks").getChild("cityBonusList").getChildren();
+		Iterator<Element> bonusListIt=bonusList.iterator();
+		while(bonusListIt.hasNext()){
+			List<Element> bonus=bonusListIt.next().getChildren();
+			Iterator<Element> bonusIt=bonus.iterator();
+			List<Bonus> bonuses=new ArrayList<>();
+			while(bonusIt.hasNext()){
+				Element bonusCore=bonusIt.next();
+				try{
+					Bonus obj=this.getBonus(bonusCore.getAttributeValue("classFile"), 
+							Integer.parseInt(bonusCore.getAttributeValue("amount")));	
+					bonuses.add(obj);
+				}catch(Exception e){e.printStackTrace();};
+			}
+			extractedCityBonus.add(bonuses);
+		}
+	}
 
 	/**
 	 * This Method converts a colorRBG String like "r,g,b" where r,g and b are the integer values
@@ -106,8 +129,6 @@ public class MapMaker {
 				graph.addVertex(c);
 			}
 		}
-		
-		
 		//extraction and creation of edges
 		List<Element> links=children.get(1).getChildren();
 		Iterator<Element> edgeIt=links.iterator();
@@ -189,26 +210,8 @@ public class MapMaker {
 		return tilesList;
 	}
 	
-	public PermitsDeck createBuildingPermitDeck(String regionName) throws JDOMException, IOException{
-		Element root=this.getRootFromFile();
-		List<Element> reg=root.getChild("regions").getChildren();
-		Iterator<Element> regIt=reg.iterator();
-		Element key=new Element("region");
-		key.setAttribute("name", regionName);
-		System.out.println("Elemento ref"+key.toString());
-		for(Element e:reg){
-			System.out.println("Elemento "+e.toString());
-			System.out.println("è uguale?:"+e.equals(key));//guardare qua
-		}
-		int i=reg.indexOf(key);
-		
-		System.out.println("Index"+i);
-		if(i==-1){
-			throw new IllegalArgumentException();
-		}
-		Element selectedReg = reg.get(i);
-		
-		List<Element> permitList=selectedReg.getChild("permitsDeck").getChildren();
+	public PermitsDeck createBuildingPermitDeck(Element region) throws JDOMException, IOException{	
+		List<Element> permitList=region.getChild("permitsDeck").getChildren();
 		Iterator <Element> permitIt=permitList.iterator();
 		List<BuildingPermit> permits=new ArrayList<>();
 		while(permitIt.hasNext()){
@@ -227,11 +230,13 @@ public class MapMaker {
 			Iterator<Element> permitBonusIt=permitBonus.iterator();
 			while(permitBonusIt.hasNext()){
 				Element bonus=permitBonusIt.next();
+				System.out.println("Bonus");
+				System.out.println(bonus.getAttributeValue("className"));
+				System.out.println(bonus.getAttributeValue("amount"));
 				try{
 				Bonus obj=this.getBonus(bonus.getAttributeValue("className"), Integer.parseInt(bonus.getAttributeValue("amount")));
 				bonusList.add(obj);
 				}catch(Exception e){e.printStackTrace();}
-				
 			}
 			building=new BuildingPermit(avCities, bonusList);
 			permits.add(building);
@@ -266,11 +271,11 @@ public class MapMaker {
 				Color color;
 				String name=city.getAttributeValue("name");
 				color=this.convert(city.getAttributeValue("RGB"));
-				c=new City(name,color,null);
+				c=new City(name,color,null);//generare random i bonus!
 				arrayCity.add(c);
 				cityMap.put(c.getFirstChar(), c);
 			}
-			RegionalCouncil rc=this.extractNewRegionalCouncil(regionName);
+			RegionalCouncil rc=this.extractNewRegionalCouncil(region);
 			PermitsDeck permits= rc.getPermitsDeck();
 			r=new Region(regionName, arrayCity, rc, permits);
 			allRegions.add(r);
@@ -291,19 +296,18 @@ public class MapMaker {
 			int pos=Integer.parseInt(position.getAttributeValue("number"));
 			List<Element> bonuses=position.getChildren();
 			Iterator<Element> bonusIt=bonuses.iterator();
+			Bonusable bonusable = new Bonusable();
 			while(bonusIt.hasNext()){
 				Element bonus=bonusIt.next();
-				//da provare
 				try{
 					Bonus obj=this.getBonus(bonus.getAttributeValue("className"), Integer.parseInt(bonus.getAttributeValue("amount")));
 					System.out.println("Posizione: "+pos+"Bonus:"+obj.toString());
+					bonusable.registerBonus(obj);//FRA: Obj è già il tuo bonus fatto e finito.. come lo inserisci??
 					}catch(Exception e){e.printStackTrace();}
 			}
+			nobilityLane.setLane(bonusable);//qua sei dentro la posizione. hai già estratto tutti i bonus di quella posizione.. inseriscili nella corretta poszione nella lane. 
 		}
-		//da finire
-		
-		
-		return null;
+		return nobilityLane;
 	}
 	
 	private Element getRootFromFile() throws JDOMException, IOException{
@@ -316,11 +320,10 @@ public class MapMaker {
 
 	public static void main(String[] args)throws IOException, JDOMException {
 		MapMaker mp=new MapMaker();
-		Set<Region> regions=mp.createRegionSet();
-		System.out.println("Visualizza Regioni");
-		for(Region r:regions){
-			System.out.println(r.toString());
+		for(List<Bonus> list:mp.extractedCityBonus){
+			
 		}
+		
 	}
 	
 	
