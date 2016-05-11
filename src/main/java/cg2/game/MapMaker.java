@@ -317,7 +317,7 @@ public class MapMaker {
 		Document document= builder.build(new File("src/main/map.xml"));
 		return document.getRootElement();
 	}
-	
+
 	public static void main(String[] args)throws IOException, JDOMException {
 		MapMaker mp=new MapMaker();
 		for(List<Bonus> list:mp.extractedCityBonus){

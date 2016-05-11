@@ -6,7 +6,6 @@ package cg2.view;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Scanner;
 
 import actions.*;
 import cg2.observers.*;
@@ -19,28 +18,57 @@ import topology.Region;
 
 
 /**
- * @author Emanuele
- *
+ * this class will provide the selections that leads to an opportunity
+ * for a creation of an action. this will be submitted to the judgment that will
+ * validate if is the player's turn and will prepare the action. the view will 
+ * prompt the right parameters to set from the right client 
+ * and will transfer to the controller a complete action to execute.
+ * @author Francesco Vetrò
  */
 public class View extends Observable implements Observer {
-	
+	//la view non ha un reference a game
 	private final Game game;
+	/*
+	 * possible client a which is connected the view
+	 * 1:1 mapping client-view
+	 */
+	private final int playerID;
 	
-	public View(Game game) {
+	public View(Game game, int playerID) {
 		super();
+		//togliere
 		this.game = game;
 		game.registerObserver(this);
+		this.playerID = playerID;
 	}
 
 	/**
 	 * gives the input to the controller
-	 * @param <T> command: the generic type of command to be given to the controller
+	 * @param command the input coming from the client
 	 */
-	public <T> void input(T command){
-		if(command.getClass().equals(String.class))
-			this.notifyObservers((String)command);
-		else
-			this.notifyObservers(command);
+	public void input(String command){
+		/*
+		 * just the display of the actions
+		 * can be performed as a help to the player without checking
+		 */
+		if(command.equals("main action"))
+			this.showMainAction();
+		else if(command.equals("quick action"))
+			this.showQuickAction();
+		/*
+		 * must check if it's player's input turn
+		 */
+		if(this.playerID == game.getCurrentPlayer().getPlayerID()){
+			for(MainAction a: game.getMainAction()){
+				if(command.equals(a.getClass().getSimpleName()));
+					//get parameters ready for the action
+			}
+			for(QuickAction a: game.getQuickAction()){
+				if(command.equals(a.getClass().getSimpleName()));
+					//get parameters ready for the action
+			}
+		}
+		
 	}
 	
 	/* (non-Javadoc)
@@ -68,8 +96,8 @@ public class View extends Observable implements Observer {
 	 */
 	@Override
 	public void update(String communication) {
-		if(communication.equals("action_phase"))
-			this.selectActionType();
+		if(communication.equals("action phase"))
+			this.displayActionType();
 		else if(communication.contains("Bonus"))
 			this.selectBonus(communication);
 		else
@@ -80,116 +108,38 @@ public class View extends Observable implements Observer {
 	 * selection of the two classes of action a player can perform
 	 * @param string 
 	 */
-	private void selectActionType() {
-		Scanner in = new Scanner(System.in);
-		
-		//as a default move the player will always start with a main action
-		int selection = 1;
-		
-		boolean condition;
-		do{
-			condition = false;
-			
-			System.out.println("Scegli che tipo di mossa vuoi eseguire");
-			if(game.getMainActionCounter() != 0)
-				System.out.println("1 - Principale");
-			if(game.getQuickActionCounter() != 0)
-				System.out.println("2 - Secondaria");
-			if(game.getMainActionCounter() == 0)
-				System.out.println("3 - Salta mossa secondaria");
-
-			selection = in.nextInt();
-			switch(selection){
-				case 1:{
-					in.close();
-					this.selectAction("main_action");
-					break;
-				}
-				case 2:{
-					in.close();
-					this.selectAction("quick_action");
-					break;
-				}
-				case 3:{
-					in.close();
-					break;
-				}
-				default:{
-					System.err.println("Errore nell'inserimento. Riprova");
-					condition = true;
-				}
-			}
-		}while(condition);
-	}
-
-	/**
-	 * select the main action by a number
-	 * (1 - firstAction
-	 *  2 - secondAction
-	 *  and so on)
-	 * @param numberOfActions
-	 * @return the message main_action and the number of the action to perform
-	 */
-	private void selectAction(String type) {
-		int selection;
-		if(type.equals("main_action"))
-			selection = this.numberSelection(this.showMainAction());
-		else
-			selection = this.numberSelection(this.showQuickAction());
-		
-		//TODO complete with send to the controller
+	private void displayActionType() {
+		System.out.println("Select the action you want to perform "
+				+ "(insert the command in brackets)");
+		if(game.getMainActionCounter() != 0)
+			System.out.println("1 - Main action [main action]");
+		if(game.getQuickActionCounter() != 0)
+			System.out.println("2 - Quick action [quick action]");
+		if(game.getMainActionCounter() == 0)
+			System.out.println("3 - Skip the quick action [skip action]");
 	}
 	
 	/**
 	 * display the main actions that can be performed
 	 * @return the number of main actions
 	 */
-	private int showMainAction(){
+	private void showMainAction(){
 		System.out.println("Inserisci il numero dell'azione che vuoi eseguire");
 		Iterator<? extends MainAction> x = game.getMainAction().iterator();
-		MainAction a;
-		for(int i = 1;x.hasNext(); i++){
-			a = x.next();
-			if(a.getClass().equals(AcquirePermit.class)){
-				System.out.println(i+" - "+
-						((AcquirePermit)a).toString());
-			}
-			else if(a.getClass().equals(ElectCouncillor.class))
-				System.out.println(i+" - "+
-						((ElectCouncillor)a).toString());
-			else if(a.getClass().equals(BuildEmproriumByPermit.class))
-				System.out.println(i+" - "+
-						((BuildEmproriumByPermit)a).toString());
-			//TODO complete missing king action
+		for(int i = 0;x.hasNext(); i++){
+			System.out.println(i+" - "+x.next().toString());
 		}
-		return game.getMainAction().size();
 	}
 	
 	/**
 	 * display the quick actions that can be performed
 	 * @return the number of quick actions
 	 */
-	private int showQuickAction(){
+	private void showQuickAction(){
 		System.out.println("Inserisci il numero dell'azione che vuoi eseguire");
 		Iterator<? extends QuickAction> x = game.getQuickAction().iterator();
-		int l = game.getQuickAction().size();
-		QuickAction a;
-		for(int i = 1;x.hasNext(); i++){
-			a = x.next();
-			if(a.getClass().equals(ElectCouncillorByAssistant.class))
-				System.out.println(i+" - "+
-						((ElectCouncillorByAssistant)a).toString());
-			else if(a.getClass().equals(EngageAssistant.class))
-				System.out.println(i+" - "+
-						((EngageAssistant)a).toString());
-			else if(a.getClass().equals(ChangeFaceUpPermits.class))
-				System.out.println(i+" - "+
-						((ChangeFaceUpPermits)a).toString());
-			else if(a.getClass().equals(ExtraMainAction.class))
-				System.out.println(i+" - "+
-						((ExtraMainAction)a).toString());
-		}
-		return l;
+		for(int i = 0;x.hasNext(); i++)
+				System.out.println(i+" - "+x.toString());
 	}
 	
 	/**
@@ -219,10 +169,9 @@ public class View extends Observable implements Observer {
 		buildingPermits.addAll(
 				game.getCurrentPlayer().getStatus().getUsedBuildingPermits());
 		for(BuildingPermit b: buildingPermits)
-			System.out.println(buildingPermits.indexOf(b)+" - "+
-					((BuildingPermit) b).displayBonus());
-		int x = this.numberSelection(buildingPermits.size());
-		this.input(buildingPermits.get(x));
+			System.out.println(buildingPermits.indexOf(b)+" - "+b.displayBonus());
+		//int x = this.numberSelection(buildingPermits.size());
+		//this.input(buildingPermits.get(x));
 	}
 	
 	/**
@@ -239,8 +188,6 @@ public class View extends Observable implements Observer {
 			cityWithE.add(builtOn.next().getCity());
 		for(City c: cityWithE)
 			System.out.println(cityWithE.indexOf(c)+" - "+c.displayBonus());
-		int x = this.numberSelection(cityWithE.size());
-		this.input(cityWithE.get(x));
 	}
 	
 	/**
@@ -257,23 +204,5 @@ public class View extends Observable implements Observer {
 			shown.addAll(c.getPermitsDeck().getFaceUpPermits());
 		for(BuildingPermit b: shown)
 			System.out.println(shown.indexOf(b)+" - "+b.toString());
-		int x = this.numberSelection(shown.size());
-		this.input(x);
-	}
-
-	/**
-	 * perform the input and check if the number is between 0 (zero)
-	 * and the parameter specified by the methods above
-	 * @param maxAvailable the maximum number available in the selection menu
-	 * @return the desired entry of the menu as an int
-	 */
-	private int numberSelection(int maxAvailable){
-		Scanner in = new Scanner(System.in);
-		int ins;
-		do{
-			ins = in.nextInt();
-		}while(ins > maxAvailable || ins < 0);
-		in.close();
-		return ins;
 	}
 }

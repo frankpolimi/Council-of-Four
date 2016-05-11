@@ -37,6 +37,10 @@ public class City  extends Bonusable{
 		//linkedCities = link;
 		cityColor=color;
 		bonusList = bonus;
+		/*
+		 * for(TileBonus b: bonus)
+		 * 	this.registerBonus(b);
+		 */
 	}
 	
 	public void addEmporium(Player player)
@@ -90,20 +94,8 @@ public class City  extends Bonusable{
 	public String displayBonus() {
 		Iterator<TileBonus> i = bonusList.iterator();
 		String x = "";
-		while(i.hasNext()){
-			Bonus b = (Bonus) i.next();
-			if(b.getClass().equals(AssistantBonus.class))
-				x.concat(((AssistantBonus)b).toString());
-			else if(b.getClass().equals(CoinBonus.class))
-				x.concat(((CoinBonus)b).toString());
-			else if(b.getClass().equals(MainActionBonus.class))
-				x.concat(((MainActionBonus)b).toString());
-			else if(b.getClass().equals(NobilityBonus.class))
-				x.concat(((NobilityBonus)b).toString());
-			else if(b.getClass().equals(PointBonus.class))
-				x.concat(((PointBonus)b).toString());
-			x.concat(" ");
-		}
+		while(i.hasNext())
+			x.concat(i.next().toString()+" ");
 		return x;
 	}
 
