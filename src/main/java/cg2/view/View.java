@@ -6,6 +6,7 @@ package cg2.view;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import actions.*;
 import cg2.observers.*;
@@ -47,29 +48,8 @@ public class View extends Observable implements Observer {
 	 * @param command the input coming from the client
 	 */
 	public void input(String command){
-		/*
-		 * just the display of the actions
-		 * can be performed as a help to the player without checking
-		 */
-		if(command.equals("main action"))
-			this.showMainAction();
-		else if(command.equals("quick action"))
-			this.showQuickAction();
-		/*
-		 * must check if it's player's input turn
-		 */
-		if(this.playerID == game.getCurrentPlayer().getPlayerID()){
-			for(MainAction a: game.getMainAction()){
-				if(command.equals(a.getClass().getSimpleName()));
-					//get parameters ready for the action
-			}
-			for(QuickAction a: game.getQuickAction()){
-				if(command.equals(a.getClass().getSimpleName()));
-					//get parameters ready for the action
-			}
-		}
 		
-	}
+	}	
 	
 	/* (non-Javadoc)
 	 * @see cg2.observers.Observer#update()
@@ -96,51 +76,26 @@ public class View extends Observable implements Observer {
 	 */
 	@Override
 	public void update(String communication) {
-		if(communication.equals("action phase"))
-			this.displayActionType();
-		else if(communication.contains("Bonus"))
+		if(communication.contains("Bonus"))
 			this.selectBonus(communication);
 		else
 			System.err.println("FATAL ERROR IN COMMUNICATION!");
-	}
-
-	/**
-	 * selection of the two classes of action a player can perform
-	 * @param string 
-	 */
-	private void displayActionType() {
-		System.out.println("Select the action you want to perform "
-				+ "(insert the command in brackets)");
-		if(game.getMainActionCounter() != 0)
-			System.out.println("1 - Main action [main action]");
-		if(game.getQuickActionCounter() != 0)
-			System.out.println("2 - Quick action [quick action]");
-		if(game.getMainActionCounter() == 0)
-			System.out.println("3 - Skip the quick action [skip action]");
 	}
 	
 	/**
 	 * display the main actions that can be performed
 	 * @return the number of main actions
 	 */
-	private void showMainAction(){
+	public void showAction(){
 		System.out.println("Inserisci il numero dell'azione che vuoi eseguire");
-		Iterator<? extends MainAction> x = game.getMainAction().iterator();
-		for(int i = 0;x.hasNext(); i++){
-			System.out.println(i+" - "+x.next().toString());
+		Set<Action> mq = game.getAction();
+		Iterator<Action> x = mq.iterator();
+		int index = 0;
+		for(;x.hasNext(); index++){
+			System.out.println(index+" - "+x.next().toString());
 		}
 	}
-	
-	/**
-	 * display the quick actions that can be performed
-	 * @return the number of quick actions
-	 */
-	private void showQuickAction(){
-		System.out.println("Inserisci il numero dell'azione che vuoi eseguire");
-		Iterator<? extends QuickAction> x = game.getQuickAction().iterator();
-		for(int i = 0;x.hasNext(); i++)
-				System.out.println(i+" - "+x.toString());
-	}
+
 	
 	/**
 	 * displays the different bonuses that require an input from the user
