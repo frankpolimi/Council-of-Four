@@ -5,7 +5,7 @@ package cg2.model;
 
 import bonus.bonusers.Bonusable;
 
-import java.util.Set;
+import java.util.List;
 
 import bonus.*;
 
@@ -15,9 +15,9 @@ import bonus.*;
  */
 public class NobilityCell extends Bonusable {
 	
-	private final Set<Bonus> bonuses;
+	private final List<Bonus> bonuses;
 	
-	public NobilityCell(Set<Bonus> bonuses) {
+	public NobilityCell(List<Bonus> bonuses) {
 		this.bonuses = bonuses;
 		for(Bonus b: bonuses)
 			this.registerBonus(b);
