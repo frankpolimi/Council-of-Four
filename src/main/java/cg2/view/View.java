@@ -29,18 +29,13 @@ import topology.Region;
 public class View extends Observable implements Observer {
 	//la view non ha un reference a game
 	private final Game game;
-	/*
-	 * possible client a which is connected the view
-	 * 1:1 mapping client-view
-	 */
-	private final int playerID;
+
 	
 	public View(Game game, int playerID) {
 		super();
 		//togliere
 		this.game = game;
 		game.registerObserver(this);
-		this.playerID = playerID;
 	}
 
 	/**
@@ -87,13 +82,14 @@ public class View extends Observable implements Observer {
 	 * @return the number of main actions
 	 */
 	public void showAction(){
-		System.out.println("Inserisci il numero dell'azione che vuoi eseguire");
+		System.out.println("Insert the action number followed by the parameters needed");
 		Set<Action> mq = game.getAction();
 		Iterator<Action> x = mq.iterator();
 		int index = 0;
 		for(;x.hasNext(); index++){
 			System.out.println(index+" - "+x.next().toString());
 		}
+		System.out.println(++index+" - Skip the quick action [no parameters required]");
 	}
 
 	
