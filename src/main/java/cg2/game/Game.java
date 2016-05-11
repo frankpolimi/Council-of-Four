@@ -12,7 +12,7 @@ import council.Councillor;
 import topology.*;
 
 /**
- * @author Emanuele Ricciardelli
+ * @author Emanuele Ricciardelli, Vitaliy Pakholko
  *
  */
 public class Game extends Observable {
@@ -27,6 +27,8 @@ public class Game extends Observable {
 	private final List<ColorTile> colorTileList;
 	private final List<RegionTile> regionTileList;
 	private final NobilityLane nobilityLane;
+	
+	private City kingsPosition;
 	
 	/*
 	private final Set<MainAction> mainAction = null; //just for avoiding errors
@@ -85,7 +87,11 @@ public class Game extends Observable {
 				return true;
 		return false;
 	}
-
+	
+	
+	/**
+	 * @author Vitaliy Pakholko
+	 */
 	public void shuffleUsedPolitics()
 	{
 		if(usedPolitics.isEmpty())
@@ -95,28 +101,66 @@ public class Game extends Observable {
 		politicsDeck.shuffle();
 	}
 	
+	/**
+	 * @author Vitaliy Pakholko
+	 */
 	public void addCouncillor(Councillor councillor)
 	{
 		this.avaliableCouncillors.add(councillor);
 	}
 	
+	/**
+	 * @author Vitaliy Pakholko
+	 */
+	public void incrementQuickActionCounter()
+	{
+		quickActionCounter++;
+	}
 	
 	/**
-	 * @return the number of mainActionNumber
+	 * @author Vitaliy Pakholko
 	 */
-	public int getMainActionCounter() {
-		return mainActionCounter;
+	public void decrementQuickActionCounter()
+	{
+		quickActionCounter--;
 	}
-
-
+	
+	/**
+	 * @author Vitaliy Pakholko
+	 */
 	public void incrementMainActionCounter()
 	{
 		mainActionCounter++;
 	}
 	
+	/**
+	 * @author Vitaliy Pakholko
+	 */
 	public void decrementMainActionCounter()
 	{
 		mainActionCounter--;
+	}
+
+	
+	/**
+	 * @author Vitaliy Pakholko
+	 */
+	public City getKingsPosition() {
+		return kingsPosition;
+	}
+
+	/**
+	 * @author Vitaliy Pakholko
+	 */
+	public void setKingsPosition(City kingsPosition) {
+		this.kingsPosition = kingsPosition;
+	}
+
+	/**
+	 * @return the number of mainActionNumber
+	 */
+	public int getMainActionCounter() {
+		return mainActionCounter;
 	}
 
 
@@ -132,16 +176,6 @@ public class Game extends Observable {
 	 */
 	public int getQuickActionCounter() {
 		return quickActionCounter;
-	}
-	
-	public void incrementQuickActionCounter()
-	{
-		quickActionCounter++;
-	}
-	
-	public void decrementQuickActionCounter()
-	{
-		quickActionCounter--;
 	}
 
 	/**

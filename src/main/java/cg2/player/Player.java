@@ -8,7 +8,7 @@ import cg2.game.Game;
 import cg2.model.*;
 
 /**
- * @author Emanuele Ricciardelli
+ * @author Emanuele Ricciardelli, Vitaliy Pakholko
  *	This class contains the most general informations about the player. This doesn't contain the status
  *	informations (points information, nobility information and so on).
  */
@@ -86,6 +86,9 @@ public class Player {
 		return this.emporiumsOwned;
 	}
 	
+	/**
+	 * @author Vitaliy Pakholko
+	 */
 	public boolean checkCoins(int coins)
 	{
 		if(this.getStatus().getCoins()>=coins)
@@ -96,6 +99,9 @@ public class Player {
 		return false;		
 	}
 	
+	/**
+	 * @author Vitaliy Pakholko
+	 */
 	public boolean checkAssistants(int assistants)
 	{
 		if(this.getStatus().getAssistants()>=assistants)

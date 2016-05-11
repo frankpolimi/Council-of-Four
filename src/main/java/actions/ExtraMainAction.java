@@ -2,6 +2,9 @@ package actions;
 
 import cg2.player.Player;
 
+/**
+ * @author Vitaliy Pakholko
+ */
 public class ExtraMainAction extends QuickAction 
 {
 	public boolean takeAction(Player player)
@@ -17,5 +20,13 @@ public class ExtraMainAction extends QuickAction
 			return false;
 		}
 	}
+
+	@Override
+	public String toString() 
+	{
+		return "ExtraMainAction: The player pays 3 Councillors to get an extra MainAction";
+	}
+	
+	
 	
 }

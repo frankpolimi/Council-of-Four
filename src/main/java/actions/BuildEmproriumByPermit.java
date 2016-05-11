@@ -5,6 +5,9 @@ import cg2.model.City;
 import cg2.model.Emporium;
 import cg2.player.Player;
 
+/**
+ * @author Vitaliy Pakholko
+ */
 public class BuildEmproriumByPermit extends MainAction 
 {
 	public boolean takeAction(Player player, BuildingPermit permit, City city)
@@ -32,15 +35,22 @@ public class BuildEmproriumByPermit extends MainAction
 		if(player.checkAssistants(otherEmporiums))
 		{
 			this.game.decrementMainActionCounter();
+			player.getStatus().usePermit(permit);
 			city.addEmporium(player);
+			//Qua ci va la parte di attivare i bonus
 			return true;
 		}
 		else 
 		{
 			System.out.println("Not enough assistants to build in this city. For each other player's emporium you have to pay 1 assistant");
 			return false;
-		}
-		
-		
+		}	
 	}
+
+	@Override
+	public String toString() {
+		return "BuildEmproriumByPermit: The player tries to build an Emporium in a City using the corresponding BuildingPermit he/she possesses.";
+	}
+	
+	
 }
