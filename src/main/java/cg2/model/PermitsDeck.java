@@ -4,9 +4,10 @@ import java.util.concurrent.ArrayBlockingQueue;
 import cg2.player.Player;
 /**
  * 
- * @author Emanuele Ricciardelli modified by someone
+ * @author Emanuele Ricciardelli, Vitaliy Pakholko
  *
  */
+
 public class PermitsDeck {
 	private List<BuildingPermit> buildingPermitsDeck;
 	private ArrayBlockingQueue<BuildingPermit> faceUpPermits;
@@ -29,6 +30,10 @@ public class PermitsDeck {
 		
 	}
 	
+	
+	/**
+	 * @author Vitaliy Pakholko
+	 */
 	public void changeFaceUpPermits()
 	{
 		if(faceUpPermits.size()==2)
@@ -42,15 +47,22 @@ public class PermitsDeck {
 		else System.out.println("Not enought permits to change");
 	}
 	
-	public ArrayBlockingQueue<BuildingPermit> getFaceUpPermits() {
+	/**
+	 * @author Vitaliy Pakholko
+	 */
+	public ArrayBlockingQueue<BuildingPermit> getFaceUpPermits() 
+	{
 		return faceUpPermits;
 	}
-
-	public void setFaceUpPermits(ArrayBlockingQueue<BuildingPermit> faceUpPermits) {
+	
+	/**
+	 * @author Vitaliy Pakholko
+	 */
+	public void setFaceUpPermits(ArrayBlockingQueue<BuildingPermit> faceUpPermits) 
+	{
 		this.faceUpPermits = faceUpPermits;
 	}
 
-	
 	/**
 	 * @return the buildingPermitsDeck
 	 */

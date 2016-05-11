@@ -10,6 +10,9 @@ import council.Councillor;
 import politics.JollyPoliticsCard;
 import politics.PoliticsCard;
 
+/**
+ * @author Vitaliy Pakholko
+ */
 public class Action implements Act
 {
 	Game game;
@@ -41,18 +44,19 @@ public class Action implements Act
 					}
 				}
 			}
-			
-			int diff=councillors.size()-jollies;
-			int coins=player.getStatus().getCoins();
-			switch (diff)
+			int cost;
+			switch (councillors.size()-jollies)
 			{
 				case 0:return true;
-				case 1: if(coins>=4){player.getStatus().setCoins(player.getStatus().getCoins()-4); return true; }return false; //Manca tutta la parte di gestione del permesso che deve essere preso
-				case 2: if(coins>=7){player.getStatus().setCoins(player.getStatus().getCoins()-7); return true; }return false;// e tolto dal mazzetto ed aggiunto il prossimo
-				case 3: if(coins>=10){player.getStatus().setCoins(player.getStatus().getCoins()-10); return true;}return false;
+				case 1: cost=4; break;
+				case 2: cost=7; break;
+				case 3: cost=10; break;
 				default: return false;
 			}
-			
-				
+			if(!player.checkCoins(cost))
+			{
+				System.out.println("Not enough coins to pay the council. For 1 missing politics card you pay 4 additional coins, for each additional missing politics card you add 3 more");
+				return false;
+			}return true;
 	}
 }

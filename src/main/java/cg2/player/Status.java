@@ -120,22 +120,14 @@ public class Status {
 	}
 	
 	
-
-	/**
-	 * @return the usedBuildingLicenses
-	 */
 	public List<BuildingPermit> getUsedBuildingPermits() {
 		return usedBuildingPermits;
 	}
 	
-	public void useLicense(BuildingPermit bl){
+	public void usePermit(BuildingPermit bl){
 		int index = buildingPermits.indexOf(bl);
 		usedBuildingPermits.add(buildingPermits.remove(index));
 	}
-	
-	
-	
-	
 	
 	
 }
