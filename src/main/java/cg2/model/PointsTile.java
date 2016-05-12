@@ -27,6 +27,15 @@ public abstract class PointsTile {
 	public int getVPs() {
 		return VPs;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "PointsTile [VPs=" + VPs + "]";
+	}
+	
 	
 	
 	
