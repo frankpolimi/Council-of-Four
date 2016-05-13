@@ -96,21 +96,11 @@ public class Controller implements Observer {
 			System.out.println(game.getCurrentPlayer().getName()
 					+" non puoi più eseguire azioni secondarie per questo turno");
 		}
-		else if(communication.contains("main_action")){
-			/*
-			 * TODO 
-			 * skim through the MainAction
-			 * pick right one (iterator and for combined)
-			 * execute the action (how the I/O)
-			 */
+		else if(communication.equals("main action")){
+			
 		}
-		else if(communication.contains("quick_action")){
-			/*
-			 * TODO 
-			 * skim through the MainAction
-			 * pick right one (iterator and for combined)
-			 * execute the action (how the I/O)
-			 */
+		else if(communication.contains("quick action")){
+			
 		}
 	}
 }

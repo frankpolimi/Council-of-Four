@@ -41,9 +41,28 @@ public class View extends Observable implements Observer {
 	 * @param command the input coming from the client
 	 */
 	public void input(String command){
-		
+		if(command.equals("main action"))
+			this.displayMainAction();
+		else if(command.equals("quick action"))
+			this.displayQuickAction();
 	}	
 	
+	private void displayQuickAction() {
+		int index = 0;
+		System.out.println(++index+" - "+EngageAssistant.class.getSimpleName());
+		System.out.println(++index+" - "+ChangeFaceUpPermits.class.getSimpleName());
+		System.out.println(++index+" - "+ElectCouncillorByAssistant.class.getSimpleName());
+		System.out.println(++index+" - "+ExtraMainAction.class.getSimpleName());		
+	}
+
+	private void displayMainAction() {
+		int index = 0;
+		System.out.println(++index+" - "+AcquirePermit.class.getSimpleName());
+		System.out.println(++index+" - "+BuildEmporiumByKing.class.getSimpleName());
+		System.out.println(++index+" - "+ElectCouncillor.class.getSimpleName());
+		System.out.println(++index+" - "+BuildEmproriumByPermit.class.getSimpleName());
+	}
+
 	/* (non-Javadoc)
 	 * @see cg2.observers.Observer#update()
 	 */
