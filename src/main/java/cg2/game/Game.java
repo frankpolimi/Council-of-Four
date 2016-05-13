@@ -1,7 +1,12 @@
 package cg2.game;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Set;
+
+import org.jdom2.JDOMException;
+import org.jgrapht.UndirectedGraph;
+import org.jgrapht.graph.DefaultEdge;
 
 import actions.*;
 import cg2.model.*;
@@ -17,46 +22,45 @@ import topology.*;
  */
 public class Game extends Observable {
 	
-	private final PermitsDeck licenseDeck;
 	private final PoliticsDeck politicsDeck;
 	private final PoliticsDeck usedPolitics;
 	private final List<Player> players;
 	private final Set<Region> regions;
 	private final List<Councillor> avaliableCouncillors;
-	private final List<KingTile> kingTileList;
-	private final List<ColorTile> colorTileList;
-	private final List<RegionTile> regionTileList;
+	private final List<PointsTile> kingTileList;
+	private final List<PointsTile> colorTileList;
+	private final List<PointsTile> regionTileList;
 	private final NobilityLane nobilityLane;
-	
+	private final ExtendedGraph<City,DefaultEdge> map;
 	private City kingsPosition;
 	
 	/*
 	private final Set<MainAction> mainAction = null; //just for avoiding errors
 	private final Set<QuickAction> quickAction = null;
 	*/
-	
-	//private final Set<Action> actions = null; //just for avoiding errors
-	
+
 	private Player currentPlayer;
 	
 	private int mainActionCounter;
 	private int quickActionCounter;
 	
 
-	public Game(PermitsDeck licenseDeck, PoliticsDeck politicsDeck, List<Player> players, Set<Region> regions,
-			List<Councillor> avaliableCouncillors, List<KingTile> kingTileList, List<ColorTile> colorTileList,
-			List<RegionTile> regionTileList, NobilityLane nobilityLane) {
-		super();
-		this.licenseDeck = licenseDeck;
-		this.politicsDeck = politicsDeck;
-		this.players = players;
-		this.regions = regions;// in realtà viene inizializzato in questo costruttore
-		this.avaliableCouncillors = avaliableCouncillors;
-		this.kingTileList = kingTileList;
-		this.colorTileList = colorTileList;
-		this.regionTileList = regionTileList;
-		this.nobilityLane = nobilityLane;
-		this.usedPolitics = new PoliticsDeck(null); //da cambiare
+	public Game(List<Player> players) throws JDOMException, IOException {
+		MapMaker mp=new MapMaker();
+		this.politicsDeck=mp.createPoliticsDeck();
+		this.usedPolitics=new PoliticsDeck(null);
+		this.players=players;
+		this.regions=mp.createRegionSet();
+		this.map=mp.generateMap(this.regions);
+		this.avaliableCouncillors=mp.getExtractedCouncillors();//The councils have been created yet, so these are the remaining councillors.
+		this.kingTileList=mp.createTiles("kingTileList", this.regions);
+		this.colorTileList=mp.createTiles("colorTileList", this.regions);
+		this.regionTileList=mp.createTiles("regionTileList", this.regions);
+		this.nobilityLane=mp.createNobilityLane();
+		this.currentPlayer=this.players.get(0);
+		this.kingsPosition=this.map.getVertexByKey("J");
+		
+		
 	}
 
 	public void gioca(){
