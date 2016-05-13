@@ -53,7 +53,7 @@ public class Region
 	 */
 	@Override
 	public String toString() {
-		return "Region [name=" + name + ", cities=" + cities + "]";
+		return "Region [name=" + name + ", cities=" + cities + "]\n";
 	}
 	
 	

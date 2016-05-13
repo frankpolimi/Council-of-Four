@@ -72,13 +72,28 @@ public class City  extends Bonusable{
 	public Color getCityColor() {
 		return cityColor;
 	}
+	
+	/**
+	 * This method checks if a determinate player has built an emporium in this city
+	 * @param player
+	 * @return
+	 */
+	public boolean hasPlayerBuilt(Player player){
+		
+		for(Emporium e:this.emporiums){
+			if(e.getPlayer().equals(player)){
+				return true;
+			}
+		}
+		return false;
+	}
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return "City [name=" + name + ", firstChar=" + firstChar + ", cityColor=" + cityColor + ", bonuses=" +bonusList+"]";
+		return "City [name=" + name + ", firstChar=" + firstChar + ", cityColor=" + cityColor + ", bonuses=" +bonusList+"]\n";
 	}
 
 	/**
@@ -111,6 +126,8 @@ public class City  extends Bonusable{
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		return result;
 	}
+	
+	
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)

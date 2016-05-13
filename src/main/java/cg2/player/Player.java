@@ -216,6 +216,81 @@ public class Player {
 		}
 		return false;		
 	}
+	
+	
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + assistants;
+		result = prime * result + ((buildingPermits == null) ? 0 : buildingPermits.hashCode());
+		result = prime * result + ((cardsOwned == null) ? 0 : cardsOwned.hashCode());
+		result = prime * result + coins;
+		result = prime * result + ((emporiumsOwned == null) ? 0 : emporiumsOwned.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + nobilityPoints;
+		result = prime * result + playerID;
+		result = prime * result + points;
+		result = prime * result + remainingEmporiums;
+		result = prime * result + ((usedBuildingPermits == null) ? 0 : usedBuildingPermits.hashCode());
+		return result;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Player other = (Player) obj;
+		if (assistants != other.assistants)
+			return false;
+		if (buildingPermits == null) {
+			if (other.buildingPermits != null)
+				return false;
+		} else if (!buildingPermits.equals(other.buildingPermits))
+			return false;
+		if (cardsOwned == null) {
+			if (other.cardsOwned != null)
+				return false;
+		} else if (!cardsOwned.equals(other.cardsOwned))
+			return false;
+		if (coins != other.coins)
+			return false;
+		if (emporiumsOwned == null) {
+			if (other.emporiumsOwned != null)
+				return false;
+		} else if (!emporiumsOwned.equals(other.emporiumsOwned))
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		if (nobilityPoints != other.nobilityPoints)
+			return false;
+		if (playerID != other.playerID)
+			return false;
+		if (points != other.points)
+			return false;
+		if (remainingEmporiums != other.remainingEmporiums)
+			return false;
+		if (usedBuildingPermits == null) {
+			if (other.usedBuildingPermits != null)
+				return false;
+		} else if (!usedBuildingPermits.equals(other.usedBuildingPermits))
+			return false;
+		return true;
+	}
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
