@@ -6,7 +6,7 @@ package cg2.model;
 import java.awt.Color;
 import java.util.*;
 
-import bonus.TileBonus;
+import bonus.*;
 import bonus.bonusers.Bonusable;
 import cg2.player.Player;
 
@@ -93,7 +93,7 @@ public class City  extends Bonusable{
 		return x;
 	}
 
-	public Set<TileBonus> getBonus() {
+	public List<Bonus> getBonus() {
 		return bonusList;
 	}
 
