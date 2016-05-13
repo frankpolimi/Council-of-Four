@@ -26,11 +26,11 @@ public class City  extends Bonusable{
 	private final Color cityColor;
 	//private final Set<City> linkedCities;
 	private ArrayList<Emporium> emporiums;
-	private final Set<TileBonus> bonusList;
+	private final List<Bonus> bonusList;
 	
 	//i collegamenti saranno letti da file, perciò ci sarà una fase di creazione
 	//del vettore collegamenti da parte dell'inizializzatore della partita.
-	public City(String name, Color color, Set<TileBonus> bonus){
+	public City(String name, Color color, List<Bonus> bonus){
 		super();
 		this.name=name;
 		firstChar=name.charAt(0);
@@ -84,7 +84,7 @@ public class City  extends Bonusable{
 	 */
 	@Override
 	public String toString() {
-		return "City [name=" + name + ", firstChar=" + firstChar + ", cityColor=" + cityColor + "]";
+		return "City [name=" + name + ", firstChar=" + firstChar + ", cityColor=" + cityColor + ", bonuses=" +bonusList+"]";
 	}
 
 	/**
@@ -92,12 +92,66 @@ public class City  extends Bonusable{
 	 * @return the bonuses applied to the permit
 	 */
 	public String displayBonus() {
-		Iterator<TileBonus> i = bonusList.iterator();
+		Iterator<Bonus> i = bonusList.iterator();
 		String x = "";
 		while(i.hasNext())
 			x.concat(i.next().toString()+" ");
 		return x;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((bonusList == null) ? 0 : bonusList.hashCode());
+		result = prime * result + ((cityColor == null) ? 0 : cityColor.hashCode());
+		result = prime * result + ((emporiums == null) ? 0 : emporiums.hashCode());
+		result = prime * result + firstChar;
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		return result;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		City other = (City) obj;
+		if (bonusList == null) {
+			if (other.bonusList != null)
+				return false;
+		} else if (!bonusList.equals(other.bonusList))
+			return false;
+		if (cityColor == null) {
+			if (other.cityColor != null)
+				return false;
+		} else if (!cityColor.equals(other.cityColor))
+			return false;
+		if (emporiums == null) {
+			if (other.emporiums != null)
+				return false;
+		} else if (!emporiums.equals(other.emporiums))
+			return false;
+		if (firstChar != other.firstChar)
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		return true;
+	}
+	
+	
 
 	/**
 	 * @return the linkedCities

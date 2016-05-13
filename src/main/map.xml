@@ -243,8 +243,8 @@
 		</colorTileList>
 		<regionTileList name="regionTileList">
 			<tile type="regionTile" name="land" points="5"></tile>
-			<tile type="regionTile" RGB="hill" points="5"></tile>
-			<tile type="regionTile" RGB="mountain" points="5"></tile>
+			<tile type="regionTile" name="hill" points="5"></tile>
+			<tile type="regionTile" name="mountain" points="5"></tile>
 		</regionTileList> 
 		<kingTileList name="kingTileList">
 			<tile type="kingTile" points="25"></tile>

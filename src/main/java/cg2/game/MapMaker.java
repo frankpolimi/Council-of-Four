@@ -9,6 +9,7 @@ import java.util.concurrent.ArrayBlockingQueue;
 import org.jdom2.*;
 import org.jdom2.input.SAXBuilder;
 import org.jgrapht.*;
+import org.jgrapht.alg.VertexCovers;
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.SimpleGraph;
 
@@ -54,6 +55,21 @@ public class MapMaker {
 		}
 	}
 	
+	private List<Bonus> extractNewRandomicBonus(){
+		Random random = new Random();
+		List<Bonus> bonusList=extractedCityBonus.remove(random.nextInt(extractedCityBonus.size()));
+		return bonusList;
+	}
+	
+	
+	
+	/**
+	 * @return the extractedCouncillors
+	 */
+	public List<Councillor> getExtractedCouncillors() {
+		return extractedCouncillors;
+	}
+
 	private RegionalCouncil extractNewRegionalCouncil(Element region) throws JDOMException, IOException{
 		Random random= new Random();
 		RegionalCouncil regional;
@@ -117,13 +133,13 @@ public class MapMaker {
 	 * @throws IOException 
 	 * @throws JDOMException 
 	 */
-	public UndirectedGraph<City, DefaultEdge> generateMap() throws JDOMException, IOException{
+	public ExtendedGraph<City, DefaultEdge> generateMap(Set<Region> regionSet) throws JDOMException, IOException{
 		//inizializzazione grafo
-		UndirectedGraph<City, DefaultEdge> graph=new SimpleGraph<>(DefaultEdge.class);
+		ExtendedGraph<City, DefaultEdge> graph=new ExtendedGraph<>(DefaultEdge.class);
 		//XML Reader objects needed
 		Element root=this.getRootFromFile();
 		List<Element> children=root.getChildren();
-		Set<Region> regions=this.createRegionSet();
+		Set<Region> regions=regionSet;
 		Iterator<Region> regionIt=regions.iterator();
 		while(regionIt.hasNext()){
 			Region reg=regionIt.next();
@@ -189,23 +205,43 @@ public class MapMaker {
 		
 	}
 	
+	private Region getSpecificRegionByName(Set<Region> regions, String name){
+		Iterator<Region> regionIt=regions.iterator();
+		Region selected=null;
+		while(regionIt.hasNext()){
+			Region next=regionIt.next();
+			if(next.getName().equals(name)){
+				selected=next;
+			}
+		}
+		return selected;
+	}
+		
 	/**
 	 * 
 	 * @return an instance of the ColorTileList used in the game
 	 * @throws JDOMException when errors occur in parsing
 	 * @throws IOException  when an I/O error prevents a document from being fully parsed
 	 */
-	public List<ColorTile> createColorTiles() throws JDOMException, IOException{
-		List<ColorTile> tilesList =new ArrayList<>();
+	public List<PointsTile> createTiles(String type, Set<Region> regions) throws JDOMException, IOException{
+		List<PointsTile> tilesList =new ArrayList<>();
 		Element root=this.getRootFromFile();
-		List<Element> colorTileList = root.getChild("decks").getChild("colorTileList").getChildren();
+		List<Element> colorTileList = root.getChild("decks").getChild(type).getChildren();
 		Iterator<Element> colorIt=colorTileList.iterator();
 		while(colorIt.hasNext()){
 			Element tile=colorIt.next();
-			ColorTile ct;
-			Color color=this.convert(tile.getAttributeValue("RGB"));
+			PointsTile ct;
 			int points=Integer.parseInt(tile.getAttributeValue("points"));
-			ct=new ColorTile(points, color);
+			if(type.equals("colorTileList")){
+				Color color=this.convert(tile.getAttributeValue("RGB"));
+				ct=new ColorTile(points, color);
+			}else if(type.equals("regionTileList")){
+				String name=tile.getAttributeValue("name");
+				Region region=this.getSpecificRegionByName(regions, name);
+				ct=new RegionTile(points, region);
+			}else{
+				ct=new KingTile(points);
+			}
 			tilesList.add(ct);
 		}
 		
@@ -232,9 +268,6 @@ public class MapMaker {
 			Iterator<Element> permitBonusIt=permitBonus.iterator();
 			while(permitBonusIt.hasNext()){
 				Element bonus=permitBonusIt.next();
-				System.out.println("Bonus");
-				System.out.println(bonus.getAttributeValue("className"));
-				System.out.println(bonus.getAttributeValue("amount"));
 				try{
 				Bonus obj=this.getBonus(bonus.getAttributeValue("className"), Integer.parseInt(bonus.getAttributeValue("amount")));
 				bonusList.add(obj);
@@ -273,7 +306,7 @@ public class MapMaker {
 				Color color;
 				String name=city.getAttributeValue("name");
 				color=this.convert(city.getAttributeValue("RGB"));
-				c=new City(name,color,null);//generare random i bonus!
+				c=new City(name,color,this.extractNewRandomicBonus());//generare random i bonus!
 				arrayCity.add(c);
 				cityMap.put(c.getFirstChar(), c);
 			}
@@ -307,13 +340,10 @@ public class MapMaker {
 					System.out.println("Posizione: "+pos+"Bonus:"+obj.toString());
 					bonusList.add(obj);
 					}catch(Exception e){
-						System.out.println("ma boh!");
+						e.printStackTrace();
 					}
 			}
-			System.out.println("Stampo lista!");
-			for(Bonuser b:bonusList){
-				System.out.println(b.toString());
-			}
+
 			NobilityCell cell=new NobilityCell(bonusList);
 			lane.setLane(pos,cell);
 		}
@@ -327,11 +357,16 @@ public class MapMaker {
 		Document document= builder.build(new File("src/main/map.xml"));
 		return document.getRootElement();
 	}
+	
 
 	public static void main(String[] args)throws IOException, JDOMException {
 		MapMaker mp=new MapMaker();
-		
-		
+		ExtendedGraph<City,DefaultEdge> graph=mp.generateMap(mp.createRegionSet());
+		City c1=graph.getVertexByKey("K");
+		City c2=graph.getVertexByKey("E");
+		System.out.println("Città 1:"+c1.toString());
+		System.out.println("Città 2:"+c2.toString());
+		System.out.println("Costo: "+graph.howManyVertexPassed(c1, c2));
 	}
 	
 	
