@@ -4,10 +4,8 @@
 package bonus;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 /**
  * @author Francesco Vetrò
@@ -40,12 +38,9 @@ public class ActionBonus extends Bonus {
 		return "ActionBonus [amount=" + amount + "]";
 	}
 
-	public List<? extends Bonus> checkNoNobility(Set<TileBonus> bonus) {
-		Iterator<TileBonus> x = bonus.iterator();
-		List<TileBonus> correct = new ArrayList<TileBonus>();
-		TileBonus b = null;
-		while(x.hasNext())
-			b = x.next();
+	public List<? extends Bonus> checkNoNobility(List<Bonus> list) {
+		List<Bonus> correct = new ArrayList<Bonus>();
+		for(Bonus b: list)
 			if(!(b.getClass().equals(NobilityBonus.class)))
 				correct.add(b);
 		return correct;
