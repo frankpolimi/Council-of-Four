@@ -1,5 +1,5 @@
 package cg2.model;
-import topology.*;
+
 import java.util.*;
 
 import bonus.*;
