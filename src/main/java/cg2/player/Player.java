@@ -2,6 +2,7 @@
  * 
  */
 package cg2.player;
+import java.lang.reflect.Method;
 import java.util.*;
 
 import cg2.game.Game;
@@ -17,15 +18,15 @@ public class Player {
 	private final int playerID;
 	private final Status status;
 	private int remainingEmporiums;
-	private final Game refGame;
+	//private final Game refGame;
 	private final HashSet<Emporium> emporiumsOwned;
 	
-	public Player(String name, int playerID, Status status, int remainingEmporiums, Game refGame) {
+	public Player(String name, int playerID, Status status, int remainingEmporiums) {
 		this.name = name;
 		this.playerID = playerID;
 		this.status = status;
 		this.remainingEmporiums = remainingEmporiums;//caricato da file
-		this.refGame = refGame;
+		//this.refGame = refGame;
 		emporiumsOwned=new HashSet<>();
 	}
 
@@ -67,10 +68,11 @@ public class Player {
 	/**
 	 * @return the refGame
 	 */
+	/*
 	public Game getRefGame() {
 		return refGame;
 	}
-	
+	*/
 	/**
 	 * @param emporium
 	 * add the emporium to the set of owned emporiums
@@ -110,6 +112,15 @@ public class Player {
 			return true;
 		}
 		return false;		
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Player [name=" + name + ", playerID=" + playerID + ", status=" + status + ", remainingEmporiums="
+				+ remainingEmporiums + ", emporiumsOwned=" + emporiumsOwned + "]";
 	}
 	
 	

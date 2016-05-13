@@ -1,6 +1,7 @@
 package cg2.game;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -207,4 +208,30 @@ public class Game extends Observable {
 		return this.avaliableCouncillors;
 	}
 	
+	
+	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Game [politicsDeck=" + politicsDeck + ", usedPolitics=" + usedPolitics + ", players=" + players
+				+ ", regions=" + regions + ", avaliableCouncillors=" + avaliableCouncillors + ", kingTileList="
+				+ kingTileList + ", colorTileList=" + colorTileList + ", regionTileList=" + regionTileList
+				+ ", nobilityLane=" + nobilityLane + ", map=" + map + ", kingsPosition=" + kingsPosition
+				+ ", currentPlayer=" + currentPlayer + ", mainActionCounter=" + mainActionCounter
+				+ ", quickActionCounter=" + quickActionCounter + "]";
+	}
+
+	//main
+	public static void main(String[]args) throws JDOMException, IOException{
+		Player p1=new Player("Marco", 1, new Status(20, 10), 10);
+		Player p2=new Player("Paolo", 1, new Status(21,10),10);
+		List<Player> player=new ArrayList<>();
+		player.add(p1);
+		player.add(p2);
+		Game game=new Game(player);
+		System.out.println("Partita");
+		System.out.println(game.toString());
+	}
 }

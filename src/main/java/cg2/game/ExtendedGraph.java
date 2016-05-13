@@ -6,6 +6,8 @@ package cg2.game;
 import org.jgrapht.graph.SimpleGraph;
 import java.util.*;
 import cg2.model.*;
+
+import org.jgrapht.alg.BellmanFordShortestPath;
 import org.jgrapht.alg.DijkstraShortestPath;
 /**
  * @author Emanuele Ricciardelli
@@ -53,7 +55,10 @@ public class ExtendedGraph<V extends City,E> extends SimpleGraph<V, E> {
 		List<E> list= dsp.getPathEdgeList();
 		return list.size();
 		
+		
 	}
+	
+	
 	
 	
 	
