@@ -28,9 +28,12 @@ import topology.Region;
  */
 public class View extends Observable implements Observer {
 	
+	private final int playerID;
+	
 	public View(Game game, int playerID) {
 		super();
 		game.registerObserver(this);
+		this.playerID = playerID;
 	}
 
 	/**

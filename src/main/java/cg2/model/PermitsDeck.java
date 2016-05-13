@@ -23,6 +23,7 @@ public class PermitsDeck {
 		if(faceUpPermits.contains(permit))
 		{
 			player.getStatus().addBuildingPermit(permit);
+			permit.applyBonus(player);
 			return true;
 		}
 		System.out.println("No such permit in this deck's face up permits");
