@@ -3,7 +3,13 @@
  */
 package bonus;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import cg2.game.Game;
+import cg2.model.BuildingPermit;
 import cg2.view.*;
+import topology.Region;
 
 /**
  * @author Francesco Vetrò
@@ -19,23 +25,32 @@ public class FreeBuildingLicenseBonus extends ActionBonus {
 		this.registerObserver(view);
 	}
 
+	/**
+	 * will be update by a change in the model and will get all the face-up
+	 * permits from each region and will pass it to the specific view of the 
+	 * player whose turn is.
+	 * @param playerOrGame the instance of the game that must collect
+	 * the permits to give to the view from which the player must choose
+	 */
 	/* (non-Javadoc)
 	 * @see bonus.bonusers.Bonuser#update(java.lang.Object)
 	 */
 	@Override
 	public <T> void update(T playerOrGame) {
+		List<BuildingPermit> permits = new ArrayList<BuildingPermit>();
+		Game g = (Game)playerOrGame;
+		for(int i=0; i< this.amount;i++){
+			for(Region r : g.getRegions())
+				permits.addAll(r.getPermitsDeck().getFaceUpPermits());
+			this.notifyObserver(g.getCurrentPlayer().getPlayerID(), permits);
+		}
 	}
 	
 	/* (non-Javadoc)
 	 * @see bonus.bonusers.Bonuser#update(java.lang.Object)
 	 */
-	/**
-	 * this will start the view and the selection for the bonus
-	 */
 	@Override
 	public void update() {
-		for(int i=0; i< this.amount;i++)
-			this.notifyObservers(this.toString());
 	}
 
 	/* (non-Javadoc)

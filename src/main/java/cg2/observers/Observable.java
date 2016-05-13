@@ -16,7 +16,7 @@ public abstract class Observable {
 	}
 	
 	public void registerObserver(Observer o){
-		observers.add(o);
+		this.observers.add(o);
 	}
 	
 	public void unregisterObserver(Observer o){
@@ -27,6 +27,10 @@ public abstract class Observable {
 		for(Observer o: this.observers){
 			o.update();
 		}
+	}
+	
+	public <C> void notifyObserver(int specificView, C c){
+		this.observers.get(specificView).update(c);
 	}
 	
 	public <C> void notifyObservers(C c){

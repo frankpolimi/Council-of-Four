@@ -93,6 +93,10 @@ public class City  extends Bonusable{
 		return x;
 	}
 
+	public Set<TileBonus> getBonus() {
+		return bonusList;
+	}
+
 	/**
 	 * @return the linkedCities
 	 */

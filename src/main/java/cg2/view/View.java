@@ -27,14 +27,9 @@ import topology.Region;
  * @author Francesco Vetrò
  */
 public class View extends Observable implements Observer {
-	//la view non ha un reference a game
-	private final Game game;
-
 	
 	public View(Game game, int playerID) {
 		super();
-		//togliere
-		this.game = game;
 		game.registerObserver(this);
 	}
 
@@ -78,22 +73,6 @@ public class View extends Observable implements Observer {
 	}
 	
 	/**
-	 * display the main actions that can be performed
-	 * @return the number of main actions
-	 */
-	public void showAction(){
-		System.out.println("Insert the action number followed by the parameters needed");
-		Set<Action> mq = game.getAction();
-		Iterator<Action> x = mq.iterator();
-		int index = 0;
-		for(;x.hasNext(); index++){
-			System.out.println(index+" - "+x.next().toString());
-		}
-		System.out.println(++index+" - Skip the quick action [no parameters required]");
-	}
-
-	
-	/**
 	 * displays the different bonuses that require an input from the user
 	 * @param type of the bonus
 	 */
@@ -113,6 +92,7 @@ public class View extends Observable implements Observer {
 	 * gives the controller the desired permit to reuse the bonus
 	 */
 	private void showBonusPermits() {
+		/*
 		System.out.println("Inserisci il numero del bonus che vuoi ricevere");
 		List<BuildingPermit> buildingPermits = new ArrayList<BuildingPermit>();
 		buildingPermits.addAll(
@@ -121,8 +101,7 @@ public class View extends Observable implements Observer {
 				game.getCurrentPlayer().getStatus().getUsedBuildingPermits());
 		for(BuildingPermit b: buildingPermits)
 			System.out.println(buildingPermits.indexOf(b)+" - "+b.displayBonus());
-		//int x = this.numberSelection(buildingPermits.size());
-		//this.input(buildingPermits.get(x));
+		*/
 	}
 	
 	/**
@@ -131,6 +110,7 @@ public class View extends Observable implements Observer {
 	 * gives the controller the desired city 
 	 */
 	private void showBonusCities() {
+		/*
 		System.out.println("Inserisci il numero del bonus che vuoi ricevere");
 		Iterator<Emporium> builtOn = 
 				game.getCurrentPlayer().getEmporium().iterator();
@@ -139,6 +119,7 @@ public class View extends Observable implements Observer {
 			cityWithE.add(builtOn.next().getCity());
 		for(City c: cityWithE)
 			System.out.println(cityWithE.indexOf(c)+" - "+c.displayBonus());
+		*/
 	}
 	
 	/**
@@ -146,6 +127,7 @@ public class View extends Observable implements Observer {
 	 * gives the controller the desired building permits to acquire
 	 */
 	private void showFreeBuildingPermits() {
+		/*
 		System.out.println("Inserisci il numero del permesso che vuoi ricevere");
 		List<BuildingPermit> shown = new ArrayList<BuildingPermit>();
 		List<Council> council = new ArrayList<Council>();
@@ -155,5 +137,6 @@ public class View extends Observable implements Observer {
 			shown.addAll(c.getPermitsDeck().getFaceUpPermits());
 		for(BuildingPermit b: shown)
 			System.out.println(shown.indexOf(b)+" - "+b.toString());
+		*/	
 	}
 }

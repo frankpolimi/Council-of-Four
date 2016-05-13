@@ -3,6 +3,11 @@
  */
 package bonus;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import cg2.model.BuildingPermit;
+import cg2.player.Player;
 import cg2.view.*;
 
 /**
@@ -25,18 +30,24 @@ public class ReuseTileBonus extends ActionBonus {
 	 */
 	@Override
 	public <T> void update(T playerOrGame) {
+		Player p = (Player)playerOrGame;
+		List<BuildingPermit> listUnified = new ArrayList<BuildingPermit>(
+				p.getStatus().getBuildingPermits());
+		listUnified.addAll(p.getStatus().getUsedBuildingPermits());
+		List<Bonus> permits;
+		for(int i=0;i<this.amount;i++){
+			permits = new ArrayList<Bonus>();
+			for(BuildingPermit b: listUnified)
+				permits.addAll(b.getBonusList());
+			this.notifyObserver(p.getPlayerID(), permits);
+		}
 	}
 	
 	/* (non-Javadoc)
 	 * @see bonus.bonusers.Bonuser#update(java.lang.Object)
 	 */
-	/**
-	 * this will start the view and the selection for the bonus
-	 */
 	@Override
 	public void update() {
-		for(int i=0;i<this.amount;i++)
-			this.notifyObservers(this.toString());
 	}
 
 	/* (non-Javadoc)

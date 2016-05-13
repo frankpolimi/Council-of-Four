@@ -17,7 +17,7 @@ import politics.PoliticsCard;
  */
 public class Market<T> {
 
-	private List<MarketObject> products;
+	private List<MarketObject<?>> products;
 	private int elementDisplayed;
 	
 	/**
@@ -32,7 +32,7 @@ public class Market<T> {
 	 * add the selected product to the sellable items
 	 * @param product
 	 */
-	public <T> void addProduct(MarketObject product){
+	public void addProduct(MarketObject<?> product){
 		this.products.add(product);
 	}
 	
@@ -42,7 +42,7 @@ public class Market<T> {
 	 * @param customer
 	 */
 	public void displayProducts(Player customer){
-		List<MarketObject> productsForPlayer = null;
+		List<MarketObject<?>> productsForPlayer = null;
 		productsForPlayer = this.getAvailableProducts(customer);
 		for(int i=0; i < products.size(); i++){
 			elementDisplayed = (int) Math.random()*productsForPlayer.size();
@@ -56,8 +56,8 @@ public class Market<T> {
 	 * @param customer
 	 * @return the list of objects
 	 */
-	private List<MarketObject> getAvailableProducts(Player customer) {
-		List<MarketObject> available = new ArrayList<>();
+	private List<MarketObject<?>> getAvailableProducts(Player customer) {
+		List<MarketObject<?>> available = new ArrayList<>();
 		for(MarketObject<?> o: products)
 			if(o.getSellingPlayer().getPlayerID() != customer.getPlayerID())
 				available.add(o);
@@ -87,8 +87,8 @@ public class Market<T> {
 	 * @param <T> the type of the object in MarketObject
 	 * @param the owner of the element
 	 */
-	public <T> void returnUnselledItems(Player owner){
-		for(MarketObject<T> o : products)
+	public void returnUnselledItems(Player owner){
+		for(MarketObject<?> o : products)
 			if(o.getSellingPlayer().getPlayerID() == owner.getPlayerID()){
 				if(o.getObject().getClass().equals(Assistant.class))
 					this.assignAssistants(owner, ((Assistant)o.getObject()));

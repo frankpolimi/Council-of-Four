@@ -35,7 +35,7 @@ public class Game extends Observable {
 	private final Set<QuickAction> quickAction = null;
 	*/
 	
-	private final Set<Action> actions = null; //just for avoiding errors
+	//private final Set<Action> actions = null; //just for avoiding errors
 	
 	private Player currentPlayer;
 	
@@ -190,13 +190,6 @@ public class Game extends Observable {
 	 */
 	public Player getCurrentPlayer() {
 		return currentPlayer;
-	}
-
-	/**
-	 * @return the mainAction
-	 */
-	public Set<Action> getAction() {
-		return actions;
 	}
 	
 	/**

@@ -4,8 +4,11 @@
 package cg2.controller;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import actions.*;
 import cg2.game.Game;
 import cg2.model.BuildingPermit;
 import cg2.model.City;
@@ -19,14 +22,40 @@ import cg2.view.View;
 public class Controller implements Observer {
 	
 	private final Game game;
+	private final Set<MainAction> mainActions;
+	private final Set<QuickAction> quickActions;
 
+	/**
+	 * constructor of the controller. will initialize the list of actions
+	 * with an instance of the specific actions.
+	 * @param view a client's view that want to interact with the game
+	 * @param game the instance of one specific game 
+	 */
 	public Controller(View view, Game game) {
 		super();
 		this.game = game;
 		game.registerObserver(this);
 		view.registerObserver(this);
+		this.mainActions = new HashSet<MainAction>();
+		this.quickActions = new HashSet<QuickAction>();
+		this.initMainAction();
+		this.initQuickAction();
 	}
 
+	private void initMainAction(){
+		this.mainActions.add(new AcquirePermit());
+		this.mainActions.add(new BuildEmporiumByKing());
+		this.mainActions.add(new ElectCouncillor());
+		this.mainActions.add(new BuildEmproriumByPermit());
+	}
+	
+	private void initQuickAction() {
+		this.quickActions.add(new EngageAssistant());
+		this.quickActions.add(new ChangeFaceUpPermits());
+		this.quickActions.add(new ElectCouncillorByAssistant());
+		this.quickActions.add(new ExtraMainAction());
+	}
+	
 	/* (non-Javadoc)
 	 * @see cg2.observers.Observer#update()
 	 */
