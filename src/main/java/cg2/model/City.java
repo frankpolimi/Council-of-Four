@@ -31,6 +31,7 @@ public class City  extends Bonusable{
 		//linkedCities = link;
 		cityColor=color;
 		bonusList = bonus;
+		emporiums=new ArrayList<>();
 		/*
 		 * for(TileBonus b: bonus)
 		 * 	this.registerBonus(b);
