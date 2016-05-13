@@ -22,6 +22,11 @@ public class ExtendedGraph<V extends City,E> extends SimpleGraph<V, E> {
 		super(edgeClass);
 	}
 	
+	/**
+	 * 
+	 * @param key
+	 * @return the vertex that has the param "key" as its key.
+	 */
 	public V getVertexByKey(String key){
 		Set<V> list=super.vertexSet();
 		Iterator<V> it=list.iterator();
@@ -35,12 +40,18 @@ public class ExtendedGraph<V extends City,E> extends SimpleGraph<V, E> {
 		return null;
 	}
 	
+	/**
+	 * 
+	 * @param position
+	 * @param target
+	 * @return the number of vertex on the shortest Path between position and target one (the source vertex is not counted).
+	 */
 	public int howManyVertexPassed(V position, V target){
 		if(position.equals(target)) return 0;
 		
 		DijkstraShortestPath<V, E> dsp= new DijkstraShortestPath<V,E>(this, position, target);
 		List<E> list= dsp.getPathEdgeList();
-		return 2*list.size();
+		return list.size();
 		
 	}
 	
