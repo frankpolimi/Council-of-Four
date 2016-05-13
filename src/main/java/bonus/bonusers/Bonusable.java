@@ -3,10 +3,10 @@
  * tiles of the game.
  */
 package bonus.bonusers;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import bonus.Bonus;
 
 /**
  * @author Francesco Vetrò

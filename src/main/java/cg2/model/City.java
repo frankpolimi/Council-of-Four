@@ -6,12 +6,6 @@ package cg2.model;
 import java.awt.Color;
 import java.util.*;
 
-import bonus.AssistantBonus;
-import bonus.Bonus;
-import bonus.CoinBonus;
-import bonus.MainActionBonus;
-import bonus.NobilityBonus;
-import bonus.PointBonus;
 import bonus.TileBonus;
 import bonus.bonusers.Bonusable;
 import cg2.player.Player;
