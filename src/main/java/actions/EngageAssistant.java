@@ -11,7 +11,7 @@ public class EngageAssistant extends QuickAction
 	{
 		if(player.checkCoins(3))
 		{
-			player.getStatus().setAssistants(player.getStatus().getAssistants()+1);
+			player.setAssistants(player.getAssistants()+1);
 			this.game.decrementQuickActionCounter();
 			return true;
 		}

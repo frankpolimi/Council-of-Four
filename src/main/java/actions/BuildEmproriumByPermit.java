@@ -35,7 +35,7 @@ public class BuildEmproriumByPermit extends MainAction
 		if(player.checkAssistants(otherEmporiums))
 		{
 			this.game.decrementMainActionCounter();
-			player.getStatus().usePermit(permit);
+			player.usePermit(permit);
 			city.addEmporium(player);
 			//Qua ci va la parte di attivare i bonus
 			return true;

@@ -215,12 +215,12 @@ public class Game extends Observable {
 	 */
 	@Override
 	public String toString() {
-		return "Game [politicsDeck=" + politicsDeck + ", usedPolitics=" + usedPolitics + ", players=" + players
-				+ ", regions=" + regions + ", avaliableCouncillors=" + avaliableCouncillors + ", kingTileList="
-				+ kingTileList + ", colorTileList=" + colorTileList + ", regionTileList=" + regionTileList
-				+ ", nobilityLane=" + nobilityLane + ", map=" + map + ", kingsPosition=" + kingsPosition
-				+ ", currentPlayer=" + currentPlayer + ", mainActionCounter=" + mainActionCounter
-				+ ", quickActionCounter=" + quickActionCounter + "]";
+		return "Game [politicsDeck=" + politicsDeck + ", usedPolitics=" + usedPolitics + ",\n players=" + players
+				+ ",\n regions=" + regions + ",\n avaliableCouncillors=" + avaliableCouncillors + ",\n kingTileList="
+				+ kingTileList + ",\n colorTileList=" + colorTileList + ",\n regionTileList=" + regionTileList
+				+ ",\n nobilityLane=" + nobilityLane + ",\n map=" + map + ",\n kingsPosition=" + kingsPosition
+				+ ",\n currentPlayer=" + currentPlayer + ",\n mainActionCounter=" + mainActionCounter
+				+ ",\n quickActionCounter=" + quickActionCounter + "]";
 	}
 
 	//main

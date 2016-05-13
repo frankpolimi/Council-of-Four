@@ -182,14 +182,23 @@ public class Player {
 		usedBuildingPermits.add(buildingPermits.remove(index));
 	}
 	
+	
+	
+	/**
+	 * @return the emporiumsOwned
+	 */
+	public HashSet<Emporium> getEmporiumsOwned() {
+		return emporiumsOwned;
+	}
+
 	/**
 	 * @author Vitaliy Pakholko
 	 */
 	public boolean checkCoins(int coins)
 	{
-		if(this.getStatus().getCoins()>=coins)
+		if(this.coins>=coins)
 		{
-			this.getStatus().setCoins(this.getStatus().getCoins()-coins);
+			this.coins=this.coins-coins;
 			return true;
 		}
 		return false;		
@@ -200,9 +209,9 @@ public class Player {
 	 */
 	public boolean checkAssistants(int assistants)
 	{
-		if(this.getStatus().getAssistants()>=assistants)
+		if(this.assistants>=assistants)
 		{
-			this.getStatus().setAssistants(this.getStatus().getAssistants()-assistants);
+			this.assistants=this.assistants-assistants;
 			return true;
 		}
 		return false;		
@@ -213,7 +222,7 @@ public class Player {
 	 */
 	@Override
 	public String toString() {
-		return "Player [name=" + name + ", playerID=" + playerID + ", status=" + status + ", remainingEmporiums="
+		return "Player [name=" + name + ", playerID=" + playerID + ", remainingEmporiums="
 				+ remainingEmporiums + ", emporiumsOwned=" + emporiumsOwned + "]";
 	}
 	
