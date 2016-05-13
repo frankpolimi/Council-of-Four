@@ -32,8 +32,8 @@ public class ReuseTileBonus extends ActionBonus {
 	public <T> void update(T playerOrGame) {
 		Player p = (Player)playerOrGame;
 		List<BuildingPermit> listUnified = new ArrayList<BuildingPermit>(
-				p.getStatus().getBuildingPermits());
-		listUnified.addAll(p.getStatus().getUsedBuildingPermits());
+				p.getBuildingPermits());
+		listUnified.addAll(p.getUsedBuildingPermits());
 		List<Bonus> permits;
 		for(int i=0;i<this.amount;i++){
 			permits = new ArrayList<Bonus>();

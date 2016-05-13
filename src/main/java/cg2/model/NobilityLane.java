@@ -42,7 +42,7 @@ public class NobilityLane extends Bonusable implements Observer{
 	 */
 	@Override
 	public <C> void update(C change) {
-		int place = ((Player)change).getStatus().getNobilityPoints();
+		int place = ((Player)change).getNobilityPoints();
 		lane.get(place).applyBonus(change);
 	}
 

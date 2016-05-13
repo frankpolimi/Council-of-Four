@@ -225,8 +225,8 @@ public class Game extends Observable {
 
 	//main
 	public static void main(String[]args) throws JDOMException, IOException{
-		Player p1=new Player("Marco", 1, new Status(20, 10), 10);
-		Player p2=new Player("Paolo", 1, new Status(21,10),10);
+		Player p1=new Player("Marco", 1, 10, 20, 10);
+		Player p2=new Player("Paolo", 1, 10, 21, 10);
 		List<Player> player=new ArrayList<>();
 		player.add(p1);
 		player.add(p2);

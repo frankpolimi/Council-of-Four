@@ -105,7 +105,7 @@ public class Market<T> {
 	 * @param buildingLicense
 	 */
 	private void assignBuildingLicense(Player owner, BuildingPermit buildingLicense) {
-		owner.getStatus().addBuildingPermit(buildingLicense);
+		owner.addBuildingPermit(buildingLicense);
 	}
 
 	/**
@@ -114,7 +114,7 @@ public class Market<T> {
 	 * @param the object assistant
 	 */
 	private void assignAssistants(Player owner, Assistant a) {
-		owner.getStatus().setAssistants(owner.getStatus().getAssistants() + a.getNumber());
+		owner.setAssistants(owner.getAssistants() + a.getNumber());
 	}
 	
 	/**
@@ -123,7 +123,7 @@ public class Market<T> {
 	 * @param politicsCard
 	 */
 	private void assignPoliticsCard(Player customer, PoliticsCard politicsCard) {
-		customer.getStatus().addPoliticsCard(politicsCard);
+		customer.addPoliticsCard(politicsCard);
 	}
 	
 	/**
@@ -132,10 +132,10 @@ public class Market<T> {
 	 * @param the whole object
 	 */
 	private void transferCoin(Player customer, MarketObject<?> x) {
-		customer.getStatus().setCoins(
-				customer.getStatus().getCoins() - x.getPrice());
-		x.getSellingPlayer().getStatus().setCoins(
-				x.getSellingPlayer().getStatus().getCoins() + x.getPrice());
+		customer.setCoins(
+				customer.getCoins() - x.getPrice());
+		x.getSellingPlayer().setCoins(
+				x.getSellingPlayer().getCoins() + x.getPrice());
 		
 	}
 }

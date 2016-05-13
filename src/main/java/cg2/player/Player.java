@@ -7,6 +7,7 @@ import java.util.*;
 
 import cg2.game.Game;
 import cg2.model.*;
+import politics.PoliticsCard;
 
 /**
  * @author Emanuele Ricciardelli, Vitaliy Pakholko
@@ -16,18 +17,31 @@ import cg2.model.*;
 public class Player {
 	private final String name;
 	private final int playerID;
-	private final Status status;
 	private int remainingEmporiums;
-	//private final Game refGame;
 	private final HashSet<Emporium> emporiumsOwned;
 	
-	public Player(String name, int playerID, Status status, int remainingEmporiums) {
+	private int coins;
+	private int nobilityPoints;
+	private int points;
+	private int assistants;
+	private final List<PoliticsCard> cardsOwned;
+	private final List<BuildingPermit> buildingPermits;
+	private final List<BuildingPermit> usedBuildingPermits;
+	
+	public Player(String name, int playerID, int remainingEmporiums, 
+			int coins, int assistants) {
 		this.name = name;
 		this.playerID = playerID;
-		this.status = status;
 		this.remainingEmporiums = remainingEmporiums;//caricato da file
-		//this.refGame = refGame;
 		emporiumsOwned=new HashSet<>();
+		
+		this.coins = coins;
+		this.nobilityPoints = 0;
+		this.points = 0;
+		this.assistants = assistants;
+		this.cardsOwned = new ArrayList<>();
+		this.buildingPermits = new ArrayList<>();
+		this.usedBuildingPermits = new ArrayList<>();
 	}
 
 	/**
@@ -59,21 +73,6 @@ public class Player {
 	}
 
 	/**
-	 * @return the status
-	 */
-	public Status getStatus() {
-		return status;
-	}
-
-	/**
-	 * @return the refGame
-	 */
-	/*
-	public Game getRefGame() {
-		return refGame;
-	}
-	*/
-	/**
 	 * @param emporium
 	 * add the emporium to the set of owned emporiums
 	 */
@@ -86,6 +85,101 @@ public class Player {
 	 */
 	public HashSet<Emporium> getEmporium(){
 		return this.emporiumsOwned;
+	}
+	
+	/**
+	 * @return the coins
+	 */
+	public int getCoins() {
+		return coins;
+	}
+	
+	/**
+	 * @param coins the coins to set
+	 */
+	public void setCoins(int coins) {
+		this.coins = coins;
+	}
+	/**
+	 * @return the nobilityPoints
+	 */
+	public int getNobilityPoints() {
+		return nobilityPoints;
+	}
+
+	/**
+	 * @param nobilityPoints the nobilityPoints to set
+	 */
+	public void setNobilityPoints(int nobilityPoints) {
+		this.nobilityPoints = nobilityPoints;
+	}
+
+	/**
+	 * @return the points
+	 */
+	public int getPoints() {
+		return points;
+	}
+
+	/**
+	 * @param points the points to set
+	 */
+	public void setPoints(int points) {
+		this.points = points;
+	}
+
+	/**
+	 * @return the assistants
+	 */
+	public int getAssistants() {
+		return assistants;
+	}
+
+	/**
+	 * @param assistants to set
+	 */
+	public void setAssistants(int assistants) {
+		this.assistants = assistants;
+	}
+
+	/**
+	 * @return the cardsOwned
+	 */
+	public List<PoliticsCard> getCardsOwned() {
+		return cardsOwned;
+	}
+
+	/**
+	 * @return the buildingLicensesObtained
+	 */
+	public List<BuildingPermit> getBuildingPermits() {
+		return buildingPermits;
+	}
+	
+	public void addPoliticsCard(PoliticsCard pc){
+		cardsOwned.add(pc);
+	}
+	
+	public void removePoliticsCard(int position){
+		cardsOwned.remove(position);
+	}
+	
+	public PoliticsCard getPoliticsCard(int position){
+		return cardsOwned.get(position);
+	}
+	
+	public void addBuildingPermit(BuildingPermit bl){
+		buildingPermits.add(bl);
+	}
+	
+	
+	public List<BuildingPermit> getUsedBuildingPermits() {
+		return usedBuildingPermits;
+	}
+	
+	public void usePermit(BuildingPermit bl){
+		int index = buildingPermits.indexOf(bl);
+		usedBuildingPermits.add(buildingPermits.remove(index));
 	}
 	
 	/**

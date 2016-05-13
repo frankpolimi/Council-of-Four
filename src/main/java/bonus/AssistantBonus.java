@@ -22,8 +22,8 @@ public class AssistantBonus extends TileBonus {
 	 */
 	@Override
 	public <T> void update(T playerOrGame) {
-		((Player) playerOrGame).getStatus().setAssistants(
-				((Player) playerOrGame).getStatus().getAssistants() + this.getAmount());
+		((Player) playerOrGame).setAssistants(
+				((Player) playerOrGame).getAssistants() + this.getAmount());
 		
 	}
 

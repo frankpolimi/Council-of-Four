@@ -74,7 +74,7 @@ public class Controller implements Observer {
 			if(this.checkInPlayer(p))
 				p.applyBonus(game.getCurrentPlayer());
 			else
-				game.getCurrentPlayer().getStatus().addBuildingPermit(p);
+				game.getCurrentPlayer().addBuildingPermit(p);
 		}
 		else if(change.getClass().equals(City.class))
 			((City)change).applyBonus(game.getCurrentPlayer());
@@ -83,9 +83,9 @@ public class Controller implements Observer {
 	private boolean checkInPlayer(BuildingPermit p) {
 		List<BuildingPermit> buildingPermits = new ArrayList<BuildingPermit>();
 		buildingPermits.addAll(
-				game.getCurrentPlayer().getStatus().getBuildingPermits());
+				game.getCurrentPlayer().getBuildingPermits());
 		buildingPermits.addAll(
-				game.getCurrentPlayer().getStatus().getUsedBuildingPermits());
+				game.getCurrentPlayer().getUsedBuildingPermits());
 		return buildingPermits.contains(p);
 	}
 

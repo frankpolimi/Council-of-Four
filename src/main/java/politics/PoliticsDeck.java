@@ -22,7 +22,7 @@ public class PoliticsDeck
 	{
 		if(!politicsDeck.isEmpty())
 		{
-			player.getStatus().addPoliticsCard(politicsDeck.remove(0));return;
+			player.addPoliticsCard(politicsDeck.remove(0));return;
 		}
 		throw new NullPointerException();
 	}

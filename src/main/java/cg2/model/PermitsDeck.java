@@ -22,7 +22,7 @@ public class PermitsDeck {
 	{
 		if(faceUpPermits.contains(permit))
 		{
-			player.getStatus().addBuildingPermit(permit);
+			player.addBuildingPermit(permit);
 			permit.applyBonus(player);
 			return true;
 		}

@@ -29,8 +29,8 @@ public class PointBonus extends TileBonus {
 	 */
 	@Override
 	public <T> void update(T playerOrGame) {
-		((Player) playerOrGame).getStatus().setPoints(
-				((Player) playerOrGame).getStatus().getPoints() + this.getAmount());
+		((Player) playerOrGame).setPoints(
+				((Player) playerOrGame).getPoints() + this.getAmount());
 
 	}
 

@@ -34,9 +34,9 @@ public class NobilityBonus extends TileBonus {
 	 */
 	@Override
 	public <T> void update(T playerOrGame) {
-		Status s = ((Player)playerOrGame).getStatus();
-		s.setNobilityPoints(
-				s.getNobilityPoints() + this.getAmount());
+		Player p = ((Player)playerOrGame);
+		p.setNobilityPoints(
+				p.getNobilityPoints() + this.getAmount());
 		this.notifyObservers((Player)playerOrGame);
 	}
 
