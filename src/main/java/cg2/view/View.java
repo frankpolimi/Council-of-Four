@@ -40,19 +40,21 @@ public class View extends Observable implements Observer {
 		 * so the controller can perform the check on the player's turn 
 		 */
 		else if(command.equals(EngageAssistant.class.getSimpleName()))
-			//TODO modify
-			this.update(new EngageAssistant());
+			this.update(new Message(this.playerID, new EngageAssistant()));
 		else if(command.equals(ChangeFaceUpPermits.class.getSimpleName()))
-			//TODO modify
-			this.update(new ChangeFaceUpPermits());
-		else if(command.equals(ElectCouncillorByAssistant.class.getSimpleName()));
-			/*
-				command.equals(ExtraMainAction.class.getSimpleName()) ||
-				command.equals(AcquirePermit.class.getSimpleName()) ||
+			this.update(new Message(playerID, new ChangeFaceUpPermits()));
+		else if(command.equals(ElectCouncillorByAssistant.class.getSimpleName()))
+			this.update(new Message(playerID, new ElectCouncillorByAssistant()));
+		else if(command.equals(ExtraMainAction.class.getSimpleName()))
+			this.update(new Message(playerID, new ExtraMainAction()));
+		else if(command.equals(AcquirePermit.class.getSimpleName()) ||
 				command.equals(BuildEmporiumByKing.class.getSimpleName()) ||
 				command.equals(ElectCouncillor.class.getSimpleName()) ||
-				command.equals(BuildEmproriumByPermit.class.getSimpleName()))
-				*/
+				command.equals(BuildEmproriumByPermit.class.getSimpleName()));
+		/*
+		 * TODO
+		 * this.displayRequirements();
+		 */
 	}	
 
 	private void displayQuickAction() {
