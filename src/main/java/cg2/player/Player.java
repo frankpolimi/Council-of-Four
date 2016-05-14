@@ -5,7 +5,6 @@ package cg2.player;
 import java.lang.reflect.Method;
 import java.util.*;
 
-import cg2.game.Game;
 import cg2.model.*;
 import politics.PoliticsCard;
 

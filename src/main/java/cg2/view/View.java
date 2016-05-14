@@ -3,19 +3,9 @@
  */
 package cg2.view;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
-
 import actions.*;
 import cg2.observers.*;
-import council.Council;
 import cg2.game.Game;
-import cg2.model.BuildingPermit;
-import cg2.model.City;
-import cg2.model.Emporium;
-import topology.Region;
 
 
 /**
@@ -45,10 +35,29 @@ public class View extends Observable implements Observer {
 			this.displayMainAction();
 		else if(command.equals("quick action"))
 			this.displayQuickAction();
+		/*
+		 * is better to include the viewID (playerID) with the action
+		 * so the controller can perform the check on the player's turn 
+		 */
+		else if(command.equals(EngageAssistant.class.getSimpleName()))
+			//TODO modify
+			this.update(new EngageAssistant());
+		else if(command.equals(ChangeFaceUpPermits.class.getSimpleName()))
+			//TODO modify
+			this.update(new ChangeFaceUpPermits());
+		else if(command.equals(ElectCouncillorByAssistant.class.getSimpleName()));
+			/*
+				command.equals(ExtraMainAction.class.getSimpleName()) ||
+				command.equals(AcquirePermit.class.getSimpleName()) ||
+				command.equals(BuildEmporiumByKing.class.getSimpleName()) ||
+				command.equals(ElectCouncillor.class.getSimpleName()) ||
+				command.equals(BuildEmproriumByPermit.class.getSimpleName()))
+				*/
 	}	
-	
+
 	private void displayQuickAction() {
 		int index = 0;
+		System.out.println("Insert the action's name to perform:");
 		System.out.println(++index+" - "+EngageAssistant.class.getSimpleName());
 		System.out.println(++index+" - "+ChangeFaceUpPermits.class.getSimpleName());
 		System.out.println(++index+" - "+ElectCouncillorByAssistant.class.getSimpleName());
