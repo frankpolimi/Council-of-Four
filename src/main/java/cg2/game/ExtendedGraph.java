@@ -4,8 +4,14 @@
 package cg2.game;
 
 import org.jgrapht.graph.SimpleGraph;
+import org.jgrapht.traverse.BreadthFirstIterator;
+
 import java.util.*;
+import java.util.concurrent.ArrayBlockingQueue;
+
+import cg2.market.MarketObject;
 import cg2.model.*;
+import cg2.player.Player;
 
 import org.jgrapht.alg.BellmanFordShortestPath;
 import org.jgrapht.alg.DijkstraShortestPath;
@@ -58,7 +64,42 @@ public class ExtendedGraph<V extends City,E> extends SimpleGraph<V, E> {
 		
 	}
 	
+	public void applyBonus(V position, Player player){
+		//implementare io
+	}
 	
+	private class MarkedVertex{
+		private final V vertex;
+		private boolean marked;
+		
+		protected MarkedVertex(V vert){
+			vertex=vert;
+			marked=false;
+		}
+
+		/**
+		 * @return the marked
+		 */
+		public boolean isMarked() {
+			return marked;
+		}
+
+		/**
+		 * @param marked the marked to set
+		 */
+		public void setMarked(boolean marked) {
+			this.marked = marked;
+		}
+
+		/**
+		 * @return the vertex
+		 */
+		public V getVertex() {
+			return vertex;
+		}
+		
+		
+	}
 	
 	
 	
