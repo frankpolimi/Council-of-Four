@@ -227,11 +227,22 @@ public class Game extends Observable {
 	public static void main(String[]args) throws JDOMException, IOException{
 		Player p1=new Player("Marco", 1, 10, 20, 10);
 		Player p2=new Player("Paolo", 1, 10, 21, 10);
+		
+		
 		List<Player> player=new ArrayList<>();
 		player.add(p1);
 		player.add(p2);
 		Game game=new Game(player);
+		p1.addEmporium(new Emporium(p1, game.map.getVertexByKey("N")));
+		p1.addEmporium(new Emporium(p1, game.map.getVertexByKey("O")));
+		p1.addEmporium(new Emporium(p1, game.map.getVertexByKey("I")));
+		p1.addEmporium(new Emporium(p1, game.map.getVertexByKey("G")));
 		System.out.println("Partita");
-		System.out.println(game.toString());
+		//System.out.println(game.toString());
+		//game.map.applyBonus(game.map.getVertexByKey("K"), p1);
+		Set<DefaultEdge> list=game.map.getAllEdges(game.map.getVertexByKey("K"), game.map.getVertexByKey("D"));
+		for(DefaultEdge de:list)
+			System.out.println("coll"+de.toString());
+		
 	}
 }
