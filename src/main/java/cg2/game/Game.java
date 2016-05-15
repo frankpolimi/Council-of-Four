@@ -71,10 +71,7 @@ public class Game extends Observable {
 			politicsDeck.drawCard(currentPlayer);
 			do{
 				this.notifyObservers("action_phase");
-				//mossa principale obbligatoria
-				//possibilità skip mossa secondaria
-				//controllore esegue mossa
-				//diminuzione counter mosse	
+				//TODO something
 			}while(mainActionCounter != 0 && quickActionCounter != 0);
 			//this.setCurrentPlayer(); gestione dei turni in controller
 		endOfGame = checkEndOfGame();
@@ -223,7 +220,6 @@ public class Game extends Observable {
 				+ ",\n quickActionCounter=" + quickActionCounter + "]";
 	}
 
-	//main
 	public static void main(String[]args) throws JDOMException, IOException{
 		Player p1=new Player("Marco", 1, 10, 20, 10);
 		Player p2=new Player("Paolo", 1, 10, 21, 10);

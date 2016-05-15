@@ -3,19 +3,13 @@
  */
 package cg2.view;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
+import java.lang.reflect.Method;
 
 import actions.*;
 import cg2.observers.*;
 import council.Council;
 import cg2.game.Game;
 import cg2.model.BuildingPermit;
-import cg2.model.City;
-import cg2.model.Emporium;
-import topology.Region;
 
 
 /**
@@ -29,38 +23,144 @@ import topology.Region;
 public class View extends Observable implements Observer {
 	
 	private final int playerID;
+	//class to read from the Model only some information
+	private final PeekModel peeker;
+	private State state;
+	private enum State{
+		QUIT, NONE, MAIN, QUICK, ACTION, BONUS, PERMITS;
+	}
 	
 	public View(Game game, int playerID) {
 		super();
 		game.registerObserver(this);
+		peeker = new PeekModel(game);
 		this.playerID = playerID;
+		this.state = State.NONE;
 	}
 
 	/**
-	 * gives the input to the controller
+	 * retrieve the the input from the client and will start the
+	 * selection and the parsing 
 	 * @param command the input coming from the client
 	 */
 	public void input(String command){
-		if(command.equals("main action"))
-			this.displayMainAction();
+		if(command.equals("quit"))
+			this.state = State.QUIT;
+		else if(command.equals("back")){
+			if(state.equals(State.MAIN) || state.equals(State.QUICK))
+				this.state = State.NONE;
+			else if(state.equals(State.ACTION))
+				this.state = State.MAIN;
+		}
+		else if(command.equals("main action"))
+			this.state = State.MAIN;
 		else if(command.equals("quick action"))
-			this.displayQuickAction();
+			this.state = State.QUICK;
+		
+		/*
+		 * is better to include the viewID (playerID) with the action
+		 * so the controller can perform the check on the player's turn 
+		 */
+		if(state.equals(State.QUICK))
+			if(command.equals(EngageAssistant.class.getSimpleName()))
+				this.update(new Message(this.playerID, new EngageAssistant()));
+			else if(command.equals(ChangeFaceUpPermits.class.getSimpleName()))
+				this.update(new Message(playerID, new ChangeFaceUpPermits()));
+			else if(command.equals(ElectCouncillorByAssistant.class.getSimpleName()))
+				this.update(new Message(playerID, new ElectCouncillorByAssistant()));
+			else if(command.equals(ExtraMainAction.class.getSimpleName()))
+				this.update(new Message(playerID, new ExtraMainAction()));
+		if(state.equals(State.MAIN))
+			this.state = State.ACTION;
+			if(command.equals(AcquirePermit.class.getSimpleName()))
+				this.displayRequirements(AcquirePermit.class.getMethods()[0]);
+			else if(command.equals(BuildEmporiumByKing.class.getSimpleName()));
+			else if(command.equals(ElectCouncillor.class.getSimpleName()));
+			else if(command.equals(BuildEmproriumByPermit.class.getSimpleName()));
+				
+				
 	}	
-	
-	private void displayQuickAction() {
-		int index = 0;
-		System.out.println(++index+" - "+EngageAssistant.class.getSimpleName());
-		System.out.println(++index+" - "+ChangeFaceUpPermits.class.getSimpleName());
-		System.out.println(++index+" - "+ElectCouncillorByAssistant.class.getSimpleName());
-		System.out.println(++index+" - "+ExtraMainAction.class.getSimpleName());		
+
+	public void displayState() {
+		switch(state){
+			case NONE:{
+				this.displayNone();
+				System.out.println("- quit");
+				break;
+			}
+			case MAIN:{
+				this.displayMainAction();
+				System.out.println("- back");
+				System.out.println("- quit");
+				break;
+			}
+			case QUICK:{
+				this.displayQuickAction();
+				System.out.println("- back");
+				System.out.println("- quit");
+				break;
+			}
+			case ACTION:
+				break;
+			case BONUS:
+				break;
+			case PERMITS:
+				break;
+			case QUIT:
+			default:
+				break;
+		}
 	}
 
+	/**
+	 * display to the view the first selection's level
+	 * that will lead to perform an action
+	 */
+	private void displayNone(){
+		System.out.println("Insert command");
+		System.out.println("- main action");
+		System.out.println("- quick action");
+		System.out.println("- skip quick action");
+	}
+
+	/**
+	 * display the name of the actions that will be used as command
+	 */
+	private void displayQuickAction() {
+		System.out.println("Insert the action's name to perform:");
+		System.out.println("- "+EngageAssistant.class.getSimpleName());
+		System.out.println("- "+ChangeFaceUpPermits.class.getSimpleName());
+		System.out.println("- "+ElectCouncillorByAssistant.class.getSimpleName());
+		System.out.println("- "+ExtraMainAction.class.getSimpleName());		
+	}
+
+	/**
+	 * display the name of the actions that will be used as command
+	 */
 	private void displayMainAction() {
-		int index = 0;
-		System.out.println(++index+" - "+AcquirePermit.class.getSimpleName());
-		System.out.println(++index+" - "+BuildEmporiumByKing.class.getSimpleName());
-		System.out.println(++index+" - "+ElectCouncillor.class.getSimpleName());
-		System.out.println(++index+" - "+BuildEmproriumByPermit.class.getSimpleName());
+		System.out.println("Insert the action's name to perform:");
+		System.out.println("- "+AcquirePermit.class.getSimpleName());
+		System.out.println("- "+BuildEmporiumByKing.class.getSimpleName());
+		System.out.println("- "+ElectCouncillor.class.getSimpleName());
+		System.out.println("- "+BuildEmproriumByPermit.class.getSimpleName());
+	}
+	
+	/**
+	 * display the required parameters
+	 * the input should be a string separated by a blank
+	 * TODO should display the status of the various parameters in game
+	 * e.g. 
+	 * required input is a council
+	 * this method will display the status of all 4 councils
+	 */
+	private void displayRequirements(Method method) {
+		System.out.println("For the action the required input is: ");
+		for(Class<?> param : method.getParameterTypes()){
+			if(param.getClass().equals(Council.class))
+				System.out.println("- region");
+			if(param.getClass().equals(BuildingPermit.class))
+				System.out.println("- a number: 1 or 2");
+		}
 	}
 
 	/* (non-Javadoc)
