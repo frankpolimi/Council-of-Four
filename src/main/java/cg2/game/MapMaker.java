@@ -359,7 +359,6 @@ public class MapMaker {
 		return document.getRootElement();
 	}
 	
-
 	public static void main(String[] args)throws IOException, JDOMException {
 		MapMaker mp=new MapMaker();
 		ExtendedGraph<City,DefaultEdge> graph=mp.generateMap(mp.createRegionSet());
@@ -369,7 +368,6 @@ public class MapMaker {
 		System.out.println("Città 2:"+c2.toString());
 		System.out.println("Costo: "+graph.howManyVertexPassed(c1, c2));
 	}
-	
 	
 
 }

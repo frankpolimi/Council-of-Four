@@ -27,22 +27,21 @@ public class Main
 			try {
 				game = new Game(player);
 			} catch (JDOMException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
 			View view = new View(game, 1);
 			
-			while(true){
-				System.out.println("Insert command");
-				System.out.println("1 - main action");
-				System.out.println("2 - quick action");
-				System.out.println("3 - skip action");
-				System.out.println("4 - quit");
-				view.input(in.nextLine());
-			}
+			String input;
+			
+			do{
+				view.displayState();
+				input = in.nextLine();
+				view.input(input);
+			}while(!input.equals("quit"));
+			
+			in.close();
 	}
 }
