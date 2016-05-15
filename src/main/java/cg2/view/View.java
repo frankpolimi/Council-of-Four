@@ -7,7 +7,9 @@ import java.lang.reflect.Method;
 
 import actions.*;
 import cg2.observers.*;
+import council.Council;
 import cg2.game.Game;
+import cg2.model.BuildingPermit;
 
 
 /**
@@ -21,6 +23,8 @@ import cg2.game.Game;
 public class View extends Observable implements Observer {
 	
 	private final int playerID;
+	//class to read from the Model only some information
+	private final PeekModel peeker;
 	private State state;
 	private enum State{
 		QUIT, NONE, MAIN, QUICK, ACTION, BONUS, PERMITS;
@@ -29,6 +33,7 @@ public class View extends Observable implements Observer {
 	public View(Game game, int playerID) {
 		super();
 		game.registerObserver(this);
+		peeker = new PeekModel(game);
 		this.playerID = playerID;
 		this.state = State.NONE;
 	}
@@ -68,7 +73,7 @@ public class View extends Observable implements Observer {
 		if(state.equals(State.MAIN))
 			this.state = State.ACTION;
 			if(command.equals(AcquirePermit.class.getSimpleName()))
-				this.displayRequirements(AcquirePermit.class.getMethods());
+				this.displayRequirements(AcquirePermit.class.getMethods()[0]);
 			else if(command.equals(BuildEmporiumByKing.class.getSimpleName()));
 			else if(command.equals(ElectCouncillor.class.getSimpleName()));
 			else if(command.equals(BuildEmproriumByPermit.class.getSimpleName()));
@@ -141,10 +146,21 @@ public class View extends Observable implements Observer {
 	}
 	
 	/**
-	 * 
+	 * display the required parameters
+	 * the input should be a string separated by a blank
+	 * TODO should display the status of the various parameters in game
+	 * e.g. 
+	 * required input is a council
+	 * this method will display the status of all 4 councils
 	 */
-	private void displayRequirements(Method[] methods) {
-		methods[0].getParameterTypes().toString();
+	private void displayRequirements(Method method) {
+		System.out.println("For the action the required input is: ");
+		for(Class<?> param : method.getParameterTypes()){
+			if(param.getClass().equals(Council.class))
+				System.out.println("- region");
+			if(param.getClass().equals(BuildingPermit.class))
+				System.out.println("- a number: 1 or 2");
+		}
 	}
 
 	/* (non-Javadoc)
