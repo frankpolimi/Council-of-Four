@@ -181,14 +181,6 @@ public class Player {
 		usedBuildingPermits.add(buildingPermits.remove(index));
 	}
 	
-	
-	
-	/**
-	 * @return the emporiumsOwned
-	 */
-	public HashSet<Emporium> getEmporiumsOwned() {
-		return emporiumsOwned;
-	}
 
 	/**
 	 * @author Vitaliy Pakholko
@@ -216,8 +208,15 @@ public class Player {
 		return false;		
 	}
 	
-	
-
+	public List<City> getEmporiumsCitiesList(){
+		Iterator<Emporium> it=this.emporiumsOwned.iterator();
+		List<City> cities=new ArrayList<>();
+		while(it.hasNext())
+		{
+			cities.add(it.next().getCity());
+		}
+		return cities;
+	}
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
 	 */
@@ -296,9 +295,16 @@ public class Player {
 	 */
 	@Override
 	public String toString() {
-		return "Player [name=" + name + ", playerID=" + playerID + ", remainingEmporiums="
-				+ remainingEmporiums + ", emporiumsOwned=" + emporiumsOwned + "]";
+		return "Player [name=" + name + ", playerID=" + playerID + ", remainingEmporiums=" + remainingEmporiums
+				+ ", emporiumsOwned=" + emporiumsOwned + ", coins=" + coins + ", nobilityPoints=" + nobilityPoints
+				+ ", points=" + points + ", assistants=" + assistants + ", cardsOwned=" + cardsOwned
+				+ ", buildingPermits=" + buildingPermits + ", usedBuildingPermits=" + usedBuildingPermits + "]";
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	
 	
 	
 	
