@@ -208,15 +208,6 @@ public class Player {
 		return false;		
 	}
 	
-	public Set<City> getEmporiumsCitiesSet(){
-		Iterator<Emporium> it=this.emporiumsOwned.iterator();
-		Set<City> cities=new HashSet<>();
-		while(it.hasNext())
-		{
-			cities.add(it.next().getCity());
-		}
-		return cities;
-	}
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
 	 */

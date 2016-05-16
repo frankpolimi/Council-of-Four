@@ -25,7 +25,6 @@ public abstract class Bonusable {
 	 * @param bonus
 	 */
 	public void registerBonus(Bonuser bonus){
-		System.out.println(bonus.toString());
 		this.bonuses.add(bonus);
 	}
 	
@@ -41,4 +40,10 @@ public abstract class Bonusable {
 		for(Bonuser b: bonuses)
 			b.update(playerorgame);
 	}	
+	//solo d'aiuto.. lo cancellerò! by ema
+	public void stampBonusList(){
+		for(Bonuser b:this.bonuses){
+			System.out.println(b.toString());
+		}
+	}
 }
