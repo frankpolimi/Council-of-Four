@@ -18,17 +18,13 @@ public class City  extends Bonusable{
 	private final String name;
 	private final char firstChar;
 	private final Color cityColor;
-	//private final Set<City> linkedCities;
 	private ArrayList<Emporium> emporiums;
 	private final List<Bonus> bonusList;
-	
-	//i collegamenti saranno letti da file, perciò ci sarà una fase di creazione
-	//del vettore collegamenti da parte dell'inizializzatore della partita.
+
 	public City(String name, Color color, List<Bonus> bonus){
 		super();
 		this.name=name;
-		firstChar=name.charAt(0);
-		//linkedCities = link;
+		firstChar=name.toUpperCase().charAt(0);
 		cityColor=color;
 		bonusList = bonus;
 		emporiums=new ArrayList<>();
