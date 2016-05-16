@@ -32,10 +32,9 @@ public class City  extends Bonusable{
 		cityColor=color;
 		bonusList = bonus;
 		emporiums=new ArrayList<>();
-		/*
-		 * for(TileBonus b: bonus)
-		 * 	this.registerBonus(b);
-		 */
+		for(Bonus b: bonus)
+			this.registerBonus(b);
+		 
 	}
 	
 	public void addEmporium(Player player)

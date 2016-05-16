@@ -4,6 +4,7 @@
 package cg2.game;
 
 import org.jgrapht.graph.SimpleGraph;
+import org.jgrapht.graph.Subgraph;
 import org.jgrapht.traverse.BreadthFirstIterator;
 
 import java.util.*;
@@ -64,42 +65,29 @@ public class ExtendedGraph<V extends City,E> extends SimpleGraph<V, E> {
 		
 	}
 	
-	public void applyBonus(V position, Player player){
-		//implementare io
-	}
-	
-	private class MarkedVertex{
-		private final V vertex;
-		private boolean marked;
-		
-		protected MarkedVertex(V vert){
-			vertex=vert;
-			marked=false;
+	public void applyBonus(V newEmpVertex, Set<V> cities, Player player){
+		if(newEmpVertex==null||cities==null||player==null){
+			throw new NullPointerException("One of these parameters is null");
 		}
-
-		/**
-		 * @return the marked
-		 */
-		public boolean isMarked() {
-			return marked;
+		cities.add(newEmpVertex);
+		Subgraph<V,E,ExtendedGraph<V,E>> sub=new Subgraph<V, E, ExtendedGraph<V,E>>(this, cities);
+		Set<E> subEdgeSet=sub.edgeSet();
+		Iterator<E> it=subEdgeSet.iterator();
+		while(it.hasNext()){
+			E edge=it.next();
+			V obj;
+			if(this.getEdgeSource(edge).equals(newEmpVertex)){
+				obj=this.getEdgeTarget(edge);
+			}else{
+				obj=this.getEdgeSource(edge);
+			}
+			System.out.println("Bonus acquisiti");
+			obj.stampBonusList();
+			obj.applyBonus(player);
 		}
-
-		/**
-		 * @param marked the marked to set
-		 */
-		public void setMarked(boolean marked) {
-			this.marked = marked;
-		}
-
-		/**
-		 * @return the vertex
-		 */
-		public V getVertex() {
-			return vertex;
-		}
-		
 		
 	}
+
 	
 	
 	

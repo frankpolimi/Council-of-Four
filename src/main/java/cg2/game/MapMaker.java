@@ -307,7 +307,7 @@ public class MapMaker {
 				Color color;
 				String name=city.getAttributeValue("name");
 				color=this.convert(city.getAttributeValue("RGB"));
-				c=new City(name,color,this.extractNewRandomicBonus());//generare random i bonus!
+				c=new City(name,color,this.extractNewRandomicBonus());
 				arrayCity.add(c);
 				cityMap.put(c.getFirstChar(), c);
 			}
@@ -335,10 +335,8 @@ public class MapMaker {
 			List<Bonus> bonusList=new ArrayList<>();
 			while(bonusIt.hasNext()){
 				Element bonusElement=bonusIt.next();
-				System.out.println("Stampo ClassName"+bonusElement.getAttributeValue("className"));
 				try{
 					Bonus obj=this.getBonus(bonusElement.getAttributeValue("className"), Integer.parseInt(bonusElement.getAttributeValue("amount")));
-					System.out.println("Posizione: "+pos+"Bonus:"+obj.toString());
 					bonusList.add(obj);
 					}catch(Exception e){
 						e.printStackTrace();

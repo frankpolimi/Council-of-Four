@@ -2,7 +2,7 @@
  * 
  */
 package cg2.player;
-import java.lang.reflect.Method;
+
 import java.util.*;
 
 import cg2.model.*;
@@ -208,9 +208,9 @@ public class Player {
 		return false;		
 	}
 	
-	public List<City> getEmporiumsCitiesList(){
+	public Set<City> getEmporiumsCitiesSet(){
 		Iterator<Emporium> it=this.emporiumsOwned.iterator();
-		List<City> cities=new ArrayList<>();
+		Set<City> cities=new HashSet<>();
 		while(it.hasNext())
 		{
 			cities.add(it.next().getCity());
