@@ -6,6 +6,8 @@ package bonus;
 import java.util.ArrayList;
 import java.util.List;
 
+import cg2.game.Game;
+
 /**
  * @author Francesco Vetrò
  */
@@ -16,7 +18,7 @@ public class ActionBonus extends Bonus {
 	}
 
 	@Override
-	public <T> void update(T playerOrGame) {
+	public void update(Game game) {
 		/*
 		 * method empty
 		 * forced to write because of hierarchy and interface

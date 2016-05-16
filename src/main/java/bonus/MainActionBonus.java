@@ -23,9 +23,9 @@ public class MainActionBonus extends ActionBonus {
 	 * increase by 1 the amount of main action that the player can perform
 	 */
 	@Override
-	public <T> void update(T playerOrGame) {
+	public void update(Game game) {
 		
-		((Game)playerOrGame).incrementMainActionCounter();
+		game.incrementMainActionCounter();
 	}
 
 	/* (non-Javadoc)

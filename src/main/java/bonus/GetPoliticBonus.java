@@ -37,11 +37,10 @@ public class GetPoliticBonus extends TileBonus {
 	 * (this is not good at all, but it's awful to implements)
 	 */
 	@Override
-	public <T> void update(T playerOrGame) {
-		Game g = ((Game)playerOrGame);
-		Player p = g.getCurrentPlayer();
+	public void update(Game game) {
+		Player p = game.getCurrentPlayer();
 		for(int i=0;i<super.getAmount();i++)
-			g.getPoliticsDeck().drawCard(p);
+			game.getPoliticsDeck().drawCard(p);
 	}
 	
 	@Override

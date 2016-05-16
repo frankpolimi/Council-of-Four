@@ -7,6 +7,8 @@ package bonus.bonusers;
 import java.util.ArrayList;
 import java.util.List;
 
+import cg2.game.Game;
+
 
 /**
  * @author Francesco Vetrò
@@ -37,8 +39,8 @@ public abstract class Bonusable {
 		this.bonuses.remove(bonus);
 	}
 	
-	public <T> void applyBonus(T playerorgame){
+	public void applyBonus(Game game){
 		for(Bonuser b: bonuses)
-			b.update(playerorgame);
+			b.update(game);
 	}	
 }

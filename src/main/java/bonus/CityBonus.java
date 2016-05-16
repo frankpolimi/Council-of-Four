@@ -6,8 +6,8 @@ package bonus;
 import java.util.ArrayList;
 import java.util.List;
 
+import cg2.game.Game;
 import cg2.model.Emporium;
-import cg2.player.Player;
 import cg2.view.View;
 
 /**
@@ -33,15 +33,14 @@ public class CityBonus extends ActionBonus {
 	 * @param playerOrGame the player that will obtain the bonus
 	 */
 	@Override
-	public <T> void update(T playerOrGame) {
+	public void update(Game game) {
 		List<Bonus> cities;
-		Player p = (Player)playerOrGame;
 		for(int i=0; i< this.amount;i++){
 			cities = new ArrayList<Bonus>();
-			for(Emporium e : p.getEmporium())
+			for(Emporium e : game.getCurrentPlayer().getEmporium())
 				cities.addAll(
 						super.checkNoNobility(e.getCity().getBonus()));
-			this.notifyObserver(p.getPlayerID(), cities);
+			this.notifyObserver(game.getCurrentPlayer().getPlayerID(), cities);
 		}
 	}
 	

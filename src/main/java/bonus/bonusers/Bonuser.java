@@ -6,12 +6,14 @@
  */
 package bonus.bonusers;
 
+import cg2.game.Game;
+
 /**
  * @author Francesco Vetrò
  */
 public interface Bonuser {
 	
 	public void update();	
-	public <T> void update(T playerOrGame);
+	public void update(Game playerOrGame);
 
 }

@@ -3,7 +3,7 @@
  */
 package bonus;
 
-import cg2.player.*;
+import cg2.game.Game;
 
 /**
  * @author Francesco Vetrò
@@ -28,9 +28,9 @@ public class PointBonus extends TileBonus {
 	 * @param player
 	 */
 	@Override
-	public <T> void update(T playerOrGame) {
-		((Player) playerOrGame).setPoints(
-				((Player) playerOrGame).getPoints() + this.getAmount());
+	public void update(Game game) {
+		game.getCurrentPlayer().setPoints(
+				game.getCurrentPlayer().getPoints() + this.getAmount());
 
 	}
 

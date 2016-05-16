@@ -7,8 +7,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import bonus.bonusers.Bonusable;
+import cg2.game.Game;
 import cg2.observers.Observer;
-import cg2.player.*;
 
 /**
  * @author Francesco Vetrò
@@ -42,8 +42,9 @@ public class NobilityLane extends Bonusable implements Observer{
 	 */
 	@Override
 	public <C> void update(C change) {
-		int place = ((Player)change).getNobilityPoints();
-		lane.get(place).applyBonus(change);
+		Game x = (Game)change;
+		int place = x.getCurrentPlayer().getNobilityPoints();
+		lane.get(place).applyBonus(x);
 	}
 
 	@Override
