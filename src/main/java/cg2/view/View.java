@@ -22,9 +22,9 @@ import cg2.model.BuildingPermit;
  */
 public class View extends Observable implements Observer {
 	
-	private final int playerID;
 	//class to read from the Model only some information
 	private final PeekModel peeker;
+	private final int playerID;
 	private State state;
 	private enum State{
 		QUIT, NONE, MAIN, QUICK, ACTION, BONUS, PERMITS;
@@ -44,17 +44,17 @@ public class View extends Observable implements Observer {
 	 * @param command the input coming from the client
 	 */
 	public void input(String command){
-		if(command.equals("quit"))
+		if(command.equals(Commands.QUIT))
 			this.state = State.QUIT;
-		else if(command.equals("back")){
+		else if(command.equals(Commands.BACK)){
 			if(state.equals(State.MAIN) || state.equals(State.QUICK))
 				this.state = State.NONE;
 			else if(state.equals(State.ACTION))
 				this.state = State.MAIN;
 		}
-		else if(command.equals("main action"))
+		else if(command.equals(Commands.MAIN_ACTION))
 			this.state = State.MAIN;
-		else if(command.equals("quick action"))
+		else if(command.equals(Commands.QUICK_ACTION))
 			this.state = State.QUICK;
 		
 		/*
@@ -62,21 +62,21 @@ public class View extends Observable implements Observer {
 		 * so the controller can perform the check on the player's turn 
 		 */
 		if(state.equals(State.QUICK))
-			if(command.equals(EngageAssistant.class.getSimpleName()))
+			if(command.equals(Commands.ENGAGE_ASSISTANTS))
 				this.update(new Message(this.playerID, new EngageAssistant()));
-			else if(command.equals(ChangeFaceUpPermits.class.getSimpleName()))
+			else if(command.equals(Commands.CHANGE_FACE_UP_PERMITS))
 				this.update(new Message(playerID, new ChangeFaceUpPermits()));
-			else if(command.equals(ElectCouncillorByAssistant.class.getSimpleName()))
+			else if(command.equals(Commands.ELECT_COUNCILLOR_BY_ASSISTANT))
 				this.update(new Message(playerID, new ElectCouncillorByAssistant()));
-			else if(command.equals(ExtraMainAction.class.getSimpleName()))
+			else if(command.equals(Commands.EXTRA_MAIN_ACTION))
 				this.update(new Message(playerID, new ExtraMainAction()));
 		if(state.equals(State.MAIN))
 			this.state = State.ACTION;
-			if(command.equals(AcquirePermit.class.getSimpleName()))
+			if(command.equals(Commands.ACQUIRE_PERMIT))
 				this.displayRequirements(AcquirePermit.class.getMethods()[0]);
-			else if(command.equals(BuildEmporiumByKing.class.getSimpleName()));
-			else if(command.equals(ElectCouncillor.class.getSimpleName()));
-			else if(command.equals(BuildEmproriumByPermit.class.getSimpleName()));
+			else if(command.equals(Commands.BUILD_EMPORIUM_BY_KING));
+			else if(command.equals(Commands.ELECT_COUNCILLOR));
+			else if(command.equals(Commands.BUILD_EMPORIUM_BY_PERMIT));
 				
 				
 	}	
@@ -128,10 +128,10 @@ public class View extends Observable implements Observer {
 	 */
 	private void displayQuickAction() {
 		System.out.println("Insert the action's name to perform:");
-		System.out.println("- "+EngageAssistant.class.getSimpleName());
-		System.out.println("- "+ChangeFaceUpPermits.class.getSimpleName());
-		System.out.println("- "+ElectCouncillorByAssistant.class.getSimpleName());
-		System.out.println("- "+ExtraMainAction.class.getSimpleName());		
+		System.out.println("- "+Commands.ENGAGE_ASSISTANTS);
+		System.out.println("- "+Commands.CHANGE_FACE_UP_PERMITS);
+		System.out.println("- "+Commands.ELECT_COUNCILLOR_BY_ASSISTANT);
+		System.out.println("- "+Commands.EXTRA_MAIN_ACTION);		
 	}
 
 	/**
@@ -139,10 +139,10 @@ public class View extends Observable implements Observer {
 	 */
 	private void displayMainAction() {
 		System.out.println("Insert the action's name to perform:");
-		System.out.println("- "+AcquirePermit.class.getSimpleName());
-		System.out.println("- "+BuildEmporiumByKing.class.getSimpleName());
-		System.out.println("- "+ElectCouncillor.class.getSimpleName());
-		System.out.println("- "+BuildEmproriumByPermit.class.getSimpleName());
+		System.out.println("- "+Commands.ACQUIRE_PERMIT);
+		System.out.println("- "+Commands.BUILD_EMPORIUM_BY_KING);
+		System.out.println("- "+Commands.ELECT_COUNCILLOR);
+		System.out.println("- "+Commands.BUILD_EMPORIUM_BY_PERMIT);
 	}
 	
 	/**
