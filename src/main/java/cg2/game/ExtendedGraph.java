@@ -79,7 +79,7 @@ public class ExtendedGraph<V extends City,E> extends SimpleGraph<V, E> {
 		if(newEmpVertex==null||cities==null||game==null){
 			throw new NullPointerException("One of these parameters is null");
 		}
-		cities.add(newEmpVertex);
+		
 		Subgraph<V,E,ExtendedGraph<V,E>> sub=new Subgraph<V, E, ExtendedGraph<V,E>>(this, cities);
 		Set<E> subEdgeSet=sub.edgeSet();
 		Iterator<E> it=subEdgeSet.iterator();
