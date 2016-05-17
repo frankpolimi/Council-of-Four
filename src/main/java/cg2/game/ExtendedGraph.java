@@ -3,10 +3,16 @@
  */
 package cg2.game;
 
+import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.SimpleGraph;
 import org.jgrapht.graph.Subgraph;
+import org.jgrapht.graph.UndirectedSubgraph;
+
 import java.util.*;
 import cg2.model.*;
+
+import org.jgrapht.UndirectedGraph;
+import org.jgrapht.alg.ConnectivityInspector;
 import org.jgrapht.alg.DijkstraShortestPath;
 /**
  * @author Emanuele Ricciardelli
@@ -75,25 +81,16 @@ public class ExtendedGraph<V extends City,E> extends SimpleGraph<V, E> {
 	 * @param game is the ref of the game 
 	 * @throws NullPointerException is one of the parameters is null.
 	 */
-	public void applyBonus(V newEmpVertex, Set<V> cities, Game game){
+	public void applyConnectedCitiesBonus(V newEmpVertex, Set<V> cities, Game game){
 		if(newEmpVertex==null||cities==null||game==null){
 			throw new NullPointerException("One of these parameters is null");
 		}
 		
-		Subgraph<V,E,ExtendedGraph<V,E>> sub=new Subgraph<V, E, ExtendedGraph<V,E>>(this, cities);
-		Set<E> subEdgeSet=sub.edgeSet();
-		Iterator<E> it=subEdgeSet.iterator();
-		while(it.hasNext()){
-			E edge=it.next();
-			V obj;
-			if(this.getEdgeSource(edge).equals(newEmpVertex)){
-				obj=this.getEdgeTarget(edge);
-			}else{
-				obj=this.getEdgeSource(edge);
-			}
-			System.out.println("Bonus acquisiti");
-			obj.stampBonusList();
-			obj.applyBonus(game);
+		UndirectedSubgraph<V,E> sub=new UndirectedSubgraph<V, E>(this, cities, null);
+		ConnectivityInspector<V, E> connectivity=new ConnectivityInspector<>(sub);
+		Set<V> connected=connectivity.connectedSetOf(newEmpVertex);
+		for(V v:connected){
+			v.applyBonus(game);
 		}
 		
 	}

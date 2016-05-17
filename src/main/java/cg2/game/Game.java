@@ -2,12 +2,15 @@ package cg2.game;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
 import org.jdom2.JDOMException;
 import org.jgrapht.UndirectedGraph;
+import org.jgrapht.alg.ConnectivityInspector;
 import org.jgrapht.graph.DefaultEdge;
+import org.jgrapht.graph.Subgraph;
 
 import actions.*;
 import cg2.model.*;
@@ -229,16 +232,19 @@ public class Game extends Observable {
 		player.add(p1);
 		player.add(p2);
 		Game game=new Game(player);
-		p1.addEmporium(new Emporium(p1, game.map.getVertexByKey("N")));
-		p1.addEmporium(new Emporium(p1, game.map.getVertexByKey("O")));
+		p1.addEmporium(new Emporium(p1, game.map.getVertexByKey("F")));
+		//p1.addEmporium(new Emporium(p1, game.map.getVertexByKey("J")));
 		p1.addEmporium(new Emporium(p1, game.map.getVertexByKey("I")));
-		p1.addEmporium(new Emporium(p1, game.map.getVertexByKey("G")));
-		System.out.println("Partita");
-		//System.out.println(game.toString());
-		//game.map.applyBonus(game.map.getVertexByKey("K"), p1);
-		Set<DefaultEdge> list=game.map.getAllEdges(game.map.getVertexByKey("K"), game.map.getVertexByKey("D"));
-		for(DefaultEdge de:list)
-			System.out.println("coll"+de.toString());
+		p1.addEmporium(new Emporium(p1, game.map.getVertexByKey("L")));
+		p1.addEmporium(new Emporium(p1, game.map.getVertexByKey("H")));
+		p1.addEmporium(new Emporium(p1, game.map.getVertexByKey("M")));
+		
+		Set<City> appo=p1.getEmporiumsCitiesSet();
+		appo.add(game.map.getVertexByKey("O"));
+		
+		System.out.println("Giocaotre"+p1.toString());
+		game.map.applyConnectedCitiesBonus(game.map.getVertexByKey("O"),appo, game);
+		System.out.println("Giocatore"+p1.toString());
 		
 	}
 }

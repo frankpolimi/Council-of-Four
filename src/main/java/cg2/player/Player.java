@@ -292,6 +292,14 @@ public class Player {
 				+ ", buildingPermits=" + buildingPermits + ", usedBuildingPermits=" + usedBuildingPermits + "]";
 	}
 
+	public Set<City> getEmporiumsCitiesSet() {
+		Set<City> cities=new HashSet<>();
+		for(Emporium e:this.emporiumsOwned){
+			cities.add(e.getCity());
+		}
+		return cities;
+	}
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
