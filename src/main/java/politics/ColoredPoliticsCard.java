@@ -27,5 +27,15 @@ public class ColoredPoliticsCard extends PoliticsCard
 			return true;
 		return false;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return color.toString();
+	}
+	
+	
 	
 }

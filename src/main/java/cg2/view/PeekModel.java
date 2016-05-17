@@ -3,6 +3,7 @@ package cg2.view;
 import cg2.game.Game;
 import cg2.model.Emporium;
 import cg2.player.Player;
+import politics.PoliticsCard;
 
 public class PeekModel {
 	
@@ -24,9 +25,14 @@ public class PeekModel {
 		System.out.println("Assistants: "+p.getAssistants());
 		System.out.println("Victory points: "+p.getPoints());
 		System.out.println("Nobility points: "+p.getNobilityPoints());
+		System.out.println("Remaining emporiums to build: "+p.getRemainingEmporiums());
+		System.out.println("Cards owned: ");
+		for(PoliticsCard pc : p.getCardsOwned())
+			System.out.println(pc.toString());
+		System.out.println();
 		System.out.println("Emporiums owned: ");
 		for(Emporium e: p.getEmporium())
-			e.toString();
+			System.out.println(e.toString());
 	}
 
 }

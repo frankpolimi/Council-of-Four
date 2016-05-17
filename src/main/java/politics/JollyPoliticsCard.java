@@ -9,4 +9,14 @@ public class JollyPoliticsCard extends PoliticsCard
 	{
 		return true;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Jolly";
+	}
+	
+	
 }
