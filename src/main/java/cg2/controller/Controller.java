@@ -22,8 +22,10 @@ import cg2.view.View;
 public class Controller implements Observer {
 	
 	private final Game game;
-	private final Set<MainAction> mainActions;
-	private final Set<QuickAction> quickActions;
+	/*
+	 * private final Set<MainAction> mainActions;
+	 * private final Set<QuickAction> quickActions;
+	 */
 
 	/**
 	 * constructor of the controller. will initialize the list of actions
@@ -36,25 +38,31 @@ public class Controller implements Observer {
 		this.game = game;
 		game.registerObserver(this);
 		view.registerObserver(this);
+		/*
 		this.mainActions = new HashSet<MainAction>();
 		this.quickActions = new HashSet<QuickAction>();
 		this.initMainAction();
 		this.initQuickAction();
+		*/
 	}
 
+	/*
 	private void initMainAction(){
 		this.mainActions.add(new AcquirePermit());
 		this.mainActions.add(new BuildEmporiumByKing());
 		this.mainActions.add(new ElectCouncillor());
 		this.mainActions.add(new BuildEmproriumByPermit());
 	}
+	*/
 	
+	/*
 	private void initQuickAction() {
 		this.quickActions.add(new EngageAssistant());
 		this.quickActions.add(new ChangeFaceUpPermits());
 		this.quickActions.add(new ElectCouncillorByAssistant());
 		this.quickActions.add(new ExtraMainAction());
 	}
+	*/
 	
 	/* (non-Javadoc)
 	 * @see cg2.observers.Observer#update()

@@ -3,7 +3,9 @@
  */
 package cg2.view;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.Collections;
 
 import actions.*;
 import cg2.observers.*;
@@ -63,22 +65,29 @@ public class View extends Observable implements Observer {
 		 * is better to include the viewID (playerID) with the action
 		 * so the controller can perform the check on the player's turn 
 		 */
-		if(state.equals(State.QUICK))
+		//quick actions
+		else if(state.equals(State.QUICK)){
 			if(command.equals(Commands.ENGAGE_ASSISTANTS))
 				this.update(new Message(this.playerID, new EngageAssistant()));
 			else if(command.equals(Commands.CHANGE_FACE_UP_PERMITS))
 				this.update(new Message(playerID, new ChangeFaceUpPermits()));
 			else if(command.equals(Commands.ELECT_COUNCILLOR_BY_ASSISTANT))
-				this.displayRequirements();;
+				this.displayRequirements(
+						ElectCouncillorByAssistant.class.getDeclaredFields());
 			else if(command.equals(Commands.EXTRA_MAIN_ACTION))
 				this.update(new Message(playerID, new ExtraMainAction()));
-		if(state.equals(State.MAIN))
+		}
+		//main actions
+		else if(state.equals(State.MAIN))
 			this.state = State.ACTION;
 			if(command.equals(Commands.ACQUIRE_PERMIT))
-				this.displayRequirements();
-			else if(command.equals(Commands.BUILD_EMPORIUM_BY_KING));
-			else if(command.equals(Commands.ELECT_COUNCILLOR));
-			else if(command.equals(Commands.BUILD_EMPORIUM_BY_PERMIT));
+				this.displayRequirements(AcquirePermit.class.getDeclaredFields());
+			else if(command.equals(Commands.BUILD_EMPORIUM_BY_KING))
+				this.displayRequirements(BuildEmporiumByKing.class.getDeclaredFields());
+			else if(command.equals(Commands.ELECT_COUNCILLOR))
+				this.displayRequirements(ElectCouncillor.class.getDeclaredFields());
+			else if(command.equals(Commands.BUILD_EMPORIUM_BY_PERMIT))
+				this.displayRequirements(BuildEmproriumByPermit.class.getDeclaredFields());
 				
 				
 	}	
@@ -154,13 +163,15 @@ public class View extends Observable implements Observer {
 	 * e.g. 
 	 * required input is a council
 	 * this method will display the status of all 4 councils
+	 * @param fields 
 	 */
-	private void displayRequirements() {
+	private void displayRequirements(Field[] fields) {
 		System.out.println("For the action the required input is: ");
-		for(Class<?> param : method.getParameterTypes()){
-			if(param.getClass().equals(Council.class))
+		for(int i = 0; i < fields.length; i++){
+			Class<?> field = fields[i].getType();
+			if(field.getClass().equals(Council.class))
 				System.out.println("- region");
-			if(param.getClass().equals(BuildingPermit.class))
+			else if(field.getClass().equals(BuildingPermit.class))
 				System.out.println("- a number: 1 or 2");
 		}
 	}
