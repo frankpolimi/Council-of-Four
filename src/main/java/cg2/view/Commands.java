@@ -12,6 +12,7 @@ public final class Commands {
 	//general purpose commands
 	public final static String QUIT = "quit";
 	public final static String BACK = "back";
+	public final static String STATISTICS = "statistics";
 	public final static String MAIN_ACTION = "main action";
 	public final static String QUICK_ACTION = "quick action";
 	

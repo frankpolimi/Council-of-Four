@@ -52,6 +52,8 @@ public class View extends Observable implements Observer {
 			else if(state.equals(State.ACTION))
 				this.state = State.MAIN;
 		}
+		else if(command.equals(Commands.STATISTICS))
+			peeker.getStatsPlayer(this.playerID);
 		else if(command.equals(Commands.MAIN_ACTION))
 			this.state = State.MAIN;
 		else if(command.equals(Commands.QUICK_ACTION))
@@ -144,7 +146,7 @@ public class View extends Observable implements Observer {
 		System.out.println("- "+Commands.ELECT_COUNCILLOR);
 		System.out.println("- "+Commands.BUILD_EMPORIUM_BY_PERMIT);
 	}
-	
+
 	/**
 	 * display the required parameters
 	 * the input should be a string separated by a blank

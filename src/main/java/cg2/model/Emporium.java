@@ -31,6 +31,14 @@ public class Emporium {
 	public City getCity(){
 		return city;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return city.toString();
+	}
 	
 	
 	

@@ -1,6 +1,7 @@
 package cg2.view;
 
 import cg2.game.Game;
+import cg2.model.Emporium;
 import cg2.player.Player;
 
 public class PeekModel {
@@ -17,12 +18,15 @@ public class PeekModel {
 				this.printStat(p);
 	}
 
-	public void printStat(Player p){
+	private void printStat(Player p){
 		System.out.println("Name: "+p.getName());
 		System.out.println("Coins: "+p.getCoins());
 		System.out.println("Assistants: "+p.getAssistants());
 		System.out.println("Victory points: "+p.getPoints());
 		System.out.println("Nobility points: "+p.getNobilityPoints());
+		System.out.println("Emporiums owned: ");
+		for(Emporium e: p.getEmporium())
+			e.toString();
 	}
 
 }
