@@ -1,23 +1,27 @@
 package actions;
 
+import cg2.game.Game;
 import cg2.model.BuildingPermit;
 import cg2.model.City;
 import cg2.model.Emporium;
-import cg2.player.Player;
 
 /**
  * @author Vitaliy Pakholko
  */
 public class BuildEmproriumByPermit extends MainAction 
 {
-	public boolean takeAction(Player player, BuildingPermit permit, City city)
+	private BuildingPermit permit;
+	private City city;
+	
+	@Override
+	public boolean takeAction(Game game)
 	{
-		if (player.getRemainingEmporiums()<=0)
+		if (game.getCurrentPlayer().getRemainingEmporiums()<=0)
 		{
 			System.out.println("No avaiable emporiums");
 			return false;
 		}
-		for(Emporium e:player.getEmporium())
+		for(Emporium e:game.getCurrentPlayer().getEmporium())
 			if(e.getCity()==city)
 			{
 				System.out.println("The player has already built an emporium in this city");
@@ -32,12 +36,12 @@ public class BuildEmproriumByPermit extends MainAction
 		
 		int otherEmporiums=city.getEmporiums().size();
 		
-		if(player.checkAssistants(otherEmporiums))
+		if(game.getCurrentPlayer().checkAssistants(otherEmporiums))
 		{
-			this.game.decrementMainActionCounter();
-			player.usePermit(permit);
-			city.addEmporium(player);
-			//Qua ci va la parte di attivare i bonus
+			game.decrementMainActionCounter();
+			game.getCurrentPlayer().usePermit(permit);
+			city.addEmporium(game.getCurrentPlayer());
+			city.applyBonus(game);
 			return true;
 		}
 		else 
@@ -51,6 +55,12 @@ public class BuildEmproriumByPermit extends MainAction
 	public String toString() {
 		return "BuildEmproriumByPermit: The player tries to build an Emporium in a City using the corresponding BuildingPermit he/she possesses.";
 	}
+
+	public BuildEmproriumByPermit(BuildingPermit permit, City city) {
+		this.permit = permit;
+		this.city = city;
+	}
+	
 	
 	
 }
