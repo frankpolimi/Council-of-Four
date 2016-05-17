@@ -69,13 +69,13 @@ public class View extends Observable implements Observer {
 			else if(command.equals(Commands.CHANGE_FACE_UP_PERMITS))
 				this.update(new Message(playerID, new ChangeFaceUpPermits()));
 			else if(command.equals(Commands.ELECT_COUNCILLOR_BY_ASSISTANT))
-				this.update(new Message(playerID, new ElectCouncillorByAssistant()));
+				this.displayRequirements();;
 			else if(command.equals(Commands.EXTRA_MAIN_ACTION))
 				this.update(new Message(playerID, new ExtraMainAction()));
 		if(state.equals(State.MAIN))
 			this.state = State.ACTION;
 			if(command.equals(Commands.ACQUIRE_PERMIT))
-				this.displayRequirements(AcquirePermit.class.getMethods()[0]);
+				this.displayRequirements();
 			else if(command.equals(Commands.BUILD_EMPORIUM_BY_KING));
 			else if(command.equals(Commands.ELECT_COUNCILLOR));
 			else if(command.equals(Commands.BUILD_EMPORIUM_BY_PERMIT));
@@ -155,7 +155,7 @@ public class View extends Observable implements Observer {
 	 * required input is a council
 	 * this method will display the status of all 4 councils
 	 */
-	private void displayRequirements(Method method) {
+	private void displayRequirements() {
 		System.out.println("For the action the required input is: ");
 		for(Class<?> param : method.getParameterTypes()){
 			if(param.getClass().equals(Council.class))
