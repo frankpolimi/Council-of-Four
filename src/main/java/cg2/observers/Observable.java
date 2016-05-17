@@ -9,22 +9,22 @@ import java.util.*;
  *
  */
 public abstract class Observable<C> {
-	private List<Observer> observers;
+	private List<Observer<C>> observers;
 
 	public Observable(){
 		observers=new ArrayList<>();
 	}
 	
-	public void registerObserver(Observer o){
+	public void registerObserver(Observer<C> o){
 		this.observers.add(o);
 	}
 	
-	public void unregisterObserver(Observer o){
+	public void unregisterObserver(Observer<C> o){
 		this.observers.remove(o);
 	}
 	
 	public void notifyObservers(){
-		for(Observer o: this.observers){
+		for(Observer<C> o: this.observers){
 			o.update();
 		}
 	}
@@ -34,13 +34,13 @@ public abstract class Observable<C> {
 	}
 	
 	public void notifyObservers(C c){
-		for(Observer o: this.observers){
+		for(Observer<C> o: this.observers){
 			o.update(c);
 		}
 	}
 	
 	public void notifyObservers(String string){
-		for(Observer o: this.observers)
+		for(Observer<C> o: this.observers)
 			o.update(string);
 	}
 }

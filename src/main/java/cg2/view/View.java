@@ -4,8 +4,6 @@
 package cg2.view;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.util.Collections;
 
 import actions.*;
 import cg2.observers.*;
@@ -22,7 +20,7 @@ import cg2.model.BuildingPermit;
  * and will transfer to the controller a complete action to execute.
  * @author Francesco Vetrò
  */
-public class View extends Observable implements Observer {
+public class View extends Observable<Action> implements Observer<Message> {
 	
 	//class to read from the Model only some information
 	private final PeekModel peeker;
@@ -184,12 +182,6 @@ public class View extends Observable implements Observer {
 		//not used at the moment
 	}
 
-	/* (non-Javadoc)
-	 * @see cg2.observers.Observer#update(java.lang.Object)
-	 */
-	@Override
-	public <C> void update(C change) {
-	}
 	
 	/* (non-Javadoc)
 	 * @see cg2.observers.Observer#update(java.lang.String)
@@ -274,4 +266,9 @@ public class View extends Observable implements Observer {
 			System.out.println(shown.indexOf(b)+" - "+b.toString());
 		*/	
 	}
+
+	public void update(Message change) {
+		Observer.super.update(change);		
+	}
+
 }
