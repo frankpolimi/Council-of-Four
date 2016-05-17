@@ -8,7 +8,7 @@ import java.util.*;
  * @author Emanuele Ricciardelli
  *
  */
-public abstract class Observable {
+public abstract class Observable<C> {
 	private List<Observer> observers;
 
 	public Observable(){
@@ -29,11 +29,11 @@ public abstract class Observable {
 		}
 	}
 	
-	public <C> void notifyObserver(int specificView, C c){
+	public void notifyObserver(int specificView, C c){
 		this.observers.get(specificView).update(c);
 	}
 	
-	public <C> void notifyObservers(C c){
+	public void notifyObservers(C c){
 		for(Observer o: this.observers){
 			o.update(c);
 		}

@@ -19,7 +19,7 @@ import cg2.view.View;
  * @author Emanuele Ricciardelli
  *
  */
-public class Controller implements Observer {
+public class Controller implements Observer<Action> {
 	
 	private final Game game;
 	/*
@@ -71,12 +71,23 @@ public class Controller implements Observer {
 	public void update() {
 		//qua update notificati senza comandi
 	}
+	
+	@Override
+	public void update(Action change){
+		boolean log=change.takeAction(game);
+		if(!log){
+			throw new IllegalStateException("The action is not valid");
+		}else{
+			//game.notifyObservers(game.getSta);
+		}
+	}
 
 	/* (non-Javadoc)
 	 * @see cg2.observers.Observer#update(java.lang.Object)
 	 */
+	/*
 	@Override
-	public <C> void update(C change) {
+	public void update(C change) {
 		if(change.getClass().equals(BuildingPermit.class)){
 			BuildingPermit p = ((BuildingPermit)change);
 			if(this.checkInPlayer(p))
@@ -86,7 +97,7 @@ public class Controller implements Observer {
 		}
 		else if(change.getClass().equals(City.class))
 			((City)change).applyBonus(game);
-	}
+	}*/
 
 	private boolean checkInPlayer(BuildingPermit p) {
 		List<BuildingPermit> buildingPermits = new ArrayList<BuildingPermit>();
