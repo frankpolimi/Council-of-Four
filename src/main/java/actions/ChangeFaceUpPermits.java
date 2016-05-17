@@ -1,19 +1,22 @@
 package actions;
 
+import cg2.game.Game;
 import cg2.model.PermitsDeck;
-import cg2.player.Player;
 
 /**
  * @author Vitaliy Pakholko
  */
 public class ChangeFaceUpPermits extends QuickAction 
 {
-	public boolean takeAction(Player player, PermitsDeck deck)
+	private PermitsDeck deck;
+	
+	@Override
+	public boolean takeAction(Game game)
 	{
-		if(player.checkCoins(2))
+		if(game.getCurrentPlayer().checkCoins(2))
 		{
 			deck.changeFaceUpPermits();
-			this.game.decrementQuickActionCounter();
+			game.decrementQuickActionCounter();
 			return true;
 		}
 		else 

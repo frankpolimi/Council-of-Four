@@ -1,17 +1,17 @@
 package actions;
 
-import cg2.player.Player;
+import cg2.game.Game;
 
 /**
  * @author Vitaliy Pakholko
  */
 public class ExtraMainAction extends QuickAction 
 {
-	public boolean takeAction(Player player)
+	public boolean takeAction(Game game)
 	{
-		if(player.checkAssistants(3))
+		if(game.getCurrentPlayer().checkAssistants(3))
 		{
-			this.game.incrementMainActionCounter();
+			game.incrementMainActionCounter();
 			return true;
 		}
 		else

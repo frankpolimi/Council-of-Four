@@ -1,7 +1,6 @@
 package cg2.model;
 import java.util.*;
 import java.util.concurrent.ArrayBlockingQueue;
-
 import cg2.game.Game;
 /**
  * 
