@@ -2,8 +2,8 @@ package actions;
 
 import java.util.ArrayList;
 
+import cg2.game.Game;
 import cg2.model.BuildingPermit;
-import cg2.player.Player;
 import council.Council;
 
 import politics.PoliticsCard;
@@ -13,10 +13,10 @@ import politics.PoliticsCard;
  */
 public class AcquirePermit extends MainAction 
 {
-	public void takeAction(Player player, Council council, ArrayList<PoliticsCard> politics, BuildingPermit permit)
+	public void takeAction(Game game, Council council, ArrayList<PoliticsCard> politics, BuildingPermit permit)
 	{
-		if(payCouncil(player,council,politics))
-			if(council.getPermitsDeck().givePermit(player, permit))
+		if(payCouncil(game.getCurrentPlayer(),council,politics))
+			if(council.getPermitsDeck().givePermit(game, permit))
 				this.game.decrementMainActionCounter();
 	}
 

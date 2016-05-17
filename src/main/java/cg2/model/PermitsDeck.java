@@ -1,7 +1,8 @@
 package cg2.model;
 import java.util.*;
 import java.util.concurrent.ArrayBlockingQueue;
-import cg2.player.Player;
+
+import cg2.game.Game;
 /**
  * 
  * @author Emanuele Ricciardelli, Vitaliy Pakholko
@@ -18,12 +19,12 @@ public class PermitsDeck {
 		this.faceUpPermits = new ArrayBlockingQueue<>(2);
 	}
 
-	public boolean givePermit(Player player, BuildingPermit permit)
+	public boolean givePermit(Game game, BuildingPermit permit)
 	{
 		if(faceUpPermits.contains(permit))
 		{
-			player.addBuildingPermit(permit);
-			permit.applyBonus(player);
+			game.getCurrentPlayer().addBuildingPermit(permit);
+			permit.applyBonus(game);
 			return true;
 		}
 		System.out.println("No such permit in this deck's face up permits");
