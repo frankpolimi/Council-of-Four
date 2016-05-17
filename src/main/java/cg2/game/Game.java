@@ -18,6 +18,7 @@ import cg2.observers.Observable;
 import politics.PoliticsDeck;
 import cg2.player.*;
 import council.Councillor;
+import council.KingsCouncil;
 import topology.*;
 
 /**
@@ -30,6 +31,7 @@ public class Game extends Observable {
 	private final PoliticsDeck usedPolitics;
 	private final List<Player> players;
 	private final Set<Region> regions;
+	//TODO private final KingsCouncil kingCouncil; e inizializzazione
 	private final List<Councillor> avaliableCouncillors;
 	private final List<PointsTile> kingTileList;
 	private final List<PointsTile> colorTileList;
@@ -63,7 +65,6 @@ public class Game extends Observable {
 		this.nobilityLane=mp.createNobilityLane();
 		this.currentPlayer=this.players.get(0);
 		this.kingsPosition=this.map.getVertexByKey("J");
-		
 		
 	}
 

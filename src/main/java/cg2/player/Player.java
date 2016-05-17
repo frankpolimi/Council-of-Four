@@ -286,10 +286,12 @@ public class Player {
 	 */
 	@Override
 	public String toString() {
-		return "Player [name=" + name + ", playerID=" + playerID + ", remainingEmporiums=" + remainingEmporiums
-				+ ", emporiumsOwned=" + emporiumsOwned + ", coins=" + coins + ", nobilityPoints=" + nobilityPoints
-				+ ", points=" + points + ", assistants=" + assistants + ", cardsOwned=" + cardsOwned
-				+ ", buildingPermits=" + buildingPermits + ", usedBuildingPermits=" + usedBuildingPermits + "]";
+		return "name: " + name+ "\ncoins: " + coins + "assistants: " + assistants +
+				"\nvictory points: " + points + "\nnobility points: " + nobilityPoints + 
+				"\ncards owned: " + cardsOwned + "\nremaining emporiums: " + 
+				remainingEmporiums + "\nemporiums owned: " + emporiumsOwned + 
+				"\nbuilding permits: " + buildingPermits + ", usedBuildingPermits: " + 
+				usedBuildingPermits;
 	}
 
 	public Set<City> getEmporiumsCitiesSet() {

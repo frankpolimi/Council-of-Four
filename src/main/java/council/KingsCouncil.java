@@ -15,5 +15,13 @@ public class KingsCouncil extends Council
 		super(councillors, permitsDeck);
 		// TODO Auto-generated constructor stub
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return super.toString();
+	}
 	
 }

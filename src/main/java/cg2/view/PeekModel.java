@@ -1,9 +1,8 @@
 package cg2.view;
 
 import cg2.game.Game;
-import cg2.model.Emporium;
 import cg2.player.Player;
-import politics.PoliticsCard;
+import topology.Region;
 
 public class PeekModel {
 	
@@ -16,23 +15,16 @@ public class PeekModel {
 	public void getStatsPlayer(int playerID){
 		for(Player p: game.getPlayers())
 			if(p.getPlayerID() == playerID)
-				this.printStat(p);
+				System.out.println(p.toString());
 	}
 
-	private void printStat(Player p){
-		System.out.println("Name: "+p.getName());
-		System.out.println("Coins: "+p.getCoins());
-		System.out.println("Assistants: "+p.getAssistants());
-		System.out.println("Victory points: "+p.getPoints());
-		System.out.println("Nobility points: "+p.getNobilityPoints());
-		System.out.println("Remaining emporiums to build: "+p.getRemainingEmporiums());
-		System.out.println("Cards owned: ");
-		for(PoliticsCard pc : p.getCardsOwned())
-			System.out.println(pc.toString());
-		System.out.println();
-		System.out.println("Emporiums owned: ");
-		for(Emporium e: p.getEmporium())
-			System.out.println(e.toString());
+	public void getCouncils() {
+		for(Region r: game.getRegions()){
+			System.out.println(r.getName());
+			System.out.println(r.getCouncil().toString());
+		}
+		System.out.println("King council:");
+		//System.out.println(game.getKingCouncil().toString());
 	}
 
 }

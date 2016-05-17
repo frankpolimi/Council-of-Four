@@ -170,7 +170,7 @@ public class View extends Observable implements Observer {
 		for(int i = 0; i < fields.length; i++){
 			Class<?> field = fields[i].getType();
 			if(field.getClass().equals(Council.class))
-				System.out.println("- region");
+				peeker.getCouncils();
 			else if(field.getClass().equals(BuildingPermit.class))
 				System.out.println("- a number: 1 or 2");
 		}
