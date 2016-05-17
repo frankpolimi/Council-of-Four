@@ -1,18 +1,19 @@
 package actions;
 
-import cg2.player.Player;
+import cg2.game.Game;
 
 /**
  * @author Vitaliy Pakholko
  */
 public class EngageAssistant extends QuickAction 
 {
-	public boolean takeAction(Player player)
+	@Override
+	public boolean takeAction(Game game)
 	{
-		if(player.checkCoins(3))
+		if(game.getCurrentPlayer().checkCoins(3))
 		{
-			player.setAssistants(player.getAssistants()+1);
-			this.game.decrementQuickActionCounter();
+			game.getCurrentPlayer().setAssistants(game.getCurrentPlayer().getAssistants()+1);
+			game.decrementQuickActionCounter();
 			return true;
 		}
 		else 

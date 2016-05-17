@@ -1,6 +1,6 @@
 package actions;
 
-import cg2.player.Player;
+import cg2.game.Game;
 import council.Council;
 import council.Councillor;
 
@@ -9,12 +9,16 @@ import council.Councillor;
  */
 public class ElectCouncillorByAssistant extends QuickAction
 {
-	public boolean takeAction(Player player, Council council, Councillor councillor)
+	private Council council;
+	private Councillor councillor;
+	
+	@Override
+	public boolean takeAction(Game game)
 	{
-		if(player.checkAssistants(1))
+		if(game.getCurrentPlayer().checkAssistants(1))
 		{
 			council.electCouncillor(councillor);
-			this.game.decrementQuickActionCounter();
+			game.decrementQuickActionCounter();
 			return true;
 		}
 		else 
@@ -30,4 +34,12 @@ public class ElectCouncillorByAssistant extends QuickAction
 		return "ElectCouncillorByAssistant: The Player pays 1 Assistant and chooses an avaiable Councillor and insersts him in a chosen Council shifting all the councillors already present. The pushed out Councillor returns"
 				+ "to the board";
 	}
+
+	public ElectCouncillorByAssistant(Council council, Councillor councillor) 
+	{
+		this.council = council;
+		this.councillor = councillor;
+	}
+	
+	
 }

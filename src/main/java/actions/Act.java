@@ -1,11 +1,11 @@
 package actions;
 
-import cg2.player.Player;
+import cg2.game.Game;
 
 /**
  * @author Vitaliy Pakholko
  */
 public interface Act 
 {
-	public boolean takeAction(Player player);
+	public boolean takeAction(Game game);
 }

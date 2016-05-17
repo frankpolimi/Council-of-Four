@@ -15,9 +15,8 @@ import politics.PoliticsCard;
  */
 public class Action implements Act
 {
-	Game game;
-	
-	public boolean takeAction(Player player)
+	@Override
+	public boolean takeAction(Game game)
 	{
 		return false;
 	}
