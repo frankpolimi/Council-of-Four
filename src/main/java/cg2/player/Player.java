@@ -286,7 +286,7 @@ public class Player {
 	 */
 	@Override
 	public String toString() {
-		return "name: " + name+ "\ncoins: " + coins + "assistants: " + assistants +
+		return "name: " + name+ "\ncoins: " + coins + "\nassistants: " + assistants +
 				"\nvictory points: " + points + "\nnobility points: " + nobilityPoints + 
 				"\ncards owned: " + cardsOwned + "\nremaining emporiums: " + 
 				remainingEmporiums + "\nemporiums owned: " + emporiumsOwned + 

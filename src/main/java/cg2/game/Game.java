@@ -9,7 +9,6 @@ import org.jdom2.JDOMException;
 import org.jgrapht.graph.DefaultEdge;
 
 import cg2.controller.Change;
-import cg2.controller.ModelChange;
 import cg2.model.*;
 import cg2.observers.Observable;
 import politics.PoliticsDeck;

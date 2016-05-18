@@ -96,17 +96,20 @@ public class View extends Observable<Change> implements Observer<Change> {
 		switch(state){
 			case NONE:{
 				this.displayNone();
+				System.out.println("- statistics");
 				System.out.println("- quit");
 				break;
 			}
 			case MAIN:{
 				this.displayMainAction();
+				System.out.println("- statistics");
 				System.out.println("- back");
 				System.out.println("- quit");
 				break;
 			}
 			case QUICK:{
 				this.displayQuickAction();
+				System.out.println("- statistics");
 				System.out.println("- back");
 				System.out.println("- quit");
 				break;
