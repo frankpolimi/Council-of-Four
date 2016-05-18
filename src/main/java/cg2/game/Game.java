@@ -2,17 +2,12 @@ package cg2.game;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
 import org.jdom2.JDOMException;
-import org.jgrapht.UndirectedGraph;
-import org.jgrapht.alg.ConnectivityInspector;
 import org.jgrapht.graph.DefaultEdge;
-import org.jgrapht.graph.Subgraph;
 
-import actions.*;
 import cg2.model.*;
 import cg2.observers.Observable;
 import politics.PoliticsDeck;

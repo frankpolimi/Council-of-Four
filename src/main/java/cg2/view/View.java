@@ -8,6 +8,7 @@ import java.lang.reflect.Field;
 import actions.*;
 import cg2.observers.*;
 import council.Council;
+import cg2.controller.Change;
 import cg2.game.Game;
 import cg2.model.BuildingPermit;
 
@@ -20,7 +21,7 @@ import cg2.model.BuildingPermit;
  * and will transfer to the controller a complete action to execute.
  * @author Francesco Vetrò
  */
-public class View extends Observable<Action> implements Observer<Message> {
+public class View extends Observable<Message> implements Observer {
 	
 	//class to read from the Model only some information
 	private final PeekModel peeker;
