@@ -15,7 +15,7 @@ import cg2.observers.Observer;
  * @author Francesco Vetrò
  *
  */
-public class NobilityLane extends Bonusable implements Observer<ModelChange>{
+public class NobilityLane extends Bonusable implements Observer<Change>{
 	
 	Map<Integer, NobilityCell> lane;
 	
@@ -42,9 +42,10 @@ public class NobilityLane extends Bonusable implements Observer<ModelChange>{
 	 * the bonuses can be null
 	 */
 	@Override
-	public void update(ModelChange change) {
-		int place = change.getGame().getCurrentPlayer().getNobilityPoints();
-		lane.get(place).applyBonus(change.getGame());
+	public void update(Change change) {
+		ModelChange modelChange = (ModelChange)change;
+		int place = modelChange.getGame().getCurrentPlayer().getNobilityPoints();
+		lane.get(place).applyBonus(modelChange.getGame());
 	}
 
 	@Override
