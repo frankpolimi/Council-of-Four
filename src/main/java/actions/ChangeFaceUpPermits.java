@@ -13,6 +13,8 @@ public class ChangeFaceUpPermits extends QuickAction
 	@Override
 	public boolean takeAction(Game game)
 	{
+		if(!this.checkAction(game))
+			return false;
 		if(game.getCurrentPlayer().checkCoins(2))
 		{
 			deck.changeFaceUpPermits();

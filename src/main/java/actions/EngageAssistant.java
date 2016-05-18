@@ -10,6 +10,8 @@ public class EngageAssistant extends QuickAction
 	@Override
 	public boolean takeAction(Game game)
 	{
+		if(!this.checkAction(game))
+			return false;
 		if(game.getCurrentPlayer().checkCoins(3))
 		{
 			game.getCurrentPlayer().setAssistants(game.getCurrentPlayer().getAssistants()+1);

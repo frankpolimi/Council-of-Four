@@ -9,6 +9,8 @@ public class ExtraMainAction extends QuickAction
 {
 	public boolean takeAction(Game game)
 	{
+		if(!this.checkAction(game))
+			return false;
 		if(game.getCurrentPlayer().checkAssistants(3))
 		{
 			game.incrementMainActionCounter();

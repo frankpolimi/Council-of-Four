@@ -15,6 +15,8 @@ public class ElectCouncillorByAssistant extends QuickAction
 	@Override
 	public boolean takeAction(Game game)
 	{
+		if(!this.checkAction(game))
+			return false;
 		if(game.getCurrentPlayer().checkAssistants(1))
 		{
 			council.electCouncillor(councillor);

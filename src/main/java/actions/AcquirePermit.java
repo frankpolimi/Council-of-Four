@@ -21,6 +21,8 @@ public class AcquirePermit extends MainAction
 	@Override
 	public boolean takeAction(Game game)
 	{
+		if(!this.checkAction(game))
+			return false;
 		if(payCouncil(game.getCurrentPlayer(),council,politics))
 			if(council.getPermitsDeck().givePermit(game, permit))
 			{

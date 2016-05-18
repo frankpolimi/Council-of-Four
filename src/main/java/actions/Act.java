@@ -8,4 +8,5 @@ import cg2.game.Game;
 public interface Act 
 {
 	public boolean takeAction(Game game);
+	public boolean checkAction(Game game);
 }

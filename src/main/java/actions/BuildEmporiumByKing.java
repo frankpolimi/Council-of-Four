@@ -20,6 +20,8 @@ public class BuildEmporiumByKing extends MainAction
 	@Override
 	public boolean takeAction(Game game)
 	{
+		if(!this.checkAction(game))
+			return false;
 		if(!payCouncil(game.getCurrentPlayer(),counc,politics))
 		{
 			System.out.println("Council not satisfied");

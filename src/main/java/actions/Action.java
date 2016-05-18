@@ -21,6 +21,12 @@ public class Action implements Act
 		return false;
 	}
 	
+	@Override
+	public boolean checkAction(Game game) 
+	{
+		return false;
+	}
+	
 	public boolean payCouncil(Player player, Council counc, ArrayList<PoliticsCard> politics)
 	{
 
@@ -58,4 +64,5 @@ public class Action implements Act
 				return false;
 			}return true;
 	}
+
 }

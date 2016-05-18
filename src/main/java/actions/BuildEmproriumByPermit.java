@@ -16,6 +16,8 @@ public class BuildEmproriumByPermit extends MainAction
 	@Override
 	public boolean takeAction(Game game)
 	{
+		if(!this.checkAction(game))
+			return false;
 		if (game.getCurrentPlayer().getRemainingEmporiums()<=0)
 		{
 			System.out.println("No avaiable emporiums");

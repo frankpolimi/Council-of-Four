@@ -15,6 +15,8 @@ public class ElectCouncillor extends MainAction
 	@Override
 	public boolean takeAction(Game game)
 	{	
+		if(!this.checkAction(game))
+			return false;
 		game.addCouncillor(council.electCouncillor(councillor));
 		game.getCurrentPlayer().setCoins(game.getCurrentPlayer().getCoins()+4);
 		game.decrementMainActionCounter();
