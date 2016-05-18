@@ -1,7 +1,7 @@
 /**
  * 
  */
-package cg2.view;
+package cg2.controller;
 
 import actions.*;
 
@@ -9,12 +9,12 @@ import actions.*;
  * @author Francesco Vetrò
  *
  */
-public class Message {
+public class ActionChange extends Change {
 	
 	private final int viewID;
 	private final Action action;
 	
-	public Message(int viewID, Action action) {
+	public ActionChange(int viewID, Action action) {
 		this.viewID = viewID;
 		this.action = action;
 	}

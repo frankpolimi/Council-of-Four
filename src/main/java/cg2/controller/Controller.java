@@ -13,14 +13,13 @@ import cg2.game.Game;
 import cg2.model.BuildingPermit;
 import cg2.model.City;
 import cg2.observers.Observer;
-import cg2.view.Message;
 import cg2.view.View;
 
 /**
  * @author Emanuele Ricciardelli
  *
  */
-public class Controller implements Observer<Message> {
+public class Controller implements Observer<ActionChange>{
 	
 	private final Game game;
 	/*
@@ -37,7 +36,6 @@ public class Controller implements Observer<Message> {
 	public Controller(View view, Game game) {
 		super();
 		this.game = game;
-		game.registerObserver(this);
 		view.registerObserver(this);
 		/*
 		this.mainActions = new HashSet<MainAction>();
@@ -74,8 +72,8 @@ public class Controller implements Observer<Message> {
 	}
 	
 	@Override
-	public void update(Message change){
-		boolean log=change.takeAction(game);
+	public void update(ActionChange change){
+		boolean log=change.getAction().takeAction(game);
 		if(!log){
 			throw new IllegalStateException("The action is not valid");
 		}else{

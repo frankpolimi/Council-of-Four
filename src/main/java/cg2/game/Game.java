@@ -8,6 +8,8 @@ import java.util.Set;
 import org.jdom2.JDOMException;
 import org.jgrapht.graph.DefaultEdge;
 
+import cg2.controller.Change;
+import cg2.controller.ModelChange;
 import cg2.model.*;
 import cg2.observers.Observable;
 import politics.PoliticsDeck;
@@ -20,7 +22,7 @@ import topology.*;
  * @author Emanuele Ricciardelli, Vitaliy Pakholko
  *
  */
-public class Game extends Observable {
+public class Game extends Observable<Change> {
 	
 	private final PoliticsDeck politicsDeck;
 	private final PoliticsDeck usedPolitics;

@@ -6,6 +6,7 @@ package bonus;
 import java.util.ArrayList;
 import java.util.List;
 
+import cg2.controller.BonusChange;
 import cg2.game.Game;
 import cg2.model.BuildingPermit;
 import cg2.view.*;
@@ -38,7 +39,7 @@ public class ReuseTileBonus extends ActionBonus {
 			permits = new ArrayList<Bonus>();
 			for(BuildingPermit b: listUnified)
 				permits.addAll(b.getBonusList());
-			this.notifyObserver(game.getCurrentPlayer().getPlayerID(), permits);
+			this.notifyObserver(game.getCurrentPlayer().getPlayerID(), new BonusChange(permits));
 		}
 	}
 	
