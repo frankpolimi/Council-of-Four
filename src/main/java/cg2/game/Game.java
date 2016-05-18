@@ -222,6 +222,7 @@ public class Game extends Observable {
 				+ ",\n currentPlayer=" + currentPlayer + ",\n mainActionCounter=" + mainActionCounter
 				+ ",\n quickActionCounter=" + quickActionCounter + "]";
 	}
+	
 
 	public static void main(String[]args) throws JDOMException, IOException{
 		Player p1=new Player("Marco", 1, 10, 20, 10);
