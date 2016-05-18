@@ -6,6 +6,7 @@ package bonus;
 import java.util.ArrayList;
 import java.util.List;
 
+import cg2.controller.PermitsChange;
 import cg2.game.Game;
 import cg2.model.BuildingPermit;
 import cg2.view.*;
@@ -41,7 +42,7 @@ public class FreeBuildingLicenseBonus extends ActionBonus {
 		for(int i=0; i< this.amount;i++){
 			for(Region r : game.getRegions())
 				permits.addAll(r.getPermitsDeck().getFaceUpPermits());
-			this.notifyObserver(game.getCurrentPlayer().getPlayerID(), permits);
+			this.notifyObserver(game.getCurrentPlayer().getPlayerID(), new PermitsChange(permits));
 		}
 	}
 	

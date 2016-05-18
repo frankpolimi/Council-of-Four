@@ -3,6 +3,7 @@
  */
 package bonus;
 
+import cg2.controller.ModelChange;
 import cg2.game.Game;
 import cg2.model.NobilityLane;
 
@@ -36,7 +37,7 @@ public class NobilityBonus extends TileBonus {
 	public void update(Game game) {
 		game.getCurrentPlayer().setNobilityPoints(
 				game.getCurrentPlayer().getNobilityPoints() + this.getAmount());
-		this.notifyObservers(game);
+		this.notifyObservers(new ModelChange(game));
 	}
 
 	/* (non-Javadoc)

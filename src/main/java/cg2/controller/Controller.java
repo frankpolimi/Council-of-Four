@@ -19,7 +19,7 @@ import cg2.view.View;
  * @author Emanuele Ricciardelli
  *
  */
-public class Controller implements Observer<Action> {
+public class Controller implements Observer<Change>{
 	
 	private final Game game;
 	/*
@@ -36,7 +36,6 @@ public class Controller implements Observer<Action> {
 	public Controller(View view, Game game) {
 		super();
 		this.game = game;
-		game.registerObserver(this);
 		view.registerObserver(this);
 		/*
 		this.mainActions = new HashSet<MainAction>();
@@ -73,8 +72,9 @@ public class Controller implements Observer<Action> {
 	}
 	
 	@Override
-	public void update(Action change){
-		boolean log=change.takeAction(game);
+	public void update(Change change){
+		ActionChange action = (ActionChange)change;
+		boolean log=action.getAction().takeAction(game);
 		if(!log){
 			throw new IllegalStateException("The action is not valid");
 		}else{

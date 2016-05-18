@@ -7,14 +7,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 import bonus.bonusers.Bonusable;
-import cg2.game.Game;
+import cg2.controller.Change;
+import cg2.controller.ModelChange;
 import cg2.observers.Observer;
 
 /**
  * @author Francesco Vetrò
  *
  */
-public class NobilityLane extends Bonusable implements Observer<Game>{
+public class NobilityLane extends Bonusable implements Observer<Change>{
 	
 	Map<Integer, NobilityCell> lane;
 	
@@ -41,9 +42,10 @@ public class NobilityLane extends Bonusable implements Observer<Game>{
 	 * the bonuses can be null
 	 */
 	@Override
-	public void update(Game change) {
-		int place = change.getCurrentPlayer().getNobilityPoints();
-		lane.get(place).applyBonus(change);
+	public void update(Change change) {
+		ModelChange modelChange = (ModelChange)change;
+		int place = modelChange.getGame().getCurrentPlayer().getNobilityPoints();
+		lane.get(place).applyBonus(modelChange.getGame());
 	}
 
 	@Override

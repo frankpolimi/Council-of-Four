@@ -8,6 +8,8 @@ import java.lang.reflect.Field;
 import actions.*;
 import cg2.observers.*;
 import council.Council;
+import cg2.controller.ActionChange;
+import cg2.controller.Change;
 import cg2.game.Game;
 import cg2.model.BuildingPermit;
 
@@ -20,7 +22,7 @@ import cg2.model.BuildingPermit;
  * and will transfer to the controller a complete action to execute.
  * @author Francesco Vetrò
  */
-public class View extends Observable<Action> implements Observer<Message> {
+public class View extends Observable<Change> implements Observer<Change> {
 	
 	//class to read from the Model only some information
 	private final PeekModel peeker;
@@ -66,14 +68,14 @@ public class View extends Observable<Action> implements Observer<Message> {
 		//quick actions
 		else if(state.equals(State.QUICK)){
 			if(command.equals(Commands.ENGAGE_ASSISTANTS))
-				this.update(new Message(this.playerID, new EngageAssistant()));
+				this.update(new ActionChange(this.playerID, new EngageAssistant()));
 			else if(command.equals(Commands.CHANGE_FACE_UP_PERMITS))
-				this.update(new Message(playerID, new ChangeFaceUpPermits()));
+				this.update(new ActionChange(playerID, new ChangeFaceUpPermits()));
 			else if(command.equals(Commands.ELECT_COUNCILLOR_BY_ASSISTANT))
 				this.displayRequirements(
 						ElectCouncillorByAssistant.class.getDeclaredFields());
 			else if(command.equals(Commands.EXTRA_MAIN_ACTION))
-				this.update(new Message(playerID, new ExtraMainAction()));
+				this.update(new ActionChange(playerID, new ExtraMainAction()));
 		}
 		//main actions
 		else if(state.equals(State.MAIN))
@@ -173,31 +175,6 @@ public class View extends Observable<Action> implements Observer<Message> {
 				System.out.println("- a number: 1 or 2");
 		}
 	}
-
-	/* (non-Javadoc)
-	 * @see cg2.observers.Observer#update()
-	 */
-	@Override
-	public void update() {
-		//not used at the moment
-	}
-
-	
-	/* (non-Javadoc)
-	 * @see cg2.observers.Observer#update(java.lang.String)
-	 */
-	/**
-	 * communication between the view and the controller
-	 * with different cases
-	 * @param the string with a communication
-	 */
-	@Override
-	public void update(String communication) {
-		if(communication.contains("Bonus"))
-			this.selectBonus(communication);
-		else
-			System.err.println("FATAL ERROR IN COMMUNICATION!");
-	}
 	
 	/**
 	 * displays the different bonuses that require an input from the user
@@ -267,8 +244,19 @@ public class View extends Observable<Action> implements Observer<Message> {
 		*/	
 	}
 
-	public void update(Message change) {
+	public void update(Change change) {
 		Observer.super.update(change);		
+	}
+
+	@Override
+	public void update() {
+		//not used
+	}
+
+	@Override
+	public void update(String communication) {
+		//not used
+		
 	}
 
 }

@@ -6,6 +6,7 @@ package bonus;
 import java.util.ArrayList;
 import java.util.List;
 
+import cg2.controller.BonusChange;
 import cg2.game.Game;
 import cg2.model.Emporium;
 import cg2.view.View;
@@ -40,7 +41,7 @@ public class CityBonus extends ActionBonus {
 			for(Emporium e : game.getCurrentPlayer().getEmporium())
 				cities.addAll(
 						super.checkNoNobility(e.getCity().getBonus()));
-			this.notifyObserver(game.getCurrentPlayer().getPlayerID(), cities);
+			this.notifyObserver(game.getCurrentPlayer().getPlayerID(), new BonusChange(cities));
 		}
 	}
 	
