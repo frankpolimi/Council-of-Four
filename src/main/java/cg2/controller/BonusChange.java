@@ -19,4 +19,11 @@ public class BonusChange extends Change {
 		this.bonusList = bonusList;
 	}
 
+	/**
+	 * @return the bonusList
+	 */
+	public List<Bonus> getBonusList() {
+		return bonusList;
+	}
+
 }

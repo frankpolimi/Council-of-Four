@@ -4,11 +4,14 @@
 package cg2.view;
 
 import java.lang.reflect.Field;
+import java.util.List;
 
 import actions.*;
+import bonus.Bonus;
 import cg2.observers.*;
 import council.Council;
 import cg2.controller.ActionChange;
+import cg2.controller.BonusChange;
 import cg2.controller.Change;
 import cg2.game.Game;
 import cg2.model.BuildingPermit;
@@ -26,11 +29,15 @@ public class View extends Observable<Change> implements Observer<Change> {
 	
 	//class to read from the Model only some information
 	private final PeekModel peeker;
+	private LocalStorage storage;
+	
+	private enum State {
+		QUIT, NONE,	MAIN, QUICK, ACTION, BONUS, PERMITS;
+	}
+	
 	private final int playerID;
 	private State state;
-	private enum State{
-		QUIT, NONE, MAIN, QUICK, ACTION, BONUS, PERMITS;
-	}
+	
 	
 	public View(Game game, int playerID) {
 		super();
@@ -78,7 +85,7 @@ public class View extends Observable<Change> implements Observer<Change> {
 				this.update(new ActionChange(playerID, new ExtraMainAction()));
 		}
 		//main actions
-		else if(state.equals(State.MAIN))
+		else if(state.equals(State.MAIN)){
 			this.state = State.ACTION;
 			if(command.equals(Commands.ACQUIRE_PERMIT))
 				this.displayRequirements(AcquirePermit.class.getDeclaredFields());
@@ -88,8 +95,10 @@ public class View extends Observable<Change> implements Observer<Change> {
 				this.displayRequirements(ElectCouncillor.class.getDeclaredFields());
 			else if(command.equals(Commands.BUILD_EMPORIUM_BY_PERMIT))
 				this.displayRequirements(BuildEmproriumByPermit.class.getDeclaredFields());
-				
-				
+		}
+		else if(state.equals(State.BONUS));
+		//TODO hoe do I save the bonuses coming from the game???
+		
 	}	
 
 	public void displayState() {
@@ -178,55 +187,12 @@ public class View extends Observable<Change> implements Observer<Change> {
 				System.out.println("- a number: 1 or 2");
 		}
 	}
-	
-	/**
-	 * displays the different bonuses that require an input from the user
-	 * @param type of the bonus
-	 */
-	private void selectBonus(String type) {
-		if(type.equals("ReuseTileBonus"))
-			this.showBonusPermits();
-		else if(type.equals("CityBonus"))
-			this.showBonusCities();
-		else if(type.equals("FreeBuildingLicenseBonus"))
-			this.showFreeBuildingPermits();
-	}
 
-	
+	private void displayBonus(List<Bonus> bonusList) {
 
-	/**
-	 * display the bonus on the permits owned by the current player
-	 * gives the controller the desired permit to reuse the bonus
-	 */
-	private void showBonusPermits() {
-		/*
-		System.out.println("Inserisci il numero del bonus che vuoi ricevere");
-		List<BuildingPermit> buildingPermits = new ArrayList<BuildingPermit>();
-		buildingPermits.addAll(
-				game.getCurrentPlayer().getStatus().getBuildingPermits());
-		buildingPermits.addAll(
-				game.getCurrentPlayer().getStatus().getUsedBuildingPermits());
-		for(BuildingPermit b: buildingPermits)
-			System.out.println(buildingPermits.indexOf(b)+" - "+b.displayBonus());
-		*/
-	}
-	
-	/**
-	 * display the bonus on the cities in which is built an emporium
-	 * owned by the current player
-	 * gives the controller the desired city 
-	 */
-	private void showBonusCities() {
-		/*
-		System.out.println("Inserisci il numero del bonus che vuoi ricevere");
-		Iterator<Emporium> builtOn = 
-				game.getCurrentPlayer().getEmporium().iterator();
-		List<City> cityWithE = new ArrayList<City>();
-		while(builtOn.hasNext())
-			cityWithE.add(builtOn.next().getCity());
-		for(City c: cityWithE)
-			System.out.println(cityWithE.indexOf(c)+" - "+c.displayBonus());
-		*/
+		System.out.println("Insert the bonus's number you desire to acquire");
+		for(Bonus b : bonusList)
+			System.out.println(bonusList.indexOf(b)+" - "+b.toString());
 	}
 	
 	/**
@@ -248,7 +214,12 @@ public class View extends Observable<Change> implements Observer<Change> {
 	}
 
 	public void update(Change change) {
-		Observer.super.update(change);		
+		if(change.getClass().equals(BonusChange.class)){
+			this.state = State.BONUS;
+			storage = new LocalStorage(change);
+			BonusChange c = (BonusChange)change;
+			this.displayBonus(c.getBonusList());
+		}
 	}
 
 	@Override

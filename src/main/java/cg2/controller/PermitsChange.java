@@ -19,4 +19,12 @@ public class PermitsChange extends Change {
 		this.permits = permits;
 	}
 
+	/**
+	 * @return the permits
+	 */
+	public List<BuildingPermit> getPermits() {
+		return permits;
+	}
+	
+
 }
