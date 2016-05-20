@@ -13,6 +13,7 @@ import cg2.game.Game;
 import cg2.model.BuildingPermit;
 import cg2.model.City;
 import cg2.observers.Observer;
+import cg2.player.Player;
 import cg2.view.View;
 
 /**
@@ -78,7 +79,17 @@ public class Controller implements Observer<Change>{
 		if(!log){
 			throw new IllegalStateException("The action is not valid");
 		}else{
-			//game.notifyObservers(game.getSta);
+			if(game.getMainActionCounter()==0&&game.getQuickActionCounter()==0){
+				Player current=game.getCurrentPlayer();
+				int currentIndex=game.getPlayers().indexOf(current);
+				if(currentIndex+1==game.getPlayers().size()){
+					//far partire fase di market
+					game.setCurrentPlayer(game.getPlayers().get(0));
+				}else{
+					game.setCurrentPlayer(game.getPlayers().get(currentIndex+1));
+				}
+			}
+			game.notifyObservers(new ModelChange(game));
 		}
 	}
 
