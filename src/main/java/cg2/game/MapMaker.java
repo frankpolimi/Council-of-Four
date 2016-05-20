@@ -353,7 +353,7 @@ public class MapMaker {
 		//my choise: the XML file pathname is imposed by me to don't improve any errors with the 
 		//file opening. The map is always avaliable at that pathname and it is not allowed to change it.
 		SAXBuilder builder=new SAXBuilder();
-		Document document= builder.build(new File("src/main/map.xml"));
+		Document document= builder.build(new File("src/main/resources/map.xml"));
 		return document.getRootElement();
 	}
 	
