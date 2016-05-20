@@ -88,8 +88,9 @@ public class Controller implements Observer<Change>{
 				}else{
 					game.setCurrentPlayer(game.getPlayers().get(currentIndex+1));
 				}
+				game.notifyObservers(new ModelChange(game));
 			}
-			game.notifyObservers(new ModelChange(game));
+			
 		}
 	}
 
