@@ -53,27 +53,93 @@ public class View extends Observable<Change> implements Observer<Change> {
 	 * @param command the input coming from the client
 	 */
 	public void input(String command){
-		if(command.equals(Commands.QUIT))
-			this.state = State.QUIT;
-		else if(command.equals(Commands.BACK)){
-			if(state.equals(State.MAIN) || state.equals(State.QUICK))
-				this.state = State.NONE;
-			else if(state.equals(State.ACTION))
+		switch(command){
+			case Commands.QUIT:{
+				this.state = State.QUIT;
+				break;
+			}
+			case Commands.BACK:{
+				if(state.equals(State.MAIN) || state.equals(State.QUICK))
+					this.state = State.NONE;
+				else if(state.equals(State.ACTION))
+					this.state = State.MAIN;
+				break;
+			}
+			case Commands.STATISTICS:{
+				peeker.getStatsPlayer(this.playerID);
+				break;
+			}
+			case Commands.MAIN_ACTION:{
 				this.state = State.MAIN;
+				break;
+			}
+			case Commands.QUICK_ACTION:{
+				this.state = State.QUICK;
+				break;
+			}
+			default: 
+				System.out.println("Command not existing! Retry");
 		}
-		else if(command.equals(Commands.STATISTICS))
-			peeker.getStatsPlayer(this.playerID);
-		else if(command.equals(Commands.MAIN_ACTION))
-			this.state = State.MAIN;
-		else if(command.equals(Commands.QUICK_ACTION))
-			this.state = State.QUICK;
+		
+		switch (state) {
+			case QUICK:{
+				switch(command){
+					case Commands.ENGAGE_ASSISTANTS:{
+						this.update(new ActionChange(this.playerID, new EngageAssistant()));
+						break;
+					}
+					case Commands.CHANGE_FACE_UP_PERMITS:{
+						this.update(new ActionChange(playerID, new ChangeFaceUpPermits()));
+						break;
+					}
+					case Commands.ELECT_COUNCILLOR_BY_ASSISTANT:{
+						this.displayRequirements(
+								ElectCouncillorByAssistant.class.getDeclaredFields());
+						break;
+					}
+					case Commands.EXTRA_MAIN_ACTION:{
+						this.update(new ActionChange(playerID, new ExtraMainAction()));
+						break;
+					}
+					default:
+						System.out.println("Command not existing! Retry");
+				}
+				break;
+			}
+			case MAIN:{
+				switch(command){
+				case Commands.ENGAGE_ASSISTANTS:{
+					this.update(new ActionChange(this.playerID, new EngageAssistant()));
+					break;
+				}
+				case Commands.CHANGE_FACE_UP_PERMITS:{
+					this.update(new ActionChange(playerID, new ChangeFaceUpPermits()));
+					break;
+				}
+				case Commands.ELECT_COUNCILLOR_BY_ASSISTANT:{
+					this.displayRequirements(
+							ElectCouncillorByAssistant.class.getDeclaredFields());
+					break;
+				}
+				case Commands.EXTRA_MAIN_ACTION:{
+					this.update(new ActionChange(playerID, new ExtraMainAction()));
+					break;
+				}
+				default:
+					System.out.println("Command not existing! Retry");
+			}
+			break;
+			}
+			default:
+				break;
+		}
 		
 		/*
 		 * is better to include the viewID (playerID) with the action
 		 * so the controller can perform the check on the player's turn 
 		 */
 		//quick actions
-		else if(state.equals(State.QUICK)){
+		if(state.equals(State.QUICK)){
 			if(command.equals(Commands.ENGAGE_ASSISTANTS))
 				this.update(new ActionChange(this.playerID, new EngageAssistant()));
 			else if(command.equals(Commands.CHANGE_FACE_UP_PERMITS))
@@ -98,7 +164,6 @@ public class View extends Observable<Change> implements Observer<Change> {
 		}
 		else if(state.equals(State.BONUS));
 		//TODO hoe do I save the bonuses coming from the game???
-		
 	}	
 
 	public void displayState() {
