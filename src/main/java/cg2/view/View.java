@@ -81,6 +81,10 @@ public class View extends Observable<Change> implements Observer<Change> {
 				System.out.println("Command not existing! Retry");
 		}
 		
+		/*
+		 * is better to include the viewID (playerID) with the action
+		 * so the controller can perform the check on the player's turn 
+		 */
 		switch (state) {
 			case QUICK:{
 				switch(command){
@@ -107,51 +111,34 @@ public class View extends Observable<Change> implements Observer<Change> {
 				break;
 			}
 			case MAIN:{
+				this.state = State.ACTION;
 				switch(command){
-				case Commands.ENGAGE_ASSISTANTS:{
-					this.update(new ActionChange(this.playerID, new EngageAssistant()));
-					break;
+					case Commands.ACQUIRE_PERMIT:{
+						this.displayRequirements(AcquirePermit.class.getDeclaredFields());
+						break;
+					}
+					case Commands.BUILD_EMPORIUM_BY_KING:{
+						this.displayRequirements(BuildEmporiumByKing.class.getDeclaredFields());
+						break;
+					}
+					case Commands.ELECT_COUNCILLOR:{
+						this.displayRequirements(ElectCouncillor.class.getDeclaredFields());
+						break;
+					}
+					case Commands.BUILD_EMPORIUM_BY_PERMIT:{
+						this.displayRequirements(BuildEmproriumByPermit.class.getDeclaredFields());
+						break;
+					}
+					default:
+						System.out.println("Command not existing! Retry");
 				}
-				case Commands.CHANGE_FACE_UP_PERMITS:{
-					this.update(new ActionChange(playerID, new ChangeFaceUpPermits()));
-					break;
-				}
-				case Commands.ELECT_COUNCILLOR_BY_ASSISTANT:{
-					this.displayRequirements(
-							ElectCouncillorByAssistant.class.getDeclaredFields());
-					break;
-				}
-				case Commands.EXTRA_MAIN_ACTION:{
-					this.update(new ActionChange(playerID, new ExtraMainAction()));
-					break;
-				}
-				default:
-					System.out.println("Command not existing! Retry");
-			}
 			break;
 			}
 			default:
 				break;
 		}
-		
-		/*
-		 * is better to include the viewID (playerID) with the action
-		 * so the controller can perform the check on the player's turn 
-		 */
-		//quick actions
-		if(state.equals(State.QUICK)){
-			if(command.equals(Commands.ENGAGE_ASSISTANTS))
-				this.update(new ActionChange(this.playerID, new EngageAssistant()));
-			else if(command.equals(Commands.CHANGE_FACE_UP_PERMITS))
-				this.update(new ActionChange(playerID, new ChangeFaceUpPermits()));
-			else if(command.equals(Commands.ELECT_COUNCILLOR_BY_ASSISTANT))
-				this.displayRequirements(
-						ElectCouncillorByAssistant.class.getDeclaredFields());
-			else if(command.equals(Commands.EXTRA_MAIN_ACTION))
-				this.update(new ActionChange(playerID, new ExtraMainAction()));
-		}
 		//main actions
-		else if(state.equals(State.MAIN)){
+		 if(state.equals(State.MAIN)){
 			this.state = State.ACTION;
 			if(command.equals(Commands.ACQUIRE_PERMIT))
 				this.displayRequirements(AcquirePermit.class.getDeclaredFields());
