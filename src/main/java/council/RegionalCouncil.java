@@ -9,10 +9,10 @@ import cg2.model.PermitsDeck;
  */
 public class RegionalCouncil extends Council 
 {
-
+	private final PermitsDeck permitsDeck;
 	public RegionalCouncil(ArrayBlockingQueue<Councillor> councillors, PermitsDeck permitsDeck) {
-		super(councillors, permitsDeck);
-		// TODO Auto-generated constructor stub
+		super(councillors);
+		this.permitsDeck=permitsDeck;
 	}
 
 	/* (non-Javadoc)
@@ -20,7 +20,13 @@ public class RegionalCouncil extends Council
 	 */
 	@Override
 	public String toString() {
-		return super.toString();
+		return super.toString()+" permitsDeck= "+this.permitsDeck.toString();
 	}
 	
+	/**
+	 * @return the permitsDeck
+	 */
+	public PermitsDeck getPermitsDeck() {
+		return permitsDeck;
+	}
 }

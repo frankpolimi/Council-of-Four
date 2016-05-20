@@ -9,7 +9,7 @@ import cg2.model.PermitsDeck;
  */
 public abstract class Council{
 	private ArrayBlockingQueue<Councillor> councillors;
-	private final PermitsDeck permitsDeck;
+	
 	
 	/**
 	 * Adds given councillor in tail position and returns the one removed from head position
@@ -29,9 +29,9 @@ public abstract class Council{
 		return temp;
 	}
 
-	public Council(ArrayBlockingQueue<Councillor> councillors, PermitsDeck permitsDeck) {
+	public Council(ArrayBlockingQueue<Councillor> councillors) {
 		this.councillors = councillors;
-		this.permitsDeck = permitsDeck;
+		
 	}
 
 	public ArrayBlockingQueue<Councillor> getCouncillors() {
@@ -42,12 +42,6 @@ public abstract class Council{
 		this.councillors = councillors;
 	}
 
-	/**
-	 * @return the permitsDeck
-	 */
-	public PermitsDeck getPermitsDeck() {
-		return permitsDeck;
-	}
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
