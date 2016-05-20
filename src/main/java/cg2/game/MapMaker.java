@@ -56,6 +56,7 @@ public class MapMaker {
 		}
 	}
 	
+	
 	private List<Bonus> extractNewRandomicBonus(){
 		Random random = new Random();
 		List<Bonus> bonusList=extractedCityBonus.remove(random.nextInt(extractedCityBonus.size()));
@@ -71,16 +72,25 @@ public class MapMaker {
 		return extractedCouncillors;
 	}
 
-	private RegionalCouncil extractNewRegionalCouncil(Element region) throws JDOMException, IOException{
+	private void extractNewCouncil(Element region, Council council) throws JDOMException, IOException{
 		Random random= new Random();
-		RegionalCouncil regional;
+		
 		ArrayBlockingQueue<Councillor> elected= new ArrayBlockingQueue<>(4);
 		while(elected.remainingCapacity()!=0){
 			Councillor councillor=extractedCouncillors.remove(random.nextInt(extractedCouncillors.size()));
 			elected.add(councillor);
 		}
-		regional=new RegionalCouncil(elected, this.createBuildingPermitDeck(region));
-		return regional;
+		if(council instanceof RegionalCouncil)
+			council=new RegionalCouncil(elected, this.createBuildingPermitDeck(region));
+		else if(council instanceof KingsCouncil)
+			council=new KingsCouncil(elected);
+			
+	}
+	
+	public KingsCouncil getKingsCouncil() throws JDOMException, IOException{
+		KingsCouncil council=new KingsCouncil(null);
+		this.extractNewCouncil(null, council);
+		return council;
 	}
 	
 	private void fillExtractedCityBonuses() throws JDOMException, IOException{
@@ -311,7 +321,9 @@ public class MapMaker {
 				arrayCity.add(c);
 				cityMap.put(c.getFirstChar(), c);
 			}
-			RegionalCouncil rc=this.extractNewRegionalCouncil(region);
+			
+			RegionalCouncil rc=new RegionalCouncil(null,null);
+			this.extractNewCouncil(region,rc);
 			PermitsDeck permits= rc.getPermitsDeck();
 			r=new Region(regionName, arrayCity, rc, permits);
 			allRegions.add(r);
@@ -360,11 +372,8 @@ public class MapMaker {
 	public static void main(String[] args)throws IOException, JDOMException {
 		MapMaker mp=new MapMaker();
 		ExtendedGraph<City,DefaultEdge> graph=mp.generateMap(mp.createRegionSet());
-		City c1=graph.getVertexByKey("K");
-		City c2=graph.getVertexByKey("E");
-		System.out.println("Città 1:"+c1.toString());
-		System.out.println("Città 2:"+c2.toString());
-		System.out.println("Costo: "+graph.howManyVertexPassed(c1, c2));
+		Council c=new KingsCouncil(null);
+		System.out.println(c instanceof RegionalCouncil);
 	}
 	
 
