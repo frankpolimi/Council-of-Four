@@ -206,8 +206,13 @@ public class Game extends Observable<Change> {
 		return this.avaliableCouncillors;
 	}
 	
-	
-	
+	/**
+	 * @param currentPlayer the currentPlayer to set
+	 */
+	public void setCurrentPlayer(Player currentPlayer) {
+		this.currentPlayer = currentPlayer;
+	}
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
