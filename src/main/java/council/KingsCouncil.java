@@ -10,7 +10,7 @@ import cg2.model.PermitsDeck;
 public class KingsCouncil extends Council
 {
 
-	public KingsCouncil(ArrayBlockingQueue<Councillor> councillors, PermitsDeck permitsDeck) 
+	public KingsCouncil(ArrayBlockingQueue<Councillor> councillors) 
 	{
 		super(councillors);
 		// TODO Auto-generated constructor stub
