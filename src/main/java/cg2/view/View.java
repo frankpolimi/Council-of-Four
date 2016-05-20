@@ -135,6 +135,9 @@ public class View extends Observable<Change> implements Observer<Change> {
 				}
 				break;
 			}
+			case ACTION:{
+				break;
+			}
 			case BONUS:{
 				BonusChange change = new BonusChange();
 				change.addBonus(storage.retrieveBonus(Integer.parseInt(command)));
@@ -248,17 +251,7 @@ public class View extends Observable<Change> implements Observer<Change> {
 	 * gives the controller the desired building permits to acquire
 	 */
 	private void displayPermits(List<BuildingPermit> permitList) {
-		/*
-		System.out.println("Inserisci il numero del permesso che vuoi ricevere");
-		List<BuildingPermit> shown = new ArrayList<BuildingPermit>();
-		List<Council> council = new ArrayList<Council>();
-		for(Region r: game.getRegions())
-			council.add(r.getCouncil());
-		for(Council c: council)
-			shown.addAll(c.getPermitsDeck().getFaceUpPermits());
-		for(BuildingPermit b: shown)
-			System.out.println(shown.indexOf(b)+" - "+b.toString());
-		*/	
+		System.out.println("Insert the permit's number ");	
 	}
 
 	public void update(Change change) {
