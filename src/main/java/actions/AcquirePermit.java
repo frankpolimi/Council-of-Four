@@ -15,7 +15,7 @@ public class AcquirePermit extends MainAction
 	
 	private RegionalCouncil council;
 	private ArrayList<PoliticsCard> politics;
-	BuildingPermit permit;
+	private BuildingPermit permit;
 	
 	@Override
 	public boolean takeAction(Game game)

@@ -13,6 +13,7 @@ import council.Council;
 import cg2.controller.ActionChange;
 import cg2.controller.BonusChange;
 import cg2.controller.Change;
+import cg2.controller.PermitsChange;
 import cg2.game.Game;
 import cg2.model.BuildingPermit;
 
@@ -81,15 +82,19 @@ public class View extends Observable<Change> implements Observer<Change> {
 				System.out.println("Command not existing! Retry");
 		}
 		
+		/*
+		 * is better to include the viewID (playerID) with the action
+		 * so the controller can perform the check on the player's turn 
+		 */
 		switch (state) {
 			case QUICK:{
 				switch(command){
 					case Commands.ENGAGE_ASSISTANTS:{
-						this.update(new ActionChange(this.playerID, new EngageAssistant()));
+						this.notifyObservers(new ActionChange(this.playerID, new EngageAssistant()));
 						break;
 					}
 					case Commands.CHANGE_FACE_UP_PERMITS:{
-						this.update(new ActionChange(playerID, new ChangeFaceUpPermits()));
+						this.notifyObservers(new ActionChange(playerID, new ChangeFaceUpPermits()));
 						break;
 					}
 					case Commands.ELECT_COUNCILLOR_BY_ASSISTANT:{
@@ -98,7 +103,7 @@ public class View extends Observable<Change> implements Observer<Change> {
 						break;
 					}
 					case Commands.EXTRA_MAIN_ACTION:{
-						this.update(new ActionChange(playerID, new ExtraMainAction()));
+						this.notifyObservers(new ActionChange(playerID, new ExtraMainAction()));
 						break;
 					}
 					default:
@@ -107,63 +112,44 @@ public class View extends Observable<Change> implements Observer<Change> {
 				break;
 			}
 			case MAIN:{
+				this.state = State.ACTION;
 				switch(command){
-				case Commands.ENGAGE_ASSISTANTS:{
-					this.update(new ActionChange(this.playerID, new EngageAssistant()));
-					break;
+					case Commands.ACQUIRE_PERMIT:{
+						this.displayRequirements(AcquirePermit.class.getDeclaredFields());
+						break;
+					}
+					case Commands.BUILD_EMPORIUM_BY_KING:{
+						this.displayRequirements(BuildEmporiumByKing.class.getDeclaredFields());
+						break;
+					}
+					case Commands.ELECT_COUNCILLOR:{
+						this.displayRequirements(ElectCouncillor.class.getDeclaredFields());
+						break;
+					}
+					case Commands.BUILD_EMPORIUM_BY_PERMIT:{
+						this.displayRequirements(BuildEmproriumByPermit.class.getDeclaredFields());
+						break;
+					}
+					default:
+						System.out.println("Command not existing! Retry");
 				}
-				case Commands.CHANGE_FACE_UP_PERMITS:{
-					this.update(new ActionChange(playerID, new ChangeFaceUpPermits()));
-					break;
-				}
-				case Commands.ELECT_COUNCILLOR_BY_ASSISTANT:{
-					this.displayRequirements(
-							ElectCouncillorByAssistant.class.getDeclaredFields());
-					break;
-				}
-				case Commands.EXTRA_MAIN_ACTION:{
-					this.update(new ActionChange(playerID, new ExtraMainAction()));
-					break;
-				}
-				default:
-					System.out.println("Command not existing! Retry");
+				break;
 			}
-			break;
+			case ACTION:{
+				break;
+			}
+			case BONUS:{
+				BonusChange change = new BonusChange();
+				change.addBonus(storage.retrieveBonus(Integer.parseInt(command)));
+				this.notifyObservers(change);
+				break;
+			}
+			case PERMITS:{
+				
 			}
 			default:
 				break;
 		}
-		
-		/*
-		 * is better to include the viewID (playerID) with the action
-		 * so the controller can perform the check on the player's turn 
-		 */
-		//quick actions
-		if(state.equals(State.QUICK)){
-			if(command.equals(Commands.ENGAGE_ASSISTANTS))
-				this.update(new ActionChange(this.playerID, new EngageAssistant()));
-			else if(command.equals(Commands.CHANGE_FACE_UP_PERMITS))
-				this.update(new ActionChange(playerID, new ChangeFaceUpPermits()));
-			else if(command.equals(Commands.ELECT_COUNCILLOR_BY_ASSISTANT))
-				this.displayRequirements(
-						ElectCouncillorByAssistant.class.getDeclaredFields());
-			else if(command.equals(Commands.EXTRA_MAIN_ACTION))
-				this.update(new ActionChange(playerID, new ExtraMainAction()));
-		}
-		//main actions
-		else if(state.equals(State.MAIN)){
-			this.state = State.ACTION;
-			if(command.equals(Commands.ACQUIRE_PERMIT))
-				this.displayRequirements(AcquirePermit.class.getDeclaredFields());
-			else if(command.equals(Commands.BUILD_EMPORIUM_BY_KING))
-				this.displayRequirements(BuildEmporiumByKing.class.getDeclaredFields());
-			else if(command.equals(Commands.ELECT_COUNCILLOR))
-				this.displayRequirements(ElectCouncillor.class.getDeclaredFields());
-			else if(command.equals(Commands.BUILD_EMPORIUM_BY_PERMIT))
-				this.displayRequirements(BuildEmproriumByPermit.class.getDeclaredFields());
-		}
-		else if(state.equals(State.BONUS));
-		//TODO hoe do I save the bonuses coming from the game???
 	}	
 
 	public void displayState() {
@@ -264,26 +250,21 @@ public class View extends Observable<Change> implements Observer<Change> {
 	 * display the face up permits for each region
 	 * gives the controller the desired building permits to acquire
 	 */
-	private void showFreeBuildingPermits() {
-		/*
-		System.out.println("Inserisci il numero del permesso che vuoi ricevere");
-		List<BuildingPermit> shown = new ArrayList<BuildingPermit>();
-		List<Council> council = new ArrayList<Council>();
-		for(Region r: game.getRegions())
-			council.add(r.getCouncil());
-		for(Council c: council)
-			shown.addAll(c.getPermitsDeck().getFaceUpPermits());
-		for(BuildingPermit b: shown)
-			System.out.println(shown.indexOf(b)+" - "+b.toString());
-		*/	
+	private void displayPermits(List<BuildingPermit> permitList) {
+		System.out.println("Insert the permit's number ");	
 	}
 
 	public void update(Change change) {
+		storage = new LocalStorage(change);
 		if(change.getClass().equals(BonusChange.class)){
 			this.state = State.BONUS;
-			storage = new LocalStorage(change);
 			BonusChange c = (BonusChange)change;
 			this.displayBonus(c.getBonusList());
+		}
+		else if(change.getClass().equals(PermitsChange.class)){
+			this.state = State.PERMITS;
+			PermitsChange p = (PermitsChange)change;
+			this.displayPermits(p.getPermits());
 		}
 	}
 

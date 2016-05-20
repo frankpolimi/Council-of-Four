@@ -3,6 +3,7 @@
  */
 package cg2.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import bonus.Bonus;
@@ -14,6 +15,10 @@ import bonus.Bonus;
 public class BonusChange extends Change {
 	
 	 private final List<Bonus> bonusList;
+	 
+	 public BonusChange() {
+		bonusList = new ArrayList<Bonus>();
+	}
 	
 	public BonusChange(List<Bonus> bonusList) {
 		this.bonusList = bonusList;
@@ -24,6 +29,10 @@ public class BonusChange extends Change {
 	 */
 	public List<Bonus> getBonusList() {
 		return bonusList;
+	}
+	
+	public void addBonus(Bonus b){
+		bonusList.add(b);
 	}
 
 }
