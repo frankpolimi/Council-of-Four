@@ -4,8 +4,7 @@ import java.util.ArrayList;
 
 import cg2.game.Game;
 import cg2.model.BuildingPermit;
-import council.Council;
-
+import council.RegionalCouncil;
 import politics.PoliticsCard;
 
 /**
@@ -14,7 +13,7 @@ import politics.PoliticsCard;
 public class AcquirePermit extends MainAction 
 {
 	
-	private Council council;
+	private RegionalCouncil council;
 	private ArrayList<PoliticsCard> politics;
 	private BuildingPermit permit;
 	
@@ -38,7 +37,7 @@ public class AcquirePermit extends MainAction
 				+ "with the intent to acquire a BuildingPermit situated in the council's corresponding deck.";
 	}
 
-	public AcquirePermit(Council council, ArrayList<PoliticsCard> politics, BuildingPermit permit) 
+	public AcquirePermit(RegionalCouncil council, ArrayList<PoliticsCard> politics, BuildingPermit permit) 
 	{
 		this.council = council;
 		this.politics = politics;

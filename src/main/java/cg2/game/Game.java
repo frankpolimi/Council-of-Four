@@ -27,7 +27,7 @@ public class Game extends Observable<Change> {
 	private final PoliticsDeck usedPolitics;
 	private final List<Player> players;
 	private final Set<Region> regions;
-	//TODO private final KingsCouncil kingCouncil; e inizializzazione
+	private final KingsCouncil kingsCouncil;
 	private final List<Councillor> avaliableCouncillors;
 	private final List<PointsTile> kingTileList;
 	private final List<PointsTile> colorTileList;
@@ -54,6 +54,7 @@ public class Game extends Observable<Change> {
 		this.players=players;
 		this.regions=mp.createRegionSet();
 		this.map=mp.generateMap(this.regions);
+		this.kingsCouncil=mp.getKingsCouncil();
 		this.avaliableCouncillors=mp.getExtractedCouncillors();//The councils have been created yet, so these are the remaining councillors.
 		this.kingTileList=mp.createTiles("kingTileList", this.regions);
 		this.colorTileList=mp.createTiles("colorTileList", this.regions);
