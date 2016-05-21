@@ -5,7 +5,6 @@ package cg2.view;
 
 import java.util.List;
 
-import bonus.Bonus;
 import cg2.model.BuildingPermit;
 
 /**

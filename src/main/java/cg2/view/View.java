@@ -111,27 +111,6 @@ public class View extends Observable<Change> implements Observer<Change> {
 		}
 	}	
 
-	/**
-	 * TODO move into ActionState
-	 * display the required parameters
-	 * the input should be a string separated by a blank
-	 * TODO should display the status of the various parameters in game
-	 * e.g. 
-	 * required input is a council
-	 * this method will display the status of all 4 councils
-	 * @param fields 
-	 */
-	private void displayRequirements(Field[] fields) {
-		System.out.println("For the action the required input is: ");
-		for(int i = 0; i < fields.length; i++){
-			Class<?> field = fields[i].getType();
-			if(field.getClass().equals(Council.class))
-				peeker.getCouncils();
-			else if(field.getClass().equals(BuildingPermit.class))
-				System.out.println("- a number: 1 or 2");
-		}
-	}
-
 	public void update(Change change) {
 		storage = new LocalStorage(change);
 		if(change.getClass().equals(BonusChange.class)){

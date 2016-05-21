@@ -48,7 +48,7 @@ public class QuickState implements State {
 		}
 		case Commands.ELECT_COUNCILLOR_BY_ASSISTANT:{
 			view.setState(
-					new ActionState(ElectCouncillorByAssistant.class.getDeclaredFields(), view.getPeeker()));
+					new ActionState(ElectCouncillorByAssistant.class, view.getPeeker()));
 			break;
 		}
 		default:
