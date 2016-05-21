@@ -43,7 +43,32 @@ public class AcquirePermit extends MainAction
 		this.politics = politics;
 		this.permit = permit;
 	}
+
+	public RegionalCouncil getCouncil() {
+		return council;
+	}
+
+	public void setCouncil(RegionalCouncil council) {
+		this.council = council;
+	}
+
+	public ArrayList<PoliticsCard> getPolitics() {
+		return politics;
+	}
+
+	public void setPolitics(ArrayList<PoliticsCard> politics) {
+		this.politics = politics;
+	}
+
+	public BuildingPermit getPermit() {
+		return permit;
+	}
+
+	public void setPermit(BuildingPermit permit) {
+		this.permit = permit;
+	}
 	
+
 
 	
 	

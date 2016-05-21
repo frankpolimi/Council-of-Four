@@ -67,5 +67,11 @@ public class ActionState implements State {
 	 * insert method for parsing using string tokenizer &
 	 * use the string input from the method doAction
 	 */
+	
+	public void actionParser(String parameters)
+	{
+		String[] tokens=parameters.split(parameters);
+		
+	}
 
 }
