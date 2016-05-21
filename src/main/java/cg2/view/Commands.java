@@ -15,6 +15,7 @@ public final class Commands {
 	public final static String STATISTICS = "statistics";
 	public final static String MAIN_ACTION = "main action";
 	public final static String QUICK_ACTION = "quick action";
+	public final static String SKIP = "skip";
 	
 	//quick actions
 	public final static String ENGAGE_ASSISTANTS = "engage assistants";

@@ -31,11 +31,11 @@ public class View extends Observable<Change> implements Observer<Change> {
 	//class to read from the Model only some information
 	private final PeekModel peeker;
 	private LocalStorage storage;
-	
+	/*
 	private enum State {
-		QUIT, NONE,	MAIN, QUICK, ACTION, BONUS, PERMITS;
+		QUIT, MAIN, QUICK, ACTION, BONUS, PERMITS;
 	}
-	
+	*/
 	private final int playerID;
 	private State state;
 	
@@ -45,7 +45,7 @@ public class View extends Observable<Change> implements Observer<Change> {
 		game.registerObserver(this);
 		peeker = new PeekModel(game);
 		this.playerID = playerID;
-		this.state = State.NONE;
+		this.state = new StartState();
 	}
 
 	/**
@@ -54,88 +54,29 @@ public class View extends Observable<Change> implements Observer<Change> {
 	 * @param command the input coming from the client
 	 */
 	public void input(String command){
-		switch(command){
-			case Commands.QUIT:{
-				this.state = State.QUIT;
-				break;
-			}
-			case Commands.BACK:{
-				if(state.equals(State.MAIN) || state.equals(State.QUICK))
-					this.state = State.NONE;
-				else if(state.equals(State.ACTION))
-					this.state = State.MAIN;
-				break;
-			}
-			case Commands.STATISTICS:{
-				peeker.getStatsPlayer(this.playerID);
-				break;
-			}
-			case Commands.MAIN_ACTION:{
-				this.state = State.MAIN;
-				break;
-			}
-			case Commands.QUICK_ACTION:{
-				this.state = State.QUICK;
-				break;
-			}
-			default: 
-				System.out.println("Command not existing! Retry");
-		}
-		
 		/*
 		 * is better to include the viewID (playerID) with the action
 		 * so the controller can perform the check on the player's turn 
 		 */
-		switch (state) {
-			case QUICK:{
-				switch(command){
-					case Commands.ENGAGE_ASSISTANTS:{
-						this.notifyObservers(new ActionChange(this.playerID, new EngageAssistant()));
-						break;
-					}
-					case Commands.CHANGE_FACE_UP_PERMITS:{
-						this.notifyObservers(new ActionChange(playerID, new ChangeFaceUpPermits()));
-						break;
-					}
-					case Commands.ELECT_COUNCILLOR_BY_ASSISTANT:{
-						this.displayRequirements(
-								ElectCouncillorByAssistant.class.getDeclaredFields());
-						break;
-					}
-					case Commands.EXTRA_MAIN_ACTION:{
-						this.notifyObservers(new ActionChange(playerID, new ExtraMainAction()));
-						break;
-					}
-					default:
-						System.out.println("Command not existing! Retry");
-				}
+		if(state.equals(QuickState.class))
+			switch(command){
+			case Commands.ENGAGE_ASSISTANTS:{
+				this.notifyObservers(new ActionChange(this.playerID, new EngageAssistant()));
 				break;
 			}
-			case MAIN:{
-				this.state = State.ACTION;
-				switch(command){
-					case Commands.ACQUIRE_PERMIT:{
-						this.displayRequirements(AcquirePermit.class.getDeclaredFields());
-						break;
-					}
-					case Commands.BUILD_EMPORIUM_BY_KING:{
-						this.displayRequirements(BuildEmporiumByKing.class.getDeclaredFields());
-						break;
-					}
-					case Commands.ELECT_COUNCILLOR:{
-						this.displayRequirements(ElectCouncillor.class.getDeclaredFields());
-						break;
-					}
-					case Commands.BUILD_EMPORIUM_BY_PERMIT:{
-						this.displayRequirements(BuildEmproriumByPermit.class.getDeclaredFields());
-						break;
-					}
-					default:
-						System.out.println("Command not existing! Retry");
-				}
+			case Commands.CHANGE_FACE_UP_PERMITS:{
+				this.notifyObservers(new ActionChange(playerID, new ChangeFaceUpPermits()));
 				break;
 			}
-			case ACTION:{
+			case Commands.EXTRA_MAIN_ACTION:{
+				this.notifyObservers(new ActionChange(playerID, new ExtraMainAction()));
+				break;
+			}
+			}
+		else if(state.equals(MainState.class))
+			state.doAction(state, command);
+		else if(state.equals(ActionState.class))
+			/*case ACTION:{
 				break;
 			}
 			case BONUS:{
@@ -146,78 +87,30 @@ public class View extends Observable<Change> implements Observer<Change> {
 			}
 			case PERMITS:{
 				
-			}
-			default:
+			}*/
+		
+		switch(command){
+			case Commands.QUIT:{
 				break;
+			}
+			case Commands.BACK:
+			case Commands.MAIN_ACTION:
+			case Commands.QUICK_ACTION:{
+				state.doAction(state, command);
+				break;
+			}
+			case Commands.STATISTICS:{
+				peeker.getStatsPlayer(this.playerID);
+				break;
+			}
+			case Commands.SKIP:{
+				this.update(command);
+				break;
+			}
+			default: 
+				System.out.println("Command not existing! Retry");
 		}
 	}	
-
-	public void displayState() {
-		switch(state){
-			case NONE:{
-				this.displayNone();
-				System.out.println("- statistics");
-				System.out.println("- quit");
-				break;
-			}
-			case MAIN:{
-				this.displayMainAction();
-				System.out.println("- statistics");
-				System.out.println("- back");
-				System.out.println("- quit");
-				break;
-			}
-			case QUICK:{
-				this.displayQuickAction();
-				System.out.println("- statistics");
-				System.out.println("- back");
-				System.out.println("- quit");
-				break;
-			}
-			case ACTION:
-				break;
-			case BONUS:
-				break;
-			case PERMITS:
-				break;
-			case QUIT:
-			default:
-				break;
-		}
-	}
-
-	/**
-	 * display to the view the first selection's level
-	 * that will lead to perform an action
-	 */
-	private void displayNone(){
-		System.out.println("Insert command");
-		System.out.println("- main action");
-		System.out.println("- quick action");
-		System.out.println("- skip quick action");
-	}
-
-	/**
-	 * display the name of the actions that will be used as command
-	 */
-	private void displayQuickAction() {
-		System.out.println("Insert the action's name to perform:");
-		System.out.println("- "+Commands.ENGAGE_ASSISTANTS);
-		System.out.println("- "+Commands.CHANGE_FACE_UP_PERMITS);
-		System.out.println("- "+Commands.ELECT_COUNCILLOR_BY_ASSISTANT);
-		System.out.println("- "+Commands.EXTRA_MAIN_ACTION);		
-	}
-
-	/**
-	 * display the name of the actions that will be used as command
-	 */
-	private void displayMainAction() {
-		System.out.println("Insert the action's name to perform:");
-		System.out.println("- "+Commands.ACQUIRE_PERMIT);
-		System.out.println("- "+Commands.BUILD_EMPORIUM_BY_KING);
-		System.out.println("- "+Commands.ELECT_COUNCILLOR);
-		System.out.println("- "+Commands.BUILD_EMPORIUM_BY_PERMIT);
-	}
 
 	/**
 	 * display the required parameters
@@ -257,12 +150,12 @@ public class View extends Observable<Change> implements Observer<Change> {
 	public void update(Change change) {
 		storage = new LocalStorage(change);
 		if(change.getClass().equals(BonusChange.class)){
-			this.state = State.BONUS;
+			this.state = new BonusState();
 			BonusChange c = (BonusChange)change;
 			this.displayBonus(c.getBonusList());
 		}
 		else if(change.getClass().equals(PermitsChange.class)){
-			this.state = State.PERMITS;
+			this.state = new PermitsState();
 			PermitsChange p = (PermitsChange)change;
 			this.displayPermits(p.getPermits());
 		}
@@ -277,6 +170,10 @@ public class View extends Observable<Change> implements Observer<Change> {
 	public void update(String communication) {
 		//not used
 		
+	}
+
+	public State getState() {
+		return state;
 	}
 
 }
