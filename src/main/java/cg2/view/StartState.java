@@ -24,14 +24,14 @@ public class StartState implements State {
 	}
 
 	@Override
-	public void doAction(State state, String input) {
+	public void doAction(View view, String input) {
 		switch (input) {
 		case Commands.MAIN_ACTION:{
-			state = new MainState();
+			view.setState(new MainState());
 			break;
 		}
 		case Commands.QUICK_ACTION:{
-			state = new QuickState();
+			view.setState(new QuickState());
 			break;
 		}
 		default:

@@ -3,19 +3,28 @@
  */
 package cg2.view;
 
+import java.util.List;
+
+import bonus.Bonus;
+
 /**
  * @author Francesco Vetrò
  *
  */
 public class BonusState implements State {
+	
+	private List<Bonus> bonusList;
+
+	public BonusState(List<Bonus> bonusList) {
+		this.bonusList = bonusList;
+	}
 
 	/* (non-Javadoc)
 	 * @see cg2.view.State#doAction(cg2.view.State, java.lang.String)
 	 */
 	@Override
-	public void doAction(State state, String input) {
-		// TODO Auto-generated method stub
-
+	public void doAction(View view, String input) {
+		view.setState(new StartState());
 	}
 
 	/* (non-Javadoc)
@@ -23,8 +32,9 @@ public class BonusState implements State {
 	 */
 	@Override
 	public void display() {
-		// TODO Auto-generated method stub
-
+		System.out.println("Insert the bonus's number you desire to acquire");
+		for(Bonus b : bonusList)
+			System.out.println(bonusList.indexOf(b)+" - "+b.toString());
 	}
 
 }
