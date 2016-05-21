@@ -1,6 +1,8 @@
 package cg2.game;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -219,6 +221,8 @@ public class Game extends Observable<Change> {
 	public KingsCouncil getKingsCouncil() {
 		return kingsCouncil;
 	}
+	
+
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
@@ -239,23 +243,6 @@ public class Game extends Observable<Change> {
 		Player p2=new Player("Paolo", 1, 10, 21, 10);
 		
 		
-		List<Player> player=new ArrayList<>();
-		player.add(p1);
-		player.add(p2);
-		Game game=new Game(player);
-		p1.addEmporium(new Emporium(p1, game.map.getVertexByKey("F")));
-		//p1.addEmporium(new Emporium(p1, game.map.getVertexByKey("J")));
-		p1.addEmporium(new Emporium(p1, game.map.getVertexByKey("I")));
-		p1.addEmporium(new Emporium(p1, game.map.getVertexByKey("L")));
-		p1.addEmporium(new Emporium(p1, game.map.getVertexByKey("H")));
-		p1.addEmporium(new Emporium(p1, game.map.getVertexByKey("M")));
-		
-		Set<City> appo=p1.getEmporiumsCitiesSet();
-		appo.add(game.map.getVertexByKey("O"));
-		
-		System.out.println("Giocaotre"+p1.toString());
-		game.map.applyConnectedCitiesBonus(game.map.getVertexByKey("O"),appo, game);
-		System.out.println("Giocatore"+p1.toString());
 		
 	}
 }

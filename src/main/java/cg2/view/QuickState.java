@@ -4,6 +4,7 @@
 package cg2.view;
 
 import actions.ElectCouncillorByAssistant;
+import actions.QuickAction;
 
 /**
  * @author Francesco Vetrò
@@ -54,5 +55,4 @@ public class QuickState implements State {
 			System.out.println("No valid selection");
 		}
 	}
-
-}
+}	

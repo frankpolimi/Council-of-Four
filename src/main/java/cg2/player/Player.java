@@ -18,6 +18,7 @@ public class Player {
 	private final int playerID;
 	private int remainingEmporiums;
 	private final HashSet<Emporium> emporiumsOwned;
+	private final Set<PointsTile> pointsTileOwned;
 	
 	private int coins;
 	private int nobilityPoints;
@@ -41,6 +42,7 @@ public class Player {
 		this.cardsOwned = new ArrayList<>();
 		this.buildingPermits = new ArrayList<>();
 		this.usedBuildingPermits = new ArrayList<>();
+		this.pointsTileOwned=new HashSet<>();
 	}
 
 	/**
@@ -155,6 +157,8 @@ public class Player {
 		return buildingPermits;
 	}
 	
+	
+	
 	public void addPoliticsCard(PoliticsCard pc){
 		cardsOwned.add(pc);
 	}
@@ -176,9 +180,21 @@ public class Player {
 		return usedBuildingPermits;
 	}
 	
+	public void addPointsTile(PointsTile tile){
+		this.pointsTileOwned.add(tile);
+	}
+	
+	public Set<PointsTile> getTilesOwned(){
+		return this.pointsTileOwned;
+	}
+	
 	public void usePermit(BuildingPermit bl){
 		int index = buildingPermits.indexOf(bl);
 		usedBuildingPermits.add(buildingPermits.remove(index));
+	}
+	
+	public int howManyBuildingPermitsOwned(){
+		return this.buildingPermits.size()+this.usedBuildingPermits.size();
 	}
 	
 
