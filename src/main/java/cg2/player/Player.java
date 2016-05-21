@@ -13,6 +13,7 @@ import politics.PoliticsCard;
  *	This class contains the most general informations about the player. This doesn't contain the status
  *	informations (points information, nobility information and so on).
  */
+
 public class Player {
 	private final String name;
 	private final int playerID;
@@ -187,6 +188,7 @@ public class Player {
 	public Set<PointsTile> getTilesOwned(){
 		return this.pointsTileOwned;
 	}
+	
 	
 	public void usePermit(BuildingPermit bl){
 		int index = buildingPermits.indexOf(bl);

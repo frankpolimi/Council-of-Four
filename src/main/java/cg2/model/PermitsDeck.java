@@ -24,7 +24,10 @@ public class PermitsDeck {
 		{
 			game.getCurrentPlayer().addBuildingPermit(permit);
 			permit.applyBonus(game);
-			return true;
+			if(faceUpPermits.remove(permit))
+				if(faceUpPermits.add(buildingPermitsDeck.remove(0)))
+					return true;
+				else throw new IllegalStateException("Cannot add the top deck permit");
 		}
 		System.out.println("No such permit in this deck's face up permits");
 		return false;
@@ -45,7 +48,7 @@ public class PermitsDeck {
 				faceUpPermits.add(buildingPermitsDeck.remove(0));
 			}
 		}
-		else System.out.println("Not enought permits to change");
+		else throw new IllegalStateException("Not enough permits to change them, the deck is probably empty");
 	}
 	
 	/**

@@ -30,11 +30,10 @@ public class BuildEmporiumByKing extends MainAction
 		for(Emporium e:game.getCurrentPlayer().getEmporium())
 			if(e.getCity()==city)
 			{
-				System.out.println("The game.getCurrentPlayer() has already built an emporium in this city");
-				return false;
+				throw new IllegalStateException("The game.getCurrentPlayer() has already built an emporium in this city");
 			}
 		
-		int distancePayment=2;/*(city--O quel che e--.getDistance(this.game.getKingsPosition()));*/
+		int distancePayment=2;/*TODO(city--O quel che e--.getDistance(this.game.getKingsPosition()));*/
 		if(!game.getCurrentPlayer().checkCoins(distancePayment))
 		{
 			System.out.println("Not enough coins to move king. The Player needs:" +distancePayment+" coins to pay, 2 for each step");
@@ -45,7 +44,7 @@ public class BuildEmporiumByKing extends MainAction
 			game.decrementMainActionCounter();
 			game.setKingsPosition(city);
 			city.addEmporium(game.getCurrentPlayer());
-			//Applicare i bonus
+			//TODO Applicare i bonus
 			return true;
 		}
 		else
