@@ -9,7 +9,9 @@ package cg2.view;
  */
 public interface State {
 
-	public void doAction(State state, String input);
+	public default void doAction(View view, String input){
+		//nothing to do
+	}
 	
 	public void display();
 	

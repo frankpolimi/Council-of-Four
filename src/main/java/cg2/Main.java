@@ -39,7 +39,7 @@ public class Main
 			do{
 				view.getState().display();
 				input = in.nextLine();
-				view.input(input);
+				view.input(input.toLowerCase());
 			}while(!input.equals("quit"));
 			
 			in.close();

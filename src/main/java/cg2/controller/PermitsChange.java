@@ -3,6 +3,7 @@
  */
 package cg2.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cg2.model.BuildingPermit;
@@ -15,6 +16,10 @@ public class PermitsChange extends Change {
 	
 	private final List<BuildingPermit> permits;
 	
+	public PermitsChange() {
+		permits = new ArrayList<BuildingPermit>();
+	}
+	
 	public PermitsChange(List<BuildingPermit> permits) {
 		this.permits = permits;
 	}
@@ -24,6 +29,10 @@ public class PermitsChange extends Change {
 	 */
 	public List<BuildingPermit> getPermits() {
 		return permits;
+	}
+
+	public void addPermit(BuildingPermit permit) {
+		this.permits.add(permit);
 	}
 	
 

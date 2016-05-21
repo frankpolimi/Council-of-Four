@@ -36,10 +36,10 @@ public class QuickState implements State {
 	 * @see cg2.view.State#doAction()
 	 */
 	@Override
-	public void doAction(State state, String input) {
+	public void doAction(View view, String input) {
 		switch (input) {
 		case Commands.BACK:{
-			state = new StartState();
+			view.setState(new StartState());
 			break;
 		}
 		case Commands.ENGAGE_ASSISTANTS:
@@ -48,7 +48,8 @@ public class QuickState implements State {
 			break;
 		}
 		case Commands.ELECT_COUNCILLOR_BY_ASSISTANT:{
-			state = new ActionState(ElectCouncillorByAssistant.class.getDeclaredFields());
+			view.setState(
+					new ActionState(ElectCouncillorByAssistant.class, view.getPeeker()));
 			break;
 		}
 		default:

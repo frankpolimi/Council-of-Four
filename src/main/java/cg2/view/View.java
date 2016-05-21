@@ -58,7 +58,7 @@ public class View extends Observable<Change> implements Observer<Change> {
 		 * is better to include the viewID (playerID) with the action
 		 * so the controller can perform the check on the player's turn 
 		 */
-		if(state.equals(QuickState.class))
+		if(state.equals(QuickState.class)){
 			switch(command){
 			case Commands.ENGAGE_ASSISTANTS:{
 				this.notifyObservers(new ActionChange(this.playerID, new EngageAssistant()));
@@ -73,21 +73,20 @@ public class View extends Observable<Change> implements Observer<Change> {
 				break;
 			}
 			}
-		else if(state.equals(MainState.class))
-			state.doAction(state, command);
-		else if(state.equals(ActionState.class))
-			/*case ACTION:{
-				break;
-			}
-			case BONUS:{
-				BonusChange change = new BonusChange();
-				change.addBonus(storage.retrieveBonus(Integer.parseInt(command)));
-				this.notifyObservers(change);
-				break;
-			}
-			case PERMITS:{
-				
-			}*/
+			this.state = new StartState();
+		}
+		else if(state.equals(MainState.class) || state.equals(ActionState.class))
+			state.doAction(this, command);
+		else if(state.equals(BonusState.class)){
+			BonusChange change = new BonusChange();
+			change.addBonus(storage.retrieveBonus(Integer.parseInt(command)));
+			this.notifyObservers(change);
+		}
+		else if(state.equals(PermitsState.class)){
+			PermitsChange change = new PermitsChange();
+			change.addPermit(storage.retrievePermit(Integer.parseInt(command)));
+			this.notifyObservers(change);
+		}
 		
 		switch(command){
 			case Commands.QUIT:{
@@ -96,7 +95,7 @@ public class View extends Observable<Change> implements Observer<Change> {
 			case Commands.BACK:
 			case Commands.MAIN_ACTION:
 			case Commands.QUICK_ACTION:{
-				state.doAction(state, command);
+				state.doAction(this, command);
 				break;
 			}
 			case Commands.STATISTICS:{
@@ -112,52 +111,15 @@ public class View extends Observable<Change> implements Observer<Change> {
 		}
 	}	
 
-	/**
-	 * display the required parameters
-	 * the input should be a string separated by a blank
-	 * TODO should display the status of the various parameters in game
-	 * e.g. 
-	 * required input is a council
-	 * this method will display the status of all 4 councils
-	 * @param fields 
-	 */
-	private void displayRequirements(Field[] fields) {
-		System.out.println("For the action the required input is: ");
-		for(int i = 0; i < fields.length; i++){
-			Class<?> field = fields[i].getType();
-			if(field.getClass().equals(Council.class))
-				peeker.getCouncils();
-			else if(field.getClass().equals(BuildingPermit.class))
-				System.out.println("- a number: 1 or 2");
-		}
-	}
-
-	private void displayBonus(List<Bonus> bonusList) {
-
-		System.out.println("Insert the bonus's number you desire to acquire");
-		for(Bonus b : bonusList)
-			System.out.println(bonusList.indexOf(b)+" - "+b.toString());
-	}
-	
-	/**
-	 * display the face up permits for each region
-	 * gives the controller the desired building permits to acquire
-	 */
-	private void displayPermits(List<BuildingPermit> permitList) {
-		System.out.println("Insert the permit's number ");	
-	}
-
 	public void update(Change change) {
 		storage = new LocalStorage(change);
 		if(change.getClass().equals(BonusChange.class)){
-			this.state = new BonusState();
 			BonusChange c = (BonusChange)change;
-			this.displayBonus(c.getBonusList());
+			this.state = new BonusState(c.getBonusList());
 		}
 		else if(change.getClass().equals(PermitsChange.class)){
-			this.state = new PermitsState();
 			PermitsChange p = (PermitsChange)change;
-			this.displayPermits(p.getPermits());
+			this.state = new PermitsState(p.getPermits());
 		}
 	}
 
@@ -174,6 +136,14 @@ public class View extends Observable<Change> implements Observer<Change> {
 
 	public State getState() {
 		return state;
+	}
+	
+	public void setState(State state){
+		this.state = state;
+	}
+
+	public PeekModel getPeeker() {
+		return peeker;
 	}
 
 }
