@@ -211,6 +211,7 @@ public class Game extends Observable<Change> {
 	 */
 	public void setCurrentPlayer(Player currentPlayer) {
 		this.currentPlayer = currentPlayer;
+		
 	}
 
 	/* (non-Javadoc)
