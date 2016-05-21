@@ -3,6 +3,8 @@
  */
 package cg2.view;
 
+import actions.ElectCouncillorByAssistant;
+
 /**
  * @author Francesco Vetrò
  *
@@ -34,7 +36,23 @@ public class QuickState implements State {
 	 */
 	@Override
 	public void doAction(State state, String input) {
-
+		switch (input) {
+		case Commands.BACK:{
+			state = new StartState();
+			break;
+		}
+		case Commands.ENGAGE_ASSISTANTS:
+		case Commands.CHANGE_FACE_UP_PERMITS:
+		case Commands.EXTRA_MAIN_ACTION:{
+			break;
+		}
+		case Commands.ELECT_COUNCILLOR_BY_ASSISTANT:{
+			state = new ActionState(ElectCouncillorByAssistant.class.getDeclaredFields());
+			break;
+		}
+		default:
+			System.out.println("No valid selection");
+		}
 	}
 
 }

@@ -37,7 +37,7 @@ public class Main
 			String input;
 			
 			do{
-				view.displayState();
+				view.getState().display();
 				input = in.nextLine();
 				view.input(input);
 			}while(!input.equals("quit"));

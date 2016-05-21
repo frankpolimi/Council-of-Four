@@ -3,6 +3,11 @@
  */
 package cg2.view;
 
+import actions.AcquirePermit;
+import actions.BuildEmporiumByKing;
+import actions.BuildEmproriumByPermit;
+import actions.ElectCouncillor;
+
 /**
  * @author Francesco Vetrò
  *
@@ -37,10 +42,16 @@ public class MainState implements State {
 			break;
 		}
 		case Commands.ACQUIRE_PERMIT:
+			state = new ActionState(AcquirePermit.class.getDeclaredFields());
+			break;
 		case Commands.BUILD_EMPORIUM_BY_KING:
+			state = new ActionState(BuildEmporiumByKing.class.getDeclaredFields());
+			break;
 		case Commands.ELECT_COUNCILLOR:
+			state = new ActionState(ElectCouncillor.class.getDeclaredFields());
+			break;
 		case Commands.BUILD_EMPORIUM_BY_PERMIT:{
-			state = new ActionState();
+			state = new ActionState(BuildEmproriumByPermit.class.getDeclaredFields());
 			break;
 		}
 		default:
