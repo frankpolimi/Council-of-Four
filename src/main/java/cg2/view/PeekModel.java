@@ -24,7 +24,7 @@ public class PeekModel {
 			System.out.println(r.getCouncil().toString());
 		}
 		System.out.println("King council:");
-		//System.out.println(game.getKingCouncil().toString());
+		System.out.println(game.getKingsCouncil().toString());
 	}
 
 }

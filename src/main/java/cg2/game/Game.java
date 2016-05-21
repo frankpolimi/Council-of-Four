@@ -62,7 +62,6 @@ public class Game extends Observable<Change> {
 		this.nobilityLane=mp.createNobilityLane();
 		this.currentPlayer=this.players.get(0);
 		this.kingsPosition=this.map.getVertexByKey("J");
-		
 	}
 
 	public void gioca(){
@@ -212,6 +211,13 @@ public class Game extends Observable<Change> {
 	public void setCurrentPlayer(Player currentPlayer) {
 		this.currentPlayer = currentPlayer;
 		
+	}
+
+	/**
+	 * @return the kingsCouncil
+	 */
+	public KingsCouncil getKingsCouncil() {
+		return kingsCouncil;
 	}
 
 	/* (non-Javadoc)
