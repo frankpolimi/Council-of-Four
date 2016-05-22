@@ -199,6 +199,10 @@ public class Player {
 		return this.buildingPermits.size()+this.usedBuildingPermits.size();
 	}
 	
+	public int howManyAssistansAndCardsOwned(){
+		return this.assistants+this.cardsOwned.size();
+	}
+	
 
 	/**
 	 * @author Vitaliy Pakholko

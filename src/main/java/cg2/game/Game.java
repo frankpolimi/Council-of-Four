@@ -11,10 +11,12 @@ import org.jdom2.JDOMException;
 import org.jgrapht.graph.DefaultEdge;
 
 import cg2.controller.Change;
+import cg2.controller.StateChange;
 import cg2.model.*;
 import cg2.observers.Observable;
 import politics.PoliticsDeck;
 import cg2.player.*;
+import cg2.view.EndState;
 import council.Councillor;
 import council.KingsCouncil;
 import topology.*;
@@ -78,6 +80,16 @@ public class Game extends Observable<Change> {
 			//this.setCurrentPlayer(); gestione dei turni in controller
 		endOfGame = checkEndOfGame();
 		}while(endOfGame);
+	}
+	
+	public void endOfTheGame() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException{
+		List<Player> copyList=new ArrayList<>();
+		for(int i=0;i<this.players.size();i++){
+			copyList.add(i, this.players.get(i));
+		}
+		
+		WinnerSelector winnerSelector=new WinnerSelector(copyList);
+		this.notifyObservers(new StateChange(new EndState(winnerSelector.getWinnerPlayer())));
 	}
 
 	private void resetActionCounters() {
