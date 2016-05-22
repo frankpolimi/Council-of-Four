@@ -320,6 +320,11 @@ public class Player {
 		return cities;
 	}
 
+	/**
+	 * this method allows to get both the unused & the used permits
+	 * owned by the player
+	 * @return the list of all the permits owned
+	 */
 	public List<BuildingPermit> getAllPermits() {
 		List<BuildingPermit> x = new ArrayList<BuildingPermit>();
 		x.addAll(buildingPermits);
