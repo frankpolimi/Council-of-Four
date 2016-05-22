@@ -3,11 +3,11 @@
  */
 package cg2.view;
 
+import actions.ChangeFaceUpPermits;
 import actions.ElectCouncillorByAssistant;
-import actions.QuickAction;
 
 /**
- * @author Francesco Vetrò
+ * @author Francesco Vetrï¿½
  *
  */
 public class QuickState implements State {
@@ -43,8 +43,12 @@ public class QuickState implements State {
 			break;
 		}
 		case Commands.ENGAGE_ASSISTANTS:
-		case Commands.CHANGE_FACE_UP_PERMITS:
 		case Commands.EXTRA_MAIN_ACTION:{
+			break;
+		}
+		case Commands.CHANGE_FACE_UP_PERMITS:{
+			view.setState(
+					new ActionState(ChangeFaceUpPermits.class, view.getPeeker()));
 			break;
 		}
 		case Commands.ELECT_COUNCILLOR_BY_ASSISTANT:{

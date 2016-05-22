@@ -4,7 +4,7 @@
 package cg2.view;
 
 /**
- * @author Francesco Vetrò
+ * @author Francesco VetrÃ²
  *
  */
 public interface State {

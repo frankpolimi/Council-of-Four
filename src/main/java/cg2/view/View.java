@@ -3,20 +3,14 @@
  */
 package cg2.view;
 
-import java.lang.reflect.Field;
-import java.util.List;
 
 import actions.*;
-import bonus.Bonus;
 import cg2.observers.*;
-import council.Council;
 import cg2.controller.ActionChange;
 import cg2.controller.BonusChange;
 import cg2.controller.Change;
 import cg2.controller.PermitsChange;
 import cg2.game.Game;
-import cg2.model.BuildingPermit;
-
 
 /**
  * this class will provide the selections that leads to an opportunity
@@ -24,7 +18,7 @@ import cg2.model.BuildingPermit;
  * validate if is the player's turn and will prepare the action. the view will 
  * prompt the right parameters to set from the right client 
  * and will transfer to the controller a complete action to execute.
- * @author Francesco Vetrò
+ * @author Francesco Vetrï¿½
  */
 public class View extends Observable<Change> implements Observer<Change> {
 	
