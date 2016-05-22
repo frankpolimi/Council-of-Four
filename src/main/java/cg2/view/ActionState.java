@@ -6,7 +6,9 @@ package cg2.view;
 import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
+import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 
 import actions.Action;
 import cg2.model.BuildingPermit;
@@ -36,10 +38,21 @@ public class ActionState implements State {
 
 	/**
 	 * method to parse the string and put them in the action field
+	 * @throws IntrospectionException 
+	 * @throws InvocationTargetException 
+	 * @throws IllegalArgumentException 
+	 * @throws IllegalAccessException 
 	 */
-	public void doAction(View view, String input){
-		//see mapMaker
-		//action = (actionClass.getName())
+	public void createAction(View view, String input) throws IntrospectionException, IllegalAccessException, IllegalArgumentException, InvocationTargetException
+	{
+		Object[] parameters=/*this.actionParser(input);*/input.split(" ");
+		int counter=parameters.length;
+		BeanInfo info= Introspector.getBeanInfo(actionClass);
+		PropertyDescriptor[] descriptor=info.getPropertyDescriptors();
+		for(PropertyDescriptor p:descriptor)
+		{
+			p.getWriteMethod().invoke(p, parameters[counter--]);
+		}
 	}
 
 	/* (non-Javadoc)
@@ -69,12 +82,18 @@ public class ActionState implements State {
 	/**
 	 * insert method for parsing using string tokenizer &
 	 * use the string input from the method doAction
+	 * @throws IntrospectionException 
 	 */
 	
-	public void actionParser(String parameters)
+	public void/*Object[]*/ actionParser(String parameters) throws IntrospectionException
 	{
-		String[] tokens=parameters.split(parameters);
-		
+		BeanInfo info= Introspector.getBeanInfo(actionClass);
+		PropertyDescriptor[] descriptor=info.getPropertyDescriptors();
+		for(PropertyDescriptor p:descriptor)
+		{
+			p.getPropertyType(); //Qua dovrei fare la stessa cosa col peek model? No, e' un suicidio, qua c'e' qualcosa di sbagliato
+		}
 	}
+	
 
 }
