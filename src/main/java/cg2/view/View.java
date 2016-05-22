@@ -52,23 +52,21 @@ public class View extends Observable<Change> implements Observer<Change> {
 		 * is better to include the viewID (playerID) with the action
 		 * so the controller can perform the check on the player's turn 
 		 */
-		if(state.equals(QuickState.class)){
+		if(state.equals(QuickState.class))
 			switch(command){
 			case Commands.ENGAGE_ASSISTANTS:{
 				this.notifyObservers(new ActionChange(this.playerID, new EngageAssistant()));
-				break;
-			}
-			case Commands.CHANGE_FACE_UP_PERMITS:{
-				this.notifyObservers(new ActionChange(playerID, new ChangeFaceUpPermits()));
+				this.state = new StartState();
 				break;
 			}
 			case Commands.EXTRA_MAIN_ACTION:{
 				this.notifyObservers(new ActionChange(playerID, new ExtraMainAction()));
+				this.state = new StartState();
 				break;
 			}
+			default:
+				state.doAction(this, command);
 			}
-			this.state = new StartState();
-		}
 		else if(state.equals(MainState.class) || state.equals(ActionState.class))
 			state.doAction(this, command);
 		else if(state.equals(BonusState.class)){

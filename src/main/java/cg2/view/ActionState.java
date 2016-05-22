@@ -3,13 +3,16 @@
  */
 package cg2.view;
 
+import java.beans.BeanInfo;
+import java.beans.IntrospectionException;
+import java.beans.Introspector;
 import java.lang.reflect.Field;
 
 import actions.Action;
 import cg2.model.BuildingPermit;
 import council.Council;
 /**
- * @author Francesco Vetrò
+ * @author Francesco Vetrï¿½
  *
  */
 public class ActionState implements State {
@@ -59,7 +62,7 @@ public class ActionState implements State {
 			if(field.getClass().equals(Council.class))
 				peeker.getCouncils();
 			else if(field.getClass().equals(BuildingPermit.class))
-				System.out.println("- a number: 1 or 2");
+				peeker.getPermits();
 		}
 	}
 	

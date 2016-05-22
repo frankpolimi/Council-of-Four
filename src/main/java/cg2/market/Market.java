@@ -11,7 +11,7 @@ import cg2.player.Player;
 import politics.PoliticsCard;
 
 /**
- * @author Francesco Vetrò
+ * @author Francesco Vetrï¿½
  * @param <T> the type of the object 
  *
  */
@@ -33,6 +33,7 @@ public class Market<T> {
 	 * @param product
 	 */
 	public void addProduct(MarketObject<?> product){
+		//TODO insert check on player
 		this.products.add(product);
 	}
 	
