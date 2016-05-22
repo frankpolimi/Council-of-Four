@@ -13,6 +13,12 @@ public class BuildEmproriumByPermit extends MainAction
 	private BuildingPermit permit;
 	private City city;
 	
+	
+	/**
+	 * The player builds an emporium in the city indicated by the building permit he is using. If the action succeeds that building permit will be moved in his used permits deck.
+	 * The action fails if: the player cannot pay the council, the player has already built an emporium in the king's final position city
+	 * the player cannot pay the assistants fee for other player's emporiums, the player indicates a city that is not present on the building permit, the player has no emporiums to use.
+	 */
 	@Override
 	public boolean takeAction(Game game)
 	{

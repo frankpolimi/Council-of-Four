@@ -15,6 +15,10 @@ import politics.PoliticsCard;
  */
 public class Action implements Act
 {
+	
+	/**
+	 * Super class action's take action method.
+	 */
 	@Override
 	public boolean takeAction(Game game)
 	{
