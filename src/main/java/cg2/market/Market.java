@@ -6,6 +6,7 @@ package cg2.market;
 import java.util.ArrayList;
 import java.util.List;
 
+import actions.NotEnoughResources;
 import cg2.model.BuildingPermit;
 import cg2.player.Player;
 import politics.PoliticsCard;
@@ -31,12 +32,30 @@ public class Market<T> {
 	/**
 	 * add the selected product to the sellable items
 	 * @param product
+	 * @throws NotEnoughResources 
 	 */
-	public void addProduct(MarketObject<?> product){
-		//TODO insert check on player
-		this.products.add(product);
+	public void addProduct(MarketObject<?> product) throws NotEnoughResources{
+		if(product.getObject().getClass().equals(PoliticsCard.class))
+			if(product.getSellingPlayer().getCardsOwned().contains(product.getObject()))
+				this.products.add(product);
+			else
+				throw new NotEnoughResources("Impossible to add "+PoliticsCard.class.getSimpleName()+
+						". You don't own one.");
+		else if(product.getObject().getClass().equals(Assistant.class))
+			if(((Assistant)product.getObject()).getNumber()
+					<= product.getSellingPlayer().getAssistants())
+				this.products.add(product);
+			else 
+				throw new NotEnoughResources("Impossible to add "+Assistant.class.getSimpleName()+
+						". You own just "+product.getSellingPlayer().getAssistants()+" "+Assistant.class.getSimpleName());
+		else if(product.getObject().getClass().equals(BuildingPermit.class))
+			if(product.getSellingPlayer().getAllPermits().contains(product.getObject()))
+				this.products.add(product);
+			else 
+				throw new NotEnoughResources("Impossible to add "+BuildingPermit.class.getSimpleName()+
+						". You don't own one.");
 	}
-	
+
 	/**
 	 * display which objects are different from different player
 	 * than the one who can buy from the market and randomize the objects
@@ -45,10 +64,8 @@ public class Market<T> {
 	public void displayProducts(Player customer){
 		List<MarketObject<?>> productsForPlayer = null;
 		productsForPlayer = this.getAvailableProducts(customer);
-		for(int i=0; i < products.size(); i++){
-			elementDisplayed = (int) Math.random()*productsForPlayer.size();
-			// to print productsForPlayer.get(elementDisplayed);
-		}
+		elementDisplayed = (int) Math.random()*productsForPlayer.size();
+		//TODO print object
 	}
 
 	/**
@@ -69,8 +86,9 @@ public class Market<T> {
 	 * perform the trade of coins and the exchange of product
 	 * from the list to the player who buys
 	 * @param customer
+	 * @throws NotEnoughResources 
 	 */
-	public void buyElement(Player customer){
+	public void buyElement(Player customer) throws NotEnoughResources{
 		MarketObject<?> x = products.get(elementDisplayed);
 		this.transferCoin(customer, x);
 		if(x.getObject().getClass().equals(Assistant.class))
@@ -131,12 +149,15 @@ public class Market<T> {
 	 * the owner gets paid from the customer
 	 * @param customer
 	 * @param the whole object
+	 * @throws NotEnoughResources 
 	 */
-	private void transferCoin(Player customer, MarketObject<?> x) {
-		customer.setCoins(
-				customer.getCoins() - x.getPrice());
-		x.getSellingPlayer().setCoins(
+	private void transferCoin(Player customer, MarketObject<?> x) throws NotEnoughResources {
+		if(customer.checkCoins(x.getPrice()))
+			x.getSellingPlayer().setCoins(
 				x.getSellingPlayer().getCoins() + x.getPrice());
+		else
+			throw new NotEnoughResources("Impossible to buy. You only own "
+					+customer.getCoins()+" instead of the "+x.getPrice()+" required");
 		
 	}
 }

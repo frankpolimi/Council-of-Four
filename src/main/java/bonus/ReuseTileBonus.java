@@ -12,7 +12,7 @@ import cg2.model.BuildingPermit;
 import cg2.view.*;
 
 /**
- * @author Francesco Vetrò
+ * @author Francesco Vetrï¿½
  *
  */
 public class ReuseTileBonus extends ActionBonus {
@@ -32,8 +32,7 @@ public class ReuseTileBonus extends ActionBonus {
 	@Override
 	public void update(Game game) {
 		List<BuildingPermit> listUnified = new ArrayList<BuildingPermit>(
-				game.getCurrentPlayer().getBuildingPermits());
-		listUnified.addAll(game.getCurrentPlayer().getUsedBuildingPermits());
+				game.getCurrentPlayer().getAllPermits());
 		List<Bonus> permits;
 		for(int i=0;i<this.amount;i++){
 			permits = new ArrayList<Bonus>();

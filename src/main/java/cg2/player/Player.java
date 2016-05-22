@@ -320,6 +320,13 @@ public class Player {
 		return cities;
 	}
 
+	public List<BuildingPermit> getAllPermits() {
+		List<BuildingPermit> x = new ArrayList<BuildingPermit>();
+		x.addAll(buildingPermits);
+		x.addAll(usedBuildingPermits);
+		return x;
+	}
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
