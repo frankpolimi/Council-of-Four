@@ -17,6 +17,12 @@ public class BuildEmporiumByKing extends MainAction
 	ArrayList<PoliticsCard> politics; 
 	City city;
 	
+	
+	/**
+	 * The player builds an emporium in the king's position. He can move the king using roads if he wants, to do that he must pay 2 coins for each hop.
+	 * The action fails if: the player cannot pay the king's movement fee, the player cannot pay the council, the player has already built an emporium in the king's final position city
+	 * the player cannot pay the assistants fee for other player's emporiums.
+	 */
 	@Override
 	public boolean takeAction(Game game)
 	{

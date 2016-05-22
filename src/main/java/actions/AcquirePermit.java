@@ -17,6 +17,16 @@ public class AcquirePermit extends MainAction
 	private ArrayList<PoliticsCard> politics;
 	private BuildingPermit permit;
 	
+	
+	
+	
+	/**
+	 * The player acquires a face up building permit if he can pay the council. 
+	 * The action fails if:
+	 * the player  cannot pay the council, 
+	 * the player want to acquire a not face up permit. 
+	 * the player is trying to do an action type that he had already used.
+	 */
 	@Override
 	public boolean takeAction(Game game)
 	{
