@@ -24,7 +24,9 @@ import cg2.view.View;
 public class Controller implements Observer<Change>{
 	
 	private final Game game;
+	private boolean finalRound;
 	/*
+	 *
 	 * private final Set<MainAction> mainActions;
 	 * private final Set<QuickAction> quickActions;
 	 */
@@ -39,6 +41,7 @@ public class Controller implements Observer<Change>{
 		super();
 		this.game = game;
 		view.registerObserver(this);
+		this.finalRound=false;
 		/*
 		this.mainActions = new HashSet<MainAction>();
 		this.quickActions = new HashSet<QuickAction>();
@@ -80,8 +83,14 @@ public class Controller implements Observer<Change>{
 		if(!log){
 			throw new IllegalStateException("The action is not valid");
 		}else{
+			
+			Player current=game.getCurrentPlayer();
+			if(current.getRemainingEmporiums()==0){
+				this.finalRound=true;
+			}
+			
 			if(game.getMainActionCounter()==0&&game.getQuickActionCounter()==0){
-				Player current=game.getCurrentPlayer();
+				
 				int currentIndex=game.getPlayers().indexOf(current);
 				if(currentIndex+1==game.getPlayers().size()){
 					game.setCurrentPlayer(game.getPlayers().get(0));

@@ -68,6 +68,7 @@ public class Game extends Observable<Change> {
 		this.kingsPosition=this.map.getVertexByKey("J");
 	}
 
+	/*
 	public void gioca(){
 		boolean endOfGame;
 		do{
@@ -80,6 +81,10 @@ public class Game extends Observable<Change> {
 			//this.setCurrentPlayer(); gestione dei turni in controller
 		endOfGame = checkEndOfGame();
 		}while(endOfGame);
+	}*/
+	
+	public void init(){
+		
 	}
 	
 	public void endOfTheGame() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException{
