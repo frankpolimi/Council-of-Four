@@ -1,13 +1,12 @@
 package cg2.view;
 
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
+import java.util.Set;
 
 import cg2.game.Game;
 import cg2.model.BuildingPermit;
 import cg2.player.Player;
-import council.Council;
+import council.KingsCouncil;
 import topology.Region;
 
 public class PeekModel {
@@ -25,18 +24,20 @@ public class PeekModel {
 		return null;
 	}
 
-	public List<Council> getCouncils() {
-		List<Council> x = new ArrayList<Council>();
-		for(Region r: game.getRegions())
-			x.add(r.getCouncil());
-		x.add(game.getKingsCouncil());
-		return x;
+	public Set<Region> getRegion() {
+		return game.getRegions();
 	}
+	
+	public KingsCouncil getKingCouncil(){
+		return game.getKingsCouncil();
+	}
+	
 
 	public void getPermits() {
 		for(Region r: game.getRegions()){
 			System.out.println(r.getName());
-			Iterator<BuildingPermit> i = r.getPermitsDeck().getFaceUpPermits().iterator();
+			Iterator<BuildingPermit> i = 
+					r.getPermitsDeck().getFaceUpPermits().iterator();
 			while(i.hasNext())
 				System.out.println(i.next());
 		}

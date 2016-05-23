@@ -9,10 +9,13 @@ import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Iterator;
+import java.util.Set;
 
 import actions.Action;
 import cg2.model.BuildingPermit;
 import council.Council;
+import topology.Region;
 /**
  * @author Francesco Vetr�
  *
@@ -73,12 +76,20 @@ public class ActionState implements State {
 		for(int i = 0; i < fields.length; i++){
 			Class<?> field = fields[i].getType();
 			if(field.getClass().equals(Council.class))
-				peeker.getCouncils();
+				this.displayCouncil(peeker.getRegion(), peeker.getKingCouncil());
 			else if(field.getClass().equals(BuildingPermit.class))
 				peeker.getPermits();
 		}
 	}
 	
+	private void displayCouncil(Set<Region> regions, Council king) {
+		for(Region r : regions){
+			System.out.println(r.getName());
+			System.out.println(r.getCouncil().toString());
+		}
+		
+	}
+
 	/**
 	 * insert method for parsing using string tokenizer &
 	 * use the string input from the method doAction
