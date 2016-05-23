@@ -114,5 +114,14 @@ public class PermitsDeck {
 			faceUpPermits.add(buildingPermitsDeck.remove(0));
 		}	
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "PermitsDeck [buildingPermitsDeck=" + buildingPermitsDeck + ", faceUpPermits=" + faceUpPermits + "]\n";
+	}
+	
 	
 }

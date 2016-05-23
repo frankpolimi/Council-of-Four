@@ -256,8 +256,17 @@ public class MapMaker {
 	 * @return an instance of the ColorTileList used in the game
 	 * @throws JDOMException when errors occur in parsing
 	 * @throws IOException  when an I/O error prevents a document from being fully parsed
+	 * @throws NullPointerException if type is null
+	 * @throws IllegalArgumentException if you want to create a RegionTile but region is null.
 	 */
 	public List<PointsTile> createTiles(String type, Set<Region> regions) throws JDOMException, IOException{
+		if(type==null){
+			throw new NullPointerException("Type must not be null");
+		}
+		if(type.equals("regionTileList")&&regions==null){
+			throw new IllegalArgumentException("Region cannot be null if you want to instanciate region tiles");
+		}
+		
 		List<PointsTile> tilesList =new ArrayList<>();
 		Element root=this.getRootFromFile();
 		List<Element> colorTileList = root.getChild("decks").getChild(type).getChildren();
@@ -394,8 +403,10 @@ public class MapMaker {
 	
 	public static void main(String[] args)throws IOException, JDOMException {
 		MapMaker mp=new MapMaker();
-		Set<Region> regions=mp.createRegionSet();
-		
+		Set<Region> set=mp.createRegionSet();
+		ExtendedGraph<City, DefaultEdge> graph=mp.generateMap(set);
+		NobilityLane nl=mp.createNobilityLane();
+		System.out.println(nl.toString());
 	}
 	
 

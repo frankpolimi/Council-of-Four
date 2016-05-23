@@ -20,7 +20,6 @@ public class NobilityCell extends Bonusable {
 	public NobilityCell(List<Bonus> bonuses) {
 		this.bonuses = bonuses;
 		for(Bonus b: bonuses) {
-			System.out.println("Stampo bonus"+b.toString());
 			this.registerBonus(b);
 		}
 	}
