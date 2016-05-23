@@ -229,6 +229,8 @@ public class Player {
 	 */
 	public boolean checkCoins(int coins)
 	{
+		if(coins<0)
+			return false; //Make this an exception
 		if(this.coins>=coins)
 		{
 			this.coins=this.coins-coins;
@@ -356,10 +358,23 @@ public class Player {
 		return x;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
 	
+	/**
+	 * @author Vitaliy Pakholko
+	 */
+	public void removeCards(ArrayList<PoliticsCard> cards)
+	{
+		for(PoliticsCard c:cards)
+		{
+			for(PoliticsCard p:this.cardsOwned)
+				if(c.equals(p))
+				{
+					cards.remove(c);
+					cardsOwned.remove(p);
+					continue;
+				}
+		}
+	}
 	
 	
 	

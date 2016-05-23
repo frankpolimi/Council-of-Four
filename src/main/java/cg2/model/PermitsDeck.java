@@ -87,6 +87,9 @@ public class PermitsDeck {
 		}
 	}
 	
+	/**
+	 * @author Vitaliy Pakholko
+	 */
 	public BuildingPermit popPermit()
 	{
 		if(this.buildingPermitsDeck==null||this.buildingPermitsDeck.size()<=0)
@@ -97,6 +100,9 @@ public class PermitsDeck {
 			return this.buildingPermitsDeck.remove(0);
 	}
 	
+	/**
+	 * @author Vitaliy Pakholko
+	 */
 	public void faceUpInit()
 	{
 		if(this.buildingPermitsDeck==null||this.buildingPermitsDeck.size()<=faceUpPermits.size()-1)

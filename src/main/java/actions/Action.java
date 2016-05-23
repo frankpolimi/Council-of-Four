@@ -56,7 +56,7 @@ public class Action implements Act
 			int cost;
 			switch (councillors.size()-jollies)
 			{
-				case 0:return true;
+				case 0: cost=0; break;
 				case 1: cost=4; break;
 				case 2: cost=7; break;
 				case 3: cost=10; break;
@@ -66,7 +66,12 @@ public class Action implements Act
 			{
 				System.out.println("Not enough coins to pay the council. For 1 missing politics card you pay 4 additional coins, for each additional missing politics card you add 3 more");
 				return false;
-			}return true;
+			}
+			else
+			{
+				player.removeCards(politics);
+				return true;
+			}
 	}
 
 }
