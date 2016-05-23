@@ -42,15 +42,14 @@ public abstract class Council{
 		this.councillors = councillors;
 	}
 
-
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		String r = "";
-		for(Councillor c : councillors)
-			r.concat(c.toString());
-		return r;
+		return "Council [councillors=" + councillors + "]\n";
 	}
+
+
+	
 }

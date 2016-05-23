@@ -32,15 +32,26 @@ public class MapMaker {
 	private final List<List<Bonus>> extractedCityBonus;
 	
 	//Constructor
+	/**
+	 * This class is used to extract the necessary objects used to initialize and play a game.
+	 *@throws JDOMException - when errors occur in parsing
+	 *@throws java.io.IOException - when an I/O error prevents a document from being fully parsed
+	 */
 	public MapMaker() throws JDOMException, IOException {
 		this.cityMap = new HashMap<>();
 		this.extractedCouncillors = new ArrayList<>();
 		this.extractedCityBonus=new ArrayList<>();
 		this.fillExtractedCouncillors();
 		this.fillExtractedCityBonuses();
+		
 	}
 	
 	//Council
+	/**
+	 * This method extracts the councillors contained into the file map and puts it into the extractedCouncillor array.
+	 *@throws JDOMException - when errors occur in parsing
+	 *@throws java.io.IOException - when an I/O error prevents a document from being fully parsed
+	 */
 	private void fillExtractedCouncillors() throws JDOMException, IOException{
 		Element root=this.getRootFromFile();
 		List<Element> avCouncillors=root.getChild("decks").getChild("avaliableCouncillors").getChildren();
@@ -56,7 +67,12 @@ public class MapMaker {
 		}
 	}
 	
-	
+	/**
+	 * This method draws a random bonus from the array that contains the all avaliable bonus extracted from file.
+	 *@throws JDOMException - when errors occur in parsing
+	 *@throws java.io.IOException - when an I/O error prevents a document from being fully parsed
+	 *@return a List of bonus extracted random
+	 */
 	private List<Bonus> extractNewRandomicBonus(){
 		Random random = new Random();
 		List<Bonus> bonusList=extractedCityBonus.remove(random.nextInt(extractedCityBonus.size()));
@@ -72,7 +88,7 @@ public class MapMaker {
 		return extractedCouncillors;
 	}
 
-	private void extractNewCouncil(Element region, Council council) throws JDOMException, IOException{
+	private Council extractNewCouncil(Element region, Council council) throws JDOMException, IOException{
 		Random random= new Random();
 		
 		ArrayBlockingQueue<Councillor> elected= new ArrayBlockingQueue<>(4);
@@ -80,17 +96,19 @@ public class MapMaker {
 			Councillor councillor=extractedCouncillors.remove(random.nextInt(extractedCouncillors.size()));
 			elected.add(councillor);
 		}
+		
 		if(council instanceof RegionalCouncil)
 			council=new RegionalCouncil(elected, this.createBuildingPermitDeck(region));
 		else if(council instanceof KingsCouncil)
 			council=new KingsCouncil(elected);
-			
+		return council;	
 	}
 	
 	public KingsCouncil getKingsCouncil() throws JDOMException, IOException{
+		
 		KingsCouncil council=new KingsCouncil(null);
-		this.extractNewCouncil(null, council);
-		return council;
+		return (KingsCouncil)this.extractNewCouncil(null, council);
+		
 	}
 	
 	private void fillExtractedCityBonuses() throws JDOMException, IOException{
@@ -376,10 +394,10 @@ public class MapMaker {
 	
 	public static void main(String[] args)throws IOException, JDOMException {
 		MapMaker mp=new MapMaker();
-		ExtendedGraph<City,DefaultEdge> graph=mp.generateMap(mp.createRegionSet());
-		Council c=new KingsCouncil(null);
-		System.out.println(c instanceof RegionalCouncil);
-		System.out.println(mp.getEmporiumsAvaliableNumber());
+		//ExtendedGraph<City,DefaultEdge> graph=mp.generateMap(mp.createRegionSet());
+		KingsCouncil council=mp.getKingsCouncil();
+		System.out.println(council.toString());
+		
 	}
 	
 

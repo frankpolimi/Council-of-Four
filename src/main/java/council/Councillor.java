@@ -23,7 +23,7 @@ public class Councillor
 	 */
 	@Override
 	public String toString() {
-		return "Councillor [color=" + color + "]";
+		return "Councillor [color=" + color + "]\n";
 	}
 	
 	
