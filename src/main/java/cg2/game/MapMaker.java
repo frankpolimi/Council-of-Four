@@ -181,6 +181,10 @@ public class MapMaker {
 		return graph;
 	}
 
+	public int getEmporiumsAvaliableNumber() throws JDOMException, IOException{
+		Element root=this.getRootFromFile();
+		return root.getChild("emporiums").getAttribute("number").getIntValue();
+	}
 	/**
 	 * 
 	 * @return an instance of the PoliticsDeck used in the game
