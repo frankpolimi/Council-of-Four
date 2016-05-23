@@ -52,7 +52,7 @@ public class View extends Observable<Change> implements Observer<Change> {
 		 * is better to include the viewID (playerID) with the action
 		 * so the controller can perform the check on the player's turn 
 		 */
-		if(state.equals(QuickState.class))
+		if(state.getClass().equals(QuickState.class))
 			switch(command){
 			case Commands.ENGAGE_ASSISTANTS:{
 				this.notifyObservers(new ActionChange(this.playerID, new EngageAssistant()));
@@ -67,19 +67,19 @@ public class View extends Observable<Change> implements Observer<Change> {
 			default:
 				state.doAction(this, command);
 			}
-		else if(state.equals(MainState.class) || state.equals(ActionState.class))
+		else if(state.getClass().equals(MainState.class) || state.equals(ActionState.class))
 			state.doAction(this, command);
-		else if(state.equals(BonusState.class)){
+		else if(state.getClass().equals(BonusState.class)){
 			BonusChange change = new BonusChange();
 			change.addBonus(storage.retrieveBonus(Integer.parseInt(command)));
 			this.notifyObservers(change);
 		}
-		else if(state.equals(PermitsState.class)){
+		else if(state.getClass().equals(PermitsState.class)){
 			PermitsChange change = new PermitsChange();
 			change.addPermit(storage.retrievePermit(Integer.parseInt(command)));
 			this.notifyObservers(change);
 		}
-		else if(state.equals(ActionState.class));
+		else if(state.getClass().equals(ActionState.class));
 			/*
 			 * TODO when Pake's method is online
 			 * as a remember:

@@ -56,6 +56,9 @@ public class QuickState implements State {
 					new ActionState(ElectCouncillorByAssistant.class, view));
 			break;
 		}
+		case Commands.STATISTICS:
+		case Commands.QUIT:
+			break;
 		default:
 			System.out.println("No valid selection");
 		}
