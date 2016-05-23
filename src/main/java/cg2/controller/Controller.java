@@ -94,22 +94,23 @@ public class Controller implements Observer<Change>{
 			
 			
 			if(game.getMainActionCounter()==0&&game.getQuickActionCounter()==0){
-				Player player;
+				Player nextPlayer;
 				int currentIndex=game.getPlayers().indexOf(current);
+				
 				if(currentIndex+1==game.getPlayers().size()){
-					player=game.getPlayers().get(0);
-					game.setCurrentPlayer(player);
+					nextPlayer=game.getPlayers().get(0);
+					game.setCurrentPlayer(nextPlayer);
 					if(!this.finalRound){
 						game.notifyObservers(new StateChange(new MarketState()));
 					}
 				}else{
-					player=game.getPlayers().get(currentIndex+1);
-					game.setCurrentPlayer(player);
+					nextPlayer=game.getPlayers().get(currentIndex+1);
+					game.setCurrentPlayer(nextPlayer);
 				}
 				
 				if(this.finalRound){
-					game.getPlayers().remove(player);
-					this.theLastPlayers.add(player);
+					game.getPlayers().remove(current);
+					this.theLastPlayers.add(current);
 				}
 								
 			}
@@ -169,7 +170,7 @@ public class Controller implements Observer<Change>{
 		if(communication.equals("salta")){
 			game.decrementQuickActionCounter(); //Messo decrement perche' non sara' mai maggiore di 1 e quindi fare set 0 e' la stessa cosa
 			System.out.println(game.getCurrentPlayer().getName()
-					+" non puoi più eseguire azioni secondarie per questo turno");
+					+" non puoi piï¿½ eseguire azioni secondarie per questo turno");
 		}
 		else if(communication.equals("main action")){
 			

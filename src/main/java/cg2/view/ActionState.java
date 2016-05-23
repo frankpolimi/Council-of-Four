@@ -9,7 +9,6 @@ import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
-import java.util.Iterator;
 import java.util.Set;
 
 import actions.Action;
@@ -30,7 +29,6 @@ public class ActionState implements State {
 	 * the fields of the action
 	 */
 	private Field[] fields;
-	private Action action;
 	private final PeekModel peeker;
 	
 	public ActionState(Class<?> actionClass, PeekModel peeker) {
@@ -62,13 +60,8 @@ public class ActionState implements State {
 	 * @see cg2.view.State#display()
 	 */
 	/**
-	 * TODO move into ActionState
 	 * display the required parameters
 	 * the input should be a string separated by a blank
-	 * TODO should display the status of the various parameters in game
-	 * e.g. 
-	 * required input is a council
-	 * this method will display the status of all 4 councils 
 	 */
 	@Override
 	public void display() {
@@ -78,15 +71,28 @@ public class ActionState implements State {
 			if(field.getClass().equals(Council.class))
 				this.displayCouncil(peeker.getRegion(), peeker.getKingCouncil());
 			else if(field.getClass().equals(BuildingPermit.class))
-				peeker.getPermits();
+				this.displayPermits(peeker.getRegion());
 		}
 	}
 	
+	private void displayPermits(Set<Region> regions) {
+		for(Region r : regions){
+			int i = 0;
+			System.out.println(r.getName());
+			for(BuildingPermit b : r.getPermitsDeck().getFaceUpPermits()){
+				System.out.println(i+" - "+b.toString());
+				i++;
+			}
+		}
+	}
+
 	private void displayCouncil(Set<Region> regions, Council king) {
 		for(Region r : regions){
 			System.out.println(r.getName());
 			System.out.println(r.getCouncil().toString());
 		}
+		System.out.println("King's Council");
+		System.out.println(king.getCouncillors().toString());
 		
 	}
 

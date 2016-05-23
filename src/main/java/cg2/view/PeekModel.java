@@ -31,17 +31,5 @@ public class PeekModel {
 	public KingsCouncil getKingCouncil(){
 		return game.getKingsCouncil();
 	}
-	
-
-	public void getPermits() {
-		for(Region r: game.getRegions()){
-			System.out.println(r.getName());
-			Iterator<BuildingPermit> i = 
-					r.getPermitsDeck().getFaceUpPermits().iterator();
-			while(i.hasNext())
-				System.out.println(i.next());
-		}
-		
-	}
 
 }
