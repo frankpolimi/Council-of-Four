@@ -3,6 +3,8 @@
  */
 package cg2.model;
 
+import java.awt.Color;
+
 import cg2.player.Player;
 
 /**
@@ -12,11 +14,23 @@ import cg2.player.Player;
 public class Emporium {
 	private final Player player;
 	private final City city;
+	private final Color color;
 	
 	public Emporium(Player p, City c){
 		player=p;
 		city = c;
+		color=p.getChosenColor();
 	}
+
+	
+	/**
+	 * @return the color
+	 */
+	public Color getColor() {
+		return color;
+	}
+
+
 
 	/**
 	 * @return the player

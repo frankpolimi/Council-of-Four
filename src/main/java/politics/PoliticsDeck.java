@@ -55,6 +55,23 @@ public class PoliticsDeck
 		politicsDeck=array;
 	}
 	
+	public void append(){
+		this.politicsDeck.addAll(this.politicsDeck);
+	}
+
+	public void drawNCards(Player player){
+		final int N=6;
+		for(int i=0;i<N;i++){
+			this.drawCard(player);
+		}
+	}
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "PoliticsDeck [politicsDeck=" + politicsDeck + "]";
+	}
 	
 	
 }

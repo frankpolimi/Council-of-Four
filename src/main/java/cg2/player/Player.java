@@ -3,6 +3,7 @@
  */
 package cg2.player;
 
+import java.awt.Color;
 import java.util.*;
 
 import cg2.model.*;
@@ -20,7 +21,7 @@ public class Player {
 	private int remainingEmporiums;
 	private final HashSet<Emporium> emporiumsOwned;
 	private final Set<PointsTile> pointsTileOwned;
-	
+	private final Color chosenColor;
 	private int coins;
 	private int nobilityPoints;
 	private int points;
@@ -31,11 +32,16 @@ public class Player {
 	
 	public Player(String name, int playerID, int remainingEmporiums, 
 			int coins, int assistants) {
+		Random random=new Random();
+		int r=random.nextInt(256);
+		int g=random.nextInt(256);
+		int b=random.nextInt(256);
+		
 		this.name = name;
 		this.playerID = playerID;
 		this.remainingEmporiums = remainingEmporiums;//caricato da file
 		emporiumsOwned=new HashSet<>();
-		
+		this.chosenColor=new Color(r,g,b);
 		this.coins = coins;
 		this.nobilityPoints = 0;
 		this.points = 0;
@@ -51,6 +57,15 @@ public class Player {
 	 */
 	public int getRemainingEmporiums() {
 		return remainingEmporiums;
+	}
+	
+	
+
+	/**
+	 * @return the chosenColor
+	 */
+	public Color getChosenColor() {
+		return chosenColor;
 	}
 
 	/**
@@ -313,7 +328,7 @@ public class Player {
 				"\ncards owned: " + cardsOwned + "\nremaining emporiums: " + 
 				remainingEmporiums + "\nemporiums owned: " + emporiumsOwned + 
 				"\nbuilding permits: " + buildingPermits + ", usedBuildingPermits: " + 
-				usedBuildingPermits;
+				usedBuildingPermits+", color: "+chosenColor;
 	}
 
 	public Set<City> getEmporiumsCitiesSet() {
