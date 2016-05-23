@@ -11,7 +11,6 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import java.util.function.Predicate;
 
 import actions.AcquirePermit;
@@ -87,7 +86,7 @@ public class ActionState implements State {
 				this.displayCouncil(view.getPeeker().getRegion(), view.getPeeker().getKingCouncil());
 			else if(field.getClass().equals(BuildingPermit.class.getSimpleName().toLowerCase()))
 				if(actionClass.equals(AcquirePermit.class.getSimpleName().toLowerCase()))
-					this.displayPermits(view.getPeeker().getRegion());
+					this.displayPermitsGame(view.getPeeker().getRegion());
 				else
 					this.displayPermits(view.getPeeker().getPlayerPermit(
 							view.getPlayerID()));
@@ -107,7 +106,7 @@ public class ActionState implements State {
 	 * display the r* for identifying the region to change permits
 	 * @param decks the decks held by each region
 	 */
-	private void displayDeck(Set<Region> regions) {
+	private void displayDeck(List<Region> regions) {
 		int i = 0;
 		for(Region r : regions){
 			System.out.println("r"+i+" - "+r.getName());
@@ -173,7 +172,7 @@ public class ActionState implements State {
 	 * this method is used for acquiring a permit
 	 * @param regions the regions from the game
 	 */
-	private void displayPermits(Set<Region> regions) {
+	private void displayPermitsGame(List<Region> regions) {
 		for(Region r : regions){
 			int i = 0;
 			System.out.println(r.getName());
@@ -188,13 +187,13 @@ public class ActionState implements State {
 	 * display the councils in the game
 	 * notation cx stands for council number x and must be used for input
 	 * king's council is coded as kc
-	 * @param regions the regions in the game which holds the council
+	 * @param list the regions in the game which holds the council
 	 * 				  it's used for the name of the region
 	 * @param king the king's council
 	 */
-	private void displayCouncil(Set<Region> regions, Council king) {
+	private void displayCouncil(List<Region> list, Council king) {
 		int i = 0;
-		for(Region r : regions){
+		for(Region r : list){
 			System.out.println(r.getName());
 			System.out.println("c"+i+" - "+r.getCouncil().toString());
 			i++;

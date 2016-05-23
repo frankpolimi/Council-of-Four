@@ -29,8 +29,8 @@ public class PeekModel {
 		return null;
 	}
 
-	public Set<Region> getRegion() {
-		return game.getRegions();
+	public List<Region> getRegion() {
+		return new ArrayList<Region>(game.getRegions());
 	}
 	
 	public KingsCouncil getKingCouncil(){
