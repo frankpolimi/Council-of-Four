@@ -4,8 +4,12 @@
 package cg2.player;
 
 import java.awt.Color;
+import java.io.IOException;
 import java.util.*;
 
+import org.jdom2.JDOMException;
+
+import cg2.game.MapMaker;
 import cg2.model.*;
 import politics.PoliticsCard;
 
@@ -31,15 +35,16 @@ public class Player {
 	private final List<BuildingPermit> usedBuildingPermits;
 	
 	public Player(String name, int playerID, int remainingEmporiums, 
-			int coins, int assistants) {
+			int coins, int assistants) throws JDOMException, IOException {
 		Random random=new Random();
+		MapMaker filePointer=new MapMaker();
 		int r=random.nextInt(256);
 		int g=random.nextInt(256);
 		int b=random.nextInt(256);
 		
 		this.name = name;
 		this.playerID = playerID;
-		this.remainingEmporiums = remainingEmporiums;//caricato da file
+		this.remainingEmporiums = filePointer.getEmporiumsAvaliableNumber();
 		emporiumsOwned=new HashSet<>();
 		this.chosenColor=new Color(r,g,b);
 		this.coins = coins;
