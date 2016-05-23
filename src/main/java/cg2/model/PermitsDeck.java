@@ -15,9 +15,9 @@ public class PermitsDeck {
 	
 	public PermitsDeck(List<BuildingPermit> buildingPermitsDeck) {
 		this.buildingPermitsDeck = buildingPermitsDeck;
-		//aggiungere shuffle dell'array
+		Collections.shuffle(this.buildingPermitsDeck);
 		this.faceUpPermits = new ArrayBlockingQueue<>(2);
-		//posizionare le prime due scoperte
+		
 	}
 
 	public boolean givePermit(Game game, BuildingPermit permit)
