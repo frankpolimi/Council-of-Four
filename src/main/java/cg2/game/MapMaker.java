@@ -183,6 +183,7 @@ public class MapMaker {
 
 	public int getEmporiumsAvaliableNumber() throws JDOMException, IOException{
 		Element root=this.getRootFromFile();
+	
 		return root.getChild("emporiums").getAttribute("number").getIntValue();
 	}
 	/**
@@ -369,7 +370,7 @@ public class MapMaker {
 		//my choise: the XML file pathname is imposed by me to don't improve any errors with the 
 		//file opening. The map is always avaliable at that pathname and it is not allowed to change it.
 		SAXBuilder builder=new SAXBuilder();
-		Document document= builder.build(new File("src/main/resources/map.xml"));
+		Document document= builder.build(new File("bin/src/main/resources/map.xml"));
 		return document.getRootElement();
 	}
 	
@@ -378,6 +379,7 @@ public class MapMaker {
 		ExtendedGraph<City,DefaultEdge> graph=mp.generateMap(mp.createRegionSet());
 		Council c=new KingsCouncil(null);
 		System.out.println(c instanceof RegionalCouncil);
+		System.out.println(mp.getEmporiumsAvaliableNumber());
 	}
 	
 
