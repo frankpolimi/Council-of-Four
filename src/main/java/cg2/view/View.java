@@ -33,7 +33,6 @@ public class View extends Observable<Change> implements Observer<Change> {
 	private final int playerID;
 	private State state;
 	
-	
 	public View(Game game, int playerID) {
 		super();
 		game.registerObserver(this);
@@ -48,6 +47,27 @@ public class View extends Observable<Change> implements Observer<Change> {
 	 * @param command the input coming from the client
 	 */
 	public void input(String command){
+		
+		switch(command){
+			case Commands.QUIT:{
+				break;
+			}
+			case Commands.BACK:
+			case Commands.MAIN_ACTION:
+			case Commands.QUICK_ACTION:{
+				state.doAction(this, command);
+				break;
+			}
+			case Commands.STATISTICS:{
+				System.out.println(peeker.getStatsPlayer(this.playerID).toString());
+				break;
+			}
+			case Commands.SKIP:{
+				this.update(command);
+				break;
+			}
+		}
+		
 		/*
 		 * is better to include the viewID (playerID) with the action
 		 * so the controller can perform the check on the player's turn 
@@ -85,28 +105,6 @@ public class View extends Observable<Change> implements Observer<Change> {
 			 * as a remember:
 			 * interface with default methods that parse each field of the action
 			 */
-		
-		switch(command){
-			case Commands.QUIT:{
-				break;
-			}
-			case Commands.BACK:
-			case Commands.MAIN_ACTION:
-			case Commands.QUICK_ACTION:{
-				state.doAction(this, command);
-				break;
-			}
-			case Commands.STATISTICS:{
-				System.out.println(peeker.getStatsPlayer(this.playerID).toString());
-				break;
-			}
-			case Commands.SKIP:{
-				this.update(command);
-				break;
-			}
-			default: 
-				System.out.println("Command not existing! Retry");
-		}
 	}	
 
 	public void update(Change change) {
