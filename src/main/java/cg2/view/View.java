@@ -79,6 +79,12 @@ public class View extends Observable<Change> implements Observer<Change> {
 			change.addPermit(storage.retrievePermit(Integer.parseInt(command)));
 			this.notifyObservers(change);
 		}
+		else if(state.equals(ActionState.class));
+			/*
+			 * TODO when Pake's method is online
+			 * as a remember:
+			 * interface with default methods that parse each field of the action
+			 */
 		
 		switch(command){
 			case Commands.QUIT:{

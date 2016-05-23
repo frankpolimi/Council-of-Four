@@ -17,6 +17,7 @@ import cg2.model.BuildingPermit;
 import cg2.model.City;
 import council.Council;
 import council.Councillor;
+import politics.PoliticsCard;
 import topology.Region;
 /**
  * @author Francesco Vetr�
@@ -77,36 +78,58 @@ public class ActionState implements State {
 				if(actionClass.equals(AcquirePermit.class))
 					this.displayPermits(view.getPeeker().getRegion());
 				else
-					System.out.println(view.getPeeker().getPlayerPermit(
+					this.displayPermits(view.getPeeker().getPlayerPermit(
 							view.getPlayerID()));
 			else if(field.getClass().equals(City.class))
-				System.out.println(view.getPeeker().getCities());
+				this.displayCities(view.getPeeker().getCities());
 			else if(field.getClass().equals(List.class))
-				System.out.println(view.getPeeker().getPlayerPolitic(
+				this.displayPolitics(view.getPeeker().getPlayerPolitic(
 						view.getPlayerID()));
 			else if(field.getClass().equals(Councillor.class))
-				System.out.println(view.getPeeker().getAvailableCouncillor());
+				this.displayCouncillor(view.getPeeker().getAvailableCouncillor());
 		}
 	}
 	
+	private void displayCouncillor(List<Councillor> availableCouncillor) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void displayPolitics(List<PoliticsCard> playerPolitic) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void displayCities(List<City> cities) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void displayPermits(List<BuildingPermit> playerPermit) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	private void displayPermits(Set<Region> regions) {
 		for(Region r : regions){
 			int i = 0;
 			System.out.println(r.getName());
 			for(BuildingPermit b : r.getPermitsDeck().getFaceUpPermits()){
-				System.out.println(i+" - "+b.toString());
+				System.out.println("bp"+i+" - "+b.toString());
 				i++;
 			}
 		}
 	}
 
 	private void displayCouncil(Set<Region> regions, Council king) {
+		int i = 0;
 		for(Region r : regions){
 			System.out.println(r.getName());
-			System.out.println(r.getCouncil().toString());
+			System.out.println("c"+i+" - "+r.getCouncil().toString());
+			i++;
 		}
 		System.out.println("King's Council");
-		System.out.println(king.getCouncillors().toString());
+		System.out.println("c"+i+" - "+king.getCouncillors().toString());
 		
 	}
 
