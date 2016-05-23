@@ -4,6 +4,7 @@ import java.util.*;
 import cg2.model.City;
 import cg2.model.PermitsDeck;
 import council.Council;
+import council.RegionalCouncil;
 
 /**
  * @author Vitaliy Pakholko
@@ -12,7 +13,7 @@ public class Region
 {
 	private final String name;
 	private ArrayList<City> cities;
-	private final Council council;
+	private final RegionalCouncil council;
 	private final PermitsDeck permitsDeck;
 	
 	
@@ -26,7 +27,7 @@ public class Region
 		return cities;
 	}
 
-	public Region(String name, ArrayList<City> cities, Council council, PermitsDeck permitsDeck) 
+	public Region(String name, ArrayList<City> cities, RegionalCouncil council, PermitsDeck permitsDeck) 
 	{
 		this.name = name;
 		this.cities = cities;

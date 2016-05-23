@@ -346,7 +346,7 @@ public class MapMaker {
 			}
 			
 			RegionalCouncil rc=new RegionalCouncil(null,null);
-			this.extractNewCouncil(region,rc);
+			rc=(RegionalCouncil)this.extractNewCouncil(region,rc);
 			PermitsDeck permits= rc.getPermitsDeck();
 			r=new Region(regionName, arrayCity, rc, permits);
 			allRegions.add(r);
@@ -394,9 +394,7 @@ public class MapMaker {
 	
 	public static void main(String[] args)throws IOException, JDOMException {
 		MapMaker mp=new MapMaker();
-		//ExtendedGraph<City,DefaultEdge> graph=mp.generateMap(mp.createRegionSet());
-		KingsCouncil council=mp.getKingsCouncil();
-		System.out.println(council.toString());
+		Set<Region> regions=mp.createRegionSet();
 		
 	}
 	
