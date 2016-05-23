@@ -33,7 +33,6 @@ public class View extends Observable<Change> implements Observer<Change> {
 	private final int playerID;
 	private State state;
 	
-	
 	public View(Game game, int playerID) {
 		super();
 		game.registerObserver(this);
@@ -48,37 +47,6 @@ public class View extends Observable<Change> implements Observer<Change> {
 	 * @param command the input coming from the client
 	 */
 	public void input(String command){
-		/*
-		 * is better to include the viewID (playerID) with the action
-		 * so the controller can perform the check on the player's turn 
-		 */
-		if(state.equals(QuickState.class))
-			switch(command){
-			case Commands.ENGAGE_ASSISTANTS:{
-				this.notifyObservers(new ActionChange(this.playerID, new EngageAssistant()));
-				this.state = new StartState();
-				break;
-			}
-			case Commands.EXTRA_MAIN_ACTION:{
-				this.notifyObservers(new ActionChange(playerID, new ExtraMainAction()));
-				this.state = new StartState();
-				break;
-			}
-			default:
-				state.doAction(this, command);
-			}
-		else if(state.equals(MainState.class) || state.equals(ActionState.class))
-			state.doAction(this, command);
-		else if(state.equals(BonusState.class)){
-			BonusChange change = new BonusChange();
-			change.addBonus(storage.retrieveBonus(Integer.parseInt(command)));
-			this.notifyObservers(change);
-		}
-		else if(state.equals(PermitsState.class)){
-			PermitsChange change = new PermitsChange();
-			change.addPermit(storage.retrievePermit(Integer.parseInt(command)));
-			this.notifyObservers(change);
-		}
 		
 		switch(command){
 			case Commands.QUIT:{
@@ -98,9 +66,45 @@ public class View extends Observable<Change> implements Observer<Change> {
 				this.update(command);
 				break;
 			}
-			default: 
-				System.out.println("Command not existing! Retry");
 		}
+		
+		/*
+		 * is better to include the viewID (playerID) with the action
+		 * so the controller can perform the check on the player's turn 
+		 */
+		if(state.getClass().equals(QuickState.class))
+			switch(command){
+			case Commands.ENGAGE_ASSISTANTS:{
+				this.notifyObservers(new ActionChange(this.playerID, new EngageAssistant()));
+				this.state = new StartState();
+				break;
+			}
+			case Commands.EXTRA_MAIN_ACTION:{
+				this.notifyObservers(new ActionChange(playerID, new ExtraMainAction()));
+				this.state = new StartState();
+				break;
+			}
+			default:
+				state.doAction(this, command);
+			}
+		else if(state.getClass().equals(MainState.class) || state.equals(ActionState.class))
+			state.doAction(this, command);
+		else if(state.getClass().equals(BonusState.class)){
+			BonusChange change = new BonusChange();
+			change.addBonus(storage.retrieveBonus(Integer.parseInt(command)));
+			this.notifyObservers(change);
+		}
+		else if(state.getClass().equals(PermitsState.class)){
+			PermitsChange change = new PermitsChange();
+			change.addPermit(storage.retrievePermit(Integer.parseInt(command)));
+			this.notifyObservers(change);
+		}
+		else if(state.getClass().equals(ActionState.class));
+			/*
+			 * TODO when Pake's method is online
+			 * as a remember:
+			 * interface with default methods that parse each field of the action
+			 */
 	}	
 
 	public void update(Change change) {

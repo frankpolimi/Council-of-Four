@@ -18,8 +18,16 @@ public class Main
 			
 			Scanner in = new Scanner(System.in);
 			
-			Player p1=new Player("Marco", 1, 10, 20, 10);
-			Player p2=new Player("Paolo", 1, 10, 21, 10);
+			Player p1 = null;
+			Player p2 = null;
+			
+			try {
+				p1 = new Player("Marco", 1, 10, 20, 10);
+				p2 = new Player("Paolo", 1, 10, 21, 10);
+			} catch (JDOMException | IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			List<Player> player=new ArrayList<>();
 			player.add(p1);
 			player.add(p2);

@@ -58,6 +58,9 @@ public class MainState implements State {
 					new ActionState(BuildEmproriumByPermit.class, view));
 			break;
 		}
+		case Commands.STATISTICS:
+		case Commands.QUIT:
+			break;
 		default:
 			System.out.println("No valid selection");
 		}

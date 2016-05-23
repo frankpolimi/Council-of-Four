@@ -10,6 +10,10 @@ public class ChangeFaceUpPermits extends QuickAction
 {
 	private PermitsDeck deck;
 	
+	public ChangeFaceUpPermits(PermitsDeck deck) {
+		this.deck = deck;
+	}
+	
 	@Override
 	public boolean takeAction(Game game)
 	{
