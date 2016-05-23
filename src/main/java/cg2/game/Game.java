@@ -1,10 +1,12 @@
 package cg2.game;
 
+import java.awt.Color;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
 
 import org.jdom2.JDOMException;
@@ -66,6 +68,7 @@ public class Game extends Observable<Change> {
 		this.nobilityLane=mp.createNobilityLane();
 		this.currentPlayer=this.players.get(0);
 		this.kingsPosition=this.map.getVertexByKey("J");
+		
 	}
 
 	/*
@@ -84,9 +87,53 @@ public class Game extends Observable<Change> {
 	}*/
 	
 	public void init(){
+		int playerNumber=this.players.size();
+		int div=Math.floorDiv(playerNumber, 4);
+		//appending PoliticsDeck
+		for(int i=0;i<div;i++){
+			this.politicsDeck.append();
+		}
+		this.politicsDeck.shuffle();
+		for(int i=0;i<playerNumber;i++){
+			Player current=this.players.get(i);
+			current.setCoins(10+i);
+			current.setAssistants(1+i);
+			this.politicsDeck.drawNCards(current);
+		}
 		
 	}
 	
+	public void initFor2Players(){
+		Random random=new Random();
+		this.init();
+		for(Region region:this.regions){
+			
+			//farsi dare il permesso
+			Color color;
+			do{
+				int r=random.nextInt(256);
+				int g=random.nextInt(256);
+				int b=random.nextInt(256);
+				color=new Color(r,g,b);
+			}while(isColorAlreadyCreated(color));
+			//inserirli nella mappa
+		}
+		
+	}
+	
+	public ExtendedGraph<City, DefaultEdge> getMap(){
+		return this.map;
+	}
+	
+	private boolean isColorAlreadyCreated(Color color){
+		boolean check=false;
+		for(Player p:this.players){
+			if(p.getChosenColor().equals(color)){
+				check=true;
+			}
+		}
+		return check;
+	}
 	public void endOfTheGame(List<Player> players) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException{
 		List<Player> copyList=new ArrayList<>();
 		for(int i=0;i<players.size();i++){
@@ -256,10 +303,22 @@ public class Game extends Observable<Change> {
 	
 
 	public static void main(String[]args) throws JDOMException, IOException{
-		Player p1=new Player("Marco", 1, 10, 20, 10);
-		Player p2=new Player("Paolo", 1, 10, 21, 10);
-		
-		
+		Player p1=new Player("Marco", 1, 10, 10);
+		Player p2=new Player("Paolo", 5, 10, 10);
+		Player p3=new Player("Mario", 4, 10, 2);
+		Player p4=new Player("Marco",2,10,2);
+		Player p5=new Player("Luigi",3,10,2);
+		List<Player> players=new ArrayList<>();
+		players.add(p1);
+		players.add(p2);
+		players.add(p3);
+		players.add(p4);
+		players.add(p5);
+		Game game=new Game(players);
+		System.out.println(game.players);
+		game.init();
+		System.out.println("DOPO");
+		System.out.println(game.players);
 		
 	}
 }
