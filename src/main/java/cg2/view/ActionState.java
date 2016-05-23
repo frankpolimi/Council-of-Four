@@ -36,20 +36,11 @@ public class ActionState implements State {
 	 * the fields of the action
 	 */
 	private Field[] fields;
-	PropertyDescriptor[] descriptor;
 	private final View view;
 	
 	public ActionState(Class<?> actionClass, View view) {
 		this.actionClass = actionClass;
-		BeanInfo info = null;
-		try {
-			info = Introspector.getBeanInfo(actionClass);
-		} catch (IntrospectionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		descriptor = info.getPropertyDescriptors();
-		this.fields = this.actionClass.getClass().getDeclaredFields();
+		this.fields = this.actionClass.getDeclaredFields();
 		this.view = view;
 	}
 
@@ -89,10 +80,10 @@ public class ActionState implements State {
 	 */
 	@Override
 	public void display() {
-		System.out.println("For the action the required input is: ");
+		System.out.println("For the action the required input is: ");	
 		for(int i = 0; i < fields.length; i++){
-			Class<?> field = descriptor[i].getClass();
-			if(field.getClass().equals(Council.class))
+			String field = fields[i].getName();
+			if(field.equals(Council.class.getSimpleName()))
 				this.displayCouncil(view.getPeeker().getRegion(), view.getPeeker().getKingCouncil());
 			else if(field.getClass().equals(BuildingPermit.class))
 				if(actionClass.equals(AcquirePermit.class))
@@ -227,6 +218,4 @@ public class ActionState implements State {
 			p.getPropertyType(); //Qua dovrei fare la stessa cosa col peek model? No, e' un suicidio, qua c'e' qualcosa di sbagliato
 		}
 	}
-	
-
 }
