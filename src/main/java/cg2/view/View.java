@@ -91,7 +91,7 @@ public class View extends Observable<Change> implements Observer<Change> {
 				break;
 			}
 			case Commands.STATISTICS:{
-				peeker.getStatsPlayer(this.playerID);
+				System.out.println(peeker.getStatsPlayer(this.playerID).toString());
 				break;
 			}
 			case Commands.SKIP:{
