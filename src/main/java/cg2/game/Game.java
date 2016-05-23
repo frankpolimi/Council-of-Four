@@ -107,7 +107,7 @@ public class Game extends Observable<Change> {
 		Random random=new Random();
 		this.init();
 		for(Region region:this.regions){
-			
+		
 			//farsi dare il permesso
 			Color color;
 			do{
@@ -143,19 +143,6 @@ public class Game extends Observable<Change> {
 		WinnerSelector winnerSelector=new WinnerSelector(copyList);
 		this.notifyObservers(new StateChange(new EndState(winnerSelector.getWinnerPlayer())));
 	}
-
-	private void resetActionCounters() {
-		mainActionCounter = 1;
-		quickActionCounter = 1;
-	}
-
-	private boolean checkEndOfGame() {
-		for(Player p: players)
-			if(p.getRemainingEmporiums() == 0)
-				return true;
-		return false;
-	}
-	
 	
 	/**
 	 * @author Vitaliy Pakholko
