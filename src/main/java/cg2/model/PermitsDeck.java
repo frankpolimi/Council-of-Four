@@ -45,10 +45,7 @@ public class PermitsDeck {
 		if(faceUpPermits.size()==2)
 		{
 			faceUpPermits.drainTo(buildingPermitsDeck);
-			for(int i=faceUpPermits.remainingCapacity();i>0;i--)
-			{
-				faceUpPermits.add(buildingPermitsDeck.remove(0));
-			}
+			
 		}
 		else throw new IllegalStateException("Not enough permits to change them, the deck is probably empty");
 	}
@@ -89,4 +86,27 @@ public class PermitsDeck {
 			p.toString();
 		}
 	}
+	
+	public BuildingPermit popPermit()
+	{
+		if(this.buildingPermitsDeck==null||this.buildingPermitsDeck.size()<=0)
+		{
+			throw new NullPointerException(); 
+		}
+		else
+			return this.buildingPermitsDeck.remove(0);
+	}
+	
+	public void faceUpInit()
+	{
+		if(this.buildingPermitsDeck==null||this.buildingPermitsDeck.size()<=faceUpPermits.size()-1)
+		{
+			throw new NullPointerException(); 
+		}
+		else for(int i=faceUpPermits.remainingCapacity();i>0;i--)
+		{
+			faceUpPermits.add(buildingPermitsDeck.remove(0));
+		}	
+	}
+	
 }
