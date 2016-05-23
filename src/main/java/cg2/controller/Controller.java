@@ -3,6 +3,7 @@
  */
 package cg2.controller;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -25,6 +26,7 @@ public class Controller implements Observer<Change>{
 	
 	private final Game game;
 	private boolean finalRound;
+	private List<Player> theLastPlayers;
 	/*
 	 *
 	 * private final Set<MainAction> mainActions;
@@ -42,6 +44,7 @@ public class Controller implements Observer<Change>{
 		this.game = game;
 		view.registerObserver(this);
 		this.finalRound=false;
+		this.theLastPlayers=new ArrayList<>();
 		/*
 		this.mainActions = new HashSet<MainAction>();
 		this.quickActions = new HashSet<QuickAction>();
@@ -89,16 +92,47 @@ public class Controller implements Observer<Change>{
 				this.finalRound=true;
 			}
 			
+			
 			if(game.getMainActionCounter()==0&&game.getQuickActionCounter()==0){
-				
+				Player player;
 				int currentIndex=game.getPlayers().indexOf(current);
 				if(currentIndex+1==game.getPlayers().size()){
-					game.setCurrentPlayer(game.getPlayers().get(0));
-					game.notifyObservers(new StateChange(new MarketState()));
+					player=game.getPlayers().get(0);
+					game.setCurrentPlayer(player);
+					if(!this.finalRound){
+						game.notifyObservers(new StateChange(new MarketState()));
+					}
 				}else{
-					game.setCurrentPlayer(game.getPlayers().get(currentIndex+1));
+					player=game.getPlayers().get(currentIndex+1);
+					game.setCurrentPlayer(player);
 				}
 				
+				if(this.finalRound){
+					game.getPlayers().remove(player);
+					this.theLastPlayers.add(player);
+				}
+								
+			}
+			
+			if(game.getPlayers().size()==0){
+				try {
+					game.endOfTheGame(this.theLastPlayers);
+				} catch (IllegalAccessException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IllegalArgumentException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (InvocationTargetException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (NoSuchMethodException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (SecurityException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 			game.notifyObservers(new ModelChange(game));
 		}

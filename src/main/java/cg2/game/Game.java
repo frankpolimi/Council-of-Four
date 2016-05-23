@@ -87,10 +87,10 @@ public class Game extends Observable<Change> {
 		
 	}
 	
-	public void endOfTheGame() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException{
+	public void endOfTheGame(List<Player> players) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException{
 		List<Player> copyList=new ArrayList<>();
-		for(int i=0;i<this.players.size();i++){
-			copyList.add(i, this.players.get(i));
+		for(int i=0;i<players.size();i++){
+			copyList.add(i, players.get(i));
 		}
 		
 		WinnerSelector winnerSelector=new WinnerSelector(copyList);
