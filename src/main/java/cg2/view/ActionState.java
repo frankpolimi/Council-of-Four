@@ -195,11 +195,16 @@ public class ActionState implements State {
 		int i = 0;
 		for(Region r : list){
 			System.out.println(r.getName());
-			System.out.println("c"+i+" - "+r.getCouncil().toString());
+			System.out.println("c"+i+" - ");
+			for(Councillor c : r.getCouncil().getCouncillors())
+				System.out.print(c.toString());
+			System.out.println();
 			i++;
 		}
 		System.out.println("King's Council");
-		System.out.println("kc"+" - "+king.getCouncillors().toString());
+		System.out.println("kc"+" - ");
+		for(Councillor c : king.getCouncillors())
+			System.out.print(c.toString());
 		
 	}
 
