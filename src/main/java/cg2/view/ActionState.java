@@ -187,6 +187,7 @@ public class ActionState implements State {
 	/**
 	 * display the councils in the game
 	 * notation cx stands for council number x and must be used for input
+	 * king's council is coded as kc
 	 * @param regions the regions in the game which holds the council
 	 * 				  it's used for the name of the region
 	 * @param king the king's council
@@ -199,7 +200,7 @@ public class ActionState implements State {
 			i++;
 		}
 		System.out.println("King's Council");
-		System.out.println("c"+i+" - "+king.getCouncillors().toString());
+		System.out.println("kc"+" - "+king.getCouncillors().toString());
 		
 	}
 
