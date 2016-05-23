@@ -26,8 +26,8 @@ public class WinnerSelector {
 		this.addTilesPoints();
 		//Nobility points
 		Player firstNobility=this.getMax(NOBILITYMETHOD);
-		firstNobility.setPoints(firstNobility.getPoints()+FIRSTNOBILITYPOINTS);
 		List<Player> firsts=this.sameLevel(firstNobility, NOBILITYMETHOD);
+		firstNobility.setPoints(firstNobility.getPoints()+FIRSTNOBILITYPOINTS);
 		if(firsts.size()>0){
 			for(Player p:firsts){
 				p.setPoints(p.getPoints()+FIRSTNOBILITYPOINTS);
@@ -51,7 +51,6 @@ public class WinnerSelector {
 		Player theFirstOne=this.getMax(POINTSMETHOD);
 		List<Player> others=this.sameLevel(theFirstOne, POINTSMETHOD);
 		if(others.size()>0){
-			others.add(theFirstOne);
 			return this.getMax(ASSISTANTANDCARDSMETHOD);
 		}else{
 			return theFirstOne;
@@ -87,8 +86,28 @@ public class WinnerSelector {
 				sameLevel.add(p);
 		}
 		this.players.add(player);
+		
 		return sameLevel;
 	}
 
+	public static void main(String[]args) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException{
+		
+		Player p1=new Player("Mario", 1, 10, 10, 2);
+		Player p2=new Player("Marco",2,10,10,2);
+		Player p3=new Player("Luigi",3,10,10,2);
+		p1.setNobilityPoints(10);
+		p2.setNobilityPoints(15);
+		p3.setNobilityPoints(10);
+		List<Player> players=new ArrayList<>();
+		players.add(p1);
+		players.add(p2);
+		players.add(p3);
+		WinnerSelector ws=new WinnerSelector(players);
+		
+		ws.getWinnerPlayer();
+		
+		
+		
+	}
 }
 
