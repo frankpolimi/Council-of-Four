@@ -76,6 +76,4 @@ public class BuildEmporiumByKing extends MainAction
 		this.city = city;
 	}
 	
-	
-	
 }

@@ -138,4 +138,8 @@ public class View extends Observable<Change> implements Observer<Change> {
 		return peeker;
 	}
 
+	public int getPlayerID() {
+		return playerID;
+	}
+
 }
