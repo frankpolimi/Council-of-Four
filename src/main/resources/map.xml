@@ -351,5 +351,5 @@
 			<bonus className="PointBonus" amount="3"></bonus>
 		</position>
 	</nobilityLane>
-	
+	<emporiums number=10></emporiums>
 </map>

@@ -22,8 +22,8 @@ public class Main
 			Player p2 = null;
 			
 			try {
-				p1 = new Player("Marco", 1, 10, 20, 10);
-				p2 = new Player("Paolo", 1, 10, 21, 10);
+				p1 = new Player("Marco", 1, 10, 0);
+				p2 = new Player("Paolo", 2, 11, 1);
 			} catch (JDOMException | IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
