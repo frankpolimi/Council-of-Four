@@ -35,9 +35,18 @@ public class City  extends Bonusable{
 	
 	public void addEmporium(Player player)
 	{
-		Emporium e=new Emporium(player, this);
+		Emporium e=new Emporium(player, this,player.getChosenColor());
 		emporiums.add(e);
 		player.addEmporium(e);
+	}
+	/**
+	 * This one is used only for the 2-players initialization, because it's necessary to put random emporiums not linked with any player.
+	 * @param color
+	 */
+	public void addEmporium(Color color)
+	{
+		Emporium e=new Emporium(null, this, color);
+		emporiums.add(e);
 	}
 	
 

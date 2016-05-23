@@ -107,8 +107,8 @@ public class Game extends Observable<Change> {
 		Random random=new Random();
 		this.init();
 		for(Region region:this.regions){
-		
-			//farsi dare il permesso
+			BuildingPermit permit=region.getPermitsDeck().popPermit();
+			Set<City> buildingCities=permit.getBuildingAvaliableCities();
 			Color color;
 			do{
 				int r=random.nextInt(256);
@@ -116,7 +116,11 @@ public class Game extends Observable<Change> {
 				int b=random.nextInt(256);
 				color=new Color(r,g,b);
 			}while(isColorAlreadyCreated(color));
-			//inserirli nella mappa
+
+			for(City city:buildingCities){
+				city.addEmporium(color);
+			}
+			
 		}
 		
 	}
