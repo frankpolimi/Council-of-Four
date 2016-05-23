@@ -4,13 +4,12 @@
 package cg2.view;
 
 import actions.AcquirePermit;
-import actions.Action;
 import actions.BuildEmporiumByKing;
 import actions.BuildEmproriumByPermit;
 import actions.ElectCouncillor;
 
 /**
- * @author Francesco Vetrò
+ * @author Francesco Vetrï¿½
  *
  */
 public class MainState implements State {
@@ -44,19 +43,19 @@ public class MainState implements State {
 		}
 		case Commands.ACQUIRE_PERMIT:
 			view.setState(
-					new ActionState(AcquirePermit.class, view.getPeeker()));
+					new ActionState(AcquirePermit.class, view));
 			break;
 		case Commands.BUILD_EMPORIUM_BY_KING:
 			view.setState(
-					new ActionState(BuildEmporiumByKing.class, view.getPeeker()));
+					new ActionState(BuildEmporiumByKing.class, view));
 			break;
 		case Commands.ELECT_COUNCILLOR:
 			view.setState(
-					new ActionState(ElectCouncillor.class, view.getPeeker()));
+					new ActionState(ElectCouncillor.class, view));
 			break;
 		case Commands.BUILD_EMPORIUM_BY_PERMIT:{
 			view.setState(
-					new ActionState(BuildEmproriumByPermit.class, view.getPeeker()));
+					new ActionState(BuildEmproriumByPermit.class, view));
 			break;
 		}
 		default:

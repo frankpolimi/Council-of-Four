@@ -9,11 +9,14 @@ import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.util.List;
 import java.util.Set;
 
-import actions.Action;
+import actions.AcquirePermit;
 import cg2.model.BuildingPermit;
+import cg2.model.City;
 import council.Council;
+import council.Councillor;
 import topology.Region;
 /**
  * @author Francesco Vetr�
@@ -29,12 +32,12 @@ public class ActionState implements State {
 	 * the fields of the action
 	 */
 	private Field[] fields;
-	private final PeekModel peeker;
+	private final View view;
 	
-	public ActionState(Class<?> actionClass, PeekModel peeker) {
+	public ActionState(Class<?> actionClass, View view) {
 		this.actionClass = actionClass;
 		this.fields = this.actionClass.getClass().getDeclaredFields();
-		this.peeker = peeker;
+		this.view = view;
 	}
 
 	/**
@@ -69,9 +72,20 @@ public class ActionState implements State {
 		for(int i = 0; i < fields.length; i++){
 			Class<?> field = fields[i].getType();
 			if(field.getClass().equals(Council.class))
-				this.displayCouncil(peeker.getRegion(), peeker.getKingCouncil());
+				this.displayCouncil(view.getPeeker().getRegion(), view.getPeeker().getKingCouncil());
 			else if(field.getClass().equals(BuildingPermit.class))
-				this.displayPermits(peeker.getRegion());
+				if(actionClass.equals(AcquirePermit.class))
+					this.displayPermits(view.getPeeker().getRegion());
+				else
+					System.out.println(view.getPeeker().getPlayerPermit(
+							view.getPlayerID()));
+			else if(field.getClass().equals(City.class))
+				System.out.println(view.getPeeker().getCities());
+			else if(field.getClass().equals(List.class))
+				System.out.println(view.getPeeker().getPlayerPolitic(
+						view.getPlayerID()));
+			else if(field.getClass().equals(Councillor.class))
+				System.out.println(view.getPeeker().getAvailableCouncillor());
 		}
 	}
 	

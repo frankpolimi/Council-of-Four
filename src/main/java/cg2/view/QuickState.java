@@ -48,12 +48,12 @@ public class QuickState implements State {
 		}
 		case Commands.CHANGE_FACE_UP_PERMITS:{
 			view.setState(
-					new ActionState(ChangeFaceUpPermits.class, view.getPeeker()));
+					new ActionState(ChangeFaceUpPermits.class, view));
 			break;
 		}
 		case Commands.ELECT_COUNCILLOR_BY_ASSISTANT:{
 			view.setState(
-					new ActionState(ElectCouncillorByAssistant.class, view.getPeeker()));
+					new ActionState(ElectCouncillorByAssistant.class, view));
 			break;
 		}
 		default:
