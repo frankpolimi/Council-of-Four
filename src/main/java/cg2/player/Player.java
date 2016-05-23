@@ -34,7 +34,7 @@ public class Player {
 	private final List<BuildingPermit> buildingPermits;
 	private final List<BuildingPermit> usedBuildingPermits;
 	
-	public Player(String name, int playerID, int remainingEmporiums, 
+	public Player(String name, int playerID, 
 			int coins, int assistants) throws JDOMException, IOException {
 		Random random=new Random();
 		MapMaker filePointer=new MapMaker();

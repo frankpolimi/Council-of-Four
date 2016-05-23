@@ -3,9 +3,12 @@ package cg2.game;
 import cg2.model.PointsTile;
 import cg2.player.Player;
 
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.*;
+
+import org.jdom2.JDOMException;
 
 public class WinnerSelector {
 	private List<Player> players;
@@ -90,11 +93,11 @@ public class WinnerSelector {
 		return sameLevel;
 	}
 
-	public static void main(String[]args) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException{
+	public static void main(String[]args) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, JDOMException, IOException{
 		
-		Player p1=new Player("Mario", 1, 10, 10, 2);
-		Player p2=new Player("Marco",2,10,10,2);
-		Player p3=new Player("Luigi",3,10,10,2);
+		Player p1=new Player("Mario", 1, 10, 2);
+		Player p2=new Player("Marco",2,10, 2);
+		Player p3=new Player("Luigi",3,10, 2);
 		p1.setNobilityPoints(10);
 		p2.setNobilityPoints(15);
 		p3.setNobilityPoints(10);

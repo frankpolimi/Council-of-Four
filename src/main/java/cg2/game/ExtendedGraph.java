@@ -8,9 +8,12 @@ import org.jgrapht.graph.SimpleGraph;
 import org.jgrapht.graph.Subgraph;
 import org.jgrapht.graph.UndirectedSubgraph;
 
+import java.io.IOException;
 import java.util.*;
 import cg2.model.*;
+import topology.Region;
 
+import org.jdom2.JDOMException;
 import org.jgrapht.UndirectedGraph;
 import org.jgrapht.alg.ConnectivityInspector;
 import org.jgrapht.alg.DijkstraShortestPath;
@@ -24,9 +27,11 @@ public class ExtendedGraph<V extends City,E> extends SimpleGraph<V, E> {
 	 * 
 	 */
 	private static final long serialVersionUID = 6185214971194227862L;//spero esso vada bene!
-
+	private final Class<? extends E> type;
+	
 	public ExtendedGraph(Class<? extends E> edgeClass) {
 		super(edgeClass);
+		type=edgeClass;
 	}
 	
 	/**
@@ -95,7 +100,18 @@ public class ExtendedGraph<V extends City,E> extends SimpleGraph<V, E> {
 		
 	}
 
+	@Override
+	public ExtendedGraph<V,E> clone(){
+		ExtendedGraph<V,E> cloned=new ExtendedGraph<>(type);
+		Set<V> vertex=this.vertexSet();
+		Set<E> edges=this.edgeSet();
+		for(V v:vertex)
+			cloned.addVertex(v);
+		for(E e:edges)
+			cloned.addEdge(this.getEdgeSource(e), this.getEdgeTarget(e));
+		
+		return cloned;
+	}
 	
-	
-	
+
 }
