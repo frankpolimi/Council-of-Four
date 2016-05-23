@@ -83,22 +83,22 @@ public class ActionState implements State {
 		System.out.println("For the action the required input is: ");	
 		for(int i = 0; i < fields.length; i++){
 			String field = fields[i].getName();
-			if(field.equals(Council.class.getSimpleName()))
+			if(field.equals(Council.class.getSimpleName().toLowerCase()))
 				this.displayCouncil(view.getPeeker().getRegion(), view.getPeeker().getKingCouncil());
-			else if(field.getClass().equals(BuildingPermit.class))
-				if(actionClass.equals(AcquirePermit.class))
+			else if(field.getClass().equals(BuildingPermit.class.getSimpleName().toLowerCase()))
+				if(actionClass.equals(AcquirePermit.class.getSimpleName().toLowerCase()))
 					this.displayPermits(view.getPeeker().getRegion());
 				else
 					this.displayPermits(view.getPeeker().getPlayerPermit(
 							view.getPlayerID()));
-			else if(field.getClass().equals(City.class))
+			else if(field.getClass().equals(City.class.getSimpleName().toLowerCase()))
 				this.displayCities(view.getPeeker().getCities());
-			else if(field.getClass().equals(List.class))
+			else if(field.getClass().equals(List.class.getSimpleName().toLowerCase()))
 				this.displayPolitics(view.getPeeker().getPlayerPolitic(
 						view.getPlayerID()));
-			else if(field.getClass().equals(Councillor.class))
+			else if(field.getClass().equals(Councillor.class.getSimpleName().toLowerCase()))
 				this.displayCouncillor(view.getPeeker().getAvailableCouncillor());
-			else if(field.getClass().equals(PermitsDeck.class))
+			else if(field.getClass().equals(PermitsDeck.class.getSimpleName().toLowerCase()))
 				this.displayDeck(view.getPeeker().getRegion());
 		}
 	}

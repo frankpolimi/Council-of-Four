@@ -61,8 +61,6 @@ public class MainState implements State {
 		case Commands.STATISTICS:
 		case Commands.QUIT:
 			break;
-		default:
-			System.out.println("No valid selection");
 		}
 	}
 
