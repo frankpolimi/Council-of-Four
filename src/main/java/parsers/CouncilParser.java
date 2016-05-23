@@ -12,13 +12,18 @@ public class CouncilParser
 		int n=0;
 		if(!inputToken.equals("kc"))
 		{
-			n=Integer.parseInt(inputToken.substring(1));
+			if(inputToken.startsWith("c"))
+			{
+				n=Integer.parseInt(inputToken.substring(1));
+				inputToken="c";
+			}
 		}
 		switch(inputToken)
 		{
 			case "kc": return model.getKingCouncil();
 			case "c": return model.getRegion().get(n).getCouncil();
-			default: return null;
 		}
+		
+		throw new IllegalArgumentException("Not valid parser command");
 	}
 }
