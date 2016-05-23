@@ -9,14 +9,16 @@ public class CouncilParser
 	
 	public Council parseCouncil(String inputToken)
 	{
+		int n=0;
 		if(!inputToken.equals("kc"))
 		{
-			int n=Integer.parseInt(inputToken.substring(1));
+			n=Integer.parseInt(inputToken.substring(1));
 		}
 		switch(inputToken)
 		{
 			case "kc": return model.getKingCouncil();
-			case "c"+Integer.parseInt(inputToken): break;
+			case "c": return model.getRegion().get(n).getCouncil();
+			default: return null;
 		}
 	}
 }
