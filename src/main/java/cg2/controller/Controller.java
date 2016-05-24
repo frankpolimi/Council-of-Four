@@ -10,12 +10,14 @@ import java.util.List;
 import java.util.Set;
 
 import actions.*;
+import bonus.Bonus;
 import cg2.game.Game;
 import cg2.model.BuildingPermit;
 import cg2.model.City;
 import cg2.observers.Observer;
 import cg2.player.Player;
 import cg2.view.MarketState;
+import cg2.view.StartState;
 import cg2.view.View;
 
 /**
@@ -81,19 +83,43 @@ public class Controller implements Observer<Change>{
 	
 	@Override
 	public void update(Change change){
-		ActionChange action = (ActionChange)change;
-		boolean log=action.getAction().takeAction(game);
+		//TURNO AZIONE
+		boolean log=true;
+		Player current=game.getCurrentPlayer();
+		
+		if(change instanceof ActionChange){
+			ActionChange action = (ActionChange)change;//CASTING SBAGLIATO!
+			log=action.getAction().takeAction(game);
+		}else if(change instanceof MarketChange){
+			MarketChange action= (MarketChange)change;
+			try {
+				game.getMarket().addProduct(action.getMarketObject());
+			} catch (NotEnoughResources e) {
+				log=false;
+			}
+			//log
+		}else if(change instanceof BonusChange){
+			BonusChange action=(BonusChange)change;
+			for(Bonus b:action.getBonusList()){
+				b.update(game);
+			}
+		}else{
+			PermitsChange action=(PermitsChange)change;
+			current.addBuildingPermit(action.getPermits().get(0));
+		}
+		
+		
+		//IL RAGIONAMENTO è SEMPRE A TURNI: SE SIAMO IN FASE NORMALE SI APPLICA L'AZIONE, SE NO SI INSERISCE L'OGGETTO NEL MARKET.
 		if(!log){
 			throw new IllegalStateException("The action is not valid");
-		}else{
-			
-			Player current=game.getCurrentPlayer();
-			if(current.getRemainingEmporiums()==0){
-				this.finalRound=true;
-			}
-			
-			
-			if(game.getMainActionCounter()==0&&game.getQuickActionCounter()==0){
+		}
+		
+		
+		if(current.getRemainingEmporiums()==0){
+			this.finalRound=true;
+		}
+
+		if(game.getMainActionCounter()==0&&game.getQuickActionCounter()==0){
 				Player nextPlayer;
 				int currentIndex=game.getPlayers().indexOf(current);
 				
@@ -101,7 +127,10 @@ public class Controller implements Observer<Change>{
 					nextPlayer=game.getPlayers().get(0);
 					game.setCurrentPlayer(nextPlayer);
 					if(!this.finalRound){
-						game.notifyObservers(new StateChange(new MarketState()));
+						if(change instanceof ActionChange)
+							game.notifyObservers(new StateChange(new MarketState()));
+						else if(change instanceof MarketChange)
+							game.notifyObservers(new StateChange(new StartState()));
 					}
 				}else{
 					nextPlayer=game.getPlayers().get(currentIndex+1);
@@ -134,9 +163,9 @@ public class Controller implements Observer<Change>{
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-			}
-			game.notifyObservers(new ModelChange(game));
 		}
+			game.notifyObservers(new ModelChange(game));
+		
 	}
 
 	/* (non-Javadoc)

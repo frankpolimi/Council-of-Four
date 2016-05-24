@@ -14,6 +14,7 @@ import org.jgrapht.graph.DefaultEdge;
 
 import cg2.controller.Change;
 import cg2.controller.StateChange;
+import cg2.market.Market;
 import cg2.model.*;
 import cg2.observers.Observable;
 import politics.PoliticsDeck;
@@ -40,6 +41,7 @@ public class Game extends Observable<Change> {
 	private final List<PointsTile> regionTileList;
 	private final NobilityLane nobilityLane;
 	private final ExtendedGraph<City,DefaultEdge> map;
+	private final Market market;
 	private City kingsPosition;
 	
 	/*
@@ -68,6 +70,7 @@ public class Game extends Observable<Change> {
 		this.nobilityLane=mp.createNobilityLane();
 		this.currentPlayer=this.players.get(0);
 		this.kingsPosition=this.map.getVertexByKey("J");
+		this.market=new Market();
 		if(this.players.size()>2){
 			this.init();
 		}else{
@@ -276,6 +279,15 @@ public class Game extends Observable<Change> {
 	public void setCurrentPlayer(Player currentPlayer) {
 		this.currentPlayer = currentPlayer;
 		
+	}
+	
+	
+
+	/**
+	 * @return the market
+	 */
+	public Market getMarket() {
+		return market;
 	}
 
 	/**

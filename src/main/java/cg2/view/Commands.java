@@ -29,4 +29,7 @@ public final class Commands {
 	public final static String ELECT_COUNCILLOR = "elect councillor";
 	public final static String BUILD_EMPORIUM_BY_PERMIT = "build emporium by permit";
 	
+	//market
+	public final static String ADD_PRODUCT= "add product";
+	public final static String TERMINATE_SELLING= "pass to the next player";
 }

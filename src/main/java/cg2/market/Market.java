@@ -1,4 +1,5 @@
 /**
+
  * 
  */
 package cg2.market;
@@ -16,7 +17,7 @@ import politics.PoliticsCard;
  * @param <T> the type of the object 
  *
  */
-public class Market<T> {
+public class Market {
 
 	private List<MarketObject<?>> products;
 	private int elementDisplayed;
@@ -160,4 +161,6 @@ public class Market<T> {
 					+customer.getCoins()+" instead of the "+x.getPrice()+" required");
 		
 	}
+	
+	
 }
