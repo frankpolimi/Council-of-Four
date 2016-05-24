@@ -38,7 +38,7 @@ public class Region
 	/**
 	 * @return the council
 	 */
-	public Council getCouncil() {
+	public RegionalCouncil getCouncil() {
 		return council;
 	}
 

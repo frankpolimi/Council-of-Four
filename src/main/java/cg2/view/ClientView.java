@@ -2,10 +2,13 @@ package cg2.view;
 
 import java.util.Scanner;
 
+import actions.Action;
+import actions.ElectCouncillor;
 import cg2.game.Game;
-import council.Council;
-import council.Councillor;
-import council.RegionalCouncil;
+import cg2.player.Player;
+
+import council.*;
+import politics.PoliticsCard;
 import topology.Region;
 
 import java.util.*;
@@ -60,6 +63,8 @@ public class ClientView {
 	}
 	
 	public void buildTheAction(int type, int select){
+		Action action;
+		Player current=game.getCurrentPlayer();
 		if(type==1){
 			switch(select){
 			case 1:
@@ -72,10 +77,41 @@ public class ClientView {
 				System.out.println("Select the councillor you would like");
 				int councillorIndex=this.selector(1,councillors.size());
 				Councillor councillorSelected=councillors.get(councillorIndex);
-				List<Council> councils=game.getAllCouncils();
+				List<Council> councils= game.getAllCouncils();
+				for(int i=0;i<councils.size();i++){
+					System.out.println((i+1)+"- "+councils.get(i).toString());
+				}
+				int councilIndex=this.selector(1, councils.size());
+				Council council=councils.get(councilIndex);
+				//action
+				action=new ElectCouncillor(councillorSelected, council);
+				break;
+			case 2:
+				System.out.println("Action Chosen: To Acquire a building permit");
+				System.out.println("Select the four cards that you would to spend for corrupting a council");
+				System.out.println("Your Cards:");
+				List<PoliticsCard> ownedCards=current.getCardsOwned();
+				ArrayList <PoliticsCard> selectedCards=new ArrayList<>();
+				for(int i=0;i<ownedCards.size();i++){
+					System.out.println((i+1)+"- "+ownedCards.get(i).toString());
+				}
+				for(int i=0;i<4;i++){
+					int cardsIndex=this.selector(1, ownedCards.size());
+					PoliticsCard card=ownedCards.get(cardsIndex);
+					selectedCards.add(card);
+				}
+				//select council
+				List<RegionalCouncil> regionalCouncils=game.getRegionalCouncils();
+				for(int i=0;i<regionalCouncils.size();i++){
+					System.out.println((i+1)+"- "+regionalCouncils.get(i).toString());
+				}
+				councilIndex=this.selector(1, regionalCouncils.size());
+				RegionalCouncil councilCorrupted=regionalCouncils.get(councilIndex);
+				System.out.println("Select the permit to acquire");
+				//manca metodo prelievo permesso
 				
 				
-					
+				
 			}
 			
 		}else{
@@ -84,6 +120,16 @@ public class ClientView {
 	}
 	
 	
+	
+	private Council selectCouncil(){
+		List<Council> councils=game.getAllCouncils();
+		for(int i=0;i<councils.size();i++){
+			System.out.println((i+1)+"- "+councils.get(i).toString());
+		}
+		int councilIndex=this.selector(1, councils.size());
+		Council council=councils.get(councilIndex);
+		return council;
+	}
 	
 	
 	private int selector(int min, int max){

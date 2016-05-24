@@ -20,6 +20,7 @@ import cg2.view.EndState;
 import council.Council;
 import council.Councillor;
 import council.KingsCouncil;
+import council.RegionalCouncil;
 import topology.*;
 
 /**
@@ -305,12 +306,20 @@ public class Game extends Observable<Change> {
 				+ map + ", kingsPosition=" + kingsPosition + ", currentPlayer=" + currentPlayer + ", regions="+this.regions+" ]";
 	}
 	
-	public List<Council> getAllCouncils(){
+	public List<RegionalCouncil> getRegionalCouncils(){
 		Set<Region> regions=this.getRegions();
-		List<Council> councils=new ArrayList<>();
+		List<RegionalCouncil> regional=new ArrayList<>();
 		for(Region r:regions){
-			councils.add(r.getCouncil());
+			regional.add(r.getCouncil());
 		}
+		
+		return regional;
+	}
+	
+	public List<Council> getAllCouncils(){
+		List<RegionalCouncil> regCouncils=this.getRegionalCouncils();
+		List<Council> councils=new ArrayList<>();
+		councils.addAll(regCouncils);
 		councils.add(this.kingsCouncil);
 		return councils;
 	}
