@@ -12,26 +12,23 @@ import cg2.player.Player;
  *
  */
 public class Emporium {
-	private final Player player;
+	
 	private final City city;
 	private final Color color;
 	
 	/**
 	 * 
-	 * @param p is the ref of the player that would to build. It can be null when the emporium is not linked with a player
 	 * @param c is the city in which the emporium is built
-	 * @param color is the color of the emporium. It's passed through getChosenColor() method of Player class, if this is linked with a player,
-	 * else it's passed by the programmer.
+	 * @param color is the color of the emporium.
 	 * @throws NullPointerException if color or city is null
 	 */
 	
 	//VALUTARE SE è IL CASO DI TOGLIERE IL REF DI PLAYER PER NON CREARE AMBIGUITà!!!
-	public Emporium(Player p, City c, Color color){
+	public Emporium(City c, Color color){
 		if(c==null||color==null){
 			throw new NullPointerException("one either Color or city is null");
 		}
 		
-		player=p;
 		city = c;
 		this.color=color;
 	}
@@ -45,14 +42,6 @@ public class Emporium {
 	}
 
 
-
-	/**
-	 * @return the player
-	 */
-	public Player getPlayer() {
-		return player;
-	}
-	
 	/**
 	 * @return the city
 	 */
@@ -67,6 +56,36 @@ public class Emporium {
 	public String toString() {
 		return city.toString();
 	}
+
+
+
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Emporium other = (Emporium) obj;
+		if (city == null) {
+			if (other.city != null)
+				return false;
+		} else if (!city.equals(other.city))
+			return false;
+		if (color == null) {
+			if (other.color != null)
+				return false;
+		} else if (!color.equals(other.color))
+			return false;
+		return true;
+	}
+	
+	
 	
 	
 	
