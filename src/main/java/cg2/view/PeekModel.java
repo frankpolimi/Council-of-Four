@@ -22,6 +22,10 @@ public class PeekModel {
 		this.game = game;
 	}
 	
+	public Player getCurrentPlayer(){
+		return game.getCurrentPlayer();
+	}
+	
 	public Player getStatsPlayer(int playerID){
 		for(Player p: game.getPlayers())
 			if(p.getPlayerID() == playerID)
