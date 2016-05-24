@@ -7,7 +7,6 @@ public class CouncilParser extends Parser
 	
 	public Council parseCouncil(String token)
 	{
-		int n=0;
 		if(!token.equals("kc"))
 		{
 			if(token.startsWith("co"))

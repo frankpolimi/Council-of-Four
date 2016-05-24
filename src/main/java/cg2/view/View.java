@@ -126,7 +126,7 @@ public class View extends Observable<Change> implements Observer<Change> {
 			 * interface with default methods that parse each field of the action
 			 */
 		}else if(state.getClass().equals(MarketState.class)){
-			
+			//MarketChange change=new MarketChange(view, marketObject);
 		}
 	}	
 
