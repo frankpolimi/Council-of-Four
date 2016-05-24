@@ -4,11 +4,7 @@
 package cg2.model;
 
 import java.awt.Color;
-import java.io.IOException;
 import java.util.*;
-
-import org.jdom2.JDOMException;
-
 import bonus.*;
 import bonus.bonusers.Bonusable;
 import cg2.player.Player;

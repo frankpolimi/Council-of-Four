@@ -9,10 +9,7 @@ import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Predicate;
-
 import actions.AcquirePermit;
 import actions.BuildEmporiumByKing;
 import cg2.model.BuildingPermit;
@@ -20,7 +17,6 @@ import cg2.model.City;
 import cg2.model.PermitsDeck;
 import council.Council;
 import council.Councillor;
-import council.KingsCouncil;
 import politics.PoliticsCard;
 import topology.Region;
 /**

@@ -5,15 +5,12 @@ package cg2.controller;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import actions.*;
 import bonus.Bonus;
 import cg2.game.Game;
 import cg2.model.BuildingPermit;
-import cg2.model.City;
 import cg2.observers.Observer;
 import cg2.player.Player;
 import cg2.view.MarketState;
