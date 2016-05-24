@@ -34,5 +34,13 @@ public class LocalStorage {
 	public BuildingPermit retrievePermit(int place){
 		return permits.get(place);
 	}
+	
+	public int getBonusLenght(){
+		return bonus.size();
+	}
+	
+	public int getPermitsLenght(){
+		return permits.size();
+	}
 
 }
