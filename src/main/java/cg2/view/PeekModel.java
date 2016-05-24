@@ -65,5 +65,5 @@ public class PeekModel {
 	public List<Councillor> getAvailableCouncillor() {
 		return game.getAvaliableCouncillor();
 	}
-
+	
 }

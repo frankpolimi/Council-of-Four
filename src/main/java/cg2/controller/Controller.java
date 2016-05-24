@@ -128,9 +128,9 @@ public class Controller implements Observer<Change>{
 					game.setCurrentPlayer(nextPlayer);
 					if(!this.finalRound){
 						if(change instanceof ActionChange)
-							game.notifyObservers(new StateChange(new MarketState()));
+							game.notifyObservers();
 						else if(change instanceof MarketChange)
-							game.notifyObservers(new StateChange(new StartState()));
+							game.notifyObservers(new StateChange(new MarketState()));
 					}
 				}else{
 					nextPlayer=game.getPlayers().get(currentIndex+1);
@@ -164,7 +164,7 @@ public class Controller implements Observer<Change>{
 					e.printStackTrace();
 				}
 		}
-			game.notifyObservers(new ModelChange(game));
+		game.notifyObservers(new ModelChange(game));
 		
 	}
 

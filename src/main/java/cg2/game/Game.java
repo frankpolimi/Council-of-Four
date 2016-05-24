@@ -296,22 +296,16 @@ public class Game extends Observable<Change> {
 	public KingsCouncil getKingsCouncil() {
 		return kingsCouncil;
 	}
-	
-
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return "Game [politicsDeck=" + politicsDeck + ", usedPolitics=" + usedPolitics + ",\n players=" + players
-				+ ",\n regions=" + regions + ",\n avaliableCouncillors=" + avaliableCouncillors + ",\n kingTileList="
-				+ kingTileList + ",\n colorTileList=" + colorTileList + ",\n regionTileList=" + regionTileList
-				+ ",\n nobilityLane=" + nobilityLane + ",\n map=" + map + ",\n kingsPosition=" + kingsPosition
-				+ ",\n currentPlayer=" + currentPlayer + ",\n mainActionCounter=" + mainActionCounter
-				+ ",\n quickActionCounter=" + quickActionCounter + "]";
+		return "GAME\n [kingsCouncil=" + kingsCouncil + ", kingTileList=" + kingTileList + ", colorTileList="
+				+ colorTileList + ", regionTileList=" + regionTileList + ", nobilityLane=" + nobilityLane + ", map="
+				+ map + ", kingsPosition=" + kingsPosition + ", currentPlayer=" + currentPlayer + ", regions="+this.regions+" ]";
 	}
-	
 
 	public static void main(String[]args) throws JDOMException, IOException{
 		Player p1=new Player("Marco", 1, 10, 10);
