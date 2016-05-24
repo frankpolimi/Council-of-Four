@@ -68,7 +68,11 @@ public class Game extends Observable<Change> {
 		this.nobilityLane=mp.createNobilityLane();
 		this.currentPlayer=this.players.get(0);
 		this.kingsPosition=this.map.getVertexByKey("J");
-		
+		if(this.players.size()>2){
+			this.init();
+		}else{
+			this.initFor2Players();
+		}
 	}
 
 	/*
