@@ -43,7 +43,6 @@ public class View extends Observable<Change> implements Observer<Change> {
 		this.playerID = playerID;
 		this.state = new StartState();
 	}
-
 	/**
 	 * retrieve the the input from the client and will start the
 	 * selection and the parsing 
@@ -121,7 +120,10 @@ public class View extends Observable<Change> implements Observer<Change> {
 			 * interface with default methods that parse each field of the action
 			 */
 		}else if(state.getClass().equals(MarketState.class)){
-			//MarketChange change=new MarketChange(view, marketObject);
+			switch(command){
+			case Commands.ADD_PRODUCT:
+				
+			}
 		}
 	}	
 
