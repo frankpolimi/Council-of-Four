@@ -9,7 +9,10 @@ import cg2.observers.*;
 import cg2.controller.ActionChange;
 import cg2.controller.BonusChange;
 import cg2.controller.Change;
+import cg2.controller.MarketChange;
+import cg2.controller.ModelChange;
 import cg2.controller.PermitsChange;
+import cg2.controller.StateChange;
 import cg2.game.Game;
 
 /**
@@ -91,13 +94,25 @@ public class View extends Observable<Change> implements Observer<Change> {
 			state.doAction(this, command);
 		else if(state.getClass().equals(BonusState.class)){
 			BonusChange change = new BonusChange();
-			change.addBonus(storage.retrieveBonus(Integer.parseInt(command)));
-			this.notifyObservers(change);
+			int sel = Integer.parseInt(command);
+			if(sel <= storage.getBonusLenght() && sel >= 0){
+				change.addBonus(storage.retrieveBonus(sel));
+				this.notifyObservers(change);
+				state.doAction(this, command);
+			}
+			else
+				System.out.println("No valid selection");
 		}
 		else if(state.getClass().equals(PermitsState.class)){
 			PermitsChange change = new PermitsChange();
-			change.addPermit(storage.retrievePermit(Integer.parseInt(command)));
-			this.notifyObservers(change);
+			int sel = Integer.parseInt(command);
+			if(sel <= storage.getBonusLenght() && sel >= 0){
+				change.addPermit(storage.retrievePermit(sel));
+				state.doAction(this, command);
+				this.notifyObservers(change);
+			}
+			else
+				System.out.println("No valid selection");
 		}
 		else if(state.getClass().equals(ActionState.class)){
 			/*
@@ -106,7 +121,7 @@ public class View extends Observable<Change> implements Observer<Change> {
 			 * interface with default methods that parse each field of the action
 			 */
 		}else if(state.getClass().equals(MarketState.class)){
-			
+			//MarketChange change=new MarketChange(view, marketObject);
 		}
 	}	
 
@@ -119,6 +134,11 @@ public class View extends Observable<Change> implements Observer<Change> {
 		else if(change.getClass().equals(PermitsChange.class)){
 			PermitsChange p = (PermitsChange)change;
 			this.state = new PermitsState(p.getPermits());
+		}else if(change instanceof StateChange){
+			this.state=((StateChange) change).getStateChanged();
+			
+		}else if(change instanceof ModelChange){
+			System.out.println(((ModelChange)change).toString());
 		}
 	}
 
