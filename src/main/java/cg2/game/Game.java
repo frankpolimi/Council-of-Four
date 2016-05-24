@@ -68,7 +68,11 @@ public class Game extends Observable<Change> {
 		this.nobilityLane=mp.createNobilityLane();
 		this.currentPlayer=this.players.get(0);
 		this.kingsPosition=this.map.getVertexByKey("J");
-		
+		if(this.players.size()>2){
+			this.init();
+		}else{
+			this.initFor2Players();
+		}
 	}
 
 	/*
@@ -101,6 +105,9 @@ public class Game extends Observable<Change> {
 			this.politicsDeck.drawNCards(current);
 		}
 		
+		for(Region r:this.regions){
+			r.getPermitsDeck().faceUpInit();
+		}
 	}
 	
 	public void initFor2Players(){
@@ -109,6 +116,7 @@ public class Game extends Observable<Change> {
 		for(Region region:this.regions){
 			BuildingPermit permit=region.getPermitsDeck().popPermit();
 			Set<City> buildingCities=permit.getBuildingAvaliableCities();
+			
 			Color color;
 			do{
 				int r=random.nextInt(256);
@@ -120,7 +128,7 @@ public class Game extends Observable<Change> {
 			for(City city:buildingCities){
 				city.addEmporium(color);
 			}
-			
+			region.getPermitsDeck().faceUpInit();
 		}
 		
 	}
@@ -307,9 +315,13 @@ public class Game extends Observable<Change> {
 		players.add(p5);
 		Game game=new Game(players);
 		System.out.println(game.players);
-		game.init();
-		System.out.println("DOPO");
-		System.out.println(game.players);
+		
+		
+		
+		System.out.println("Mappa PRIMA");
+		ExtendedGraph<City, DefaultEdge> map=game.getMap();
 		
 	}
+	
+	
 }
