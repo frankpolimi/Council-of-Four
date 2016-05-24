@@ -14,11 +14,13 @@ import java.util.List;
 import java.util.function.Predicate;
 
 import actions.AcquirePermit;
+import actions.BuildEmporiumByKing;
 import cg2.model.BuildingPermit;
 import cg2.model.City;
 import cg2.model.PermitsDeck;
 import council.Council;
 import council.Councillor;
+import council.KingsCouncil;
 import politics.PoliticsCard;
 import topology.Region;
 /**
@@ -81,27 +83,42 @@ public class ActionState implements State {
 	public void display() {
 		System.out.println("For the action the required input is: ");	
 		for(int i = 0; i < fields.length; i++){
-			String field = fields[i].getName();
-			if(field.equals(Council.class.getSimpleName().toLowerCase()))
-				this.displayCouncil(view.getPeeker().getRegion(), view.getPeeker().getKingCouncil());
-			else if(field.getClass().equals(BuildingPermit.class.getSimpleName().toLowerCase()))
-				if(actionClass.equals(AcquirePermit.class.getSimpleName().toLowerCase()))
+			Class<?> field = fields[i].getType();
+			if(field.equals(Council.class))
+				if(actionClass.equals(BuildEmporiumByKing.class))
+					this.displayKing(view.getPeeker().getKingCouncil());
+				else
+					this.displayCouncil(view.getPeeker().getRegion(), view.getPeeker().getKingCouncil());
+			
+			else if(field.equals(BuildingPermit.class))
+				if(actionClass.equals(AcquirePermit.class))
 					this.displayPermitsGame(view.getPeeker().getRegion());
 				else
 					this.displayPermits(view.getPeeker().getPlayerPermit(
 							view.getPlayerID()));
-			else if(field.getClass().equals(City.class.getSimpleName().toLowerCase()))
+			
+			else if(field.equals(City.class))
 				this.displayCities(view.getPeeker().getCities());
-			else if(field.getClass().equals(List.class.getSimpleName().toLowerCase()))
+			
+			else if(field.equals(List.class))
 				this.displayPolitics(view.getPeeker().getPlayerPolitic(
 						view.getPlayerID()));
-			else if(field.getClass().equals(Councillor.class.getSimpleName().toLowerCase()))
+			
+			else if(field.equals(Councillor.class))
 				this.displayCouncillor(view.getPeeker().getAvailableCouncillor());
-			else if(field.getClass().equals(PermitsDeck.class.getSimpleName().toLowerCase()))
+			
+			else if(field.equals(PermitsDeck.class))
 				this.displayDeck(view.getPeeker().getRegion());
 		}
 	}
 	
+	private void displayKing(Council kingCouncil) {
+		System.out.println("King's Council");
+		System.out.println("kc"+" - ");
+		for(Councillor c : kingCouncil.getCouncillors())
+			System.out.print(c.toString());
+	}
+
 	/**
 	 * display the r* for identifying the region to change permits
 	 * @param decks the decks held by each region
@@ -201,10 +218,7 @@ public class ActionState implements State {
 			System.out.println();
 			i++;
 		}
-		System.out.println("King's Council");
-		System.out.println("kc"+" - ");
-		for(Councillor c : king.getCouncillors())
-			System.out.print(c.toString());
+		this.displayKing(king);
 		
 	}
 
