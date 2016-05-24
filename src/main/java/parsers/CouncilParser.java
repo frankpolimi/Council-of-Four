@@ -3,27 +3,22 @@ package parsers;
 import cg2.view.PeekModel;
 import council.Council;
 
-public class CouncilParser 
+public class CouncilParser extends Parser
 {
-	private PeekModel model;
 	
-	public Council parseCouncil(String inputToken)
+	public Council parseCouncil(String token)
 	{
 		int n=0;
-		if(!inputToken.equals("kc"))
+		if(!token.equals("kc"))
 		{
-			if(inputToken.startsWith("c"))
+			if(token.startsWith("co"))
 			{
-				n=Integer.parseInt(inputToken.substring(1));
-				inputToken="c";
+				n=Integer.parseInt(token.substring(2));
+				return model.getRegion().get(n-1).getCouncil();
 			}
 		}
-		switch(inputToken)
-		{
-			case "kc": return model.getKingCouncil();
-			case "c": return model.getRegion().get(n).getCouncil();
-		}
+		else return model.getKingCouncil();
 		
-		throw new IllegalArgumentException("Not valid parser command");
+		throw new IllegalArgumentException("Not valid council parser command");
 	}
 }
