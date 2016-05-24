@@ -3,15 +3,12 @@ package cg2.game;
 import java.awt.Color;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
-
 import org.jdom2.JDOMException;
 import org.jgrapht.graph.DefaultEdge;
-
 import cg2.controller.Change;
 import cg2.controller.StateChange;
 import cg2.market.Market;

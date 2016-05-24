@@ -2,12 +2,10 @@ package cg2.view;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import cg2.game.Game;
 import cg2.model.BuildingPermit;
 import cg2.model.City;
-import cg2.model.PermitsDeck;
 import cg2.player.Player;
 import council.Councillor;
 import council.KingsCouncil;

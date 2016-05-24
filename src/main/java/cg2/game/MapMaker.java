@@ -8,14 +8,9 @@ import java.util.concurrent.ArrayBlockingQueue;
 
 import org.jdom2.*;
 import org.jdom2.input.SAXBuilder;
-import org.jgrapht.*;
-import org.jgrapht.alg.VertexCovers;
 import org.jgrapht.graph.DefaultEdge;
-import org.jgrapht.graph.SimpleGraph;
-import org.jgrapht.graph.UnmodifiableUndirectedGraph;
 
 import bonus.*;
-import bonus.bonusers.*;
 import cg2.model.*;
 import politics.ColoredPoliticsCard;
 import politics.JollyPoliticsCard;
