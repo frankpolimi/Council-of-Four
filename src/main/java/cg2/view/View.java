@@ -35,6 +35,7 @@ public class View extends Observable<Change> implements Observer<Change> {
 	*/
 	private final int playerID;
 	private State state;
+	private Class<?> action;
 	
 	public View(Game game, int playerID) {
 		super();
@@ -42,6 +43,10 @@ public class View extends Observable<Change> implements Observer<Change> {
 		peeker = new PeekModel(game);
 		this.playerID = playerID;
 		this.state = new StartState();
+	}
+	
+	public void setActionClass(Class<?> action){
+		this.action = action;
 	}
 	/**
 	 * retrieve the the input from the client and will start the
@@ -94,7 +99,7 @@ public class View extends Observable<Change> implements Observer<Change> {
 		else if(state.getClass().equals(BonusState.class)){
 			BonusChange change = new BonusChange();
 			int sel = Integer.parseInt(command);
-			if(sel <= storage.getBonusLenght() && sel >= 0){
+			if(sel <= storage.getBonusLenght() && sel > 0){
 				change.addBonus(storage.retrieveBonus(sel));
 				this.notifyObservers(change);
 				state.doAction(this, command);
@@ -105,7 +110,7 @@ public class View extends Observable<Change> implements Observer<Change> {
 		else if(state.getClass().equals(PermitsState.class)){
 			PermitsChange change = new PermitsChange();
 			int sel = Integer.parseInt(command);
-			if(sel <= storage.getBonusLenght() && sel >= 0){
+			if(sel <= storage.getBonusLenght() && sel > 0){
 				change.addPermit(storage.retrievePermit(sel));
 				state.doAction(this, command);
 				this.notifyObservers(change);

@@ -47,11 +47,13 @@ public class QuickState implements State {
 			break;
 		}
 		case Commands.CHANGE_FACE_UP_PERMITS:{
+			view.setActionClass(ChangeFaceUpPermits.class);
 			view.setState(
 					new ActionState(ChangeFaceUpPermits.class, view));
 			break;
 		}
 		case Commands.ELECT_COUNCILLOR_BY_ASSISTANT:{
+			view.setActionClass(ElectCouncillorByAssistant.class);
 			view.setState(
 					new ActionState(ElectCouncillorByAssistant.class, view));
 			break;

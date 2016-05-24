@@ -3,12 +3,7 @@
  */
 package cg2.view;
 
-import java.beans.BeanInfo;
-import java.beans.IntrospectionException;
-import java.beans.Introspector;
-import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import actions.AcquirePermit;
 import actions.BuildEmporiumByKing;
@@ -39,25 +34,6 @@ public class ActionState implements State {
 		this.actionClass = actionClass;
 		this.fields = this.actionClass.getDeclaredFields();
 		this.view = view;
-	}
-
-	/**
-	 * method to parse the string and put them in the action field
-	 * @throws IntrospectionException 
-	 * @throws InvocationTargetException 
-	 * @throws IllegalArgumentException 
-	 * @throws IllegalAccessException 
-	 */
-	public void createAction(View view, String input) throws IntrospectionException, IllegalAccessException, IllegalArgumentException, InvocationTargetException
-	{
-		Object[] parameters=/*this.actionParser(input);*/input.split(" ");
-		int counter=parameters.length;
-		BeanInfo info= Introspector.getBeanInfo(actionClass);
-		PropertyDescriptor[] descriptor=info.getPropertyDescriptors();
-		for(PropertyDescriptor p:descriptor)
-		{
-			p.getWriteMethod().invoke(p, parameters[counter--]);
-		}
 	}
 
 	/* (non-Javadoc)
@@ -117,7 +93,7 @@ public class ActionState implements State {
 	 * @param region the regions in the game
 	 */
 	private void displayRegionalCouncil(List<Region> region) {
-		int i = 0;
+		int i = 1;
 		for(Region r : region){
 			System.out.println(r.getName());
 			System.out.println("c"+i+" - ");
@@ -144,7 +120,7 @@ public class ActionState implements State {
 	 * @param decks the decks held by each region
 	 */
 	private void displayDeck(List<Region> regions) {
-		int i = 0;
+		int i = 1;
 		for(Region r : regions){
 			System.out.println("r"+i+" - "+r.getName());
 			System.out.println(r.getPermitsDeck().getFaceUpPermits().toString());
@@ -158,7 +134,7 @@ public class ActionState implements State {
 	 * 								in the game
 	 */
 	private void displayCouncillor(List<Councillor> availableCouncillor) {
-		int i = 0;
+		int i = 1;
 		for(Councillor c : availableCouncillor){
 			System.out.println("ac"+i+" - "+c.toString());
 			i++;
@@ -170,7 +146,7 @@ public class ActionState implements State {
 	 * @param playerPolitic the politics card owned by the player
 	 */
 	private void displayPolitics(List<PoliticsCard> playerPolitic) {
-		int i = 0;
+		int i = 1;
 		for(PoliticsCard pc : playerPolitic){
 			System.out.println("po"+i+" - "+pc.toString());
 			i++;
@@ -193,7 +169,7 @@ public class ActionState implements State {
 	 * @param playerPermit only the unused permits owned by the player
 	 */
 	private void displayPermits(List<BuildingPermit> playerPermit) {
-		int i = 0;
+		int i = 1;
 		for(BuildingPermit b : playerPermit){
 			System.out.println("pe"+i+" - "+b.toString());
 			i++;
@@ -207,8 +183,8 @@ public class ActionState implements State {
 	 * @param regions the regions from the game
 	 */
 	private void displayPermitsGame(List<Region> regions) {
+		int i = 1;
 		for(Region r : regions){
-			int i = 0;
 			System.out.println(r.getName());
 			for(BuildingPermit b : r.getPermitsDeck().getFaceUpPermits()){
 				System.out.println("bp"+i+" - "+b.toString());
@@ -227,21 +203,5 @@ public class ActionState implements State {
 		this.displayRegionalCouncil(list);
 		this.displayKing(king);
 		
-	}
-
-	/**
-	 * insert method for parsing using string tokenizer &
-	 * use the string input from the method doAction
-	 * @throws IntrospectionException 
-	 */
-	
-	public void/*Object[]*/ actionParser(String parameters) throws IntrospectionException
-	{
-		BeanInfo info= Introspector.getBeanInfo(actionClass);
-		PropertyDescriptor[] descriptor=info.getPropertyDescriptors();
-		for(PropertyDescriptor p:descriptor)
-		{
-			p.getPropertyType(); //Qua dovrei fare la stessa cosa col peek model? No, e' un suicidio, qua c'e' qualcosa di sbagliato
-		}
 	}
 }
