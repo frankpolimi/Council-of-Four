@@ -25,10 +25,7 @@ public class PeekModel {
 	}
 	
 	public Player getStatsPlayer(int playerID){
-		for(Player p: game.getPlayers())
-			if(p.getPlayerID() == playerID)
-				return p;
-		return null;
+		return this.getPlayerByID(playerID);
 	}
 
 	public List<Region> getRegion() {
@@ -47,21 +44,29 @@ public class PeekModel {
 	}
 
 	public List<BuildingPermit> getPlayerPermit(int playerID) {
-		for(Player p : game.getPlayers())
-			if(p.getPlayerID() == playerID)
-				return p.getAllPermits();
-		return null;
+		return this.getPlayerByID(playerID).getAllPermits();
 	}
 	
 	public List<PoliticsCard> getPlayerPolitic(int playerID){
-		for(Player p : game.getPlayers())
-			if(p.getPlayerID() == playerID)
-				return p.getCardsOwned();
-		return null;
+			return this.getPlayerByID(playerID).getCardsOwned();
 	}
 
 	public List<Councillor> getAvailableCouncillor() {
 		return game.getAvaliableCouncillor();
 	}
 	
+	public List<BuildingPermit> getPlayerUsedPermits(int playerID){
+		return this.getPlayerByID(playerID).getUsedBuildingPermits();
+	}
+	
+	public int getPlayerAssistants(int playerID){
+		return this.getPlayerByID(playerID).getAssistants();
+	}
+	
+	public Player getPlayerByID(int playerID){
+		for(Player p : game.getPlayers())
+			if(p.getPlayerID() == playerID)
+				return p;
+		return null;
+	}
 }
