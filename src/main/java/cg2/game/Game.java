@@ -17,6 +17,7 @@ import cg2.observers.Observable;
 import politics.PoliticsDeck;
 import cg2.player.*;
 import cg2.view.EndState;
+import council.Council;
 import council.Councillor;
 import council.KingsCouncil;
 import topology.*;
@@ -302,6 +303,16 @@ public class Game extends Observable<Change> {
 		return "GAME\n [kingsCouncil=" + kingsCouncil + ", kingTileList=" + kingTileList + ", colorTileList="
 				+ colorTileList + ", regionTileList=" + regionTileList + ", nobilityLane=" + nobilityLane + ", map="
 				+ map + ", kingsPosition=" + kingsPosition + ", currentPlayer=" + currentPlayer + ", regions="+this.regions+" ]";
+	}
+	
+	public List<Council> getAllCouncils(){
+		Set<Region> regions=this.getRegions();
+		List<Council> councils=new ArrayList<>();
+		for(Region r:regions){
+			councils.add(r.getCouncil());
+		}
+		councils.add(this.kingsCouncil);
+		return councils;
 	}
 
 	public static void main(String[]args) throws JDOMException, IOException{
