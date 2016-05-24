@@ -6,7 +6,6 @@ public class PlayerPermitParser extends Parser
 {
 	public BuildingPermit parsePlayerPermit(String token)
 	{
-		int n;
 		if(token.startsWith("pe"))
 		{
 			n=Integer.parseInt(token.substring(2));

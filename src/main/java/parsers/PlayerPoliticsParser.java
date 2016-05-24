@@ -6,7 +6,6 @@ public class PlayerPoliticsParser extends Parser
 {
 	public PoliticsCard parsePlayerPolitics(String token)
 	{
-		int n;
 		if(token.startsWith("po"))
 		{
 			n=Integer.parseInt(token.substring(2));
