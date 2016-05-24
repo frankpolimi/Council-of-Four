@@ -84,29 +84,30 @@ public class ActionState implements State {
 		System.out.println("For the action the required input is: ");	
 		for(int i = 0; i < fields.length; i++){
 			Class<?> field = fields[i].getType();
+			//Council field
 			if(field.equals(Council.class))
 				if(actionClass.equals(BuildEmporiumByKing.class))
 					this.displayKing(view.getPeeker().getKingCouncil());
 				else
 					this.displayCouncil(view.getPeeker().getRegion(), view.getPeeker().getKingCouncil());
-			
+			//BuildingPermit field
 			else if(field.equals(BuildingPermit.class))
 				if(actionClass.equals(AcquirePermit.class))
 					this.displayPermitsGame(view.getPeeker().getRegion());
 				else
 					this.displayPermits(view.getPeeker().getPlayerPermit(
 							view.getPlayerID()));
-			
+			//City field
 			else if(field.equals(City.class))
 				this.displayCities(view.getPeeker().getCities());
-			
+			//PoliticsCard field TODO fix
 			else if(field.equals(List.class))
 				this.displayPolitics(view.getPeeker().getPlayerPolitic(
 						view.getPlayerID()));
-			
+			//Councillor field
 			else if(field.equals(Councillor.class))
 				this.displayCouncillor(view.getPeeker().getAvailableCouncillor());
-			
+			//Permitsdeck field
 			else if(field.equals(PermitsDeck.class))
 				this.displayDeck(view.getPeeker().getRegion());
 		}
