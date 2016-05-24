@@ -32,7 +32,7 @@ public class BonusState implements State {
 	 */
 	@Override
 	public void display() {
-		System.out.println("Insert the bonus's number you desire to acquire");
+		System.out.println("Insert the bonus' number you desire to acquire");
 		for(Bonus b : bonusList)
 			System.out.println(bonusList.indexOf(b)+" - "+b.toString());
 	}

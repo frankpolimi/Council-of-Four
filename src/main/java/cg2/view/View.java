@@ -94,13 +94,25 @@ public class View extends Observable<Change> implements Observer<Change> {
 			state.doAction(this, command);
 		else if(state.getClass().equals(BonusState.class)){
 			BonusChange change = new BonusChange();
-			change.addBonus(storage.retrieveBonus(Integer.parseInt(command)));
-			this.notifyObservers(change);
+			int sel = Integer.parseInt(command);
+			if(sel <= storage.getBonusLenght() && sel >= 0){
+				change.addBonus(storage.retrieveBonus(sel));
+				this.notifyObservers(change);
+				state.doAction(this, command);
+			}
+			else
+				System.out.println("No valid selection");
 		}
 		else if(state.getClass().equals(PermitsState.class)){
 			PermitsChange change = new PermitsChange();
-			change.addPermit(storage.retrievePermit(Integer.parseInt(command)));
-			this.notifyObservers(change);
+			int sel = Integer.parseInt(command);
+			if(sel <= storage.getBonusLenght() && sel >= 0){
+				change.addPermit(storage.retrievePermit(sel));
+				state.doAction(this, command);
+				this.notifyObservers(change);
+			}
+			else
+				System.out.println("No valid selection");
 		}
 		else if(state.getClass().equals(ActionState.class)){
 			/*
