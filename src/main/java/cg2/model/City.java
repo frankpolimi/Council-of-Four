@@ -4,7 +4,10 @@
 package cg2.model;
 
 import java.awt.Color;
+import java.io.IOException;
 import java.util.*;
+
+import org.jdom2.JDOMException;
 
 import bonus.*;
 import bonus.bonusers.Bonusable;
@@ -28,24 +31,38 @@ public class City  extends Bonusable{
 		cityColor=color;
 		bonusList = bonus;
 		emporiums=new ArrayList<>();
+		/*
 		for(Bonus b: bonus)
-			this.registerBonus(b);
+			this.registerBonus(b);*/
 		 
 	}
 	
+	/**
+	 * This method add an emporium in this city. 
+	 * @param player is the player that would to build the emporium
+	 * @throws NullPointerException if the player is null
+	 */
 	public void addEmporium(Player player)
 	{
-		Emporium e=new Emporium(player, this,player.getChosenColor());
+		if(player==null){
+			throw new NullPointerException("the player must be not null!");
+		}
+		
+		Emporium e=new Emporium(this, player.getChosenColor());
 		emporiums.add(e);
 		player.addEmporium(e);
 	}
 	/**
 	 * This one is used only for the 2-players initialization, because it's necessary to put random emporiums not linked with any player.
 	 * @param color
+	 * @throws NullPointerException if the color is null
 	 */
 	public void addEmporium(Color color)
 	{
-		Emporium e=new Emporium(null, this, color);
+		if(color==null){
+			throw new NullPointerException("The color must not be null");
+		}
+		Emporium e=new Emporium(this, color);
 		emporiums.add(e);
 	}
 	
@@ -86,7 +103,7 @@ public class City  extends Bonusable{
 	public boolean hasPlayerBuilt(Player player){
 		
 		for(Emporium e:this.emporiums){
-			if(e.getPlayer().equals(player)){
+			if(player.getEmporium().contains(e)){
 				return true;
 			}
 		}
@@ -173,6 +190,8 @@ public class City  extends Bonusable{
 	
 	/**
 	 * @return the linkedCities
+	 * @throws IOException 
+	 * @throws JDOMException 
 	 */
 	/*public Set<City> getLinkedCities() {
 		return linkedCities;
