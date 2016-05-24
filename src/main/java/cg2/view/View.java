@@ -35,6 +35,7 @@ public class View extends Observable<Change> implements Observer<Change> {
 	*/
 	private final int playerID;
 	private State state;
+	private Class<?> action;
 	
 	public View(Game game, int playerID) {
 		super();
@@ -42,6 +43,10 @@ public class View extends Observable<Change> implements Observer<Change> {
 		peeker = new PeekModel(game);
 		this.playerID = playerID;
 		this.state = new StartState();
+	}
+	
+	public void setActionClass(Class<?> action){
+		this.action = action;
 	}
 
 	/**
