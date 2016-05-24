@@ -14,11 +14,13 @@ import java.util.List;
 import java.util.function.Predicate;
 
 import actions.AcquirePermit;
+import actions.BuildEmporiumByKing;
 import cg2.model.BuildingPermit;
 import cg2.model.City;
 import cg2.model.PermitsDeck;
 import council.Council;
 import council.Councillor;
+import council.KingsCouncil;
 import politics.PoliticsCard;
 import topology.Region;
 /**
@@ -81,27 +83,66 @@ public class ActionState implements State {
 	public void display() {
 		System.out.println("For the action the required input is: ");	
 		for(int i = 0; i < fields.length; i++){
-			String field = fields[i].getName();
-			if(field.equals(Council.class.getSimpleName().toLowerCase()))
-				this.displayCouncil(view.getPeeker().getRegion(), view.getPeeker().getKingCouncil());
-			else if(field.getClass().equals(BuildingPermit.class.getSimpleName().toLowerCase()))
-				if(actionClass.equals(AcquirePermit.class.getSimpleName().toLowerCase()))
+			Class<?> field = fields[i].getType();
+			//Council field
+			if(field.equals(Council.class) || field.getSuperclass().equals(Council.class))
+				if(actionClass.equals(BuildEmporiumByKing.class))
+					this.displayKing(view.getPeeker().getKingCouncil());
+				else if(actionClass.equals(AcquirePermit.class))
+					this.displayRegionalCouncil(view.getPeeker().getRegion());
+				else
+					this.displayCouncil(view.getPeeker().getRegion(), view.getPeeker().getKingCouncil());
+			//BuildingPermit field
+			else if(field.equals(BuildingPermit.class))
+				if(actionClass.equals(AcquirePermit.class))
 					this.displayPermitsGame(view.getPeeker().getRegion());
 				else
 					this.displayPermits(view.getPeeker().getPlayerPermit(
 							view.getPlayerID()));
-			else if(field.getClass().equals(City.class.getSimpleName().toLowerCase()))
+			//City field
+			else if(field.equals(City.class))
 				this.displayCities(view.getPeeker().getCities());
-			else if(field.getClass().equals(List.class.getSimpleName().toLowerCase()))
+			//PoliticsCard field TODO fix
+			else if(field.equals(List.class))
 				this.displayPolitics(view.getPeeker().getPlayerPolitic(
 						view.getPlayerID()));
-			else if(field.getClass().equals(Councillor.class.getSimpleName().toLowerCase()))
+			//Councillor field
+			else if(field.equals(Councillor.class))
 				this.displayCouncillor(view.getPeeker().getAvailableCouncillor());
-			else if(field.getClass().equals(PermitsDeck.class.getSimpleName().toLowerCase()))
+			//Permitsdeck field
+			else if(field.equals(PermitsDeck.class))
 				this.displayDeck(view.getPeeker().getRegion());
 		}
 	}
 	
+	/**
+	 * display the regional councils
+	 * notation cx stands for council number x and must be used for input
+	 * @param region the regions in the game
+	 */
+	private void displayRegionalCouncil(List<Region> region) {
+		int i = 0;
+		for(Region r : region){
+			System.out.println(r.getName());
+			System.out.println("c"+i+" - ");
+			for(Councillor c : r.getCouncil().getCouncillors())
+				System.out.print(c.toString());
+			System.out.println();
+			i++;
+		}		
+	}
+
+	/**
+	 * display only the king's council with the notation kc
+	 * @param kingCouncil
+	 */
+	private void displayKing(Council kingCouncil) {
+		System.out.println("King's Council");
+		System.out.println("kc"+" - ");
+		for(Councillor c : kingCouncil.getCouncillors())
+			System.out.print(c.toString());
+	}
+
 	/**
 	 * display the r* for identifying the region to change permits
 	 * @param decks the decks held by each region
@@ -121,24 +162,21 @@ public class ActionState implements State {
 	 * 								in the game
 	 */
 	private void displayCouncillor(List<Councillor> availableCouncillor) {
-		List<Councillor> copy = new ArrayList<Councillor>();
-		copy.addAll(availableCouncillor);
 		int i = 0;
-		for(Councillor c : copy){
+		for(Councillor c : availableCouncillor){
 			System.out.println("ac"+i+" - "+c.toString());
-			copy.removeIf(Predicate.isEqual(c.getColor()));
 			i++;
 		}
 	}
 	
 	/**
-	 * display the politics card of the player with the code pc*
+	 * display the politics card of the player with the code po*
 	 * @param playerPolitic the politics card owned by the player
 	 */
 	private void displayPolitics(List<PoliticsCard> playerPolitic) {
 		int i = 0;
 		for(PoliticsCard pc : playerPolitic){
-			System.out.println("pc"+i+" - "+pc.toString());
+			System.out.println("po"+i+" - "+pc.toString());
 			i++;
 		}
 		
@@ -161,7 +199,7 @@ public class ActionState implements State {
 	private void displayPermits(List<BuildingPermit> playerPermit) {
 		int i = 0;
 		for(BuildingPermit b : playerPermit){
-			System.out.println("bpo"+i+" - "+b.toString());
+			System.out.println("pe"+i+" - "+b.toString());
 			i++;
 		}
 		
@@ -185,26 +223,13 @@ public class ActionState implements State {
 
 	/**
 	 * display the councils in the game
-	 * notation cx stands for council number x and must be used for input
-	 * king's council is coded as kc
 	 * @param list the regions in the game which holds the council
 	 * 				  it's used for the name of the region
 	 * @param king the king's council
 	 */
 	private void displayCouncil(List<Region> list, Council king) {
-		int i = 0;
-		for(Region r : list){
-			System.out.println(r.getName());
-			System.out.println("c"+i+" - ");
-			for(Councillor c : r.getCouncil().getCouncillors())
-				System.out.print(c.toString());
-			System.out.println();
-			i++;
-		}
-		System.out.println("King's Council");
-		System.out.println("kc"+" - ");
-		for(Councillor c : king.getCouncillors())
-			System.out.print(c.toString());
+		this.displayRegionalCouncil(list);
+		this.displayKing(king);
 		
 	}
 
