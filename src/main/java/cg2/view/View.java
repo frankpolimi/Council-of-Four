@@ -100,7 +100,7 @@ public class View extends Observable<Change> implements Observer<Change> {
 		else if(state.getClass().equals(BonusState.class)){
 			BonusChange change = new BonusChange();
 			int sel = Integer.parseInt(command);
-			if(sel <= storage.getBonusLenght() && sel >= 0){
+			if(sel <= storage.getBonusLenght() && sel > 0){
 				change.addBonus(storage.retrieveBonus(sel));
 				this.notifyObservers(change);
 				state.doAction(this, command);
@@ -111,7 +111,7 @@ public class View extends Observable<Change> implements Observer<Change> {
 		else if(state.getClass().equals(PermitsState.class)){
 			PermitsChange change = new PermitsChange();
 			int sel = Integer.parseInt(command);
-			if(sel <= storage.getBonusLenght() && sel >= 0){
+			if(sel <= storage.getBonusLenght() && sel > 0){
 				change.addPermit(storage.retrievePermit(sel));
 				state.doAction(this, command);
 				this.notifyObservers(change);
