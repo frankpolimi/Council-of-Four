@@ -1,7 +1,6 @@
 package parsers;
 
 import cg2.model.City;
-import cg2.view.PeekModel;
 
 public class CityParser extends Parser
 {

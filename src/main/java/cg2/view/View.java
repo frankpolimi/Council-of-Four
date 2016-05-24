@@ -9,7 +9,10 @@ import cg2.observers.*;
 import cg2.controller.ActionChange;
 import cg2.controller.BonusChange;
 import cg2.controller.Change;
+import cg2.controller.MarketChange;
+import cg2.controller.ModelChange;
 import cg2.controller.PermitsChange;
+import cg2.controller.StateChange;
 import cg2.game.Game;
 
 /**
@@ -131,6 +134,11 @@ public class View extends Observable<Change> implements Observer<Change> {
 		else if(change.getClass().equals(PermitsChange.class)){
 			PermitsChange p = (PermitsChange)change;
 			this.state = new PermitsState(p.getPermits());
+		}else if(change instanceof StateChange){
+			this.state=((StateChange) change).getStateChanged();
+			
+		}else if(change instanceof ModelChange){
+			System.out.println(((ModelChange)change).toString());
 		}
 	}
 

@@ -5,7 +5,6 @@ package cg2.model;
 
 import java.awt.Color;
 
-import cg2.player.Player;
 
 /**
  * @author Emanuele Ricciardelli

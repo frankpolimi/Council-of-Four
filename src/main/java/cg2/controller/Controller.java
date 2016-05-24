@@ -5,15 +5,12 @@ package cg2.controller;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import actions.*;
 import bonus.Bonus;
 import cg2.game.Game;
 import cg2.model.BuildingPermit;
-import cg2.model.City;
 import cg2.observers.Observer;
 import cg2.player.Player;
 import cg2.view.MarketState;
@@ -128,9 +125,9 @@ public class Controller implements Observer<Change>{
 					game.setCurrentPlayer(nextPlayer);
 					if(!this.finalRound){
 						if(change instanceof ActionChange)
-							game.notifyObservers(new StateChange(new MarketState()));
+							game.notifyObservers();
 						else if(change instanceof MarketChange)
-							game.notifyObservers(new StateChange(new StartState()));
+							game.notifyObservers(new StateChange(new MarketState()));
 					}
 				}else{
 					nextPlayer=game.getPlayers().get(currentIndex+1);
@@ -164,7 +161,7 @@ public class Controller implements Observer<Change>{
 					e.printStackTrace();
 				}
 		}
-			game.notifyObservers(new ModelChange(game));
+		game.notifyObservers(new ModelChange(game));
 		
 	}
 

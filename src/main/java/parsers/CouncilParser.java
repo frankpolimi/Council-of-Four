@@ -1,6 +1,5 @@
 package parsers;
 
-import cg2.view.PeekModel;
 import council.Council;
 
 public class CouncilParser extends Parser

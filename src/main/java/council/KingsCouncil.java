@@ -2,7 +2,6 @@ package council;
 
 import java.util.concurrent.ArrayBlockingQueue;
 
-import cg2.model.PermitsDeck;
 
 /**
  * @author Vitaliy Pakholko
