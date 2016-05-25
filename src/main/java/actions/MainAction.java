@@ -12,7 +12,6 @@ public class MainAction extends Action
 	{
 		if(game.getMainActionCounter()>0)
 			return true;
-		System.out.println("The current player has already used all the avaiable main actions this turn");
 		return false;
 	}
 }

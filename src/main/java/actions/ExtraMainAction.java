@@ -7,10 +7,16 @@ import cg2.game.Game;
  */
 public class ExtraMainAction extends QuickAction 
 {
+
+	/**
+	 * The player pays 3 assistants to get an extra main action
+	 * @throws IllegalStateException if the player has no Quick actions left
+	 * @throws IllegalStateException if the player has not enough assistants
+	 */
 	public boolean takeAction(Game game)
 	{
 		if(!this.checkAction(game))
-			return false;
+			throw new IllegalStateException("Not enough Quick actions");
 		if(game.getCurrentPlayer().checkAssistants(3))
 		{
 			game.incrementMainActionCounter();
@@ -18,8 +24,7 @@ public class ExtraMainAction extends QuickAction
 		}
 		else
 		{
-			System.out.println("Not enought assistants to get an extra main action. An extra main action costs 3 assistants");
-			return false;
+			throw new IllegalStateException("Not enought assistants to get an extra main action. An extra main action costs 3 assistants");
 		}
 	}
 

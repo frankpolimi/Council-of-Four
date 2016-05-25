@@ -31,9 +31,7 @@ public class PermitsDeck {
 					return true;
 				else throw new IllegalStateException("Cannot add the top deck permit");
 		}
-		System.out.println("No such permit in this deck's face up permits");
-		return false;
-		
+		throw new IllegalArgumentException("No such permit in this deck's face up permits");		
 	}
 	
 	

@@ -9,7 +9,6 @@ import cg2.observers.*;
 import cg2.controller.ActionChange;
 import cg2.controller.BonusChange;
 import cg2.controller.Change;
-import cg2.controller.MarketChange;
 import cg2.controller.ModelChange;
 import cg2.controller.PermitsChange;
 import cg2.controller.StateChange;

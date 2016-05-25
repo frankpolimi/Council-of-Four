@@ -7,11 +7,16 @@ import cg2.game.Game;
  */
 public class EngageAssistant extends QuickAction 
 {
+	/**
+	 * The player pays 3 coins to get an assistant
+	 * @throws IllegalStateException if the player has no Quick actions left
+	 * @throws IllegalStateException if the player has not enough coins
+	 */
 	@Override
 	public boolean takeAction(Game game)
 	{
 		if(!this.checkAction(game))
-			return false;
+			throw new IllegalStateException("Not enough Quick actions");
 		if(game.getCurrentPlayer().checkCoins(3))
 		{
 			game.getCurrentPlayer().setAssistants(game.getCurrentPlayer().getAssistants()+1);
@@ -20,8 +25,7 @@ public class EngageAssistant extends QuickAction
 		}
 		else 
 		{
-			System.out.println("Not enough coins to engage an assistant. An assistant costs 3 coins");
-			return false;
+			throw new IllegalStateException("Not enough coins to engage an assistant. An assistant costs 3 coins");
 		}
 		
 		

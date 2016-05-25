@@ -11,12 +11,16 @@ public class ElectCouncillorByAssistant extends QuickAction
 {
 	private Council council;
 	private Councillor councillor;
-	
+	/**
+	 * The player pays 1 assistant and chooses a councillor to push it in a council
+	 * @throws IllegalStateException if the player has no Quick actions left
+	 * @throws IllegalStateException if the player has no assistants
+	 */
 	@Override
 	public boolean takeAction(Game game)
 	{
 		if(!this.checkAction(game))
-			return false;
+			throw new IllegalStateException("Not enough Quick actions");
 		if(game.getCurrentPlayer().checkAssistants(1))
 		{
 			council.electCouncillor(councillor);
@@ -25,8 +29,7 @@ public class ElectCouncillorByAssistant extends QuickAction
 		}
 		else 
 		{
-			System.out.println("You need at least 1 assistant to elect a councillor by quick action");
-			return false;
+			throw new IllegalStateException("You need at least 1 assistant to elect a councillor by quick action");
 		}	
 	}
 
@@ -42,6 +45,24 @@ public class ElectCouncillorByAssistant extends QuickAction
 		this.council = council;
 		this.councillor = councillor;
 	}
+
+	public Council getCouncil() {
+		return council;
+	}
+
+	public void setCouncil(Council council) {
+		this.council = council;
+	}
+
+	public Councillor getCouncillor() {
+		return councillor;
+	}
+
+	public void setCouncillor(Councillor councillor) {
+		this.councillor = councillor;
+	}
+	
+	
 	
 	
 }

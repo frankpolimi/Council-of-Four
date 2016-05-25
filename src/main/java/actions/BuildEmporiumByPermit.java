@@ -16,30 +16,31 @@ public class BuildEmporiumByPermit extends MainAction
 	
 	/**
 	 * The player builds an emporium in the city indicated by the building permit he is using. If the action succeeds that building permit will be moved in his used permits deck.
-	 * The action fails if: the player cannot pay the council, the player has already built an emporium in the king's final position city
-	 * the player cannot pay the assistants fee for other player's emporiums, the player indicates a city that is not present on the building permit, the player has no emporiums to use.
+	 * @throws IllegalStateException if the player has no Main actions left
+	 * @throws IllegalStateException if the player has not enough coins to pay the council
+	 * @throws IllegalStateException if the player has not enough assistants to pay the building costs
+	 * @throws IllegalStateException if the player has no emporiums left
+	 * @throws IllegalArgumentException if the player has already built in the city he is indicating
+	 * @throws IllegalArgumentException if the city where the player is trying to build is not present on the permit
 	 */
 	@Override
 	public boolean takeAction(Game game)
 	{
 		if(!this.checkAction(game))
-			return false;
+			throw new IllegalStateException("Not enough Main actions");
 		if (game.getCurrentPlayer().getRemainingEmporiums()<=0)
 		{
-			System.out.println("No avaiable emporiums");
-			return false;
+			throw new IllegalStateException("No avaiable emporiums");
 		}
 		for(Emporium e:game.getCurrentPlayer().getEmporium())
 			if(e.getCity()==city)
 			{
-				System.out.println("The player has already built an emporium in this city");
-				return false;
+				throw new IllegalArgumentException("The player has already built an emporium in this city");
 			}
 		
 		if(!permit.getBuildingAvaliableCities().contains(city))
 		{
-			System.out.println("The city where the player is trying to build is not present on the permit");
-			return false;
+			throw new IllegalArgumentException("The city where the player is trying to build is not present on the permit");
 		}
 		
 		int otherEmporiums=city.getEmporiums().size();
@@ -54,8 +55,7 @@ public class BuildEmporiumByPermit extends MainAction
 		}
 		else 
 		{
-			System.out.println("Not enough assistants to build in this city. For each other player's emporium you have to pay 1 assistant");
-			return false;
+			throw new IllegalStateException("Not enough assistants to build in this city. For each other player's emporium you have to pay 1 assistant");
 		}	
 	}
 
@@ -66,6 +66,22 @@ public class BuildEmporiumByPermit extends MainAction
 
 	public BuildEmporiumByPermit(BuildingPermit permit, City city) {
 		this.permit = permit;
+		this.city = city;
+	}
+
+	public BuildingPermit getPermit() {
+		return permit;
+	}
+
+	public void setPermit(BuildingPermit permit) {
+		this.permit = permit;
+	}
+
+	public City getCity() {
+		return city;
+	}
+
+	public void setCity(City city) {
 		this.city = city;
 	}
 	

@@ -63,10 +63,7 @@ public class Action implements Act
 				default: return false;
 			}
 			if(!player.checkCoins(cost))
-			{
-				System.out.println("Not enough coins to pay the council. For 1 missing politics card you pay 4 additional coins, for each additional missing politics card you add 3 more");
 				return false;
-			}
 			else
 			{
 				player.removeCards(politics);

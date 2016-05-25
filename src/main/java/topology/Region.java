@@ -3,7 +3,6 @@ package topology;
 import java.util.*;
 import cg2.model.City;
 import cg2.model.PermitsDeck;
-import council.Council;
 import council.RegionalCouncil;
 
 /**

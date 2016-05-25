@@ -1,7 +1,6 @@
 package actions;
 
 import java.util.ArrayList;
-
 import cg2.game.Game;
 import cg2.model.BuildingPermit;
 import council.RegionalCouncil;
@@ -22,23 +21,23 @@ public class AcquirePermit extends MainAction
 	
 	/**
 	 * The player acquires a face up building permit if he can pay the council. 
-	 * The action fails if:
-	 * the player  cannot pay the council, 
-	 * the player want to acquire a not face up permit. 
-	 * the player is trying to do an action type that he had already used.
+	 * @throws IllegalStateException if the player has no Main actions left
+	 * @throws IllegalStateException if the player has not enough coins to pay the council
+	 * @throws IllegalArgumentException if the player indicated a wrong Building permit for the city he is trying to build in
 	 */
 	@Override
-	public boolean takeAction(Game game)
+	public boolean takeAction(Game game) throws IllegalStateException, IllegalArgumentException
 	{
 		if(!this.checkAction(game))
-			return false;
+			throw new IllegalStateException("Not enough Main actions");
 		if(payCouncil(game.getCurrentPlayer(),council,politics))
 			if(council.getPermitsDeck().givePermit(game, permit))
 			{
 				game.decrementMainActionCounter();
 				return true;
 			}else return false;
-		return false;
+		else throw new IllegalStateException("Not enough coins or Cards to pay the council. For 1 missing politics card you pay 4 additional coins,"
+				+ " for each additional missing politics card you add 3 more");
 	}
 
 	@Override

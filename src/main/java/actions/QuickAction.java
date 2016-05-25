@@ -12,7 +12,6 @@ public class QuickAction extends Action
 	{
 		if(game.getQuickActionCounter()>0)
 			return true;
-		System.out.println("The current player has already used all the avaiable quick actions this turn");
 		return false;
 	}
 }

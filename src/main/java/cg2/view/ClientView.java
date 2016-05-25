@@ -1,9 +1,7 @@
 package cg2.view;
 
-import java.util.concurrent.ArrayBlockingQueue;
 
 import org.jdom2.JDOMException;
-
 import actions.AcquirePermit;
 import actions.Action;
 import actions.BuildEmporiumByKing;
@@ -13,22 +11,15 @@ import actions.ElectCouncillor;
 import actions.ElectCouncillorByAssistant;
 import actions.EngageAssistant;
 import actions.ExtraMainAction;
-import cg2.controller.Change;
-import cg2.controller.StateChange;
 import cg2.game.Game;
 import cg2.market.Assistant;
 import cg2.market.MarketObject;
 import cg2.model.BuildingPermit;
 import cg2.model.PermitsDeck;
-import cg2.observers.Observable;
-import cg2.observers.Observer;
 import cg2.player.Player;
 import cg2.model.*;
-
 import council.*;
 import politics.PoliticsCard;
-import topology.Region;
-
 import java.io.IOException;
 import java.util.*;
 

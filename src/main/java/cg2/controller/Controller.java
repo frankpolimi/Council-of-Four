@@ -6,15 +6,12 @@ package cg2.controller;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
-
-import actions.*;
 import bonus.Bonus;
 import cg2.game.Game;
 import cg2.model.BuildingPermit;
 import cg2.observers.Observer;
 import cg2.player.Player;
 import cg2.view.MarketState;
-import cg2.view.StartState;
 import cg2.view.View;
 
 /**
@@ -91,7 +88,7 @@ public class Controller implements Observer<Change>{
 			MarketChange action= (MarketChange)change;
 			try {
 				game.getMarket().addProduct(action.getMarketObject());
-			} catch (NotEnoughResources e) {
+			} catch (IllegalStateException e) {
 				log=false;
 			}
 			//log

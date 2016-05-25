@@ -7,7 +7,6 @@ package cg2.market;
 import java.util.ArrayList;
 import java.util.List;
 
-import actions.NotEnoughResources;
 import cg2.model.BuildingPermit;
 import cg2.player.Player;
 import politics.PoliticsCard;
@@ -35,25 +34,25 @@ public class Market {
 	 * @param product
 	 * @throws NotEnoughResources 
 	 */
-	public void addProduct(MarketObject<?> product) throws NotEnoughResources{
+	public void addProduct(MarketObject<?> product) throws IllegalStateException{
 		if(product.getObject().getClass().equals(PoliticsCard.class))
 			if(product.getSellingPlayer().getCardsOwned().contains(product.getObject()))
 				this.products.add(product);
 			else
-				throw new NotEnoughResources("Impossible to add "+PoliticsCard.class.getSimpleName()+
+				throw new IllegalStateException("Impossible to add "+PoliticsCard.class.getSimpleName()+
 						". You don't own one.");
 		else if(product.getObject().getClass().equals(Assistant.class))
 			if(((Assistant)product.getObject()).getNumber()
 					<= product.getSellingPlayer().getAssistants())
 				this.products.add(product);
 			else 
-				throw new NotEnoughResources("Impossible to add "+Assistant.class.getSimpleName()+
+				throw new IllegalStateException("Impossible to add "+Assistant.class.getSimpleName()+
 						". You own just "+product.getSellingPlayer().getAssistants()+" "+Assistant.class.getSimpleName());
 		else if(product.getObject().getClass().equals(BuildingPermit.class))
 			if(product.getSellingPlayer().getAllPermits().contains(product.getObject()))
 				this.products.add(product);
 			else 
-				throw new NotEnoughResources("Impossible to add "+BuildingPermit.class.getSimpleName()+
+				throw new IllegalStateException("Impossible to add "+BuildingPermit.class.getSimpleName()+
 						". You don't own one.");
 	}
 
@@ -87,9 +86,9 @@ public class Market {
 	 * perform the trade of coins and the exchange of product
 	 * from the list to the player who buys
 	 * @param customer
-	 * @throws NotEnoughResources 
+	 * @throws IllegalStateException 
 	 */
-	public void buyElement(Player customer) throws NotEnoughResources{
+	public void buyElement(Player customer) throws IllegalStateException{
 		MarketObject<?> x = products.get(elementDisplayed);
 		this.transferCoin(customer, x);
 		if(x.getObject().getClass().equals(Assistant.class))
@@ -150,14 +149,14 @@ public class Market {
 	 * the owner gets paid from the customer
 	 * @param customer
 	 * @param the whole object
-	 * @throws NotEnoughResources 
+	 * @throws IllegalStateException 
 	 */
-	private void transferCoin(Player customer, MarketObject<?> x) throws NotEnoughResources {
+	private void transferCoin(Player customer, MarketObject<?> x) throws IllegalStateException {
 		if(customer.checkCoins(x.getPrice()))
 			x.getSellingPlayer().setCoins(
 				x.getSellingPlayer().getCoins() + x.getPrice());
 		else
-			throw new NotEnoughResources("Impossible to buy. You only own "
+			throw new IllegalStateException("Impossible to buy. You only own "
 					+customer.getCoins()+" instead of the "+x.getPrice()+" required");
 		
 	}

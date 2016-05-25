@@ -14,11 +14,16 @@ public class ChangeFaceUpPermits extends QuickAction
 		this.deck = deck;
 	}
 	
+	/** 
+	 * The player pays to coins to change the face up permits of a given deck
+	 * @throws IllegalStateException if the player has no Quick actions left
+	 * @throws IllegalStateException if the player has not enough coins
+	 */
 	@Override
 	public boolean takeAction(Game game)
 	{
 		if(!this.checkAction(game))
-			return false;
+			throw new IllegalStateException("Not enough Quick actions");
 		if(game.getCurrentPlayer().checkCoins(2))
 		{
 			deck.changeFaceUpPermits();
@@ -27,8 +32,7 @@ public class ChangeFaceUpPermits extends QuickAction
 		}
 		else 
 		{
-			System.out.println("Not enough coins to change the Permits");
-			return false;
+			throw new IllegalStateException("Not enough coins to change the Permits");
 		}
 	}
 
@@ -38,6 +42,14 @@ public class ChangeFaceUpPermits extends QuickAction
 	@Override
 	public String toString() {
 		return "ChangeFaceUpPermits: The player pays 2 coins to swap the 2 faced up BuildingPermits of a PermitDeck with a new pair of the same deck.";
+	}
+
+	public PermitsDeck getDeck() {
+		return deck;
+	}
+
+	public void setDeck(PermitsDeck deck) {
+		this.deck = deck;
 	}
 	
 	

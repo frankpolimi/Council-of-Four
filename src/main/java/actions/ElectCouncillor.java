@@ -11,12 +11,15 @@ public class ElectCouncillor extends MainAction
 	private Councillor councillor;
 	private Council council;
 	
-	
+	/** 
+	 * The player gains 4 coins by choosing a councillor to push in a given council
+	 * @throws IllegalStateException if the player has no Main actions left
+	 */
 	@Override
 	public boolean takeAction(Game game)
 	{	
 		if(!this.checkAction(game))
-			return false;
+			throw new IllegalStateException("Not enough Main actions");
 		game.addCouncillor(council.electCouncillor(councillor));
 		game.getCurrentPlayer().setCoins(game.getCurrentPlayer().getCoins()+4);
 		game.decrementMainActionCounter();
@@ -36,6 +39,24 @@ public class ElectCouncillor extends MainAction
 		this.councillor = councillor;
 		this.council = council;
 	}
+
+	public Councillor getCouncillor() {
+		return councillor;
+	}
+
+	public void setCouncillor(Councillor councillor) {
+		this.councillor = councillor;
+	}
+
+	public Council getCouncil() {
+		return council;
+	}
+
+	public void setCouncil(Council council) {
+		this.council = council;
+	}
+	
+	
 	
 	
 }
