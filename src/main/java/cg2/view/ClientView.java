@@ -27,7 +27,7 @@ import topology.Region;
 
 import java.util.*;
 
-public class ClientView extends Observable<Action>  implements Observer<Change> {
+public class ClientView{
 	
 	Game game;
 	Scanner scanner;
@@ -38,7 +38,6 @@ public class ClientView extends Observable<Action>  implements Observer<Change> 
 		this.scanner=new Scanner(System.in);
 		this.game=game;
 		this.state=new StartState();
-		game.registerObserver(this);
 	}
 	
 	public int selectAction(){
@@ -254,15 +253,6 @@ public class ClientView extends Observable<Action>  implements Observer<Change> 
 		
 	}
 
-	@Override
-	public void update() {
-		this.stampModel();
-	}
-
-	@Override
-	public void update(String communication) {
-		//TODO IMPLEMENTS
-	}
 
 	
 }
