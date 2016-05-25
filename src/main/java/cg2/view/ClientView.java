@@ -1,11 +1,17 @@
 package cg2.view;
 
 import java.util.Scanner;
+import java.util.concurrent.ArrayBlockingQueue;
 
+import actions.AcquirePermit;
 import actions.Action;
+import actions.BuildEmporiumByPermit;
 import actions.ElectCouncillor;
 import cg2.game.Game;
+import cg2.model.BuildingPermit;
+import cg2.model.PermitsDeck;
 import cg2.player.Player;
+import cg2.model.*;
 
 import council.*;
 import politics.PoliticsCard;
@@ -108,10 +114,50 @@ public class ClientView {
 				councilIndex=this.selector(1, regionalCouncils.size());
 				RegionalCouncil councilCorrupted=regionalCouncils.get(councilIndex);
 				System.out.println("Select the permit to acquire");
-				//manca metodo prelievo permesso
-				
-				
-				
+				PermitsDeck councilDeck=councilCorrupted.getPermitsDeck();
+				Iterator<BuildingPermit> it=councilDeck.getFaceUpPermits().iterator();
+				int i=1;
+				while(it.hasNext()){
+					System.out.println(i+"- "+it.next().toString());
+				}
+				int permitIndex=this.selector(1, 2);
+				BuildingPermit chosenPermit=councilDeck.giveAFaceUpPermit(permitIndex);
+				action=new AcquirePermit(councilCorrupted, selectedCards, chosenPermit);
+				break;
+			case 3:
+				System.out.println("Action Chosen: To Acquire a building permit");
+				System.out.println("Select the building permit you want to use for building an emporium");
+				System.out.println("Your permits:");
+				for(i=0;i<current.getBuildingPermits().size();i++){
+					System.out.println((i+1)+"- "+current.getBuildingPermits().get(i).toString());
+				}
+				permitIndex=this.selector(1, current.getBuildingPermits().size());
+				chosenPermit=current.getBuildingPermits().get(permitIndex);
+				System.out.println("Now type the initial of the city in which you would to build");
+				Iterator<City> cityIt=chosenPermit.getBuildingAvaliableCities().iterator();
+				while(cityIt.hasNext()){
+					City city=cityIt.next();
+					System.out.println(city.getName()+" "+city.getFirstChar());
+				}
+				String initialChosen=scanner.next();
+				City cityChosen=game.getMap().getVertexByKey(initialChosen);
+				action=new BuildEmporiumByPermit(chosenPermit, cityChosen);
+				break;
+			case 4: 
+				System.out.println("Action Chosen: To Build an Emporium under the consense of the king");
+				System.out.println("Select the four cards that you would to spend for corrupting the king's council");
+				System.out.println("Your Cards:");
+				ownedCards=current.getCardsOwned();
+				selectedCards=new ArrayList<>();
+				for(i=0;i<ownedCards.size();i++){
+					System.out.println((i+1)+"- "+ownedCards.get(i).toString());
+				}
+				for(i=0;i<4;i++){
+					int cardsIndex=this.selector(1, ownedCards.size());
+					PoliticsCard card=ownedCards.get(cardsIndex);
+					selectedCards.add(card);
+				}
+				//council of the king
 			}
 			
 		}else{
