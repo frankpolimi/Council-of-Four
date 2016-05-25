@@ -2,6 +2,8 @@ package cg2.view;
 
 import java.util.concurrent.ArrayBlockingQueue;
 
+import org.jdom2.JDOMException;
+
 import actions.AcquirePermit;
 import actions.Action;
 import actions.BuildEmporiumByKing;
@@ -14,6 +16,8 @@ import actions.ExtraMainAction;
 import cg2.controller.Change;
 import cg2.controller.StateChange;
 import cg2.game.Game;
+import cg2.market.Assistant;
+import cg2.market.MarketObject;
 import cg2.model.BuildingPermit;
 import cg2.model.PermitsDeck;
 import cg2.observers.Observable;
@@ -25,6 +29,7 @@ import council.*;
 import politics.PoliticsCard;
 import topology.Region;
 
+import java.io.IOException;
 import java.util.*;
 
 public class ClientView{
@@ -40,16 +45,75 @@ public class ClientView{
 		this.state=new StartState();
 	}
 	
+	public int selectMarket(){
+		System.out.println("Select the Market step action to perform");
+		System.out.println("1. Add a product");
+		System.out.println("2. pass to the next player");
+		int selection=this.selector(1, 2);
+		return selection;
+	}
+	
+	public MarketObject<?> performMarketAction(int marketIndex){
+		Player current=game.getCurrentPlayer();
+		switch(marketIndex){
+		case 1: 
+			int i;
+			System.out.println("ADD A PRODUCT");
+			System.out.println("These are the product you could sell");
+			System.out.println("POLITIC CARDS");
+			for(i=0;i<current.getCardsOwned().size();i++){
+				System.out.println("pc"+(i+1)+"- "+current.getCardsOwned().get(i).toString());
+			}
+			System.out.println("BUILDING PERMITS NOT USED");
+			for(int j=0;j<current.getBuildingPermits().size();j++){
+				System.out.println("bp"+(j+1)+"- "+current.getBuildingPermits().get(j).toString());
+			}
+			System.out.println("ASSISTANTS avaliable "+current.getAssistants());
+			System.out.println("Now select the category of object that you are interested");
+			System.out.println("1. Politic Cards");
+			System.out.println("2. Building Permits");
+			System.out.println("3. Assistants");
+			int catIndex=this.selector(1, 3);
+			switch(catIndex){
+			case 1: 
+				System.out.println("Insert the number of politic card that interested you");
+				int cardIndex=this.selector(1, current.getCardsOwned().size());
+				PoliticsCard card=current.getCardsOwned().get(cardIndex-1);
+				int price=this.priceInsertion();
+				return new MarketObject<PoliticsCard>(card, current, price);
+			case 2:
+				System.out.println("Insert the number of building permit that interested you");
+				int permitIndex=this.selector(1, current.getBuildingPermits().size());
+				BuildingPermit permit=current.getBuildingPermits().get(permitIndex-1);
+				price=this.priceInsertion();
+				return new MarketObject<BuildingPermit>(permit, current, price);
+			case 3:
+				System.out.println("Insert the amount of assistant you would sell");
+				int assistantNumber=this.selector(1, current.getAssistants());
+				System.out.println("Insert the price");
+				price=this.priceInsertion();
+				Assistant assistant= new Assistant(assistantNumber);
+				return new MarketObject<Assistant>(assistant, current, price);
+			}
+		}
+		return null;
+	}
+	
+	private int priceInsertion(){
+		System.out.println("Insert the price");
+		int price=scanner.nextInt();
+		while(price<0){
+			System.out.println("You cannot insert a negative value of price, try again");
+		}
+		return price;
+	}
+	
 	public int selectAction(){
-		
 		System.out.println("Select the action type to perform");
 		System.out.println("1. main action");
 		System.out.println("2. quick action");
-		int selection=scanner.nextInt();
-		while(selection<1||selection>2){
-			System.out.println("The input cointains a not valid value. Please, try Again");
-			selection=scanner.nextInt();
-		}
+		System.out.println("3. pass to the next player");
+		int selection=this.selector(1, 3);
 		return selection;
 	}
 	
@@ -94,9 +158,10 @@ public class ClientView{
 				System.out.println("Select the councillor you would like");
 				int councillorIndex=this.selector(1,councillors.size());
 				Councillor councillorSelected=councillors.get(councillorIndex-1);
+				System.out.println("Now select the council");
 				List<Council> councils= game.getAllCouncils();
 				for(int i=0;i<councils.size();i++){
-					System.out.println((i+1)+"- "+councils.get(i).toString());
+					System.out.println((i+1)+"- "+councils.get(i).getCouncillors());
 				}
 				int councilIndex=this.selector(1, councils.size());
 				Council council=councils.get(councilIndex-1);
@@ -120,7 +185,7 @@ public class ClientView{
 				//select council
 				List<RegionalCouncil> regionalCouncils=game.getRegionalCouncils();
 				for(int i=0;i<regionalCouncils.size();i++){
-					System.out.println((i+1)+"- "+regionalCouncils.get(i).toString());
+					System.out.println((i+1)+"- "+regionalCouncils.get(i).getCouncillors());
 				}
 				councilIndex=this.selector(1, regionalCouncils.size());
 				RegionalCouncil councilCorrupted=regionalCouncils.get(councilIndex-1);
@@ -130,6 +195,7 @@ public class ClientView{
 				int i=1;
 				while(it.hasNext()){
 					System.out.println(i+"- "+it.next().toString());
+					i++;
 				}
 				int permitIndex=this.selector(1, 2);
 				BuildingPermit chosenPermit=councilDeck.giveAFaceUpPermit(permitIndex-1);
@@ -238,6 +304,17 @@ public class ClientView{
 		
 	}
 	
+	public void displayAvaliableActions(){
+		if(this.state.getClass().equals(StartState.class)){
+			int type=this.selectAction();
+			int sel=this.showAndSelectActions(type);
+			this.buildTheAction(type, sel);
+		}else if(this.state.getClass().equals(MarketState.class)){
+			int type=this.selectMarket();
+			this.performMarketAction(type);
+		}
+	}
+	
 	private void stampModel(){
 		System.out.println("GAME");
 		System.out.println(game.toString());
@@ -245,13 +322,27 @@ public class ClientView{
 	
 	private int selector(int min, int max){
 		int selection=scanner.nextInt();
-		while(selection<1||selection>2){
+		while(selection<min||selection>max){
 			System.out.println("The input cointains a not valid value. Please, try Again");
 			selection=scanner.nextInt();
 		}
 		return selection;
 		
 	}
+	
+	public State getState(){
+		return this.state;
+	}
+	
+	public static void main(String[]args) throws JDOMException, IOException{
+		Player player=new Player("ema", 1, 10, 200);
+		ArrayList<Player> players=new ArrayList<>();
+		players.add(player);
+		Game game=new Game(players);
+		ClientView view=new ClientView(game);
+		view.displayAvaliableActions();
+	}
+	
 
 
 	
