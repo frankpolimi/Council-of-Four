@@ -123,5 +123,17 @@ public class PermitsDeck {
 		return "PermitsDeck [buildingPermitsDeck=" + buildingPermitsDeck + ", faceUpPermits=" + faceUpPermits + "]\n";
 	}
 	
+	public BuildingPermit giveAFaceUpPermit(int index){
+		//switching between the first and the second card.
+		BuildingPermit extracted;
+		if(index==2){
+			extracted=this.faceUpPermits.remove();
+			this.faceUpPermits.add(extracted);
+		}
+		
+		return this.faceUpPermits.element();
+			
+	}
+	
 	
 }

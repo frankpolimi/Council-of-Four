@@ -5,7 +5,7 @@ package cg2.view;
 
 import actions.AcquirePermit;
 import actions.BuildEmporiumByKing;
-import actions.BuildEmproriumByPermit;
+import actions.BuildEmporiumByPermit;
 import actions.ElectCouncillor;
 
 /**
@@ -58,9 +58,9 @@ public class MainState implements State {
 					new ActionState(ElectCouncillor.class, view));
 			break;
 		case Commands.BUILD_EMPORIUM_BY_PERMIT:{
-			view.setActionClass(BuildEmproriumByPermit.class);
+			view.setActionClass(BuildEmporiumByPermit.class);
 			view.setState(
-					new ActionState(BuildEmproriumByPermit.class, view));
+					new ActionState(BuildEmporiumByPermit.class, view));
 			break;
 		}
 		case Commands.STATISTICS:
