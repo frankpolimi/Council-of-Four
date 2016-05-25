@@ -53,6 +53,21 @@ public class ClientView{
 		return selection;
 	}
 	
+	public void buyProducts(){
+		System.out.println("These are the object for sale now!");
+		game.getMarket().displayProducts(game.getCurrentPlayer());
+		System.out.println("Are you interested from something? Y/N");
+		String answer=scanner.nextLine();
+		if(answer.equals("N")){
+			System.out.println("Ok, the turn passes to the next one player");
+		}else if(answer.equals("Y")){
+			System.out.println("Select the product you want to buy");
+			
+		}else{
+			System.out.println("You are insert a not valid value");
+		}
+	}
+	
 	public MarketObject<?> performMarketAction(int marketIndex){
 		Player current=game.getCurrentPlayer();
 		switch(marketIndex){
@@ -135,11 +150,7 @@ public class ClientView{
 			break;			
 		}
 		
-		int selection=scanner.nextInt();
-		while(selection<1||selection>2){
-			System.out.println("The input cointains a not valid value. Please, try Again");
-			selection=scanner.nextInt();
-		}
+		int selection=this.selector(1, 4);
 		return selection;
 	}
 	
@@ -205,6 +216,10 @@ public class ClientView{
 				System.out.println("Action Chosen: To Acquire a building permit");
 				System.out.println("Select the building permit you want to use for building an emporium");
 				System.out.println("Your permits:");
+				if (current.getBuildingPermits().isEmpty()){
+					System.out.println("You don't have any permit. You couldn't select this action");
+					break;
+				}
 				for(i=0;i<current.getBuildingPermits().size();i++){
 					System.out.println((i+1)+"- "+current.getBuildingPermits().get(i).toString());
 				}
@@ -245,9 +260,10 @@ public class ClientView{
 				System.out.println("In which city would you build? Insert the initial");
 				i=1;
 				for(City c:game.getMap().vertexSet()){
-					System.out.println(i+"- "+c.getName()+" "+c.getFirstChar());
+					System.out.println(c.getName()+" "+c.getFirstChar());
 					System.out.println("Bonuses");
 					System.out.println(c.getBonus());
+					i++;
 				}
 				initialChosen=scanner.next();
 				cityChosen=game.getMap().getVertexByKey(initialChosen);
@@ -334,13 +350,22 @@ public class ClientView{
 		return this.state;
 	}
 	
+	public void setState(State state){
+		this.state=state;
+	}
+	
 	public static void main(String[]args) throws JDOMException, IOException{
 		Player player=new Player("ema", 1, 10, 200);
 		ArrayList<Player> players=new ArrayList<>();
 		players.add(player);
 		Game game=new Game(players);
 		ClientView view=new ClientView(game);
-		view.displayAvaliableActions();
+		while(true){
+			view.setState(new StartState());
+			view.displayAvaliableActions();
+			view.setState(new MarketState());
+			view.displayAvaliableActions();
+		}
 	}
 	
 
