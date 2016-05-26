@@ -379,8 +379,7 @@ public class ClientView{
 			System.out.println("The input cointains a not valid value. Please, try Again");
 			selection=scanner.nextInt();
 		}
-		return selection;
-		
+		return selection;	
 	}
 	
 	public State getState(){
