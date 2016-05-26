@@ -59,9 +59,9 @@ public class ClientView{
 		game.getMarket().displayProducts(game.getCurrentPlayer());
 		System.out.println("Are you interested from something? Y/N");
 		String answer=scanner.nextLine();
-		if(answer.equals("N")){
+		if(answer.equalsIgnoreCase("N")){
 			System.out.println("Ok, the turn passes to the next one player");
-		}else if(answer.equals("Y")){
+		}else if(answer.equalsIgnoreCase("Y")){
 			System.out.println("Select the product you want to buy");
 			
 		}else{
@@ -161,7 +161,7 @@ public class ClientView{
 		Player current=game.getCurrentPlayer();
 		if(type==1){
 			switch(select){
-			case 1://ricordare che sta mossa è praticamente uguale alla 3° quick action.. ricordarsene e modificare in seguito
+			case 1://ricordare che sta mossa ï¿½ praticamente uguale alla 3ï¿½ quick action.. ricordarsene e modificare in seguito
 				System.out.println("Action Chosen: To Elect a councillor");
 				System.out.println("These are the avaliable councillors");
 				List<Councillor> councillors=game.getAvaliableCouncillor();
