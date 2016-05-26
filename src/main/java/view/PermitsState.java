@@ -4,6 +4,7 @@
 package view;
 
 import java.util.List;
+import java.util.Scanner;
 
 import model.game.BuildingPermit;
 
@@ -22,15 +23,7 @@ public class PermitsState implements State {
 	public List<BuildingPermit> getPermitsList() {
 		return permitsList;
 	}
-
-	/* (non-Javadoc)
-	 * @see cg2.view.State#doAction(cg2.view.State, java.lang.String)
-	 */
-	@Override
-	public void doAction(View view, String input) {
-		//view.setState(new StartState());
-	}
-
+	
 	/* (non-Javadoc)
 	 * @see cg2.view.State#display()
 	 */
@@ -40,9 +33,16 @@ public class PermitsState implements State {
 	 */
 	@Override
 	public void display() {
-		System.out.println("Insert the permit's number you desire to acquire");
-		for(BuildingPermit p : permitsList)
-			System.out.println(permitsList.indexOf(p)+" - "+p.toString());
+		System.out.println("Select the permit you want to acquire");
+		for(BuildingPermit b : permitsList)
+			System.out.println((permitsList.indexOf(b)+1)+" - " +b.toString());
+		int selection=this.selector(1, permitsList.size());
+		PermitsRequest request = new PermitsRequest();
+		request.addPermit(permitsList.get(selection-1));
+		/*
+		 * TODO send to view server
+		 * via socket/RMI
+		 */
 	}
 
 }

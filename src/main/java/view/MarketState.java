@@ -20,15 +20,5 @@ public class MarketState implements State {
 		System.out.println("- "+Commands.TERMINATE_SELLING);
 	}
 	
-	
-	
-	/* (non-Javadoc)
-	 * @see cg2.view.State#doAction(cg2.view.View, java.lang.String)
-	 */
-	@Override
-	public void doAction(View view, String input){
-		
-	}
-	
 
 }

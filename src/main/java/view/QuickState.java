@@ -31,12 +31,4 @@ public class QuickState implements State {
 		System.out.println("- "+Commands.BACK);
 		System.out.println("- "+Commands.QUIT);
 	}
-	
-	/* (non-Javadoc)
-	 * @see cg2.view.State#doAction()
-	 */
-	@Override
-	public void doAction(View view, String input) {
-		
-	}
 }	

@@ -4,6 +4,7 @@
 package view;
 
 import java.util.List;
+import java.util.Scanner;
 
 import model.bonus.Bonus;
 
@@ -20,23 +21,22 @@ public class BonusState implements State {
 	}
 
 	/* (non-Javadoc)
-	 * @see cg2.view.State#doAction(cg2.view.State, java.lang.String)
-	 */
-	@Override
-	public void doAction(View view, String input) {
-		//view.setState(new StartState());
-	}
-
-	/* (non-Javadoc)
 	 * @see cg2.view.State#display()
 	 */
 	@Override
 	public void display() {
-		System.out.println("Insert the bonus' number you desire to acquire");
+		System.out.println("Select the bonus you want to acquire");
 		for(Bonus b : bonusList)
-			System.out.println(bonusList.indexOf(b)+" - "+b.toString());
+			System.out.println((bonusList.indexOf(b)+1)+" - " +b.toString());
+		int selection=this.selector(1, bonusList.size());
+		BonusRequest request = new BonusRequest();
+		request.addBonus(bonusList.get(selection-1));
+		/*
+		 * TODO send to view server
+		 * via socket/RMI
+		 */
 	}
-
+	
 	public List<Bonus> getBonus() {
 		return bonusList;
 	}

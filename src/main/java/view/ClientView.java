@@ -2,11 +2,6 @@ package view;
 
 import org.jdom2.JDOMException;
 
-import controller.ActionChange;
-import controller.BonusChange;
-import controller.Change;
-import controller.PermitsChange;
-import controller.StateChange;
 import model.actions.AcquirePermit;
 import model.actions.Action;
 import model.actions.BuildEmporiumByKing;
@@ -27,8 +22,6 @@ import model.game.politics.PoliticsCard;
 import model.game.topology.City;
 import model.market.Assistant;
 import model.market.MarketObject;
-import model.observers.Observable;
-import model.observers.Observer;
 
 import java.io.IOException;
 import java.util.*;
@@ -43,9 +36,9 @@ public class ClientView{
 	public ClientView(Game game) {
 		this.scanner=new Scanner(System.in);
 		this.game=game;
-		this.state=new StartState();
 	}
 	
+	//TODO SPOSTA marketstate
 	public int selectMarket(){
 		System.out.println("Select the Market step action to perform");
 		System.out.println("1. Add a product");
@@ -54,6 +47,7 @@ public class ClientView{
 		return selection;
 	}
 	
+	//TODO SPOSTA marketstate
 	public void buyProducts(){
 		System.out.println("These are the object for sale now!");
 		game.getMarket().displayProducts(game.getCurrentPlayer());
@@ -69,6 +63,7 @@ public class ClientView{
 		}
 	}
 	
+	//TODO SPOSTA marketstate
 	public MarketObject<?> performMarketAction(int marketIndex){
 		Player current=game.getCurrentPlayer();
 		switch(marketIndex){
@@ -115,6 +110,7 @@ public class ClientView{
 		return null;
 	}
 	
+	//TODO SPOSTA marketstate
 	private int priceInsertion(){
 		System.out.println("Insert the price");
 		int price=scanner.nextInt();
@@ -124,6 +120,7 @@ public class ClientView{
 		return price;
 	}
 	
+	//SPOSTATO startstate
 	public int selectAction(){
 		System.out.println("Select the action type to perform");
 		System.out.println("1. main action");
@@ -133,6 +130,7 @@ public class ClientView{
 		return selection;
 	}
 	
+	//SPOSTATO startstate
 	public int showAndSelectActions(int actionType){
 		switch(actionType){
 		case 1:
@@ -155,6 +153,7 @@ public class ClientView{
 		return selection;
 	}
 	
+	//SPOSTATO actionstate
 	public void buildTheAction(int type, int select){
 		//devo inizializzare action
 		Action action = null;
@@ -340,6 +339,7 @@ public class ClientView{
 			
 	}
 	
+	//SPOSTATO permitsstate
 	public void selectPermit() {
 		System.out.println("Select the permit you want to acquire");
 		List<BuildingPermit> list = ((PermitsState)state).getPermitsList();
@@ -347,13 +347,14 @@ public class ClientView{
 			System.out.println((list.indexOf(b)+1)+" - " +b.toString());
 		int selection=this.selector(1, list.size());
 		PermitsRequest request = new PermitsRequest();
-		request.addPermit(list.get(selection));
+		request.addPermit(list.get(selection-1));
 		/*
 		 * TODO send to view server
 		 * via socket/RMI
 		 */
 	}
 
+	//SPOSTATO bonusstate
 	public void selectBonus() {
 		System.out.println("Select the bonus you want to acquire");
 		List<Bonus> list = ((BonusState)state).getBonus();
@@ -361,7 +362,7 @@ public class ClientView{
 			System.out.println((list.indexOf(b)+1)+" - " +b.toString());
 		int selection=this.selector(1, list.size());
 		BonusRequest request = new BonusRequest();
-		request.addBonus(list.get(selection));
+		request.addBonus(list.get(selection-1));
 		/*
 		 * TODO send to view server
 		 * via socket/RMI
@@ -373,6 +374,7 @@ public class ClientView{
 		System.out.println(game.toString());
 	}
 	
+	//SPOSTATO state
 	private int selector(int min, int max){
 		int selection=scanner.nextInt();
 		while(selection<min||selection>max){
@@ -390,6 +392,10 @@ public class ClientView{
 		this.state=state;
 	}
 	
+	private Game getGame() {
+		return game;
+	}
+	
 	public static void main(String[]args) throws JDOMException, IOException{
 		Player player=new Player("ema", 1, 10, 200);
 		ArrayList<Player> players=new ArrayList<>();
@@ -399,13 +405,14 @@ public class ClientView{
 		List<Bonus> l = new ArrayList<>(); 
 		l.add(new CoinBonus(10));
 		while(true){
-			view.getState().display();
 			view.setState(new StartState());
-			view.displayAvaliableActions();
+			view.getState().display();
+			view.getState().doAction(view, view.getGame());
 			view.setState(new BonusState(l));
-			view.selectBonus();
+			view.getState().display();
+			view.getState().doAction(view, view.getGame());
 			view.setState(new MarketState());
-			view.displayAvaliableActions();
+			view.getState().display();
 		}
 	}
 

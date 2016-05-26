@@ -7,11 +7,6 @@ public class EndState implements State {
 	private final Player winner;
 	
 	@Override
-	public void doAction(View view, String input) {
-		//not used
-	}
-
-	@Override
 	public void display() {
 		System.out.println("The match is finished!");
 		System.out.println("The player "+winner.getName()+"wins!");

@@ -34,9 +34,4 @@ public class MainState implements State {
 		System.out.println("- "+Commands.QUIT);
 	}
 
-	@Override
-	public void doAction(View view, String input) {
-
-	}
-
 }
