@@ -22,7 +22,7 @@ import model.observers.*;
  * and will transfer to the controller a complete action to execute.
  * @author Francesco Vetr�
  */
-public class View extends Observable<Change> implements Observer<Change> {
+public class View extends Observable<Request> implements Observer<Change> {
 	
 	//class to read from the Model only some information
 	private final PeekModel peeker;
@@ -81,12 +81,12 @@ public class View extends Observable<Change> implements Observer<Change> {
 		if(state.getClass().equals(QuickState.class))
 			switch(command){
 			case Commands.ENGAGE_ASSISTANTS:{
-				this.notifyObservers(new ActionChange(this.playerID, new EngageAssistant()));
+				//this.notifyObservers(new ActionChange(this.playerID, new EngageAssistant()));
 				this.state = new StartState();
 				break;
 			}
 			case Commands.EXTRA_MAIN_ACTION:{
-				this.notifyObservers(new ActionChange(playerID, new ExtraMainAction()));
+				//this.notifyObservers(new ActionChange(playerID, new ExtraMainAction()));
 				this.state = new StartState();
 				break;
 			}
@@ -100,7 +100,7 @@ public class View extends Observable<Change> implements Observer<Change> {
 			int sel = Integer.parseInt(command);
 			if(sel <= storage.getBonusLenght() && sel > 0){
 				change.addBonus(storage.retrieveBonus(sel));
-				this.notifyObservers(change);
+				//this.notifyObservers(change);
 				state.doAction(this, command);
 			}
 			else
@@ -112,7 +112,7 @@ public class View extends Observable<Change> implements Observer<Change> {
 			if(sel <= storage.getBonusLenght() && sel > 0){
 				change.addPermit(storage.retrievePermit(sel));
 				state.doAction(this, command);
-				this.notifyObservers(change);
+				//this.notifyObservers(change);
 			}
 			else
 				System.out.println("No valid selection");

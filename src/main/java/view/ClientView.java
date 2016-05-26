@@ -319,6 +319,7 @@ public class ClientView{
 				break;
 			}
 		}
+		
 		//TODO send to server
 		//this.notifyObservers(new ActionChange(1, action));
 	}
@@ -334,19 +335,37 @@ public class ClientView{
 		}
 		else if(this.state.getClass().equals(BonusState.class))
 			this.selectBonus();
+		else if(this.state.getClass().equals(PermitsState.class))
+			this.selectPermit();
 			
 	}
 	
+	public void selectPermit() {
+		System.out.println("Select the permit you want to acquire");
+		List<BuildingPermit> list = ((PermitsState)state).getPermitsList();
+		for(BuildingPermit b : list)
+			System.out.println((list.indexOf(b)+1)+" - " +b.toString());
+		int selection=this.selector(1, list.size());
+		PermitsRequest request = new PermitsRequest();
+		request.addPermit(list.get(selection));
+		/*
+		 * TODO send to view server
+		 * via socket/RMI
+		 */
+	}
+
 	public void selectBonus() {
 		System.out.println("Select the bonus you want to acquire");
 		List<Bonus> list = ((BonusState)state).getBonus();
 		for(Bonus b : list)
 			System.out.println((list.indexOf(b)+1)+" - " +b.toString());
 		int selection=this.selector(1, list.size());
-		List<Bonus> aux = new ArrayList<>();
-		aux.add(list.get(selection));
-		//TODO send to view server
-		//this.notifyObservers(new BonusChange(aux));
+		BonusRequest request = new BonusRequest();
+		request.addBonus(list.get(selection));
+		/*
+		 * TODO send to view server
+		 * via socket/RMI
+		 */
 	}
 
 	private void stampModel(){
