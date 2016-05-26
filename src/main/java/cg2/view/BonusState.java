@@ -37,4 +37,8 @@ public class BonusState implements State {
 			System.out.println(bonusList.indexOf(b)+" - "+b.toString());
 	}
 
+	public List<Bonus> getBonus() {
+		return bonusList;
+	}
+
 }

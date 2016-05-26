@@ -1,6 +1,5 @@
 package cg2.view;
 
-
 import org.jdom2.JDOMException;
 import actions.AcquirePermit;
 import actions.Action;
@@ -11,11 +10,20 @@ import actions.ElectCouncillor;
 import actions.ElectCouncillorByAssistant;
 import actions.EngageAssistant;
 import actions.ExtraMainAction;
+import bonus.Bonus;
+import bonus.CoinBonus;
+import cg2.controller.ActionChange;
+import cg2.controller.BonusChange;
+import cg2.controller.Change;
+import cg2.controller.PermitsChange;
+import cg2.controller.StateChange;
 import cg2.game.Game;
 import cg2.market.Assistant;
 import cg2.market.MarketObject;
 import cg2.model.BuildingPermit;
 import cg2.model.PermitsDeck;
+import cg2.observers.Observable;
+import cg2.observers.Observer;
 import cg2.player.Player;
 import cg2.model.*;
 import council.*;
@@ -25,9 +33,9 @@ import java.util.*;
 
 public class ClientView{
 	
-	Game game;
-	Scanner scanner;
-	State state;
+	private Game game;
+	private Scanner scanner;
+	private State state;
 	
 	
 	public ClientView(Game game) {
@@ -146,7 +154,8 @@ public class ClientView{
 	}
 	
 	public void buildTheAction(int type, int select){
-		Action action;
+		//devo inizializzare action
+		Action action = null;
 		Player current=game.getCurrentPlayer();
 		if(type==1){
 			switch(select){
@@ -296,7 +305,7 @@ public class ClientView{
 				Councillor councillorSelected=councillors.get(councillorIndex-1);
 				List<Council> councils= game.getAllCouncils();
 				for(int i=0;i<councils.size();i++){
-					System.out.println((i+1)+"- "+councils.get(i).toString());
+					System.out.println((i+1)+"- "+councils.get(i).getCouncillors().toString());
 				}
 				int councilIndex=this.selector(1, councils.size());
 				Council council=councils.get(councilIndex-1);
@@ -308,7 +317,8 @@ public class ClientView{
 				break;
 			}
 		}
-		
+		//TODO send to server
+		//this.notifyObservers(new ActionChange(1, action));
 	}
 	
 	public void displayAvaliableActions(){
@@ -320,8 +330,23 @@ public class ClientView{
 			int type=this.selectMarket();
 			this.performMarketAction(type);
 		}
+		else if(this.state.getClass().equals(BonusState.class))
+			this.selectBonus();
+			
 	}
 	
+	public void selectBonus() {
+		System.out.println("Select the bonus you want to acquire");
+		List<Bonus> list = ((BonusState)state).getBonus();
+		for(Bonus b : list)
+			System.out.println((list.indexOf(b)+1)+" - " +b.toString());
+		int selection=this.selector(1, list.size());
+		List<Bonus> aux = new ArrayList<>();
+		aux.add(list.get(selection));
+		//TODO send to view server
+		//this.notifyObservers(new BonusChange(aux));
+	}
+
 	private void stampModel(){
 		System.out.println("GAME");
 		System.out.println(game.toString());
@@ -351,15 +376,43 @@ public class ClientView{
 		players.add(player);
 		Game game=new Game(players);
 		ClientView view=new ClientView(game);
+		List<Bonus> l = new ArrayList<>(); 
+		l.add(new CoinBonus(10));
 		while(true){
 			view.setState(new StartState());
 			view.displayAvaliableActions();
+			view.setState(new BonusState(l));
+			view.selectBonus();
 			view.setState(new MarketState());
 			view.displayAvaliableActions();
 		}
 	}
-	
 
+	/*
+	 * TODO move to server view
+	 * 
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+		
+	}
 
-	
+	@Override
+	public void update(String communication) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void update(Change change) {
+		if(change.getClass().equals(StateChange.class))
+			this.setState(((StateChange)change).getStateChanged());
+		else if(change.getClass().equals(BonusChange.class))
+			this.setState(new BonusState(
+					((BonusChange)change).getBonusList()));
+		else if(change.getClass().equals(PermitsChange.class))
+			this.setState(new PermitsState(
+					((PermitsChange)change).getPermits()));
+	}
+	*/
 }

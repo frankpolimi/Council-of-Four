@@ -61,11 +61,8 @@ public class Market {
 	 * than the one who can buy from the market and randomize the objects
 	 * @param customer
 	 */
-	public void displayProducts(Player customer){
-		List<MarketObject<?>> productsForPlayer = null;
-		productsForPlayer = this.getAvailableProducts(customer);
-		elementDisplayed = (int) Math.random()*productsForPlayer.size();
-		//TODO print object
+	public List<MarketObject<?>> displayProducts(Player customer){
+		return this.getAvailableProducts(customer);
 	}
 
 	/**
@@ -79,7 +76,7 @@ public class Market {
 		for(MarketObject<?> o: products)
 			if(o.getSellingPlayer().getPlayerID() != customer.getPlayerID())
 				available.add(o);
-		return null;
+		return available;
 	}
 	
 	/**
