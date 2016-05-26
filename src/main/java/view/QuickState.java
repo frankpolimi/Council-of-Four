@@ -37,30 +37,6 @@ public class QuickState implements State {
 	 */
 	@Override
 	public void doAction(View view, String input) {
-		switch (input) {
-		case Commands.BACK:{
-			view.setState(new StartState());
-			break;
-		}
-		case Commands.ENGAGE_ASSISTANTS:
-		case Commands.EXTRA_MAIN_ACTION:{
-			break;
-		}
-		case Commands.CHANGE_FACE_UP_PERMITS:{
-			view.setActionClass(ChangeFaceUpPermits.class);
-			view.setState(
-					new ActionState(ChangeFaceUpPermits.class, view));
-			break;
-		}
-		case Commands.ELECT_COUNCILLOR_BY_ASSISTANT:{
-			view.setActionClass(ElectCouncillorByAssistant.class);
-			view.setState(
-					new ActionState(ElectCouncillorByAssistant.class, view));
-			break;
-		}
-		case Commands.STATISTICS:
-		case Commands.QUIT:
-			break;
-		}
+		
 	}
 }	

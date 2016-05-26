@@ -28,7 +28,7 @@ public class PermitsState implements State {
 	 */
 	@Override
 	public void doAction(View view, String input) {
-		view.setState(new StartState());
+		//view.setState(new StartState());
 	}
 
 	/* (non-Javadoc)

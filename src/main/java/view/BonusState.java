@@ -8,7 +8,7 @@ import java.util.List;
 import model.bonus.Bonus;
 
 /**
- * @author Francesco Vetrò
+ * @author Francesco Vetrï¿½
  *
  */
 public class BonusState implements State {
@@ -24,7 +24,7 @@ public class BonusState implements State {
 	 */
 	@Override
 	public void doAction(View view, String input) {
-		view.setState(new StartState());
+		//view.setState(new StartState());
 	}
 
 	/* (non-Javadoc)

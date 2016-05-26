@@ -36,37 +36,7 @@ public class MainState implements State {
 
 	@Override
 	public void doAction(View view, String input) {
-		switch (input) {
-		case Commands.BACK:{
-			view.setState(new StartState());
-			break;
-		}
-		case Commands.ACQUIRE_PERMIT:{
-			view.setActionClass(AcquirePermit.class);
-			view.setState(
-					new ActionState(AcquirePermit.class, view));
-			break;
-		}
-		case Commands.BUILD_EMPORIUM_BY_KING:
-			view.setActionClass(BuildEmporiumByKing.class);
-			view.setState(
-					new ActionState(BuildEmporiumByKing.class, view));
-			break;
-		case Commands.ELECT_COUNCILLOR:
-			view.setActionClass(ElectCouncillor.class);
-			view.setState(
-					new ActionState(ElectCouncillor.class, view));
-			break;
-		case Commands.BUILD_EMPORIUM_BY_PERMIT:{
-			view.setActionClass(BuildEmporiumByPermit.class);
-			view.setState(
-					new ActionState(BuildEmporiumByPermit.class, view));
-			break;
-		}
-		case Commands.STATISTICS:
-		case Commands.QUIT:
-			break;
-		}
+
 	}
 
 }
