@@ -372,7 +372,7 @@ public class ClientView{
 		this.state=state;
 	}
 	
-	/*public static void main(String[]args) throws JDOMException, IOException{
+	public static void main(String[]args) throws JDOMException, IOException{
 		Player player=new Player("ema", 1, 10, 200);
 		ArrayList<Player> players=new ArrayList<>();
 		players.add(player);
@@ -381,6 +381,7 @@ public class ClientView{
 		List<Bonus> l = new ArrayList<>(); 
 		l.add(new CoinBonus(10));
 		while(true){
+			view.getState().display();
 			view.setState(new StartState());
 			view.displayAvaliableActions();
 			view.setState(new BonusState(l));
@@ -388,7 +389,7 @@ public class ClientView{
 			view.setState(new MarketState());
 			view.displayAvaliableActions();
 		}
-	}*/
+	}
 
 	/*
 	 * TODO move to server view
