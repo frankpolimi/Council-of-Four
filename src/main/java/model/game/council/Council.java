@@ -17,9 +17,6 @@ public abstract class Council{
 	 * @throws IllegalStateException if the application failed to remove head element
 	 * @throws NullPointerException if the queue was empty when attempting to remove head element
 	 */
-	
-	
-	
 	public Councillor electCouncillor(Councillor councillor)
 	{
 		Councillor temp=councillors.poll();

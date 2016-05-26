@@ -17,7 +17,8 @@ public class Action implements Act
 {
 	
 	/**
-	 * Super class action's take action method.
+	 * Super class action's take action method. 
+	 * @param game is the game on which the action will be applied
 	 */
 	@Override
 	public boolean takeAction(Game game)
