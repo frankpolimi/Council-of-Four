@@ -1,6 +1,6 @@
 package parsers;
 
-import politics.PoliticsCard;
+import model.game.politics.PoliticsCard;
 
 public class PlayerPoliticsParser extends Parser 
 {

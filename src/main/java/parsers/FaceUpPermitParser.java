@@ -1,7 +1,8 @@
 package parsers;
 
 import java.util.Iterator;
-import cg2.model.BuildingPermit;
+
+import model.game.BuildingPermit;
 
 public class FaceUpPermitParser extends Parser 
 {

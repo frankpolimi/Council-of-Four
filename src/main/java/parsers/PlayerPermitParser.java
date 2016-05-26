@@ -1,6 +1,6 @@
 package parsers;
 
-import cg2.model.BuildingPermit;
+import model.game.BuildingPermit;
 
 public class PlayerPermitParser extends Parser
 {

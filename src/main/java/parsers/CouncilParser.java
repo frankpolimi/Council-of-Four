@@ -1,6 +1,6 @@
 package parsers;
 
-import council.Council;
+import model.game.council.Council;
 
 public class CouncilParser extends Parser
 {

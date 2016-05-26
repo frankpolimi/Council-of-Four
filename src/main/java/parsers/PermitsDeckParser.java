@@ -1,6 +1,6 @@
 package parsers;
 
-import cg2.model.PermitsDeck;
+import model.game.PermitsDeck;
 
 public class PermitsDeckParser extends Parser
 {

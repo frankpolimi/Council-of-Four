@@ -1,6 +1,6 @@
 package parsers;
 
-import cg2.model.City;
+import model.game.topology.City;
 
 public class CityParser extends Parser
 {

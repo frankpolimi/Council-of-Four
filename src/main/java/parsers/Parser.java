@@ -1,6 +1,6 @@
 package parsers;
 
-import cg2.view.PeekModel;
+import view.PeekModel;
 
 public abstract class Parser 
 {	
