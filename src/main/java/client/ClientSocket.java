@@ -5,20 +5,21 @@ import java.net.*;
 import java.util.Scanner;
 import java.util.concurrent.*;
 import model.game.*;
+import view.LocalStorage;
 
 public class ClientSocket 
 {
 	private final static int PORT = 50000;
 	private final static String IP="127.0.0.1";
 	private final Game game;
-	private Object memoryContainer; // vedi in handler
+	private LocalStorage memoryContainer; // vedi in handler
 	
 	
 	
 	public ClientSocket(Game game) {
 		super();
 		this.game = game;
-		this.memoryContainer=new Object();
+		this.memoryContainer=new LocalStorage();
 	}
 
 
