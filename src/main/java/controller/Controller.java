@@ -100,7 +100,7 @@ public class Controller implements Observer<Request>{
 		}
 
 		if(game.getMainActionCounter()==0&&game.getQuickActionCounter()==0||
-				game.getMainActionCounter()==0&&/*azione per saltare il comando*/){
+				game.getMainActionCounter()==0/*&&azione per saltare il comando*/){
 				Player nextPlayer;
 				int currentIndex=game.getPlayers().indexOf(current);
 				
