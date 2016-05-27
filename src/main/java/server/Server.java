@@ -5,16 +5,13 @@ import java.net.*;
 import java.rmi.AlreadyBoundException;
 import java.rmi.RemoteException;
 import java.util.concurrent.*;
-
 import controller.*;
-import model.game.*;
+import view.View;
 
 public class Server 
 {
-	private final static String ADDRESS="127.0.0.1";
 	private final static int PORT=50000;
 	private Controller controller;
-	private Game game;
 	
 	public Server() throws RemoteException
 	{
@@ -30,7 +27,6 @@ public class Server
 	private void startSocket() throws IOException {
 	
 		ExecutorService executor = Executors.newCachedThreadPool();
-		// creates a new Server socket on the specified port
 		ServerSocket serverSocket = new ServerSocket(PORT);
 		System.out.println("Server socket ready on port: " + PORT);
 		System.out.println("Server ready");
@@ -48,5 +44,13 @@ public class Server
 		executor.shutdown();
 		serverSocket.close();
 	}
+	
+	public void addClient(View view)
+	{
+		
+	}
+	
+	
+		
 	
 }
