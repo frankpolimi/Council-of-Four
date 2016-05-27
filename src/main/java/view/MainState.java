@@ -3,10 +3,6 @@
  */
 package view;
 
-import model.actions.AcquirePermit;
-import model.actions.BuildEmporiumByKing;
-import model.actions.BuildEmporiumByPermit;
-import model.actions.ElectCouncillor;
 
 /**
  * @author Francesco Vetr�
