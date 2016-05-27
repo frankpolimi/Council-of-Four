@@ -4,14 +4,7 @@
 package view;
 
 
-import controller.ActionChange;
-import controller.BonusChange;
 import controller.Change;
-import controller.ModelChange;
-import controller.PermitsChange;
-import controller.StateChange;
-import model.actions.*;
-import model.game.Game;
 import model.observers.*;
 
 /**

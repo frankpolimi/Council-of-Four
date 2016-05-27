@@ -3,8 +3,6 @@
  */
 package view;
 
-import model.actions.ChangeFaceUpPermits;
-import model.actions.ElectCouncillorByAssistant;
 
 /**
  * @author Francesco Vetr�
