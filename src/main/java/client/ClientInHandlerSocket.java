@@ -2,8 +2,6 @@ package client;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.util.Scanner;
-
 import controller.Change;
 import model.game.*;
 import view.LocalStorage;
@@ -12,11 +10,9 @@ public class ClientInHandlerSocket implements Runnable
 {
 	private ObjectInputStream socketIn;
 	private Game gameLocalCopy;
-	private LocalStorage memoryContainer; //Ora è object ma poi decidi te cosa mettere
-
+	private LocalStorage memoryContainer;
 	public ClientInHandlerSocket(ObjectInputStream socketIn, LocalStorage container) 
 	{
-		super();
 		this.socketIn = socketIn;
 		this.memoryContainer=container;
 	}

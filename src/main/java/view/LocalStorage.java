@@ -3,9 +3,7 @@
  */
 package view;
 
-import java.util.ArrayList;
 import java.util.List;
-
 import controller.BonusChange;
 import controller.Change;
 import controller.PermitsChange;

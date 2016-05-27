@@ -2,7 +2,6 @@ package client;
 
 import java.io.*;
 import java.net.*;
-import java.util.Scanner;
 import java.util.concurrent.*;
 import model.game.*;
 import view.LocalStorage;
