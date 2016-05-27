@@ -28,22 +28,22 @@ public class ClientOutHandlerSocket implements Runnable
 		while (true) 
 		{
 			String inputLine = this.start(stdin);
-			if(inputLine.equalsIgnoreCase("quit")){
-				socketOut.println(inputLine);
-				socketOut.flush();
-				break; 
+			if(!inputLine.equalsIgnoreCase("quit")){
+				stdin.close();
+				this.notify();
 			}
 			socketOut.println(request);
 			socketOut.flush();
 		}
-		stdin.close();
 	}
 	
 	/**
 	 * first level of input where the player can choose what to do
-	 * 
-	 * @param stdin
-	 * @return
+	 * exceptional cases when the input required is a bonus or a permit
+	 * that are sent by the server as a change due to a certain score on
+	 * on the nobility lane
+	 * @param stdin the standard input to input the selection
+	 * @return 
 	 */
 	private String start(Scanner stdin) {
 		int actionType;

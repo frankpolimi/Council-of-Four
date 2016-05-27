@@ -31,5 +31,11 @@ public class ClientSocket
 		ExecutorService executor = Executors.newFixedThreadPool(2);
 		executor.submit(new ClientInHandlerSocket(new Scanner(socket.getInputStream()), memoryContainer));
 		executor.submit(new ClientOutHandlerSocket(new PrintWriter(socket.getOutputStream()),memoryContainer));
+		try {
+			executor.wait();
+		} catch (InterruptedException e) {
+			executor.shutdown();
+			e.printStackTrace();
+		}
 	}
 }
