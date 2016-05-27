@@ -48,4 +48,18 @@ public class LocalStorage {
 		return permits.size();
 	}
 
+	/**
+	 * @return the bonus
+	 */
+	public List<Bonus> getBonus() {
+		return bonus;
+	}
+
+	/**
+	 * @return the permits
+	 */
+	public List<BuildingPermit> getPermits() {
+		return permits;
+	}
+
 }

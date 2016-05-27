@@ -27,63 +27,81 @@ public class ClientOutHandlerSocket implements Runnable
 		Scanner stdin = new Scanner(System.in);
 		while (true) 
 		{
-			String inputLine = this.start(stdin, request);
+			String inputLine = this.start(stdin);
 			if(inputLine.equalsIgnoreCase("quit")){
 				socketOut.println(inputLine);
 				socketOut.flush();
 				break; 
 			}
-			  //Qua c'è da spiaccicare la view
-			//Poi hai il container, estrai la roba, ci lavori e spedisci
-			 
+			socketOut.println(request);
+			socketOut.flush();
 		}
 		stdin.close();
-
 	}
 	
-	private String start(Scanner stdin, Request request2) {
+	/**
+	 * first level of input where the player can choose what to do
+	 * 
+	 * @param stdin
+	 * @return
+	 */
+	private String start(Scanner stdin) {
 		int actionType;
-		System.out.println("Select the action type to perform");
-		System.out.println("1. main action");
-		System.out.println("2. quick action");
-		System.out.println("3. pass to the next player");
-		System.out.println("4. perform market action");
-		System.out.println("5. quit");
-		actionType=this.selector(1, 5, stdin);		
-		switch (actionType) {
-		case 1:
-			this.mainAction(stdin, request);
-			break;
-		case 2:
-			this.quickAction(stdin, request);
-			break;
-		case 3:
-			request = new ActionRequest(new SkipQuickAction());
-			break;
-		case 4:
-			this.market(stdin, request);
-			break;
-		case 5:
-			return "quit";
-		default:
-			break;
+		if(!memoryContainer.getBonus().isEmpty())
+			this.bonus(stdin);
+		else if(!memoryContainer.getPermits().isEmpty())
+			this.permit(stdin);
+		else{	
+			System.out.println("Select the action type to perform");
+			System.out.println("1. main action");
+			System.out.println("2. quick action");
+			System.out.println("3. pass to the next player");
+			System.out.println("4. perform market action");
+			System.out.println("5. quit");
+			actionType=this.selector(1, 5, stdin);		
+			switch (actionType) {
+			case 1:
+				this.mainAction(stdin);
+				break;
+			case 2:
+				this.quickAction(stdin);
+				break;
+			case 3:
+				request = new ActionRequest(new SkipQuickAction());
+				break;
+			case 4:
+				this.market(stdin);
+				break;
+			case 5:
+				return "quit";
+			default:
+				break;
+			}
 		}
 		return "";
 	}
-	
-	
-	
-	private void mainAction(Scanner stdin, Request request2) {
+
+	private void mainAction(Scanner stdin) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	private void quickAction(Scanner stdin, Request request2) {
+	private void quickAction(Scanner stdin) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	private void market(Scanner stdin, Request request2) {
+	private void market(Scanner stdin) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	private void permit(Scanner stdin) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void bonus(Scanner stdin) {
 		// TODO Auto-generated method stub
 		
 	}
