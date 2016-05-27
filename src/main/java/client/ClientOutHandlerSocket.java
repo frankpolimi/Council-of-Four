@@ -18,9 +18,12 @@ import model.game.council.KingsCouncil;
 import model.game.council.RegionalCouncil;
 import model.game.politics.PoliticsCard;
 import model.game.topology.City;
+import model.market.Assistant;
+import model.market.MarketObject;
 import view.ActionRequest;
 import view.BonusRequest;
 import view.LocalStorage;
+import view.MarketRequest;
 import view.PermitsRequest;
 import view.Request;
 
@@ -75,8 +78,8 @@ public class ClientOutHandlerSocket implements Runnable
 			System.out.println("Select the action type to perform");
 			System.out.println("1. main action");
 			System.out.println("2. quick action");
-			System.out.println("3. pass to the next player");
-			System.out.println("4. perform market action");
+			System.out.println("3. skip the quick action");
+			System.out.println("4. perform market");
 			System.out.println("5. quit");
 			actionType=this.selector(1, 5, stdin);		
 			switch (actionType) {
@@ -301,11 +304,116 @@ public class ClientOutHandlerSocket implements Runnable
 		request = new ActionRequest(action);
 	}
 
+	/**
+	 * display the actions that can be performed when the market
+	 * is activate and help the user to select the wight path to follow
+	 * @param stdin the scanner used to input the commands
+	 */
 	private void market(Scanner stdin) {
-		// TODO Auto-generated method stub
-		
+		System.out.println("Select the Market step action to perform");
+		System.out.println("1. Add a product");
+		System.out.println("2. Buy a product");
+		System.out.println("3. Pass to the next player");
+		int selection=this.selector(1, 3, stdin);
+		switch(selection){
+		case 1:
+			this.addProduct(stdin);
+			break;
+		case 2:
+			this.buyProducts(stdin);
+			break;
+		case 3:
+			/*
+			 * TODO
+			 * la fine dell'inserimento o dell'acquisto 
+			 * come lo gestisco? andrebbe ideata una azione di 
+			 * fine anche per il market
+			 */
+			break;
+		}
 	}
 	
+	private void buyProducts(Scanner stdin) {
+		System.out.println("These are the object for sale now!");
+		game.getMarket().getAvailableProducts(game.getCurrentPlayer());
+		System.out.println("Are you interested from something? Y/N");
+		String answer=stdin.nextLine();
+		if(answer.equalsIgnoreCase("N")){
+			System.out.println("Ok, the turn passes to the next one player");
+		}else if(answer.equalsIgnoreCase("Y")){
+			System.out.println("Select the product you want to buy");
+			int selection = this.selector(1, 
+					game.getMarket().getLengthAvailableProducts(game.getCurrentPlayer()),
+					stdin);
+			request = new MarketRequest<>(
+					game.getMarket().getAvailableProducts(
+							game.getCurrentPlayer()).get(selection));
+		}else{
+			System.out.println("You are insert a not valid value");
+		}
+	}
+
+	private void addProduct(Scanner stdin) {
+		Player current=game.getCurrentPlayer();
+		int i;
+		System.out.println("ADD A PRODUCT");
+		System.out.println("These are the product you could sell");
+		System.out.println("POLITIC CARDS");
+		for(i=0;i<current.getCardsOwned().size();i++){
+			System.out.println("pc"+(i+1)+"- "+current.getCardsOwned().get(i).toString());
+		}
+		System.out.println("BUILDING PERMITS NOT USED");
+		for(int j=0;j<current.getBuildingPermits().size();j++){
+			System.out.println("bp"+(j+1)+"- "+current.getBuildingPermits().get(j).toString());
+		}
+		System.out.println("ASSISTANTS avaliable "+current.getAssistants());
+		System.out.println("Now select the category of object that you are interested");
+		System.out.println("1. Politic Cards");
+		System.out.println("2. Building Permits");
+		System.out.println("3. Assistants");
+		int catIndex=this.selector(1, 3, stdin);
+		switch(catIndex){
+		case 1: 
+			System.out.println("Insert the number of politic card that interested you");
+			int cardIndex=this.selector(1, current.getCardsOwned().size(), stdin);
+			PoliticsCard card=current.getCardsOwned().get(cardIndex-1);
+			int price=this.priceInsertion(stdin);
+			game.getMarket().addProduct(new MarketObject<PoliticsCard>(card, current, price));
+			request = new MarketRequest<PoliticsCard>(
+					new MarketObject<PoliticsCard>(card, current, price));
+		case 2:
+			System.out.println("Insert the number of building permit that interested you");
+			int permitIndex=this.selector(1, current.getBuildingPermits().size(), stdin);
+			BuildingPermit permit=current.getBuildingPermits().get(permitIndex-1);
+			price=this.priceInsertion(stdin);
+			request = new MarketRequest<BuildingPermit>(
+					new MarketObject<BuildingPermit>(permit, current, price));
+		case 3:
+			System.out.println("Insert the amount of assistant you would sell");
+			int assistantNumber=this.selector(1, current.getAssistants(), stdin);
+			System.out.println("Insert the price");
+			price=this.priceInsertion(stdin);
+			Assistant assistant= new Assistant(assistantNumber);
+			request = new MarketRequest<Assistant>(
+					new MarketObject<Assistant>(assistant, current, price));
+		}
+	}
+
+	/**
+	 * method that allows to enter a price for a specific
+	 * object in the market
+	 * @param stdin
+	 * @return the price of the object
+	 */
+	private int priceInsertion(Scanner stdin) {
+		System.out.println("Insert the price");
+		int price=stdin.nextInt();
+		while(price<0){
+			System.out.println("You cannot insert a negative value of price, try again");
+		}
+		return price;
+	}
+
 	/**
 	 * display the permits and then guides the player through the 
 	 * selection of the permit to send to the controller
@@ -334,6 +442,14 @@ public class ClientOutHandlerSocket implements Runnable
 		memoryContainer.setBonus(new ArrayList<Bonus>());
 	}
 
+	/**
+	 * method to perform the selection & control between a 
+	 * min value and a max value via the standard input
+	 * @param min the minimum value to input
+	 * @param max the maximum value to input
+	 * @param stdin the standard input
+	 * @returnn the integer selected to use in methods
+	 */
 	private int selector(int min, int max, Scanner stdin){
 		int selection=stdin.nextInt();
 		while(selection<min||selection>max){

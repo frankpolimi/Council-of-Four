@@ -38,7 +38,7 @@ public class ClientView{
 		this.game=game;
 	}
 	
-	//TODO SPOSTA marketstate
+	//fatto
 	public int selectMarket(){
 		System.out.println("Select the Market step action to perform");
 		System.out.println("1. Add a product");
@@ -47,10 +47,11 @@ public class ClientView{
 		return selection;
 	}
 	
-	//TODO SPOSTA marketstate
+	//fatto
 	public void buyProducts(){
 		System.out.println("These are the object for sale now!");
-		game.getMarket().displayProducts(game.getCurrentPlayer());
+		game.getMarket().getAvailableProducts(game.getCurrentPlayer()).
+			forEach(System.out::println);;
 		System.out.println("Are you interested from something? Y/N");
 		String answer=scanner.nextLine();
 		if(answer.equalsIgnoreCase("N")){
@@ -63,7 +64,7 @@ public class ClientView{
 		}
 	}
 	
-	//TODO SPOSTA marketstate
+	//fatto
 	public MarketObject<?> performMarketAction(int marketIndex){
 		Player current=game.getCurrentPlayer();
 		switch(marketIndex){
@@ -110,7 +111,7 @@ public class ClientView{
 		return null;
 	}
 	
-	//TODO SPOSTA marketstate
+	//fatto
 	private int priceInsertion(){
 		System.out.println("Insert the price");
 		int price=scanner.nextInt();
@@ -120,7 +121,7 @@ public class ClientView{
 		return price;
 	}
 	
-	//SPOSTATO startstate
+	//fatto
 	public int selectAction(){
 		System.out.println("Select the action type to perform");
 		System.out.println("1. main action");
@@ -129,8 +130,8 @@ public class ClientView{
 		int selection=this.selector(1, 3);
 		return selection;
 	}
-	
-	//SPOSTATO startstate
+
+	//fatto
 	public int showAndSelectActions(int actionType){
 		switch(actionType){
 		case 1:
@@ -153,7 +154,7 @@ public class ClientView{
 		return selection;
 	}
 	
-	//SPOSTATO actionstate
+	//fatto
 	public void buildTheAction(int type, int select){
 		//devo inizializzare action
 		Action action = null;
@@ -323,6 +324,7 @@ public class ClientView{
 		//this.notifyObservers(new ActionChange(1, action));
 	}
 	
+	//fatto
 	public void displayAvaliableActions(){
 		if(this.state.getClass().equals(StartState.class)){
 			int type=this.selectAction();
@@ -339,7 +341,7 @@ public class ClientView{
 			
 	}
 	
-	//SPOSTATO permitsstate
+	//fatto
 	public void selectPermit() {
 		System.out.println("Select the permit you want to acquire");
 		List<BuildingPermit> list = ((PermitsState)state).getPermitsList();
@@ -354,7 +356,7 @@ public class ClientView{
 		 */
 	}
 
-	//SPOSTATO bonusstate
+	//fatto
 	public void selectBonus() {
 		System.out.println("Select the bonus you want to acquire");
 		List<Bonus> list = ((BonusState)state).getBonus();
@@ -374,7 +376,7 @@ public class ClientView{
 		System.out.println(game.toString());
 	}
 	
-	//SPOSTATO state
+	//fatto
 	private int selector(int min, int max){
 		int selection=scanner.nextInt();
 		while(selection<min||selection>max){

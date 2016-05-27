@@ -26,6 +26,7 @@ public interface State {
 			System.out.println("The input cointains a not valid value. Please, try Again");
 			selection=scanner.nextInt();
 		}
+		scanner.close();
 		return selection;	
 	}
 }

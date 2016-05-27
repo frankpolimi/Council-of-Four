@@ -19,7 +19,6 @@ import model.game.politics.PoliticsCard;
 public class Market {
 
 	private List<MarketObject<?>> products;
-	private int elementDisplayed;
 	
 	/**
 	 * constructor
@@ -57,21 +56,12 @@ public class Market {
 	}
 
 	/**
-	 * display which objects are different from different player
-	 * than the one who can buy from the market and randomize the objects
-	 * @param customer
-	 */
-	public List<MarketObject<?>> displayProducts(Player customer){
-		return this.getAvailableProducts(customer);
-	}
-
-	/**
 	 * select which objects are different from different player
 	 * than the one who can buy from the market and randomize the objects
 	 * @param customer
 	 * @return the list of objects
 	 */
-	private List<MarketObject<?>> getAvailableProducts(Player customer) {
+	public List<MarketObject<?>> getAvailableProducts(Player customer) {
 		List<MarketObject<?>> available = new ArrayList<>();
 		for(MarketObject<?> o: products)
 			if(o.getSellingPlayer().getPlayerID() != customer.getPlayerID())
@@ -85,8 +75,7 @@ public class Market {
 	 * @param customer
 	 * @throws IllegalStateException 
 	 */
-	public void buyElement(Player customer) throws IllegalStateException{
-		MarketObject<?> x = products.get(elementDisplayed);
+	public void buyElement(Player customer, MarketObject<?> x) throws IllegalStateException{
 		this.transferCoin(customer, x);
 		if(x.getObject().getClass().equals(Assistant.class))
 			this.assignAssistants(customer, ((Assistant)x.getObject()));
@@ -94,7 +83,7 @@ public class Market {
 			this.assignPoliticsCard(customer, ((PoliticsCard)x.getObject()));
 		else if(x.getObject().getClass().equals(BuildingPermit.class))
 			this.assignBuildingLicense(customer, ((BuildingPermit)x.getObject()));
-		products.remove(elementDisplayed);
+		products.remove(x);
 	}
 
 	
@@ -158,5 +147,12 @@ public class Market {
 		
 	}
 	
+	public int getLengthAvailableProducts(Player customer){
+		List<MarketObject<?>> available = new ArrayList<>();
+		for(MarketObject<?> o: products)
+			if(o.getSellingPlayer().getPlayerID() != customer.getPlayerID())
+				available.add(o);
+		return available.size();
+	}
 	
 }
