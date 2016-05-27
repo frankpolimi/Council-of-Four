@@ -1,16 +1,20 @@
 package client;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.Scanner;
+
+import controller.Change;
 import model.game.*;
 import view.LocalStorage;
 
 public class ClientInHandlerSocket implements Runnable 
 {
-	private Scanner socketIn;
+	private ObjectInputStream socketIn;
 	private Game gameLocalCopy;
 	private LocalStorage memoryContainer; //Ora è object ma poi decidi te cosa mettere
 
-	public ClientInHandlerSocket(Scanner socketIn, LocalStorage container) 
+	public ClientInHandlerSocket(ObjectInputStream socketIn, LocalStorage container) 
 	{
 		super();
 		this.socketIn = socketIn;
@@ -22,10 +26,16 @@ public class ClientInHandlerSocket implements Runnable
 	{
 		while (true) 
 		{
-			String line = socketIn.nextLine(); 
+			
+			try {
+				Change line;
+				line = (Change)socketIn.readObject();
+				System.out.println(line);
+			} catch (ClassNotFoundException | IOException e) {
+				e.printStackTrace();
+			}
 			// Invece di uno scanner di stringhe abbiamo uno scanner di certi Object
 			//Hai il contenitore, ci ficchi la roba dentro e poi vedi cosa farne
-			System.out.println(line);
 		}
 	}
 

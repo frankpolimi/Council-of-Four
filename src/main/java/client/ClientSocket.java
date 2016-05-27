@@ -11,9 +11,8 @@ public class ClientSocket
 {
 	private final static int PORT = 50000;
 	private final static String IP="127.0.0.1";
-	private final Game game;
-	private LocalStorage memoryContainer; // vedi in handler
-	
+	protected final Game game;
+	private LocalStorage memoryContainer;
 	
 	
 	public ClientSocket(Game game) {
@@ -29,8 +28,8 @@ public class ClientSocket
 		Socket socket = new Socket(IP, PORT);
 		System.out.println("Connection Established");
 		ExecutorService executor = Executors.newFixedThreadPool(2);
-		executor.submit(new ClientInHandlerSocket(new Scanner(socket.getInputStream()), memoryContainer));
-		executor.submit(new ClientOutHandlerSocket(new PrintWriter(socket.getOutputStream()),memoryContainer));
+		executor.submit(new ClientInHandlerSocket(new ObjectInputStream(socket.getInputStream()), memoryContainer));
+		executor.submit(new ClientOutHandlerSocket(new ObjectOutputStream(socket.getOutputStream()),memoryContainer));
 		try {
 			executor.wait();
 		} catch (InterruptedException e) {

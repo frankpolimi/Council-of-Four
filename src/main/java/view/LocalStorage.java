@@ -62,4 +62,18 @@ public class LocalStorage {
 		return permits;
 	}
 
+	/**
+	 * @param bonus the bonus to set
+	 */
+	public void setBonus(List<Bonus> bonus) {
+		this.bonus = bonus;
+	}
+
+	/**
+	 * @param permits the permits to set
+	 */
+	public void setPermits(List<BuildingPermit> permits) {
+		this.permits = permits;
+	}
+
 }
