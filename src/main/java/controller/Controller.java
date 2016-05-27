@@ -7,19 +7,16 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.bonus.Bonus;
-import model.game.BuildingPermit;
-import model.game.Game;
-import model.game.Player;
-import model.observers.Observer;
-import view.MarketState;
-import view.View;
+import model.game.*;
+import model.bonus.*;
+import model.observers.*;
+import view.*;
 
 /**
  * @author Emanuele Ricciardelli
  *
  */
-public class Controller implements Observer<Change>{
+public class Controller implements Observer<Request>{
 	
 	private final Game game;
 	private boolean finalRound;
@@ -77,44 +74,33 @@ public class Controller implements Observer<Change>{
 	}
 	
 	@Override
-	public void update(Change change){
-		//TURNO AZIONE
-		boolean log=true;
-		Player current=game.getCurrentPlayer();
+	public void update(Request request){
+		//EFFETTUARE CONTROLLO SU GIOCATORE CORRENTE!!
 		
-		if(change instanceof ActionChange){
-			ActionChange action = (ActionChange)change;//CASTING SBAGLIATO!
-			log=action.getAction().takeAction(game);
-		}else if(change instanceof MarketChange){
-			MarketChange action= (MarketChange)change;
-			try {
-				game.getMarket().addProduct(action.getMarketObject());
-			} catch (IllegalStateException e) {
-				log=false;
-			}
-			//log
-		}else if(change instanceof BonusChange){
-			BonusChange action=(BonusChange)change;
+		//TURNO AZIONE
+		Player current=game.getCurrentPlayer();
+		if(request instanceof ActionRequest){
+			ActionRequest action = (ActionRequest)request;
+			action.getAction().takeAction(game);
+		}else if(request instanceof MarketRequest){
+			MarketRequest<?> action= (MarketRequest<?>)request;
+			game.getMarket().addProduct(action.getObject());
+		}else if(request instanceof BonusRequest){
+			BonusRequest action=(BonusRequest)request;
 			for(Bonus b:action.getBonusList()){
 				b.update(game);
 			}
 		}else{
-			PermitsChange action=(PermitsChange)change;
+			PermitsRequest action=(PermitsRequest)request;
 			current.addBuildingPermit(action.getPermits().get(0));
 		}
-		
-		
-		//IL RAGIONAMENTO è SEMPRE A TURNI: SE SIAMO IN FASE NORMALE SI APPLICA L'AZIONE, SE NO SI INSERISCE L'OGGETTO NEL MARKET.
-		if(!log){
-			throw new IllegalStateException("The action is not valid");
-		}
-		
-		
+
 		if(current.getRemainingEmporiums()==0){
 			this.finalRound=true;
 		}
 
-		if(game.getMainActionCounter()==0&&game.getQuickActionCounter()==0){
+		if(game.getMainActionCounter()==0&&game.getQuickActionCounter()==0||
+				game.getMainActionCounter()==0&&/*azione per saltare il comando*/){
 				Player nextPlayer;
 				int currentIndex=game.getPlayers().indexOf(current);
 				
@@ -122,9 +108,9 @@ public class Controller implements Observer<Change>{
 					nextPlayer=game.getPlayers().get(0);
 					game.setCurrentPlayer(nextPlayer);
 					if(!this.finalRound){
-						if(change instanceof ActionChange)
+						if(request instanceof ActionRequest)
 							game.notifyObservers();
-						else if(change instanceof MarketChange)
+						else if(request instanceof MarketRequest)
 							game.notifyObservers(new StateChange(new MarketState()));
 					}
 				}else{
@@ -158,6 +144,7 @@ public class Controller implements Observer<Change>{
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				
 		}
 		game.notifyObservers(new ModelChange(game));
 		
@@ -203,4 +190,6 @@ public class Controller implements Observer<Change>{
 			
 		}
 	}
+
+
 }
