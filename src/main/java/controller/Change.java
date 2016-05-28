@@ -1,8 +1,16 @@
 package controller;
+
+import java.io.Serializable;
+
 /**
  * @author Francesco Vetrò
  */
 
-public abstract class Change {
+public abstract class Change implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7473237200013769671L;
 
 }

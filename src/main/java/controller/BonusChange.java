@@ -14,7 +14,11 @@ import model.bonus.Bonus;
  */
 public class BonusChange extends Change {
 	
-	 private final List<Bonus> bonusList;
+	 /**
+	 * 
+	 */
+	private static final long serialVersionUID = 3134678557158320434L;
+	private final List<Bonus> bonusList;
 	 
 	 public BonusChange() {
 		bonusList = new ArrayList<Bonus>();

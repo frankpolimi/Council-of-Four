@@ -11,6 +11,10 @@ import model.actions.*;
  */
 public class ActionChange extends Change {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2693204344322751596L;
 	private final int viewID;
 	private final Action action;
 	
