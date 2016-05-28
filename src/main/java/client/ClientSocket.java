@@ -27,8 +27,8 @@ public class ClientSocket
 		Socket socket = new Socket(IP, PORT);
 		System.out.println("Connection Established");
 		ExecutorService executor = Executors.newFixedThreadPool(2);
-		executor.submit(new ClientInHandlerSocket(new ObjectInputStream(socket.getInputStream()), memoryContainer));
-		executor.submit(new ClientOutHandlerSocket(new ObjectOutputStream(socket.getOutputStream()),memoryContainer));
+		executor.submit(new ClientInHandlerSocket(new ObjectInputStream(socket.getInputStream()), game, memoryContainer));
+		executor.submit(new ClientOutHandlerSocket(new ObjectOutputStream(socket.getOutputStream()), game,memoryContainer));
 		try {
 			executor.wait();
 		} catch (InterruptedException e) {

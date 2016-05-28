@@ -11,10 +11,11 @@ public class ClientInHandlerSocket implements Runnable
 	private ObjectInputStream socketIn;
 	private Game gameLocalCopy;
 	private LocalStorage memoryContainer;
-	public ClientInHandlerSocket(ObjectInputStream socketIn, LocalStorage container) 
+	public ClientInHandlerSocket(ObjectInputStream socketIn, Game game, LocalStorage container) 
 	{
 		this.socketIn = socketIn;
 		this.memoryContainer=container;
+		this.gameLocalCopy = game;
 	}
 
 	@Override

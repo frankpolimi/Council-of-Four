@@ -46,10 +46,5 @@ public class StartState implements State {
 		
 	}
 
-	@Override
-	public void doAction(ClientView view, Game game) {
-		view.setState(new ActionState(actionType, selection, game));
-		view.getState().display();
-		view.getState().doAction(view, game);
-	}
+
 }
