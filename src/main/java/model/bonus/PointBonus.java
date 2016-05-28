@@ -12,6 +12,11 @@ import model.game.Game;
 public class PointBonus extends TileBonus {
 	
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3685807709754032075L;
+
+	/**
 	 * construct a bonus with the given amount of winning points as parameter
 	 * @param amount
 	 */

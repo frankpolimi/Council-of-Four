@@ -8,6 +8,10 @@ import model.game.PermitsDeck;
  */
 public class ChangeFaceUpPermits extends QuickAction 
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4536872089352094621L;
 	private PermitsDeck deck;
 	
 	public ChangeFaceUpPermits(PermitsDeck deck) {

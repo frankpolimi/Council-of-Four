@@ -12,6 +12,11 @@ import model.game.*;
 public class GetPoliticBonus extends TileBonus {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2498187827242720735L;
+
+	/**
 	 * constructor with the amount of cards to be given 
 	 * @param amount
 	 */

@@ -13,6 +13,10 @@ import model.game.topology.City;
  */
 public class BuildEmporiumByKing extends MainAction 
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6603254653747209388L;
 	Council counc;
 	ArrayList<PoliticsCard> politics; 
 	City city;

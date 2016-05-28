@@ -9,6 +9,11 @@ public class ExtraMainAction extends QuickAction
 {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2852349205622088L;
+
+	/**
 	 * The player pays 3 assistants to get an extra main action
 	 * @throws IllegalStateException if the player has no Quick actions left
 	 * @throws IllegalStateException if the player has not enough assistants

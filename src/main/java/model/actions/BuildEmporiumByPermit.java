@@ -10,6 +10,10 @@ import model.game.topology.City;
  */
 public class BuildEmporiumByPermit extends MainAction 
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7577677514844901289L;
 	private BuildingPermit permit;
 	private City city;
 	

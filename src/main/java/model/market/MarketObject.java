@@ -3,6 +3,8 @@
  */
 package model.market;
 
+import java.io.Serializable;
+
 import model.game.Player;
 
 /**
@@ -10,8 +12,12 @@ import model.game.Player;
  * generic type <T> can be an Assistant, a PolitcsCard or a BuildingLicense
  * no aggregation of elements can be performed
  */
-public class MarketObject<T> {
+public class MarketObject<T> implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6266006920696407080L;
 	private final T object;
 	private final Player sellingPlayer;
 	private final int price;

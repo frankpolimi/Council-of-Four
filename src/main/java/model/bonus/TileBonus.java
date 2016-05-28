@@ -11,6 +11,11 @@ package model.bonus;
 public abstract class TileBonus extends Bonus {
 	
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2968416294698944311L;
+
+	/**
 	 * constructor specifing the amount of bonus
 	 * @param importo
 	 */

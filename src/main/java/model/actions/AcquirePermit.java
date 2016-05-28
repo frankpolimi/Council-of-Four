@@ -13,6 +13,10 @@ import model.game.politics.PoliticsCard;
 public class AcquirePermit extends MainAction 
 {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4581355540805367240L;
 	private RegionalCouncil council;
 	private ArrayList<PoliticsCard> politics;
 	private BuildingPermit permit;

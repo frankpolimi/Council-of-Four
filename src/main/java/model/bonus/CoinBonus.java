@@ -9,6 +9,11 @@ import model.game.Game;
  */
 public class CoinBonus extends TileBonus {
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1390525919209177348L;
+
+	/**
 	 * construct a coin bonus with the given amount as parameter
 	 * @param importo
 	 */

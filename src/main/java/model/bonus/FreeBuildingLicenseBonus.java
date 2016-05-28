@@ -18,6 +18,11 @@ import view.*;
  */
 public class FreeBuildingLicenseBonus extends ActionBonus {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7459584739431982172L;
+
 	public FreeBuildingLicenseBonus(Integer repeat) {
 		super(repeat);
 	}

@@ -13,6 +13,11 @@ import model.game.Game;
  */
 public class ActionBonus extends Bonus {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1087850494213111007L;
+
 	public ActionBonus(Integer repeat) {
 		super(repeat);
 	}

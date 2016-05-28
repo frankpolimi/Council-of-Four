@@ -8,6 +8,12 @@ import model.game.Game;
 public class EngageAssistant extends QuickAction 
 {
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8167109683946217936L;
+
+
+	/**
 	 * The player pays 3 coins to get an assistant
 	 * @throws IllegalStateException if the player has no Quick actions left
 	 * @throws IllegalStateException if the player has not enough coins

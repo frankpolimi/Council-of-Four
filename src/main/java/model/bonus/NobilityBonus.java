@@ -13,6 +13,11 @@ import model.game.NobilityLane;
 public class NobilityBonus extends TileBonus {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8814654733458365846L;
+
+	/**
 	 * construct a bonus with the given amount of nobility points as parameter
 	 * @param amount
 	 */

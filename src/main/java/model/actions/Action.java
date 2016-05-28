@@ -1,5 +1,6 @@
 package model.actions;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.concurrent.ArrayBlockingQueue;
 
@@ -13,9 +14,14 @@ import model.game.politics.PoliticsCard;
 /**
  * @author Vitaliy Pakholko
  */
-public class Action implements Act
+public class Action implements Act, Serializable
 {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5134853686884005851L;
+
 	/**
 	 * Super class action's take action method. 
 	 * @param game is the game on which the action will be applied

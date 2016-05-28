@@ -17,6 +17,11 @@ import view.*;
  */
 public class ReuseTileBonus extends ActionBonus {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5580070888752831045L;
+
 	public ReuseTileBonus(Integer repeat) {
 		super(repeat);
 	}

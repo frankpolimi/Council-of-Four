@@ -11,6 +11,11 @@ import model.game.Game;
  */
 public class AssistantBonus extends TileBonus {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7236019783850791384L;
+
 	public AssistantBonus(Integer amount) {
 		super(amount);
 	}

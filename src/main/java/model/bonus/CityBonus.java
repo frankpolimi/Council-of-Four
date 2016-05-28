@@ -17,6 +17,11 @@ import view.View;
  */
 public class CityBonus extends ActionBonus {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4800174510551680358L;
+
 	public CityBonus (Integer repeat){
 		super(repeat);
 	}

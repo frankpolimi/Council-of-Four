@@ -6,6 +6,11 @@ public class SkipQuickAction extends QuickAction
 {
 	
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7504135483550600131L;
+
+	/**
 	 * This action allows the player to skip his Quick action this turn.
 	 * @throws IllegalStateException if the player has no Quick actions avaiable
 	 */

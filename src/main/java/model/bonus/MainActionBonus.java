@@ -11,6 +11,11 @@ import model.game.Game;
  */
 public class MainActionBonus extends ActionBonus {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4892378733613363361L;
+
 	public MainActionBonus(Integer repeat) {
 		super(repeat);
 	}

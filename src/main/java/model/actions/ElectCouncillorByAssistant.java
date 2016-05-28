@@ -9,6 +9,10 @@ import model.game.council.Councillor;
  */
 public class ElectCouncillorByAssistant extends QuickAction
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1056666433218005285L;
 	private Council council;
 	private Councillor councillor;
 	/**

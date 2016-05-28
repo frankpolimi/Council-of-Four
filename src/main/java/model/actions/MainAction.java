@@ -7,6 +7,11 @@ import model.game.Game;
  */
 public class MainAction extends Action
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2517451926454347130L;
+
 	@Override
 	public boolean checkAction(Game game)
 	{
