@@ -14,6 +14,7 @@ import model.actions.ElectCouncillor;
 import model.actions.ElectCouncillorByAssistant;
 import model.actions.EngageAssistant;
 import model.actions.ExtraMainAction;
+import model.actions.SkipQuickAction;
 import model.bonus.Bonus;
 import model.game.BuildingPermit;
 import model.game.Game;
@@ -256,13 +257,7 @@ public class ClientView{
 		case 2:
 			return this.buyProducts(stdin);
 		case 3:
-			/*
-			 * TODO
-			 * la fine dell'inserimento o dell'acquisto 
-			 * come lo gestisco? andrebbe ideata una azione di 
-			 * fine anche per il market
-			 */
-			break;
+			return new ActionRequest(new SkipQuickAction());
 		}
 		return null;
 	}

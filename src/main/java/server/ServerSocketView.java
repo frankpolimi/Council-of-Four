@@ -21,7 +21,12 @@ public class ServerSocketView extends View implements Runnable
 	@Override
 	public void run()
 	{
-		//Qua come vogliamo fare? ho tolto try and catch perche' unreachable dato che non breakkiamo mai il while, dato che il quit gia' uccide il client ma non tocca il server per ora
+		/* 
+		 * Qua come vogliamo fare? ho tolto try and catch perche' 
+		 * unreachable dato che non breakkiamo mai il while, 
+		 * dato che il quit gia' uccide il client 
+		 * ma non tocca il server per ora
+		 */
 		while (true)
 		{
 			String line = socketIn.nextLine(); //Qua arrivano richieste

@@ -3,7 +3,6 @@
  */
 package view;
 
-import model.game.Game;
 
 /**
  * @author Francesco Vetr�
@@ -12,7 +11,6 @@ import model.game.Game;
 public class StartState implements State {
 	
 	private int actionType;
-	private int selection;
 	
 	/**
 	 * display to the view the first selection's level

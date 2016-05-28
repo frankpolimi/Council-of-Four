@@ -2,30 +2,13 @@ package client;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Scanner;
 import model.actions.*;
-import model.bonus.Bonus;
-import model.game.BuildingPermit;
 import model.game.Game;
-import model.game.PermitsDeck;
 import model.game.Player;
-import model.game.council.Council;
-import model.game.council.Councillor;
-import model.game.council.KingsCouncil;
-import model.game.council.RegionalCouncil;
-import model.game.politics.PoliticsCard;
-import model.game.topology.City;
-import model.market.Assistant;
-import model.market.MarketObject;
 import view.ActionRequest;
-import view.BonusRequest;
 import view.ClientView;
 import view.LocalStorage;
-import view.MarketRequest;
-import view.PermitsRequest;
 import view.Request;
 
 public class ClientOutHandlerSocket implements Runnable 
