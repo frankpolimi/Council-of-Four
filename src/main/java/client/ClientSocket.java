@@ -21,8 +21,6 @@ public class ClientSocket
 		this.memoryContainer=new LocalStorage();
 	}
 
-
-
 	/**
 	 * @return the iD
 	 */
@@ -30,15 +28,12 @@ public class ClientSocket
 		return ID;
 	}
 
-
-
 	/**
 	 * @param iD the iD to set
 	 */
 	public void setID(int iD) {
 		ID = iD;
 	}
-
 
 
 	public void startClient() throws IOException 
@@ -53,8 +48,10 @@ public class ClientSocket
 		try {
 			executor.wait();
 		} catch (InterruptedException e) {
-			socket.close();
 			executor.shutdown();
+		}
+		finally{
+			socket.close();
 		}
 	}
 }
