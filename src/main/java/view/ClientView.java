@@ -34,11 +34,24 @@ public class ClientView{
 	private Game game;
 	private LocalStorage storage;
 	private Player user;
+	private int ID;
 	
-	public ClientView(Game game, LocalStorage memoryContainer, Player current) {
+	public ClientView(Game game, LocalStorage memoryContainer, int ID) {
 		this.game=game;
 		this.storage = memoryContainer;
-		this.user = current;
+		this.user = this.getPlayerByID();
+	}
+	
+	/**
+	 * this method will return the player 
+	 * with the same playerID as the socket out
+	 * @return the player with the ID desired
+	 */
+	private Player getPlayerByID() {
+		for(Player p: game.getPlayers())
+			if(p.getPlayerID() == ID)
+				return p;
+		return null;
 	}
 	
 	/**

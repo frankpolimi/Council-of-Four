@@ -11,6 +11,10 @@ import model.actions.*;
  */
 public class ActionRequest extends Request {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1157755599802000343L;
 	private Action action;
 	
 	/**

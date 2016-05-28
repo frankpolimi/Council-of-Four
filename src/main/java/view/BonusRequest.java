@@ -14,6 +14,10 @@ import model.bonus.Bonus;
  */
 public class BonusRequest extends Request {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 11445133450526286L;
 	private final List<Bonus> bonusList;
 	 
 	 public BonusRequest() {

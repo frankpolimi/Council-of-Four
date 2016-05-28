@@ -14,12 +14,17 @@ import model.game.BuildingPermit;
  */
 public class PermitsRequest extends Request {
 	
-private final List<BuildingPermit> permits;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4069051733145832810L;
 	
+	private final List<BuildingPermit> permits;
+
 	public PermitsRequest() {
 		permits = new ArrayList<BuildingPermit>();
 	}
-	
+
 	public PermitsRequest(List<BuildingPermit> permits) {
 		this.permits = permits;
 	}

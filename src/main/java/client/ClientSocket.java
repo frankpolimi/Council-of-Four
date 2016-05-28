@@ -12,12 +12,31 @@ public class ClientSocket
 	private final static String IP="127.0.0.1";
 	protected final Game game;
 	private LocalStorage memoryContainer;
+	private int ID;
 	
 	
 	public ClientSocket(Game game) {
 		super();
 		this.game = game;
 		this.memoryContainer=new LocalStorage();
+	}
+
+
+
+	/**
+	 * @return the iD
+	 */
+	public int getID() {
+		return ID;
+	}
+
+
+
+	/**
+	 * @param iD the iD to set
+	 */
+	public void setID(int iD) {
+		ID = iD;
 	}
 
 
@@ -30,12 +49,12 @@ public class ClientSocket
 		executor.submit(new ClientInHandlerSocket(new ObjectInputStream(socket.getInputStream()),
 				game, memoryContainer));
 		executor.submit(new ClientOutHandlerSocket(new ObjectOutputStream(socket.getOutputStream()), 
-				game, memoryContainer));
+				game, memoryContainer, ID));
 		try {
 			executor.wait();
 		} catch (InterruptedException e) {
+			socket.close();
 			executor.shutdown();
-			e.printStackTrace();
 		}
 	}
 }

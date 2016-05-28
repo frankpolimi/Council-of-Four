@@ -18,12 +18,12 @@ public class ClientOutHandlerSocket implements Runnable
 	private ObjectOutputStream socketOut;
 	private LocalStorage memoryContainer;
 	private Game game;
-	private Player current;
 
-	public ClientOutHandlerSocket(ObjectOutputStream socketOut, Game game, LocalStorage container) {
+	public ClientOutHandlerSocket(ObjectOutputStream socketOut, Game game, LocalStorage container, int ID) {
 		this.game = game;
 		this.socketOut = socketOut;
 		this.memoryContainer=container;
+		this.ID = ID;
 	}
 
 	/**
@@ -36,7 +36,6 @@ public class ClientOutHandlerSocket implements Runnable
 		Scanner stdin = new Scanner(System.in);
 		while (true) 
 		{
-			current = this.getPlayerByID();
 			String inputLine = this.start(stdin);
 			if(!inputLine.equalsIgnoreCase("quit")){
 				stdin.close();
@@ -50,13 +49,6 @@ public class ClientOutHandlerSocket implements Runnable
 			}
 		}
 	}
-	
-	private Player getPlayerByID() {
-		for(Player p: game.getPlayers())
-			if(p.getPlayerID() == ID)
-				return p;
-		return null;
-	}
 
 	/**
 	 * first level of input where the player can choose what to do
@@ -68,7 +60,7 @@ public class ClientOutHandlerSocket implements Runnable
 	 */
 	private String start(Scanner stdin) {
 		int actionType;
-		ClientView view = new ClientView(game, memoryContainer, current);
+		ClientView view = new ClientView(game, memoryContainer, ID);
 		if(!memoryContainer.getBonus().isEmpty())
 			request = view.bonus(stdin);
 		else if(!memoryContainer.getPermits().isEmpty())

@@ -12,7 +12,6 @@ public class KingsCouncil extends Council
 	public KingsCouncil(ArrayBlockingQueue<Councillor> councillors) 
 	{
 		super(councillors);
-		// TODO Auto-generated constructor stub
 	}
 
 	/* (non-Javadoc)

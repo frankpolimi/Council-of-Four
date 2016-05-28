@@ -8,14 +8,14 @@ public class Councillor
 {
 	private final Color color;
 
-	public Color getColor() 
-	{
-		return color;
-	}
-
 	public Councillor(Color color)
 	{
 		this.color = color;
+	}
+	
+	public Color getColor() 
+	{
+		return color;
 	}
 
 	/* (non-Javadoc)

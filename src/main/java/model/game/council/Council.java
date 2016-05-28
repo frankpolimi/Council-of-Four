@@ -9,6 +9,9 @@ import java.util.concurrent.ArrayBlockingQueue;
 public abstract class Council{
 	private ArrayBlockingQueue<Councillor> councillors;
 	
+	public Council(ArrayBlockingQueue<Councillor> councillors) {
+		this.councillors = councillors;	
+	}
 	
 	/**
 	 * Adds given councillor in tail position and returns the one removed from head position
@@ -20,14 +23,10 @@ public abstract class Council{
 	public Councillor electCouncillor(Councillor councillor)
 	{
 		Councillor temp=councillors.poll();
-		if (temp==null)throw new NullPointerException();
+		if (temp==null)
+			throw new NullPointerException();
 		councillors.add(councillor);
 		return temp;
-	}
-
-	public Council(ArrayBlockingQueue<Councillor> councillors) {
-		this.councillors = councillors;
-		
 	}
 
 	public ArrayBlockingQueue<Councillor> getCouncillors() {

@@ -12,6 +12,10 @@ import model.market.MarketObject;
  */
 public class MarketRequest<T> extends Request {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5046370217035631986L;
 	private MarketObject<T> object;
 	
 	
