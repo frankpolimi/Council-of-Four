@@ -24,7 +24,6 @@ public class StartState implements State {
 		System.out.println("1. main action");
 		System.out.println("2. quick action");
 		System.out.println("3. pass to the next player");
-		actionType=this.selector(1, 3);
 		
 		switch(actionType){
 		case 1:
@@ -42,7 +41,6 @@ public class StartState implements State {
 			System.out.println("4. To obtain an extra main action");
 			break;			
 		}
-		selection=this.selector(1, 4);
 		
 	}
 
