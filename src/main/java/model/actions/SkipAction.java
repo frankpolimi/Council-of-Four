@@ -2,7 +2,7 @@ package model.actions;
 
 import model.game.Game;
 
-public class SkipQuickAction extends QuickAction 
+public class SkipAction extends QuickAction 
 {
 	
 	/**

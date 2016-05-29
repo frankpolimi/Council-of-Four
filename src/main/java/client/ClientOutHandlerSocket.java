@@ -81,7 +81,7 @@ public class ClientOutHandlerSocket implements Runnable
 				request = view.quickAction(stdin);
 				break;
 			case 3:
-				request = new ActionRequest(new SkipQuickAction());
+				request = new ActionRequest(new SkipAction());
 				break;
 			case 4:
 				request = view.market(stdin);
