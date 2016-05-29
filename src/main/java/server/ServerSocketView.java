@@ -32,5 +32,7 @@ public class ServerSocketView extends View implements Runnable
 			String line = socketIn.nextLine(); //Qua arrivano richieste
 			this.notifyObservers(/*Qualcosa*/);
 		}
+		//ricordiamoci che per ora abbiamo che quando si notifica il controllore, ritorna un'eccezione in caso di errore ed essa
+		//va mandata sul ClientInHandler. Oppure cambiamo strategia?
 	}
 }
