@@ -21,6 +21,9 @@ import model.game.topology.*;
 import model.market.Market;
 import model.observers.Observable;
 import view.EndState;
+import view.MarketState;
+import view.StartState;
+import view.State;
 
 /**
  * @author Emanuele Ricciardelli, Vitaliy Pakholko
@@ -28,6 +31,7 @@ import view.EndState;
  */
 public class Game extends Observable<Change> {
 	
+	private State gameState;
 	private final PoliticsDeck politicsDeck;
 	private final PoliticsDeck usedPolitics;
 	private final List<Player> players;
@@ -74,6 +78,7 @@ public class Game extends Observable<Change> {
 		}else{
 			this.initFor2Players();
 		}
+		this.gameState=new StartState();
 	}
 
 	/*
@@ -321,6 +326,18 @@ public class Game extends Observable<Change> {
 		councils.addAll(regCouncils);
 		councils.add(this.kingsCouncil);
 		return councils;
+	}
+	
+	public State getState(){
+		return this.gameState;
+	}
+	
+	public void nextState(){
+		if(this.gameState instanceof StartState){
+			this.gameState=new MarketState();
+		}else{
+			this.gameState=new StartState();
+		}
 	}
 
 	/*public static void main(String[]args) throws JDOMException, IOException{
