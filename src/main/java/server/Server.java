@@ -4,17 +4,25 @@ import java.io.IOException;
 import java.net.*;
 import java.rmi.AlreadyBoundException;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.*;
 import controller.*;
+import model.game.Game;
+import model.game.Player;
 import view.View;
 
 public class Server 
 {
 	private final static int PORT=50000;
 	private Controller controller;
+	private Game game;
+	private List<Player> oneRoomLobby;
 	
 	public Server() throws RemoteException
 	{
+		oneRoomLobby = new ArrayList<>();
+		
 		//game=new Game(); qua dobbiamo costruire la partita in qualche modo (file)
 		//controller=new Controller(viewSocket, viewRMI, game);
 	}
@@ -34,6 +42,17 @@ public class Server
 			try {
 
 				Socket socket = serverSocket.accept();
+				ServerSocketView view = new ServerSocketView(socket);
+				
+				/*
+				 * this.game.registerObserver(view);
+				 * view.registerObserver(controller);
+				 * TODO mettere i player nella lista e poi creare il game
+				 * con le view annesse 
+				 */
+				
+				executor.submit(view);
+				
 				//ServerSocketView view=new ServerSocketView(socket);
 				//this.addClient(view);
 				//executor.submit(view);
