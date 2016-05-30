@@ -39,9 +39,5 @@ public abstract class Observable<C> {
 		}
 	}
 	
-	public void notifyObservers(String string){
-		for(Observer<C> o: this.observers)
-			o.update(string);
-	}
 }
 	

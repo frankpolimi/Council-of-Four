@@ -7,7 +7,7 @@ package view;
  * @author francesco
  *
  */
-public class MarketState implements State {
+public class MarketSellingState implements State {
 
 	/* (non-Javadoc)
 	 * @see cg2.view.State#display()

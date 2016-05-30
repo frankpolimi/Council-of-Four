@@ -21,7 +21,8 @@ import model.game.topology.*;
 import model.market.Market;
 import model.observers.Observable;
 import view.EndState;
-import view.MarketState;
+import view.MarketBuyingState;
+import view.MarketSellingState;
 import view.StartState;
 import view.State;
 
@@ -334,7 +335,9 @@ public class Game extends Observable<Change> {
 	
 	public void nextState(){
 		if(this.gameState instanceof StartState){
-			this.gameState=new MarketState();
+			this.gameState=new MarketSellingState();
+		}else if(this.gameState.getClass().equals(MarketSellingState.class)){
+			this.gameState=new MarketBuyingState();
 		}else{
 			this.gameState=new StartState();
 		}
