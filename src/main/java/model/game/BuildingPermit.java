@@ -54,7 +54,7 @@ public class BuildingPermit extends Bonusable{
 
 	@Override
 	public String toString() {
-		return "BuildingPermit [buildingAvaliableCities=" + buildingAvaliableCities + "]";
+		return "BuildingPermit [buildingAvaliableCities=" + buildingAvaliableCities + "]\n";
 	}
 
 	/**
