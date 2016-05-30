@@ -92,17 +92,23 @@ public class Server
 	public static void main(String[] args) {
 		
 			Server server = new Server();
+			try {
+				server.start();
+			} catch (AlreadyBoundException | IOException e) {
+				e.printStackTrace();
+			}
+			/*
+			 * Capire dove mettere questa parte di registrazione
 			while(server.oneRoomLobby.size()<2);
 			try {
 				server.game = new Game(server.getLobby());
 			} catch (JDOMException | IOException e) {
 				e.printStackTrace();
 			}
-			/*
-			for(View v : server)
-			server.controller = new Controller(view, game)
+			server.controller = new Controller(server.game);
+			for(View v : server.serverViewsOfPlayers)
+				v.registerObserver(server.controller);
 			*/
-		
 	}
 		
 	
