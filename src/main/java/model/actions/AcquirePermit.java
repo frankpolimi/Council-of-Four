@@ -2,6 +2,7 @@ package model.actions;
 
 import java.util.ArrayList;
 
+import controller.ModelChange;
 import model.game.BuildingPermit;
 import model.game.Game;
 import model.game.council.RegionalCouncil;
@@ -39,6 +40,7 @@ public class AcquirePermit extends MainAction
 			if(council.getPermitsDeck().givePermit(game, permit))
 			{
 				game.decrementMainActionCounter();
+				super.takeAction(game);
 				return true;
 			}else return false;
 		else throw new IllegalStateException("Not enough coins or Cards to pay the council. For 1 missing politics card you pay 4 additional coins,"

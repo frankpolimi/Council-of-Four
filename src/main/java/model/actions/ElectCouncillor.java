@@ -27,6 +27,7 @@ public class ElectCouncillor extends MainAction
 		game.addCouncillor(council.electCouncillor(councillor));
 		game.getCurrentPlayer().setCoins(game.getCurrentPlayer().getCoins()+4);
 		game.decrementMainActionCounter();
+		super.takeAction(game);
 		return true;
 	}
 

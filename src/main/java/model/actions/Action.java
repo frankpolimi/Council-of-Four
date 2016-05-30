@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.concurrent.ArrayBlockingQueue;
 
+import controller.ModelChange;
 import model.game.Game;
 import model.game.Player;
 import model.game.council.Council;
@@ -29,12 +30,14 @@ public class Action implements Act, Serializable
 	@Override
 	public boolean takeAction(Game game)
 	{
+		game.notifyObservers(new ModelChange(game));
 		return false;
 	}
 	
 	@Override
 	public boolean checkAction(Game game) 
 	{
+		
 		return false;
 	}
 	
