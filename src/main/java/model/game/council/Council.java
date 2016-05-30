@@ -9,8 +9,11 @@ import java.util.concurrent.ArrayBlockingQueue;
 public abstract class Council{
 	private ArrayBlockingQueue<Councillor> councillors;
 	
-	public Council(ArrayBlockingQueue<Councillor> councillors) {
-		this.councillors = councillors;	
+	public Council(ArrayBlockingQueue<Councillor> councillors) 
+	{
+		if (councillors!=null)
+			this.councillors = councillors;	
+		else throw new NullPointerException();
 	}
 	
 	/**
@@ -29,12 +32,18 @@ public abstract class Council{
 		return temp;
 	}
 
-	public ArrayBlockingQueue<Councillor> getCouncillors() {
-		return councillors;
+	public ArrayBlockingQueue<Councillor> getCouncillors() 
+	{
+		if(this.councillors!=null)
+			return councillors;
+		else throw new NullPointerException();
 	}
 	
-	public void setCouncillors(ArrayBlockingQueue<Councillor> councillors) {
-		this.councillors = councillors;
+	public void setCouncillors(ArrayBlockingQueue<Councillor> councillors) 
+	{
+		if(councillors!=null)
+			this.councillors = councillors;
+		else throw new NullPointerException();
 	}
 
 	/* (non-Javadoc)

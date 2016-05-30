@@ -12,7 +12,9 @@ public class RegionalCouncil extends Council
 	private final PermitsDeck permitsDeck;
 	public RegionalCouncil(ArrayBlockingQueue<Councillor> councillors, PermitsDeck permitsDeck) {
 		super(councillors);
-		this.permitsDeck=permitsDeck;
+		if(permitsDeck!=null)
+			this.permitsDeck=permitsDeck;
+		else throw new NullPointerException();
 	}
 
 	/* (non-Javadoc)
@@ -26,7 +28,10 @@ public class RegionalCouncil extends Council
 	/**
 	 * @return the permitsDeck
 	 */
-	public PermitsDeck getPermitsDeck() {
-		return permitsDeck;
+	public PermitsDeck getPermitsDeck() 
+	{
+		if(this.permitsDeck!=null)
+			return permitsDeck;
+		else throw new NullPointerException();
 	}
 }

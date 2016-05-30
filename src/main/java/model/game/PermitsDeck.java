@@ -18,7 +18,10 @@ public class PermitsDeck {
 		this.faceUpPermits = new ArrayBlockingQueue<>(2);
 		
 	}
-
+	
+	/**
+	 * @author Vitaliy Pakholko
+	 */
 	public boolean givePermit(Game game, BuildingPermit permit)
 	{
 		if(faceUpPermits.contains(permit))
