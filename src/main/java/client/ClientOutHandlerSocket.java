@@ -64,6 +64,8 @@ public class ClientOutHandlerSocket implements Runnable
 	private String start(Scanner stdin) {
 		int actionType;
 		ClientView view = new ClientView(game, memoryContainer, ID);
+		if(game.isLastTurn())
+			System.out.println("THIS IS YOUR LAST TURN");
 		if(game.getGameState().equals(StartState.class)){
 			if(!memoryContainer.getBonus().isEmpty())
 				request = view.bonus(stdin);
