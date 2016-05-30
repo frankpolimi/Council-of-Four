@@ -9,7 +9,10 @@ import model.game.Player;
 import view.ActionRequest;
 import view.ClientView;
 import view.LocalStorage;
+import view.MarketBuyingState;
+import view.MarketSellingState;
 import view.Request;
+import view.StartState;
 
 public class ClientOutHandlerSocket implements Runnable 
 {
@@ -61,38 +64,61 @@ public class ClientOutHandlerSocket implements Runnable
 	private String start(Scanner stdin) {
 		int actionType;
 		ClientView view = new ClientView(game, memoryContainer, ID);
-		if(!memoryContainer.getBonus().isEmpty())
-			request = view.bonus(stdin);
-		else if(!memoryContainer.getPermits().isEmpty())
-			request = view.permit(stdin);
-		else{	
-			System.out.println("Select the action type to perform");
-			System.out.println("1. main action");
-			System.out.println("2. quick action");
-			System.out.println("3. skip the quick action");
-			System.out.println("4. perform market");
-			System.out.println("5. quit");
-			actionType= view.selector(1, 5, stdin);
-			switch (actionType) {
-			case 1:
-				request = view.mainAction(stdin);
-				break;
-			case 2:
-				request = view.quickAction(stdin);
-				break;
-			case 3:
-				request = new ActionRequest(new SkipAction(), this.ID);
-				break;
-			case 4:
-				request = view.market(stdin);
-				break;
-			case 5:
-				return "quit";
-			default:
-				break;
+		if(game.getState().equals(StartState.class)){
+			if(!memoryContainer.getBonus().isEmpty())
+				request = view.bonus(stdin);
+			else if(!memoryContainer.getPermits().isEmpty())
+				request = view.permit(stdin);
+			else{	
+				game.getState().display();
+				actionType= view.selector(1, 4, stdin);
+				switch (actionType) {
+				case 1:
+					request = view.mainAction(stdin);
+					break;
+				case 2:
+					request = view.quickAction(stdin);
+					break;
+				case 3:
+					request = new ActionRequest(new SkipAction(), this.ID);
+					break;
+				case 4:
+					return "quit";
+				}
+				return "";
 			}
 		}
-		return "";
+		else if(game.getState().equals(MarketSellingState.class)){
+			game.getState().display();
+			actionType = view.selector(1, 3, stdin);
+			switch(actionType){
+			case 1:
+				request = view.addProduct(stdin);
+				break;
+			case 2:
+				request = new ActionRequest(new SkipAction(), ID);
+				break;
+			case 3:
+				return "quit";
+			}
+			return "";
+		}
+		else if(game.getState().equals(MarketBuyingState.class)){
+			game.getState().display();
+			actionType = view.selector(1, 3, stdin);
+			switch(actionType){
+			case 1:
+				request = view.buyProducts(stdin);
+				break;
+			case 2: 
+				request = new ActionRequest(new SkipAction(), ID);
+				break;
+			case 3:
+				return "quit";
+			}
+			return "";
+		}
+		return null;
 	}
 
 	/**
