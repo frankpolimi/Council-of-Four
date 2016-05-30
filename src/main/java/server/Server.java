@@ -15,6 +15,7 @@ import view.View;
 public class Server 
 {
 	private final static int PORT=50000;
+	private int serialID = 1;
 	private Controller controller;
 	private Game game;
 	private List<Player> oneRoomLobby;
@@ -37,22 +38,15 @@ public class Server
 		ExecutorService executor = Executors.newCachedThreadPool();
 		ServerSocket serverSocket = new ServerSocket(PORT);
 		System.out.println("Server socket ready on port: " + PORT);
-		System.out.println("Server ready");
 		while (true) {
 			try {
 
 				Socket socket = serverSocket.accept();
 				ServerSocketView view = new ServerSocketView(socket);
 				
-				/*
-				 * this.game.registerObserver(view);
-				 * view.registerObserver(controller);
-				 * TODO mettere i player nella lista e poi creare il game
-				 * con le view annesse 
-				 */
+				this.addClient(view);
 				
 				executor.submit(view);
-				
 				//ServerSocketView view=new ServerSocketView(socket);
 				//this.addClient(view);
 				//executor.submit(view);
@@ -66,7 +60,9 @@ public class Server
 	
 	public void addClient(View view)
 	{
-		
+		view.setID(this.serialID);
+		oneRoomLobby.add(new Player(name, serialID));
+		this.serialID++;
 	}
 	
 	
