@@ -57,6 +57,7 @@ public class SkipAction extends Action
 			if(game.getQuickActionCounter()==0){
 				game.incrementQuickActionCounter();
 			}
+			
 			if(game.isLastTurn()){
 				game.decrementLastRemainingPlayers();
 			}
