@@ -12,7 +12,7 @@ import view.MarketRequest;
 import view.MarketSellingState;
 import view.StartState;
 
-public class SkipAction extends QuickAction
+public class SkipAction extends Action
 {
 	
 	/**
