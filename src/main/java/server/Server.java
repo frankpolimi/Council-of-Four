@@ -75,6 +75,7 @@ public class Server
 	public void addClient(View view, String name)
 	{
 		view.setID(this.serialID);
+		view.registerObserver(this.controller);
 		try {
 			oneRoomLobby.add(new Player(name, serialID));
 			serverViewsOfPlayers.add(view);

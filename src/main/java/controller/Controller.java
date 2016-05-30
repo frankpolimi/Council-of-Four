@@ -29,10 +29,9 @@ public class Controller implements Observer<Request>{
 	 * @param view a client's view that want to interact with the game
 	 * @param game the instance of one specific game 
 	 */
-	public Controller(View view, Game game) {
+	public Controller(Game game) {
 		super();
 		this.game = game;
-		view.registerObserver(this);
 	}
 	
 	/* (non-Javadoc)
@@ -44,7 +43,7 @@ public class Controller implements Observer<Request>{
 	}
 	
 	@Override
-	public void update(Request request){
+	public void update(Request request, Observable<Request> obs) {
 		//EFFETTUARE CONTROLLO SU GIOCATORE CORRENTE!!
 		if(request.getID()!=game.getCurrentPlayer().getPlayerID()){
 			throw new IllegalArgumentException("It's not your turn!");
@@ -90,5 +89,12 @@ public class Controller implements Observer<Request>{
 		}
 		
 	}
+
+	@Override
+	public void update(Request change) {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 }

@@ -33,9 +33,9 @@ public abstract class Observable<C> {
 		this.observers.get(specificView).update(c);
 	}
 	
-	public void notifyObservers(C c){
+	public void notifyObservers(C c, Observable<C> obs){
 		for(Observer<C> o: this.observers){
-			o.update(c);
+			o.update(c, obs);
 		}
 	}
 	
