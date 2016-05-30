@@ -1,9 +1,13 @@
 package model.actions;
 
+import java.util.List;
+
 import controller.StateChange;
 import model.game.Game;
 import model.game.Player;
 import view.ActionRequest;
+import view.EndState;
+import view.MarketBuyingState;
 import view.MarketRequest;
 import view.MarketSellingState;
 
@@ -28,15 +32,22 @@ public class SkipAction extends Action
 		else
 		{
 			Player nextPlayer;
-			
-			int currentIndex=game.getPlayers().indexOf(game.getCurrentPlayer());
-			
-			if(currentIndex+1==game.getPlayers().size()){
-				nextPlayer=game.getPlayers().get(0);
-				game.setCurrentPlayer(nextPlayer);
-				game.nextState();
+			List<Player> ref;
+			if(game.getGameState().getClass().equals(MarketBuyingState.class)){
+				ref=game.getShuffledPlayers();
 			}else{
-				nextPlayer=game.getPlayers().get(currentIndex+1);
+				ref=game.getPlayers();
+			}
+			
+			int currentIndex=ref.indexOf(game.getCurrentPlayer());
+			
+			if(currentIndex+1==ref.size()){
+				nextPlayer=ref.get(0);
+				game.setCurrentPlayer(nextPlayer);
+				if(!game.getGameState().getClass().equals(EndState.class))
+					game.nextState();
+			}else{
+				nextPlayer=ref.get(currentIndex+1);
 				game.setCurrentPlayer(nextPlayer);
 				
 			}
