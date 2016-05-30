@@ -61,7 +61,7 @@ public class Server
 	public void addClient(View view)
 	{
 		view.setID(this.serialID);
-		oneRoomLobby.add(new Player(name, serialID));
+		//oneRoomLobby.add(new Player(name, serialID));
 		this.serialID++;
 	}
 	

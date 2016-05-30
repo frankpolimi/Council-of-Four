@@ -10,14 +10,13 @@ public class ClientSocket
 {
 	private final static int PORT = 50000;
 	private final static String IP="127.0.0.1";
-	protected final Game game;
+	protected Game game;
 	private LocalStorage memoryContainer;
 	private int ID;
 	
 	
-	public ClientSocket(Game game) {
+	public ClientSocket() {
 		super();
-		this.game = game;
 		this.memoryContainer=new LocalStorage();
 	}
 

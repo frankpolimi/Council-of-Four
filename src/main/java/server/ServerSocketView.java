@@ -59,4 +59,14 @@ public class ServerSocketView extends View implements Runnable
 		}
 		
 	}
+	
+	@Override
+	public void setID(int serialID){
+		try {
+			this.socketOut.writeObject(new Integer(serialID));
+			this.socketOut.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 }

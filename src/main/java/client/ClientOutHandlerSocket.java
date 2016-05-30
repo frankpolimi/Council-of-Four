@@ -37,6 +37,7 @@ public class ClientOutHandlerSocket implements Runnable
 	public void run() 
 	{
 		Scanner stdin = new Scanner(System.in);
+		
 		while (true) 
 		{
 			String inputLine = this.start(stdin);

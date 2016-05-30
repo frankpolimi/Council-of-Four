@@ -29,4 +29,8 @@ public class View extends Observable<Request> implements Observer<Change> {
 		
 	}
 
+	public void setID(int serialID){
+		//nothig to do, must be overridden
+	}
+
 }
