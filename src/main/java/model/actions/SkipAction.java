@@ -7,7 +7,7 @@ import view.ActionRequest;
 import view.MarketRequest;
 import view.MarketSellingState;
 
-public class SkipAction extends Action 
+public class SkipAction extends QuickAction
 {
 	
 	/**
@@ -23,8 +23,8 @@ public class SkipAction extends Action
 	@Override
 	public boolean takeAction(Game game)
 	{
-		if(!this.checkAction(game))
-			throw new IllegalStateException("You have to do the main action to skip the turn");
+		if(!this.checkAction(game)||game.getMainActionCounter()>0)
+			throw new IllegalStateException("You have to use all the main actions before passing");
 		else
 		{
 			Player nextPlayer;
