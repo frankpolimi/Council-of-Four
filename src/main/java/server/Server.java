@@ -40,7 +40,7 @@ public class Server
 		System.out.println("Server socket ready on port: " + PORT);
 		while (true) {
 			try {
-
+				
 				Socket socket = serverSocket.accept();
 				ServerSocketView view = new ServerSocketView(socket);
 				
