@@ -10,6 +10,7 @@ import view.EndState;
 import view.MarketBuyingState;
 import view.MarketRequest;
 import view.MarketSellingState;
+import view.StartState;
 
 public class SkipAction extends QuickAction
 {
@@ -27,7 +28,7 @@ public class SkipAction extends QuickAction
 	@Override
 	public boolean takeAction(Game game)
 	{
-		if(!this.checkAction(game))
+		if(!this.checkAction(game)&&game.getGameState().getClass().equals(StartState.class))
 			throw new IllegalStateException("You have to use all the main actions before passing");
 		else
 		{
