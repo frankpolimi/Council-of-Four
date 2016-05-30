@@ -2,6 +2,7 @@ package client;
 
 import java.io.*;
 import java.net.*;
+import java.util.Scanner;
 import java.util.concurrent.*;
 import model.game.*;
 import view.LocalStorage;
@@ -53,6 +54,10 @@ public class ClientSocket
 			if(!(input.isEmpty()))
 				fullString = false;
 			System.out.println(input);
+			Scanner s = new Scanner(System.in);
+			input = s.nextLine();
+			x.writeObject(input);
+			x.flush();
 			
 		}while(fullString);
 		ExecutorService executor = Executors.newFixedThreadPool(2);

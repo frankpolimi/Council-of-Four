@@ -24,13 +24,12 @@ public class Server
 	private Controller controller;
 	private Game game;
 	private List<Player> oneRoomLobby;
+	private List<View> serverViewsOfPlayers;
 	
-	public Server() throws RemoteException
+	public Server()
 	{
 		oneRoomLobby = new ArrayList<>();
-		
-		//game=new Game(); qua dobbiamo costruire la partita in qualche modo (file)
-		//controller=new Controller(viewSocket, viewRMI, game);
+		serverViewsOfPlayers = new ArrayList<>();
 	}
 	
 	public void start() throws AlreadyBoundException, IOException
@@ -78,13 +77,32 @@ public class Server
 		view.setID(this.serialID);
 		try {
 			oneRoomLobby.add(new Player(name, serialID));
+			serverViewsOfPlayers.add(view);
 		} catch (JDOMException | IOException e) {
 			e.printStackTrace();
 		}
 		this.serialID++;
 	}
 	
+	public List<Player> getLobby(){
+		return this.oneRoomLobby;
+	}
 	
+	public static void main(String[] args) {
+		
+			Server server = new Server();
+			while(server.oneRoomLobby.size()<2);
+			try {
+				server.game = new Game(server.getLobby());
+			} catch (JDOMException | IOException e) {
+				e.printStackTrace();
+			}
+			/*
+			for(View v : server)
+			server.controller = new Controller(view, game)
+			*/
+		
+	}
 		
 	
 }
