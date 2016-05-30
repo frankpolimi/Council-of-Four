@@ -33,6 +33,7 @@ public class SkipAction extends Action
 		else
 		{
 			Player nextPlayer;
+			Player current=game.getCurrentPlayer();
 			List<Player> ref;
 			if(game.getGameState().getClass().equals(MarketBuyingState.class)){
 				ref=game.getShuffledPlayers();
@@ -40,22 +41,24 @@ public class SkipAction extends Action
 				ref=game.getPlayers();
 			}
 			
-			int currentIndex=ref.indexOf(game.getCurrentPlayer());
+			int currentIndex=ref.indexOf(current);
 			
 			if(currentIndex+1==ref.size()){
 				nextPlayer=ref.get(0);
 				game.setCurrentPlayer(nextPlayer);
-				if(!game.getGameState().getClass().equals(EndState.class))
+				if(!game.isLastTurn())
 					game.nextState();
 			}else{
 				nextPlayer=ref.get(currentIndex+1);
-				game.setCurrentPlayer(nextPlayer);
-				
+				game.setCurrentPlayer(nextPlayer);	
 			}
 			
 			game.incrementMainActionCounter();
 			if(game.getQuickActionCounter()==0){
 				game.incrementQuickActionCounter();
+			}
+			if(game.isLastTurn()){
+				game.decrementLastRemainingPlayers();
 			}
 			super.takeAction(game);
 			return true;

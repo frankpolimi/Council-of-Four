@@ -34,6 +34,8 @@ import view.State;
 public class Game extends Observable<Change> {
 	
 	private State gameState;
+	private int lastTurnRemainingPlayers;
+	private boolean lastTurn;
 	private final PoliticsDeck politicsDeck;
 	private final PoliticsDeck usedPolitics;
 	private final List<Player> players;
@@ -62,9 +64,12 @@ public class Game extends Observable<Change> {
 
 	public Game(List<Player> players) throws JDOMException, IOException {
 		MapMaker mp=new MapMaker();
+		this.lastTurn=false;
+		
 		this.politicsDeck=mp.createPoliticsDeck();
 		this.usedPolitics=new PoliticsDeck(null);
 		this.players=players;
+		this.lastTurnRemainingPlayers=this.players.size();
 		this.regions=mp.createRegionSet();
 		this.map=mp.generateMap(this.regions);
 		this.kingsCouncil=mp.getKingsCouncil();
@@ -147,6 +152,30 @@ public class Game extends Observable<Change> {
 		return this.map;
 	}
 	
+	
+	
+	/**
+	 * @return the lastTurn
+	 */
+	public boolean isLastTurn() {
+		return lastTurn;
+	}
+
+	/**
+	 * @param lastTurn the lastTurn set true
+	 */
+	public void setLastTurnTrue() {
+		this.lastTurn = true;
+	}
+	
+	public void decrementLastRemainingPlayers(){
+		this.lastTurnRemainingPlayers--;
+	}
+	
+	public int getLastTurnRemainingPlayers(){
+		return this.lastTurnRemainingPlayers;
+	}
+
 	private boolean isColorAlreadyCreated(Color color){
 		boolean check=false;
 		for(Player p:this.players){
@@ -156,16 +185,14 @@ public class Game extends Observable<Change> {
 		}
 		return check;
 	}
-	public void endOfTheGame(List<Player> players) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException{
+	
+	public void endOfTheGame() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException{
 		List<Player> copyList=new ArrayList<>();
-		for(int i=0;i<players.size();i++){
-			copyList.add(i, players.get(i));
+		for(int i=0;i<this.players.size();i++){
+			copyList.add(i, this.players.get(i));
 		}
-		
 		WinnerSelector winnerSelector=new WinnerSelector(copyList);
-		EndState state=new EndState();
-		state.setWinner(winnerSelector.getWinnerPlayer());
-		this.notifyObservers(new StateChange(state));
+		this.notifyObservers(new StateChange(new EndState(winnerSelector.getWinnerPlayer())));
 	}
 	
 	/**
@@ -352,6 +379,7 @@ public class Game extends Observable<Change> {
 		}else{
 			this.gameState=new StartState();
 		}
+		this.notifyObservers(new StateChange(this.gameState));
 	}
 
 	/**

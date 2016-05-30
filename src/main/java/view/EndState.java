@@ -8,13 +8,9 @@ public class EndState implements State {
 	
 	/**
 	 * This method displays the winner of the game.
-	 * @throws IllegalStateException if the winner is null. So it is necessary to wait the ending of the match before calling this method.
 	 */
 	@Override
 	public void display() {
-		if(winner==null)
-			throw new IllegalStateException("The winner is not proclaimed yet!");
-		
 		System.out.println("The match is finished!");
 		System.out.println("The player "+winner.getName()+"wins!");
 		System.out.println("Player: "+winner.toString());
@@ -25,10 +21,9 @@ public class EndState implements State {
 	 * @param winner is the player who wins the match
 	 * @throws IllegalArgumentException if the player passed is null
 	 */
-	public void setWinner(Player winner){
+	public EndState(Player winner){
 		if(winner==null)
 			throw new IllegalArgumentException("The player passed is null");
-		
 		this.winner=winner;
 	}
 

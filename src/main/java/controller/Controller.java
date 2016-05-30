@@ -20,8 +20,7 @@ import view.*;
 public class Controller implements Observer<Request>{
 	
 	private final Game game;
-	private boolean finalRound;
-	private List<Player> theLastPlayers;
+	
 	/*
 	 *
 	 * private final Set<MainAction> mainActions;
@@ -38,8 +37,6 @@ public class Controller implements Observer<Request>{
 		super();
 		this.game = game;
 		view.registerObserver(this);
-		this.finalRound=false;
-		this.theLastPlayers=new ArrayList<>();
 	}
 	
 	/* (non-Javadoc)
@@ -80,58 +77,22 @@ public class Controller implements Observer<Request>{
 		}
 		
 		if(current.getRemainingEmporiums()==0){
-			game.setGameState(new EndState());
-		}
-				
+			game.setLastTurnTrue();
+		}			
+		
 		if(game.getMainActionCounter()==0&&game.getQuickActionCounter()==0){
-				SkipAction performForced=new SkipAction();
-				performForced.takeAction(game);					
+			SkipAction performForced=new SkipAction();
+			performForced.takeAction(game);					
+		}
+		
+		if(game.getLastTurnRemainingPlayers()==0){
+			try {
+				game.endOfTheGame();
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
-
-			//gestione fine turno non fatta dopo modifiche.
-			if(game.getGameState().getClass().equals(EndState.class)){
-				game.getPlayers().remove(current);
-				this.theLastPlayers.add(current);
-			}
-			
-			if(game.getPlayers().size()==0){
-				try {
-					game.endOfTheGame(this.theLastPlayers);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				
-			}
+		}
 		
 	}
-
-	/* (non-Javadoc)
-	 * @see cg2.observers.Observer#update(java.lang.Object)
-	 */
-	/*
-	@Override
-	public void update(C change) {
-		if(change.getClass().equals(BuildingPermit.class)){
-			BuildingPermit p = ((BuildingPermit)change);
-			if(this.checkInPlayer(p))
-				p.applyBonus(game);
-			else
-				game.getCurrentPlayer().addBuildingPermit(p);
-		}
-		else if(change.getClass().equals(City.class))
-			((City)change).applyBonus(game);
-	}*/
-
-	private boolean checkInPlayer(BuildingPermit p) {
-		List<BuildingPermit> buildingPermits = new ArrayList<BuildingPermit>();
-		buildingPermits.addAll(
-				game.getCurrentPlayer().getBuildingPermits());
-		buildingPermits.addAll(
-				game.getCurrentPlayer().getUsedBuildingPermits());
-		return buildingPermits.contains(p);
-	}
-
-	
-
 
 }
