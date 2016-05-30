@@ -23,7 +23,7 @@ public abstract class Request implements Serializable{
 		this.ID=ID;
 	} 
 	
-	public int getPlayer() {
+	public int getID() {
 		return ID;
 	}
 }
