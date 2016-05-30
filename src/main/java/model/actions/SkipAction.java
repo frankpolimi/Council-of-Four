@@ -27,7 +27,7 @@ public class SkipAction extends QuickAction
 	@Override
 	public boolean takeAction(Game game)
 	{
-		if(!this.checkAction(game)||game.getMainActionCounter()>0)
+		if(!this.checkAction(game))
 			throw new IllegalStateException("You have to use all the main actions before passing");
 		else
 		{

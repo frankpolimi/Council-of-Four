@@ -4,7 +4,7 @@ import model.game.Player;
 
 public class EndState implements State {
 
-	private final Player winner;
+	private Player winner;
 	
 	@Override
 	public void display() {
@@ -13,7 +13,7 @@ public class EndState implements State {
 		System.out.println("Player: "+winner.toString());
 	}
 	
-	public EndState(Player winner) {
+	public void setWinner(Player winner){
 		this.winner=winner;
 	}
 

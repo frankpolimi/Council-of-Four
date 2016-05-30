@@ -88,9 +88,9 @@ public class Controller implements Observer<Request>{
 			action.getAction().takeAction(game);
 		}else if(request instanceof MarketRequest){
 			MarketRequest<?> action= (MarketRequest<?>)request;
-			if(game.getState().getClass().equals(MarketSellingState.class))
+			if(game.getGameState().getClass().equals(MarketSellingState.class))
 				game.getMarket().addProduct(action.getObject());
-			else if(game.getState().getClass().equals(MarketBuyingState.class))
+			else if(game.getGameState().getClass().equals(MarketBuyingState.class))
 				game.getMarket().buyElement(game.getCurrentPlayer(), action.getObject());
 			game.notifyObserver(request.getID(), new ModelChange(game));
 		}else if(request instanceof BonusRequest){
@@ -104,17 +104,9 @@ public class Controller implements Observer<Request>{
 		}
 		
 		if(current.getRemainingEmporiums()==0){
-			this.finalRound=true;
+			game.setGameState(new EndState());
 		}
-		
-		//gestione fine turno non fatta dopo modifiche.
-		if(this.finalRound){
-			game.getPlayers().remove(current);
-			this.theLastPlayers.add(current);
-		}
-		
-		
-		
+				
 		if(game.getMainActionCounter()==0&&game.getQuickActionCounter()==0){
 				SkipAction performForced=new SkipAction();
 				performForced.takeAction(game);
@@ -138,6 +130,13 @@ public class Controller implements Observer<Request>{
 				
 								
 			}
+
+			//gestione fine turno non fatta dopo modifiche.
+			if(game.getGameState().getClass().equals(EndState.class)){
+				game.getPlayers().remove(current);
+				this.theLastPlayers.add(current);
+			}
+			
 			
 			if(game.getPlayers().size()==0){
 				try {

@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
@@ -36,6 +37,7 @@ public class Game extends Observable<Change> {
 	private final PoliticsDeck politicsDeck;
 	private final PoliticsDeck usedPolitics;
 	private final List<Player> players;
+	private final List<Player> shuffledPlayers;
 	private final Set<Region> regions;
 	private final KingsCouncil kingsCouncil;
 	private final List<Councillor> avaliableCouncillors;
@@ -74,6 +76,7 @@ public class Game extends Observable<Change> {
 		this.currentPlayer=this.players.get(0);
 		this.kingsPosition=this.map.getVertexByKey("J");
 		this.market=new Market();
+		this.shuffledPlayers=new ArrayList<>(this.players);
 		if(this.players.size()>2){
 			this.init();
 		}else{
@@ -160,7 +163,9 @@ public class Game extends Observable<Change> {
 		}
 		
 		WinnerSelector winnerSelector=new WinnerSelector(copyList);
-		this.notifyObservers(new StateChange(new EndState(winnerSelector.getWinnerPlayer())));
+		EndState state=new EndState();
+		state.setWinner(winnerSelector.getWinnerPlayer());
+		this.notifyObservers(new StateChange(state));
 	}
 	
 	/**
@@ -329,8 +334,13 @@ public class Game extends Observable<Change> {
 		return councils;
 	}
 	
-	public State getState(){
-		return this.gameState;
+	
+	
+	/**
+	 * @return the shuffledPlayers
+	 */
+	public List<Player> getShuffledPlayers() {
+		return shuffledPlayers;
 	}
 	
 	public void nextState(){
@@ -338,10 +348,27 @@ public class Game extends Observable<Change> {
 			this.gameState=new MarketSellingState();
 		}else if(this.gameState.getClass().equals(MarketSellingState.class)){
 			this.gameState=new MarketBuyingState();
+			Collections.shuffle(this.shuffledPlayers);
 		}else{
 			this.gameState=new StartState();
 		}
 	}
+
+	/**
+	 * @return the gameState
+	 */
+	public State getGameState() {
+		return gameState;
+	}
+
+	/**
+	 * @param gameState the gameState to set
+	 */
+	public void setGameState(State gameState) {
+		this.gameState = gameState;
+	}
+	
+	
 
 	/*public static void main(String[]args) throws JDOMException, IOException{
 		Player p1=new Player("Marco", 1, 10, 10);
