@@ -32,8 +32,7 @@ public class Player {
 	private final List<BuildingPermit> buildingPermits;
 	private final List<BuildingPermit> usedBuildingPermits;
 	
-	public Player(String name, int playerID, 
-			int coins, int assistants) throws JDOMException, IOException {
+	public Player(String name, int playerID) throws JDOMException, IOException {
 		Random random=new Random();
 		MapMaker filePointer=new MapMaker();
 		int r=random.nextInt(256);
@@ -45,10 +44,10 @@ public class Player {
 		this.remainingEmporiums = filePointer.getEmporiumsAvaliableNumber();
 		emporiumsOwned=new HashSet<>();
 		this.chosenColor=new Color(r,g,b);
-		this.coins = coins;
+		this.coins = 0;
 		this.nobilityPoints = 0;
 		this.points = 0;
-		this.assistants = assistants;
+		this.assistants = 0;
 		this.cardsOwned = new ArrayList<>();
 		this.buildingPermits = new ArrayList<>();
 		this.usedBuildingPermits = new ArrayList<>();

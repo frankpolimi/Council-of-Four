@@ -120,7 +120,7 @@ public class PermitsDeck {
 	 */
 	@Override
 	public String toString() {
-		return "PermitsDeck [buildingPermitsDeck=" + buildingPermitsDeck + ", faceUpPermits=" + faceUpPermits + "]\n";
+		return "PermitsDeck [buildingPermitsDeck=" + buildingPermitsDeck + "\n\n, faceUpPermits=" + faceUpPermits + "]\n";
 	}
 	
 	public BuildingPermit giveAFaceUpPermit(int index){

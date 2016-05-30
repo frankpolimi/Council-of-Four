@@ -83,26 +83,42 @@ public class MapMaker {
 		return extractedCouncillors;
 	}
 
-	private Council extractNewCouncil(Element region, Council council) throws JDOMException, IOException{
-		Random random= new Random();
+	
+	/**
+	 * This method extracts a new council. The type of the new council is specified in the 'string' param
+	 * @param region indicates the region associated to the new regional council
+	 * @param string is the type of the new council. only "regional" or "kings" are allowed.
+	 * @return the new extracted council
+	 * @throws JDOMException
+	 * @throws IOException
+	 * @throws NullPointerException if one or both the parameters are null.
+	 * @throws IllegalArgumentException if the string is not "regional" or "kings"
+	 */
+	private Council extractNewCouncil(Element region, String string) throws JDOMException, IOException{
+		if(region==null||string==null){
+			throw new NullPointerException("one (or both) parameter is null");
+		}
 		
+		if(!string.equals("regional")&&!string.equals("kings")){
+			throw new IllegalArgumentException("the string must be 'regional' or 'kings'");
+		}
+		
+		Random random= new Random();
 		ArrayBlockingQueue<Councillor> elected= new ArrayBlockingQueue<>(4);
 		while(elected.remainingCapacity()!=0){
 			Councillor councillor=extractedCouncillors.remove(random.nextInt(extractedCouncillors.size()));
 			elected.add(councillor);
 		}
 		
-		if(council instanceof RegionalCouncil)
-			council=new RegionalCouncil(elected, this.createBuildingPermitDeck(region));
-		else if(council instanceof KingsCouncil)
-			council=new KingsCouncil(elected);
-		return council;	
+		if(string.equals("regional"))
+			return new RegionalCouncil(elected, this.createBuildingPermitDeck(region));
+		else
+			return new KingsCouncil(elected);
 	}
 	
 	public KingsCouncil getKingsCouncil() throws JDOMException, IOException{
 		
-		KingsCouncil council=new KingsCouncil(null);
-		return (KingsCouncil)this.extractNewCouncil(null, council);
+		return (KingsCouncil)this.extractNewCouncil(null, "kings");
 		
 	}
 	
@@ -145,7 +161,7 @@ public class MapMaker {
 	
 	private Bonus getBonus(String className, int amount) throws Exception{
 	
-			Class<?> tile= Class.forName("bonus."+className);
+			Class<?> tile= Class.forName("model.bonus."+className);
 			Constructor<?> constructor= tile.getConstructor(Integer.class);
 			Bonus obj=(Bonus)constructor.newInstance(amount);
 			return obj;
@@ -252,7 +268,8 @@ public class MapMaker {
 	 * @throws JDOMException when errors occur in parsing
 	 * @throws IOException  when an I/O error prevents a document from being fully parsed
 	 * @throws NullPointerException if type is null
-	 * @throws IllegalArgumentException if you want to create a RegionTile but region is null.
+	 * @throws IllegalArgumentException if you want to create a RegionTile but region is null or if type is not 'colorTileList',
+	 * 'kingTileList' or 'regionTileList'.
 	 */
 	public List<PointsTile> createTiles(String type, Set<Region> regions) throws JDOMException, IOException{
 		if(type==null){
@@ -261,6 +278,9 @@ public class MapMaker {
 		if(type.equals("regionTileList")&&regions==null){
 			throw new IllegalArgumentException("Region cannot be null if you want to instanciate region tiles");
 		}
+		if(!type.equals("regionTileList")&&!type.equals("colorTileList")&&!type.equals("kingTileList"))
+			throw new IllegalArgumentException("Only regionTileList, colorTileList or kingTileList is accepted in parameter type");
+		
 		
 		List<PointsTile> tilesList =new ArrayList<>();
 		Element root=this.getRootFromFile();
@@ -349,8 +369,8 @@ public class MapMaker {
 				cityMap.put(c.getFirstChar(), c);
 			}
 			
-			RegionalCouncil rc=new RegionalCouncil(null,null);
-			rc=(RegionalCouncil)this.extractNewCouncil(region,rc);
+			
+			RegionalCouncil rc=(RegionalCouncil)this.extractNewCouncil(region,"regional");
 			PermitsDeck permits= rc.getPermitsDeck();
 			r=new Region(regionName, arrayCity, rc, permits);
 			allRegions.add(r);
@@ -396,13 +416,13 @@ public class MapMaker {
 		return document.getRootElement();
 	}
 	
-	/*public static void main(String[] args)throws IOException, JDOMException {
+	public static void main(String[] args)throws IOException, JDOMException {
 		MapMaker mp=new MapMaker();
 		Set<Region> set=mp.createRegionSet();
+		set.stream().forEach(System.out::println);
 		ExtendedGraph<City, DefaultEdge> graph=mp.generateMap(set);
-		NobilityLane nl=mp.createNobilityLane();
-		System.out.println(nl.toString());
-	}*/
+		set.stream().map(e -> e.getPermitsDeck()).forEach(System.out::println);
+	}
 	
 
 }
