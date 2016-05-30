@@ -4,6 +4,7 @@ import java.io.*;
 import java.net.Socket;
 import java.util.Scanner;
 
+import controller.Change;
 import view.Request;
 import view.View;
 
@@ -13,6 +14,11 @@ public class ServerSocketView extends View implements Runnable
 	private ObjectInputStream socketIn;
 	private ObjectOutputStream socketOut;
 	
+	/**
+	 * constructor for the socket
+	 * @param socket the socket that the server prepares
+	 * @throws IOException if is an error in the input or output stream
+	 */
 	public ServerSocketView(Socket socket) throws IOException
 	{
 		this.socket = socket;
@@ -20,6 +26,10 @@ public class ServerSocketView extends View implements Runnable
 		socketOut = new ObjectOutputStream(socket.getOutputStream());
 	}
 
+	/**
+	 * method that receive requests from the socket and
+	 * notify it to the controller 
+	 */
 	@Override
 	public void run()
 	{
@@ -29,9 +39,23 @@ public class ServerSocketView extends View implements Runnable
 				Request line = (Request)socketIn.readObject();
 				this.notifyObservers(line);
 			} catch (ClassNotFoundException | IOException e) {
-				//e.printStackTrace();
+				e.printStackTrace();
 			}
-			
+		}
+	}
+	
+	/**
+	 * this method receives changes from the model 
+	 * and will send to the client via socket
+	 */
+	@Override
+	public void update(Change change){
+		
+		try {
+			this.socketOut.writeObject(change);
+			this.socketOut.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 		
 	}

@@ -47,7 +47,7 @@ public class ClientInHandlerSocket implements Runnable
 				}
 				
 			} catch (ClassNotFoundException | IOException e) {
-				//e.printStackTrace();
+				e.printStackTrace();
 			}
 		}
 	}
