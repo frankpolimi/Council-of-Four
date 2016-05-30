@@ -16,8 +16,9 @@ public class MarketSellingState implements State {
 	@Override
 	public void display() {
 		System.out.println("Insert the action's name to perform");
-		System.out.println("- "+Commands.ADD_PRODUCT);
-		System.out.println("- "+Commands.TERMINATE_SELLING);
+		System.out.println("1. "+Commands.ADD_PRODUCT);
+		System.out.println("2. "+Commands.TERMINATE_SELLING);
+		System.out.println("3. quit");
 	}
 	
 

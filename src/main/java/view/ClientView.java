@@ -253,35 +253,13 @@ public class ClientView{
 		}
 		return new ActionRequest(action, ID);
 	}
-
-	/**
-	 * display the actions that can be performed when the market
-	 * is activate and help the user to select the wight path to follow
-	 * @param stdin the scanner used to input the commands
-	 */
-	public Request market(Scanner stdin) {
-		System.out.println("Select the Market step action to perform");
-		System.out.println("1. Add a product");
-		System.out.println("2. Buy a product");
-		System.out.println("3. Pass to the next player");
-		int selection=this.selector(1, 3, stdin);
-		switch(selection){
-		case 1:
-			return this.addProduct(stdin);
-		case 2:
-			return this.buyProducts(stdin);
-		case 3:
-			return new ActionRequest(new SkipAction(), ID);
-		}
-		return null;
-	}
 	
 	/**
 	 * this method generate the request of buying an object within
 	 * the market by displaying and selecting the object
 	 * @param stdin the standard input
 	 */
-	private Request buyProducts(Scanner stdin) {
+	public Request buyProducts(Scanner stdin) {
 		System.out.println("These are the object for sale now!");
 		game.getMarket().getAvailableProducts(user);
 		System.out.println("Are you interested from something? Y/N");
@@ -305,7 +283,7 @@ public class ClientView{
 	 * and put it available in the market for other players
 	 * @param stdin the standard input
 	 */
-	private Request addProduct(Scanner stdin) {
+	public Request addProduct(Scanner stdin) {
 		int i;
 		System.out.println("ADD A PRODUCT");
 		System.out.println("These are the product you could sell");
