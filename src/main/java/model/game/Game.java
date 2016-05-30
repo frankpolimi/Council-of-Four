@@ -362,10 +362,13 @@ public class Game extends Observable<Change> {
 	}
 
 	/**
+	 * This method set a new gameState. It is notified to all clients connected to the server
 	 * @param gameState the gameState to set
+	 * 
 	 */
 	public void setGameState(State gameState) {
 		this.gameState = gameState;
+		this.notifyObservers(new StateChange(gameState));
 	}
 	
 	

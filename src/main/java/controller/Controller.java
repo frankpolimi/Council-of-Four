@@ -40,31 +40,7 @@ public class Controller implements Observer<Request>{
 		view.registerObserver(this);
 		this.finalRound=false;
 		this.theLastPlayers=new ArrayList<>();
-		/*
-		this.mainActions = new HashSet<MainAction>();
-		this.quickActions = new HashSet<QuickAction>();
-		this.initMainAction();
-		this.initQuickAction();
-		*/
 	}
-
-	/*
-	private void initMainAction(){
-		this.mainActions.add(new AcquirePermit());
-		this.mainActions.add(new BuildEmporiumByKing());
-		this.mainActions.add(new ElectCouncillor());
-		this.mainActions.add(new BuildEmproriumByPermit());
-	}
-	*/
-	
-	/*
-	private void initQuickAction() {
-		this.quickActions.add(new EngageAssistant());
-		this.quickActions.add(new ChangeFaceUpPermits());
-		this.quickActions.add(new ElectCouncillorByAssistant());
-		this.quickActions.add(new ExtraMainAction());
-	}
-	*/
 	
 	/* (non-Javadoc)
 	 * @see cg2.observers.Observer#update()
@@ -109,26 +85,7 @@ public class Controller implements Observer<Request>{
 				
 		if(game.getMainActionCounter()==0&&game.getQuickActionCounter()==0){
 				SkipAction performForced=new SkipAction();
-				performForced.takeAction(game);
-				/*Player nextPlayer;
-				int currentIndex=game.getPlayers().indexOf(current);
-				
-				if(currentIndex+1==game.getPlayers().size()){
-					nextPlayer=game.getPlayers().get(0);
-					game.setCurrentPlayer(nextPlayer);
-					if(!this.finalRound){
-						if(request instanceof ActionRequest)
-							game.notifyObservers();
-						else if(request instanceof MarketRequest)
-							game.notifyObservers(new StateChange(new MarketState()));
-					}
-				}else{
-					nextPlayer=game.getPlayers().get(currentIndex+1);
-					game.setCurrentPlayer(nextPlayer);
-				}*/
-				
-				
-								
+				performForced.takeAction(game);					
 			}
 
 			//gestione fine turno non fatta dopo modifiche.
@@ -137,29 +94,14 @@ public class Controller implements Observer<Request>{
 				this.theLastPlayers.add(current);
 			}
 			
-			
 			if(game.getPlayers().size()==0){
 				try {
 					game.endOfTheGame(this.theLastPlayers);
-				} catch (IllegalAccessException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IllegalArgumentException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (InvocationTargetException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (NoSuchMethodException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (SecurityException e) {
-					// TODO Auto-generated catch block
+				} catch (Exception e) {
 					e.printStackTrace();
 				}
 				
 			}
-		//game.notifyObservers(new ModelChange(game));//voglio metterlo nelle azioni
 		
 	}
 
