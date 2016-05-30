@@ -64,13 +64,13 @@ public class ClientOutHandlerSocket implements Runnable
 	private String start(Scanner stdin) {
 		int actionType;
 		ClientView view = new ClientView(game, memoryContainer, ID);
-		if(game.getState().equals(StartState.class)){
+		if(game.getGameState().equals(StartState.class)){
 			if(!memoryContainer.getBonus().isEmpty())
 				request = view.bonus(stdin);
 			else if(!memoryContainer.getPermits().isEmpty())
 				request = view.permit(stdin);
 			else{	
-				game.getState().display();
+				game.getGameState().display();
 				actionType= view.selector(1, 4, stdin);
 				switch (actionType) {
 				case 1:
@@ -88,8 +88,8 @@ public class ClientOutHandlerSocket implements Runnable
 				return "";
 			}
 		}
-		else if(game.getState().equals(MarketSellingState.class)){
-			game.getState().display();
+		else if(game.getGameState().equals(MarketSellingState.class)){
+			game.getGameState().display();
 			actionType = view.selector(1, 3, stdin);
 			switch(actionType){
 			case 1:
@@ -103,8 +103,8 @@ public class ClientOutHandlerSocket implements Runnable
 			}
 			return "";
 		}
-		else if(game.getState().equals(MarketBuyingState.class)){
-			game.getState().display();
+		else if(game.getGameState().equals(MarketBuyingState.class)){
+			game.getGameState().display();
 			actionType = view.selector(1, 3, stdin);
 			switch(actionType){
 			case 1:
