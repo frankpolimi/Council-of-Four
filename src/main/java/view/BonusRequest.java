@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.bonus.Bonus;
-import model.game.Player;
 
 /**
  * @author francesco
@@ -21,13 +20,13 @@ public class BonusRequest extends Request {
 	private static final long serialVersionUID = 11445133450526286L;
 	private final List<Bonus> bonusList;
 	 
-	 public BonusRequest(Player player) {
-		super(player);
+	 public BonusRequest(int iD) {
+		super(iD);
 		bonusList = new ArrayList<Bonus>();
 	}
 	
-	public BonusRequest(List<Bonus> bonusList, Player player) {
-		super(player);
+	public BonusRequest(List<Bonus> bonusList, int iD) {
+		super(iD);
 		this.bonusList = bonusList;
 	}
 

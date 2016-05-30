@@ -22,13 +22,13 @@ public class PermitsRequest extends Request {
 	
 	private final List<BuildingPermit> permits;
 
-	public PermitsRequest(Player player) {
-		super(player);
+	public PermitsRequest(int iD) {
+		super(iD);
 		permits = new ArrayList<BuildingPermit>();
 	}
 
-	public PermitsRequest(List<BuildingPermit> permits, Player player) {
-		super(player);
+	public PermitsRequest(List<BuildingPermit> permits, int iD) {
+		super(iD);
 		this.permits = permits;
 		
 	}

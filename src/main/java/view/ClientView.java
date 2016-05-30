@@ -39,6 +39,7 @@ public class ClientView{
 	public ClientView(Game game, LocalStorage memoryContainer, int ID) {
 		this.game=game;
 		this.storage = memoryContainer;
+		this.ID = ID;
 		this.user = this.getPlayerByID();
 	}
 	
@@ -49,7 +50,7 @@ public class ClientView{
 	 */
 	private Player getPlayerByID() {
 		for(Player p: game.getPlayers())
-			if(p.getPlayerID() == ID)
+			if(p.getPlayerID() == this.ID)
 				return p;
 		return null;
 	}
@@ -188,7 +189,7 @@ public class ClientView{
 			}
 			break;
 		}
-		return new ActionRequest(action, user);
+		return new ActionRequest(action, ID);
 	}
 
 	/**
@@ -250,7 +251,7 @@ public class ClientView{
 			action=new ExtraMainAction();
 			break;
 		}
-		return new ActionRequest(action, user);
+		return new ActionRequest(action, ID);
 	}
 
 	/**
@@ -270,7 +271,7 @@ public class ClientView{
 		case 2:
 			return this.buyProducts(stdin);
 		case 3:
-			return new ActionRequest(new SkipAction(),user);
+			return new ActionRequest(new SkipAction(), ID);
 		}
 		return null;
 	}
@@ -374,7 +375,7 @@ public class ClientView{
 		System.out.println("Select the permit you want to acquire");
 		storage.getPermits().forEach(System.out::println);
 		int selection=this.selector(1, storage.getPermitsLenght(), stdin);
-		PermitsRequest request = new PermitsRequest(user);
+		PermitsRequest request = new PermitsRequest(this.ID);
 		request.addPermit(storage.retrievePermit(selection-1));
 		storage.setPermits(new ArrayList<BuildingPermit>());
 		return request;
@@ -389,7 +390,7 @@ public class ClientView{
 		System.out.println("Select the bonus you want to acquire");
 		storage.getBonus().forEach(System.out::println);
 		int selection=this.selector(1, storage.getBonusLenght(), stdin);
-		BonusRequest request = new BonusRequest(user);
+		BonusRequest request = new BonusRequest(this.ID);
 		request.addBonus(storage.retrieveBonus(selection-1));
 		storage.setBonus(new ArrayList<Bonus>());
 		return request;

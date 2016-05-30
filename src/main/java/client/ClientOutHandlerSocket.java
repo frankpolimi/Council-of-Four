@@ -81,7 +81,7 @@ public class ClientOutHandlerSocket implements Runnable
 				request = view.quickAction(stdin);
 				break;
 			case 3:
-				request = new ActionRequest(new SkipAction(), game.getPlayers().stream().filter((e)-> e.getPlayerID()==this.ID).findFirst().get());
+				request = new ActionRequest(new SkipAction(), this.ID);
 				break;
 			case 4:
 				request = view.market(stdin);
