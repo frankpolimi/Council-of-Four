@@ -27,10 +27,9 @@ public class ServerSocketView extends View implements Runnable
 		{
 			try {
 				Request line = (Request)socketIn.readObject();
-				this.notifyObservers(/*Qualcosa*/);
+				this.notifyObservers(line);
 			} catch (ClassNotFoundException | IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				//e.printStackTrace();
 			}
 			
 		}
