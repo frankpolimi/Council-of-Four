@@ -5,7 +5,7 @@ import model.game.Game;
 import model.game.Player;
 import view.ActionRequest;
 import view.MarketRequest;
-import view.MarketState;
+import view.MarketSellingState;
 
 public class SkipAction extends Action 
 {

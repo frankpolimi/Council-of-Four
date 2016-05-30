@@ -29,10 +29,4 @@ public class View extends Observable<Request> implements Observer<Change> {
 		
 	}
 
-	@Override
-	public void update(String communication) {
-		// TODO Auto-generated method stub
-		
-	}
-	
 }

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.game.*;
+import model.actions.SkipAction;
 import model.bonus.*;
 import model.observers.*;
 import view.*;
@@ -76,32 +77,48 @@ public class Controller implements Observer<Request>{
 	@Override
 	public void update(Request request){
 		//EFFETTUARE CONTROLLO SU GIOCATORE CORRENTE!!
+		if(request.getID()!=game.getCurrentPlayer().getPlayerID()){
+			throw new IllegalArgumentException("It's not your turn!");
+		}
 		
 		//TURNO AZIONE
 		Player current=game.getCurrentPlayer();
-		if(request instanceof ActionRequest){
+		if(request.getClass().equals(ActionRequest.class)){
 			ActionRequest action = (ActionRequest)request;
 			action.getAction().takeAction(game);
 		}else if(request instanceof MarketRequest){
 			MarketRequest<?> action= (MarketRequest<?>)request;
-			game.getMarket().addProduct(action.getObject());
+			if(game.getState().getClass().equals(MarketSellingState.class))
+				game.getMarket().addProduct(action.getObject());
+			else if(game.getState().getClass().equals(MarketBuyingState.class))
+				game.getMarket().buyElement(game.getCurrentPlayer(), action.getObject());
+			game.notifyObserver(request.getID(), new ModelChange(game));
 		}else if(request instanceof BonusRequest){
 			BonusRequest action=(BonusRequest)request;
 			for(Bonus b:action.getBonusList()){
 				b.update(game);
 			}
-		}else{
+		}else if(request instanceof PermitsRequest){
 			PermitsRequest action=(PermitsRequest)request;
 			current.addBuildingPermit(action.getPermits().get(0));
 		}
-
+		
 		if(current.getRemainingEmporiums()==0){
 			this.finalRound=true;
 		}
-
-		if(game.getMainActionCounter()==0&&game.getQuickActionCounter()==0||
-				game.getMainActionCounter()==0/*&&azione per saltare il comando*/){
-				Player nextPlayer;
+		
+		//gestione fine turno non fatta dopo modifiche.
+		if(this.finalRound){
+			game.getPlayers().remove(current);
+			this.theLastPlayers.add(current);
+		}
+		
+		
+		
+		if(game.getMainActionCounter()==0&&game.getQuickActionCounter()==0){
+				SkipAction performForced=new SkipAction();
+				performForced.takeAction(game);
+				/*Player nextPlayer;
 				int currentIndex=game.getPlayers().indexOf(current);
 				
 				if(currentIndex+1==game.getPlayers().size()){
@@ -116,12 +133,9 @@ public class Controller implements Observer<Request>{
 				}else{
 					nextPlayer=game.getPlayers().get(currentIndex+1);
 					game.setCurrentPlayer(nextPlayer);
-				}
+				}*/
 				
-				if(this.finalRound){
-					game.getPlayers().remove(current);
-					this.theLastPlayers.add(current);
-				}
+				
 								
 			}
 			
@@ -145,8 +159,8 @@ public class Controller implements Observer<Request>{
 					e.printStackTrace();
 				}
 				
-		}
-		game.notifyObservers(new ModelChange(game));
+			}
+		//game.notifyObservers(new ModelChange(game));//voglio metterlo nelle azioni
 		
 	}
 
@@ -176,20 +190,7 @@ public class Controller implements Observer<Request>{
 		return buildingPermits.contains(p);
 	}
 
-	@Override
-	public void update(String communication) {
-		if(communication.equals("salta")){
-			game.decrementQuickActionCounter(); //Messo decrement perche' non sara' mai maggiore di 1 e quindi fare set 0 e' la stessa cosa
-			System.out.println(game.getCurrentPlayer().getName()
-					+" non puoi pi� eseguire azioni secondarie per questo turno");
-		}
-		else if(communication.equals("main action")){
-			
-		}
-		else if(communication.contains("quick action")){
-			
-		}
-	}
+	
 
 
 }

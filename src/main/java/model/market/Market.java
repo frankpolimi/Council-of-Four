@@ -73,7 +73,7 @@ public class Market {
 	 * perform the trade of coins and the exchange of product
 	 * from the list to the player who buys
 	 * @param customer
-	 * @throws IllegalStateException 
+	 * @throws IllegalStateException if the customer has not the required coin.
 	 */
 	public void buyElement(Player customer, MarketObject<?> x) throws IllegalStateException{
 		this.transferCoin(customer, x);
