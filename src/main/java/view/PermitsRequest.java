@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.game.BuildingPermit;
+import model.game.Player;
 
 /**
  * @author francesco
@@ -21,12 +22,15 @@ public class PermitsRequest extends Request {
 	
 	private final List<BuildingPermit> permits;
 
-	public PermitsRequest() {
+	public PermitsRequest(Player player) {
+		super(player);
 		permits = new ArrayList<BuildingPermit>();
 	}
 
-	public PermitsRequest(List<BuildingPermit> permits) {
+	public PermitsRequest(List<BuildingPermit> permits, Player player) {
+		super(player);
 		this.permits = permits;
+		
 	}
 
 	/**

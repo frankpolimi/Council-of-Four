@@ -25,6 +25,7 @@ public class MarketRequest<T> extends Request {
 	 * @param obj the new sellable object for the market
 	 */
 	public MarketRequest(MarketObject<T> obj)  {
+		super(obj.getSellingPlayer());
 		this.object = obj;
 	}
 	

@@ -4,6 +4,7 @@
 package view;
 
 import model.actions.*;
+import model.game.Player;
 
 /**
  * @author francesco
@@ -21,7 +22,8 @@ public class ActionRequest extends Request {
 	 * constructor for an action sent to the serverView and used in the controller
 	 * @param action the action to perform
 	 */
-	public ActionRequest(Action action) {
+	public ActionRequest(Action action, Player player) {
+		super(player);
 		this.action = action;
 	}
 

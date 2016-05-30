@@ -188,7 +188,7 @@ public class ClientView{
 			}
 			break;
 		}
-		return new ActionRequest(action);
+		return new ActionRequest(action, user);
 	}
 
 	/**
@@ -250,7 +250,7 @@ public class ClientView{
 			action=new ExtraMainAction();
 			break;
 		}
-		return new ActionRequest(action);
+		return new ActionRequest(action, user);
 	}
 
 	/**
@@ -270,7 +270,7 @@ public class ClientView{
 		case 2:
 			return this.buyProducts(stdin);
 		case 3:
-			return new ActionRequest(new SkipAction());
+			return new ActionRequest(new SkipAction(),user);
 		}
 		return null;
 	}
@@ -374,7 +374,7 @@ public class ClientView{
 		System.out.println("Select the permit you want to acquire");
 		storage.getPermits().forEach(System.out::println);
 		int selection=this.selector(1, storage.getPermitsLenght(), stdin);
-		PermitsRequest request = new PermitsRequest();
+		PermitsRequest request = new PermitsRequest(user);
 		request.addPermit(storage.retrievePermit(selection-1));
 		storage.setPermits(new ArrayList<BuildingPermit>());
 		return request;
@@ -389,7 +389,7 @@ public class ClientView{
 		System.out.println("Select the bonus you want to acquire");
 		storage.getBonus().forEach(System.out::println);
 		int selection=this.selector(1, storage.getBonusLenght(), stdin);
-		BonusRequest request = new BonusRequest();
+		BonusRequest request = new BonusRequest(user);
 		request.addBonus(storage.retrieveBonus(selection-1));
 		storage.setBonus(new ArrayList<Bonus>());
 		return request;
