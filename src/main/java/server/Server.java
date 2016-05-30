@@ -1,12 +1,17 @@
 package server;
 
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.*;
 import java.rmi.AlreadyBoundException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.*;
+
+import org.jdom2.JDOMException;
+
 import controller.*;
 import model.game.Game;
 import model.game.Player;
@@ -43,9 +48,19 @@ public class Server
 				
 				Socket socket = serverSocket.accept();
 				ServerSocketView view = new ServerSocketView(socket);
+				ObjectOutputStream x = new ObjectOutputStream(socket.getOutputStream());
+				ObjectInputStream y = new ObjectInputStream(socket.getInputStream());
+				x.writeObject("Inserisci il tuo nome");
+				x.flush();
 				
-				this.addClient(view);
-				
+				try {
+					String name = (String)y.readObject();
+					this.addClient(view, name);
+				} catch (ClassNotFoundException e) {
+					e.printStackTrace();
+				}
+				x.close();
+				y.close();
 				executor.submit(view);
 				//ServerSocketView view=new ServerSocketView(socket);
 				//this.addClient(view);
@@ -58,10 +73,14 @@ public class Server
 		serverSocket.close();
 	}
 	
-	public void addClient(View view)
+	public void addClient(View view, String name)
 	{
 		view.setID(this.serialID);
-		//oneRoomLobby.add(new Player(name, serialID));
+		try {
+			oneRoomLobby.add(new Player(name, serialID));
+		} catch (JDOMException | IOException e) {
+			e.printStackTrace();
+		}
 		this.serialID++;
 	}
 	

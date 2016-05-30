@@ -39,6 +39,22 @@ public class ClientSocket
 	{
 		Socket socket = new Socket(IP, PORT);
 		System.out.println("Connection Established");
+		ObjectInputStream y = new ObjectInputStream(socket.getInputStream());
+		ObjectOutputStream x = new ObjectOutputStream(socket.getOutputStream());
+		
+		boolean fullString = true;
+		do{
+			String input = "";
+			try {
+				input = (String) y.readObject();
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			}
+			if(!(input.isEmpty()))
+				fullString = false;
+			System.out.println(input);
+			
+		}while(fullString);
 		ExecutorService executor = Executors.newFixedThreadPool(2);
 		executor.submit(new ClientInHandlerSocket(new ObjectInputStream(socket.getInputStream()),
 				game, memoryContainer));
