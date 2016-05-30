@@ -55,6 +55,7 @@ public class BuildEmporiumByPermit extends MainAction
 			game.getCurrentPlayer().usePermit(permit);
 			city.addEmporium(game.getCurrentPlayer());
 			city.applyBonus(game);
+			super.takeAction(game);
 			return true;
 		}
 		else 

@@ -52,6 +52,12 @@ public class SkipAction extends Action
 				game.setCurrentPlayer(nextPlayer);
 				
 			}
+			
+			game.incrementMainActionCounter();
+			if(game.getQuickActionCounter()==0){
+				game.incrementQuickActionCounter();
+			}
+			super.takeAction(game);
 			return true;
 		}
 		

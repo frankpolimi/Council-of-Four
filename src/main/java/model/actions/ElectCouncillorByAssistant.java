@@ -29,6 +29,7 @@ public class ElectCouncillorByAssistant extends QuickAction
 		{
 			council.electCouncillor(councillor);
 			game.decrementQuickActionCounter();
+			super.takeAction(game);
 			return true;
 		}
 		else 

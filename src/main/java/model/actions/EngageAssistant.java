@@ -27,6 +27,7 @@ public class EngageAssistant extends QuickAction
 		{
 			game.getCurrentPlayer().setAssistants(game.getCurrentPlayer().getAssistants()+1);
 			game.decrementQuickActionCounter();
+			super.takeAction(game);
 			return true;
 		}
 		else 

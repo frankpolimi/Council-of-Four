@@ -32,6 +32,7 @@ public class ChangeFaceUpPermits extends QuickAction
 		{
 			deck.changeFaceUpPermits();
 			game.decrementQuickActionCounter();
+			super.takeAction(game);
 			return true;
 		}
 		else 
