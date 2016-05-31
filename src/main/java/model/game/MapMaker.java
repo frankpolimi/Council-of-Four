@@ -95,13 +95,15 @@ public class MapMaker {
 	 * @throws IllegalArgumentException if the string is not "regional" or "kings"
 	 */
 	private Council extractNewCouncil(Element region, String string) throws JDOMException, IOException{
-		if(region==null||string==null){
-			throw new NullPointerException("one (or both) parameter is null");
-		}
 		
 		if(!string.equals("regional")&&!string.equals("kings")){
 			throw new IllegalArgumentException("the string must be 'regional' or 'kings'");
 		}
+
+		if(string.equals("regional")&&region==null){
+			throw new IllegalArgumentException("the Region must not be null");
+		}
+	
 		
 		Random random= new Random();
 		ArrayBlockingQueue<Councillor> elected= new ArrayBlockingQueue<>(4);
