@@ -8,6 +8,8 @@ import java.rmi.AlreadyBoundException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.*;
 
 import org.jdom2.JDOMException;
@@ -83,6 +85,7 @@ public class Server
 			e.printStackTrace();
 		}
 		this.serialID++;
+		
 	}
 	
 	public List<Player> getLobby(){
