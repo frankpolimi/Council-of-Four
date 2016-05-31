@@ -44,22 +44,22 @@ public class ClientSocket
 		ObjectOutputStream x = new ObjectOutputStream(socket.getOutputStream());
 		
 		boolean fullString = true;
-		do{
-			String input = "";
+		while(fullString){
+			String input = null;
 			try {
 				input = (String) y.readObject();
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
 			}
-			if(!(input.isEmpty()))
+			if(input != null)
 				fullString = false;
 			System.out.println(input);
 			Scanner s = new Scanner(System.in);
 			input = s.nextLine();
 			x.writeObject(input);
 			x.flush();
-			
-		}while(fullString);
+			s.close();
+		}
 		ExecutorService executor = Executors.newFixedThreadPool(2);
 		executor.submit(new ClientInHandlerSocket(new ObjectInputStream(socket.getInputStream()),
 				game, memoryContainer));
@@ -73,5 +73,10 @@ public class ClientSocket
 		finally{
 			socket.close();
 		}
+	}
+	
+	public static void main(String[] args) throws UnknownHostException, IOException{
+		ClientSocket client = new ClientSocket();
+		client.startClient();
 	}
 }

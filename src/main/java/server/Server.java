@@ -5,7 +5,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.*;
 import java.rmi.AlreadyBoundException;
-import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -36,7 +35,20 @@ public class Server
 	
 	public void start() throws AlreadyBoundException, IOException
 	{
-		this.startSocket();
+		/**
+		 * NON VA BENE!! game non dovrebbe prendere giocatori
+		 * quando poi parte la partita si settano e allora si fa l'init
+		 * del gioco per 2 o più giocatori
+		 */
+		try {
+			this.game = new Game(oneRoomLobby);
+			this.controller = new Controller(game);
+			for(View v : serverViewsOfPlayers)
+				v.registerObserver(controller);
+		} catch (JDOMException e) {
+			e.printStackTrace();
+		}
+		System.out.println("PRONTI");
 	}
 	
 	private void startSocket() throws IOException {
@@ -63,9 +75,6 @@ public class Server
 				x.close();
 				y.close();
 				executor.submit(view);
-				//ServerSocketView view=new ServerSocketView(socket);
-				//this.addClient(view);
-				//executor.submit(view);
 			} catch (IOException e) {
 				break;
 			}
@@ -77,7 +86,6 @@ public class Server
 	public void addClient(View view, String name)
 	{
 		view.setID(this.serialID);
-		view.registerObserver(this.controller);
 		try {
 			oneRoomLobby.add(new Player(name, serialID));
 			serverViewsOfPlayers.add(view);
@@ -95,24 +103,32 @@ public class Server
 	public static void main(String[] args) {
 		
 			Server server = new Server();
+			//Timer timer;
 			try {
 				server.start();
-			} catch (AlreadyBoundException | IOException e) {
+				server.startSocket();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			catch (AlreadyBoundException e) {
 				e.printStackTrace();
 			}
 			/*
-			 * Capire dove mettere questa parte di registrazione
-			while(server.oneRoomLobby.size()<2);
-			try {
-				server.game = new Game(server.getLobby());
-			} catch (JDOMException | IOException e) {
-				e.printStackTrace();
+			if(server.oneRoomLobby.size() == 2){
+				timer = new Timer();
+				timer.schedule(new TimerTask() {
+					
+					@Override
+					public void run() {
+						try {
+							server.start();
+						} catch (AlreadyBoundException | IOException e) {
+							e.printStackTrace();
+						}
+					}
+				}, 60*1000);//60 seconds * 1000 milliseconds
 			}
-			server.controller = new Controller(server.game);
-			for(View v : server.serverViewsOfPlayers)
-				v.registerObserver(server.controller);
-			*/
+			*/ 
 	}
 		
-	
 }
