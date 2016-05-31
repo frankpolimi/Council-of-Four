@@ -62,13 +62,12 @@ public class Game extends Observable<Change> {
 	private int quickActionCounter;
 	
 
-	public Game(List<Player> players) throws JDOMException, IOException {
+	public Game() throws JDOMException, IOException {
 		MapMaker mp=new MapMaker();
 		this.lastTurn=false;
-		
 		this.politicsDeck=mp.createPoliticsDeck();
 		this.usedPolitics=new PoliticsDeck(null);
-		this.players=players;
+		this.players=new ArrayList<>();
 		this.lastTurnRemainingPlayers=this.players.size();
 		this.regions=mp.createRegionSet();
 		this.map=mp.generateMap(this.regions);
@@ -78,18 +77,22 @@ public class Game extends Observable<Change> {
 		this.colorTileList=mp.createTiles("colorTileList", this.regions);
 		this.regionTileList=mp.createTiles("regionTileList", this.regions);
 		this.nobilityLane=mp.createNobilityLane();
-		this.currentPlayer=this.players.get(0);
 		this.kingsPosition=this.map.getVertexByKey("J");
 		this.market=new Market();
 		this.shuffledPlayers=new ArrayList<>(this.players);
+	}
+
+	
+	public void setPlayers(List<Player> players){
+		this.players.addAll(players);
 		if(this.players.size()>2){
 			this.init();
 		}else{
 			this.initFor2Players();
 		}
+		this.currentPlayer=this.players.get(0);
 		this.gameState=new StartState();
 	}
-
 	/*
 	public void gioca(){
 		boolean endOfGame;
@@ -401,27 +404,10 @@ public class Game extends Observable<Change> {
 	
 	
 
-	/*public static void main(String[]args) throws JDOMException, IOException{
-		Player p1=new Player("Marco", 1, 10, 10);
-		Player p2=new Player("Paolo", 5, 10, 10);
-		Player p3=new Player("Mario", 4, 10, 2);
-		Player p4=new Player("Marco",2,10,2);
-		Player p5=new Player("Luigi",3,10,2);
-		List<Player> players=new ArrayList<>();
-		players.add(p1);
-		players.add(p2);
-		players.add(p3);
-		players.add(p4);
-		players.add(p5);
-		Game game=new Game(players);
-		System.out.println(game.players);
-		
-		
-		
-		System.out.println("Mappa PRIMA");
-		ExtendedGraph<City, DefaultEdge> map=game.getMap();
-		
-	}*/
+	public static void main(String[]args) throws JDOMException, IOException{
+		Game game=new Game();
+		System.out.println(game.getGameState());
+	}
 	
 	
 }

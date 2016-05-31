@@ -93,6 +93,7 @@ public class Server
 			e.printStackTrace();
 		}
 		this.serialID++;
+		
 	}
 	
 	public List<Player> getLobby(){
