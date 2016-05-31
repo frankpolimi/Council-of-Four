@@ -10,7 +10,10 @@ public class Councillor
 
 	public Councillor(Color color)
 	{
-		this.color = color;
+		if(color!=null)
+			this.color = color;
+		else
+			throw new NullPointerException();
 	}
 	
 	public Color getColor() 

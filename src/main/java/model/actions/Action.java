@@ -9,6 +9,7 @@ import model.game.Game;
 import model.game.Player;
 import model.game.council.Council;
 import model.game.council.Councillor;
+import model.game.politics.ColoredPoliticsCard;
 import model.game.politics.JollyPoliticsCard;
 import model.game.politics.PoliticsCard;
 
@@ -41,30 +42,21 @@ public class Action implements Act, Serializable
 		return false;
 	}
 	
-	public boolean payCouncil(Player player, Council counc, ArrayList<PoliticsCard> politics)
+	public boolean payCouncil(Game game, Council counc, ArrayList<PoliticsCard> politics)
 	{
-
-			int jollies=0;
+			int matches=0;
 			ArrayBlockingQueue<Councillor> councillors=counc.getCouncillors();
 			for(PoliticsCard card:politics)
-			{
-				if(card.getClass()== JollyPoliticsCard.class)
-				{
-					jollies++;
-					continue;
-				}
-				
 				for(Councillor councillor:councillors)
-				{
 					if(card.payCouncillor(councillor))
 					{
-						councillors.remove(councillor);
+						matches++;
+						if(card.getClass()==ColoredPoliticsCard.class)
+							councillors.remove(councillor);
 						continue;
 					}
-				}
-			}
 			int cost;
-			switch (councillors.size()-jollies)
+			switch (councillors.size()-matches)
 			{
 				case 0: cost=0; break;
 				case 1: cost=4; break;
@@ -72,11 +64,11 @@ public class Action implements Act, Serializable
 				case 3: cost=10; break;
 				default: return false;
 			}
-			if(!player.checkCoins(cost))
+			if(!game.getCurrentPlayer().checkCoins(cost))
 				return false;
 			else
 			{
-				player.removeCards(politics);
+				game.getCurrentPlayer().removeCards(politics);
 				return true;
 			}
 	}

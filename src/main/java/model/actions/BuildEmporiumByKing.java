@@ -40,7 +40,7 @@ public class BuildEmporiumByKing extends MainAction
 		{
 			throw new IllegalStateException("No avaiable emporiums");
 		}
-		if(!payCouncil(game.getCurrentPlayer(),counc,politics))
+		if(!payCouncil(game,counc,politics))
 		{
 			throw new IllegalStateException("Not enough coins or Cards to pay the council."
 					+ " For 1 missing politics card you pay 4 additional coins, for each additional missing politics card you add 3 more");

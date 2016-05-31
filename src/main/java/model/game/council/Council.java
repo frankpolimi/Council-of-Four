@@ -7,7 +7,7 @@ import java.util.concurrent.ArrayBlockingQueue;
  * @author Vitaliy Pakholko
  */
 public abstract class Council{
-	private ArrayBlockingQueue<Councillor> councillors;
+	private final ArrayBlockingQueue<Councillor> councillors;
 	
 	public Council(ArrayBlockingQueue<Councillor> councillors) 
 	{
@@ -39,13 +39,6 @@ public abstract class Council{
 		else throw new NullPointerException();
 	}
 	
-	public void setCouncillors(ArrayBlockingQueue<Councillor> councillors) 
-	{
-		if(councillors!=null)
-			this.councillors = councillors;
-		else throw new NullPointerException();
-	}
-
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
@@ -53,7 +46,4 @@ public abstract class Council{
 	public String toString() {
 		return "Council [councillors=" + councillors + "]\n";
 	}
-
-
-	
 }

@@ -36,7 +36,7 @@ public class AcquirePermit extends MainAction
 	{
 		if(!this.checkAction(game))
 			throw new IllegalStateException("Not enough Main actions");
-		if(payCouncil(game.getCurrentPlayer(),council,politics))
+		if(payCouncil(game,council,politics))
 			if(council.getPermitsDeck().givePermit(game, permit))
 			{
 				game.decrementMainActionCounter();

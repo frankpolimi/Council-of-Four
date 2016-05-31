@@ -15,7 +15,7 @@ public class JollyPoliticsCard extends PoliticsCard
 	 */
 	@Override
 	public String toString() {
-		return "Jolly";
+		return "Jolly politcs card";
 	}
 	
 	

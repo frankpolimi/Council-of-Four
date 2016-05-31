@@ -10,10 +10,14 @@ import model.game.council.Councillor;
 public class ColoredPoliticsCard extends PoliticsCard 
 {
 	
-	Color color;
+	private final Color color;
 
-	public ColoredPoliticsCard(Color color) {
-		this.color = color;
+	public ColoredPoliticsCard(Color color) 
+	{
+		if(color!=null)
+			this.color = color;
+		else
+			throw new NullPointerException();
 	}
 
 	public Color getColor() 
