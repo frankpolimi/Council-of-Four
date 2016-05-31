@@ -60,6 +60,8 @@ public class ClientSocket
 			x.flush();
 			s.close();
 		}
+		x.close();
+		y.close();
 		ExecutorService executor = Executors.newFixedThreadPool(2);
 		executor.submit(new ClientInHandlerSocket(new ObjectInputStream(socket.getInputStream()),
 				game, memoryContainer));
