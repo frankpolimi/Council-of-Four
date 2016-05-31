@@ -6,7 +6,9 @@ import java.io.ObjectOutputStream;
 import java.net.*;
 import java.rmi.AlreadyBoundException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.*;
@@ -21,37 +23,26 @@ import view.View;
 public class Server 
 {
 	private final static int PORT=50000;
+	private Timer timer;
 	private int serialID = 1;
 	private Controller controller;
 	private Game game;
 	private List<Player> oneRoomLobby;
-	private List<View> serverViewsOfPlayers;
+	private Map<Integer, View> playersView;
 	
-	public Server()
+	public Server() throws JDOMException, IOException
 	{
+		game=new Game();
+		controller=new Controller(game);
 		oneRoomLobby = new ArrayList<>();
-		serverViewsOfPlayers = new ArrayList<>();
+		playersView=new HashMap<>();
 	}
 	
 	public void start() throws AlreadyBoundException, IOException
 	{
-		/**
-		 * NON VA BENE!! game non dovrebbe prendere giocatori
-		 * quando poi parte la partita si settano e allora si fa l'init
-		 * del gioco per 2 o più giocatori
-		 */
-		try {
-			this.game = new Game(oneRoomLobby);
-			this.controller = new Controller(game);
-			for(View v : serverViewsOfPlayers)
-				v.registerObserver(controller);
-		} catch (JDOMException e) {
-			e.printStackTrace();
-		}
-		System.out.println("PRONTI");
 	}
 	
-	private void startSocket() throws IOException {
+	private void startSocket() throws IOException, JDOMException {
 	
 		ExecutorService executor = Executors.newCachedThreadPool();
 		ServerSocket serverSocket = new ServerSocket(PORT);
@@ -83,15 +74,64 @@ public class Server
 		serverSocket.close();
 	}
 	
-	public void addClient(View view, String name)
+	public void addClient(View view, String name) throws JDOMException, IOException
 	{
+		view.registerObserver(controller);
+		game.registerObserver(view);
 		view.setID(this.serialID);
+		Player newPlayer=new Player(name, serialID);
+		this.oneRoomLobby.add(newPlayer);
+		this.playersView.put(newPlayer.getPlayerID(), view);
+		if(oneRoomLobby.size()>=2){
+			if(timer==null){
+				timer=new Timer();
+				timer.schedule(new TimerTask() {
+
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						if(oneRoomLobby.size()>=2){
+							for(int i=0;i<playersView.keySet().size();i++){
+								try{
+									((ServerSocketView)playersView.get(i)).getSocket().getOutputStream().write(10);;
+								}catch(SocketException e){
+									for(Player p:oneRoomLobby){
+										if(p.getPlayerID()==i){
+											oneRoomLobby.remove(p);
+										}
+									}
+									playersView.remove(i);
+								}catch(IOException io){
+								}	
+							}
+							
+							if(oneRoomLobby.size()>=2){
+								game.setPlayers(oneRoomLobby);
+								System.out.println("new game");
+								try {
+									game= new Game();
+									controller= new Controller(game);
+								} catch (JDOMException | IOException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+							}
+							timer.cancel();
+							timer=null;
+						}
+					}
+				}, 20*1000);
+			}
+		}
+		/*
 		try {
 			oneRoomLobby.add(new Player(name, serialID));
 			serverViewsOfPlayers.add(view);
 		} catch (JDOMException | IOException e) {
 			e.printStackTrace();
-		}
+		}*/
+		
+		
 		this.serialID++;
 		
 	}
@@ -100,35 +140,22 @@ public class Server
 		return this.oneRoomLobby;
 	}
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws JDOMException, IOException {
 		
 			Server server = new Server();
 			//Timer timer;
 			try {
 				server.start();
 				server.startSocket();
+				
+				
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 			catch (AlreadyBoundException e) {
 				e.printStackTrace();
 			}
-			/*
-			if(server.oneRoomLobby.size() == 2){
-				timer = new Timer();
-				timer.schedule(new TimerTask() {
-					
-					@Override
-					public void run() {
-						try {
-							server.start();
-						} catch (AlreadyBoundException | IOException e) {
-							e.printStackTrace();
-						}
-					}
-				}, 60*1000);//60 seconds * 1000 milliseconds
-			}
-			*/ 
+			
 	}
 		
 }

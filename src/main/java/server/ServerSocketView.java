@@ -69,4 +69,15 @@ public class ServerSocketView extends View implements Runnable
 			e.printStackTrace();
 		}
 	}
+
+	/**
+	 * @return the socket
+	 */
+	public Socket getSocket() {
+		return socket;
+	}
+
+
+	
+	
 }
