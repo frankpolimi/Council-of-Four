@@ -24,12 +24,6 @@ public class KingsCouncilTest
 	}
 
 	@Test
-	public void testCouncil() 
-	{
-		fail("Not yet implemented");
-	}
-
-	@Test
 	public void testElectCouncillor() 
 	{
 		ArrayList<Councillor> arrayListCouncillor=new ArrayList<Councillor>();
@@ -39,8 +33,8 @@ public class KingsCouncilTest
 		ArrayBlockingQueue<Councillor> councillors=new ArrayBlockingQueue<Councillor>(3, true,arrayListCouncillor);
 		KingsCouncil k=new KingsCouncil(councillors);
 		assertEquals(k.electCouncillor(c4), c1);
-		assertEquals(k.getCouncillors().element(), c4);
-		assertTrue(k.getCouncillors().contains(c2));
+		assertEquals(k.getCouncillors().element(), c2);
+		assertTrue(k.getCouncillors().contains(c4));
 		assertTrue(k.getCouncillors().contains(c3));
 		
 	}
