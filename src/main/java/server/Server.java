@@ -42,49 +42,35 @@ public class Server
 	{
 	}
 	
-	private void startSocket() throws IOException, JDOMException {
+	private void startSocket() throws IOException, JDOMException, ClassNotFoundException {
 	
 		ExecutorService executor = Executors.newCachedThreadPool();
 		ServerSocket serverSocket = new ServerSocket(PORT);
 		System.out.println("Server socket ready on port: " + PORT);
 		while (true) {
 			try {
-				
 				Socket socket = serverSocket.accept();
 				ServerSocketView view = new ServerSocketView(socket);
-				ObjectOutputStream x = new ObjectOutputStream(socket.getOutputStream());
-				ObjectInputStream y = new ObjectInputStream(socket.getInputStream());
-				x.writeObject("Inserisci il tuo nome");
-				x.flush();
-				
-				try {
-					String name = (String)y.readObject();
-					this.addClient(view, name);
-				} catch (ClassNotFoundException e) {
-					e.printStackTrace();
-				}
-				x.close();
-				y.close();
+				System.out.println("CONNECTION ACCEPTED "+serialID);
+				this.addClient(view, new Player("", serialID));
+				serialID++;
 				executor.submit(view);
 			} catch (IOException e) {
 				break;
 			}
 		}
-		executor.shutdown();
-		serverSocket.close();
 	}
 	
-	public void addClient(View view, String name) throws JDOMException, IOException
+	public void addClient(ServerSocketView view, Player player) throws JDOMException, IOException
 	{
 		view.registerObserver(controller);
 		game.registerObserver(view);
 		view.setID(this.serialID);
-		Player newPlayer=new Player(name, serialID);
-		this.oneRoomLobby.add(newPlayer);
-		this.playersView.put(newPlayer.getPlayerID(), view);
+		oneRoomLobby.add(player);
 		if(oneRoomLobby.size()>=2){
 			if(timer==null){
 				timer=new Timer();
+				System.out.println("START TIMER");
 				timer.schedule(new TimerTask() {
 
 					@Override
@@ -112,7 +98,6 @@ public class Server
 									game= new Game();
 									controller= new Controller(game);
 								} catch (JDOMException | IOException e) {
-									// TODO Auto-generated catch block
 									e.printStackTrace();
 								}
 							}
@@ -129,11 +114,7 @@ public class Server
 			serverViewsOfPlayers.add(view);
 		} catch (JDOMException | IOException e) {
 			e.printStackTrace();
-		}*/
-		
-		
-		this.serialID++;
-		
+		}*/		
 	}
 	
 	public List<Player> getLobby(){
@@ -147,12 +128,12 @@ public class Server
 			try {
 				server.start();
 				server.startSocket();
-				
-				
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 			catch (AlreadyBoundException e) {
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
 			}
 			

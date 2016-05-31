@@ -2,6 +2,7 @@ package model.game;
 
 import java.awt.Color;
 import java.io.IOException;
+import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -12,6 +13,7 @@ import org.jdom2.JDOMException;
 import org.jgrapht.graph.DefaultEdge;
 
 import controller.Change;
+import controller.ModelChange;
 import controller.StateChange;
 import model.game.council.Council;
 import model.game.council.Councillor;
@@ -31,7 +33,12 @@ import view.State;
  * @author Emanuele Ricciardelli, Vitaliy Pakholko
  *
  */
-public class Game extends Observable<Change> {
+public class Game extends Observable<Change> implements Serializable{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6566029665416943724L;
 	
 	private State gameState;
 	private int lastTurnRemainingPlayers;
@@ -92,6 +99,8 @@ public class Game extends Observable<Change> {
 		}
 		this.currentPlayer=this.players.get(0);
 		this.gameState=new StartState();
+		System.out.println("NOTIFYING");
+		notifyObservers(new ModelChange(this));
 	}
 	/*
 	public void gioca(){
