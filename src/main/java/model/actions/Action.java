@@ -55,10 +55,14 @@ public class Action implements Act, Serializable
 			int cost;
 			switch (councillors.size()-matches)
 			{
-				case 0: cost=0; break;
-				case 1: cost=4; break;
-				case 2: cost=7; break;
-				case 3: cost=10; break;
+				case 0: cost=0; 
+					break;
+				case 1: cost=4;
+					break;
+				case 2: cost=7; 
+					break;
+				case 3: cost=10; 
+					break;
 				default: return false;
 			}
 			if(!game.getCurrentPlayer().checkCoins(cost))

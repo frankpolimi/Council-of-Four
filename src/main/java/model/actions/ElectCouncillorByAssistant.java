@@ -15,6 +15,13 @@ public class ElectCouncillorByAssistant extends QuickAction
 	private static final long serialVersionUID = -1056666433218005285L;
 	private Council council;
 	private Councillor councillor;
+	
+	public ElectCouncillorByAssistant(Council council, Councillor councillor) 
+	{
+		this.council = council;
+		this.councillor = councillor;
+	}
+	
 	/**
 	 * The player pays 1 assistant and chooses a councillor to push it in a council
 	 * @throws IllegalStateException if the player has no Quick actions left
@@ -45,11 +52,7 @@ public class ElectCouncillorByAssistant extends QuickAction
 				+ "to the board";
 	}
 
-	public ElectCouncillorByAssistant(Council council, Councillor councillor) 
-	{
-		this.council = council;
-		this.councillor = councillor;
-	}
+	
 
 	public Council getCouncil() {
 		return council;

@@ -18,6 +18,7 @@ public class ExtraMainAction extends QuickAction
 	 * @throws IllegalStateException if the player has no Quick actions left
 	 * @throws IllegalStateException if the player has not enough assistants
 	 */
+	@Override
 	public boolean takeAction(Game game)
 	{
 		if(!this.checkAction(game))

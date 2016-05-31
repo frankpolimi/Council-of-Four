@@ -17,6 +17,10 @@ public class BuildEmporiumByPermit extends MainAction
 	private BuildingPermit permit;
 	private City city;
 	
+	public BuildEmporiumByPermit(BuildingPermit permit, City city) {
+		this.permit = permit;
+		this.city = city;
+	}
 	
 	/**
 	 * The player builds an emporium in the city indicated by the building permit he is using. If the action succeeds that building permit will be moved in his used permits deck.
@@ -69,11 +73,7 @@ public class BuildEmporiumByPermit extends MainAction
 		return "BuildEmproriumByPermit: The player tries to build an Emporium in a City using the corresponding BuildingPermit he/she possesses.";
 	}
 
-	public BuildEmporiumByPermit(BuildingPermit permit, City city) {
-		this.permit = permit;
-		this.city = city;
-	}
-
+	
 	public BuildingPermit getPermit() {
 		return permit;
 	}

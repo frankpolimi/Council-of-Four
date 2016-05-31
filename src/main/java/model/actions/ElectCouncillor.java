@@ -15,6 +15,11 @@ public class ElectCouncillor extends MainAction
 	private Councillor councillor;
 	private Council council;
 	
+	public ElectCouncillor(Councillor councillor, Council council) {
+		this.councillor = councillor;
+		this.council = council;
+	}
+	
 	/** 
 	 * The player gains 4 coins by choosing a councillor to push in a given council
 	 * @throws IllegalStateException if the player has no Main actions left
@@ -40,11 +45,6 @@ public class ElectCouncillor extends MainAction
 				+ "to the board and the Player gets 4 Coins";
 	}
 
-	public ElectCouncillor(Councillor councillor, Council council) {
-		this.councillor = councillor;
-		this.council = council;
-	}
-
 	public Councillor getCouncillor() {
 		return councillor;
 	}
@@ -60,8 +60,5 @@ public class ElectCouncillor extends MainAction
 	public void setCouncil(Council council) {
 		this.council = council;
 	}
-	
-	
-	
-	
+
 }

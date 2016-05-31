@@ -21,6 +21,12 @@ public class BuildEmporiumByKing extends MainAction
 	ArrayList<PoliticsCard> politics; 
 	City city;
 	
+	public BuildEmporiumByKing(Council counc, ArrayList<PoliticsCard> politics, City city) 
+	{
+		this.counc = counc;
+		this.politics = politics;
+		this.city = city;
+	}
 	
 	/**
 	 * The player builds an emporium in the king's position. He can move the king using roads if he wants, to do that he must pay 2 coins for each hop.
@@ -84,13 +90,7 @@ public class BuildEmporiumByKing extends MainAction
 				+ "the player doesn't have to pay. Then the player proceds to build an emporium in the king's current city";
 	}
 
-	public BuildEmporiumByKing(Council counc, ArrayList<PoliticsCard> politics, City city) 
-	{
-		this.counc = counc;
-		this.politics = politics;
-		this.city = city;
-	}
-
+	
 	public Council getCounc() {
 		return counc;
 	}
