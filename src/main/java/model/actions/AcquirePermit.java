@@ -1,8 +1,6 @@
 package model.actions;
 
 import java.util.ArrayList;
-
-import controller.ModelChange;
 import model.game.BuildingPermit;
 import model.game.Game;
 import model.game.council.RegionalCouncil;
@@ -23,7 +21,12 @@ public class AcquirePermit extends MainAction
 	private BuildingPermit permit;
 	
 	
-	
+	public AcquirePermit(RegionalCouncil council, ArrayList<PoliticsCard> politics, BuildingPermit permit) 
+	{
+		this.council = council;
+		this.politics = politics;
+		this.permit = permit;
+	}
 	
 	/**
 	 * The player acquires a face up building permit if he can pay the council. 
@@ -32,7 +35,7 @@ public class AcquirePermit extends MainAction
 	 * @throws IllegalArgumentException if the player indicated a wrong Building permit for the city he is trying to build in
 	 */
 	@Override
-	public boolean takeAction(Game game) throws IllegalStateException, IllegalArgumentException
+	public boolean takeAction(Game game)
 	{
 		if(!this.checkAction(game))
 			throw new IllegalStateException("Not enough Main actions");
@@ -53,13 +56,7 @@ public class AcquirePermit extends MainAction
 				+ "with the intent to acquire a BuildingPermit situated in the council's corresponding deck.";
 	}
 
-	public AcquirePermit(RegionalCouncil council, ArrayList<PoliticsCard> politics, BuildingPermit permit) 
-	{
-		this.council = council;
-		this.politics = politics;
-		this.permit = permit;
-	}
-
+	
 	public RegionalCouncil getCouncil() {
 		return council;
 	}
@@ -83,11 +80,4 @@ public class AcquirePermit extends MainAction
 	public void setPermit(BuildingPermit permit) {
 		this.permit = permit;
 	}
-	
-
-
-	
-	
-	
-
 }

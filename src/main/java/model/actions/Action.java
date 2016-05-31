@@ -3,14 +3,11 @@ package model.actions;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.concurrent.ArrayBlockingQueue;
-
 import controller.ModelChange;
 import model.game.Game;
-import model.game.Player;
 import model.game.council.Council;
 import model.game.council.Councillor;
 import model.game.politics.ColoredPoliticsCard;
-import model.game.politics.JollyPoliticsCard;
 import model.game.politics.PoliticsCard;
 
 /**

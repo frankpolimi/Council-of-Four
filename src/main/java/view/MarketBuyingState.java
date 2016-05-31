@@ -4,9 +4,7 @@
 package view;
 
 
-import java.util.List;
 
-import model.market.*;
 /**
  * @author Emanuele Ricciardelli
  *

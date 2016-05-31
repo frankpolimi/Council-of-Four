@@ -5,11 +5,9 @@ package model.game;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import controller.Change;
 import controller.ModelChange;
 import model.bonus.bonusers.Bonusable;
-import model.observers.Observable;
 import model.observers.Observer;
 
 /**

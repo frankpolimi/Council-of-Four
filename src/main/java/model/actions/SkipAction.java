@@ -2,14 +2,9 @@ package model.actions;
 
 import java.util.List;
 
-import controller.StateChange;
 import model.game.Game;
 import model.game.Player;
-import view.ActionRequest;
-import view.EndState;
 import view.MarketBuyingState;
-import view.MarketRequest;
-import view.MarketSellingState;
 import view.StartState;
 
 public class SkipAction extends Action
