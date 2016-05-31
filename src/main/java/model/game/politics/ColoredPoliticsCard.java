@@ -25,6 +25,7 @@ public class ColoredPoliticsCard extends PoliticsCard
 		return color;
 	}
 	
+	@Override
 	public boolean payCouncillor(Councillor councillor)
 	{
 		if (councillor.getColor()==this.color)

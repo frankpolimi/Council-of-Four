@@ -2,6 +2,7 @@ package model.game.politics;
 
 import model.game.council.Councillor;
 
+@FunctionalInterface
 public interface CouncillorPayment 
 {
 	

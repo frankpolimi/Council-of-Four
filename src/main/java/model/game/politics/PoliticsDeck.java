@@ -10,8 +10,18 @@ import model.game.Player;
  */
 public class PoliticsDeck 
 {
-	private ArrayList<PoliticsCard> politicsDeck;
+	private ArrayList<PoliticsCard> deck;
 	
+	public PoliticsDeck(ArrayList<PoliticsCard> array) 
+	{
+		deck=array;
+	}
+	
+	public void addUsedPolitics(PoliticsDeck politicsDeck)
+	{
+		for(PoliticsCard p:politicsDeck.deck)
+			this.deck.add(p);
+	}
 	
 	/**
 	 * Makes given player draw a card from politics deck.
@@ -20,48 +30,39 @@ public class PoliticsDeck
 	 */
 	public void drawCard(Player player)
 	{
-		if(!politicsDeck.isEmpty())
+		if(!deck.isEmpty())
 		{
-			player.addPoliticsCard(politicsDeck.remove(0));return;
+			player.addPoliticsCard(deck.remove(0));
+			return;
 		}
 		throw new NullPointerException();
 	}
 	
 	public void shuffle()
 	{
-		Collections.shuffle(politicsDeck);
+		Collections.shuffle(deck);
 	}
 	
 	public boolean isEmpty()
 	{
-		return politicsDeck.isEmpty();
-	}
-	
-	public void addUsedPolitics(PoliticsDeck politicsDeck)
-	{
-		for(PoliticsCard p:politicsDeck.politicsDeck)
-			this.politicsDeck.add(p);
+		return deck.isEmpty();
 	}
 	
 	public void clear()
 	{
-		politicsDeck.clear();
+		deck.clear();
 	}
+	
 	/**
 	 * modified by Emanuele Ricciardelli
 	 */
-	public PoliticsDeck(ArrayList<PoliticsCard> array) 
-	{
-		politicsDeck=array;
-	}
-	
 	public void append(){
-		this.politicsDeck.addAll(this.politicsDeck);
+		this.deck.addAll(this.deck);
 	}
 
 	public void drawNCards(Player player){
-		final int N=6;
-		for(int i=0;i<N;i++){
+		final int n=6;
+		for(int i=0;i<n;i++){
 			this.drawCard(player);
 		}
 	}
@@ -70,8 +71,6 @@ public class PoliticsDeck
 	 */
 	@Override
 	public String toString() {
-		return "PoliticsDeck [politicsDeck=" + politicsDeck + "]";
+		return "PoliticsDeck [politicsDeck=" + deck + "]";
 	}
-	
-	
 }
