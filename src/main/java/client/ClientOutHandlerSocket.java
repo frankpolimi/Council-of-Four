@@ -5,7 +5,6 @@ import java.io.ObjectOutputStream;
 import java.util.Scanner;
 import model.actions.*;
 import model.game.Game;
-import model.game.Player;
 import view.ActionRequest;
 import view.ClientView;
 import view.LocalStorage;

@@ -9,6 +9,7 @@ import model.game.PermitsDeck;
  */
 public class RegionalCouncil extends Council 
 {
+	private static final long serialVersionUID = -8292033152540671109L;
 	private final PermitsDeck permitsDeck;
 	public RegionalCouncil(ArrayBlockingQueue<Councillor> councillors, PermitsDeck permitsDeck) {
 		super(councillors);

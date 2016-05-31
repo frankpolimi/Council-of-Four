@@ -10,6 +10,7 @@ import model.game.council.Councillor;
 public class ColoredPoliticsCard extends PoliticsCard 
 {
 	
+	private static final long serialVersionUID = 8208852678516588048L;
 	private final Color color;
 
 	public ColoredPoliticsCard(Color color) 

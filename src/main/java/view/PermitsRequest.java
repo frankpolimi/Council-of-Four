@@ -5,9 +5,7 @@ package view;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import model.game.BuildingPermit;
-import model.game.Player;
 
 /**
  * @author francesco

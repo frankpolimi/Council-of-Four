@@ -5,6 +5,8 @@ import model.game.council.Councillor;
  */
 public class JollyPoliticsCard extends PoliticsCard 
 {	
+	private static final long serialVersionUID = 4275233909860022900L;
+
 	@Override
 	public boolean payCouncillor(Councillor councillor)
 	{

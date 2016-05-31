@@ -10,6 +10,7 @@ import java.util.concurrent.ArrayBlockingQueue;
  */
 public class KingsCouncil extends Council
 {
+	private static final long serialVersionUID = 273965081908435798L;
 
 	public KingsCouncil(ArrayBlockingQueue<Councillor> councillors) 
 	{

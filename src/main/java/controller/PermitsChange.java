@@ -13,7 +13,8 @@ import model.game.BuildingPermit;
  *
  */
 public class PermitsChange extends Change {
-	
+
+	private static final long serialVersionUID = -6202796008069721606L;
 	private final List<BuildingPermit> permits;
 	
 	public PermitsChange() {

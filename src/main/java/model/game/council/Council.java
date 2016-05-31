@@ -1,12 +1,15 @@
 
 package model.game.council;
+import java.io.Serializable;
 import java.util.concurrent.ArrayBlockingQueue;
 
 
 /**
  * @author Vitaliy Pakholko
  */
-public abstract class Council{
+public abstract class Council implements Serializable
+{
+	private static final long serialVersionUID = 8503784660222509923L;
 	private final ArrayBlockingQueue<Councillor> councillors;
 	
 	public Council(ArrayBlockingQueue<Councillor> councillors) 
