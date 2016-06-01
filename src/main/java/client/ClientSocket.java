@@ -2,6 +2,7 @@ package client;
 
 import java.io.*;
 import java.net.*;
+import java.util.Scanner;
 import java.util.concurrent.*;
 import model.game.*;
 import view.LocalStorage;
@@ -10,7 +11,7 @@ public class ClientSocket
 {
 	private final static int PORT = 50000;
 	private final static String IP="127.0.0.1";
-	protected Game game;
+	private Game game;
 	private LocalStorage memoryContainer;
 	private int ID;
 	
@@ -41,9 +42,34 @@ public class ClientSocket
 		System.out.println("Connection Established");
 		ExecutorService executor = Executors.newFixedThreadPool(2);
 		
-		executor.submit(new ClientOutHandlerSocket(new ObjectOutputStream(socket.getOutputStream()), 
+		System.out.println("Aspetto gioco");
+		ObjectOutputStream socketOut=new ObjectOutputStream(socket.getOutputStream());
+		ObjectInputStream socketIn=new ObjectInputStream(socket.getInputStream());
+		
+		Scanner stdin = new Scanner(System.in);
+		System.out.println("Insert your name: ");
+		String name = stdin.nextLine();
+		try {
+			socketOut.writeObject(name);
+			socketOut.flush();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		System.out.println("Waiting for other players");
+		try{
+			Game game=(Game)socketIn.readObject();
+			this.game=game;
+			int id=(Integer)socketIn.readObject();
+			this.ID=id;
+			//System.out.println("gioco "+game);
+		}catch(ClassNotFoundException e){
+			e.printStackTrace();
+		}
+		System.out.println("ID: "+this.ID);
+		
+		executor.submit(new ClientOutHandlerSocket(socketOut, 
 				game, memoryContainer, ID));
-		executor.submit(new ClientInHandlerSocket(new ObjectInputStream(socket.getInputStream()),
+		executor.submit(new ClientInHandlerSocket(socketIn,
 				game, memoryContainer, ID));
 		
 	}

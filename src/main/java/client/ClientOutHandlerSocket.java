@@ -35,22 +35,16 @@ public class ClientOutHandlerSocket implements Runnable
 	@Override
 	public void run() 
 	{
-		Scanner stdin = new Scanner(System.in);
-		System.out.println("Insert your name: ");
-		String name = stdin.nextLine();
-		try {
-			socketOut.writeObject(name);
-			socketOut.flush();
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
-		System.out.println("Waiting for other players");
-		
+		Scanner stdin=new Scanner(System.in);
 		while(game == null);
+		
+		while(game.getGameState()==null);
+		System.out.println("sono uscito");
 		
 		while (true) 
 			//!game.getGameState().equals(EndState.class)
 		{
+			
 			String inputLine = this.start(stdin);
 			if(!inputLine.equalsIgnoreCase("quit")){
 				stdin.close();

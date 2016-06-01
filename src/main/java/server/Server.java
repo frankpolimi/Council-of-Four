@@ -50,6 +50,7 @@ public class Server
 				Socket socket = serverSocket.accept();
 				ServerSocketView view = new ServerSocketView(socket);
 				System.out.println("CONNECTION ACCEPTED "+serialID+" "+view.getName());
+				view.getSocketOut().writeObject(game);
 				this.addClient(view, new Player(view.getName(), serialID));
 				serialID++;
 				executor.submit(view);
@@ -91,8 +92,9 @@ public class Server
 							}
 							
 							if(oneRoomLobby.size()>=2){
-								System.out.println("Più di due");
 								game.setPlayers(oneRoomLobby);
+								System.out.println("Stato del gioco: "+game.getGameState());
+								game.getPlayers().stream().forEach(System.out::println);
 								
 								System.out.println("new game");
 								try {
