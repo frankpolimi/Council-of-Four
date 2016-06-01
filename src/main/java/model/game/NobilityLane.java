@@ -11,11 +11,15 @@ import model.bonus.bonusers.Bonusable;
 import model.observers.Observer;
 
 /**
- * @author Francesco Vetrò
+ * @author Francesco Vetrï¿½
  *
  */
 public class NobilityLane extends Bonusable implements Observer<Change>{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 9161958522145141177L;
 	Map<Integer, NobilityCell> lane;
 	
 	public NobilityLane(){

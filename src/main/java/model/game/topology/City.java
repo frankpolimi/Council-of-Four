@@ -4,6 +4,7 @@
 package model.game.topology;
 
 import java.awt.Color;
+import java.io.Serializable;
 import java.util.*;
 
 import model.bonus.*;
@@ -15,7 +16,11 @@ import model.game.Player;
  * @author Emanuele Ricciardelli
  *	
  */
-public class City  extends Bonusable{
+public class City  extends Bonusable implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8246119752946533926L;
 	private final String name;
 	private final char firstChar;
 	private final Color cityColor;
@@ -117,7 +122,7 @@ public class City  extends Bonusable{
 	}
 
 	/**
-	 * @author Francesco vetrò
+	 * @author Francesco vetrï¿½
 	 * @return the bonuses applied to the permit
 	 */
 	public String displayBonus() {

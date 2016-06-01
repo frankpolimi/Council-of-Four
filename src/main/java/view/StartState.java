@@ -3,14 +3,20 @@
  */
 package view;
 
+import java.io.Serializable;
 
 /**
  * @author Francesco Vetr�
  *
  */
-public class StartState implements State {
+public class StartState implements State, Serializable{
 	
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7659063150305724043L;
+
 	/**
 	 * display to the view the first selection's level
 	 * that will lead to perform an action

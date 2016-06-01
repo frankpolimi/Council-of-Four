@@ -5,7 +5,7 @@ import java.lang.reflect.Method;
 import java.util.*;
 
 
-public class WinnerSelector {
+public class WinnerSelector{
 	private List<Player> players;
 	
 	public WinnerSelector(List<Player> players) {

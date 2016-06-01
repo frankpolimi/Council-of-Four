@@ -6,12 +6,14 @@
  */
 package model.bonus.bonusers;
 
+import java.io.Serializable;
+
 import model.game.Game;
 
 /**
- * @author Francesco Vetrò
+ * @author Francesco Vetrï¿½
  */
-public interface Bonuser {
+public interface Bonuser extends Serializable{
 	
 	public void update();	
 	public void update(Game playerOrGame);

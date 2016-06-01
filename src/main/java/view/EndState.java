@@ -1,9 +1,15 @@
 package view;
 
+import java.io.Serializable;
+
 import model.game.Player;
 
-public class EndState implements State {
+public class EndState implements State, Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1714166266502408130L;
 	private Player winner;
 	
 	/**

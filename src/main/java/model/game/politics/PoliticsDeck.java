@@ -1,5 +1,6 @@
 package model.game.politics;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -8,8 +9,12 @@ import model.game.Player;
 /**
  * @author Vitaliy Pakholko
  */
-public class PoliticsDeck 
+public class PoliticsDeck implements Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4630033173259427714L;
 	private ArrayList<PoliticsCard> deck;
 	
 	public PoliticsDeck(ArrayList<PoliticsCard> array) 

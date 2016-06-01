@@ -4,6 +4,7 @@
  */
 package model.bonus.bonusers;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,11 +12,15 @@ import model.game.Game;
 
 
 /**
- * @author Francesco Vetrò
+ * @author Francesco Vetrï¿½
  * 
  */
-public abstract class Bonusable {
+public abstract class Bonusable implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2029635307372167240L;
 	List<Bonuser> bonuses;
 	
 	public Bonusable(){
@@ -42,7 +47,7 @@ public abstract class Bonusable {
 		for(Bonuser b: bonuses)
 			b.update(game);
 	}	
-	//solo d'aiuto.. lo cancellerò! by ema
+	//solo d'aiuto.. lo cancellerï¿½! by ema
 	public void stampBonusList(){
 		for(Bonuser b:this.bonuses){
 			System.out.println(b.toString());

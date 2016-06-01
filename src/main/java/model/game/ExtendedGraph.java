@@ -8,6 +8,7 @@ import org.jgrapht.graph.UndirectedSubgraph;
 
 import model.game.topology.City;
 
+import java.io.Serializable;
 import java.util.*;
 
 import org.jgrapht.alg.ConnectivityInspector;
@@ -16,7 +17,7 @@ import org.jgrapht.alg.DijkstraShortestPath;
  * @author Emanuele Ricciardelli
  *
  */
-public class ExtendedGraph<V extends City,E> extends SimpleGraph<V, E> {
+public class ExtendedGraph<V extends City,E> extends SimpleGraph<V, E> implements Serializable{
 
 	/**
 	 * 

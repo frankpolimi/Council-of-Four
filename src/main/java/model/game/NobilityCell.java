@@ -9,11 +9,15 @@ import model.bonus.*;
 import model.bonus.bonusers.Bonusable;
 
 /**
- * @author Francesco Vetrò
+ * @author Francesco Vetrï¿½
  *
  */
 public class NobilityCell extends Bonusable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2751737835536189881L;
 	private final List<Bonus> bonuses;
 	
 	public NobilityCell(List<Bonus> bonuses) {

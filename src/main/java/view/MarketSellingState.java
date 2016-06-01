@@ -3,11 +3,18 @@
  */
 package view;
 
+import java.io.Serializable;
+
 /**
  * @author francesco
  *
  */
-public class MarketSellingState implements State {
+public class MarketSellingState implements State, Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2121727004582742362L;
 
 	/* (non-Javadoc)
 	 * @see cg2.view.State#display()

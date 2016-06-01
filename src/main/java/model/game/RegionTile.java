@@ -11,6 +11,10 @@ import model.game.topology.Region;
  */
 public class RegionTile extends PointsTile {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -9204116877827941026L;
 	private final Region region;
 	/**
 	 * @param amount

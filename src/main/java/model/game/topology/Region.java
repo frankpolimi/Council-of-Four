@@ -1,5 +1,6 @@
 package model.game.topology;
 
+import java.io.Serializable;
 import java.util.*;
 
 import model.game.PermitsDeck;
@@ -8,8 +9,12 @@ import model.game.council.RegionalCouncil;
 /**
  * @author Vitaliy Pakholko
  */
-public class Region 
+public class Region implements Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5260064143011887252L;
 	private final String name;
 	private ArrayList<City> cities;
 	private final RegionalCouncil council;

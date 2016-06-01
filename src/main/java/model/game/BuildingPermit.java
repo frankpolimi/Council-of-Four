@@ -1,5 +1,6 @@
 package model.game;
 
+import java.io.Serializable;
 import java.util.*;
 
 import model.bonus.*;
@@ -12,8 +13,12 @@ import model.game.topology.City;
  *
  */
 
-public class BuildingPermit extends Bonusable{
+public class BuildingPermit extends Bonusable implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8442720264371098415L;
 	private final Set<Character> firstChars;
 	private final Set<Bonus> bonusList;
 	private final Set<City> buildingAvaliableCities;
@@ -58,7 +63,7 @@ public class BuildingPermit extends Bonusable{
 	}
 
 	/**
-	 * @author Francesco vetrò
+	 * @author Francesco vetrï¿½
 	 * @return the bonuses applied to the permit
 	 */
 	public String displayBonus() {

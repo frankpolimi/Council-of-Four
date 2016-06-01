@@ -5,6 +5,7 @@ package model.game;
 
 import java.awt.Color;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.*;
 import org.jdom2.JDOMException;
 
@@ -17,7 +18,11 @@ import model.game.topology.City;
  *	informations (points information, nobility information and so on).
  */
 
-public class Player {
+public class Player implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -576564044081797668L;
 	private final String name;
 	private final int playerID;
 	private int remainingEmporiums;

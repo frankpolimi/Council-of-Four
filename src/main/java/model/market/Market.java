@@ -4,6 +4,7 @@
  */
 package model.market;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,8 +17,12 @@ import model.game.politics.PoliticsCard;
  * @param <T> the type of the object 
  *
  */
-public class Market {
+public class Market implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3231074513289905689L;
 	private List<MarketObject<?>> products;
 	
 	/**

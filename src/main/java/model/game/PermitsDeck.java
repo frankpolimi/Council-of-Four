@@ -1,4 +1,5 @@
 package model.game;
+import java.io.Serializable;
 import java.util.*;
 import java.util.concurrent.ArrayBlockingQueue;
 /**
@@ -7,7 +8,11 @@ import java.util.concurrent.ArrayBlockingQueue;
  *
  */
 
-public class PermitsDeck {
+public class PermitsDeck implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6786269689447908912L;
 	private List<BuildingPermit> buildingPermitsDeck;
 	private ArrayBlockingQueue<BuildingPermit> faceUpPermits;
 

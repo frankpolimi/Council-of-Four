@@ -4,6 +4,7 @@
 package model.game;
 
 import java.awt.Color;
+import java.io.Serializable;
 
 import model.game.topology.City;
 
@@ -12,8 +13,12 @@ import model.game.topology.City;
  * @author Emanuele Ricciardelli
  *
  */
-public class Emporium {
+public class Emporium implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4245715478199858323L;
 	private final City city;
 	private final Color color;
 	
@@ -24,7 +29,7 @@ public class Emporium {
 	 * @throws NullPointerException if color or city is null
 	 */
 	
-	//VALUTARE SE è IL CASO DI TOGLIERE IL REF DI PLAYER PER NON CREARE AMBIGUITà!!!
+	//VALUTARE SE ï¿½ IL CASO DI TOGLIERE IL REF DI PLAYER PER NON CREARE AMBIGUITï¿½!!!
 	public Emporium(City c, Color color){
 		if(c==null||color==null){
 			throw new NullPointerException("one either Color or city is null");
