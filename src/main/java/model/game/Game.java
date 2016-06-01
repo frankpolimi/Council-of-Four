@@ -100,7 +100,7 @@ public class Game extends Observable<Change> implements Serializable{
 		this.currentPlayer=this.players.get(0);
 		this.gameState=new StartState();
 		System.out.println("NOTIFYING");
-		notifyObservers(new ModelChange(this));
+		notifyObservers(new StateChange(this.gameState));
 	}
 	/*
 	public void gioca(){
