@@ -99,6 +99,8 @@ public class Server
 									serialID=1;
 									game= new Game();
 									controller= new Controller(game);
+									oneRoomLobby.clear();
+									playersView.clear();
 								} catch (JDOMException | IOException e) {
 									e.printStackTrace();
 								}
