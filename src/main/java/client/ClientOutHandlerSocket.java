@@ -7,6 +7,7 @@ import model.actions.*;
 import model.game.Game;
 import view.ActionRequest;
 import view.ClientView;
+import view.EndState;
 import view.LocalStorage;
 import view.MarketBuyingState;
 import view.MarketSellingState;
@@ -36,8 +37,20 @@ public class ClientOutHandlerSocket implements Runnable
 	public void run() 
 	{
 		Scanner stdin = new Scanner(System.in);
+		System.out.println("Insert your name: ");
+		String name = stdin.nextLine();
+		try {
+			socketOut.writeObject(name);
+			socketOut.flush();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		System.out.println("Waiting for other players");
+		
+		while(game == null);
 		
 		while (true) 
+			//!game.getGameState().equals(EndState.class)
 		{
 			String inputLine = this.start(stdin);
 			if(!inputLine.equalsIgnoreCase("quit")){

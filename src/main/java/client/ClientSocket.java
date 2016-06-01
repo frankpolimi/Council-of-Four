@@ -40,41 +40,13 @@ public class ClientSocket
 	{
 		Socket socket = new Socket(IP, PORT);
 		System.out.println("Connection Established");
-		ObjectInputStream y = new ObjectInputStream(socket.getInputStream());
-		ObjectOutputStream x = new ObjectOutputStream(socket.getOutputStream());
-		
-		boolean fullString = true;
-		while(fullString){
-			String input = null;
-			try {
-				input = (String) y.readObject();
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-			}
-			if(input != null)
-				fullString = false;
-			System.out.println(input);
-			Scanner s = new Scanner(System.in);
-			input = s.nextLine();
-			x.writeObject(input);
-			x.flush();
-			s.close();
-		}
-		x.close();
-		y.close();
 		ExecutorService executor = Executors.newFixedThreadPool(2);
-		executor.submit(new ClientInHandlerSocket(new ObjectInputStream(socket.getInputStream()),
-				game, memoryContainer));
+		
 		executor.submit(new ClientOutHandlerSocket(new ObjectOutputStream(socket.getOutputStream()), 
 				game, memoryContainer, ID));
-		try {
-			executor.wait();
-		} catch (InterruptedException e) {
-			executor.shutdown();
-		}
-		finally{
-			socket.close();
-		}
+		executor.submit(new ClientInHandlerSocket(new ObjectInputStream(socket.getInputStream()),
+				game, memoryContainer, ID));
+		
 	}
 	
 	public static void main(String[] args) throws UnknownHostException, IOException{
