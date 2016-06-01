@@ -5,7 +5,6 @@ import java.net.*;
 import java.rmi.AlreadyBoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Timer;
@@ -92,7 +91,7 @@ public class Server
 							}
 							
 							if(oneRoomLobby.size()>=2){
-								System.out.println("Più di due");
+								System.out.println("Piï¿½ di due");
 								game.setPlayers(oneRoomLobby);
 								
 								System.out.println("new game");

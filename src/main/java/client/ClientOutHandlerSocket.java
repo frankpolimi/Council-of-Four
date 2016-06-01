@@ -7,7 +7,6 @@ import model.actions.*;
 import model.game.Game;
 import view.ActionRequest;
 import view.ClientView;
-import view.EndState;
 import view.LocalStorage;
 import view.MarketBuyingState;
 import view.MarketSellingState;

@@ -2,7 +2,6 @@ package server;
 
 import java.io.*;
 import java.net.Socket;
-import java.net.SocketException;
 
 import controller.Change;
 import view.Request;
