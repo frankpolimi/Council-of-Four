@@ -2,6 +2,7 @@ package server;
 
 import java.io.*;
 import java.net.Socket;
+import java.net.SocketException;
 
 import controller.Change;
 import view.Request;
@@ -9,9 +10,9 @@ import view.View;
 
 public class ServerSocketView extends View implements Runnable
 {
-	private Socket socket;
-	private ObjectInputStream socketIn;
-	private ObjectOutputStream socketOut;
+	private final Socket socket;
+	private final ObjectInputStream socketIn;
+	private final ObjectOutputStream socketOut;
 	private String name;
 	
 	/**
@@ -40,8 +41,11 @@ public class ServerSocketView extends View implements Runnable
 			try {
 				Request line = (Request)socketIn.readObject();
 				this.notifyObservers(line);
-			} catch (ClassNotFoundException | IOException e) {
-				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				System.out.println(e.getMessage()+"  "+e.getCause());
+			} catch (IOException f){
+				System.out.println("The client has been disconnected");
+				break;
 			}
 		}
 	}
@@ -93,6 +97,21 @@ public class ServerSocketView extends View implements Runnable
 		this.name = name;
 	}
 
+	/**
+	 * @return the socketIn
+	 */
+	public ObjectInputStream getSocketIn() {
+		return socketIn;
+	}
+
+	/**
+	 * @return the socketOut
+	 */
+	public ObjectOutputStream getSocketOut() {
+		return socketOut;
+	}
+
+	
 
 	
 	

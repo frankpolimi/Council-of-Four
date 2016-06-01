@@ -5,6 +5,7 @@ import java.net.*;
 import java.rmi.AlreadyBoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Timer;
@@ -26,7 +27,7 @@ public class Server
 	private Controller controller;
 	private Game game;
 	private List<Player> oneRoomLobby;
-	private Map<Integer, View> playersView;
+	private Map<Player, View> playersView;
 	
 	public Server() throws JDOMException, IOException
 	{
@@ -65,34 +66,38 @@ public class Server
 		game.registerObserver(view);
 		view.setID(this.serialID);
 		oneRoomLobby.add(player);
+		playersView.put(player, view);
 		if(oneRoomLobby.size()>=2){
 			if(timer==null){
 				timer=new Timer();
 				System.out.println("START TIMER");
-				timer.scheduleAtFixedRate(new TimerTask() {
+				timer.schedule(new TimerTask() {
 
 					@Override
 					public void run() {
 						// TODO Auto-generated method stub
 						if(oneRoomLobby.size()>=2){
-							for(int i=0;i<playersView.keySet().size();i++){
+							int i=0;
+							while(i<oneRoomLobby.size()){
+								Player player=oneRoomLobby.get(i);
 								try{
-									((ServerSocketView)playersView.get(i)).getSocket().getOutputStream().write(10);;
+									((ServerSocketView)playersView.get(player)).getSocketOut().writeObject("is connection on??");
+									i++;
 								}catch(SocketException e){
-									for(Player p:oneRoomLobby){
-										if(p.getPlayerID()==i){
-											oneRoomLobby.remove(p);
-										}
-									}
-									playersView.remove(i);
+									oneRoomLobby.remove(player);
+									playersView.remove(player);
+									
 								}catch(IOException io){
 								}	
 							}
 							
 							if(oneRoomLobby.size()>=2){
+								System.out.println("Più di due");
 								game.setPlayers(oneRoomLobby);
+								
 								System.out.println("new game");
 								try {
+									serialID=1;
 									game= new Game();
 									controller= new Controller(game);
 								} catch (JDOMException | IOException e) {
@@ -103,7 +108,7 @@ public class Server
 							timer=null;
 						}
 					}
-				}, 20*1000,20*1000);
+				}, 20*1000);
 			}
 		}	
 	}
