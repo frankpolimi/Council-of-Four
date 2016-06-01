@@ -69,7 +69,7 @@ public class Server
 			if(timer==null){
 				timer=new Timer();
 				System.out.println("START TIMER");
-				timer.schedule(new TimerTask() {
+				timer.scheduleAtFixedRate(new TimerTask() {
 
 					@Override
 					public void run() {
@@ -103,7 +103,7 @@ public class Server
 							timer=null;
 						}
 					}
-				}, 20*1000);
+				}, 20*1000,20*1000);
 			}
 		}	
 	}
