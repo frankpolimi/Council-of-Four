@@ -80,7 +80,7 @@ public class Server
 							while(i<oneRoomLobby.size()){
 								Player player=oneRoomLobby.get(i);
 								try{
-									((ServerSocketView)playersView.get(player)).getSocketOut().writeObject("is connection on??");
+									((ServerSocketView)playersView.get(player)).getSocketOut().writeObject("");
 									i++;
 								}catch(SocketException e){
 									oneRoomLobby.remove(player);
@@ -91,7 +91,7 @@ public class Server
 							}
 							
 							if(oneRoomLobby.size()>=2){
-								System.out.println("Piï¿½ di due");
+								System.out.println("Più di due");
 								game.setPlayers(oneRoomLobby);
 								
 								System.out.println("new game");
