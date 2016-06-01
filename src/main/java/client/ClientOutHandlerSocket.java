@@ -38,7 +38,6 @@ public class ClientOutHandlerSocket implements Runnable
 	public void run() 
 	{
 		Scanner stdin = new Scanner(System.in);
-		/*
 		System.out.println("Insert your name: ");
 		String name = stdin.nextLine();
 		try {
@@ -47,7 +46,6 @@ public class ClientOutHandlerSocket implements Runnable
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
-		*/
 		System.out.println("Waiting for other players");
 		
 		while(game == null);

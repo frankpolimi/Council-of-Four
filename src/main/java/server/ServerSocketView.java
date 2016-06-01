@@ -12,17 +12,20 @@ public class ServerSocketView extends View implements Runnable
 	private Socket socket;
 	private ObjectInputStream socketIn;
 	private ObjectOutputStream socketOut;
+	private String name;
 	
 	/**
 	 * constructor for the socket
 	 * @param socket the socket that the server prepares
 	 * @throws IOException if is an error in the input or output stream
+	 * @throws ClassNotFoundException 
 	 */
-	public ServerSocketView(Socket socket) throws IOException
+	public ServerSocketView(Socket socket) throws IOException, ClassNotFoundException
 	{
 		this.socket = socket;
 		socketIn = new ObjectInputStream(socket.getInputStream());
 		socketOut = new ObjectOutputStream(socket.getOutputStream());
+		name = (String)socketIn.readObject();
 	}
 
 	/**
@@ -74,6 +77,20 @@ public class ServerSocketView extends View implements Runnable
 	 */
 	public Socket getSocket() {
 		return socket;
+	}
+
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
 	}
 
 

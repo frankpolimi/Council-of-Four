@@ -1,8 +1,6 @@
 package server;
 
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.net.*;
 import java.rmi.AlreadyBoundException;
 import java.util.ArrayList;
@@ -51,8 +49,8 @@ public class Server
 			try {
 				Socket socket = serverSocket.accept();
 				ServerSocketView view = new ServerSocketView(socket);
-				System.out.println("CONNECTION ACCEPTED "+serialID);
-				this.addClient(view, new Player("", serialID));
+				System.out.println("CONNECTION ACCEPTED "+serialID+" "+view.getName());
+				this.addClient(view, new Player(view.getName(), serialID));
 				serialID++;
 				executor.submit(view);
 			} catch (IOException e) {
@@ -107,14 +105,7 @@ public class Server
 					}
 				}, 20*1000);
 			}
-		}
-		/*
-		try {
-			oneRoomLobby.add(new Player(name, serialID));
-			serverViewsOfPlayers.add(view);
-		} catch (JDOMException | IOException e) {
-			e.printStackTrace();
-		}*/		
+		}	
 	}
 	
 	public List<Player> getLobby(){
