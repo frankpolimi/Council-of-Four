@@ -36,6 +36,9 @@ public class ClientSocket
 	}
 
 
+	/**
+	 * @throws IOException
+	 */
 	public void startClient() throws IOException 
 	{
 		Socket socket = new Socket(IP, PORT);
@@ -66,11 +69,10 @@ public class ClientSocket
 			e.printStackTrace();
 		}
 		System.out.println("ID: "+this.ID);
-		
+		memoryContainer.setGameRef(game);
 		executor.submit(new ClientOutHandlerSocket(socketOut, 
-				game, memoryContainer, ID));
-		executor.submit(new ClientInHandlerSocket(socketIn,
-				game, memoryContainer, ID));
+				 memoryContainer, ID));
+		executor.submit(new ClientInHandlerSocket(socketIn, memoryContainer, ID));
 		
 	}
 	

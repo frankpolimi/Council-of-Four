@@ -21,10 +21,11 @@ public class ClientOutHandlerSocket implements Runnable
 	private LocalStorage memoryContainer;
 	private Game game;
 
-	public ClientOutHandlerSocket(ObjectOutputStream socketOut, Game game, LocalStorage container, int ID) {
-		this.game = game;
+	public ClientOutHandlerSocket(ObjectOutputStream socketOut, LocalStorage container, int ID) {
+	
 		this.socketOut = socketOut;
 		this.memoryContainer=container;
+		this.game = memoryContainer.getGameRef();
 		this.ID = ID;
 	}
 
@@ -36,21 +37,18 @@ public class ClientOutHandlerSocket implements Runnable
 	public void run() 
 	{
 		Scanner stdin=new Scanner(System.in);
-		while(true)
-				if(game != null)
-					break;
+		while(game==null);
 		System.err.println("game ricevuto");
 		
 		
-		while(true)
-			if(game.getGameState()!=null)	
-				break;
-		System.err.println(game.getGameState());
+		
 		
 			
 		while (true) 
 			//!game.getGameState().equals(EndState.class)
 		{
+			game=memoryContainer.getGameRef();
+			if(game.getGameState()!=null){
 			String inputLine = this.start(stdin);
 			if(!inputLine.equalsIgnoreCase("quit")){
 				stdin.close();
@@ -63,6 +61,7 @@ public class ClientOutHandlerSocket implements Runnable
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
+			}
 		}
 	}
 

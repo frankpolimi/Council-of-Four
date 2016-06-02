@@ -23,12 +23,12 @@ public class ClientInHandlerSocket implements Runnable
 	private LocalStorage memoryContainer;
 	private int iD;
 	
-	public ClientInHandlerSocket(ObjectInputStream socketIn, Game game, 
+	public ClientInHandlerSocket(ObjectInputStream socketIn,
 			LocalStorage container, int iD) 
 	{
 		this.socketIn = socketIn;
 		this.memoryContainer=container;
-		this.gameLocalCopy = game;
+		this.gameLocalCopy = memoryContainer.getGameRef();
 		this.iD = iD;
 	}
 
@@ -53,7 +53,7 @@ public class ClientInHandlerSocket implements Runnable
 			else if(x.getClass().equals(BonusChange.class) || 
 					x.getClass().equals(PermitsChange.class)){
 				System.out.println(x.toString());
-				memoryContainer = new LocalStorage((Change)x);
+				memoryContainer = new LocalStorage((Change)x, memoryContainer.getGameRef());
 			}
 			else if(x.getClass().equals(ModelChange.class)){
 				this.gameLocalCopy = ((ModelChange)x).getGame();
@@ -61,15 +61,18 @@ public class ClientInHandlerSocket implements Runnable
 			}
 			else if(x.getClass().equals(StateChange.class)){
 				State y = ((StateChange)x).getStateChanged();
-				if(y.getClass().equals(StartState.class)) 
+				this.gameLocalCopy.setGameState(y);
+				/*if(y.getClass().equals(StartState.class)) 
 					this.gameLocalCopy.setGameState((StartState)y);
 				else if(y.getClass().equals(MarketBuyingState.class))
 					this.gameLocalCopy.setGameState((MarketBuyingState)y);
 				else if(y.getClass().equals(MarketSellingState.class))
 					this.gameLocalCopy.setGameState((MarketSellingState)y);
 				else if(y.getClass().equals(EndState.class))
-					this.gameLocalCopy.setGameState((EndState)y);
+					this.gameLocalCopy.setGameState((EndState)y);*/
+				//non ha senso fare sta cosa qua.. basta assegnare il nuovo stato. ma a questo punto tanto vale ripassare tutto il gioco
 			}
+			memoryContainer.setGameRef(this.gameLocalCopy);
 		}
 	}
 

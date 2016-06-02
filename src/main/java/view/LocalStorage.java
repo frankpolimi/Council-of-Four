@@ -9,21 +9,24 @@ import controller.Change;
 import controller.PermitsChange;
 import model.bonus.Bonus;
 import model.game.BuildingPermit;
+import model.game.Game;
 
 /**
- * @author Francesco Vetrò
+ * @author Francesco Vetrï¿½
  *
  */
 public class LocalStorage {
 	
 	private List<Bonus> bonus;
 	private List<BuildingPermit> permits;
+	private Game gameRef;
 	
-	public LocalStorage(Change list) {
+	public LocalStorage(Change list, Game game) {
 		if(Change.class.equals(BonusChange.class))
 			bonus = ((BonusChange)list).getBonusList();
 		else if(Change.class.equals(PermitsChange.class))
 			permits = ((PermitsChange)list).getPermits();
+		gameRef=game;
 	}
 	
 	public LocalStorage() {
@@ -74,4 +77,19 @@ public class LocalStorage {
 		this.permits = permits;
 	}
 
+	/**
+	 * @return the gameRef
+	 */
+	public Game getGameRef() {
+		return gameRef;
+	}
+
+	/**
+	 * @param gameRef the gameRef to set
+	 */
+	public void setGameRef(Game gameRef) {
+		this.gameRef = gameRef;
+	}
+
+	
 }
