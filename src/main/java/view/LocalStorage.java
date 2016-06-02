@@ -3,6 +3,7 @@
  */
 package view;
 
+import java.util.ArrayList;
 import java.util.List;
 import controller.BonusChange;
 import controller.Change;
@@ -30,7 +31,8 @@ public class LocalStorage {
 	}
 	
 	public LocalStorage() {
-		//nothing to do
+		bonus=new ArrayList<>();
+		permits=new ArrayList<>();
 	}
 
 	public Bonus retrieveBonus(int place){

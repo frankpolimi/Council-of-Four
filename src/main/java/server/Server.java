@@ -104,7 +104,7 @@ public class Server
 								 * passe mi aveva detto di fare la deep copy ma non so
 								 * loro come l'hanno implementata e non so perchè non va
 								 */
-								game.notifyObservers(new ModelChange(game));
+								
 								System.out.println("new game");
 								try {
 									serialID=1;

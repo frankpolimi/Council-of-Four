@@ -3,6 +3,9 @@ package client;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.Scanner;
+
+import javax.sound.midi.Synthesizer;
+
 import model.actions.*;
 import model.game.Game;
 import view.ActionRequest;
@@ -39,28 +42,19 @@ public class ClientOutHandlerSocket implements Runnable
 		Scanner stdin=new Scanner(System.in);
 		while(game==null);
 		System.err.println("game ricevuto");
-		
-		
-		
-		
-			
 		while (true) 
 			//!game.getGameState().equals(EndState.class)
 		{
 			game=memoryContainer.getGameRef();
 			if(game.getGameState()!=null){
-			String inputLine = this.start(stdin);
-			if(!inputLine.equalsIgnoreCase("quit")){
-				stdin.close();
-				this.notify();
-			}
-			else if(inputLine.equals(""))
-				try {
-					socketOut.writeObject(request);
-					socketOut.flush();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
+				String inputLine = this.start(stdin);
+				if(inputLine.equals(""))
+					try {
+						socketOut.writeObject(request);
+						socketOut.flush();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
 			}
 		}
 	}
@@ -78,7 +72,7 @@ public class ClientOutHandlerSocket implements Runnable
 		ClientView view = new ClientView(game, memoryContainer, ID);
 		if(game.isLastTurn())
 			System.out.println("THIS IS YOUR LAST TURN");
-		if(game.getGameState().equals(StartState.class)){
+		if(this.game.getGameState().getClass().equals(StartState.class)){
 			if(!memoryContainer.getBonus().isEmpty())
 				request = view.bonus(stdin);
 			else if(!memoryContainer.getPermits().isEmpty())
@@ -102,7 +96,7 @@ public class ClientOutHandlerSocket implements Runnable
 				return "";
 			}
 		}
-		else if(game.getGameState().equals(MarketSellingState.class)){
+		else if(game.getGameState().getClass().equals(MarketSellingState.class)){
 			game.getGameState().display();
 			actionType = view.selector(1, 3, stdin);
 			switch(actionType){
@@ -117,7 +111,7 @@ public class ClientOutHandlerSocket implements Runnable
 			}
 			return "";
 		}
-		else if(game.getGameState().equals(MarketBuyingState.class)){
+		else if(game.getGameState().getClass().equals(MarketBuyingState.class)){
 			game.getGameState().display();
 			actionType = view.selector(1, 3, stdin);
 			switch(actionType){
