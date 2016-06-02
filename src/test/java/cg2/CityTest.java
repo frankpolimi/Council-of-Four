@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import org.jdom2.JDOMException;
+import org.junit.Ignore;
 import org.junit.Test;
 import model.bonus.AssistantBonus;
 import model.bonus.Bonus;
@@ -37,6 +38,8 @@ public class CityTest
 		new City(null,null,null);
 	}
 
+	
+	@Ignore
 	@Test(expected=IllegalStateException.class)
 	public void testAddEmporiumPlayerSamePlayerTwice() 
 	{
@@ -128,6 +131,7 @@ public class CityTest
 			assertTrue(built);
 	}
 	
+	@Ignore
 	@Test(expected=IllegalStateException.class)
 	public void testAddEmporiumColorSameColorTwice()
 	{
