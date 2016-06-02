@@ -139,7 +139,7 @@ public class City  extends Bonusable implements Serializable{
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
-	 */
+	 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -151,7 +151,7 @@ public class City  extends Bonusable implements Serializable{
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		return result;
 	}
-	
+	*/
 	
 
 	/* (non-Javadoc)
