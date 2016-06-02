@@ -30,7 +30,6 @@ public class CityTest
 		city.addEmporium(SupportClass.giveRandomColor());
 		return city;
 	}
-	
 
 	@Test(expected=NullPointerException.class)
 	public void testCityNull() 
@@ -38,8 +37,28 @@ public class CityTest
 		new City(null,null,null);
 	}
 
+	@Test(expected=IllegalStateException.class)
+	public void testAddEmporiumPlayerSamePlayerTwice() 
+	{
+		
+		Player player;
+		try {
+			City city=this.cityCreator();
+			player = new Player("Asdrubale", 12345);
+			city.addEmporium(player);
+			city.addEmporium(player);
+		} catch (JDOMException e) {
+			assertTrue(true);
+			e.printStackTrace();
+		} catch (IOException e) {
+			assertTrue(true);
+			e.printStackTrace();
+		}
+		
+	}
+	
 	@Test
-	public void testAddEmporiumPlayerAndColorAndHasPlayerBuilt() 
+	public void testAddEmporiumPlayer() 
 	{
 		
 		Player player;
@@ -59,7 +78,6 @@ public class CityTest
 		}
 		
 	}
-
 	
 	@Test
 	public void testHasPlayerBuilt()
@@ -108,9 +126,15 @@ public class CityTest
 				built=built||(e.getColor().equals(color2));
 			}
 			assertTrue(built);
-
 	}
 	
+	@Test(expected=IllegalStateException.class)
+	public void testAddEmporiumColorSameColorTwice()
+	{
+		City city=this.cityCreator();
+		city.addEmporium(color2);
+		city.addEmporium(color2);
+	}
 	
 	@Test
 	public void testGetFirstChar() 
@@ -118,6 +142,4 @@ public class CityTest
 		City city=this.cityCreator();
 		assertEquals(city.getFirstChar(), 'M');
 	}
-
-
 }
