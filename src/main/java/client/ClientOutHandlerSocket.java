@@ -36,26 +36,33 @@ public class ClientOutHandlerSocket implements Runnable
 	public void run() 
 	{
 		Scanner stdin=new Scanner(System.in);
-		while(game == null);
+		while(true)
+				if(game != null)
+					break;
+		System.err.println("game ricevuto");
 		
-		while(game.getGameState()==null);
-		System.out.println("sono uscito");
 		
+		while(true)
+			if(game.getGameState()!=null)	
+				break;
+		System.err.println(game.getGameState());
+		
+			
 		while (true) 
 			//!game.getGameState().equals(EndState.class)
 		{
-			
 			String inputLine = this.start(stdin);
 			if(!inputLine.equalsIgnoreCase("quit")){
 				stdin.close();
 				this.notify();
 			}
-			try {
-				socketOut.writeObject(request);
-				socketOut.flush();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			else if(inputLine.equals(""))
+				try {
+					socketOut.writeObject(request);
+					socketOut.flush();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 		}
 	}
 
@@ -67,7 +74,7 @@ public class ClientOutHandlerSocket implements Runnable
 	 * @param stdin the standard input to input the selection
 	 * @return 
 	 */
-	private String start(Scanner stdin) {
+	public String start(Scanner stdin) {
 		int actionType;
 		ClientView view = new ClientView(game, memoryContainer, ID);
 		if(game.isLastTurn())
@@ -126,7 +133,7 @@ public class ClientOutHandlerSocket implements Runnable
 			}
 			return "";
 		}
-		return null;
+		return "not ready";
 	}
 
 	/**

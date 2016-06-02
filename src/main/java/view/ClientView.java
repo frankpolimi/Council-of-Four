@@ -31,14 +31,12 @@ public class ClientView{
 	
 	private Game game;
 	private LocalStorage storage;
-	private Player user;
 	private int ID;
 	
 	public ClientView(Game game, LocalStorage memoryContainer, int ID) {
 		this.game=game;
 		this.storage = memoryContainer;
 		this.ID = ID;
-		this.user = this.getPlayerByID();
 	}
 	
 	/**
@@ -94,7 +92,7 @@ public class ClientView{
 			System.out.println("Action Chosen: To Acquire a building permit");
 			System.out.println("Select the four cards that you would to spend for corrupting a council");
 			System.out.println("Your Cards:");
-			List<PoliticsCard> ownedCards=user.getCardsOwned();
+			List<PoliticsCard> ownedCards=getPlayerByID().getCardsOwned();
 			ArrayList <PoliticsCard> selectedCards=new ArrayList<>();
 			for(int i=0;i<ownedCards.size();i++){
 				System.out.println((i+1)+"- "+ownedCards.get(i).toString());
@@ -128,15 +126,15 @@ public class ClientView{
 			System.out.println("Action Chosen: To Build an Emporium using an owned Permit");
 			System.out.println("Select the building permit you want to use for building an emporium");
 			System.out.println("Your permits:");
-			if (user.getBuildingPermits().isEmpty()){
+			if (getPlayerByID().getBuildingPermits().isEmpty()){
 				System.out.println("You don't have any permit. You couldn't select this action");
 				break;
 			}
-			for(i=0;i<user.getBuildingPermits().size();i++){
-				System.out.println((i+1)+"- "+user.getBuildingPermits().get(i).toString());
+			for(i=0;i<getPlayerByID().getBuildingPermits().size();i++){
+				System.out.println((i+1)+"- "+getPlayerByID().getBuildingPermits().get(i).toString());
 			}
-			permitIndex=this.selector(1, user.getBuildingPermits().size(), stdin);
-			chosenPermit=user.getBuildingPermits().get(permitIndex-1);
+			permitIndex=this.selector(1, getPlayerByID().getBuildingPermits().size(), stdin);
+			chosenPermit=getPlayerByID().getBuildingPermits().get(permitIndex-1);
 			System.out.println("Now type the initial of the city in which you would to build");
 			Iterator<City> cityIt=chosenPermit.getBuildingAvaliableCities().iterator();
 			while(cityIt.hasNext()){
@@ -157,7 +155,7 @@ public class ClientView{
 			System.out.println("Action Chosen: To Build an Emporium under the consense of the king");
 			System.out.println("Select the four cards that you would to spend for corrupting the king's council");
 			System.out.println("Your Cards:");
-			ownedCards=user.getCardsOwned();
+			ownedCards=getPlayerByID().getCardsOwned();
 			selectedCards=new ArrayList<>();
 			for(i=0;i<ownedCards.size();i++){
 				System.out.println((i+1)+"- "+ownedCards.get(i).toString());
@@ -259,7 +257,7 @@ public class ClientView{
 	 */
 	public Request buyProducts(Scanner stdin) {
 		System.out.println("These are the object for sale now!");
-		game.getMarket().getAvailableProducts(user);
+		game.getMarket().getAvailableProducts(getPlayerByID());
 		System.out.println("Are you interested from something? Y/N");
 		String answer=stdin.nextLine();
 		if(answer.equalsIgnoreCase("N")){
@@ -267,9 +265,9 @@ public class ClientView{
 		}else if(answer.equalsIgnoreCase("Y")){
 			System.out.println("Select the product you want to buy");
 			int selection = this.selector(1, 
-					game.getMarket().getLengthAvailableProducts(user), stdin);
+					game.getMarket().getLengthAvailableProducts(getPlayerByID()), stdin);
 			return new MarketRequest<>(
-					game.getMarket().getAvailableProducts(user).get(selection));
+					game.getMarket().getAvailableProducts(getPlayerByID()).get(selection));
 		}else{
 			System.out.println("You are insert a not valid value");
 		}
@@ -286,14 +284,14 @@ public class ClientView{
 		System.out.println("ADD A PRODUCT");
 		System.out.println("These are the product you could sell");
 		System.out.println("POLITIC CARDS");
-		for(i=0;i<user.getCardsOwned().size();i++){
-			System.out.println("pc"+(i+1)+"- "+user.getCardsOwned().get(i).toString());
+		for(i=0;i<getPlayerByID().getCardsOwned().size();i++){
+			System.out.println("pc"+(i+1)+"- "+getPlayerByID().getCardsOwned().get(i).toString());
 		}
 		System.out.println("BUILDING PERMITS NOT USED");
-		for(int j=0;j<user.getBuildingPermits().size();j++){
-			System.out.println("bp"+(j+1)+"- "+user.getBuildingPermits().get(j).toString());
+		for(int j=0;j<getPlayerByID().getBuildingPermits().size();j++){
+			System.out.println("bp"+(j+1)+"- "+getPlayerByID().getBuildingPermits().get(j).toString());
 		}
-		System.out.println("ASSISTANTS avaliable "+user.getAssistants());
+		System.out.println("ASSISTANTS avaliable "+getPlayerByID().getAssistants());
 		System.out.println("Now select the category of object that you are interested");
 		System.out.println("1. Politic Cards");
 		System.out.println("2. Building Permits");
@@ -302,27 +300,27 @@ public class ClientView{
 		switch(catIndex){
 		case 1: 
 			System.out.println("Insert the number of politic card that interested you");
-			int cardIndex=this.selector(1, user.getCardsOwned().size(), stdin);
-			PoliticsCard card=user.getCardsOwned().get(cardIndex-1);
+			int cardIndex=this.selector(1, getPlayerByID().getCardsOwned().size(), stdin);
+			PoliticsCard card=getPlayerByID().getCardsOwned().get(cardIndex-1);
 			int price=this.priceInsertion(stdin);
-			game.getMarket().addProduct(new MarketObject<PoliticsCard>(card, user, price));
+			game.getMarket().addProduct(new MarketObject<PoliticsCard>(card, getPlayerByID(), price));
 			return new MarketRequest<PoliticsCard>(
-					new MarketObject<PoliticsCard>(card, user, price));
+					new MarketObject<PoliticsCard>(card, getPlayerByID(), price));
 		case 2:
 			System.out.println("Insert the number of building permit that interested you");
-			int permitIndex=this.selector(1, user.getBuildingPermits().size(), stdin);
-			BuildingPermit permit=user.getBuildingPermits().get(permitIndex-1);
+			int permitIndex=this.selector(1, getPlayerByID().getBuildingPermits().size(), stdin);
+			BuildingPermit permit=getPlayerByID().getBuildingPermits().get(permitIndex-1);
 			price=this.priceInsertion(stdin);
 			return new MarketRequest<BuildingPermit>(
-					new MarketObject<BuildingPermit>(permit, user, price));
+					new MarketObject<BuildingPermit>(permit, getPlayerByID(), price));
 		case 3:
 			System.out.println("Insert the amount of assistant you would sell");
-			int assistantNumber=this.selector(1, user.getAssistants(), stdin);
+			int assistantNumber=this.selector(1, getPlayerByID().getAssistants(), stdin);
 			System.out.println("Insert the price");
 			price=this.priceInsertion(stdin);
 			Assistant assistant= new Assistant(assistantNumber);
 			return new MarketRequest<Assistant>(
-					new MarketObject<Assistant>(assistant, user, price));
+					new MarketObject<Assistant>(assistant, getPlayerByID(), price));
 		}
 		return null;
 	}

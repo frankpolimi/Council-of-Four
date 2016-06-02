@@ -50,7 +50,9 @@ public class Server
 				Socket socket = serverSocket.accept();
 				ServerSocketView view = new ServerSocketView(socket);
 				System.out.println("CONNECTION ACCEPTED "+serialID+" "+view.getName());
+				//questo lo scrive perfettamente ed arriva
 				view.getSocketOut().writeObject(game);
+				view.getSocketOut().flush();
 				this.addClient(view, new Player(view.getName(), serialID));
 				serialID++;
 				executor.submit(view);
@@ -95,7 +97,14 @@ public class Server
 								game.setPlayers(oneRoomLobby);
 								System.out.println("Stato del gioco: "+game.getGameState());
 								game.getPlayers().stream().forEach(System.out::println);
-								
+								System.out.println("NOTIFICA");
+								/*
+								 * questo a cui passiamo il reference del game dentro
+								 * un altro oggetto non funziona. 
+								 * passe mi aveva detto di fare la deep copy ma non so
+								 * loro come l'hanno implementata e non so perchè non va
+								 */
+								game.notifyObservers(new ModelChange(game));
 								System.out.println("new game");
 								try {
 									serialID=1;

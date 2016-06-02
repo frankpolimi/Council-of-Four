@@ -44,7 +44,6 @@ public class ClientSocket
 		
 		System.out.println("Aspetto gioco");
 		ObjectOutputStream socketOut=new ObjectOutputStream(socket.getOutputStream());
-		ObjectInputStream socketIn=new ObjectInputStream(socket.getInputStream());
 		
 		Scanner stdin = new Scanner(System.in);
 		System.out.println("Insert your name: ");
@@ -56,6 +55,7 @@ public class ClientSocket
 			e1.printStackTrace();
 		}
 		System.out.println("Waiting for other players");
+		ObjectInputStream socketIn=new ObjectInputStream(socket.getInputStream());
 		try{
 			Game game=(Game)socketIn.readObject();
 			this.game=game;

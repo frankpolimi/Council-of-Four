@@ -9,7 +9,7 @@ import java.util.List;
 import model.bonus.Bonus;
 
 /**
- * @author Francesco Vetrò
+ * @author Francesco Vetrï¿½
  *
  */
 public class BonusChange extends Change {
@@ -25,7 +25,7 @@ public class BonusChange extends Change {
 	}
 	
 	public BonusChange(List<Bonus> bonusList) {
-		this.bonusList = bonusList;
+		this.bonusList = new ArrayList<>(bonusList);
 	}
 
 	/**

@@ -9,7 +9,7 @@ import java.util.List;
 import model.game.BuildingPermit;
 
 /**
- * @author Francesco Vetrò
+ * @author Francesco Vetrï¿½
  *
  */
 public class PermitsChange extends Change {
@@ -22,7 +22,7 @@ public class PermitsChange extends Change {
 	}
 	
 	public PermitsChange(List<BuildingPermit> permits) {
-		this.permits = permits;
+		this.permits = new ArrayList<>(permits);
 	}
 
 	/**
