@@ -52,6 +52,7 @@ public class ClientSocket
 		System.out.println("Insert your name: ");
 		String name = stdin.nextLine();
 		try {
+			socketOut.reset();
 			socketOut.writeUnshared(name);
 			socketOut.flush();
 		} catch (IOException e1) {

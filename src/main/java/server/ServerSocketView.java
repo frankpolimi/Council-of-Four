@@ -57,6 +57,7 @@ public class ServerSocketView extends View implements Runnable
 	public void update(Change change){
 		
 		try {
+			this.socketOut.reset();
 			this.socketOut.writeUnshared(change);
 			this.socketOut.flush();
 		} catch (IOException e) {

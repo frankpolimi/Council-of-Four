@@ -50,6 +50,7 @@ public class Server
 				Socket socket = serverSocket.accept();
 				ServerSocketView view = new ServerSocketView(socket);
 				System.out.println("CONNECTION ACCEPTED "+serialID+" "+view.getName());
+				view.getSocketOut().reset();
 				view.getSocketOut().writeUnshared(game);
 				view.getSocketOut().flush();
 				this.addClient(view, new Player(view.getName(), serialID));

@@ -216,7 +216,7 @@ public class ClientView{
 			//select council
 			List<RegionalCouncil> regionalCouncils=game.getRegionalCouncils();
 			for(int i=0;i<regionalCouncils.size();i++){
-				System.out.println((i+1)+"- "+regionalCouncils.get(i).getPermitsDeck().toString());
+				System.out.println((i+1)+"- "+regionalCouncils.get(i).getPermitsDeck().getFaceUpPermits().toString());
 			}
 			int deckIndex=this.selector(1, regionalCouncils.size(), stdin);
 			PermitsDeck deckChosen=regionalCouncils.get(deckIndex-1).getPermitsDeck();

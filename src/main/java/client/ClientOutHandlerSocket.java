@@ -58,6 +58,7 @@ public class ClientOutHandlerSocket implements Runnable
 				String inputLine = this.start(stdin);
 				if(inputLine.equals(""))
 					try {
+						socketOut.reset();
 						socketOut.writeUnshared(request);
 						socketOut.flush();
 					} catch (IOException e) {
