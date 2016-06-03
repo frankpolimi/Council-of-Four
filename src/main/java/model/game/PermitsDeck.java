@@ -110,12 +110,14 @@ public class PermitsDeck implements Serializable{
 	 */
 	public void faceUpInit()
 	{
+		System.out.println("Sto inizializzando");
 		if(this.buildingPermitsDeck==null||this.buildingPermitsDeck.size()<=faceUpPermits.size()-1)
 		{
 			throw new NullPointerException(); 
 		}
 		else for(int i=faceUpPermits.remainingCapacity();i>0;i--)
 		{
+			System.out.println("i="+i);
 			faceUpPermits.add(buildingPermitsDeck.remove(0));
 		}	
 	}
