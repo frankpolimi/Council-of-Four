@@ -58,7 +58,8 @@ public class Region implements Serializable
 	 */
 	@Override
 	public String toString() {
-		return "Region [name=" + name + ", cities=" + cities + "]\n";
+		return "Region [name=" + name + ", cities=" + cities + " " +
+				council.getCouncillors().toString() + "]\n";
 	}
 	
 	
