@@ -75,7 +75,6 @@ public class Game extends Observable<Change> implements Serializable{
 		this.politicsDeck=mp.createPoliticsDeck();
 		this.usedPolitics=new PoliticsDeck(null);
 		this.players=new ArrayList<>();
-		this.lastTurnRemainingPlayers=this.players.size();
 		this.regions=mp.createRegionSet();
 		this.map=mp.generateMap(this.regions);
 		this.kingsCouncil=mp.getKingsCouncil();
@@ -98,6 +97,7 @@ public class Game extends Observable<Change> implements Serializable{
 			this.initFor2Players();
 		}
 		this.currentPlayer=this.players.get(0);
+		this.lastTurnRemainingPlayers=this.players.size();
 		this.gameState=new StartState();
 		this.mainActionCounter = 1;
 		this.quickActionCounter = 1;
