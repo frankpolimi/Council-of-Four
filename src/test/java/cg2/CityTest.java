@@ -19,7 +19,7 @@ import model.game.topology.City;
 public class CityTest 
 {
 	Color color2=SupportClass.giveRandomColor();
-	public City cityCreator()
+	public City cityCreator(String s)
 	{
 		Color color=SupportClass.giveRandomColor();
 		Bonus bonus=new AssistantBonus(3);
@@ -27,7 +27,7 @@ public class CityTest
 		ArrayList<Bonus> list=new ArrayList<Bonus>();
 		list.add(bonus);
 		list.add(bonus2);
-		City city=new City("Milano", color,list);
+		City city=new City(s, color,list);
 		city.addEmporium(SupportClass.giveRandomColor());
 		return city;
 	}
@@ -46,7 +46,7 @@ public class CityTest
 		
 		Player player;
 		try {
-			City city=this.cityCreator();
+			City city=this.cityCreator("Milano");
 			player = new Player("Asdrubale", 12345);
 			city.addEmporium(player);
 			city.addEmporium(player);
@@ -66,7 +66,7 @@ public class CityTest
 		
 		Player player;
 		try {
-			City city=this.cityCreator();
+			City city=this.cityCreator("Milano");
 			player = new Player("Asdrubale", 12345);
 			Emporium emporium= new Emporium(city, player.getChosenColor());
 			assertFalse(city.getEmporiums().contains(emporium));
@@ -87,7 +87,7 @@ public class CityTest
 	{
 		Player player;
 		try {
-			City city=this.cityCreator();
+			City city=this.cityCreator("Milano");
 			player = new Player("Asdrubale", 12345);
 			assertFalse(city.hasPlayerBuilt(player));
 			city.addEmporium(player);
@@ -117,7 +117,7 @@ public class CityTest
 	public void testAddEmporiumColor()
 	{
 
-			City city=this.cityCreator();
+			City city=this.cityCreator("Milano");
 			for(Emporium e:city.getEmporiums())	
 			{
 				assertFalse(e.getColor().equals(color2));
@@ -135,7 +135,7 @@ public class CityTest
 	@Test(expected=IllegalStateException.class)
 	public void testAddEmporiumColorSameColorTwice()
 	{
-		City city=this.cityCreator();
+		City city=this.cityCreator("Milano");
 		city.addEmporium(color2);
 		city.addEmporium(color2);
 	}
@@ -143,7 +143,7 @@ public class CityTest
 	@Test
 	public void testGetFirstChar() 
 	{
-		City city=this.cityCreator();
+		City city=this.cityCreator("Milano");
 		assertEquals(city.getFirstChar(), 'M');
 	}
 }
