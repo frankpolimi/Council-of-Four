@@ -9,11 +9,7 @@ import controller.ModelChange;
 import controller.PermitsChange;
 import controller.StateChange;
 import model.game.*;
-import view.EndState;
 import view.LocalStorage;
-import view.MarketBuyingState;
-import view.MarketSellingState;
-import view.StartState;
 import view.State;
 
 public class ClientInHandlerSocket implements Runnable 
@@ -39,7 +35,7 @@ public class ClientInHandlerSocket implements Runnable
 		{
 			Object x = new Object();
 			try {
-				 x = socketIn.readObject();
+				 x = socketIn.readUnshared();
 			} catch (ClassNotFoundException | IOException e) {
 				e.printStackTrace();
 			}
@@ -57,22 +53,15 @@ public class ClientInHandlerSocket implements Runnable
 			}
 			else if(x.getClass().equals(ModelChange.class)){
 				this.gameLocalCopy = ((ModelChange)x).getGame();
-				System.out.println(gameLocalCopy);
+				System.out.println(memoryContainer.getGameRef());
 			}
 			else if(x.getClass().equals(StateChange.class)){
 				State y = ((StateChange)x).getStateChanged();
 				this.gameLocalCopy.setGameState(y);
-				/*if(y.getClass().equals(StartState.class)) 
-					this.gameLocalCopy.setGameState((StartState)y);
-				else if(y.getClass().equals(MarketBuyingState.class))
-					this.gameLocalCopy.setGameState((MarketBuyingState)y);
-				else if(y.getClass().equals(MarketSellingState.class))
-					this.gameLocalCopy.setGameState((MarketSellingState)y);
-				else if(y.getClass().equals(EndState.class))
-					this.gameLocalCopy.setGameState((EndState)y);*/
-				//non ha senso fare sta cosa qua.. basta assegnare il nuovo stato. ma a questo punto tanto vale ripassare tutto il gioco
 			}
-			memoryContainer.setGameRef(this.gameLocalCopy);
+			synchronized (memoryContainer) {
+				memoryContainer.setGameRef(this.gameLocalCopy);
+			}
 		}
 	}
 

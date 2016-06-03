@@ -15,6 +15,7 @@ import view.MarketBuyingState;
 import view.MarketSellingState;
 import view.Request;
 import view.StartState;
+import view.State;
 
 public class ClientOutHandlerSocket implements Runnable 
 {
@@ -45,12 +46,19 @@ public class ClientOutHandlerSocket implements Runnable
 		while (true) 
 			//!game.getGameState().equals(EndState.class)
 		{
-			game=memoryContainer.getGameRef();
+			synchronized (memoryContainer) {
+				game=memoryContainer.getGameRef();
+			}
 			if(game.getGameState()!=null){
+				try {
+					Thread.sleep(2000);
+				} catch (InterruptedException e1) {
+					e1.printStackTrace();
+				}
 				String inputLine = this.start(stdin);
 				if(inputLine.equals(""))
 					try {
-						socketOut.writeObject(request);
+						socketOut.writeUnshared(request);
 						socketOut.flush();
 					} catch (IOException e) {
 						e.printStackTrace();

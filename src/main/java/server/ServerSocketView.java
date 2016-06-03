@@ -25,7 +25,7 @@ public class ServerSocketView extends View implements Runnable
 		this.socket = socket;
 		socketOut = new ObjectOutputStream(socket.getOutputStream());
 		socketIn = new ObjectInputStream(socket.getInputStream());
-		name = (String)socketIn.readObject();
+		name = (String)socketIn.readUnshared();
 	}
 
 	/**
@@ -38,7 +38,7 @@ public class ServerSocketView extends View implements Runnable
 		while (true)
 		{
 			try {
-				Request line = (Request)socketIn.readObject();
+				Request line = (Request)socketIn.readUnshared();
 				this.notifyObservers(line);
 			} catch (ClassNotFoundException e) {
 				System.out.println(e.getMessage()+"  "+e.getCause());
@@ -57,8 +57,7 @@ public class ServerSocketView extends View implements Runnable
 	public void update(Change change){
 		
 		try {
-			this.socketOut.writeObject(change);
-			
+			this.socketOut.writeUnshared(change);
 			this.socketOut.flush();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -69,7 +68,7 @@ public class ServerSocketView extends View implements Runnable
 	@Override
 	public void setID(int serialID){
 		try {
-			this.socketOut.writeObject(new Integer(serialID));
+			this.socketOut.writeUnshared(new Integer(serialID));
 			this.socketOut.flush();
 		} catch (IOException e) {
 			e.printStackTrace();

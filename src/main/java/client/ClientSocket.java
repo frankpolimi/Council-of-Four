@@ -52,7 +52,7 @@ public class ClientSocket
 		System.out.println("Insert your name: ");
 		String name = stdin.nextLine();
 		try {
-			socketOut.writeObject(name);
+			socketOut.writeUnshared(name);
 			socketOut.flush();
 		} catch (IOException e1) {
 			e1.printStackTrace();
@@ -60,9 +60,9 @@ public class ClientSocket
 		System.out.println("Waiting for other players");
 		ObjectInputStream socketIn=new ObjectInputStream(socket.getInputStream());
 		try{
-			Game game=(Game)socketIn.readObject();
+			Game game=(Game)socketIn.readUnshared();
 			this.game=game;
-			int id=(Integer)socketIn.readObject();
+			int id=(Integer)socketIn.readUnshared();
 			this.ID=id;
 			//System.out.println("gioco "+game);
 		}catch(ClassNotFoundException e){
