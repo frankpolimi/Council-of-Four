@@ -85,7 +85,7 @@ public class ClientView{
 			int councilIndex=this.selector(1, councils.size(), stdin);
 			Council council=councils.get(councilIndex-1);
 			//action
-			action=new ElectCouncillor(councillorSelected, council);
+			action=new ElectCouncillor(councillorSelected, council);//Devi mettere la regione
 			break;
 		case 2:
 			//acquire permit

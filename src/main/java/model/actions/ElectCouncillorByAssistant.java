@@ -3,6 +3,7 @@ package model.actions;
 import model.game.Game;
 import model.game.council.Council;
 import model.game.council.Councillor;
+import model.game.topology.Region;
 
 /**
  * @author Vitaliy Pakholko
@@ -13,12 +14,12 @@ public class ElectCouncillorByAssistant extends QuickAction
 	 * 
 	 */
 	private static final long serialVersionUID = -1056666433218005285L;
-	private Council council;
+	private Region region;
 	private Councillor councillor;
 	
-	public ElectCouncillorByAssistant(Council council, Councillor councillor) 
+	public ElectCouncillorByAssistant(Region region, Councillor councillor) 
 	{
-		this.council = council;
+		this.region = region;
 		this.councillor = councillor;
 	}
 	
@@ -34,10 +35,15 @@ public class ElectCouncillorByAssistant extends QuickAction
 			throw new IllegalStateException("Not enough Quick actions");
 		if(game.getCurrentPlayer().checkAssistants(1))
 		{
-			council.electCouncillor(councillor);
-			game.decrementQuickActionCounter();
-			super.takeAction(game);
-			return true;
+			for(Region r:game.getRegions())
+				if(r.equals(region))
+				{
+					this.region.getCouncil().electCouncillor(councillor);
+					game.decrementQuickActionCounter();
+					super.takeAction(game);
+					return true;
+				}
+			return false;
 		}
 		else 
 		{
@@ -53,14 +59,6 @@ public class ElectCouncillorByAssistant extends QuickAction
 	}
 
 	
-
-	public Council getCouncil() {
-		return council;
-	}
-
-	public void setCouncil(Council council) {
-		this.council = council;
-	}
 
 	public Councillor getCouncillor() {
 		return councillor;
