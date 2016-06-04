@@ -3,6 +3,7 @@ package client;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.Scanner;
+import java.util.concurrent.ExecutorService;
 
 import javax.sound.midi.Synthesizer;
 
@@ -46,9 +47,22 @@ public class ClientOutHandlerSocket implements Runnable
 		while (true) 
 			//!game.getGameState().equals(EndState.class)
 		{
+			
+			synchronized(this){
+				try {
+					this.wait();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
 			synchronized (memoryContainer) {
 				game=memoryContainer.getGameRef();
 			}
+			
+			
+			
 			if(game.getGameState()!=null){
 				try {
 					Thread.sleep(2000);
@@ -64,7 +78,17 @@ public class ClientOutHandlerSocket implements Runnable
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
+				
+				try {
+					Thread.currentThread().wait();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
 			}
+			
+			
 		}
 	}
 

@@ -40,6 +40,10 @@ public class ClientInHandlerSocket implements Runnable
 				e.printStackTrace();
 			}
 
+			synchronized (memoryContainer) {
+				this.gameLocalCopy=memoryContainer.getGameRef();
+			}
+			
 			if(x.getClass().equals(Integer.class)){
 				this.iD = ((Integer)x).intValue();
 				System.out.println(this.iD);
@@ -49,19 +53,27 @@ public class ClientInHandlerSocket implements Runnable
 			else if(x.getClass().equals(BonusChange.class) || 
 					x.getClass().equals(PermitsChange.class)){
 				System.out.println(x.toString());
-				memoryContainer = new LocalStorage((Change)x, memoryContainer.getGameRef());
+				memoryContainer = new LocalStorage((Change)x, this.gameLocalCopy);
 			}
 			else if(x.getClass().equals(ModelChange.class)){
 				this.gameLocalCopy = ((ModelChange)x).getGame();
-				System.out.println(memoryContainer.getGameRef());
+				System.out.println(this.gameLocalCopy);
 			}
 			else if(x.getClass().equals(StateChange.class)){
 				State y = ((StateChange)x).getStateChanged();
 				this.gameLocalCopy.setGameState(y);
 			}
-			synchronized (memoryContainer) {
+			
+			synchronized(memoryContainer){
 				memoryContainer.setGameRef(this.gameLocalCopy);
+				
 			}
+			
+			synchronized(this){
+				this.notifyAll();
+			}
+			
+			
 		}
 	}
 
