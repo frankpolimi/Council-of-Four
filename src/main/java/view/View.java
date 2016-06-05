@@ -33,5 +33,4 @@ public class View extends Observable<Request> implements Observer<Change> {
 		//nothig to do, must be overridden
 	}
 
-
 }

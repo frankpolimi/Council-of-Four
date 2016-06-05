@@ -53,7 +53,12 @@ public class Controller implements Observer<Request>{
 		Player current=game.getCurrentPlayer();
 		if(request.getClass().equals(ActionRequest.class)){
 			ActionRequest action = (ActionRequest)request;
-			action.getAction().takeAction(game);
+			try{
+				action.getAction().takeAction(game);
+			}catch(IllegalArgumentException | IllegalStateException e1){
+				game.notifyObserver(current.getPlayerID(), new ErrorChange(e1));
+			}
+				
 		}else if(request instanceof MarketRequest){
 			MarketRequest<?> action= (MarketRequest<?>)request;
 			if(game.getGameState().getClass().equals(MarketSellingState.class))
@@ -87,7 +92,6 @@ public class Controller implements Observer<Request>{
 				e.printStackTrace();
 			}
 		}
-		
 	}
 
 }
