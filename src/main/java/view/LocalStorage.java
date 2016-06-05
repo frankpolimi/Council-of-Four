@@ -23,6 +23,12 @@ public class LocalStorage {
 	private Game gameRef;
 	private boolean isUpdated;
 	
+	/**
+	 * construct the part of memory shared by the clientin 
+	 * and the client out
+	 * @param list the 
+	 * @param game
+	 */
 	public LocalStorage(Change list, Game game) {
 		if(Change.class.equals(BonusChange.class))
 			bonus = ((BonusChange)list).getBonusList();
@@ -38,7 +44,6 @@ public class LocalStorage {
 	}
 	
 	
-
 	/**
 	 * @return the isUpdated
 	 */
