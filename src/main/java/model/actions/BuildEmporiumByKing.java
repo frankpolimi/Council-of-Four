@@ -76,6 +76,7 @@ public class BuildEmporiumByKing extends MainAction
 				{
 					city.addEmporium(game.getCurrentPlayer());
 					city.applyBonus(game);
+					super.takeAction(game);
 					break;
 				}
 			}
