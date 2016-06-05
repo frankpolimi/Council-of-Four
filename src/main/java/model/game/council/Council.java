@@ -2,6 +2,7 @@
 package model.game.council;
 import java.io.Serializable;
 import java.util.Iterator;
+import java.util.Random;
 import java.util.concurrent.ArrayBlockingQueue;
 
 
@@ -12,11 +13,17 @@ public abstract class Council implements Serializable
 {
 	private static final long serialVersionUID = 8503784660222509923L;
 	private final ArrayBlockingQueue<Councillor> councillors;
+	private static int IDGenerator=0;
+	private final int councilID=IDGenerator;
+	
 	
 	public Council(ArrayBlockingQueue<Councillor> councillors) 
 	{
 		if (councillors!=null)
+		{
 			this.councillors = councillors;	
+			IDGenerator++;
+		}
 		else throw new NullPointerException();
 	}
 	
@@ -43,22 +50,20 @@ public abstract class Council implements Serializable
 		else throw new NullPointerException();
 	}
 	
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
+	public int getCouncilID() {
+		return councilID;
+	}
+
 	@Override
 	public String toString() {
 		return "Council [councillors=" + councillors + "]\n";
 	}
 	
-	public boolean equals(Council c){
-		Iterator<Councillor> thisi = councillors.iterator();
-		Iterator<Councillor> otheri = c.getCouncillors().iterator();
-		
-		while(thisi.hasNext() && otheri.hasNext()){
-			if(!thisi.next().equals(otheri.next()))
-				return false;
-		}
-		return true;
+	public boolean equals(Council c)
+	{
+		if(c.getCouncilID()==this.councilID)
+			return true;
+		else
+			return false;
 	}
 }
