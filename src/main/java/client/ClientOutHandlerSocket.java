@@ -41,32 +41,62 @@ public class ClientOutHandlerSocket implements Runnable
 	@Override
 	public void run() 
 	{
+		boolean isUpdated;
 		Scanner stdin=new Scanner(System.in);
 		while(game==null);
 		System.err.println("game ricevuto");
 		while (true) 
 			//!game.getGameState().equals(EndState.class)
 		{
-			try {
-				Thread.sleep(3000);
-			} catch (InterruptedException e1) {
-				e1.printStackTrace();
-			}
+			/*
+			synchronized(this){
+				try {
+					this.wait();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}*/
 			
 			synchronized (memoryContainer) {
 				game=memoryContainer.getGameRef();
+				isUpdated=memoryContainer.isUpdated();
 			}
 			
-			if(game.getGameState()!=null){
+			
+			
+			if(game.getGameState()!=null&&isUpdated){
+				try {
+					Thread.sleep(2000);
+				} catch (InterruptedException e1) {
+					e1.printStackTrace();
+				}
+
 				String inputLine = this.start(stdin);
 				if(inputLine.equals(""))
 					try {
 						socketOut.reset();
 						socketOut.writeUnshared(request);
 						socketOut.flush();
+						synchronized (memoryContainer) {
+							memoryContainer.setUpdated(false);
+						}
 					} catch (IOException e) {
 						e.printStackTrace();
+					} catch (IllegalArgumentException | IllegalStateException c){
+						System.out.println("Error in performing action: "+c.getMessage());
 					}
+				
+				
+				/*
+				try {
+					Thread.currentThread().wait();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}*/
+				
+
 			}
 		}
 	}

@@ -21,6 +21,7 @@ public class LocalStorage {
 	private List<Bonus> bonus;
 	private List<BuildingPermit> permits;
 	private Game gameRef;
+	private boolean isUpdated;
 	
 	public LocalStorage(Change list, Game game) {
 		if(Change.class.equals(BonusChange.class))
@@ -28,11 +29,28 @@ public class LocalStorage {
 		else if(Change.class.equals(PermitsChange.class))
 			permits = ((PermitsChange)list).getPermits();
 		gameRef=game;
+		isUpdated=true;
 	}
 	
 	public LocalStorage() {
 		bonus=new ArrayList<>();
 		permits=new ArrayList<>();
+	}
+	
+	
+
+	/**
+	 * @return the isUpdated
+	 */
+	public boolean isUpdated() {
+		return isUpdated;
+	}
+
+	/**
+	 * @param isUpdated the isUpdated to set
+	 */
+	public void setUpdated(boolean isUpdated) {
+		this.isUpdated = isUpdated;
 	}
 
 	public Bonus retrieveBonus(int place){

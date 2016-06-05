@@ -61,7 +61,10 @@ public class ClientInHandlerSocket implements Runnable
 			
 			synchronized(memoryContainer){
 				memoryContainer.setGameRef(this.gameLocalCopy);
+				memoryContainer.setUpdated(true);
 			}
+			
+			
 		}
 	}
 
