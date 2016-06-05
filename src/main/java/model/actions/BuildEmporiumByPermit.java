@@ -41,7 +41,7 @@ public class BuildEmporiumByPermit extends MainAction
 			throw new IllegalStateException("No avaiable emporiums");
 		}
 		for(Emporium e:game.getCurrentPlayer().getEmporium())
-			if(e.getCity()==city)
+			if(e.getCity().equals(city))
 			{
 				throw new IllegalArgumentException("The player has already built an emporium in this city");
 			}
@@ -57,8 +57,15 @@ public class BuildEmporiumByPermit extends MainAction
 		{
 			game.decrementMainActionCounter();
 			game.getCurrentPlayer().usePermit(permit);
-			city.addEmporium(game.getCurrentPlayer());
-			city.applyBonus(game);
+			for(City c:game.getAllCities())
+			{
+				if(c.equals(city))
+				{
+					city.addEmporium(game.getCurrentPlayer());
+					city.applyBonus(game);
+					break;
+				}
+			}
 			super.takeAction(game);
 			return true;
 		}

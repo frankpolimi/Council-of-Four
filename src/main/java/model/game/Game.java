@@ -375,6 +375,15 @@ public class Game extends Observable<Change> implements Serializable{
 		return councils;
 	}
 	
+	public List<City> getAllCities()
+	{
+		List<City> list=new ArrayList<>();
+		for(Region r:this.getRegions())
+		{
+			list.addAll(r.getCities());
+		}
+		return list;
+	}
 	
 	
 	/**

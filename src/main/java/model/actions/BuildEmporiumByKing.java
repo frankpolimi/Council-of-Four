@@ -54,7 +54,7 @@ public class BuildEmporiumByKing extends MainAction
 
 		}
 		for(Emporium e:game.getCurrentPlayer().getEmporium())
-			if(e.getCity()==city)
+			if(e.getCity().equals(city))
 			{
 				throw new IllegalArgumentException("The game.getCurrentPlayer() has already built an emporium in this city");
 			}
@@ -70,7 +70,15 @@ public class BuildEmporiumByKing extends MainAction
 		{
 			game.decrementMainActionCounter();
 			game.setKingsPosition(city);
-			city.addEmporium(game.getCurrentPlayer());
+			for(City c:game.getAllCities())
+			{
+				if(c.equals(city))
+				{
+					city.addEmporium(game.getCurrentPlayer());
+					city.applyBonus(game);
+					break;
+				}
+			}
 			game.getMap().applyConnectedCitiesBonus(city, game.getCurrentPlayer().getEmporiumsCitiesSet(), game);
 			super.takeAction(game);
 			return true;
