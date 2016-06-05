@@ -139,6 +139,31 @@ public class PermitsDeck implements Serializable{
 		return this.faceUpPermits.element();
 			
 	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		PermitsDeck other = (PermitsDeck) obj;
+		if (buildingPermitsDeck == null) {
+			if (other.buildingPermitsDeck != null)
+				return false;
+		} else if (!buildingPermitsDeck.equals(other.buildingPermitsDeck))
+			return false;
+		if (faceUpPermits == null) {
+			if (other.faceUpPermits != null)
+				return false;
+		} else if (!faceUpPermits.equals(other.faceUpPermits))
+			return false;
+		return true;
+	}//Qua non sono sicuro vada per via dei faceUp
+	
+	
 	
 	
 }

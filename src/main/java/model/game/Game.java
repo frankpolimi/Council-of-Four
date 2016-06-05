@@ -385,6 +385,16 @@ public class Game extends Observable<Change> implements Serializable{
 		return list;
 	}
 	
+	public List<PermitsDeck> getAllPermitsDecks()
+	{
+		List<PermitsDeck> list=new ArrayList<>();
+		for(Region r:this.getRegions())
+		{
+			list.add(r.getPermitsDeck());
+		}
+		return list;
+	}
+	
 	
 	/**
 	 * @return the shuffledPlayers

@@ -30,10 +30,17 @@ public class ChangeFaceUpPermits extends QuickAction
 			throw new IllegalStateException("Not enough Quick actions");
 		if(game.getCurrentPlayer().checkCoins(2))
 		{
-			deck.changeFaceUpPermits();
-			game.decrementQuickActionCounter();
-			super.takeAction(game);
-			return true;
+			for(PermitsDeck p:game.getAllPermitsDecks())
+			{
+				if(p.equals(deck))
+				{
+					deck.changeFaceUpPermits();
+					game.decrementQuickActionCounter();
+					super.takeAction(game);
+					return true;
+				}
+			}
+			return false;
 		}
 		else 
 		{
