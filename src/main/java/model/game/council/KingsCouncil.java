@@ -25,4 +25,7 @@ public class KingsCouncil extends Council
 		return super.toString();
 	}
 	
+	public boolean equals(Council c){
+		return super.equals(c);
+	}
 }

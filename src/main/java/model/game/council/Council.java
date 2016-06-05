@@ -1,6 +1,7 @@
 
 package model.game.council;
 import java.io.Serializable;
+import java.util.Iterator;
 import java.util.concurrent.ArrayBlockingQueue;
 
 
@@ -48,5 +49,16 @@ public abstract class Council implements Serializable
 	@Override
 	public String toString() {
 		return "Council [councillors=" + councillors + "]\n";
+	}
+	
+	public boolean equals(Council c){
+		Iterator<Councillor> thisi = councillors.iterator();
+		Iterator<Councillor> otheri = c.getCouncillors().iterator();
+		
+		while(thisi.hasNext() && otheri.hasNext()){
+			if(!thisi.next().equals(otheri.next()))
+				return false;
+		}
+		return true;
 	}
 }

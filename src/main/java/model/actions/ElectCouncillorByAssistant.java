@@ -1,9 +1,10 @@
 package model.actions;
 
+import java.util.Iterator;
+
 import model.game.Game;
 import model.game.council.Council;
 import model.game.council.Councillor;
-import model.game.topology.Region;
 
 /**
  * @author Vitaliy Pakholko
@@ -14,12 +15,11 @@ public class ElectCouncillorByAssistant extends QuickAction
 	 * 
 	 */
 	private static final long serialVersionUID = -1056666433218005285L;
-	private Region region;
 	private Councillor councillor;
-	
-	public ElectCouncillorByAssistant(Region region, Councillor councillor) 
+	private Council council;
+	public ElectCouncillorByAssistant(Council council, Councillor councillor) 
 	{
-		this.region = region;
+		this.council = council;
 		this.councillor = councillor;
 	}
 	
@@ -33,16 +33,18 @@ public class ElectCouncillorByAssistant extends QuickAction
 	{
 		if(!this.checkAction(game))
 			throw new IllegalStateException("Not enough Quick actions");
-		if(game.getCurrentPlayer().checkAssistants(1))
-		{
-			for(Region r:game.getRegions())
-				if(r.equals(region))
-				{
-					this.region.getCouncil().electCouncillor(councillor);
-					game.decrementQuickActionCounter();
+		if(game.getCurrentPlayer().checkAssistants(1)){
+			Iterator<Council> i = game.getAllCouncils().iterator();
+			while(i.hasNext()){
+				Council c = i.next();
+				if(c.equals(council)){
+					game.addCouncillor(c.electCouncillor(councillor));
+					game.getCurrentPlayer().setCoins(game.getCurrentPlayer().getCoins()+4);
+					game.decrementMainActionCounter();
 					super.takeAction(game);
-					return true;
+					return true;	
 				}
+			}
 			return false;
 		}
 		else 

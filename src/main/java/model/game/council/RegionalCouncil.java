@@ -35,4 +35,8 @@ public class RegionalCouncil extends Council
 			return permitsDeck;
 		else throw new NullPointerException();
 	}
+	
+	public boolean equals(Council c){
+		return super.equals(c);
+	}
 }

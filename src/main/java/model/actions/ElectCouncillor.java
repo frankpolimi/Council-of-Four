@@ -1,9 +1,10 @@
 package model.actions;
 
+import java.util.Iterator;
+
 import model.game.Game;
 import model.game.council.Council;
 import model.game.council.Councillor;
-import model.game.topology.Region;
 /**
  * @author Vitaliy Pakholko
  */
@@ -14,13 +15,11 @@ public class ElectCouncillor extends MainAction
 	 */
 	private static final long serialVersionUID = -3153051699153428116L;
 	private Councillor councillor;
-	//private Council council;
-	private Region region;
+	private Council council;
 	
-	public ElectCouncillor(Councillor councillor,/* Council council*/Region region) {
+	public ElectCouncillor(Councillor councillor, Council council) {
 		this.councillor = councillor;
-		//this.council = council;
-		this.region=region;
+		this.council = council;
 	}
 	
 	/** 
@@ -32,15 +31,16 @@ public class ElectCouncillor extends MainAction
 	{	
 		if(!this.checkAction(game))
 			throw new IllegalStateException("Not enough Main actions");
-		for(Region r:game.getRegions())
-		{
-			if(r.equals(this.region))
-			{
-				game.addCouncillor(region.getCouncil().electCouncillor(councillor));
+
+		Iterator<Council> i = game.getAllCouncils().iterator();
+		while(i.hasNext()){
+			Council c = i.next();
+			if(c.equals(council)){
+				game.addCouncillor(c.electCouncillor(councillor));
 				game.getCurrentPlayer().setCoins(game.getCurrentPlayer().getCoins()+4);
 				game.decrementMainActionCounter();
 				super.takeAction(game);
-				return true;			
+				return true;	
 			}
 		}
 		return false;
@@ -63,12 +63,12 @@ public class ElectCouncillor extends MainAction
 		this.councillor = councillor;
 	}
 
-	public Region getRegion() {
-		return region;
+	public Council getCouncil() {
+		return council;
 	}
 
-	public void setRegion(Region region) {
-		this.region = region;
+	public void setCouncil(Council council) {
+		this.council = council;
 	}
 
 }
