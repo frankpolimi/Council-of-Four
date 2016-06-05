@@ -47,28 +47,17 @@ public class ClientOutHandlerSocket implements Runnable
 		while (true) 
 			//!game.getGameState().equals(EndState.class)
 		{
-			
-			synchronized(this){
-				try {
-					this.wait();
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+			try {
+				Thread.sleep(3000);
+			} catch (InterruptedException e1) {
+				e1.printStackTrace();
 			}
 			
 			synchronized (memoryContainer) {
 				game=memoryContainer.getGameRef();
 			}
 			
-			
-			
 			if(game.getGameState()!=null){
-				try {
-					Thread.sleep(2000);
-				} catch (InterruptedException e1) {
-					e1.printStackTrace();
-				}
 				String inputLine = this.start(stdin);
 				if(inputLine.equals(""))
 					try {
@@ -78,17 +67,7 @@ public class ClientOutHandlerSocket implements Runnable
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
-				
-				try {
-					Thread.currentThread().wait();
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
 			}
-			
-			
 		}
 	}
 

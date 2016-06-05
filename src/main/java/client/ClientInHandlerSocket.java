@@ -39,11 +39,6 @@ public class ClientInHandlerSocket implements Runnable
 			} catch (ClassNotFoundException | IOException e) {
 				e.printStackTrace();
 			}
-
-			synchronized (memoryContainer) {
-				this.gameLocalCopy=memoryContainer.getGameRef();
-			}
-			
 			if(x.getClass().equals(Integer.class)){
 				this.iD = ((Integer)x).intValue();
 				System.out.println(this.iD);
@@ -66,14 +61,7 @@ public class ClientInHandlerSocket implements Runnable
 			
 			synchronized(memoryContainer){
 				memoryContainer.setGameRef(this.gameLocalCopy);
-				
 			}
-			
-			synchronized(this){
-				this.notifyAll();
-			}
-			
-			
 		}
 	}
 

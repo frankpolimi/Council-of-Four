@@ -35,19 +35,6 @@ public class ClientSocket
 		ID = iD;
 	}
 
-
-	/**
-	 * @throws IOException
-	 */
-	/**
-	 * @throws IOException
-	 */
-	/**
-	 * @throws IOException
-	 */
-	/**
-	 * @throws IOException
-	 */
 	/**
 	 * @throws IOException
 	 */
