@@ -23,7 +23,23 @@ public class BuildingPermit extends Bonusable implements Serializable{
 	private final Set<Bonus> bonusList;
 	private final Set<City> buildingAvaliableCities;
 
+	
+	/**
+	 * This method is the BuildingPermit constructor
+	 * @param ba is a set of cities in which the owner of this permit could build an emporium
+	 * @param bonus is a set of bonus applied on the owner.
+	 * @throws NullPointerException if ba or bonus is null
+	 * @throws IllegalArgumentException if ba or bonus is empty.
+	 */
 	public BuildingPermit(Set<City> ba, Set<Bonus> bonus){
+		if(ba==null||bonus==null){
+			throw new NullPointerException("One either buildingAvaliableCities or bonusList is null");
+		}
+		
+		if(ba.isEmpty()||bonus.isEmpty()){
+			throw new IllegalArgumentException("The parameters cannot be empty");
+		}
+		
 		buildingAvaliableCities=ba;
 		firstChars=new HashSet<>();
 		this.bonusList = bonus;
@@ -73,7 +89,5 @@ public class BuildingPermit extends Bonusable implements Serializable{
 			x.concat(i.next().toString()+" ");
 		return x;
 	}
-	
-	
-	//mancano HashCode, toString
+
 }
