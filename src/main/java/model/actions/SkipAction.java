@@ -27,6 +27,8 @@ public class SkipAction extends Action
 			throw new IllegalStateException("You have to use all the main actions before passing");
 		else
 		{
+			//game.getTimer().cancel();
+			//game.getTimer().purge();
 			Player nextPlayer;
 			Player current=game.getCurrentPlayer();
 			List<Player> ref;
@@ -56,6 +58,8 @@ public class SkipAction extends Action
 			if(game.isLastTurn()){
 				game.decrementLastRemainingPlayers();
 			}
+			
+			game.getTimer().schedule(new DisconnectionTimer(game), 10*1000);
 			super.takeAction(game);
 			return true;
 		}

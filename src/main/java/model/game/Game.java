@@ -9,12 +9,16 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
+import java.util.Timer;
+
 import org.jdom2.JDOMException;
 import org.jgrapht.graph.DefaultEdge;
 
 import controller.Change;
 import controller.ModelChange;
 import controller.StateChange;
+import model.actions.DisconnectionTimer;
+import model.actions.SkipAction;
 import model.game.council.Council;
 import model.game.council.Councillor;
 import model.game.council.KingsCouncil;
@@ -43,6 +47,7 @@ public class Game extends Observable<Change> implements Serializable{
 	private State gameState;
 	private int lastTurnRemainingPlayers;
 	private boolean lastTurn;
+	private transient Timer timer;
 	private final PoliticsDeck politicsDeck;
 	private final PoliticsDeck usedPolitics;
 	private final List<Player> players;
@@ -88,6 +93,7 @@ public class Game extends Observable<Change> implements Serializable{
 		this.market=new Market();
 		this.shuffledPlayers=new ArrayList<>(this.players);
 		this.disconnectedPlayers=new ArrayList<>();
+		this.timer=new Timer();
 	}
 
 	
@@ -103,7 +109,8 @@ public class Game extends Observable<Change> implements Serializable{
 		this.gameState=new StartState();
 		this.mainActionCounter = 1;
 		this.quickActionCounter = 1;
-		notifyObservers(new ModelChange(this));
+		this.notifyObservers(new ModelChange(this));
+		this.timer.schedule(new DisconnectionTimer(this), 10*1000);
 	}
 	/*
 	public void gioca(){
@@ -166,9 +173,23 @@ public class Game extends Observable<Change> implements Serializable{
 	public ExtendedGraph<City, DefaultEdge> getMap(){
 		return this.map;
 	}
-	
-	
-	
+		
+	/**
+	 * @return the timer
+	 */
+	public Timer getTimer() {
+		return timer;
+	}
+
+
+	/**
+	 * @param timer the timer to set
+	 */
+	public void setTimer(Timer timer) {
+		this.timer = timer;
+	}
+
+
 	/**
 	 * @return the lastTurn
 	 */
@@ -205,7 +226,8 @@ public class Game extends Observable<Change> implements Serializable{
 		this.players.addAll(this.disconnectedPlayers);
 		List<Player> copyList=new ArrayList<>(this.players);
 		WinnerSelector winnerSelector=new WinnerSelector(copyList);
-		this.notifyObservers(new StateChange(new EndState(winnerSelector.getWinnerPlayer())));
+		this.gameState=new EndState(winnerSelector.getWinnerPlayer());
+		this.notifyObservers(new StateChange(this.gameState));
 	}
 	
 	/**

@@ -18,7 +18,7 @@ public class EndState implements State, Serializable {
 	@Override
 	public void display() {
 		System.out.println("The match is finished!");
-		System.out.println("The player "+winner.getName()+"wins!");
+		System.out.println("The player "+winner.getName()+"wins!\n");
 		System.out.println("Player: "+winner.toString());
 	}
 	

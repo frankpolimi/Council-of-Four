@@ -7,6 +7,7 @@ import model.game.*;
 
 import java.util.Timer;
 
+import model.actions.DisconnectionTimer;
 import model.actions.SkipAction;
 import model.bonus.*;
 import model.observers.*;
@@ -19,7 +20,6 @@ import view.*;
 public class Controller implements Observer<Request>{
 	
 	private final Game game;
-	private Timer timer;
 	
 	/*
 	 *
@@ -36,7 +36,6 @@ public class Controller implements Observer<Request>{
 	public Controller(Game game) {
 		super();
 		this.game = game;
-		timer=new Timer();
 	}
 	
 	/* (non-Javadoc)
@@ -58,10 +57,6 @@ public class Controller implements Observer<Request>{
 		Player current=game.getCurrentPlayer();
 		if(request.getClass().equals(ActionRequest.class)){
 			ActionRequest action = (ActionRequest)request;
-			if(action.getAction().getClass().equals(SkipAction.class)){
-				timer.cancel();
-				timer.schedule(new DisconnectionTimer(game), 1000);
-			}
 			action.getAction().takeAction(game);
 		}else if(request instanceof MarketRequest){
 			MarketRequest<?> action= (MarketRequest<?>)request;
@@ -89,8 +84,6 @@ public class Controller implements Observer<Request>{
 		if(game.getMainActionCounter()==0&&game.getQuickActionCounter()==0){
 			SkipAction performForced=new SkipAction();
 			performForced.takeAction(game);		
-			timer.cancel();
-			timer.schedule(new DisconnectionTimer(game), 60*1000);
 		}
 		
 		if(game.getLastTurnRemainingPlayers()==0){
