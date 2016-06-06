@@ -46,6 +46,15 @@ public class ServerSocketView extends View implements Runnable
 				System.out.println("The client has been disconnected");
 				break;
 			}
+			catch(IllegalArgumentException | IllegalStateException e1){
+				try {
+					this.socketOut.reset();
+					this.socketOut.writeObject(e1.getMessage());
+					this.socketOut.flush();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 	}
 	

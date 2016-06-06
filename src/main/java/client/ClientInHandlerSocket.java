@@ -43,8 +43,10 @@ public class ClientInHandlerSocket implements Runnable
 				this.iD = ((Integer)x).intValue();
 				System.out.println(this.iD);
 			}
-			else if(x.getClass().equals(String.class))
+			else if(x.getClass().equals(String.class)){
 				System.out.println((String)x);
+				this.memoryContainer.setUpdated(true);
+			}
 			else if(x.getClass().equals(BonusChange.class) || 
 					x.getClass().equals(PermitsChange.class)){
 				System.out.println(x.toString());

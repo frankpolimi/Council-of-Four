@@ -43,7 +43,7 @@ public class Controller implements Observer<Request>{
 	}
 	
 	@Override
-	public void update(Request request) {
+	public void update(Request request) throws IllegalArgumentException, IllegalStateException{
 		//EFFETTUARE CONTROLLO SU GIOCATORE CORRENTE!!
 		if(request.getID()!=game.getCurrentPlayer().getPlayerID()){
 			throw new IllegalArgumentException("It's not your turn!");
@@ -53,12 +53,7 @@ public class Controller implements Observer<Request>{
 		Player current=game.getCurrentPlayer();
 		if(request.getClass().equals(ActionRequest.class)){
 			ActionRequest action = (ActionRequest)request;
-			try{
-				action.getAction().takeAction(game);
-			}catch(IllegalArgumentException | IllegalStateException e1){
-				game.notifyObserver(current.getPlayerID(), new ErrorChange(e1));
-			}
-				
+			action.getAction().takeAction(game);
 		}else if(request instanceof MarketRequest){
 			MarketRequest<?> action= (MarketRequest<?>)request;
 			if(game.getGameState().getClass().equals(MarketSellingState.class))
