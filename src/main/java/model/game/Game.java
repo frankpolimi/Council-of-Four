@@ -472,6 +472,16 @@ public class Game extends Observable<Change> implements Serializable{
 	}
 
 
+	/**
+	 * method that check if a player deserve a PointsTile
+	 * first check if a kingTile is available, and if so this will be assigned 
+	 * to the player and then removed from the ones in the game.
+	 * than checks if the player has obtained a regionTile or a cityTile
+	 * and assign it only if not already obtained. this two types must always
+	 * be available for other players.
+	 * @param curr the current player that has performed the action of building an emporium
+	 * @param builtOn the city in which has been built an emporium 
+	 */
 	public void giveTiles(Player curr, City builtOn) {
 		
 		if(!this.kingTileList.isEmpty()){
@@ -479,9 +489,28 @@ public class Game extends Observable<Change> implements Serializable{
 			kingTileList.remove(0);
 		}
 		
-		for(Region r : this.regions)
-			if(r.getCities().contains(builtOn) && curr.getEmporiumsCitiesSet().containsAll(r.getCities())){
-				//regionTileList.get()
-			}		
+		Iterator<Region> r = regions.iterator();
+		int i = 0;
+		while(r.hasNext()){
+			Region x = r.next();
+			if(x.getCities().contains(builtOn) && 
+					curr.getEmporiumsCitiesSet().containsAll(x.getCities())){
+				PointsTile pt = regionTileList.get(i);
+				if(!curr.getTilesOwned().contains(pt))
+					curr.addPointsTile(pt);
+			}
+			i++;
+		}
+		
+		List<City> sameColorCities = new ArrayList<>();
+		for(City c : this.getAllCities())
+			if(c.getCityColor().equals(builtOn))
+				sameColorCities.add(c);
+		if(curr.getEmporiumsCitiesSet().containsAll(sameColorCities))
+			for(PointsTile pt2 : colorTileList)
+				if(((ColorTile)pt2).getCityColor().equals(builtOn.getCityColor()) && 
+						!curr.getTilesOwned().contains(pt2))
+					curr.addPointsTile(pt2);
+					
 	}
 }
