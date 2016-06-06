@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
@@ -282,9 +283,6 @@ public class Game extends Observable<Change> implements Serializable{
 		return mainActionCounter;
 	}
 	
-	
-
-
 	/**
 	 * @return the disconnectedPlayers
 	 */
@@ -442,11 +440,25 @@ public class Game extends Observable<Change> implements Serializable{
 	}
 	
 	
+	
+	
 
 	public static void main(String[]args) throws JDOMException, IOException{
 		Game game=new Game();
 		System.out.println(game.getGameState());
 	}
-	
-	
+
+
+	public void giveTiles(Player curr, City builtOn) {
+		
+		if(!this.kingTileList.isEmpty()){
+			curr.addPointsTile(kingTileList.get(0));
+			kingTileList.remove(0);
+		}
+		
+		for(Region r : this.regions)
+			if(r.getCities().contains(builtOn) && curr.getEmporiumsCitiesSet().containsAll(r.getCities())){
+				//regionTileList.get()
+			}		
+	}
 }

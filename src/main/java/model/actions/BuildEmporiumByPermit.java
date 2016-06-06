@@ -64,6 +64,7 @@ public class BuildEmporiumByPermit extends MainAction
 					city.addEmporium(game.getCurrentPlayer());
 					game.getMap().applyConnectedCitiesBonus(city, 
 							game.getCurrentPlayer().getEmporiumsCitiesSet(), game);
+					game.giveTiles(game.getCurrentPlayer(), city);
 					break;
 				}
 			}
