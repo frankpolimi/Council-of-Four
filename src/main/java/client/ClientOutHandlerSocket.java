@@ -3,6 +3,8 @@ package client;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.Scanner;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.ExecutorService;
 
 import javax.sound.midi.Synthesizer;
@@ -46,7 +48,6 @@ public class ClientOutHandlerSocket implements Runnable
 		while(game==null);
 		System.err.println("game ricevuto");
 		while (true) 
-			//!game.getGameState().equals(EndState.class)
 		{
 			/*
 			synchronized(this){
@@ -71,7 +72,7 @@ public class ClientOutHandlerSocket implements Runnable
 				} catch (InterruptedException e1) {
 					e1.printStackTrace();
 				}
-
+								
 				String inputLine = this.start(stdin);
 				if(inputLine.equals(""))
 					try {

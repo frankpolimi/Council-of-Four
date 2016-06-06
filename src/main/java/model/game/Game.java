@@ -47,6 +47,7 @@ public class Game extends Observable<Change> implements Serializable{
 	private final PoliticsDeck usedPolitics;
 	private final List<Player> players;
 	private final List<Player> shuffledPlayers;
+	private final List<Player> disconnectedPlayers;
 	private final Set<Region> regions;
 	private final KingsCouncil kingsCouncil;
 	private final List<Councillor> avaliableCouncillors;
@@ -86,6 +87,7 @@ public class Game extends Observable<Change> implements Serializable{
 		this.kingsPosition=this.map.getVertexByKey("J");
 		this.market=new Market();
 		this.shuffledPlayers=new ArrayList<>(this.players);
+		this.disconnectedPlayers=new ArrayList<>();
 	}
 
 	
@@ -101,7 +103,6 @@ public class Game extends Observable<Change> implements Serializable{
 		this.gameState=new StartState();
 		this.mainActionCounter = 1;
 		this.quickActionCounter = 1;
-		System.out.println("NOTIFYING");
 		notifyObservers(new ModelChange(this));
 	}
 	/*
@@ -201,10 +202,8 @@ public class Game extends Observable<Change> implements Serializable{
 	}
 	
 	public void endOfTheGame() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException{
-		List<Player> copyList=new ArrayList<>();
-		for(int i=0;i<this.players.size();i++){
-			copyList.add(i, this.players.get(i));
-		}
+		this.players.addAll(this.disconnectedPlayers);
+		List<Player> copyList=new ArrayList<>(this.players);
 		WinnerSelector winnerSelector=new WinnerSelector(copyList);
 		this.notifyObservers(new StateChange(new EndState(winnerSelector.getWinnerPlayer())));
 	}
