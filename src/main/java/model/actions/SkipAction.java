@@ -57,6 +57,7 @@ public class SkipAction extends Action
 				game.decrementLastRemainingPlayers();
 			}
 			super.takeAction(game);
+			
 			return true;
 		}
 		

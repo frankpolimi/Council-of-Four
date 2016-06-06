@@ -70,7 +70,7 @@ public class ServerSocketView extends View implements Runnable
 			this.socketOut.writeUnshared(change);
 			this.socketOut.flush();
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.out.println("The client has been disconnected");
 		}
 		
 	}
