@@ -28,8 +28,6 @@ public class Emporium implements Serializable{
 	 * @param color is the color of the emporium.
 	 * @throws NullPointerException if color or city is null
 	 */
-	
-	//VALUTARE SE � IL CASO DI TOGLIERE IL REF DI PLAYER PER NON CREARE AMBIGUIT�!!!
 	public Emporium(City c, Color color){
 		if(c==null||color==null){
 			throw new NullPointerException("one either Color or city is null");

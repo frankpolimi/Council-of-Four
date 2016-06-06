@@ -28,9 +28,15 @@ public class NobilityLane extends Bonusable implements Observer<Change>{
 	
 	/**
 	 * the list of bonuses can even be null
-	 * @param bonus
+	 * @param pos is the nobility cell position
+	 * @param bonuses is the set of bonuses contained in the nobility cell pointed by pos
+	 * @throw IllegalArgumentException if the position passed is negative
 	 */
 	public void setLane(int pos, NobilityCell bonuses){
+		if(pos<0){
+			throw new IllegalArgumentException("The position cannot be negative");
+		}
+		
 		lane.put(pos, bonuses);
 	}
 

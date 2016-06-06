@@ -118,12 +118,23 @@ public class MapMaker {
 			return new KingsCouncil(elected);
 	}
 	
+	/**
+	 * This method returns the KingsCouncil contained in the XML File
+	 * @return the KingsCouncil
+	 * @throws JDOMException
+	 * @throws IOException
+	 */
 	public KingsCouncil getKingsCouncil() throws JDOMException, IOException{
 		
 		return (KingsCouncil)this.extractNewCouncil(null, "kings");
 		
 	}
 	
+	/**
+	 * This method extracts all the City bonuses contained in the XML FILE and it puts them into the extractedCityBonus List
+	 * @throws JDOMException
+	 * @throws IOException
+	 */
 	private void fillExtractedCityBonuses() throws JDOMException, IOException{
 		Element root=this.getRootFromFile();
 		List<Element> bonusList=root.getChild("decks").getChild("cityBonusList").getChildren();
@@ -161,8 +172,25 @@ public class MapMaker {
 		return c;	
 	}
 	
+	/**
+	 * This method creates a new instance of a bonus using its className.
+	 * @param className is the name of the bonus class in the game
+	 * @param amount is how many points the owner earns.
+	 * @return the instance of the bonus required
+	 * @throws Exception is Class.forName or constructor.newInstance fails
+	 * @throws NullPointerException if ClassName is null
+	 * @throws IllegalArgumentException if className is null or the amount is negative or zero
+	 */
 	private Bonus getBonus(String className, int amount) throws Exception{
 	
+			if(className==null){
+				throw new NullPointerException("ClassName cannot be null");
+			}
+			
+			if(className.equals("")||amount<=0){
+				throw new IllegalArgumentException("The className is '' or amount is negative or zero");
+			}
+			
 			Class<?> tile= Class.forName("model.bonus."+className);
 			Constructor<?> constructor= tile.getConstructor(Integer.class);
 			Bonus obj=(Bonus)constructor.newInstance(amount);
@@ -171,11 +199,22 @@ public class MapMaker {
 	}
 	/**
 	 * This method creates the graph that contains the game cities
-	 * @return
+	 * @param regionSet is the set of the regions contained in the XML File
+	 * @return the map contained in the XML File
 	 * @throws IOException 
 	 * @throws JDOMException 
+	 * @throws NullPointerException if the regionSet is null
+	 * @throws IllegalArgumentException if the regionSet is empty
 	 */
 	public ExtendedGraph<City, DefaultEdge> generateMap(Set<Region> regionSet) throws JDOMException, IOException{
+		if(regionSet==null){
+			throw new NullPointerException("The set of game's region cannot be null");
+		}
+		
+		if(regionSet.isEmpty()){
+			throw new IllegalArgumentException("The set cannot be empty");
+		}
+		
 		//inizializzazione grafo
 		ExtendedGraph<City, DefaultEdge> graph=new ExtendedGraph<>(DefaultEdge.class);
 		//XML Reader objects needed
@@ -212,6 +251,13 @@ public class MapMaker {
 		return graph;
 	}
 
+	/**
+	 * 
+	 * This method @return how many emporiums every player could build in the game.
+	 * @return the number of emporiums contained in the XML File
+	 * @throws JDOMException
+	 * @throws IOException
+	 */
 	public int getEmporiumsAvaliableNumber() throws JDOMException, IOException{
 		Element root=this.getRootFromFile();
 	
@@ -252,7 +298,24 @@ public class MapMaker {
 		
 	}
 	
+	
+	/**
+	 * This method finds a region in the region's set passed by its name
+	 * @param regions is the set of the regions where to search in.
+	 * @param name is the name of the regions that I would to find
+	 * @return null if the region is not found, else it returns the instance of that.
+	 * @throws NullPointerException if one of the parameters is null.
+	 * @throws IllegalArgumentException if the set is empty or the name is like an empty String.
+	 */
 	private Region getSpecificRegionByName(Set<Region> regions, String name){
+		if(regions==null||name==null){
+			throw new NullPointerException("The parameter values cannot be null");
+		}
+		
+		if(regions.isEmpty()||name.equals("")){
+			throw new IllegalArgumentException("The set is be empty or the name is ''");
+		}
+		
 		Iterator<Region> regionIt=regions.iterator();
 		Region selected=null;
 		while(regionIt.hasNext()){
@@ -308,7 +371,21 @@ public class MapMaker {
 		return tilesList;
 	}
 	
+	
+	/**
+	 * This method creates the BuildingPermitDeck used in the game
+	 * @param region is the element of the XML File that refer a region contained in it. It's used as a pointer to extract the permit
+	 * Deck
+	 * @return the PermitsDeck of the region passed
+	 * @throws JDOMException
+	 * @throws IOException
+	 * @throws NullPointerException if region is null
+	 */
 	public PermitsDeck createBuildingPermitDeck(Element region) throws JDOMException, IOException{	
+		if(region==null){
+			throw new NullPointerException("the region cannot be null");
+		}
+		
 		List<Element> permitList=region.getChild("permitsDeck").getChildren();
 		Iterator <Element> permitIt=permitList.iterator();
 		List<BuildingPermit> permits=new ArrayList<>();
@@ -381,8 +458,12 @@ public class MapMaker {
 		
 	}
 		
-	
-	
+	/**
+	 * This method creates the nobility lane used in the game
+	 * @return the NobilityLane instance
+	 * @throws JDOMException
+	 * @throws IOException
+	 */
 	public NobilityLane createNobilityLane() throws JDOMException, IOException{
 		Element root=this.getRootFromFile();
 		List<Element> nobilityPosition=root.getChild("nobilityLane").getChildren();
@@ -410,6 +491,12 @@ public class MapMaker {
 		return lane;
 	}
 	
+	/**
+	 * This method returns a reference of the XML file's root
+	 * @return the root reference.
+	 * @throws JDOMException
+	 * @throws IOException
+	 */
 	private Element getRootFromFile() throws JDOMException, IOException{
 		//my choise: the XML file pathname is imposed by me to don't improve any errors with the 
 		//file opening. The map is always avaliable at that pathname and it is not allowed to change it.
