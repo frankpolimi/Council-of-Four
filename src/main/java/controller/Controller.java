@@ -4,6 +4,9 @@
 package controller;
 
 import model.game.*;
+
+import java.util.Timer;
+
 import model.actions.SkipAction;
 import model.bonus.*;
 import model.observers.*;
@@ -16,6 +19,7 @@ import view.*;
 public class Controller implements Observer<Request>{
 	
 	private final Game game;
+	private Timer timer;
 	
 	/*
 	 *
@@ -32,6 +36,7 @@ public class Controller implements Observer<Request>{
 	public Controller(Game game) {
 		super();
 		this.game = game;
+		timer=new Timer();
 	}
 	
 	/* (non-Javadoc)
@@ -53,7 +58,11 @@ public class Controller implements Observer<Request>{
 		Player current=game.getCurrentPlayer();
 		if(request.getClass().equals(ActionRequest.class)){
 			ActionRequest action = (ActionRequest)request;
+			//eliminare il timer
 			action.getAction().takeAction(game);
+			if(action.getAction().getClass().equals(SkipAction.class)){
+				timer.schedule(new DisconnectionTimer(game), 60*1000);
+			}
 		}else if(request instanceof MarketRequest){
 			MarketRequest<?> action= (MarketRequest<?>)request;
 			if(game.getGameState().getClass().equals(MarketSellingState.class))
@@ -71,13 +80,16 @@ public class Controller implements Observer<Request>{
 			current.addBuildingPermit(action.getPermits().get(0));
 		}
 		
+	
+		
 		if(current.getRemainingEmporiums()==0){
 			game.setLastTurnTrue();
 		}			
 		
 		if(game.getMainActionCounter()==0&&game.getQuickActionCounter()==0){
 			SkipAction performForced=new SkipAction();
-			performForced.takeAction(game);					
+			performForced.takeAction(game);		
+			timer.schedule(new DisconnectionTimer(game), 60*1000);
 		}
 		
 		if(game.getLastTurnRemainingPlayers()==0){

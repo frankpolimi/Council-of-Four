@@ -281,6 +281,16 @@ public class Game extends Observable<Change> implements Serializable{
 	public int getMainActionCounter() {
 		return mainActionCounter;
 	}
+	
+	
+
+
+	/**
+	 * @return the disconnectedPlayers
+	 */
+	public List<Player> getDisconnectedPlayers() {
+		return disconnectedPlayers;
+	}
 
 
 	/**
