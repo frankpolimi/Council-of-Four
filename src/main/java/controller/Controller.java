@@ -58,11 +58,11 @@ public class Controller implements Observer<Request>{
 		Player current=game.getCurrentPlayer();
 		if(request.getClass().equals(ActionRequest.class)){
 			ActionRequest action = (ActionRequest)request;
-			//eliminare il timer
-			action.getAction().takeAction(game);
 			if(action.getAction().getClass().equals(SkipAction.class)){
-				timer.schedule(new DisconnectionTimer(game), 60*1000);
+				timer.cancel();
+				timer.schedule(new DisconnectionTimer(game), 1000);
 			}
+			action.getAction().takeAction(game);
 		}else if(request instanceof MarketRequest){
 			MarketRequest<?> action= (MarketRequest<?>)request;
 			if(game.getGameState().getClass().equals(MarketSellingState.class))
@@ -89,6 +89,7 @@ public class Controller implements Observer<Request>{
 		if(game.getMainActionCounter()==0&&game.getQuickActionCounter()==0){
 			SkipAction performForced=new SkipAction();
 			performForced.takeAction(game);		
+			timer.cancel();
 			timer.schedule(new DisconnectionTimer(game), 60*1000);
 		}
 		

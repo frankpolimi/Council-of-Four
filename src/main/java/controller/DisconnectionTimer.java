@@ -16,8 +16,9 @@ public class DisconnectionTimer extends TimerTask {
 	
 	@Override
 	public void run() {
-		game.notifyObserver(game.getCurrentPlayer().getPlayerID(), new ErrorChange("YOUR TIME IS FINISHED, YOU HAVE BEEN DISCONNECTED"));
 		Player disconnected=game.getCurrentPlayer();
+		game.notifyObservers(new ErrorChange("The player "+disconnected.getName()+" - "+disconnected.getPlayerID()+
+				"has been disconnected because of inactivity"));
 		SkipAction action=new SkipAction();
 		action.takeAction(game);
 		game.getPlayers().remove(disconnected);
