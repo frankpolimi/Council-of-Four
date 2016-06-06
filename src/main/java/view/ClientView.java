@@ -86,7 +86,7 @@ public class ClientView{
 			Council council=councils.get(councilIndex-1);
 			//action
 			action=new ElectCouncillor(councillorSelected, council);
-			break;
+			return new ActionRequest(action, ID);
 		case 2:
 			//acquire permit
 			System.out.println("Action Chosen: To Acquire a building permit");
@@ -120,7 +120,7 @@ public class ClientView{
 			int permitIndex=this.selector(1, 2, stdin);
 			BuildingPermit chosenPermit=councilDeck.giveAFaceUpPermit(permitIndex-1);
 			action=new AcquirePermit(councilCorrupted, selectedCards, chosenPermit);
-			break;
+			return new ActionRequest(action, ID);
 		case 3:
 			//build emporium by permit
 			System.out.println("Action Chosen: To Build an Emporium using an owned Permit");
@@ -148,8 +148,7 @@ public class ClientView{
 			}else{
 				action=new BuildEmporiumByPermit(chosenPermit, cityChosen);
 			}
-
-			break;
+			return new ActionRequest(action, ID);
 		case 4: 
 			//build emporium by king
 			System.out.println("Action Chosen: To Build an Emporium under the consense of the king");
@@ -183,9 +182,9 @@ public class ClientView{
 			}else{
 				action=new BuildEmporiumByKing(kingsCouncil, selectedCards, cityChosen);
 			}
-			break;
+			return new ActionRequest(action, ID);
 		}
-		return new ActionRequest(action, ID);
+		return null;
 	}
 
 	/**
@@ -207,7 +206,7 @@ public class ClientView{
 			//engage assistant
 			System.out.println("Action Chosen: To engage a new assistant");
 			action=new EngageAssistant();
-			break;
+			return new ActionRequest(action, ID);
 		case 2:
 			//change face up permits
 			System.out.println("Action Chosen: To change face up permits using an assistant");
@@ -221,7 +220,7 @@ public class ClientView{
 			int deckIndex=this.selector(1, regionalCouncils.size(), stdin);
 			PermitsDeck deckChosen=regionalCouncils.get(deckIndex-1).getPermitsDeck();
 			action=new ChangeFaceUpPermits(deckChosen);
-			break;
+			return new ActionRequest(action, ID);
 		case 3:
 			//elect councillor by assistant
 			System.out.println("Action Chosen: To Elect a councillor using an assistant");
@@ -240,14 +239,14 @@ public class ClientView{
 			int councilIndex=this.selector(1, councils.size(), stdin);
 			Council council=councils.get(councilIndex-1);
 			action=new ElectCouncillorByAssistant(council, councillorSelected);
-			break;
+			return new ActionRequest(action, ID);
 		case 4: 
 			//extra main action
 			System.out.println("Action Chosen: To obtain an extra main action");
 			action=new ExtraMainAction();
-			break;
+			return new ActionRequest(action, ID);
 		}
-		return new ActionRequest(action, ID);
+		return null;
 	}
 	
 	/**

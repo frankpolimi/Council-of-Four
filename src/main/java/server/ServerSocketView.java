@@ -13,6 +13,7 @@ public class ServerSocketView extends View implements Runnable
 	private final ObjectInputStream socketIn;
 	private final ObjectOutputStream socketOut;
 	private String name;
+	private int ID;
 	
 	/**
 	 * constructor for the socket
@@ -23,6 +24,7 @@ public class ServerSocketView extends View implements Runnable
 	public ServerSocketView(Socket socket) throws IOException, ClassNotFoundException
 	{
 		this.socket = socket;
+		this.ID = 0;
 		socketOut = new ObjectOutputStream(socket.getOutputStream());
 		socketIn = new ObjectInputStream(socket.getInputStream());
 		name = (String)socketIn.readUnshared();
@@ -77,6 +79,7 @@ public class ServerSocketView extends View implements Runnable
 	
 	@Override
 	public void setID(int serialID){
+		this.ID = serialID;
 		try {
 			this.socketOut.writeUnshared(new Integer(serialID));
 			this.socketOut.flush();

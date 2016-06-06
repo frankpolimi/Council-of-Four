@@ -86,7 +86,10 @@ public class ClientOutHandlerSocket implements Runnable
 					} catch (IllegalArgumentException | IllegalStateException c){
 						System.out.println("Error in performing action: "+c.getMessage());
 					}
-				
+				else if(inputLine.equals("quit"));
+					/**
+					 * TODO send the disconnect action
+					 */
 				
 				/*
 				try {
@@ -135,6 +138,8 @@ public class ClientOutHandlerSocket implements Runnable
 				case 4:
 					return "quit";
 				}
+				if(request == null)
+					return "impossible";
 				return "";
 			}
 		}
