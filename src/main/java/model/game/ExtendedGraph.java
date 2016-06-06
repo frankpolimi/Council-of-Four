@@ -3,14 +3,17 @@
  */
 package model.game;
 
+import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.SimpleGraph;
 import org.jgrapht.graph.UndirectedSubgraph;
 
 import model.game.topology.City;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.*;
 
+import org.jdom2.JDOMException;
 import org.jgrapht.alg.ConnectivityInspector;
 import org.jgrapht.alg.DijkstraShortestPath;
 /**
@@ -76,7 +79,7 @@ public class ExtendedGraph<V extends City,E> extends SimpleGraph<V, E> implement
 	
 	/**
 	 * This Method applies the bonuses of all cities where the player has already built its own emporium and which 
-	 * are connected to newEmpVertex  
+	 * are connected to newEmpVertex. newEmpVertex is included in those cities.  
 	 * @param newEmpVertex is the vertex where the player wants to build a new emporium
 	 * @param cities is a set that contains the cities where the current player has already built an emporium.
 	 * @param game is the ref of the game 
@@ -108,6 +111,5 @@ public class ExtendedGraph<V extends City,E> extends SimpleGraph<V, E> implement
 		
 		return cloned;
 	}
-	
 
 }
