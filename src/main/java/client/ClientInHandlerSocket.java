@@ -5,6 +5,7 @@ import java.io.ObjectInputStream;
 
 import controller.BonusChange;
 import controller.Change;
+import controller.ErrorChange;
 import controller.ModelChange;
 import controller.PermitsChange;
 import controller.StateChange;
@@ -37,7 +38,8 @@ public class ClientInHandlerSocket implements Runnable
 			try {
 				 x = socketIn.readUnshared();
 			} catch (ClassNotFoundException | IOException e) {
-				e.printStackTrace();
+				System.out.println("THE GAME IS FINISHED - BYE BYE");
+				break;
 			}
 			if(x.getClass().equals(Integer.class)){
 				this.iD = ((Integer)x).intValue();
@@ -59,6 +61,10 @@ public class ClientInHandlerSocket implements Runnable
 			else if(x.getClass().equals(StateChange.class)){
 				State y = ((StateChange)x).getStateChanged();
 				this.gameLocalCopy.setGameState(y);
+			}else if(x.getClass().equals(ErrorChange.class)){
+				ErrorChange error=(ErrorChange)x;
+				System.err.println("WARNING!!");
+				System.err.println(error.getMessage());
 			}
 			
 			synchronized(memoryContainer){

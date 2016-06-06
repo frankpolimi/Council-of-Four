@@ -13,6 +13,7 @@ import model.actions.*;
 import model.game.Game;
 import view.ActionRequest;
 import view.ClientView;
+import view.EndState;
 import view.LocalStorage;
 import view.MarketBuyingState;
 import view.MarketSellingState;
@@ -83,7 +84,9 @@ public class ClientOutHandlerSocket implements Runnable
 							memoryContainer.setUpdated(false);
 						}
 					} catch (IOException e) {
-						e.printStackTrace();
+						if(e.getMessage().equals("Socket closed"))
+						System.err.println("THE GAME IS FINISHED, BYE BYE");
+						break;
 					} catch (IllegalArgumentException | IllegalStateException c){
 						System.out.println("Error in performing action: "+c.getMessage());
 					}
@@ -113,11 +116,11 @@ public class ClientOutHandlerSocket implements Runnable
 	 * @param stdin the standard input to input the selection
 	 * @return 
 	 */
-	public String start(Scanner stdin) {
+	public String start(Scanner stdin){
 		int actionType;
 		ClientView view = new ClientView(game, memoryContainer, ID);
 		if(game.isLastTurn())
-			System.out.println("THIS IS YOUR LAST TURN");
+			System.err.println("THIS IS YOUR LAST TURN");
 		if(this.game.getGameState().getClass().equals(StartState.class)){
 			if(!memoryContainer.getBonus().isEmpty())
 				request = view.bonus(stdin);
@@ -171,6 +174,15 @@ public class ClientOutHandlerSocket implements Runnable
 				break;
 			case 3:
 				return "quit";
+			}
+			return "";
+		}else if(game.getGameState().getClass().equals(EndState.class)){
+			game.getGameState().display();
+			try {
+				socketOut.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 			return "";
 		}

@@ -1,6 +1,7 @@
 package model.actions;
 
 import java.util.List;
+import java.util.Timer;
 
 import model.game.Game;
 import model.game.Player;
@@ -27,6 +28,8 @@ public class SkipAction extends Action
 			throw new IllegalStateException("You have to use all the main actions before passing");
 		else
 		{
+			//game.getTimer().cancel();
+			//game.getTimer().purge();
 			Player nextPlayer;
 			Player current=game.getCurrentPlayer();
 			List<Player> ref;
@@ -56,6 +59,10 @@ public class SkipAction extends Action
 			if(game.isLastTurn()){
 				game.decrementLastRemainingPlayers();
 			}
+			
+			game.getTimer().cancel();
+			game.setTimer(new Timer());
+			game.getTimer().schedule(new DisconnectionTimer(game), Game.DISCONNECTION_TIME);
 			super.takeAction(game);
 			return true;
 		}
