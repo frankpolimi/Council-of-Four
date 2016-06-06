@@ -21,7 +21,7 @@ public abstract class Bonusable implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = -2029635307372167240L;
-	List<Bonuser> bonuses;
+	private List<Bonuser> bonuses;
 	
 	public Bonusable(){
 		bonuses=new ArrayList<>();

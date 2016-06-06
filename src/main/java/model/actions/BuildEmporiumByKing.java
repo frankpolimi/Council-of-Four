@@ -75,12 +75,11 @@ public class BuildEmporiumByKing extends MainAction
 				if(c.equals(city))
 				{
 					city.addEmporium(game.getCurrentPlayer());
-					city.applyBonus(game);
-					super.takeAction(game);
+					game.getMap().applyConnectedCitiesBonus(city, 
+							game.getCurrentPlayer().getEmporiumsCitiesSet(), game);
 					break;
 				}
 			}
-			game.getMap().applyConnectedCitiesBonus(city, game.getCurrentPlayer().getEmporiumsCitiesSet(), game);
 			super.takeAction(game);
 			return true;
 		}
