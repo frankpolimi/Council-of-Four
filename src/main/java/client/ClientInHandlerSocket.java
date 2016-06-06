@@ -38,7 +38,8 @@ public class ClientInHandlerSocket implements Runnable
 			try {
 				 x = socketIn.readUnshared();
 			} catch (ClassNotFoundException | IOException e) {
-				e.printStackTrace();
+				System.out.println("THE GAME IS FINISHED - BYE BYE");
+				break;
 			}
 			if(x.getClass().equals(Integer.class)){
 				this.iD = ((Integer)x).intValue();

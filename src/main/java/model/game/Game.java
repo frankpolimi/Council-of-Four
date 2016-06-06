@@ -44,6 +44,7 @@ public class Game extends Observable<Change> implements Serializable{
 	 */
 	private static final long serialVersionUID = -6566029665416943724L;
 	
+	public final static int DISCONNECTION_TIME=40*1000;
 	private State gameState;
 	private int lastTurnRemainingPlayers;
 	private boolean lastTurn;
@@ -110,7 +111,7 @@ public class Game extends Observable<Change> implements Serializable{
 		this.mainActionCounter = 1;
 		this.quickActionCounter = 1;
 		this.notifyObservers(new ModelChange(this));
-		this.timer.schedule(new DisconnectionTimer(this), 10*1000);
+		this.timer.schedule(new DisconnectionTimer(this), DISCONNECTION_TIME);
 	}
 	/*
 	public void gioca(){

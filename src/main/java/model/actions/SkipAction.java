@@ -1,6 +1,7 @@
 package model.actions;
 
 import java.util.List;
+import java.util.Timer;
 
 import model.game.Game;
 import model.game.Player;
@@ -59,7 +60,9 @@ public class SkipAction extends Action
 				game.decrementLastRemainingPlayers();
 			}
 			
-			game.getTimer().schedule(new DisconnectionTimer(game), 10*1000);
+			game.getTimer().cancel();
+			game.setTimer(new Timer());
+			game.getTimer().schedule(new DisconnectionTimer(game), Game.DISCONNECTION_TIME);
 			super.takeAction(game);
 			return true;
 		}

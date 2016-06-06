@@ -48,9 +48,15 @@ public class Controller implements Observer<Request>{
 	
 	@Override
 	public void update(Request request) throws IllegalArgumentException, IllegalStateException{
+		
 		//EFFETTUARE CONTROLLO SU GIOCATORE CORRENTE!!
 		if(request.getID()!=game.getCurrentPlayer().getPlayerID()){
 			throw new IllegalArgumentException("It's not your turn!");
+		}else{
+			game.getTimer().cancel();
+			game.getTimer().purge();
+			game.setTimer(new Timer());
+			game.getTimer().schedule(new DisconnectionTimer(game), Game.DISCONNECTION_TIME);
 		}
 		
 		//TURNO AZIONE
