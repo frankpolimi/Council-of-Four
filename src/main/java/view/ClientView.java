@@ -71,18 +71,22 @@ public class ClientView{
 			System.out.println("Action Chosen: To Elect a councillor");
 			System.out.println("These are the avaliable councillors");
 			List<Councillor> councillors=game.getAvaliableCouncillor();
+			System.out.println("0- exit");
 			for(int i=0;i<councillors.size();i++){
 				System.out.println((i+1)+"- "+councillors.get(i).toString());
 			}
 			System.out.println("Select the councillor you would like");
-			int councillorIndex=this.selector(1,councillors.size(), stdin);
+			int councillorIndex=this.selector(0,councillors.size(), stdin);
+			if(councillorIndex==0) break;
 			Councillor councillorSelected=councillors.get(councillorIndex-1);
 			System.out.println("Now select the council");
 			List<Council> councils= game.getAllCouncils();
+			System.out.println("0- exit");
 			for(int i=0;i<councils.size();i++){
 				System.out.println((i+1)+"- "+councils.get(i).getCouncillors());
 			}
-			int councilIndex=this.selector(1, councils.size(), stdin);
+			int councilIndex=this.selector(0, councils.size(), stdin);
+			if(councilIndex==0) break;
 			Council council=councils.get(councilIndex-1);
 			//action
 			action=new ElectCouncillor(councillorSelected, council);
@@ -90,24 +94,30 @@ public class ClientView{
 		case 2:
 			//acquire permit
 			System.out.println("Action Chosen: To Acquire a building permit");
-			System.out.println("Select the four cards that you would to spend for corrupting a council");
+			
 			System.out.println("Your Cards:");
 			List<PoliticsCard> ownedCards=getPlayerByID().getCardsOwned();
 			ArrayList <PoliticsCard> selectedCards=new ArrayList<>();
+			
 			for(int i=0;i<ownedCards.size();i++){
 				System.out.println((i+1)+"- "+ownedCards.get(i).toString());
 			}
+			System.out.println("Select the four cards that you would to spend for corrupting a council");
+			System.out.println("Select 0 if you want to change main action");
 			for(int i=0;i<4;i++){
-				int cardsIndex=this.selector(1, ownedCards.size(), stdin);
+				int cardsIndex=this.selector(0, ownedCards.size(), stdin);
+				if(cardsIndex==0) break;
 				PoliticsCard card=ownedCards.get(cardsIndex-1);
 				selectedCards.add(card);
 			}
 			//select council
 			List<RegionalCouncil> regionalCouncils=game.getRegionalCouncils();
+			System.out.println("0- exit");
 			for(int i=0;i<regionalCouncils.size();i++){
 				System.out.println((i+1)+"- "+regionalCouncils.get(i).getCouncillors());
 			}
-			councilIndex=this.selector(1, regionalCouncils.size(), stdin);
+			councilIndex=this.selector(0, regionalCouncils.size(), stdin);
+			if(councilIndex==0) break;
 			RegionalCouncil councilCorrupted=regionalCouncils.get(councilIndex-1);
 			System.out.println("Select the permit to acquire");
 			PermitsDeck councilDeck=councilCorrupted.getPermitsDeck();
@@ -130,10 +140,12 @@ public class ClientView{
 				System.out.println("You don't have any permit. You couldn't select this action");
 				break;
 			}
+			System.out.println("0- exit");
 			for(i=0;i<getPlayerByID().getBuildingPermits().size();i++){
 				System.out.println((i+1)+"- "+getPlayerByID().getBuildingPermits().get(i).toString());
 			}
-			permitIndex=this.selector(1, getPlayerByID().getBuildingPermits().size(), stdin);
+			permitIndex=this.selector(0, getPlayerByID().getBuildingPermits().size(), stdin);
+			if(permitIndex==0) break;
 			chosenPermit=getPlayerByID().getBuildingPermits().get(permitIndex-1);
 			System.out.println("Now type the initial of the city in which you would to build");
 			Iterator<City> cityIt=chosenPermit.getBuildingAvaliableCities().iterator();
@@ -145,6 +157,7 @@ public class ClientView{
 			City cityChosen=game.getMap().getVertexByKey(initialChosen);
 			if(cityChosen==null){
 				System.out.println("The input contains a not valid value");
+				break;
 			}else{
 				action=new BuildEmporiumByPermit(chosenPermit, cityChosen);
 			}
@@ -152,15 +165,17 @@ public class ClientView{
 		case 4: 
 			//build emporium by king
 			System.out.println("Action Chosen: To Build an Emporium under the consense of the king");
-			System.out.println("Select the four cards that you would to spend for corrupting the king's council");
 			System.out.println("Your Cards:");
 			ownedCards=getPlayerByID().getCardsOwned();
 			selectedCards=new ArrayList<>();
 			for(i=0;i<ownedCards.size();i++){
 				System.out.println((i+1)+"- "+ownedCards.get(i).toString());
 			}
+			System.out.println("Select the four cards that you would to spend for corrupting the king's council");
+			System.out.println("Select 0 if you want to change the main action");
 			for(i=0;i<4;i++){
-				int cardsIndex=this.selector(1, ownedCards.size(), stdin);
+				int cardsIndex=this.selector(0, ownedCards.size(), stdin);
+				if(cardsIndex==0) break;
 				PoliticsCard card=ownedCards.get(cardsIndex-1);
 				selectedCards.add(card);
 			}
@@ -179,6 +194,7 @@ public class ClientView{
 			cityChosen=game.getMap().getVertexByKey(initialChosen);
 			if(cityChosen==null){
 				System.out.println("The input contains a not valid value");
+				break;
 			}else{
 				action=new BuildEmporiumByKing(kingsCouncil, selectedCards, cityChosen);
 			}
@@ -210,14 +226,16 @@ public class ClientView{
 		case 2:
 			//change face up permits
 			System.out.println("Action Chosen: To change face up permits using an assistant");
-			System.out.println("Select the deck you would to change");
 			System.out.println("Decks Avaliable:");
 			//select council
 			List<RegionalCouncil> regionalCouncils=game.getRegionalCouncils();
 			for(int i=0;i<regionalCouncils.size();i++){
 				System.out.println((i+1)+"- "+regionalCouncils.get(i).getPermitsDeck().getFaceUpPermits().toString());
 			}
-			int deckIndex=this.selector(1, regionalCouncils.size(), stdin);
+			System.out.println("Select the deck you would to change");
+			System.out.println("Select 0 if you want to change your action");
+			int deckIndex=this.selector(0, regionalCouncils.size(), stdin);
+			if(deckIndex==0) break;
 			PermitsDeck deckChosen=regionalCouncils.get(deckIndex-1).getPermitsDeck();
 			action=new ChangeFaceUpPermits(deckChosen);
 			return new ActionRequest(action, ID);
@@ -226,17 +244,24 @@ public class ClientView{
 			System.out.println("Action Chosen: To Elect a councillor using an assistant");
 			System.out.println("These are the avaliable councillors");
 			List<Councillor> councillors=game.getAvaliableCouncillor();
+			
 			for(int i=0;i<councillors.size();i++){
 				System.out.println((i+1)+"- "+councillors.get(i).toString());
 			}
 			System.out.println("Select the councillor you would like");
-			int councillorIndex=this.selector(1,councillors.size(), stdin);
+			System.out.println("Select 0 if you want to change the action");
+			int councillorIndex=this.selector(0,councillors.size(), stdin);
+			if(councillorIndex==0) break;
 			Councillor councillorSelected=councillors.get(councillorIndex-1);
 			List<Council> councils= game.getAllCouncils();
+			System.out.println("These are the avaliable councils");
 			for(int i=0;i<councils.size();i++){
 				System.out.println((i+1)+"- "+councils.get(i).getCouncillors().toString());
 			}
-			int councilIndex=this.selector(1, councils.size(), stdin);
+			System.out.println("Select the council in which you want to elect the councillor");
+			System.out.println("Select 0 if you want to change the action");
+			int councilIndex=this.selector(0, councils.size(), stdin);
+			if(councilIndex==0) break;
 			Council council=councils.get(councilIndex-1);
 			action=new ElectCouncillorByAssistant(council, councillorSelected);
 			return new ActionRequest(action, ID);
