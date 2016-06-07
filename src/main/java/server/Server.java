@@ -103,6 +103,12 @@ public class Server
 	public synchronized void addRMIClient(View view) throws RemoteException, AlreadyBoundException{
 		view.registerObserver(controller);
 		game.registerObserver(view);
+		ServerRMIRegistrationViewRemote game = new ServerRMIRegistrationView(this);
+		ServerRMIRegistrationViewRemote gameRemote = 
+				(ServerRMIRegistrationViewRemote) UnicastRemoteObject
+				.exportObject(game, 0);
+		String name = "game";
+		registry.rebind(name, gameRemote);
 	}
 	
 	public void addSocketClient(ServerSocketView view, Player player) throws JDOMException, IOException
