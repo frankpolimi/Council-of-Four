@@ -39,21 +39,28 @@ public class Market implements Serializable{
 	 * @throws NotEnoughResources 
 	 */
 	public void addProduct(MarketObject<?> product) throws IllegalStateException{
+		Player sellingPlayer=product.getSellingPlayer();
 		if(product.getObject().getClass().equals(PoliticsCard.class))
-			if(product.getSellingPlayer().getCardsOwned().contains(product.getObject()))
+			if(sellingPlayer.getCardsOwned().contains(product.getObject()))
+			{
+				sellingPlayer.getCardsOwned().remove((PoliticsCard)product.getObject());
 				this.products.add(product);
+			}
 			else
 				throw new IllegalStateException("Impossible to add "+PoliticsCard.class.getSimpleName()+
 						". You don't own one.");
 		else if(product.getObject().getClass().equals(Assistant.class))
-			if(product.getSellingPlayer().checkAssistants(((Assistant)product.getObject()).getNumber()))
+			if(sellingPlayer.checkAssistants(((Assistant)product.getObject()).getNumber()))
 				this.products.add(product);
 			else 
 				throw new IllegalStateException("Impossible to add "+Assistant.class.getSimpleName()+
-						". You own just "+product.getSellingPlayer().getAssistants()+" "+Assistant.class.getSimpleName());
+						". You own just "+sellingPlayer.getAssistants()+" "+Assistant.class.getSimpleName());
 		else if(product.getObject().getClass().equals(BuildingPermit.class))
-			if(product.getSellingPlayer().getAllPermits().contains(product.getObject()))
+			if(sellingPlayer.getAllPermits().contains(product.getObject()))
+			{
+				sellingPlayer.getBuildingPermits().remove((BuildingPermit)product.getObject());
 				this.products.add(product);
+			}
 			else 
 				throw new IllegalStateException("Impossible to add "+BuildingPermit.class.getSimpleName()+
 						". You don't own one.");
