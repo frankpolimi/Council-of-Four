@@ -55,7 +55,8 @@ public class ClientSocket
 			socketOut.writeUnshared(name);
 			socketOut.flush();
 		} catch (IOException e1) {
-			e1.printStackTrace();
+			System.err.println("You didn't insert your name in time. You are disconnected");
+			System.exit(0);
 		}
 		System.out.println("Waiting for other players");
 		ObjectInputStream socketIn=new ObjectInputStream(socket.getInputStream());
