@@ -2,6 +2,7 @@ package server;
 
 import java.io.*;
 import java.net.Socket;
+import java.net.SocketTimeoutException;
 
 import controller.Change;
 import view.Request;
@@ -23,10 +24,18 @@ public class ServerSocketView extends View implements Runnable
 	 */
 	public ServerSocketView(Socket socket) throws IOException, ClassNotFoundException
 	{
-		this.socket = socket;
-		socketOut = new ObjectOutputStream(socket.getOutputStream());
-		socketIn = new ObjectInputStream(socket.getInputStream());
-		name = (String)socketIn.readUnshared();
+			this.socket = socket;
+			this.socket.setSoTimeout(20*1000);
+			socketOut = new ObjectOutputStream(this.socket.getOutputStream());
+			socketIn = new ObjectInputStream(this.socket.getInputStream());
+			try{
+				name = (String)socketIn.readObject();
+			}catch(SocketTimeoutException e){
+				System.out.println("The client is connected but it didn't insert its name in time");
+				this.socket.close();
+			}
+			socket.setSoTimeout(0);
+		
 	}
 
 	/**

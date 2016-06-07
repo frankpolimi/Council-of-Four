@@ -48,14 +48,18 @@ public class Server
 		while (true) {
 			try {
 				Socket socket = serverSocket.accept();
-				ServerSocketView view = new ServerSocketView(socket);
-				System.out.println("CONNECTION ACCEPTED "+serialID+" "+view.getName());
-				view.getSocketOut().reset();
-				view.getSocketOut().writeUnshared(game);
-				view.getSocketOut().flush();
-				this.addClient(view, new Player(view.getName(), serialID));
-				serialID++;
-				executor.submit(view);
+				try{
+					ServerSocketView view = new ServerSocketView(socket);
+					System.out.println("CONNECTION ACCEPTED "+serialID+" "+view.getName());
+					view.getSocketOut().reset();
+					view.getSocketOut().writeUnshared(game);
+					view.getSocketOut().flush();
+					this.addClient(view, new Player(view.getName(), serialID));
+					serialID++;
+					executor.submit(view);
+				}catch(IOException e){
+					System.out.println("Client has been disconnected");
+				}
 			} catch (IOException e) {
 				break;
 			}
