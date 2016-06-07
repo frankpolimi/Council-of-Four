@@ -46,8 +46,7 @@ public class Market implements Serializable{
 				throw new IllegalStateException("Impossible to add "+PoliticsCard.class.getSimpleName()+
 						". You don't own one.");
 		else if(product.getObject().getClass().equals(Assistant.class))
-			if(((Assistant)product.getObject()).getNumber()
-					<= product.getSellingPlayer().getAssistants())
+			if(product.getSellingPlayer().checkAssistants(((Assistant)product.getObject()).getNumber()))
 				this.products.add(product);
 			else 
 				throw new IllegalStateException("Impossible to add "+Assistant.class.getSimpleName()+

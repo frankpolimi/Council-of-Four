@@ -17,6 +17,7 @@ import view.EndState;
 import view.LocalStorage;
 import view.MarketBuyingState;
 import view.MarketSellingState;
+import view.QuitRequest;
 import view.Request;
 import view.StartState;
 import view.State;
@@ -74,8 +75,9 @@ public class ClientOutHandlerSocket implements Runnable
 					e1.printStackTrace();
 				}
 								
+				
 				String inputLine = this.start(stdin);
-				if(inputLine.equals(""))
+				if(inputLine.equals("")){
 					try {
 						socketOut.reset();
 						socketOut.writeUnshared(request);
@@ -91,12 +93,25 @@ public class ClientOutHandlerSocket implements Runnable
 					} catch (IllegalArgumentException | IllegalStateException c){
 						System.out.println("Error in performing action: "+c.getMessage());
 					}
-				else if(inputLine.equals("quit"));
-					
-				
-					/**
-					 * TODO send the disconnect action
-					 */
+				}else if(inputLine.equals("quit")){
+					System.out.println("Are you sure? Type 'YES' is you agree, otherwise type anything else");
+					Scanner scanner=new Scanner(System.in);
+					if(scanner.nextLine().equalsIgnoreCase("yes")){
+						System.err.println("You have been disconnected");
+						try {
+							socketOut.reset();
+							socketOut.writeObject(new QuitRequest(this.ID));
+							socketOut.flush();
+							socketOut.close();
+							break;
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						
+					}
+					scanner.close();
+				}
 				
 				/*
 				try {

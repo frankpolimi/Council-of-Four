@@ -3,8 +3,10 @@ package model.actions;
 import java.util.List;
 import java.util.Timer;
 
+import controller.ErrorChange;
 import model.game.Game;
 import model.game.Player;
+import view.EndState;
 import view.MarketBuyingState;
 import view.StartState;
 
@@ -60,10 +62,18 @@ public class SkipAction extends Action
 				game.decrementLastRemainingPlayers();
 			}
 			
+			
 			game.getTimer().cancel();
 			game.setTimer(new Timer());
 			game.getTimer().schedule(new DisconnectionTimer(game), Game.DISCONNECTION_TIME);
 			super.takeAction(game);
+			
+			if(game.getPlayers().size()==1){
+				game.notifyObservers(new ErrorChange("Player "+game.getCurrentPlayer().getName()+" - "+game.getCurrentPlayer().getPlayerID()+
+						", you are the last online player in this match, so the game is finished and you have won!"));
+				game.setGameState(new EndState(game.getCurrentPlayer()));
+				game.getTimer().cancel();
+			}
 			return true;
 		}
 		

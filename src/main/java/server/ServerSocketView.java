@@ -5,6 +5,7 @@ import java.net.Socket;
 import java.net.SocketTimeoutException;
 
 import controller.Change;
+import view.QuitRequest;
 import view.Request;
 import view.View;
 
@@ -54,6 +55,7 @@ public class ServerSocketView extends View implements Runnable
 				System.out.println(e.getMessage()+"  "+e.getCause());
 			} catch (IOException f){
 				System.out.println("The client has been disconnected");
+			
 				break;
 			}
 			catch(IllegalArgumentException | IllegalStateException e1){

@@ -1,14 +1,20 @@
 package model.actions;
 
+import java.io.Serializable;
 import java.util.TimerTask;
 
 import controller.ErrorChange;
 import model.game.Game;
 import model.game.Player;
 import view.EndState;
+import view.QuitRequest;
 
-public class DisconnectionTimer extends TimerTask {
+public class DisconnectionTimer extends TimerTask implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2534566738093383572L;
 	private final Game game;
 	
 	public DisconnectionTimer(Game game) {
@@ -21,20 +27,9 @@ public class DisconnectionTimer extends TimerTask {
 		Player disconnected=game.getCurrentPlayer();
 		game.notifyObservers(new ErrorChange("The player "+disconnected.getName()+" - "+disconnected.getPlayerID()+
 				" has been disconnected because of inactivity"));
-		if(game.getMainActionCounter()==1){
-			game.decrementMainActionCounter();
-		}
+		QuitRequest quit=new QuitRequest(disconnected.getPlayerID());
+		quit.disconnect(game);
 		
-		SkipAction action=new SkipAction();
-		action.takeAction(game);
-		game.getPlayers().remove(disconnected);
-		game.getDisconnectedPlayers().add(disconnected);
-		if(game.getPlayers().size()==1){
-			game.notifyObservers(new ErrorChange("Player "+game.getCurrentPlayer().getName()+" - "+game.getCurrentPlayer().getPlayerID()+
-					", you are the last online player in this match, so the game is finished and you have won!"));
-			game.setGameState(new EndState(game.getCurrentPlayer()));
-			game.getTimer().cancel();
-		}
 		
 	}
 
