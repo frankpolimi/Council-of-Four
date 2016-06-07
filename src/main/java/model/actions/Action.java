@@ -50,7 +50,7 @@ public class Action implements Act, Serializable
 						matches++;
 						if(card.getClass()==ColoredPoliticsCard.class)
 							councillors.remove(councillor);
-						continue;
+						break;
 					}
 			int cost;
 			switch (councillors.size()-matches)
