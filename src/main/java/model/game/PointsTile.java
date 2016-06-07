@@ -39,7 +39,7 @@ public abstract class PointsTile implements Serializable{
 	 */
 	@Override
 	public String toString() {
-		return "PointsTile [VPs=" + VPs + "]";
+		return "VPs=" + VPs +"\n";
 	}
 	
 	

@@ -63,7 +63,11 @@ public class NobilityLane extends Bonusable implements Observer<Change>{
 	 */
 	@Override
 	public String toString() {
-		return "NobilityLane [lane=" + lane + "]";
+		String visual="";
+		for(int i:lane.keySet()){
+			visual=visual.concat("Position: "+i+"\n"+lane.get(i).toString()+"\n");
+		}
+		return visual.concat("\n\n");
 	}
 	
 }

@@ -34,7 +34,7 @@ public class RegionTile extends PointsTile {
 	 */
 	@Override
 	public String toString() {
-		return "RegionTile [region=" + region + ", amount: "+super.getVPs()+"]";
+		return "RegionTile" + region.getName() + " amount: "+super.getVPs()+"\n";
 	}	
 	
 	
