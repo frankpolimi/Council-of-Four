@@ -7,18 +7,45 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
+import java.util.concurrent.ArrayBlockingQueue;
 
 import org.jdom2.JDOMException;
 
 import model.bonus.AssistantBonus;
 import model.bonus.Bonus;
 import model.bonus.CoinBonus;
+import model.game.BuildingPermit;
 import model.game.Game;
+import model.game.PermitsDeck;
 import model.game.Player;
+import model.game.council.Council;
+import model.game.council.Councillor;
+import model.game.council.KingsCouncil;
+import model.game.council.RegionalCouncil;
 import model.game.topology.City;
 
 public abstract class SupportClass 
 {
+	public static Council councilCreatorByColors(Color c1, Color c2, Color c3, Color c4, String type)
+	{
+		Councillor con1=new Councillor(c1);
+		Councillor con2=new Councillor(c2);
+		Councillor con3=new Councillor(c3);
+		Councillor con4=new Councillor(c4);
+		ArrayBlockingQueue<Councillor> queue=new ArrayBlockingQueue<>(4);
+		queue.offer(con1);
+		queue.offer(con2);
+		queue.offer(con3);
+		queue.offer(con4);
+		List<BuildingPermit> list=new ArrayList<>();
+		switch(type)
+		{
+		case "King": return new KingsCouncil(queue);
+		case "Regional":
+		default: return new RegionalCouncil(queue, new PermitsDeck(list));
+		}
+	}
+	
 	public static Color giveRandomColor()
 	{
 		Random rand = new Random();

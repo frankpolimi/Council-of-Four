@@ -42,18 +42,39 @@ public class Action implements Act, Serializable
 	public boolean payCouncil(Game game, Council counc, ArrayList<PoliticsCard> politics)
 	{
 			int matches=0;
-			ArrayBlockingQueue<Councillor> councillors=counc.getCouncillors();
-			for(PoliticsCard card:politics)
+			ArrayBlockingQueue<Councillor> councillors=new ArrayBlockingQueue<>(counc.getCouncillors().size());
+			for(Councillor councillor:counc.getCouncillors())
+			{
+				councillors.offer(councillor);
+			}
+			for(int i=0; i<politics.size();i++)
+				for(Councillor councillor:councillors)
+				{
+					if(politics.get(i).payCouncillor(councillor))
+					{
+						matches++;
+						if(politics.get(i).getClass()==ColoredPoliticsCard.class)
+						{
+							councillors.remove(councillor);
+						}
+						
+						break;
+					}
+				}
+			/*for(PoliticsCard card:politics)
 				for(Councillor councillor:councillors)
 					if(card.payCouncillor(councillor))
 					{
 						matches++;
 						if(card.getClass()==ColoredPoliticsCard.class)
+						{
 							councillors.remove(councillor);
+						}
+						
 						break;
-					}
+					}*/
 			int cost;
-			switch (councillors.size()-matches)
+			switch (counc.getCouncillors().size()-matches)
 			{
 				case 0: cost=0; 
 					break;
