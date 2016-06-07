@@ -17,7 +17,7 @@ public class AssistantBonus extends TileBonus {
 	private static final long serialVersionUID = -7236019783850791384L;
 
 	/**
-	 * constructor fot an Assistant bonus
+	 * constructor for an Assistant bonus
 	 * @param amount the number of assistants given
 	 * @throws NullPointerException if amount is null
 	 * @throws IllegalArgumentException if amount is not greater than zero
