@@ -18,8 +18,8 @@ import controller.ErrorChange;
 import controller.ModelChange;
 import controller.PermitsChange;
 import controller.StateChange;
-import server.ServerRMIGameViewRemote;
 import server.ServerRMIRegistrationViewRemote;
+import server.ServerRMIViewRemote;
 import view.State;
 
 /**
@@ -34,6 +34,8 @@ public class ClientRMI extends UnicastRemoteObject implements Serializable, RMIC
 	private static final long serialVersionUID = 2606594429637762781L;
 	private final static String HOST = "127.0.0.1";
 	private final static int PORT = 1099;
+	
+	
 	
 	public ClientRMI() throws RemoteException{
 		super();
@@ -50,7 +52,7 @@ public class ClientRMI extends UnicastRemoteObject implements Serializable, RMIC
 		ServerRMIRegistrationViewRemote game = (ServerRMIRegistrationViewRemote)
 				registry.lookup(name);	
 		
-		ServerRMIGameViewRemote view = game.register(this);
+		ServerRMIViewRemote view = game.register(this);
 		
 		
 		while(true){

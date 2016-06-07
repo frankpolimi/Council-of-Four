@@ -66,11 +66,12 @@ public class Server
 		System.out.println("Constructing RMI server");
 		ServerRMIRegistrationViewRemote serverRMI = 
 				new ServerRMIRegistrationView(this);
-		ServerRMIRegistrationViewRemote gameRemote = 
-				(ServerRMIRegistrationViewRemote) UnicastRemoteObject.exportObject(game, 0);
+		ServerRMIRegistrationViewRemote serverRMIRemote = 
+				(ServerRMIRegistrationViewRemote) 
+				UnicastRemoteObject.exportObject(serverRMI, 0);
 		
 		System.out.println("Binding server to registry");
-		registry.bind(NAME, gameRemote);
+		registry.bind(NAME, serverRMIRemote);
 		System.out.println("ready for client's inputs");
 	}
 	
@@ -111,7 +112,7 @@ public class Server
 		registry.rebind(name, gameRemote);
 	}
 	
-	public void addSocketClient(ServerSocketView view, Player player) throws JDOMException, IOException
+	public synchronized void addSocketClient(ServerSocketView view, Player player) throws JDOMException, IOException
 	{
 		view.registerObserver(controller);
 		game.registerObserver(view);

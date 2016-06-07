@@ -15,6 +15,6 @@ import client.RMIClientRemote;
  */
 public interface ServerRMIRegistrationViewRemote extends Remote {
 	
-	public ServerRMIGameViewRemote register(RMIClientRemote client) throws
+	public ServerRMIViewRemote register(RMIClientRemote client) throws
 		RemoteException, AlreadyBoundException;
 }

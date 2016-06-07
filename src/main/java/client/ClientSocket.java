@@ -77,9 +77,4 @@ public class ClientSocket
 		executor.submit(new ClientInHandlerSocket(socketIn, memoryContainer, ID));
 		
 	}
-	
-	public static void main(String[] args) throws UnknownHostException, IOException{
-		ClientSocket client = new ClientSocket();
-		client.startClient();
-	}
 }

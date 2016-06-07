@@ -5,7 +5,7 @@ import java.rmi.RemoteException;
 
 import view.Request;
 
-public interface ServerRMIGameViewRemote extends Remote{
+public interface ServerRMIViewRemote extends Remote{
 
 	public void sendRequest(Request request) throws RemoteException;
 	

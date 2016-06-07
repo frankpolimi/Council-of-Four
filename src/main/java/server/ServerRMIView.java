@@ -16,11 +16,11 @@ import view.View;
  * @author Francesco Vetrò
  *
  */
-public class ServerRMIGameView extends View implements ServerRMIGameViewRemote{
+public class ServerRMIView extends View implements ServerRMIViewRemote{
 
 	private RMIClientRemote client;
 	
-	public ServerRMIGameView(RMIClientRemote client) throws RemoteException{
+	public ServerRMIView(RMIClientRemote client) throws RemoteException{
 		UnicastRemoteObject.exportObject(this, 1099);
 		this.client = client;
 	}
