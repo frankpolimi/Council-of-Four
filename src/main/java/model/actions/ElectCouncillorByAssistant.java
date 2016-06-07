@@ -39,8 +39,7 @@ public class ElectCouncillorByAssistant extends QuickAction
 				Council c = i.next();
 				if(c.equals(council)){
 					game.addCouncillor(c.electCouncillor(councillor));
-					game.getCurrentPlayer().setCoins(game.getCurrentPlayer().getCoins()+4);
-					game.decrementMainActionCounter();
+					game.decrementQuickActionCounter();
 					super.takeAction(game);
 					return true;	
 				}

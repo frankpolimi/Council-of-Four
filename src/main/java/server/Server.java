@@ -36,8 +36,10 @@ public class Server
 		playersView=new HashMap<>();
 	}
 	
-	public void start() throws AlreadyBoundException, IOException
+	public void start() throws AlreadyBoundException, IOException, ClassNotFoundException, JDOMException
 	{
+		//this.startRMI();
+		this.startSocket();
 	}
 	
 	private void startSocket() throws IOException, JDOMException, ClassNotFoundException {
@@ -128,20 +130,17 @@ public class Server
 	
 	public static void main(String[] args) throws JDOMException, IOException {
 		
-			Server server = new Server();
-			//Timer timer;
-			try {
-				server.start();
-				server.startSocket();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			catch (AlreadyBoundException e) {
-				e.printStackTrace();
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-			}
-			
+		Server server = new Server();
+		//Timer timer;
+		try {
+			server.start();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (AlreadyBoundException e) {
+			e.printStackTrace();
+		}
 	}
-		
+
 }
