@@ -6,7 +6,7 @@ package model.bonus;
 import model.game.Game;
 
 /**
- * @author Francesco Vetrò
+ * @author Francesco Vetrï¿½
  *
  */
 public class MainActionBonus extends ActionBonus {
@@ -16,7 +16,14 @@ public class MainActionBonus extends ActionBonus {
 	 */
 	private static final long serialVersionUID = 4892378733613363361L;
 
-	public MainActionBonus(Integer repeat) {
+	/**
+	 * constructor for a main action bonus
+	 * @param repeat the amount of main actions that a player can do 
+	 * in addition to others after this bonus
+	 * @throws NullPointerException if repeat is null
+	 * @throws IllegalArgumentException if repeat is not greater than zero
+	 */
+	public MainActionBonus(Integer repeat) throws NullPointerException, IllegalArgumentException{
 		super(repeat);
 	}
 

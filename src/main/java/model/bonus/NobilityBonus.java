@@ -8,7 +8,7 @@ import model.game.Game;
 import model.game.NobilityLane;
 
 /**
- * @author Francesco Vetrò
+ * @author Francesco Vetrï¿½
  */
 public class NobilityBonus extends TileBonus {
 
@@ -18,10 +18,12 @@ public class NobilityBonus extends TileBonus {
 	private static final long serialVersionUID = 8814654733458365846L;
 
 	/**
-	 * construct a bonus with the given amount of nobility points as parameter
-	 * @param amount
+	 * constructor for a nobility bonus
+	 * @param amount the nobility points given to a player
+	 * @throws NullPointerException if amount is null
+	 * @throws IllegalArgumentException if amount is not greater than zero
 	 */
-	public NobilityBonus(Integer amount) {
+	public NobilityBonus(Integer amount) throws NullPointerException, IllegalArgumentException {
 		super(amount);
 		
 	}

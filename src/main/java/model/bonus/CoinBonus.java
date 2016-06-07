@@ -5,7 +5,7 @@ package model.bonus;
 
 import model.game.Game;
 /**
- * @author Francesco Vetrò
+ * @author Francesco Vetrï¿½
  */
 public class CoinBonus extends TileBonus {
 	/**
@@ -14,10 +14,12 @@ public class CoinBonus extends TileBonus {
 	private static final long serialVersionUID = -1390525919209177348L;
 
 	/**
-	 * construct a coin bonus with the given amount as parameter
-	 * @param importo
+	 * constructor for a coin bonus
+	 * @param amount the coin given to a player
+	 * @throws NullPointerException if amount is null
+	 * @throws IllegalArgumentException if amount is not greater than zero
 	 */
-	public CoinBonus(Integer amount) {
+	public CoinBonus(Integer amount) throws NullPointerException, IllegalArgumentException{
 		super(amount);
 	}
 

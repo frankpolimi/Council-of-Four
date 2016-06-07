@@ -9,7 +9,8 @@ import java.util.List;
 import model.game.Game;
 
 /**
- * @author Francesco Vetrò
+ * @author Francesco VetrÃ²
+ *
  */
 public class ActionBonus extends Bonus {
 	
@@ -18,7 +19,14 @@ public class ActionBonus extends Bonus {
 	 */
 	private static final long serialVersionUID = 1087850494213111007L;
 
-	public ActionBonus(Integer repeat) {
+	
+	/**
+	 * constructor for a special bonus
+	 * @param repeat the times of a special bonus can be performed
+	 * @throws NullPointerException if repeat is null
+	 * @throws IllegalArgumentException if repeat is not greater than zero
+	 */
+	public ActionBonus(Integer repeat) throws NullPointerException, IllegalArgumentException{
 		super(repeat);
 	}
 

@@ -22,7 +22,14 @@ public class ReuseTileBonus extends ActionBonus {
 	 */
 	private static final long serialVersionUID = 5580070888752831045L;
 
-	public ReuseTileBonus(Integer repeat) {
+	/**
+	 * constructor for a bonus that allows the player to obtain a bonus on a permit 
+	 * owned by the same player again
+	 * @param repeat the times of the bonus can be selected
+	 * @throws NullPointerException if repeat is null
+	 * @throws IllegalArgumentException if repeat is not greater than zero
+	 */
+	public ReuseTileBonus(Integer repeat) throws NullPointerException, IllegalArgumentException{
 		super(repeat);
 	}
 	

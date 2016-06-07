@@ -12,7 +12,7 @@ import model.game.Game;
 import view.View;
 
 /**
- * @author Francesco Vetrò
+ * @author Francesco Vetrï¿½
  *
  */
 public class CityBonus extends ActionBonus {
@@ -22,7 +22,14 @@ public class CityBonus extends ActionBonus {
 	 */
 	private static final long serialVersionUID = 4800174510551680358L;
 
-	public CityBonus (Integer repeat){
+	/**
+	 * constructor for a bonus that gives the player the bonus of a city
+	 * where he has built an emporium
+	 * @param repeat the amount of city's bonus that a player can obtain again
+	 * @throws NullPointerException if repeat is null
+	 * @throws IllegalArgumentException if repeat is not greater than zero
+	 */
+	public CityBonus (Integer repeat) throws NullPointerException, IllegalArgumentException{
 		super(repeat);
 	}
 	

@@ -6,7 +6,7 @@ package model.bonus;
 import model.game.Game;
 
 /**
- * @author Francesco Vetrò
+ * @author Francesco Vetrï¿½
  *
  */
 public class PointBonus extends TileBonus {
@@ -17,10 +17,12 @@ public class PointBonus extends TileBonus {
 	private static final long serialVersionUID = -3685807709754032075L;
 
 	/**
-	 * construct a bonus with the given amount of winning points as parameter
-	 * @param amount
+	 * constructor for a points bonus
+	 * @param amount the victory points given to a player
+	 * @throws NullPointerException if amount is null
+	 * @throws IllegalArgumentException if amount is not greater than zero
 	 */
-	public PointBonus(Integer amount) {
+	public PointBonus(Integer amount) throws NullPointerException, IllegalArgumentException{
 		super(amount);
 	}
 

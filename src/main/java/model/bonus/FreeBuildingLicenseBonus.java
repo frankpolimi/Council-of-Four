@@ -13,7 +13,7 @@ import model.game.topology.Region;
 import view.*;
 
 /**
- * @author Francesco Vetrò
+ * @author Francesco Vetrï¿½
  *
  */
 public class FreeBuildingLicenseBonus extends ActionBonus {
@@ -23,7 +23,13 @@ public class FreeBuildingLicenseBonus extends ActionBonus {
 	 */
 	private static final long serialVersionUID = 7459584739431982172L;
 
-	public FreeBuildingLicenseBonus(Integer repeat) {
+	/**
+	 * constructor for a bonus to obtain a building permit
+	 * @param repeat the amount of building permit that a player can obtain
+	 * @throws NullPointerException if repeat is null
+	 * @throws IllegalArgumentException if repeat is not greater than zero
+	 */
+	public FreeBuildingLicenseBonus(Integer repeat) throws NullPointerException, IllegalArgumentException{
 		super(repeat);
 	}
 	

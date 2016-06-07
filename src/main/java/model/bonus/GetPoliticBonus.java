@@ -6,7 +6,7 @@ package model.bonus;
 import model.game.*;
 
 /**
- * @author Francesco Vetrò
+ * @author Francesco Vetrï¿½
  *
  */
 public class GetPoliticBonus extends TileBonus {
@@ -17,10 +17,12 @@ public class GetPoliticBonus extends TileBonus {
 	private static final long serialVersionUID = -2498187827242720735L;
 
 	/**
-	 * constructor with the amount of cards to be given 
-	 * @param amount
+	 * constructor for a politic bonus
+	 * @param amount the politics card given to a player
+	 * @throws NullPointerException if amount is null
+	 * @throws IllegalArgumentException if amount is not greater than zero
 	 */
-	public GetPoliticBonus(Integer amount) {
+	public GetPoliticBonus(Integer amount) throws NullPointerException, IllegalArgumentException{
 		super(amount);
 	}
 

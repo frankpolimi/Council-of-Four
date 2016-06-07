@@ -6,7 +6,7 @@ package model.bonus;
 import model.game.Game;
 
 /**
- * @author Francesco Vetrò
+ * @author Francesco Vetrï¿½
  *
  */
 public class AssistantBonus extends TileBonus {
@@ -16,7 +16,13 @@ public class AssistantBonus extends TileBonus {
 	 */
 	private static final long serialVersionUID = -7236019783850791384L;
 
-	public AssistantBonus(Integer amount) {
+	/**
+	 * constructor fot an Assistant bonus
+	 * @param amount the number of assistants given
+	 * @throws NullPointerException if amount is null
+	 * @throws IllegalArgumentException if amount is not greater than zero
+	 */
+	public AssistantBonus(Integer amount) throws NullPointerException, IllegalArgumentException{
 		super(amount);
 	}
 
