@@ -1,17 +1,23 @@
 package cg2;
 
 import java.awt.Color;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Random;
 import java.util.Set;
+
+import org.jdom2.JDOMException;
 
 import model.bonus.AssistantBonus;
 import model.bonus.Bonus;
 import model.bonus.CoinBonus;
+import model.game.Game;
+import model.game.Player;
 import model.game.topology.City;
 
-public class SupportClass 
+public abstract class SupportClass 
 {
 	public static Color giveRandomColor()
 	{
@@ -49,5 +55,19 @@ public class SupportClass
 		City city=new City(s, color,list);
 		city.addEmporium(SupportClass.giveRandomColor());
 		return city;
+	}
+	
+	public static Game gameWithPlayersCreator(String playerName1,String playerName2) throws JDOMException, IOException
+	{
+			List<Player> players=new ArrayList<>();
+			Player p1=new Player(playerName1, 1);
+			Player p2=new Player(playerName2, 2);
+			players.add(p1);
+			players.add(p2);
+			Game game=new Game();
+			game.setPlayers(players);
+			game.setCurrentPlayer(p1);
+			return game;
+	
 	}
 }
