@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.io.IOException;
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
+import java.rmi.Remote;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -38,7 +39,7 @@ import view.State;
  * @author Emanuele Ricciardelli, Vitaliy Pakholko
  *
  */
-public class Game extends Observable<Change> implements Serializable{
+public class Game extends Observable<Change> implements Serializable, Remote{
 	
 	/**
 	 * 
