@@ -21,5 +21,15 @@ public class KingTile extends PointsTile{
 		super(amount);
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "KingTile\n "+super.toString()+"";
+	}
+	
+	
+
 
 }

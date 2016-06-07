@@ -382,9 +382,9 @@ public class Game extends Observable<Change> implements Serializable{
 	 */
 	@Override
 	public String toString() {
-		return "GAME\n [kingsCouncil=" + kingsCouncil + ", kingTileList=" + kingTileList + ", colorTileList="
-				+ colorTileList + ", regionTileList=" + regionTileList + ", nobilityLane=" + nobilityLane + ", map="
-				+ map + ", kingsPosition=" + kingsPosition + ", currentPlayer=" + currentPlayer + ", regions="+this.regions+" ]";
+		return "GAME\n[KINGS COUNCIL\n" + kingsCouncil + "\n\nKING TILE LIST\n" + kingTileList + "\n\nCOLOR TILE LIST\n"
+				+ colorTileList + "\n\nREGION TILE LIST\n" + regionTileList + "\n\nNOBILITY LANE\n" + nobilityLane + "\n\nREGIONS\n\n"+this.regions
+				+"MAP\n"+ map + "\nKING POSITION=" + kingsPosition + "\nCURRENT PLAYER=" + currentPlayer + " ]";
 	}
 	
 	public List<RegionalCouncil> getRegionalCouncils(){

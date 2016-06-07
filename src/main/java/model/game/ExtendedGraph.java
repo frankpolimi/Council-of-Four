@@ -112,4 +112,32 @@ public class ExtendedGraph<V extends City,E> extends SimpleGraph<V, E> implement
 		return cloned;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		String visual;
+		visual="Cities:\n";
+
+		/*for(V v:vertexSet()){
+			visual=visual.concat(v.toString());
+		}*/
+		//visual=visual.concat("\n");
+		for(E e:edgeSet()){
+			visual=visual.concat("Source : "+this.getEdgeSource(e).getName()+", Target : "+this.getEdgeTarget(e).getName()+"\n");
+		}
+		return visual;
+	}
+	
+	
+	public static void main(String[]args) throws JDOMException, IOException{
+		Game game=new Game();
+		List<Player> players=new ArrayList<>();
+		players.add(new Player("io",1));
+		players.add(new Player("lui",2));
+		game.setPlayers(players);
+		System.out.println(game.toString());
+	}
 }
+

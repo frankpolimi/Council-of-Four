@@ -42,7 +42,7 @@ public class ColorTile extends PointsTile implements Serializable{
 	@Override
 	public String toString() {
 		
-		return "ColorTile [cityColor=" + cityColor + ", amounts="+ super.getVPs()+"]";
+		return "ColorTile "+ cityColor + ", amounts="+ super.getVPs()+"\n";
 	}
 
 	

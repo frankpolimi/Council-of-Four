@@ -56,7 +56,7 @@ public abstract class Council implements Serializable
 
 	@Override
 	public String toString() {
-		return "Council [councillors=" + councillors + "]\n";
+		return "Council \n"+ councillors + "]\n\n";
 	}
 	
 	public boolean equals(Council c)
