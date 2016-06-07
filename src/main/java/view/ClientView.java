@@ -98,22 +98,26 @@ public class ClientView{
 			System.out.println("Your Cards:");
 			List<PoliticsCard> ownedCards=getPlayerByID().getCardsOwned();
 			ArrayList <PoliticsCard> selectedCards=new ArrayList<>();
-			
-			for(int i=0;i<ownedCards.size();i++){
+			int i;
+			for(i=0;i<ownedCards.size();i++){
 				System.out.println((i+1)+"- "+ownedCards.get(i).toString());
 			}
-			System.out.println("Select the four cards that you would to spend for corrupting a council");
+			System.out.println("Select the cards that you would to spend for corrupting a council - max 4 cards");
 			System.out.println("Select 0 if you want to change main action");
-			for(int i=0;i<4;i++){
-				int cardsIndex=this.selector(0, ownedCards.size(), stdin);
+			System.out.println("Insert -1 if you want to terminate this drawing step");
+			i=0;
+			int cardsIndex=this.selector(-1, ownedCards.size(), stdin);
+			while(cardsIndex!=-1&&i<4){
 				if(cardsIndex==0) break;
 				PoliticsCard card=ownedCards.get(cardsIndex-1);
 				selectedCards.add(card);
+				i++;
+				cardsIndex=this.selector(-1, ownedCards.size(), stdin);
 			}
 			//select council
 			List<RegionalCouncil> regionalCouncils=game.getRegionalCouncils();
 			System.out.println("0- exit");
-			for(int i=0;i<regionalCouncils.size();i++){
+			for(i=0;i<regionalCouncils.size();i++){
 				System.out.println((i+1)+"- "+regionalCouncils.get(i).getCouncillors());
 			}
 			councilIndex=this.selector(0, regionalCouncils.size(), stdin);
@@ -122,7 +126,7 @@ public class ClientView{
 			System.out.println("Select the permit to acquire");
 			PermitsDeck councilDeck=councilCorrupted.getPermitsDeck();
 			Iterator<BuildingPermit> it=councilDeck.getFaceUpPermits().iterator();
-			int i=1;
+			i=1;
 			while(it.hasNext()){
 				System.out.println(i+"- "+it.next().toString());
 				i++;
@@ -171,13 +175,17 @@ public class ClientView{
 			for(i=0;i<ownedCards.size();i++){
 				System.out.println((i+1)+"- "+ownedCards.get(i).toString());
 			}
-			System.out.println("Select the four cards that you would to spend for corrupting the king's council");
+			System.out.println("Select the cards that you would to spend for corrupting the king's council - MAX 4 cards");
 			System.out.println("Select 0 if you want to change the main action");
-			for(i=0;i<4;i++){
-				int cardsIndex=this.selector(0, ownedCards.size(), stdin);
+			System.out.println("Select -1 if you want to terminate the drawing step and to confirm your selected cards");
+			i=0;
+			cardsIndex=this.selector(-1, ownedCards.size(), stdin);
+			while(cardsIndex!=-1&&i<4){
 				if(cardsIndex==0) break;
 				PoliticsCard card=ownedCards.get(cardsIndex-1);
 				selectedCards.add(card);
+				i++;
+				cardsIndex=this.selector(-1, ownedCards.size(), stdin);
 			}
 			KingsCouncil kingsCouncil=game.getKingsCouncil();
 			System.out.println("The king is now in the city: ");
