@@ -80,9 +80,10 @@ public class ClientOutHandlerSocket implements Runnable
 						socketOut.reset();
 						socketOut.writeUnshared(request);
 						socketOut.flush();
-						synchronized (memoryContainer) {
-							memoryContainer.setUpdated(false);
-						}
+						if(!memoryContainer.getGameRef().getGameState().getClass().equals(EndState.class))
+							synchronized (memoryContainer) {
+								memoryContainer.setUpdated(false);
+							}
 					} catch (IOException e) {
 						if(e.getMessage().equals("Socket closed"))
 						System.err.println("THE GAME IS FINISHED, BYE BYE");
@@ -91,6 +92,8 @@ public class ClientOutHandlerSocket implements Runnable
 						System.out.println("Error in performing action: "+c.getMessage());
 					}
 				else if(inputLine.equals("quit"));
+					
+				
 					/**
 					 * TODO send the disconnect action
 					 */
