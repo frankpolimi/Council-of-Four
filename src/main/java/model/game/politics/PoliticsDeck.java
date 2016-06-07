@@ -28,6 +28,11 @@ public class PoliticsDeck implements Serializable
 			this.deck.add(p);
 	}
 	
+	public PoliticsCard getCardAtIndex(int i)
+	{
+		return this.deck.get(i);
+	}
+	
 	/**
 	 * Makes given player draw a card from politics deck.
 	 * @param player that wants to draw a card
