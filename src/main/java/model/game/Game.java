@@ -45,7 +45,7 @@ public class Game extends Observable<Change> implements Serializable{
 	 */
 	private static final long serialVersionUID = -6566029665416943724L;
 	
-	public final static int DISCONNECTION_TIME=120*1000;
+	public final static int DISCONNECTION_TIME=600*1000;
 	private State gameState;
 	private int lastTurnRemainingPlayers;
 	private boolean lastTurn;

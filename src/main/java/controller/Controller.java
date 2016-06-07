@@ -49,7 +49,9 @@ public class Controller implements Observer<Request>{
 	@Override
 	public void update(Request request) throws IllegalArgumentException, IllegalStateException{
 		
-		if(request.getClass().equals(QuitRequest.class)){
+		if(game.getGameState().getClass().equals(EndState.class)) return;
+		
+		if(request.getClass().equals(QuitRequest.class)&&game.getGameState()!=null){
 			QuitRequest disconnection=(QuitRequest)request;
 			disconnection.disconnect(game);
 		}
@@ -63,6 +65,8 @@ public class Controller implements Observer<Request>{
 			game.setTimer(new Timer());
 			game.getTimer().schedule(new DisconnectionTimer(game), Game.DISCONNECTION_TIME);
 		}
+		
+		
 		
 		//TURNO AZIONE
 		Player current=game.getCurrentPlayer();

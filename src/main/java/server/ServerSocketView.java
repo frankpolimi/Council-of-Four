@@ -54,8 +54,8 @@ public class ServerSocketView extends View implements Runnable
 			} catch (ClassNotFoundException e) {
 				System.out.println(e.getMessage()+"  "+e.getCause());
 			} catch (IOException f){
-				System.out.println("The client has been disconnected");
-			
+				System.out.println("The client"+this.ID+" has been disconnected and removed in the game model");
+				this.notifyObservers(new QuitRequest(this.ID));
 				break;
 			}
 			catch(IllegalArgumentException | IllegalStateException e1){
@@ -64,7 +64,7 @@ public class ServerSocketView extends View implements Runnable
 					this.socketOut.writeObject(e1.getMessage());
 					this.socketOut.flush();
 				} catch (IOException e) {
-					e.printStackTrace();
+					
 				}
 			}
 		}
@@ -82,7 +82,7 @@ public class ServerSocketView extends View implements Runnable
 			this.socketOut.writeUnshared(change);
 			this.socketOut.flush();
 		} catch (IOException e) {
-			System.out.println("The client has been disconnected");
+			
 		}
 		
 	}

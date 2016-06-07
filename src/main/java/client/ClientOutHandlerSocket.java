@@ -79,13 +79,14 @@ public class ClientOutHandlerSocket implements Runnable
 				String inputLine = this.start(stdin);
 				if(inputLine.equals("")){
 					try {
-						socketOut.reset();
-						socketOut.writeUnshared(request);
-						socketOut.flush();
-						if(!memoryContainer.getGameRef().getGameState().getClass().equals(EndState.class))
+						if(!memoryContainer.getGameRef().getGameState().getClass().equals(EndState.class)){
+							socketOut.reset();
+							socketOut.writeUnshared(request);
+							socketOut.flush();
 							synchronized (memoryContainer) {
 								memoryContainer.setUpdated(false);
 							}
+						}
 					} catch (IOException e) {
 						if(e.getMessage().equals("Socket closed"))
 						System.err.println("THE GAME IS FINISHED, BYE BYE");
