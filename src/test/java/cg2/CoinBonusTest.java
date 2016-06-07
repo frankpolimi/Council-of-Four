@@ -33,5 +33,20 @@ public class CoinBonusTest {
 	
 	@Test
 	public void testAssignBonusToPlayer(){
+		try {
+			Game g = SupportClass.gameWithPlayersCreator("G1", "G2");
+			CoinBonus b = new CoinBonus(12);
+			int coinG1 = g.getCurrentPlayer().getCoins();
+			int coinG2 = g.getPlayers().get(1).getCoins();
+			b.update(g);
+			assertEquals(coinG1+12, g.getCurrentPlayer().getCoins());
+			assertEquals(coinG2, g.getPlayers().get(1).getCoins());
+		} catch (JDOMException e) {
+			e.printStackTrace();
+			fail("JDome");
+		} catch (IOException e) {
+			e.printStackTrace();
+			fail("IO");
+		}
 	}
 }
