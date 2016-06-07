@@ -107,13 +107,13 @@ public class ClientView{
 			System.out.println("Insert -1 if you want to terminate this drawing step");
 			i=0;
 			int cardsIndex=this.selector(-1, ownedCards.size(), stdin);
-			while(cardsIndex!=-1&&i<4){
-				if(cardsIndex==0) break;
+			while(cardsIndex!=0&&cardsIndex!=-1&&i<4){
 				PoliticsCard card=ownedCards.get(cardsIndex-1);
 				selectedCards.add(card);
 				i++;
 				cardsIndex=this.selector(-1, ownedCards.size(), stdin);
 			}
+			if(cardsIndex==0) break;
 			//select council
 			List<RegionalCouncil> regionalCouncils=game.getRegionalCouncils();
 			System.out.println("0- exit");
@@ -180,17 +180,18 @@ public class ClientView{
 			System.out.println("Select -1 if you want to terminate the drawing step and to confirm your selected cards");
 			i=0;
 			cardsIndex=this.selector(-1, ownedCards.size(), stdin);
-			while(cardsIndex!=-1&&i<4){
-				if(cardsIndex==0) break;
+			while(cardsIndex!=0&&cardsIndex!=-1&&i<4){
 				PoliticsCard card=ownedCards.get(cardsIndex-1);
 				selectedCards.add(card);
 				i++;
 				cardsIndex=this.selector(-1, ownedCards.size(), stdin);
 			}
+			if(cardsIndex==0) break;
 			KingsCouncil kingsCouncil=game.getKingsCouncil();
 			System.out.println("The king is now in the city: ");
 			System.out.println(game.getKingsPosition().getName());
 			System.out.println("In which city would you build? Insert the initial");
+			System.out.println("Type a character not present in the list below to change the action");
 			i=1;
 			for(City c:game.getMap().vertexSet()){
 				System.out.println(c.getName()+" "+c.getFirstChar());
