@@ -41,11 +41,12 @@ public class GetPoliticBonusTest {
 			GetPoliticBonus b = new GetPoliticBonus(1);
 			List<PoliticsCard> politics1 = g.getCurrentPlayer().getCardsOwned();
 			List<PoliticsCard> politics2 = g.getPlayers().get(1).getCardsOwned();
-			politics1.add(g.getPoliticsDeck().get(0));
+			politics1.add(g.getPoliticsDeck().getCardAtIndex(0));
 			b.update(g);
-			assertEquals(politics1,
-					g.getCurrentPlayer().getCardsOwned());
-			assertEquals(coinG2, g.getPlayers().get(1).getCoins());
+			assertEquals(politics1, g.getCurrentPlayer().getCardsOwned());
+			assertEquals(politics2, g.getPlayers().get(1).getCardsOwned());
+			assertEquals(politics1.size(), g.getCurrentPlayer().getCardsOwned().size());
+			assertEquals(politics2.size(), g.getPlayers().get(1).getCardsOwned().size());
 		} catch (JDOMException e) {
 			e.printStackTrace();
 			fail("JDome");
