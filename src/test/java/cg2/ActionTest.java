@@ -2,16 +2,13 @@ package cg2;
 
 import static org.junit.Assert.*;
 
-import java.util.List;
 import java.awt.Color;
 import java.io.IOException;
 import java.util.ArrayList;
 import org.jdom2.JDOMException;
 import org.junit.Test;
-
 import model.actions.Action;
 import model.game.Game;
-import model.game.Player;
 import model.game.council.Council;
 import model.game.politics.*;
 

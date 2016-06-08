@@ -12,6 +12,10 @@ import model.game.BuildingPermit;
  */
 public class PermitsState implements State {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2653422579326973813L;
 	private List<BuildingPermit> permitsList;
 
 	public PermitsState(List<BuildingPermit> permitsList) {

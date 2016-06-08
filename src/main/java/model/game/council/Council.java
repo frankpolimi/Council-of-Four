@@ -1,8 +1,6 @@
 
 package model.game.council;
 import java.io.Serializable;
-import java.util.Iterator;
-import java.util.Random;
 import java.util.concurrent.ArrayBlockingQueue;
 
 

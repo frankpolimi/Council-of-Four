@@ -10,6 +10,11 @@ package view;
  */
 public class QuickState implements State {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6776522050204079964L;
+
 	/* (non-Javadoc)
 	 * @see cg2.view.State#display()
 	 */

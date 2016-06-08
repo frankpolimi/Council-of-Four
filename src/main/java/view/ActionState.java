@@ -12,6 +12,10 @@ import model.game.Game;
  */
 public class ActionState implements State {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 432999908669998945L;
 	private final int type;
 	private final int select;
 	private Game game;

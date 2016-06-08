@@ -1,15 +1,11 @@
 package cg2;
 
 import static org.junit.Assert.*;
-
 import java.io.IOException;
-
 import org.jdom2.JDOMException;
 import org.junit.Test;
-
 import model.bonus.CoinBonus;
 import model.game.Game;
-import model.game.Player;
 
 public class CoinBonusTest {
 

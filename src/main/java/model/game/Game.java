@@ -12,15 +12,12 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 import java.util.Timer;
-
 import org.jdom2.JDOMException;
 import org.jgrapht.graph.DefaultEdge;
-
 import controller.Change;
 import controller.ModelChange;
 import controller.StateChange;
 import model.actions.DisconnectionTimer;
-import model.actions.SkipAction;
 import model.game.council.Council;
 import model.game.council.Councillor;
 import model.game.council.KingsCouncil;

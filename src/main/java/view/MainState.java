@@ -10,6 +10,11 @@ package view;
  */
 public class MainState implements State {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8768897841650922464L;
+
 	/* (non-Javadoc)
 	 * @see cg2.view.State#doAction(cg2.view.View)
 	 */

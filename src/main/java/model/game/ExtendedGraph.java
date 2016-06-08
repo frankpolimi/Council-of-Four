@@ -3,16 +3,12 @@
  */
 package model.game;
 
-import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.SimpleGraph;
 import org.jgrapht.graph.UndirectedSubgraph;
-
 import model.game.topology.City;
-
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.*;
-
 import org.jdom2.JDOMException;
 import org.jgrapht.alg.ConnectivityInspector;
 import org.jgrapht.alg.DijkstraShortestPath;

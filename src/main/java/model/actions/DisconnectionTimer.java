@@ -6,7 +6,6 @@ import java.util.TimerTask;
 import controller.ErrorChange;
 import model.game.Game;
 import model.game.Player;
-import view.EndState;
 import view.QuitRequest;
 
 public class DisconnectionTimer extends TimerTask implements Serializable{

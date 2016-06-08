@@ -1,13 +1,9 @@
 package cg2;
 
 import static org.junit.Assert.*;
-
 import java.util.HashSet;
 import java.util.Set;
-
-import org.junit.Ignore;
 import org.junit.Test;
-
 import model.game.BuildingPermit;
 import model.game.topology.City;
 
