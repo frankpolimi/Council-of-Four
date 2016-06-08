@@ -18,6 +18,7 @@ import java.util.concurrent.*;
 
 import org.jdom2.JDOMException;
 
+import client.ClientRMIRemote;
 import controller.*;
 import model.game.Game;
 import model.game.Player;
@@ -66,7 +67,7 @@ public class Server
 		System.out.println("Constructing RMI server");
 		Registry registry = LocateRegistry.createRegistry(RMIPORT);
 		
-		ServerRMIView rmiView = new ServerRMIView();
+		ServerRMIView rmiView = new ServerRMIView(this);
 		rmiView.registerObserver(controller);
 		this.game.registerObserver(rmiView);
 		
@@ -100,7 +101,14 @@ public class Server
 		}
 	}
 	
-	public void addSocketClient(ServerSocketView view, Player player) throws JDOMException, IOException
+	public synchronized void addRMIClient(ClientRMIRemote client) throws JDOMException, IOException{
+		client.printInt(serialID);
+		Player p = new Player(client.getName(), serialID);
+		oneRoomLobby.add(p);
+		serialID++;
+	}
+	
+	public synchronized void addSocketClient(ServerSocketView view, Player player) throws JDOMException, IOException
 	{
 		view.registerObserver(controller);
 		game.registerObserver(view);

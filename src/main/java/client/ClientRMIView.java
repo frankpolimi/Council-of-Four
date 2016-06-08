@@ -27,10 +27,12 @@ public class ClientRMIView extends UnicastRemoteObject implements ClientRMIRemot
 	private static final long serialVersionUID = 2189915106098111955L;
 	private LocalStorage memoryContainer;
 	private int ID;
+	private String name;
 	
-	public ClientRMIView() throws RemoteException{
+	public ClientRMIView(String name) throws RemoteException{
 		super();
 		memoryContainer = new LocalStorage();
+		this.name = name;
 	}
 	
 	/* (non-Javadoc)
@@ -71,6 +73,10 @@ public class ClientRMIView extends UnicastRemoteObject implements ClientRMIRemot
 	@Override
 	public void printInt(int value) throws RemoteException {
 		this.ID = value;
+	}
+	
+	public String getName(){
+		return this.name;
 	}
 
 }

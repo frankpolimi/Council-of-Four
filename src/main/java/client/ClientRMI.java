@@ -3,6 +3,7 @@
  */
 package client;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.rmi.AlreadyBoundException;
@@ -12,6 +13,8 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.Scanner;
+
+import org.jdom2.JDOMException;
 
 import controller.BonusChange;
 import controller.Change;
@@ -43,16 +46,18 @@ public class ClientRMI extends UnicastRemoteObject implements Serializable{
 		super();
 	}
 	
-	public void startClient() throws RemoteException, NotBoundException{
+	public void startClient() throws NotBoundException, JDOMException, IOException{
 		Registry registry = LocateRegistry.getRegistry(HOST, RMIPORT);
 		
 		ServerRMIViewRemote serverView = (ServerRMIViewRemote) registry.lookup(name);
 		
 		Scanner stdIn = new Scanner(System.in);
 		
-		ClientRMIView rmiView = new ClientRMIView();
-		serverView.registerClient(rmiView);
+		System.out.println("Insert your name:");
+		String nome = stdIn.nextLine();
 		
+		ClientRMIView rmiView = new ClientRMIView(nome);
+		serverView.registerClient(rmiView);
 		/*
 		 * da qui faccio partire la viewCLI per la selezione 
 		 * degli input e l'invio della request

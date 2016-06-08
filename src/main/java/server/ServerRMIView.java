@@ -3,9 +3,12 @@
  */
 package server;
 
+import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.HashSet;
 import java.util.Set;
+
+import org.jdom2.JDOMException;
 
 import client.ClientRMIRemote;
 import controller.Change;
@@ -18,9 +21,11 @@ import view.View;
  */
 public class ServerRMIView extends View implements ServerRMIViewRemote{
 
+	private Server server;
 	private Set<ClientRMIRemote> clients;
 	
-	public ServerRMIView(){
+	public ServerRMIView(Server server){
+		this.server = server;
 		clients = new HashSet<>();
 	}
 
@@ -66,11 +71,8 @@ public class ServerRMIView extends View implements ServerRMIViewRemote{
 	 * @see server.ServerRMIViewRemote#registerClient(client.ClientRMIRemote)
 	 */
 	@Override
-	public void registerClient(ClientRMIRemote client) throws RemoteException {
-		/*
-		 * TODO devo assegnare al client l'intero ID che gli compete
-		 * e ho bisogno di sapere a su quale server questa view è collegata
-		 */
+	public void registerClient(ClientRMIRemote client) throws JDOMException, IOException {
+		server.addRMIClient(client);
 		this.clients.add(client);
 		
 	}
