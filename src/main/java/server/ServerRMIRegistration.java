@@ -5,7 +5,6 @@ package server;
 
 import java.io.IOException;
 import java.rmi.AlreadyBoundException;
-import java.rmi.RemoteException;
 
 import org.jdom2.JDOMException;
 

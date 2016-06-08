@@ -3,11 +3,7 @@ package client;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.Scanner;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.concurrent.ExecutorService;
 
-import javax.sound.midi.Synthesizer;
 
 import model.actions.*;
 import model.game.Game;
@@ -20,7 +16,6 @@ import view.MarketSellingState;
 import view.QuitRequest;
 import view.Request;
 import view.StartState;
-import view.State;
 
 public class ClientOutHandlerSocket implements Runnable 
 {
