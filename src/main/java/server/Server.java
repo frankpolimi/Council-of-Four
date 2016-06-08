@@ -64,15 +64,14 @@ public class Server
 	
 	private void startRMI() throws AccessException, RemoteException, AlreadyBoundException{
 		System.out.println("Constructing RMI server");
-		ServerRMIRegistrationViewRemote serverRMI = 
-				new ServerRMIRegistrationView(this);
-		ServerRMIRegistrationViewRemote serverRMIRemote = 
-				(ServerRMIRegistrationViewRemote) 
-				UnicastRemoteObject.exportObject(serverRMI, 0);
+		Registry registry = LocateRegistry.createRegistry(RMIPORT);
 		
-		System.out.println("Binding server to registry");
-		registry.bind(NAME, serverRMIRemote);
-		System.out.println("ready for client's inputs");
+		ServerRMIView rmiView = new ServerRMIView();
+		rmiView.registerObserver(controller);
+		this.game.registerObserver(rmiView);
+		
+		UnicastRemoteObject.exportObject(rmiView, 0);
+		registry.bind("game", rmiView);
 	}
 	
 	private void startSocket() throws IOException, JDOMException, ClassNotFoundException {
@@ -101,18 +100,7 @@ public class Server
 		}
 	}
 	
-	public synchronized void addRMIClient(View view) throws RemoteException, AlreadyBoundException{
-		view.registerObserver(controller);
-		game.registerObserver(view);
-		ServerRMIRegistrationViewRemote game = new ServerRMIRegistrationView(this);
-		ServerRMIRegistrationViewRemote gameRemote = 
-				(ServerRMIRegistrationViewRemote) UnicastRemoteObject
-				.exportObject(game, 0);
-		String name = "game";
-		registry.rebind(name, gameRemote);
-	}
-	
-	public synchronized void addSocketClient(ServerSocketView view, Player player) throws JDOMException, IOException
+	public void addSocketClient(ServerSocketView view, Player player) throws JDOMException, IOException
 	{
 		view.registerObserver(controller);
 		game.registerObserver(view);

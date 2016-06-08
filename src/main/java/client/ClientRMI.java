@@ -11,6 +11,7 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.Scanner;
 
 import controller.BonusChange;
 import controller.Change;
@@ -18,82 +19,44 @@ import controller.ErrorChange;
 import controller.ModelChange;
 import controller.PermitsChange;
 import controller.StateChange;
-import server.ServerRMIRegistrationViewRemote;
 import server.ServerRMIViewRemote;
+import view.LocalStorage;
 import view.State;
 
 /**
  * @author Francesco Vetrò
  *
  */
-public class ClientRMI extends UnicastRemoteObject implements Serializable, RMIClientRemote{
+public class ClientRMI extends UnicastRemoteObject implements Serializable{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 2606594429637762781L;
+
 	private final static String HOST = "127.0.0.1";
-	private final static int PORT = 1099;
+	private final static int RMIPORT = 1099;
 	
-	
+	private String name = "game";
 	
 	public ClientRMI() throws RemoteException{
 		super();
 	}
 	
-	public void connect() throws RemoteException, NotBoundException, MalformedURLException,
-								AlreadyBoundException
-	{
-		System.out.println("RMI registry bindings");
+	public void startClient() throws RemoteException, NotBoundException{
+		Registry registry = LocateRegistry.getRegistry(HOST, RMIPORT);
 		
-		String name = "game";
+		ServerRMIViewRemote serverView = (ServerRMIViewRemote) registry.lookup(name);
 		
-		Registry registry = LocateRegistry.getRegistry(HOST, PORT);
-		ServerRMIRegistrationViewRemote game = (ServerRMIRegistrationViewRemote)
-				registry.lookup(name);	
+		Scanner stdIn = new Scanner(System.in);
 		
-		ServerRMIViewRemote view = game.register(this);
+		ClientRMIView rmiView = new ClientRMIView();
+		serverView.registerClient(rmiView);
 		
-		
-		while(true){
-			/*
-			 * il controllo e poi si eseguono le azioni
-			 */
-		}
-	}
-	
-	/*
-	 * (non-Javadoc)
-	 * @see client.RMIClientRemote#printChange(controller.Change)
-	 */
-	@Override
-	public void printChange(Change change) throws RemoteException {
-		if(change.getClass().equals(BonusChange.class) || 
-				change.getClass().equals(PermitsChange.class)){
-			System.out.println(change.toString());
-			//memoryContainer = new LocalStorage(change, this.gameLocalCopy);
-		}
-		else if(change.getClass().equals(ModelChange.class)){
-			//this.gameLocalCopy = ((ModelChange)change).getGame();
-			//System.out.println(this.gameLocalCopy);
-		}
-		else if(change.getClass().equals(StateChange.class)){
-			State y = ((StateChange)change).getStateChanged();
-			//this.gameLocalCopy.setGameState(y);
-		}else if(change.getClass().equals(ErrorChange.class)){
-			ErrorChange error=(ErrorChange)change;
-			System.err.println("WARNING!!");
-			System.err.println(error.getMessage());
-		}		
-	}
-
-	@Override
-	public void printString(String string) throws RemoteException {
-		System.out.println(string);
-	}
-
-	@Override
-	public void printInt(int value) throws RemoteException {
+		/*
+		 * da qui faccio partire la viewCLI per la selezione 
+		 * degli input e l'invio della request
+		 */
 		
 	}
 }
