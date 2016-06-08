@@ -75,8 +75,24 @@ public class ClientRMIView extends UnicastRemoteObject implements ClientRMIRemot
 		this.ID = value;
 	}
 	
-	public String getName(){
+	/* (non-Javadoc)
+	 * @see client.ClientRMIRemote#getName()
+	 */
+	@Override
+	public String getName() throws RemoteException{
 		return this.name;
+	}
+	
+	/* (non-Javadoc)
+	 * @see client.ClientRMIRemote#getID()
+	 */
+	@Override
+	public int getID() throws RemoteException{
+		return this.ID;
+	}
+	
+	protected LocalStorage getMemoryContainer() {
+		return this.memoryContainer;
 	}
 
 }

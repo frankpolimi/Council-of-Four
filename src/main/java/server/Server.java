@@ -18,7 +18,6 @@ import java.util.concurrent.*;
 
 import org.jdom2.JDOMException;
 
-import client.ClientRMIRemote;
 import controller.*;
 import model.game.Game;
 import model.game.Player;
@@ -65,14 +64,12 @@ public class Server
 	
 	private void startRMI() throws AccessException, RemoteException, AlreadyBoundException{
 		System.out.println("Constructing RMI server");
-		Registry registry = LocateRegistry.createRegistry(RMIPORT);
+		ServerRMIRegistrationRemote game = new ServerRMIRegistration(this);
 		
-		ServerRMIView rmiView = new ServerRMIView(this);
-		rmiView.registerObserver(controller);
-		this.game.registerObserver(rmiView);
-		
-		UnicastRemoteObject.exportObject(rmiView, 0);
-		registry.bind("game", rmiView);
+		ServerRMIRegistrationRemote gameRemote = 
+				(ServerRMIRegistrationRemote) UnicastRemoteObject
+				.exportObject(game, 0);
+		registry.bind(NAME, gameRemote);
 	}
 	
 	private void startSocket() throws IOException, JDOMException, ClassNotFoundException {
@@ -101,18 +98,23 @@ public class Server
 		}
 	}
 	
-	public synchronized void addRMIClient(ClientRMIRemote client) throws JDOMException, IOException{
-		client.printInt(serialID);
-		Player p = new Player(client.getName(), serialID);
+	public synchronized void addRMIClient(ServerRMIView view) throws JDOMException, IOException{
+		view.setID(serialID);
+		Player p = new Player(view.getClient().getName(), serialID);
 		oneRoomLobby.add(p);
+		playersView.put(p, view);
+		view.registerObserver(controller);
+		game.registerObserver(view);
+		System.out.println("CONNECTION ACCEPTED "+serialID+" "+view.getClient().getName());
+		view.getClient().printChange(new ModelChange(game));
 		serialID++;
 	}
 	
 	public synchronized void addSocketClient(ServerSocketView view, Player player) throws JDOMException, IOException
 	{
+		view.setID(this.serialID);
 		view.registerObserver(controller);
 		game.registerObserver(view);
-		view.setID(this.serialID);
 		oneRoomLobby.add(player);
 		playersView.put(player, view);
 		if(oneRoomLobby.size()>=2){

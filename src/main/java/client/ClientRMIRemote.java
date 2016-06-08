@@ -12,5 +12,5 @@ public interface ClientRMIRemote extends Remote{
 	public void printInt(int value) throws RemoteException;
 	
 	public String getName() throws RemoteException;
-
+	public int getID() throws RemoteException;
 }
