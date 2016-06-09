@@ -108,6 +108,15 @@ public class Server
 		System.out.println("CONNECTION ACCEPTED "+serialID+" "+view.getClient().getName());
 		view.getClient().printChange(new ModelChange(game));
 		serialID++;
+		if(oneRoomLobby.size()>=2){
+			if(timer==null){
+				timer=new Timer();
+				System.out.println("START TIMER");
+				timer.schedule(new StartingGameTimerTask(oneRoomLobby, playersView, game, controller, timer) ,20*1000);
+				if(oneRoomLobby.isEmpty()) 
+					serialID=1;
+			}
+		}	
 	}
 	
 	public synchronized void addSocketClient(ServerSocketView view, Player player) throws JDOMException, IOException
@@ -121,47 +130,9 @@ public class Server
 			if(timer==null){
 				timer=new Timer();
 				System.out.println("START TIMER");
-				timer.schedule(new TimerTask() {
-
-					@Override
-					public void run() {
-						// TODO Auto-generated method stub
-						if(oneRoomLobby.size()>=2){
-							int i=0;
-							while(i<oneRoomLobby.size()){
-								Player player=oneRoomLobby.get(i);
-								try{
-									((ServerSocketView)playersView.get(player)).getSocketOut().writeObject("");
-									i++;
-								}catch(SocketException e){
-									oneRoomLobby.remove(player);
-									playersView.remove(player);
-									
-								}catch(IOException io){
-								}	
-							}
-							
-							if(oneRoomLobby.size()>=2){
-								game.setPlayers(oneRoomLobby);
-								System.out.println("Stato del gioco: "+game.getGameState());
-								game.getPlayers().stream().forEach(System.out::println);
-								System.out.println("NOTIFICA");
-								System.out.println("new game");
-								try {
-									serialID=1;
-									game= new Game();
-									controller= new Controller(game);
-									oneRoomLobby.clear();
-									playersView.clear();
-								} catch (JDOMException | IOException e) {
-									e.printStackTrace();
-								}
-							}
-							timer.cancel();
-							timer=null;
-						}
-					}
-				}, 20*1000);
+				timer.schedule(new StartingGameTimerTask(oneRoomLobby, playersView, game, controller, timer) ,20*1000);
+				if(oneRoomLobby.isEmpty()) 
+					serialID=1;
 			}
 		}	
 	}
