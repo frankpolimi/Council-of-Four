@@ -371,9 +371,8 @@ public class Player implements Serializable{
 			for(PoliticsCard p:this.cardsOwned)
 				if(c.equals(p))
 				{
-					cards.remove(c);
 					cardsOwned.remove(p);
-					continue;
+					break;
 				}
 		}
 	}
