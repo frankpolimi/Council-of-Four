@@ -511,4 +511,12 @@ public class Game extends Observable<Change> implements Serializable, Remote{
 					curr.addPointsTile(pt2);
 					
 	}
+
+
+	/**
+	 * @return the nobilityLane
+	 */
+	public NobilityLane getNobilityLane() {
+		return nobilityLane;
+	}
 }

@@ -44,7 +44,9 @@ public class NobilityBonus extends TileBonus {
 	public void update(Game game) {
 		game.getCurrentPlayer().setNobilityPoints(
 				game.getCurrentPlayer().getNobilityPoints() + this.getAmount());
-		this.notifyObservers(new ModelChange(game));
+		ModelChange x = new ModelChange(game);
+		game.getNobilityLane().update(x);
+		this.notifyObservers(x);
 	}
 
 	/* (non-Javadoc)
