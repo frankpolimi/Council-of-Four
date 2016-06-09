@@ -50,11 +50,12 @@ public class ClientRMI extends UnicastRemoteObject implements Serializable{
 	private String name = "game";
 	
 	private Game game;
-	LocalStorage ls;
+	private LocalStorage ls;
 	
 	
 	public ClientRMI() throws NotBoundException, JDOMException, IOException{
 		super();
+		ls = new LocalStorage();
 	}
 	
 	public void startClient() throws NotBoundException, JDOMException, IOException, AlreadyBoundException{
@@ -68,10 +69,9 @@ public class ClientRMI extends UnicastRemoteObject implements Serializable{
 		System.out.println("Insert your name:");
 		String nome = stdin.nextLine();
 		
-		rmiView = new ClientRMIView(nome, serverRegistration);
+		rmiView = new ClientRMIView(nome, ls, serverRegistration);
 		
 		boolean isUpdated;
-		ls = rmiView.getMemoryContainer();
 		
 		while(true){
 			synchronized (ls) {
