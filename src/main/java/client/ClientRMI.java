@@ -192,9 +192,5 @@ public class ClientRMI extends UnicastRemoteObject implements Serializable{
 		}
 		return "not ready";
 	}
-	
-	public static void main(String[] args) throws NotBoundException, JDOMException, IOException, AlreadyBoundException {
-		ClientRMI client = new ClientRMI();
-		client.startClient();
-	}
+
 }
