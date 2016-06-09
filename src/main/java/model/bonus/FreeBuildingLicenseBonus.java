@@ -53,7 +53,7 @@ public class FreeBuildingLicenseBonus extends ActionBonus {
 		for(int i=0; i< this.amount;i++){
 			for(Region r : game.getRegions())
 				permits.addAll(r.getPermitsDeck().getFaceUpPermits());
-			this.notifyObserver(game.getCurrentPlayer().getPlayerID(), new PermitsChange(permits));
+			game.notifyObserver(game.getCurrentPlayer().getPlayerID(), new PermitsChange(permits));
 		}
 	}
 	

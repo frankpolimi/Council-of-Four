@@ -50,7 +50,7 @@ public class ReuseTileBonus extends ActionBonus {
 			permits = new ArrayList<Bonus>();
 			for(BuildingPermit b: listUnified)
 				permits.addAll(b.getBonusList());
-			this.notifyObserver(game.getCurrentPlayer().getPlayerID(), new BonusChange(permits));
+			game.notifyObserver(game.getCurrentPlayer().getPlayerID(), new BonusChange(permits));
 		}
 	}
 	

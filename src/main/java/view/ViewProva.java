@@ -74,7 +74,7 @@ public class ViewProva extends View {
 		players.add(p2);
 		players.add(p3);
 		game.setPlayers(players);
-		p1.setNobilityPoints(1);
+		p1.setNobilityPoints(9);
 		p1.setCoins(100000);
 		Region mountain=game.getRegions().stream().filter(e->e.getName().equalsIgnoreCase("mountain")).findFirst().get();
 		List<ColoredPoliticsCard> carte=new ArrayList<>();

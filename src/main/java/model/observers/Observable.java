@@ -30,7 +30,7 @@ public abstract class Observable<C> {
 	}
 	
 	public void notifyObserver(int specificView, C c){
-		this.observers.get(specificView).update(c);
+		this.observers.get(specificView-1).update(c);
 	}
 	
 	public void notifyObservers(C c){

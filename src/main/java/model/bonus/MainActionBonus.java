@@ -3,6 +3,7 @@
  */
 package model.bonus;
 
+import controller.ModelChange;
 import model.game.Game;
 
 /**
@@ -36,8 +37,8 @@ public class MainActionBonus extends ActionBonus {
 	 */
 	@Override
 	public void update(Game game) {
-		
 		game.incrementMainActionCounter();
+		game.notifyObservers(new ModelChange(game));
 	}
 
 	/* (non-Javadoc)

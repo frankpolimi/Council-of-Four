@@ -53,7 +53,7 @@ public class CityBonus extends ActionBonus {
 			for(Emporium e : game.getCurrentPlayer().getEmporium())
 				cities.addAll(
 						super.checkNoNobility(e.getCity().getBonus()));
-			this.notifyObserver(game.getCurrentPlayer().getPlayerID(), new BonusChange(cities));
+			game.notifyObserver(game.getCurrentPlayer().getPlayerID(), new BonusChange(cities));
 		}
 	}
 	
