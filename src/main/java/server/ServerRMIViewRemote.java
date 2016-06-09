@@ -7,6 +7,8 @@ import view.Request;
 
 public interface ServerRMIViewRemote extends Remote{
 
-	public void sendRequest(Request request) throws RemoteException;
+	public void receiveRequest(Request request) throws RemoteException;
+	
+	public void sendString(String string) throws RemoteException;
 	
 }

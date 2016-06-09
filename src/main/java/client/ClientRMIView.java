@@ -52,16 +52,23 @@ public class ClientRMIView extends UnicastRemoteObject implements ClientRMIRemot
 		if(change.getClass().equals(BonusChange.class) || 
 				change.getClass().equals(PermitsChange.class)){
 			System.out.println(change.toString());
-			memoryContainer = new LocalStorage(change, memoryContainer.getGameRef());
+			synchronized (memoryContainer) {
+				memoryContainer = new LocalStorage(change, memoryContainer.getGameRef());
+			}
 		}
 		else if(change.getClass().equals(ModelChange.class)){
-			memoryContainer.setGameRef(((ModelChange)change).getGame());;
+			synchronized (memoryContainer) {
+				memoryContainer.setGameRef(((ModelChange)change).getGame());
+			}
 			System.out.println(memoryContainer.getGameRef());
 		}
 		else if(change.getClass().equals(StateChange.class)){
 			State y = ((StateChange)change).getStateChanged();
-			this.memoryContainer.getGameRef().setGameState(y);
-		}else if(change.getClass().equals(ErrorChange.class)){
+			synchronized (memoryContainer) {
+				this.memoryContainer.getGameRef().setGameState(y);
+			}
+		}
+		else if(change.getClass().equals(ErrorChange.class)){
 			ErrorChange error=(ErrorChange)change;
 			System.err.println("WARNING!!");
 			System.err.println(error.getMessage());
@@ -106,7 +113,7 @@ public class ClientRMIView extends UnicastRemoteObject implements ClientRMIRemot
 
 	@Override
 	public void sendRequestToServerView(Request request) throws RemoteException {
-		serverView.sendRequest(request);
+		serverView.receiveRequest(request);
 	}
 
 }

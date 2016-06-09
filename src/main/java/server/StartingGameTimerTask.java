@@ -44,7 +44,11 @@ public class StartingGameTimerTask extends TimerTask {
 			while(i<oneRoomLobby.size()){
 				Player player=oneRoomLobby.get(i);
 				try{
-					((ServerSocketView)playersView.get(player)).getSocketOut().writeObject("");
+					View x = playersView.get(player);
+					if(x.getClass().equals(ServerSocketView.class))
+						((ServerSocketView)x).getSocketOut().writeObject("");
+					else
+						((ServerRMIViewRemote)x).sendString("");
 					i++;
 				}catch(SocketException e){
 					oneRoomLobby.remove(player);

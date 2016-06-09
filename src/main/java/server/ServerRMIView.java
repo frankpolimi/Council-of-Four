@@ -26,7 +26,7 @@ public class ServerRMIView extends View implements ServerRMIViewRemote{
 	}
 
 	@Override
-	public void sendRequest(Request request) throws RemoteException {
+	public void receiveRequest(Request request) throws RemoteException {
 		this.notifyObservers(request);
 		//TODO mettere try catch in caso di azione non fattibile
 	}
@@ -60,5 +60,10 @@ public class ServerRMIView extends View implements ServerRMIViewRemote{
 	
 	public ClientRMIRemote getClient(){
 		return client;
+	}
+
+	@Override
+	public void sendString(String string) throws RemoteException {
+		this.update(string);
 	}
 }

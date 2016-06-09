@@ -22,6 +22,7 @@ import server.ServerRMIViewRemote;
 import view.ActionRequest;
 import view.ClientView;
 import view.EndState;
+import view.LocalStorage;
 import view.MarketBuyingState;
 import view.MarketSellingState;
 import view.QuitRequest;
@@ -49,6 +50,7 @@ public class ClientRMI extends UnicastRemoteObject implements Serializable{
 	private String name = "game";
 	
 	private Game game;
+	LocalStorage ls;
 	
 	
 	public ClientRMI() throws NotBoundException, JDOMException, IOException{
@@ -69,11 +71,12 @@ public class ClientRMI extends UnicastRemoteObject implements Serializable{
 		rmiView = new ClientRMIView(nome, serverRegistration);
 		
 		boolean isUpdated;
+		ls = rmiView.getMemoryContainer();
 		
 		while(true){
-			synchronized (rmiView.getMemoryContainer()) {
-				game = rmiView.getMemoryContainer().getGameRef();
-				isUpdated = rmiView.getMemoryContainer().isUpdated();
+			synchronized (ls) {
+				game = ls.getGameRef();
+				isUpdated = ls.isUpdated();
 			}
 			
 			if(game.getGameState()!=null&&isUpdated){
@@ -86,10 +89,10 @@ public class ClientRMI extends UnicastRemoteObject implements Serializable{
 				String inputLine = this.start(stdin);
 				if(inputLine.equals("")){
 					try {
-						if(!rmiView.getMemoryContainer().getGameRef().getGameState().getClass().equals(EndState.class)){
+						if(!ls.getGameRef().getGameState().getClass().equals(EndState.class)){
 							rmiView.sendRequestToServerView(request);
-							synchronized (rmiView.getMemoryContainer()) {
-								rmiView.getMemoryContainer().setUpdated(false);
+							synchronized (ls) {
+								ls.setUpdated(false);
 							}
 						}
 					} catch (IOException e) {
@@ -120,13 +123,13 @@ public class ClientRMI extends UnicastRemoteObject implements Serializable{
 
 	private String start(Scanner stdin) throws RemoteException, NotBoundException {
 		int actionType;
-		ClientView view = new ClientView(game, rmiView.getMemoryContainer(), rmiView.getID());
+		ClientView view = new ClientView(game, ls, rmiView.getID());
 		if(game.isLastTurn())
 			System.err.println("THIS IS YOUR LAST TURN");
 		if(this.game.getGameState().getClass().equals(StartState.class)){
-			if(!rmiView.getMemoryContainer().getBonus().isEmpty())
+			if(!ls.getBonus().isEmpty())
 				request = view.bonus(stdin);
-			else if(!rmiView.getMemoryContainer().getPermits().isEmpty())
+			else if(!ls.getPermits().isEmpty())
 				request = view.permit(stdin);
 			else{	
 				game.getGameState().display();
