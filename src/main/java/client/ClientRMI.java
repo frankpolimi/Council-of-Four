@@ -66,9 +66,7 @@ public class ClientRMI extends UnicastRemoteObject implements Serializable{
 		System.out.println("Insert your name:");
 		String nome = stdin.nextLine();
 		
-		rmiView = new ClientRMIView(nome);
-		
-		ServerRMIViewRemote serverView = serverRegistration.register(rmiView);
+		rmiView = new ClientRMIView(nome, serverRegistration);
 		
 		boolean isUpdated;
 		
@@ -89,7 +87,7 @@ public class ClientRMI extends UnicastRemoteObject implements Serializable{
 				if(inputLine.equals("")){
 					try {
 						if(!rmiView.getMemoryContainer().getGameRef().getGameState().getClass().equals(EndState.class)){
-							serverView.sendRequest(request);
+							rmiView.sendRequestToServerView(request);
 							synchronized (rmiView.getMemoryContainer()) {
 								rmiView.getMemoryContainer().setUpdated(false);
 							}
@@ -107,7 +105,7 @@ public class ClientRMI extends UnicastRemoteObject implements Serializable{
 					if(scanner.nextLine().equalsIgnoreCase("yes")){
 						System.err.println("You have been disconnected");
 						try {
-							serverView.sendRequest(new QuitRequest(rmiView.getID()));
+							rmiView.sendRequestToServerView(new QuitRequest(rmiView.getID()));
 							registry.unbind(name);
 							break;
 						} catch (IOException e) {

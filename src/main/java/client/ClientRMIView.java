@@ -3,8 +3,12 @@
  */
 package client;
 
+import java.io.IOException;
+import java.rmi.AlreadyBoundException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+
+import org.jdom2.JDOMException;
 
 import controller.BonusChange;
 import controller.Change;
@@ -12,7 +16,10 @@ import controller.ErrorChange;
 import controller.ModelChange;
 import controller.PermitsChange;
 import controller.StateChange;
+import server.ServerRMIRegistrationRemote;
+import server.ServerRMIViewRemote;
 import view.LocalStorage;
+import view.Request;
 import view.State;
 
 /**
@@ -25,14 +32,16 @@ public class ClientRMIView extends UnicastRemoteObject implements ClientRMIRemot
 	 * 
 	 */
 	private static final long serialVersionUID = 2189915106098111955L;
+	private ServerRMIViewRemote serverView;
 	private LocalStorage memoryContainer;
 	private int ID;
 	private String name;
 	
-	public ClientRMIView(String name) throws RemoteException{
+	public ClientRMIView(String name, ServerRMIRegistrationRemote serverRegistration) throws AlreadyBoundException, JDOMException, IOException{
 		super();
 		memoryContainer = new LocalStorage();
 		this.name = name;
+		this.serverView = serverRegistration.register(this);
 	}
 	
 	/* (non-Javadoc)
@@ -93,6 +102,11 @@ public class ClientRMIView extends UnicastRemoteObject implements ClientRMIRemot
 	
 	protected LocalStorage getMemoryContainer() {
 		return this.memoryContainer;
+	}
+
+	@Override
+	public void sendRequestToServerView(Request request) throws RemoteException {
+		serverView.sendRequest(request);
 	}
 
 }

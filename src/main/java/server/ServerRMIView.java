@@ -28,9 +28,9 @@ public class ServerRMIView extends View implements ServerRMIViewRemote{
 	@Override
 	public void sendRequest(Request request) throws RemoteException {
 		this.notifyObservers(request);
+		//TODO mettere try catch in caso di azione non fattibile
 	}
 
-	//TODO aggiungere la change univoca
 	@Override
 	public void update(Change c){
 		try {
@@ -40,7 +40,6 @@ public class ServerRMIView extends View implements ServerRMIViewRemote{
 		}
 	}
 	
-	//TODO cambia per scrivere le stringhe
 	public void update(String s){
 		try {
 			client.printString(s);
@@ -49,7 +48,6 @@ public class ServerRMIView extends View implements ServerRMIViewRemote{
 		}
 	}
 	
-	//TODO cambia per scrivere l'id unico
 	@Override
 	public void setID(int iD){
 		this.ID = iD;
