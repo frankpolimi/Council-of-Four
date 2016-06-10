@@ -15,10 +15,11 @@ import controller.Change;
 import controller.Controller;
 import controller.ModelChange;
 import controller.PermitsChange;
+import controller.StateChange;
 import model.actions.AcquirePermit;
-import model.actions.Action;
+import model.actions.*;
 import model.actions.BuildEmporiumByPermit;
-import model.bonus.Bonus;
+import model.bonus.*;
 import model.bonus.GetPoliticBonus;
 import model.bonus.NobilityBonus;
 import model.game.BuildingPermit;
@@ -65,13 +66,33 @@ public class ViewProva extends View {
 		System.out.println("CAMBIAMENTO");
 		System.out.println(change);
 		if(change.getClass().equals(PermitsChange.class)){
+			System.out.println("Permessi FACEUPS");
+			for(Region r:game.getRegions()){
+				System.out.println("REGIONE "+r.getName());
+				System.out.println(r.getPermitsDeck().getFaceUpPermits().toString());
+			}
+			System.out.println();
 			PermitsChange permit=(PermitsChange)change;
-			System.out.println("Lista permessi"+permit.getPermits());
+			for(int i=0;i<permit.getPermits().size();i++)
+				System.out.println((i+1)+"- "+permit.getPermits().get(i));
+			Scanner scanner=new Scanner(System.in);
+			int scelta=scanner.nextInt();
+			PermitsRequest permitReq=new PermitsRequest(game.getCurrentPlayer().getPlayerID());
+			permitReq.addPermit(permit.getPermits().get(scelta-1));
+			this.notifica(permitReq);
 		}else if(change.getClass().equals(BonusChange.class)){
 			BonusChange bonus=(BonusChange)change;
-			System.out.println("lista bonus "+bonus.getBonusList());
+			for(int i=0;i<bonus.getBonusList().size();i++)
+				System.out.println((i+1)+"- "+bonus.getBonusList().get(i));
+			Scanner scanner=new Scanner(System.in);
+			int scelta=scanner.nextInt();
+			BonusRequest request=new BonusRequest(game.getCurrentPlayer().getPlayerID());
+			request.addBonus(bonus.getBonusList().get(scelta-1));
+			this.notifica(request);
 		}else if(change.getClass().equals(ModelChange.class)){
 			System.out.println(((ModelChange)change).getGame().getCurrentPlayer());
+		}else if(change.getClass().equals(StateChange.class)){
+			((StateChange)change).getStateChanged().display();
 		}
 	}
 
@@ -88,10 +109,10 @@ public class ViewProva extends View {
 		players.add(p2);
 		players.add(p3);
 		game.setPlayers(players);
-		p1.setNobilityPoints(15);
+		p1.setNobilityPoints(9);
 		p1.setCoins(100000);
-		view.provaFinePartita(p1, view);
-
+		//view.provaFinePartita(p1,p2,p3, view);
+		view.avanzamentoNobiltà(p1, view);
 	}
 	
 	public void avanzamentoNobiltà(Player p1, ViewProva view) throws InterruptedException{
@@ -132,15 +153,15 @@ public class ViewProva extends View {
 		ArrayList<PoliticsCard> carte3=new ArrayList<>();
 		carte3.addAll(carte2);
 		
-		game.setCurrentPlayer(p1);
+		//game.setCurrentPlayer(p1);
 		System.out.println("Carte usate "+carte3+"\n");
 		System.out.println("Carta prossima "+game.getPoliticsDeck().getCardAtIndex(0));
-		view.notifica(new ActionRequest((Action)new AcquirePermit(mountain.getCouncil(), carte3, permessoScelto),1));
+		view.notifica(new ActionRequest((Action)new AcquirePermit(mountain.getCouncil(), carte3, permessoScelto),p1.getPlayerID()));
 
 
 	}
 	
-	public void provaFinePartita(Player p1, ViewProva view){
+	public void provaFinePartita(Player p1, Player p2, Player p3, ViewProva view) throws InterruptedException{
 		p1.setRemainingEmporiums(1);
 		Set<City> cities=new HashSet<>();
 		cities.add(game.getMap().getVertexByKey("a"));
@@ -152,6 +173,15 @@ public class ViewProva extends View {
 		p1.getBuildingPermits().add(permit);
 		Request request=new ActionRequest(new BuildEmporiumByPermit(permit, game.getMap().getVertexByKey("C")),1);
 		view.notifica(request);
+		request=new ActionRequest(new SkipAction(),1);
+		view.notifica(request);
+		view.avanzamentoNobiltà(p2, view);
+		request=new ActionRequest(new SkipAction(),2);
+		view.notifica(request);
+		view.avanzamentoNobiltà(p3, view);
+		request=new ActionRequest(new SkipAction(),3);
+		view.notifica(request);
+		
 	}
 
 }
