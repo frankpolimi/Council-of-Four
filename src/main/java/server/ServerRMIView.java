@@ -27,8 +27,11 @@ public class ServerRMIView extends View implements ServerRMIViewRemote{
 
 	@Override
 	public void receiveRequest(Request request) throws RemoteException {
-		this.notifyObservers(request);
-		//TODO mettere try catch in caso di azione non fattibile
+		try{
+			this.notifyObservers(request);
+		}catch (IllegalArgumentException | IllegalStateException e1){
+			this.client.printString(e1.getMessage());
+		}
 	}
 
 	@Override
