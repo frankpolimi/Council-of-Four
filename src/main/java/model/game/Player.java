@@ -102,6 +102,7 @@ public class Player implements Serializable{
 	 */
 	public void addEmporium(Emporium e){
 		emporiumsOwned.add(e);
+		remainingEmporiums--;
 	}
 	
 	/**
