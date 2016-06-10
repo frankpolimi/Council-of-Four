@@ -24,11 +24,6 @@ public class BonusRequest extends Request {
 		super(iD);
 		bonusList = new ArrayList<Bonus>();
 	}
-	
-	public BonusRequest(List<Bonus> bonusList, int iD) {
-		super(iD);
-		this.bonusList = bonusList;
-	}
 
 	/**
 	 * @return the bonusList

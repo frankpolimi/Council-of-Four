@@ -25,11 +25,6 @@ public class PermitsRequest extends Request {
 		permits = new ArrayList<BuildingPermit>();
 	}
 
-	public PermitsRequest(List<BuildingPermit> permits, int iD) {
-		super(iD);
-		this.permits = permits;
-		
-	}
 
 	/**
 	 * the permits the player can obtain freely
