@@ -171,5 +171,15 @@ public class Market implements Serializable{
 				available.add(o);
 		return available.size();
 	}
+
+	//solo per provare.. va tolto!
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Market [products=" + products + "]";
+	}
+	
 	
 }

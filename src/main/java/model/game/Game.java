@@ -91,7 +91,7 @@ public class Game extends Observable<Change> implements Serializable, Remote{
 		this.nobilityLane=mp.createNobilityLane();
 		this.kingsPosition=this.map.getVertexByKey("J");
 		this.market=new Market(this);
-		this.shuffledPlayers=new ArrayList<>(this.players);
+		this.shuffledPlayers=new ArrayList<>();
 		this.disconnectedPlayers=new ArrayList<>();
 		this.timer=new Timer();
 	}
@@ -106,6 +106,7 @@ public class Game extends Observable<Change> implements Serializable, Remote{
 		}
 		this.currentPlayer=this.players.get(0);
 		this.lastTurnRemainingPlayers=this.players.size();
+		this.shuffledPlayers.addAll(this.players);
 		this.gameState=new StartState();
 		this.mainActionCounter = 1;
 		this.quickActionCounter = 1;
@@ -446,7 +447,6 @@ public class Game extends Observable<Change> implements Serializable, Remote{
 		}else{
 			this.gameState=new StartState();
 		}
-		this.notifyObservers(new StateChange(this.gameState));
 	}
 
 	/**

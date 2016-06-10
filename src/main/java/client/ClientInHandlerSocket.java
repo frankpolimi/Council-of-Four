@@ -58,10 +58,6 @@ public class ClientInHandlerSocket implements Runnable
 			else if(x.getClass().equals(ModelChange.class)){
 				this.gameLocalCopy = ((ModelChange)x).getGame();
 				System.out.println(this.gameLocalCopy);
-			}
-			else if(x.getClass().equals(StateChange.class)){
-				State y = ((StateChange)x).getStateChanged();
-				this.gameLocalCopy.setGameState(y);
 			}else if(x.getClass().equals(ErrorChange.class)){
 				ErrorChange error=(ErrorChange)x;
 				System.err.println("WARNING!!");
