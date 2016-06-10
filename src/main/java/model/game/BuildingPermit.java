@@ -80,7 +80,7 @@ public class BuildingPermit extends Bonusable implements Serializable{
 		for(City c:this.getBuildingAvaliableCities()){
 			message=message.concat(c.getName()+", ");
 		}
-		return message.concat("\nBonus\n"+this.getBonusList()+"\n\n");
+		return message.concat("\nBonus\n"+this.getBonusList()+"\n");
 	}
 
 	/**

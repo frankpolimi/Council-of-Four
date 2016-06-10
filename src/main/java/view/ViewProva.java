@@ -239,7 +239,12 @@ public class ViewProva extends View {
 		view.notifica(new ActionRequest(new SkipAction(),game.getCurrentPlayer().getPlayerID()));
 		view.notifica(new ActionRequest(new SkipAction(),game.getCurrentPlayer().getPlayerID()));
 		view.notifica(new ActionRequest(new SkipAction(),game.getCurrentPlayer().getPlayerID()));
-		
+		System.out.println("Giocatore 1");
+		System.out.println(p1);
+		System.out.println("Giocatore 2");
+		System.out.println(p2);
+		System.out.println("Giocatore 3");
+		System.out.println(p3);
 		
 	}
 }

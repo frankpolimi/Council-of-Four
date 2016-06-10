@@ -13,6 +13,7 @@ import model.actions.ElectCouncillor;
 import model.actions.ElectCouncillorByAssistant;
 import model.actions.EngageAssistant;
 import model.actions.ExtraMainAction;
+import model.actions.SkipAction;
 import model.bonus.Bonus;
 import model.game.BuildingPermit;
 import model.game.Game;
@@ -290,17 +291,22 @@ public class ClientView{
 	 */
 	public Request buyProducts(Scanner stdin) {
 		System.out.println("These are the object for sale now!");
-		System.out.println(game.getMarket().getAvailableProducts(getPlayerByID()));
+		int i=0;
+		for(MarketObject<?> obj:game.getMarket().getAvailableProducts(getPlayerByID())){
+			i++;
+			System.out.println(i+"- "+obj.toString());
+		}
 		System.out.println("Are you interested from something? Y/N");
 		String answer=stdin.nextLine();
 		if(answer.equalsIgnoreCase("N")){
 			System.out.println("Ok, the turn passes to the next one player");
+			return new ActionRequest(new SkipAction(),ID);
 		}else if(answer.equalsIgnoreCase("Y")){
 			System.out.println("Select the product you want to buy");
 			int selection = this.selector(1, 
 					game.getMarket().getLengthAvailableProducts(getPlayerByID()), stdin);
 			return new MarketRequest<>(
-					game.getMarket().getAvailableProducts(getPlayerByID()).get(selection));
+					game.getMarket().getAvailableProducts(getPlayerByID()).get(selection-1),ID);
 		}else{
 			System.out.println("You are insert a not valid value");
 		}
@@ -337,14 +343,14 @@ public class ClientView{
 			PoliticsCard card=getPlayerByID().getCardsOwned().get(cardIndex-1);
 			int price=this.priceInsertion(stdin);
 			return new MarketRequest<PoliticsCard>(
-					new MarketObject<PoliticsCard>(card, getPlayerByID(), price));
+					new MarketObject<PoliticsCard>(card, getPlayerByID(), price),ID);
 		case 2:
 			System.out.println("Insert the number of building permit that interested you");
 			int permitIndex=this.selector(1, getPlayerByID().getBuildingPermits().size(), stdin);
 			BuildingPermit permit=getPlayerByID().getBuildingPermits().get(permitIndex-1);
 			price=this.priceInsertion(stdin);
 			return new MarketRequest<BuildingPermit>(
-					new MarketObject<BuildingPermit>(permit, getPlayerByID(), price));
+					new MarketObject<BuildingPermit>(permit, getPlayerByID(), price),ID);
 		case 3:
 			System.out.println("Insert the amount of assistant you would sell");
 			int assistantNumber=this.selector(1, getPlayerByID().getAssistants(), stdin);
@@ -352,7 +358,7 @@ public class ClientView{
 			price=this.priceInsertion(stdin);
 			Assistant assistant= new Assistant(assistantNumber);
 			return new MarketRequest<Assistant>(
-					new MarketObject<Assistant>(assistant, getPlayerByID(), price));
+					new MarketObject<Assistant>(assistant, getPlayerByID(), price),ID);
 		}
 		return null;
 	}
