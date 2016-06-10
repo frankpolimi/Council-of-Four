@@ -40,7 +40,7 @@ public class ClientRMIView extends UnicastRemoteObject implements ClientRMIRemot
 	
 	public ClientRMIView(String name, LocalStorage ls, ServerRMIRegistrationRemote serverRegistration) throws AlreadyBoundException, JDOMException, IOException{
 		super();
-		memoryContainer = ls;
+		this.memoryContainer = ls;
 		this.name = name;
 		this.serverView = serverRegistration.register(this);
 	}
