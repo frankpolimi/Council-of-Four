@@ -1,5 +1,6 @@
 package server;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.*;
 import java.rmi.AccessException;
@@ -16,7 +17,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.*;
 
-import org.jdom2.JDOMException;
+import org.jdom2.*;
+import org.jdom2.input.SAXBuilder;
 
 import controller.*;
 import model.game.Game;
@@ -25,8 +27,8 @@ import view.View;
 
 public class Server 
 {
-	private final static int SOCKETPORT=50000;
-	private final static int RMIPORT = 1099;
+	private final int SOCKETPORT;
+	private final int RMIPORT;
 	
 	private Timer timer;
 	private int serialID = 1;
@@ -45,8 +47,11 @@ public class Server
 	private List<Player> oneRoomLobby;
 	private Map<Player, View> playersView;
 	
-	public Server() throws JDOMException, IOException
+	public Server(int socketPort, int RMIPort) throws JDOMException, IOException
 	{
+		this.SOCKETPORT = socketPort;
+		this.RMIPORT = RMIPort;
+		
 		game=new Game();
 		controller=new Controller(game);
 		registry = LocateRegistry.createRegistry(RMIPORT);
@@ -143,8 +148,18 @@ public class Server
 	
 	public static void main(String[] args) throws JDOMException, IOException {
 		
-		Server server = new Server();
-		//Timer timer;
+		SAXBuilder builder=new SAXBuilder();
+		Document document= builder.build(new File("src/main/resources/configIP_PORT.xml"));
+		Element root = document.getRootElement();
+		
+		String ip = ((String)root.getChild("IP").getAttributeValue("value"));
+		int socket = Integer.parseInt(root.getChild("PORT").getChild("SOCKETPORT")
+				.getAttributeValue("value"));
+		int rmi = Integer.parseInt(root.getChild("PORT").getChild("RMIPORT")
+				.getAttributeValue("value"));
+		
+		Server server = new Server(socket, rmi);
+
 		try {
 			server.start();
 		} catch (ClassNotFoundException e) {
