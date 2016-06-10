@@ -290,7 +290,7 @@ public class ClientView{
 	 */
 	public Request buyProducts(Scanner stdin) {
 		System.out.println("These are the object for sale now!");
-		game.getMarket().getAvailableProducts(getPlayerByID());
+		System.out.println(game.getMarket().getAvailableProducts(getPlayerByID()));
 		System.out.println("Are you interested from something? Y/N");
 		String answer=stdin.nextLine();
 		if(answer.equalsIgnoreCase("N")){

@@ -79,7 +79,6 @@ public class Controller implements Observer<Request>{
 				game.getMarket().addProduct(action.getObject());
 			else if(game.getGameState().getClass().equals(MarketBuyingState.class))
 				game.getMarket().buyElement(game.getCurrentPlayer(), action.getObject());
-			game.notifyObserver(request.getID(), new ModelChange(game));
 		}else if(request instanceof BonusRequest){
 			BonusRequest action=(BonusRequest)request;
 			for(Bonus b:action.getBonusList()){

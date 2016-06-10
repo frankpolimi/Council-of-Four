@@ -44,16 +44,24 @@ public class SkipAction extends Action
 			int currentIndex=ref.indexOf(current);
 			
 			if(currentIndex+1==ref.size()){
-				nextPlayer=ref.get(0);
-				game.setCurrentPlayer(nextPlayer);
 				if(!game.isLastTurn())
 					game.nextState();
+				if(game.getGameState().getClass().equals(MarketBuyingState.class)){
+					ref=game.getShuffledPlayers();
+				}else{
+					ref=game.getPlayers();
+				}
+				nextPlayer=ref.get(0);
+				game.setCurrentPlayer(nextPlayer);
+				
 			}else{
 				nextPlayer=ref.get(currentIndex+1);
 				game.setCurrentPlayer(nextPlayer);	
 			}
 			
-			game.incrementMainActionCounter();
+			if(game.getMainActionCounter()==0)
+				game.incrementMainActionCounter();
+			
 			if(game.getQuickActionCounter()==0){
 				game.incrementQuickActionCounter();
 			}
@@ -66,7 +74,7 @@ public class SkipAction extends Action
 			game.getTimer().cancel();
 			game.setTimer(new Timer());
 			game.getTimer().schedule(new DisconnectionTimer(game), Game.DISCONNECTION_TIME);
-			super.takeAction(game);
+			
 			
 			if(game.getPlayers().size()==1){
 				game.notifyObservers(new ErrorChange("Player "+game.getCurrentPlayer().getName()+" - "+game.getCurrentPlayer().getPlayerID()+
@@ -74,6 +82,7 @@ public class SkipAction extends Action
 				game.setGameState(new EndState(game.getCurrentPlayer()));
 				game.getTimer().cancel();
 			}
+			super.takeAction(game);
 			return true;
 		}
 		

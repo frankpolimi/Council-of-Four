@@ -24,6 +24,7 @@ import model.bonus.GetPoliticBonus;
 import model.bonus.NobilityBonus;
 import model.game.BuildingPermit;
 import model.game.Game;
+import model.game.PermitsDeck;
 import model.game.Player;
 import model.game.council.Councillor;
 import model.game.politics.ColoredPoliticsCard;
@@ -65,6 +66,7 @@ public class ViewProva extends View {
 	public void update(Change change){
 		System.out.println("CAMBIAMENTO");
 		System.out.println(change);
+		Scanner scanner=new Scanner(System.in);
 		if(change.getClass().equals(PermitsChange.class)){
 			System.out.println("Permessi FACEUPS");
 			for(Region r:game.getRegions()){
@@ -75,7 +77,7 @@ public class ViewProva extends View {
 			PermitsChange permit=(PermitsChange)change;
 			for(int i=0;i<permit.getPermits().size();i++)
 				System.out.println((i+1)+"- "+permit.getPermits().get(i));
-			Scanner scanner=new Scanner(System.in);
+			scanner=new Scanner(System.in);
 			int scelta=scanner.nextInt();
 			PermitsRequest permitReq=new PermitsRequest(game.getCurrentPlayer().getPlayerID());
 			permitReq.addPermit(permit.getPermits().get(scelta-1));
@@ -84,16 +86,30 @@ public class ViewProva extends View {
 			BonusChange bonus=(BonusChange)change;
 			for(int i=0;i<bonus.getBonusList().size();i++)
 				System.out.println((i+1)+"- "+bonus.getBonusList().get(i));
-			Scanner scanner=new Scanner(System.in);
+			scanner=new Scanner(System.in);
 			int scelta=scanner.nextInt();
 			BonusRequest request=new BonusRequest(game.getCurrentPlayer().getPlayerID());
 			request.addBonus(bonus.getBonusList().get(scelta-1));
 			this.notifica(request);
 		}else if(change.getClass().equals(ModelChange.class)){
 			System.out.println(((ModelChange)change).getGame().getCurrentPlayer());
-		}else if(change.getClass().equals(StateChange.class)){
-			((StateChange)change).getStateChanged().display();
+			
+			ClientView view=new ClientView(game, new LocalStorage(), game.getCurrentPlayer().getPlayerID());
+			if(game.getGameState().getClass().equals(MarketSellingState.class)){
+				game.getGameState().display();
+				int scelta=scanner.nextInt();
+				while(scelta!=2){
+					scanner.reset();
+					this.notifica(view.addProduct(scanner));
+					game.getGameState().display();
+					scelta=scanner.nextInt();
+				}
+			}else if(game.getGameState().getClass().equals(MarketBuyingState.class)){
+				this.notifica(view.buyProducts(scanner));
+			}
 		}
+		
+			
 	}
 
 
@@ -112,7 +128,8 @@ public class ViewProva extends View {
 		p1.setNobilityPoints(9);
 		p1.setCoins(100000);
 		//view.provaFinePartita(p1,p2,p3, view);
-		view.avanzamentoNobiltà(p1, view);
+		//view.avanzamentoNobiltà(p1, view);
+		view.provaMarket(p1, p2, p3, view);
 	}
 	
 	public void avanzamentoNobiltà(Player p1, ViewProva view) throws InterruptedException{
@@ -184,4 +201,45 @@ public class ViewProva extends View {
 		
 	}
 
+	public void provaMarket(Player p1, Player p2, Player p3, ViewProva view){
+		game.decrementMainActionCounter();
+		game.setCurrentPlayer(p3);
+		p1.setAssistants(100);
+		p1.setCoins(100);
+		p2.setAssistants(30);
+		p2.setCoins(100);
+		p3.setAssistants(15);
+		p3.setCoins(200);
+		PermitsDeck mountainDeck=game.getRegions().stream().filter(e->e.getName().equalsIgnoreCase("mountain")).findFirst().get().getPermitsDeck();
+		for(int i=0;i<4;i++){
+			Random random=new Random();
+			int pos=random.nextInt(mountainDeck.getBuildingPermitsDeck().size());
+			BuildingPermit permit=mountainDeck.getBuildingPermitsDeck().remove(pos);
+			p1.addBuildingPermit(permit);
+		}
+		mountainDeck=game.getRegions().stream().filter(e->e.getName().equalsIgnoreCase("hill")).findFirst().get().getPermitsDeck();
+		for(int i=0;i<4;i++){
+			Random random=new Random();
+			int pos=random.nextInt(mountainDeck.getBuildingPermitsDeck().size());
+			BuildingPermit permit=mountainDeck.getBuildingPermitsDeck().remove(pos);
+			p2.addBuildingPermit(permit);
+		}
+		for(int i=0;i<4;i++){
+			Random random=new Random();
+			int pos=random.nextInt(mountainDeck.getBuildingPermitsDeck().size());
+			BuildingPermit permit=mountainDeck.getBuildingPermitsDeck().remove(pos);
+			p3.addBuildingPermit(permit);
+		}
+		view.notifica(new ActionRequest(new SkipAction(),3));
+		view.notifica(new ActionRequest(new SkipAction(),1));
+		view.notifica(new ActionRequest(new SkipAction(),2));
+		System.out.println("Oggetti risultati ");
+		System.out.println(game.getMarket().toString());
+		view.notifica(new ActionRequest(new SkipAction(),3));
+		view.notifica(new ActionRequest(new SkipAction(),game.getCurrentPlayer().getPlayerID()));
+		view.notifica(new ActionRequest(new SkipAction(),game.getCurrentPlayer().getPlayerID()));
+		view.notifica(new ActionRequest(new SkipAction(),game.getCurrentPlayer().getPlayerID()));
+		
+		
+	}
 }
