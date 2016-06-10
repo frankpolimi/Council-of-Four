@@ -13,6 +13,7 @@ import org.jdom2.JDOMException;
 import controller.BonusChange;
 import controller.Change;
 import controller.ErrorChange;
+import controller.MarketChange;
 import controller.ModelChange;
 import controller.PermitsChange;
 import controller.StateChange;
@@ -73,6 +74,12 @@ public class ClientRMIView extends UnicastRemoteObject implements ClientRMIRemot
 			ErrorChange error=(ErrorChange)change;
 			System.err.println("WARNING!!");
 			System.err.println(error.getMessage());
+		}
+		else if(change.getClass().equals(MarketChange.class)){
+			MarketChange market=(MarketChange)change;
+			synchronized (memoryContainer) {
+				this.memoryContainer.getGameRef().setMarket(market.getMarket());
+			}
 		}
 	}
 
