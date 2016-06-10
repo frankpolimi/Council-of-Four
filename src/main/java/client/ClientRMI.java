@@ -50,12 +50,10 @@ public class ClientRMI extends UnicastRemoteObject implements Serializable{
 	private String name = "game";
 	
 	private Game game;
-	private LocalStorage ls;
 	
 	
 	public ClientRMI() throws NotBoundException, JDOMException, IOException{
 		super();
-		ls = new LocalStorage();
 	}
 	
 	public void startClient() throws NotBoundException, JDOMException, IOException, AlreadyBoundException{
@@ -69,15 +67,15 @@ public class ClientRMI extends UnicastRemoteObject implements Serializable{
 		System.out.println("Insert your name:");
 		String nome = stdin.nextLine();
 		
-		rmiView = new ClientRMIView(nome, ls, serverRegistration);
+		rmiView = new ClientRMIView(nome, serverRegistration);
 		
 		boolean isUpdated;
 		
 		while(true){
-			synchronized (ls) {
-				game = ls.getGameRef();
-				isUpdated = ls.isUpdated();
+			synchronized (rmiView.getMemoryContainer()) {
+				game = rmiView.getMemoryContainer().getGameRef();
 			}
+			isUpdated = rmiView.getMemoryContainer().isUpdated();
 			
 			if(game.getGameState()!=null&&isUpdated){
 				try {
@@ -89,11 +87,9 @@ public class ClientRMI extends UnicastRemoteObject implements Serializable{
 				String inputLine = this.start(stdin);
 				if(inputLine.equals("")){
 					try {
-						if(!ls.getGameRef().getGameState().getClass().equals(EndState.class)){
+						if(!rmiView.getMemoryContainer().getGameRef().getGameState().getClass().equals(EndState.class)){
 							rmiView.sendRequestToServerView(request);
-							synchronized (ls) {
-								ls.setUpdated(false);
-							}
+							isUpdated = false;
 						}
 					} catch (IOException e) {
 						if(e.getMessage().equals("Socket closed"))
@@ -123,13 +119,13 @@ public class ClientRMI extends UnicastRemoteObject implements Serializable{
 
 	private String start(Scanner stdin) throws RemoteException, NotBoundException {
 		int actionType;
-		ClientView view = new ClientView(game, ls, rmiView.getID());
+		ClientView view = new ClientView(game, rmiView.getMemoryContainer(), rmiView.getID());
 		if(game.isLastTurn())
 			System.err.println("THIS IS YOUR LAST TURN");
 		if(this.game.getGameState().getClass().equals(StartState.class)){
-			if(!ls.getBonus().isEmpty())
+			if(!rmiView.getMemoryContainer().getBonus().isEmpty())
 				request = view.bonus(stdin);
-			else if(!ls.getPermits().isEmpty())
+			else if(!rmiView.getMemoryContainer().getPermits().isEmpty())
 				request = view.permit(stdin);
 			else{	
 				game.getGameState().display();

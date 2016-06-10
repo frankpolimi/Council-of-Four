@@ -38,9 +38,9 @@ public class ClientRMIView extends UnicastRemoteObject implements ClientRMIRemot
 	private int ID;
 	private String name;
 	
-	public ClientRMIView(String name, LocalStorage ls, ServerRMIRegistrationRemote serverRegistration) throws AlreadyBoundException, JDOMException, IOException{
+	public ClientRMIView(String name, ServerRMIRegistrationRemote serverRegistration) throws AlreadyBoundException, JDOMException, IOException{
 		super();
-		this.memoryContainer = ls;
+		memoryContainer = new LocalStorage();
 		this.name = name;
 		this.serverView = serverRegistration.register(this);
 	}
@@ -60,8 +60,8 @@ public class ClientRMIView extends UnicastRemoteObject implements ClientRMIRemot
 		else if(change.getClass().equals(ModelChange.class)){
 			synchronized (memoryContainer) {
 				memoryContainer.setGameRef(((ModelChange)change).getGame());
-				memoryContainer.setUpdated(true);
 			}
+			memoryContainer.setUpdated(true);
 			System.out.println(memoryContainer.getGameRef());
 		}
 		else if(change.getClass().equals(StateChange.class)){
