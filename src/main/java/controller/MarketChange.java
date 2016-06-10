@@ -1,5 +1,6 @@
 package controller;
 
+import model.market.Market;
 import model.market.MarketObject;
 import view.View;
 
@@ -8,28 +9,26 @@ public class MarketChange extends Change {
 	 * 
 	 */
 	private static final long serialVersionUID = 676905990125466125L;
-	private final View viewID;
-	private final MarketObject<?> marketObject;
+	private final Market market;
 	
 	
-	public MarketChange(View view, MarketObject<?> marketObject) {
-		this.viewID=view;
-		this.marketObject=marketObject;
+	/**
+	 * This class is used to bring the market ref through the network for updating the client's 
+	 * game ref.
+	 * @param market is the ref of marketObject in game.
+	 */
+	public MarketChange(Market market){
+		this.market=market;
 	}
 
 	/**
-	 * @return the viewID
+	 * @return the market
 	 */
-	public View getViewID() {
-		return viewID;
+	public Market getMarket() {
+		return market;
 	}
-
-	/**
-	 * @return the marketObject
-	 */
-	public MarketObject<?> getMarketObject() {
-		return marketObject;
-	}
+	
+	
 	
 	
 }

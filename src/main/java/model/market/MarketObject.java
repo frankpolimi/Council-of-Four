@@ -8,7 +8,7 @@ import java.io.Serializable;
 import model.game.Player;
 
 /**
- * @author Francesco Vetrò
+ * @author Francesco Vetrï¿½
  * generic type <T> can be an Assistant, a PolitcsCard or a BuildingLicense
  * no aggregation of elements can be performed
  */
@@ -54,7 +54,7 @@ public class MarketObject<T> implements Serializable{
 	 */
 	@Override
 	public String toString() {
-		return "MarketObject [object=" + object + "\n, sellingPlayer=" + sellingPlayer + "\n, price=" + price + "]";
+		return "MarketObject [object=" + object + "\n, sellingPlayer=" + sellingPlayer.getName() + "\n, price=" + price + "]";
 	}
 
 	/* (non-Javadoc)

@@ -61,7 +61,7 @@ public class Game extends Observable<Change> implements Serializable, Remote{
 	private final List<PointsTile> regionTileList;
 	private final NobilityLane nobilityLane;
 	private final ExtendedGraph<City,DefaultEdge> map;
-	private final Market market;
+	private Market market;
 	private City kingsPosition;
 	
 	/*
@@ -90,7 +90,7 @@ public class Game extends Observable<Change> implements Serializable, Remote{
 		this.regionTileList=mp.createTiles("regionTileList", this.regions);
 		this.nobilityLane=mp.createNobilityLane();
 		this.kingsPosition=this.map.getVertexByKey("J");
-		this.market=new Market();
+		this.market=new Market(this);
 		this.shuffledPlayers=new ArrayList<>(this.players);
 		this.disconnectedPlayers=new ArrayList<>();
 		this.timer=new Timer();
@@ -366,6 +366,12 @@ public class Game extends Observable<Change> implements Serializable, Remote{
 	 */
 	public Market getMarket() {
 		return market;
+	}
+	
+	/**
+	 */
+	public void setMarket(Market market) {
+		this.market=market;
 	}
 
 	/**

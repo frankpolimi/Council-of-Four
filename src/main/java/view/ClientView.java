@@ -336,7 +336,6 @@ public class ClientView{
 			int cardIndex=this.selector(1, getPlayerByID().getCardsOwned().size(), stdin);
 			PoliticsCard card=getPlayerByID().getCardsOwned().get(cardIndex-1);
 			int price=this.priceInsertion(stdin);
-			game.getMarket().addProduct(new MarketObject<PoliticsCard>(card, getPlayerByID(), price));
 			return new MarketRequest<PoliticsCard>(
 					new MarketObject<PoliticsCard>(card, getPlayerByID(), price));
 		case 2:

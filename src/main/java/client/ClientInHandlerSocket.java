@@ -6,6 +6,7 @@ import java.io.ObjectInputStream;
 import controller.BonusChange;
 import controller.Change;
 import controller.ErrorChange;
+import controller.MarketChange;
 import controller.ModelChange;
 import controller.PermitsChange;
 import controller.StateChange;
@@ -65,6 +66,9 @@ public class ClientInHandlerSocket implements Runnable
 				ErrorChange error=(ErrorChange)x;
 				System.err.println("WARNING!!");
 				System.err.println(error.getMessage());
+			}else if(x.getClass().equals(MarketChange.class)){
+				MarketChange market=(MarketChange)x;
+				this.gameLocalCopy.setMarket(market.getMarket());
 			}
 			
 			synchronized(memoryContainer){

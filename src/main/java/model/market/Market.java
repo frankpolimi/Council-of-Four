@@ -8,7 +8,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import controller.MarketChange;
 import model.game.BuildingPermit;
+import model.game.Game;
 import model.game.Player;
 import model.game.politics.PoliticsCard;
 
@@ -24,12 +26,14 @@ public class Market implements Serializable{
 	 */
 	private static final long serialVersionUID = 3231074513289905689L;
 	private List<MarketObject<?>> products;
+	private final Game game;
 	
 	/**
 	 * constructor
 	 * no parameters needed: elements will be added at the end of each turn
 	 */
-	public Market() {
+	public Market(Game game) {
+		this.game=game;
 		this.products = new ArrayList<>();
 	}
 	
@@ -40,7 +44,7 @@ public class Market implements Serializable{
 	 */
 	public void addProduct(MarketObject<?> product) throws IllegalStateException{
 		Player sellingPlayer=product.getSellingPlayer();
-		if(product.getObject().getClass().equals(PoliticsCard.class))
+		if(product.getObject().getClass().getSuperclass().equals(PoliticsCard.class))
 			if(sellingPlayer.getCardsOwned().contains(product.getObject()))
 			{
 				sellingPlayer.getCardsOwned().remove((PoliticsCard)product.getObject());
@@ -64,6 +68,7 @@ public class Market implements Serializable{
 			else 
 				throw new IllegalStateException("Impossible to add "+BuildingPermit.class.getSimpleName()+
 						". You don't own one.");
+		game.notifyObservers(new MarketChange(this));
 	}
 
 	/**
@@ -95,6 +100,7 @@ public class Market implements Serializable{
 		else if(x.getObject().getClass().equals(BuildingPermit.class))
 			this.assignBuildingLicense(customer, ((BuildingPermit)x.getObject()));
 		products.remove(x);
+		game.notifyObservers(new MarketChange(this));
 	}
 
 	
