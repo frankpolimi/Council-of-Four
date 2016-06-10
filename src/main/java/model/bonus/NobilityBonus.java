@@ -54,7 +54,7 @@ public class NobilityBonus extends TileBonus {
 	 */
 	@Override
 	public String toString() {
-		return "NobilityBonus: "+super.toString();
+		return "Nobility Bonus: "+super.toString();
 	}
 
 	@Override

@@ -75,7 +75,12 @@ public class BuildingPermit extends Bonusable implements Serializable{
 
 	@Override
 	public String toString() {
-		return "BuildingPermit [buildingAvaliableCities=" + buildingAvaliableCities + "]\n";
+		String message="Building Permit --> "
+				+ "buildingAvaliableCities: ";
+		for(City c:this.getBuildingAvaliableCities()){
+			message=message.concat(c.getName()+", ");
+		}
+		return message.concat("\nBonus\n"+this.getBonusList()+"\n\n");
 	}
 
 	/**
