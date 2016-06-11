@@ -23,6 +23,7 @@ import model.game.council.Councillor;
 import model.game.council.KingsCouncil;
 import model.game.council.RegionalCouncil;
 import model.game.topology.City;
+import model.game.topology.Region;
 
 public abstract class SupportClass 
 {
@@ -96,5 +97,9 @@ public abstract class SupportClass
 			game.setCurrentPlayer(p1);
 			return game;
 	
+	}
+
+	public static Region regionCreator() throws JDOMException, IOException {
+		return gameWithPlayersCreator("p1", "p2").getRegions().iterator().next();
 	}
 }
