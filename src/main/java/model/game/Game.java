@@ -478,20 +478,16 @@ public class Game extends Observable<Change> implements Serializable, Remote{
 
 	/**
 	 * method that check if a player deserve a PointsTile
-	 * first check if a kingTile is available, and if so this will be assigned 
-	 * to the player and then removed from the ones in the game.
-	 * than checks if the player has obtained a regionTile or a cityTile
+	 * checks if the player has obtained a regionTile or a cityTile
 	 * and assign it only if not already obtained. this two types must always
 	 * be available for other players.
+	 * if one of the above is obtained, the method will activate the controls on
+	 * the kingsTile and, if available, will assign the first on top and then 
+	 * remove this from the game.
 	 * @param curr the current player that has performed the action of building an emporium
 	 * @param builtOn the city in which has been built an emporium 
 	 */
 	public void giveTiles(Player curr, City builtOn) {
-		
-		if(!this.kingTileList.isEmpty()){
-			curr.addPointsTile(kingTileList.get(0));
-			kingTileList.remove(0);
-		}
 		
 		Iterator<Region> r = regions.iterator();
 		int i = 0;
@@ -502,6 +498,7 @@ public class Game extends Observable<Change> implements Serializable, Remote{
 				PointsTile pt = regionTileList.get(i);
 				if(!curr.getTilesOwned().contains(pt))
 					curr.addPointsTile(pt);
+				this.giveKingTile(curr);
 			}
 			i++;
 		}
@@ -515,7 +512,22 @@ public class Game extends Observable<Change> implements Serializable, Remote{
 				if(((ColorTile)pt2).getCityColor().equals(builtOn.getCityColor()) && 
 						!curr.getTilesOwned().contains(pt2))
 					curr.addPointsTile(pt2);
-					
+			this.giveKingTile(curr);		
+	}
+
+	/**
+	 * the method will perform a check only if the player 
+	 * as parameter has obtained a colorTile or a regionTile
+	 * and will assign a kingsTile to the player if is available.
+	 * than will remove the tile from the game
+	 * @param curr the player that has built on a city and
+	 * 			checks if is available one of the kingsTile
+	 */
+	private void giveKingTile(Player curr) {
+		if(!this.kingTileList.isEmpty()){
+			curr.addPointsTile(kingTileList.get(0));
+			kingTileList.remove(0);
+		}
 	}
 
 
