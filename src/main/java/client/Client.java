@@ -63,7 +63,8 @@ public class Client {
 				}catch (JDOMException e) {
 					System.out.println("Sorry! Errors Occurred. Terminating");
 				}catch (IOException e) {
-					System.out.println("Sorry! Errors Occurred. Terminating");
+					System.out.println("Sorry! Errors Occurred. "+e.getMessage());
+					System.exit(0);
 				}catch (AlreadyBoundException e) {
 					System.out.println("Sorry! Errors Occurred. Terminating");
 				}
