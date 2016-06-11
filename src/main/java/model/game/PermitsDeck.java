@@ -98,7 +98,7 @@ public class PermitsDeck implements Serializable{
 	 */
 	public BuildingPermit popPermit()
 	{
-		if(this.buildingPermitsDeck==null||this.buildingPermitsDeck.size()<=0)
+		if(this.buildingPermitsDeck==null||this.buildingPermitsDeck.isEmpty())
 		{
 			throw new NullPointerException(); 
 		}
