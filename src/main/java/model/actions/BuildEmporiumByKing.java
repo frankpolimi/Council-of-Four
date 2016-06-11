@@ -56,7 +56,7 @@ public class BuildEmporiumByKing extends MainAction
 		for(Emporium e:game.getCurrentPlayer().getEmporium())
 			if(e.getCity().equals(city))
 			{
-				throw new IllegalArgumentException("The game.getCurrentPlayer() has already built an emporium in this city");
+				throw new IllegalArgumentException("The current player has already built an emporium in this city");
 			}
 		
 		int distancePayment=2;

@@ -73,6 +73,8 @@ public class AcquirePermitTest {
 			
 			
 			
+			
+			
 		} catch (JDOMException | IOException e) {
 			fail("Game creation error");
 			e.printStackTrace();
