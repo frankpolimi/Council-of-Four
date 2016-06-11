@@ -446,6 +446,7 @@ public class Game extends Observable<Change> implements Serializable, Remote{
 			Collections.shuffle(this.shuffledPlayers);
 		}else{
 			this.gameState=new StartState();
+			this.market.returnUnselledItems();
 		}
 	}
 

@@ -105,7 +105,14 @@ public class ViewProva extends View {
 					scelta=scanner.nextInt();
 				}
 			}else if(game.getGameState().getClass().equals(MarketBuyingState.class)){
-				this.notifica(view.buyProducts(scanner));
+				game.getGameState().display();
+				int scelta=scanner.nextInt();
+				while(scelta!=2){
+					scanner.reset();
+					this.notifica(view.buyProducts(scanner));
+					game.getGameState().display();
+					scelta=scanner.nextInt();
+				}
 			}
 		}
 		
