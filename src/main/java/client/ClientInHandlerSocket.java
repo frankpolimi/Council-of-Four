@@ -9,10 +9,8 @@ import controller.ErrorChange;
 import controller.MarketChange;
 import controller.ModelChange;
 import controller.PermitsChange;
-import controller.StateChange;
 import model.game.*;
 import view.LocalStorage;
-import view.State;
 
 public class ClientInHandlerSocket implements Runnable 
 {

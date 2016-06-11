@@ -2,21 +2,12 @@ package client.GUI;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
-
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
-import java.awt.FlowLayout;
-import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-
-import javax.swing.SwingConstants;
-import javax.swing.JMenuBar;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 

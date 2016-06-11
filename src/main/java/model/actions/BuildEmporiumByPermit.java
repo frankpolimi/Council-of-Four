@@ -35,7 +35,7 @@ public class BuildEmporiumByPermit extends MainAction
 	public boolean takeAction(Game game)
 	{
 		if(!this.checkAction(game))
-			throw new IllegalStateException("Not enough Main actions");
+			throw new IllegalStateException("Not enough Main actions"); // ste cose comuni a build by king e permit vanno aggregate in un unico metodo
 		if (game.getCurrentPlayer().getRemainingEmporiums()<=0)
 		{
 			throw new IllegalStateException("No avaiable emporiums");

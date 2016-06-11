@@ -1,15 +1,10 @@
 package cg2;
 
 import static org.junit.Assert.*;
-
 import java.io.IOException;
-
 import org.jdom2.JDOMException;
 import org.junit.Test;
-
-import model.game.Game;
 import model.game.RegionTile;
-import model.game.council.Council;
 import model.game.topology.Region;
 
 public class RegionTileTest {

@@ -2,20 +2,15 @@ package cg2;
 
 import static org.junit.Assert.*;
 
-import java.awt.Color;
 import java.io.IOException;
 import java.util.ArrayList;
-
 import org.jdom2.JDOMException;
 import org.junit.Test;
-
 import model.actions.Action;
 import model.actions.BuildEmporiumByKing;
 import model.game.Game;
 import model.game.Player;
 import model.game.council.KingsCouncil;
-import model.game.council.RegionalCouncil;
-import model.game.politics.JollyPoliticsCard;
 import model.game.politics.PoliticsCard;
 import model.game.topology.City;
 
@@ -30,11 +25,7 @@ public class BuildEmporiumByKingTest {
 			game = SupportClass.gameWithPlayersCreator("Gianni", "Alberto");
 			Player player=game.getCurrentPlayer();
 			KingsCouncil council=game.getKingsCouncil();
-			ArrayList<PoliticsCard> list=new ArrayList<PoliticsCard>();
-			list.add(new JollyPoliticsCard());
-			list.add(new JollyPoliticsCard());
-			list.add(new JollyPoliticsCard());
-			list.add(new JollyPoliticsCard());
+			ArrayList<PoliticsCard> list=SupportClass.giveJollyHand();
 			City city=game.getAllCities().get(0);
 			Action action=new BuildEmporiumByKing(council, list, city);
 			game.decrementMainActionCounter();

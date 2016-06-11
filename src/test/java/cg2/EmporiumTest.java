@@ -1,18 +1,14 @@
 package cg2;
 
 import static org.junit.Assert.*;
-
 import java.awt.Color;
 import java.util.ArrayList;
-
 import org.junit.Test;
-
 import model.bonus.AssistantBonus;
 import model.bonus.Bonus;
 import model.bonus.CoinBonus;
 import model.game.Emporium;
 import model.game.topology.City;
-import model.market.Assistant;
 
 public class EmporiumTest {
 

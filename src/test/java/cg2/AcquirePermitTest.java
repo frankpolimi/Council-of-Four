@@ -4,11 +4,8 @@ import static org.junit.Assert.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
-
 import org.jdom2.JDOMException;
 import org.junit.Test;
-
 import model.actions.AcquirePermit;
 import model.actions.Action;
 import model.game.BuildingPermit;

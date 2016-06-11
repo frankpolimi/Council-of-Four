@@ -1,8 +1,6 @@
 package controller;
 
 import model.market.Market;
-import model.market.MarketObject;
-import view.View;
 
 public class MarketChange extends Change {
 	/**

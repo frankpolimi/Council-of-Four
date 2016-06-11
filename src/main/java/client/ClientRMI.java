@@ -12,17 +12,13 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.Scanner;
-
 import org.jdom2.JDOMException;
-
 import model.actions.SkipAction;
 import model.game.Game;
 import server.ServerRMIRegistrationRemote;
-import server.ServerRMIViewRemote;
 import view.ActionRequest;
 import view.ClientView;
 import view.EndState;
-import view.LocalStorage;
 import view.MarketBuyingState;
 import view.MarketSellingState;
 import view.QuitRequest;

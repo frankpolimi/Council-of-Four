@@ -1,21 +1,14 @@
 package view;
 
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.Socket;
-import java.net.SocketTimeoutException;
 import java.util.*;
 import java.util.concurrent.ArrayBlockingQueue;
-
 import org.jdom2.JDOMException;
-
 import controller.BonusChange;
 import controller.Change;
 import controller.Controller;
 import controller.ModelChange;
 import controller.PermitsChange;
-import controller.StateChange;
 import model.actions.AcquirePermit;
 import model.actions.*;
 import model.actions.BuildEmporiumByPermit;

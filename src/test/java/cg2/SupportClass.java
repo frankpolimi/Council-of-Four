@@ -22,6 +22,8 @@ import model.game.council.Council;
 import model.game.council.Councillor;
 import model.game.council.KingsCouncil;
 import model.game.council.RegionalCouncil;
+import model.game.politics.JollyPoliticsCard;
+import model.game.politics.PoliticsCard;
 import model.game.topology.City;
 import model.game.topology.Region;
 
@@ -102,4 +104,15 @@ public abstract class SupportClass
 	public static Region regionCreator() throws JDOMException, IOException {
 		return gameWithPlayersCreator("p1", "p2").getRegions().iterator().next();
 	}
+	
+	public static ArrayList<PoliticsCard> giveJollyHand()
+	{
+		ArrayList<PoliticsCard> list=new ArrayList<PoliticsCard>();
+		list.add(new JollyPoliticsCard());
+		list.add(new JollyPoliticsCard());
+		list.add(new JollyPoliticsCard());
+		list.add(new JollyPoliticsCard());
+		return list;
+	}
+	
 }
