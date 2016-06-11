@@ -40,8 +40,8 @@ public class ClientRMI extends UnicastRemoteObject implements Serializable{
 	 */
 	private static final long serialVersionUID = 2606594429637762781L;
 
-	private final static String HOST = "127.0.0.1";
-	private final static int RMIPORT = 1099;
+	private final String host;
+	private final int rmiPort;
 	
 	ClientRMIView rmiView;
 	Request request;
@@ -52,12 +52,14 @@ public class ClientRMI extends UnicastRemoteObject implements Serializable{
 	private Game game;
 	
 	
-	public ClientRMI() throws NotBoundException, JDOMException, IOException{
+	public ClientRMI(String host, int rmiPort) throws NotBoundException, JDOMException, IOException{
 		super();
+		this.host = host;
+		this.rmiPort = rmiPort;
 	}
 	
 	public void startClient() throws NotBoundException, JDOMException, IOException, AlreadyBoundException{
-		registry = LocateRegistry.getRegistry(HOST, RMIPORT);
+		registry = LocateRegistry.getRegistry(host, rmiPort);
 		
 		ServerRMIRegistrationRemote serverRegistration = (ServerRMIRegistrationRemote) 
 				registry.lookup(name);

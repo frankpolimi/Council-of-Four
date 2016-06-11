@@ -9,15 +9,17 @@ import view.LocalStorage;
 
 public class ClientSocket 
 {
-	private final static int PORT = 50000;
-	private final static String IP="127.0.0.1";
+	private final int port;
+	private final String ip;
 	private Game game;
 	private LocalStorage memoryContainer;
 	private int ID;
 	
 	
-	public ClientSocket() {
+	public ClientSocket(String ip, int port) {
 		super();
+		this.ip = ip;
+		this.port = port;
 		this.memoryContainer=new LocalStorage();
 	}
 
@@ -40,7 +42,7 @@ public class ClientSocket
 	 */
 	public void startClient() throws IOException 
 	{
-		Socket socket = new Socket(IP, PORT);
+		Socket socket = new Socket(ip, port);
 		System.out.println("Connection Established");
 		ExecutorService executor = Executors.newFixedThreadPool(2);
 		

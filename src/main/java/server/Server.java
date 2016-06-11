@@ -1,6 +1,5 @@
 package server;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.*;
 import java.rmi.AccessException;
@@ -14,12 +13,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Timer;
-import java.util.TimerTask;
 import java.util.concurrent.*;
 
 import org.jdom2.*;
-import org.jdom2.input.SAXBuilder;
 
+import client.ConfigReader;
 import controller.*;
 import model.game.Game;
 import model.game.Player;
@@ -148,17 +146,9 @@ public class Server
 	
 	public static void main(String[] args) throws JDOMException, IOException {
 		
-		SAXBuilder builder=new SAXBuilder();
-		Document document= builder.build(new File("src/main/resources/configIP_PORT.xml"));
-		Element root = document.getRootElement();
+		ConfigReader c = new ConfigReader();
 		
-		String ip = ((String)root.getChild("IP").getAttributeValue("value"));
-		int socket = Integer.parseInt(root.getChild("PORT").getChild("SOCKETPORT")
-				.getAttributeValue("value"));
-		int rmi = Integer.parseInt(root.getChild("PORT").getChild("RMIPORT")
-				.getAttributeValue("value"));
-		
-		Server server = new Server(socket, rmi);
+		Server server = new Server(c.getSocketPort(), c.getRMIPort());
 
 		try {
 			server.start();

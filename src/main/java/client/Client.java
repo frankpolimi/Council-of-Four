@@ -17,9 +17,15 @@ import org.jdom2.JDOMException;
  */
 public class Client {
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws JDOMException, IOException {
 		
 		Scanner in = new Scanner(System.in);
+		
+		ConfigReader c = new ConfigReader();
+		
+		String host = c.getIP();
+		int rmi = c.getRMIPort();
+		int socket = c.getSocketPort();
 		
 		System.out.println("Welcome to the Council of Four!");
 		
@@ -45,7 +51,7 @@ public class Client {
 			String input = in.nextLine();
 			if(input.equalsIgnoreCase("socket") || Integer.parseInt(input) == 1){
 				try {
-					ClientSocket cs = new ClientSocket();
+					ClientSocket cs = new ClientSocket(host, socket);
 					cs.startClient();
 				}catch (UnknownHostException e){
 					System.out.println("Sorry! Errors Occurred. Terminating");
@@ -56,7 +62,7 @@ public class Client {
 			}
 			else if(input.equalsIgnoreCase("RMI") || Integer.parseInt(input) == 2){
 				try{
-					ClientRMI cr = new ClientRMI();
+					ClientRMI cr = new ClientRMI(host, rmi);
 					cr.startClient();
 				}catch (NotBoundException e){
 					System.out.println("Sorry! Errors Occurred. Terminating");
