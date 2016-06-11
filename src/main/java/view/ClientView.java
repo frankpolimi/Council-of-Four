@@ -297,19 +297,21 @@ public class ClientView{
 			System.out.println(i+"- "+obj.toString());
 		}
 		System.out.println("Are you interested from something? Y/N");
-		String answer=stdin.nextLine();
+		Scanner scanner=new Scanner(System.in);
+		String answer=scanner.nextLine();
 		if(answer.equalsIgnoreCase("N")){
-			System.out.println("Ok, the turn passes to the next one player");
-			return new ActionRequest(new SkipAction(),ID);
+			scanner.close();
+			return null;
 		}else if(answer.equalsIgnoreCase("Y")){
 			System.out.println("Select the product you want to buy");
 			int selection = this.selector(1, 
-					game.getMarket().getLengthAvailableProducts(getPlayerByID()), stdin);
+					game.getMarket().getLengthAvailableProducts(getPlayerByID()), scanner);
 			return new MarketRequest<>(
 					game.getMarket().getAvailableProducts(getPlayerByID()).get(selection-1),ID);
 		}else{
 			System.out.println("You are insert a not valid value");
 		}
+		scanner.close();
 		return null;
 	}
 

@@ -95,7 +95,7 @@ public class Market implements Serializable{
 		this.transferCoin(customer, x);
 		if(x.getObject().getClass().equals(Assistant.class))
 			this.assignAssistants(customer, ((Assistant)x.getObject()));
-		else if(x.getObject().getClass().equals(PoliticsCard.class))
+		else if(x.getObject().getClass().getSuperclass().equals(PoliticsCard.class))
 			this.assignPoliticsCard(customer, ((PoliticsCard)x.getObject()));
 		else if(x.getObject().getClass().equals(BuildingPermit.class))
 			this.assignBuildingLicense(customer, ((BuildingPermit)x.getObject()));
@@ -109,16 +109,16 @@ public class Market implements Serializable{
 	 * @param <T> the type of the object in MarketObject
 	 * @param the owner of the element
 	 */
-	public void returnUnselledItems(Player owner){
-		for(MarketObject<?> o : products)
-			if(o.getSellingPlayer().getPlayerID() == owner.getPlayerID()){
-				if(o.getObject().getClass().equals(Assistant.class))
-					this.assignAssistants(owner, ((Assistant)o.getObject()));
-				else if(o.getObject().getClass().equals(PoliticsCard.class))
-					this.assignPoliticsCard(owner, ((PoliticsCard)o.getObject()));
-				else if(o.getObject().getClass().equals(BuildingPermit.class))
-					this.assignBuildingLicense(owner, ((BuildingPermit)o.getObject()));
-			}
+	public void returnUnselledItems(){
+		for(MarketObject<?> o : products){
+			Player owner=game.getPlayers().stream().filter(e->e.getPlayerID()==o.getSellingPlayer().getPlayerID()).findFirst().get();
+			if(o.getObject().getClass().equals(Assistant.class))
+				this.assignAssistants(owner, ((Assistant)o.getObject()));
+			else if(o.getObject().getClass().equals(PoliticsCard.class))
+				this.assignPoliticsCard(owner, ((PoliticsCard)o.getObject()));
+			else if(o.getObject().getClass().equals(BuildingPermit.class))
+				this.assignBuildingLicense(owner, ((BuildingPermit)o.getObject()));
+		}
 	}
 
 	/**

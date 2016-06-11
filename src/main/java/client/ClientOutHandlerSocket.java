@@ -63,7 +63,7 @@ public class ClientOutHandlerSocket implements Runnable
 			
 			
 			
-			if(game.getGameState()!=null&&isUpdated){
+			if(game.getGameState()!=null&&isUpdated&&game.getCurrentPlayer().getPlayerID()==ID){
 				try {
 					Thread.sleep(2000);
 				} catch (InterruptedException e1) {
@@ -189,6 +189,8 @@ public class ClientOutHandlerSocket implements Runnable
 			case 3:
 				return "quit";
 			}
+			if(request == null)
+				return "impossible";
 			return "";
 		}else if(game.getGameState().getClass().equals(EndState.class)){
 			game.getGameState().display();
