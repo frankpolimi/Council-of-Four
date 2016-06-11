@@ -20,7 +20,8 @@ public class KingsTileTest {
 	
 	@Test
 	public void testAmountCorrect() {
-		new KingTile(15);
+		KingTile kt = new KingTile(15);
+		assertEquals(15, kt.getVPs());
 	}
 
 }
