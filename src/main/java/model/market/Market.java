@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import controller.MarketChange;
+import controller.ModelChange;
 import model.game.BuildingPermit;
 import model.game.Game;
 import model.game.Player;
@@ -43,7 +44,8 @@ public class Market implements Serializable{
 	 * @throws NotEnoughResources 
 	 */
 	public void addProduct(MarketObject<?> product) throws IllegalStateException{
-		Player sellingPlayer=product.getSellingPlayer();
+		Player sellingPlayer=game.getCurrentPlayer();
+
 		if(product.getObject().getClass().getSuperclass().equals(PoliticsCard.class))
 			if(sellingPlayer.getCardsOwned().contains(product.getObject()))
 			{
@@ -68,7 +70,7 @@ public class Market implements Serializable{
 			else 
 				throw new IllegalStateException("Impossible to add "+BuildingPermit.class.getSimpleName()+
 						". You don't own one.");
-		game.notifyObservers(new MarketChange(this));
+		game.notifyObservers(new ModelChange(game));
 	}
 
 	/**
@@ -100,7 +102,7 @@ public class Market implements Serializable{
 		else if(x.getObject().getClass().equals(BuildingPermit.class))
 			this.assignBuildingLicense(customer, ((BuildingPermit)x.getObject()));
 		products.remove(x);
-		game.notifyObservers(new MarketChange(this));
+		game.notifyObservers(new ModelChange(game));
 	}
 
 	
@@ -111,10 +113,10 @@ public class Market implements Serializable{
 	 */
 	public void returnUnselledItems(){
 		for(MarketObject<?> o : products){
-			Player owner=game.getPlayers().stream().filter(e->e.getPlayerID()==o.getSellingPlayer().getPlayerID()).findFirst().get();
+			Player owner=game.getPlayerByID(o.getSellingPlayer().getPlayerID());
 			if(o.getObject().getClass().equals(Assistant.class))
 				this.assignAssistants(owner, ((Assistant)o.getObject()));
-			else if(o.getObject().getClass().equals(PoliticsCard.class))
+			else if(o.getObject().getClass().getSuperclass().equals(PoliticsCard.class))
 				this.assignPoliticsCard(owner, ((PoliticsCard)o.getObject()));
 			else if(o.getObject().getClass().equals(BuildingPermit.class))
 				this.assignBuildingLicense(owner, ((BuildingPermit)o.getObject()));
@@ -155,9 +157,10 @@ public class Market implements Serializable{
 	 * @throws IllegalStateException 
 	 */
 	private void transferCoin(Player customer, MarketObject<?> x) throws IllegalStateException {
+		Player seller=game.getPlayerByID(x.getSellingPlayer().getPlayerID());
 		if(customer.checkCoins(x.getPrice()))
-			x.getSellingPlayer().setCoins(
-				x.getSellingPlayer().getCoins() + x.getPrice());
+			seller.setCoins(
+				seller.getCoins() + x.getPrice());
 		else
 			throw new IllegalStateException("Impossible to buy. You only own "
 					+customer.getCoins()+" instead of the "+x.getPrice()+" required");
