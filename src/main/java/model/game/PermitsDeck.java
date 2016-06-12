@@ -50,7 +50,9 @@ public class PermitsDeck implements Serializable{
 	{
 		if(faceUpPermits.size()==2)
 		{
-			faceUpPermits.drainTo(buildingPermitsDeck);
+			this.faceUpPermits.drainTo(this.buildingPermitsDeck);
+			this.faceUpPermits.add(this.buildingPermitsDeck.remove(0));
+			this.faceUpPermits.add(this.buildingPermitsDeck.remove(0));
 			
 		}
 		else throw new IllegalStateException("Not enough permits to change them, the deck is probably empty");
