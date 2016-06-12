@@ -1,6 +1,5 @@
 package model.actions;
 
-import java.util.Iterator;
 
 import model.game.Game;
 import model.game.council.Council;
@@ -11,11 +10,12 @@ import model.game.council.Councillor;
 public class ElectCouncillor extends MainAction 
 {
 	/**
-	 * 
+	 * We considered the 
 	 */
 	private static final long serialVersionUID = -3153051699153428116L;
 	private Councillor councillor;
 	private Council council;
+	
 	
 	public ElectCouncillor(Councillor councillor, Council council) {
 		this.councillor = councillor;
@@ -31,19 +31,20 @@ public class ElectCouncillor extends MainAction
 	{	
 		if(!this.checkAction(game))
 			throw new IllegalStateException("Not enough Main actions");
-
-		Iterator<Council> i = game.getAllCouncils().iterator();
-		while(i.hasNext()){
-			Council c = i.next();
+		if(!game.getAvaliableCouncillor().contains(councillor))
+			throw new IllegalArgumentException("No such councillor in the game's pool");
+		for(Council c:game.getAllCouncils())
+		{
 			if(c.equals(council)){
 				game.addCouncillor(c.electCouncillor(councillor));
 				game.getCurrentPlayer().setCoins(game.getCurrentPlayer().getCoins()+4);
 				game.decrementMainActionCounter();
+				game.getAvaliableCouncillor().remove(councillor);
 				super.takeAction(game);
 				return true;	
 			}
 		}
-		return false;
+		throw new IllegalArgumentException("No such council in the game");
 	}
 
 	/* (non-Javadoc)
