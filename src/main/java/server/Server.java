@@ -33,14 +33,15 @@ public class Server
 	private Controller controller;
 	private Game game;
 	
-	/*
-	 * the name will be different in multi-game.
-	 * pubsub RMI will be used with following structure
-	 * topic: game1, game2, ..., gameN
-	 * sub-topic for each game: ClientRMIView1, ..., ClientRMIViewM
-	 */
+
 	private static final String NAME = "game";
-	private final Registry registry;
+	/*
+	 * Registry must be static in a single server scenario
+	 * because the garbage collector, sometimes collects it
+	 * and may cause an IOException when the client try to 
+	 * lookup to the server to register to a game.
+	 */
+	private static Registry registry;
 	
 	private List<Player> oneRoomLobby;
 	private Map<Player, View> playersView;
