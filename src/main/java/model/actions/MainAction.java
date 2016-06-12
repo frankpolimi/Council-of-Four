@@ -5,7 +5,7 @@ import model.game.Game;
 /**
  * @author Vitaliy Pakholko
  */
-public class MainAction extends Action
+public abstract class MainAction extends Action
 {
 	/**
 	 * 

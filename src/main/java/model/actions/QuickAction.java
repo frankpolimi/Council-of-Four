@@ -5,7 +5,7 @@ import model.game.Game;
 /**
  * @author Vitaliy Pakholko
  */
-public class QuickAction extends Action 
+public abstract class QuickAction extends Action 
 {
 	/**
 	 * 

@@ -15,12 +15,14 @@ public class PermitsDeck implements Serializable{
 	private static final long serialVersionUID = -6786269689447908912L;
 	private List<BuildingPermit> buildingPermitsDeck;
 	private ArrayBlockingQueue<BuildingPermit> faceUpPermits;
-
+	private static int IDGenerator=0;
+	private final int deckID=IDGenerator;
 	
 	public PermitsDeck(List<BuildingPermit> buildingPermitsDeck) {
 		this.buildingPermitsDeck = buildingPermitsDeck;
 		Collections.shuffle(this.buildingPermitsDeck);
 		this.faceUpPermits = new ArrayBlockingQueue<>(2);
+		IDGenerator++;
 		
 	}
 	
@@ -142,31 +144,20 @@ public class PermitsDeck implements Serializable{
 		return this.faceUpPermits.element();
 			
 	}
+	
+	public int getDeckID() {
+		return deckID;
+	}
 
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
+	public boolean equals(PermitsDeck deck) 
+	{
+		if(this.deckID==deck.getDeckID())
 			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		PermitsDeck other = (PermitsDeck) obj;
-		if (buildingPermitsDeck == null) {
-			if (other.buildingPermitsDeck != null)
-				return false;
-		} else if (!buildingPermitsDeck.equals(other.buildingPermitsDeck))
-			return false;
-		if (faceUpPermits == null) {
-			if (other.faceUpPermits != null)
-				return false;
-		} else if (!faceUpPermits.equals(other.faceUpPermits))
-			return false;
-		return true;
-	}//Qua non sono sicuro vada per via dei faceUp
-	
-	
-	
-	
+		return false;
+	}
 }
+		
+	
+	
+	
+	
