@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.*;
 
 import org.jdom2.*;
@@ -116,7 +117,48 @@ public class Server
 			if(timer==null){
 				timer=new Timer();
 				System.out.println("START TIMER");
-				timer.schedule(new StartingGameTimerTask(oneRoomLobby, playersView, game, controller, timer) ,20*1000);
+				timer.schedule(new TimerTask() {
+					
+					@Override
+					public void run() {
+
+						if(oneRoomLobby.size()>=2){
+							int i=0;
+							while(i<oneRoomLobby.size()){
+								Player player=oneRoomLobby.get(i);
+								try{
+									View x = playersView.get(player);
+									if(x.getClass().equals(ServerSocketView.class))
+										((ServerSocketView)x).getSocketOut().writeObject("");
+									else
+										((ServerRMIViewRemote)x).sendString("");
+									i++;
+								}catch(SocketException e){
+									oneRoomLobby.remove(player);
+									playersView.remove(player);
+									
+								}catch(IOException io){
+								}	
+							}
+							
+							if(oneRoomLobby.size()>=2){
+								game.setPlayers(oneRoomLobby);
+								game.getPlayers().stream().forEach(System.out::println);
+								try {
+									game= new Game();
+									controller= new Controller(game);
+									oneRoomLobby.clear();
+									playersView.clear();
+								} catch (JDOMException | IOException e) {
+									e.printStackTrace();
+								}
+							}
+							timer.cancel();
+							timer=null;
+						}
+						
+					}
+				},20*1000);
 				if(oneRoomLobby.isEmpty()) 
 					serialID=1;
 			}
@@ -134,9 +176,50 @@ public class Server
 			if(timer==null){
 				timer=new Timer();
 				System.out.println("START TIMER");
-				timer.schedule(new StartingGameTimerTask(oneRoomLobby, playersView, game, controller, timer) ,20*1000);
-				if(oneRoomLobby.isEmpty()) 
-					serialID=1;
+				timer.schedule(new TimerTask() {
+					
+					@Override
+					public void run() {
+
+						if(oneRoomLobby.size()>=2){
+							int i=0;
+							while(i<oneRoomLobby.size()){
+								Player player=oneRoomLobby.get(i);
+								try{
+									View x = playersView.get(player);
+									if(x.getClass().equals(ServerSocketView.class))
+										((ServerSocketView)x).getSocketOut().writeObject("");
+									else
+										((ServerRMIViewRemote)x).sendString("");
+									i++;
+								}catch(SocketException e){
+									oneRoomLobby.remove(player);
+									playersView.remove(player);
+									
+								}catch(IOException io){
+								}	
+							}
+							
+							if(oneRoomLobby.size()>=2){
+								game.setPlayers(oneRoomLobby);
+								game.getPlayers().stream().forEach(System.out::println);
+								try {
+									game= new Game();
+									controller= new Controller(game);
+									oneRoomLobby.clear();
+									playersView.clear();
+									serialID=1;
+								} catch (JDOMException | IOException e) {
+									e.printStackTrace();
+								}
+							}
+							timer.cancel();
+							timer=null;
+						}
+						
+					}
+				},20*1000);
+				
 			}
 		}	
 	}
@@ -144,6 +227,7 @@ public class Server
 	public List<Player> getLobby(){
 		return this.oneRoomLobby;
 	}
+
 	
 	public static void main(String[] args) throws JDOMException, IOException {
 		
@@ -161,5 +245,8 @@ public class Server
 			e.printStackTrace();
 		}
 	}
-
+	
 }
+
+
+

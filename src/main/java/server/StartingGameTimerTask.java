@@ -17,7 +17,6 @@ public class StartingGameTimerTask extends TimerTask {
 	private List<Player> oneRoomLobby;
 	private Map<Player, View> playersView;
 	private Game game;
-	private int serialID;
 	private Controller controller;
 	private Timer timer;
 	
@@ -37,8 +36,7 @@ public class StartingGameTimerTask extends TimerTask {
 
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
-		synchronized(this){
+
 		if(oneRoomLobby.size()>=2){
 			int i=0;
 			while(i<oneRoomLobby.size()){
@@ -73,8 +71,7 @@ public class StartingGameTimerTask extends TimerTask {
 			timer.cancel();
 			timer=null;
 		}
-		}
+		
 	}
-
 
 }
