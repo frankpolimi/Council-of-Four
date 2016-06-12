@@ -40,10 +40,10 @@ public class ElectCouncillorTest
 				notValidCouncillor=new Councillor(SupportClass.giveRandomColor());
 			}while(game.getAvaliableCouncillor().contains(notValidCouncillor));
 			
-			for(Councillor co:validCouncil.getCouncillors())
+			/*for(Councillor co:validCouncil.getCouncillors())
 			{
 				oldCouncil.add(co);
-			}		
+			}	*/	
 			Action action=new ElectCouncillor(notValidCouncillor, validCouncil);
 			try
 			{
@@ -80,7 +80,8 @@ public class ElectCouncillorTest
 				assertTrue(newCouncil.contains(oldCouncil.get(i)));
 			}
 			assertTrue(game.getAvaliableCouncillor().size()==1);
-			assertTrue(game.getAvaliableCouncillor().get(0).equals(oldCouncil.get(3)));
+			assertTrue(game.getAvaliableCouncillor().get(0).equals(oldCouncil.get(0)));
+			assertTrue(newCouncil.contains(validCouncillor));
 			assertEquals(oldPlayerCoins+4, game.getCurrentPlayer().getCoins());
 			
 		} catch (JDOMException | IOException e) {
