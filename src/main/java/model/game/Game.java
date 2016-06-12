@@ -342,6 +342,15 @@ public class Game extends Observable<Change> implements Serializable, Remote{
 	}
 	
 	/**
+	 * this method will return the player 
+	 * with the same playerID as the socket out
+	 * @return the player with the ID desired
+	 */
+	public Player getPlayerByID(int id) {
+		return this.players.stream().filter(e->e.getPlayerID()==id).findFirst().get();
+	}
+	
+	/**
 	 * @return the politicsDeck
 	 */
 	public PoliticsDeck getPoliticsDeck() {
