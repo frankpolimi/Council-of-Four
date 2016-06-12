@@ -8,26 +8,26 @@ import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
-public class ImagePanel extends JPanel {
+public class ImagePanelNobility extends JPanel {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 5111117694587342614L;
+	private static final long serialVersionUID = -3053617854127146582L;
 	private Image image;
 	
-	public ImagePanel(String path) {
+	public ImagePanelNobility(String path) {
 		File file=new File(path);
 		try {
 			image=ImageIO.read(file);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		image=this.getScaledImage(image, 300, 300);
+		image=this.getScaledImage(image, 450, 250);
 		this.setLayout(new FlowLayout());
 		this.setVisible(true);
 	}
@@ -51,6 +51,4 @@ public class ImagePanel extends JPanel {
 
 	    return resizedImg;
 	}
-
-	
 }
