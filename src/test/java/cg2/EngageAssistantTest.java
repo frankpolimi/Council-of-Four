@@ -25,27 +25,21 @@ public class EngageAssistantTest
 			try
 			{
 				a.takeAction(game);
+				fail("Action should launch exception");
 			}
 			catch(IllegalStateException e)
 			{
 				assertTrue(true);
 			}
 			game.getCurrentPlayer().setCoins(3);
-			try
-			{
-				a.takeAction(game);
-			}
-			catch(IllegalStateException e)
-			{
-				fail("No exception expected here");
-			}
-			
+			assertTrue(a.takeAction(game));
 			assertEquals(CurrentPlayersCurrentAssistants+1, game.getCurrentPlayer().getAssistants());
 			assertEquals(OtherPlayerCurrentAssistants, game.getPlayers().get(1).getAssistants());
 			
 			try
 			{
 				a.takeAction(game);
+				fail("Action should launch exception");
 			}
 			catch(IllegalStateException e)
 			{

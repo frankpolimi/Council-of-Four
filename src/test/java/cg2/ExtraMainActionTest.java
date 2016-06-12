@@ -25,6 +25,7 @@ public class ExtraMainActionTest
 			try
 			{
 				a.takeAction(game);
+				fail("Action should launch exception");
 			}
 			catch (IllegalStateException e)
 			{
@@ -32,19 +33,13 @@ public class ExtraMainActionTest
 			}
 			assertEquals(oldMainActions, game.getMainActionCounter());
 			game.getCurrentPlayer().setAssistants(4);
-			try
-			{
-				a.takeAction(game);
-			}
-			catch(IllegalStateException e)
-			{
-				fail("No errors expected this time");
-			}
+			assertTrue(a.takeAction(game));
 			assertEquals(oldMainActions+1, game.getMainActionCounter());
 			
 			try
 			{
 				a.takeAction(game);
+				fail("Action should launch exception");
 			}
 			catch(IllegalStateException e)
 			{

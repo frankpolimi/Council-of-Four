@@ -32,6 +32,7 @@ public class BuildEmporiumByKingTest {
 			try
 			{
 				action.takeAction(game);
+				fail("Action should launch exception");
 			}
 			catch(IllegalStateException e)
 			{
@@ -54,6 +55,7 @@ public class BuildEmporiumByKingTest {
 			try
 			{
 				action.takeAction(game);
+				fail("Action should launch exception");
 			}
 			catch(IllegalArgumentException e)
 			{
@@ -64,6 +66,7 @@ public class BuildEmporiumByKingTest {
 			try
 			{
 				action.takeAction(game);
+				fail("Action should launch exception");
 			}
 			catch(IllegalStateException e)
 			{
@@ -76,6 +79,7 @@ public class BuildEmporiumByKingTest {
 			try
 			{
 				action.takeAction(game);
+				fail("Action should launch exception");
 			}
 			catch(IllegalStateException e)
 			{
@@ -97,6 +101,7 @@ public class BuildEmporiumByKingTest {
 			try
 			{
 				action.takeAction(game);
+				fail("Action should launch exception");
 			}
 			catch(IllegalStateException e)
 			{

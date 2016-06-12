@@ -40,6 +40,7 @@ public class AcquirePermitTest {
 			try
 			{
 				action.takeAction(game);
+				fail("Action should launch exception");
 			}
 			catch(IllegalArgumentException e)
 			{
@@ -50,6 +51,7 @@ public class AcquirePermitTest {
 			try
 			{
 				action.takeAction(game);
+				fail("Action should launch exception");
 			}
 			catch(IllegalStateException e)
 			{
@@ -62,15 +64,12 @@ public class AcquirePermitTest {
 			try
 			{
 				action.takeAction(game);
+				fail("Action should launch exception");
 			}
 			catch(IllegalStateException e)
 			{
 				assertTrue(true);
 			}
-			
-			
-			
-			
 			
 		} catch (JDOMException | IOException e) {
 			fail("Game creation error");
