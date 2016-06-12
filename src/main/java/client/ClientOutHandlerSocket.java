@@ -64,11 +64,6 @@ public class ClientOutHandlerSocket implements Runnable
 			
 			
 			if(game.getGameState()!=null&&isUpdated&&game.getCurrentPlayer().getPlayerID()==ID){
-				try {
-					Thread.sleep(2000);
-				} catch (InterruptedException e1) {
-					e1.printStackTrace();
-				}
 								
 				
 				String inputLine = this.start(stdin);
