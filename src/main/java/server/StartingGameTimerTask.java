@@ -16,20 +16,15 @@ public class StartingGameTimerTask extends TimerTask {
 
 	private List<Player> oneRoomLobby;
 	private Map<Player, View> playersView;
-	private Game game;
-	private Controller controller;
-	private Timer timer;
+	private Server server;
 	
 	
 
-	public StartingGameTimerTask(List<Player> oneRoomLobby, Map<Player, View> playersView, Game game,
-			Controller controller, Timer timer) {
+	public StartingGameTimerTask(Server server,List<Player> oneRoomLobby, Map<Player, View> playersView) {
 		super();
 		this.oneRoomLobby = oneRoomLobby;
 		this.playersView = playersView;
-		this.game = game;
-		this.controller = controller;
-		this.timer = timer;
+		this.server=server;
 	}
 
 
@@ -57,19 +52,16 @@ public class StartingGameTimerTask extends TimerTask {
 			}
 			
 			if(oneRoomLobby.size()>=2){
-				game.setPlayers(oneRoomLobby);
-				game.getPlayers().stream().forEach(System.out::println);
 				try {
-					game= new Game();
-					controller= new Controller(game);
-					oneRoomLobby.clear();
-					playersView.clear();
+					server.resetGame();
 				} catch (JDOMException | IOException e) {
+					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				oneRoomLobby.clear();
+				playersView.clear();
 			}
-			timer.cancel();
-			timer=null;
+			server.resetTimer();
 		}
 		
 	}

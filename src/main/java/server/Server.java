@@ -113,56 +113,7 @@ public class Server
 		System.out.println("CONNECTION ACCEPTED "+serialID+" "+view.getClient().getName());
 		view.getClient().printChange(new ModelChange(game));
 		serialID++;
-		if(oneRoomLobby.size()>=2){
-			if(timer==null){
-				timer=new Timer();
-				System.out.println("START TIMER");
-				timer.schedule(new TimerTask() {
-					
-					@Override
-					public void run() {
-
-						if(oneRoomLobby.size()>=2){
-							int i=0;
-							while(i<oneRoomLobby.size()){
-								Player player=oneRoomLobby.get(i);
-								try{
-									View x = playersView.get(player);
-									if(x.getClass().equals(ServerSocketView.class))
-										((ServerSocketView)x).getSocketOut().writeObject("");
-									else
-										((ServerRMIViewRemote)x).sendString("");
-									i++;
-								}catch(SocketException e){
-									oneRoomLobby.remove(player);
-									playersView.remove(player);
-									
-								}catch(IOException io){
-								}	
-							}
-							
-							if(oneRoomLobby.size()>=2){
-								game.setPlayers(oneRoomLobby);
-								game.getPlayers().stream().forEach(System.out::println);
-								try {
-									game= new Game();
-									controller= new Controller(game);
-									oneRoomLobby.clear();
-									playersView.clear();
-								} catch (JDOMException | IOException e) {
-									e.printStackTrace();
-								}
-							}
-							timer.cancel();
-							timer=null;
-						}
-						
-					}
-				},20*1000);
-				if(oneRoomLobby.isEmpty()) 
-					serialID=1;
-			}
-		}	
+		this.startTimer();
 	}
 	
 	public synchronized void addSocketClient(ServerSocketView view, Player player) throws JDOMException, IOException
@@ -172,56 +123,7 @@ public class Server
 		game.registerObserver(view);
 		oneRoomLobby.add(player);
 		playersView.put(player, view);
-		if(oneRoomLobby.size()>=2){
-			if(timer==null){
-				timer=new Timer();
-				System.out.println("START TIMER");
-				timer.schedule(new TimerTask() {
-					
-					@Override
-					public void run() {
-
-						if(oneRoomLobby.size()>=2){
-							int i=0;
-							while(i<oneRoomLobby.size()){
-								Player player=oneRoomLobby.get(i);
-								try{
-									View x = playersView.get(player);
-									if(x.getClass().equals(ServerSocketView.class))
-										((ServerSocketView)x).getSocketOut().writeObject("");
-									else
-										((ServerRMIViewRemote)x).sendString("");
-									i++;
-								}catch(SocketException e){
-									oneRoomLobby.remove(player);
-									playersView.remove(player);
-									
-								}catch(IOException io){
-								}	
-							}
-							
-							if(oneRoomLobby.size()>=2){
-								game.setPlayers(oneRoomLobby);
-								game.getPlayers().stream().forEach(System.out::println);
-								try {
-									game= new Game();
-									controller= new Controller(game);
-									oneRoomLobby.clear();
-									playersView.clear();
-									serialID=1;
-								} catch (JDOMException | IOException e) {
-									e.printStackTrace();
-								}
-							}
-							timer.cancel();
-							timer=null;
-						}
-						
-					}
-				},20*1000);
-				
-			}
-		}	
+		this.startTimer();
 	}
 	
 	public List<Player> getLobby(){
@@ -244,6 +146,29 @@ public class Server
 		} catch (AlreadyBoundException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void resetGame() throws JDOMException, IOException{
+		game.setPlayers(oneRoomLobby);
+		game.getPlayers().stream().forEach(System.out::println);
+		this.game=new Game();
+		this.controller=new Controller(game);
+		this.serialID=1;
+	}
+	
+	public void resetTimer(){
+		this.timer.cancel();
+		this.timer=null;
+	}
+	
+	private void startTimer(){
+		if(oneRoomLobby.size()>=2){
+			if(timer==null){
+				timer=new Timer();
+				System.out.println("START TIMER");
+				timer.schedule(new StartingGameTimerTask(this,oneRoomLobby, playersView),20*1000);
+			}
+		}	
 	}
 	
 }
