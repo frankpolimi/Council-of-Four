@@ -158,37 +158,11 @@ public class City  extends Bonusable implements Serializable{
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
+	public boolean equals(Object city) 
+	{
+		if(this.name.equals(((City) city).getName()))
 			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		City other = (City) obj;
-		if (bonusList == null) {
-			if (other.bonusList != null)
-				return false;
-		} else if (!bonusList.equals(other.bonusList))
-			return false;
-		if (cityColor == null) {
-			if (other.cityColor != null)
-				return false;
-		} else if (!cityColor.equals(other.cityColor))
-			return false;
-		if (emporiums == null) {
-			if (other.emporiums != null)
-				return false;
-		} else if (!emporiums.equals(other.emporiums))
-			return false;
-		if (firstChar != other.firstChar)
-			return false;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
-			return false;
-		return true;
+		return false;
 	}
 	
 	/**

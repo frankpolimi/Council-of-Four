@@ -46,10 +46,22 @@ public class BuildEmporiumByPermit extends MainAction
 				throw new IllegalArgumentException("The player has already built an emporium in this city");
 			}
 		
-		if(!permit.getBuildingAvaliableCities().contains(city))
+		boolean contained=false;
+		for(City c:permit.getBuildingAvaliableCities())
+		{
+			if(city.equals(c))
+			{
+				contained=true;
+				break;
+			}
+		}
+		if(!contained)
+			throw new IllegalArgumentException("The city where the player is trying to build is not present on the permit");
+		
+		/*if(!permit.getBuildingAvaliableCities().contains(city))
 		{
 			throw new IllegalArgumentException("The city where the player is trying to build is not present on the permit");
-		}
+		}*/
 		
 		int otherEmporiums=city.getEmporiums().size();
 		
