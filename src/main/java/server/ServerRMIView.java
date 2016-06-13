@@ -64,6 +64,17 @@ public class ServerRMIView extends View implements ServerRMIViewRemote{
 	public ClientRMIRemote getClient(){
 		return client;
 	}
+	
+	@Override
+	public String getName() {
+		try {
+			return client.getName();
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "";
+	}
 
 	@Override
 	public void sendString(String string) throws RemoteException {

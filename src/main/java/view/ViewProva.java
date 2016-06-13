@@ -247,4 +247,12 @@ public class ViewProva extends View {
 		System.out.println(p3);
 		
 	}
+
+
+
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

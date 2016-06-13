@@ -89,10 +89,8 @@ public class Server
 				try{
 					ServerSocketView view = new ServerSocketView(socket);
 					SocketConnectionHandler handler=view.getHandler();
-					System.out.println("CONNECTION ACCEPTED "+serialID+" "+view.getName());
 					handler.sendToClient(game);
-					this.addSocketClient(view, new Player(view.getName(), serialID));
-					serialID++;
+					this.addClient(view);
 					executor.submit(view);
 				}catch(IOException e){
 					System.out.println("Client has been disconnected");
@@ -102,35 +100,19 @@ public class Server
 			}
 		}
 	}
-	
-	public synchronized void addClient(View view) throws RemoteException, JDOMException, IOException{
+
+	public synchronized void addClient(View view) throws JDOMException, IOException{
 		view.setID(serialID);
-		Player p;
-		if(view.getClass().equals(ServerRMIView.class))
-			p = new Player(((ServerRMIView)view).getClient().getName(), serialID);
-		else
-			p = new Player(((ServerSocketView)view).getName(), serialID);
+		Player p = new Player(view.getName(), serialID);
 		oneRoomLobby.add(p);
 		playersView.put(p, view);
 		view.registerObserver(controller);
 		game.registerObserver(view);
+		System.out.println("CONNECTION ACCEPTED "+serialID+" "+view.getName());
 		serialID++;
 		this.startTimer();
 	}
-	
-	public synchronized void addRMIClient(ServerRMIView view) throws JDOMException, IOException{
-		view.setID(serialID);
-		Player p = new Player(view.getClient().getName(), serialID);
-		oneRoomLobby.add(p);
-		playersView.put(p, view);
-		view.registerObserver(controller);
-		game.registerObserver(view);
-		System.out.println("CONNECTION ACCEPTED "+serialID+" "+view.getClient().getName());
-		view.getClient().printChange(new ModelChange(game));
-		serialID++;
-		this.startTimer();
-	}
-	
+	/*
 	public synchronized void addSocketClient(ServerSocketView view, Player player) throws JDOMException, IOException
 	{
 		view.setID(this.serialID);
@@ -139,7 +121,7 @@ public class Server
 		oneRoomLobby.add(player);
 		playersView.put(player, view);
 		this.startTimer();
-	}
+	}*/
 	
 	public List<Player> getLobby(){
 		return this.oneRoomLobby;

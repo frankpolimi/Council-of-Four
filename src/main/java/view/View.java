@@ -15,7 +15,7 @@ import model.observers.*;
  * and will transfer to the controller a complete action to execute.
  * @author Francesco Vetr�
  */
-public class View extends Observable<Request> implements Observer<Change> {
+public abstract class View extends Observable<Request> implements Observer<Change> {
 
 	@Override
 	public void update() {
@@ -32,5 +32,7 @@ public class View extends Observable<Request> implements Observer<Change> {
 	public void setID(int serialID){
 		//nothig to do, must be overridden
 	}
+	
+	public abstract String getName();
 
 }
