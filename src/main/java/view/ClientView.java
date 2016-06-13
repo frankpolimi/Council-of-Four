@@ -29,7 +29,7 @@ import model.game.topology.City;
 import model.market.Assistant;
 import model.market.MarketObject;
 
-public class ClientView extends View{
+public class ClientView{
 	
 	private Game game;
 	private LocalStorage memoryContainer;
@@ -481,7 +481,7 @@ public class ClientView extends View{
 		}else if(game.getGameState().getClass().equals(EndState.class)){
 			game.getGameState().display();
 			stdin.close();
-			return new QuitRequest(this.ID);
+			return null;
 		}
 		return request;
 	}
