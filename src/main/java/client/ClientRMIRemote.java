@@ -4,6 +4,7 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 
 import controller.Change;
+import view.LocalStorage;
 import view.Request;
 
 public interface ClientRMIRemote extends Remote{
@@ -16,4 +17,5 @@ public interface ClientRMIRemote extends Remote{
 	
 	public String getName() throws RemoteException;
 	public int getID() throws RemoteException;
+	public LocalStorage getMemoryContainer();
 }

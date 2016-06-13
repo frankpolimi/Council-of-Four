@@ -39,8 +39,7 @@ public class ClientRMI extends UnicastRemoteObject implements Serializable{
 	private final String host;
 	private final int rmiPort;
 	
-	private ClientRMIView rmiView;
-	private ConnectionHandler handler;
+	private RMIConnectionHandler handler;
 	private Request request;
 	private Registry registry;
 	
@@ -66,34 +65,32 @@ public class ClientRMI extends UnicastRemoteObject implements Serializable{
 		System.out.println("Insert your name:");
 		String nome = stdin.nextLine();
 		
-		rmiView = new ClientRMIView(nome, serverRegistration);
-		
-		handler = new RMIConnectionHandler(rmiView);
+		handler = new RMIConnectionHandler(new ClientRMIView(nome, serverRegistration));
 		
 		boolean isUpdated;
 		
-		while(rmiView.getMemoryContainer().getGameRef()==null);
+		while(handler.getRmiView().getMemoryContainer().getGameRef()==null);
 		
 		while(true){
-			synchronized (rmiView.getMemoryContainer()) {
-				game = rmiView.getMemoryContainer().getGameRef();
+			synchronized (handler.getRmiView().getMemoryContainer()) {
+				game = handler.getRmiView().getMemoryContainer().getGameRef();
 			}
-			isUpdated = rmiView.getMemoryContainer().isUpdated();
+			isUpdated = handler.getRmiView().getMemoryContainer().isUpdated();
 			
 			if(game.getGameState()!=null&&
 					isUpdated&&
-					game.getCurrentPlayer().getPlayerID()==rmiView.getID()){
+					game.getCurrentPlayer().getPlayerID()==handler.getRmiView().getID()){
 				try {
 					Thread.sleep(2000);
 				} catch (InterruptedException e1) {
 					e1.printStackTrace();
 				}
 				
-				ClientView view = new ClientView(game, rmiView.getMemoryContainer(), rmiView.getID());
+				ClientView view = new ClientView(game, handler.getRmiView().getMemoryContainer(), handler.getRmiView().getID());
 				request = view.start();
 				if(request != null){
 					try {
-						if(!rmiView.getMemoryContainer().getGameRef().getGameState().getClass().equals(EndState.class)){
+						if(!handler.getRmiView().getMemoryContainer().getGameRef().getGameState().getClass().equals(EndState.class)){
 							handler.sendToServer(request);
 							isUpdated = false;
 						}
