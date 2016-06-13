@@ -27,7 +27,7 @@ public class ImagePanel extends JPanel {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		image=this.getScaledImage(image, 300, 300);
+		image=this.getScaledImage(image, 300, 400);
 		this.setLayout(new FlowLayout());
 		this.setVisible(true);
 	}
