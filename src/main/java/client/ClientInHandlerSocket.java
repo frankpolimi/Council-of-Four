@@ -14,15 +14,15 @@ import view.LocalStorage;
 
 public class ClientInHandlerSocket implements Runnable 
 {
-	private ObjectInputStream socketIn;
+	private ConnectionHandler handler;
 	private Game gameLocalCopy;
 	private LocalStorage memoryContainer;
 	private int iD;
 	
-	public ClientInHandlerSocket(ObjectInputStream socketIn,
+	public ClientInHandlerSocket(ConnectionHandler handler,
 			LocalStorage container, int iD) 
 	{
-		this.socketIn = socketIn;
+		this.handler=handler;
 		this.memoryContainer=container;
 		this.gameLocalCopy = memoryContainer.getGameRef();
 		this.iD = iD;
@@ -35,7 +35,7 @@ public class ClientInHandlerSocket implements Runnable
 		{
 			Object x = new Object();
 			try {
-				 x = socketIn.readUnshared();
+				 x = handler.receiveFromServer();
 			} catch (ClassNotFoundException | IOException e) {
 				System.out.println("THE GAME IS FINISHED - BYE BYE");
 				break;

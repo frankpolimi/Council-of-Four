@@ -39,7 +39,7 @@ public class StartingGameTimerTask extends TimerTask {
 				try{
 					View x = playersView.get(player);
 					if(x.getClass().equals(ServerSocketView.class))
-						((ServerSocketView)x).getSocketOut().writeObject("");
+						((ServerSocketView)x).getHandler().sendToClient("");
 					else
 						((ServerRMIViewRemote)x).sendString("");
 					i++;

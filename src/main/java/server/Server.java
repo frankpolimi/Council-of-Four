@@ -19,6 +19,7 @@ import java.util.concurrent.*;
 import org.jdom2.*;
 
 import client.ConfigReader;
+import client.SocketConnectionHandler;
 import controller.*;
 import model.game.Game;
 import model.game.Player;
@@ -87,10 +88,9 @@ public class Server
 				Socket socket = serverSocket.accept();
 				try{
 					ServerSocketView view = new ServerSocketView(socket);
+					SocketConnectionHandler handler=view.getHandler();
 					System.out.println("CONNECTION ACCEPTED "+serialID+" "+view.getName());
-					view.getSocketOut().reset();
-					view.getSocketOut().writeUnshared(game);
-					view.getSocketOut().flush();
+					handler.sendToClient(game);
 					this.addSocketClient(view, new Player(view.getName(), serialID));
 					serialID++;
 					executor.submit(view);

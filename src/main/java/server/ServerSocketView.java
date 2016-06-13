@@ -4,6 +4,7 @@ import java.io.*;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
 
+import client.SocketConnectionHandler;
 import controller.Change;
 import view.QuitRequest;
 import view.Request;
@@ -11,9 +12,10 @@ import view.View;
 
 public class ServerSocketView extends View implements Runnable
 {
-	private final Socket socket;
-	private final ObjectInputStream socketIn;
-	private final ObjectOutputStream socketOut;
+	//private final Socket socket;
+	//private final ObjectInputStream socketIn;
+	//private final ObjectOutputStream socketOut;
+	private SocketConnectionHandler handler;
 	private String name;
 	private int ID;
 	
@@ -25,18 +27,8 @@ public class ServerSocketView extends View implements Runnable
 	 */
 	public ServerSocketView(Socket socket) throws IOException, ClassNotFoundException
 	{
-			this.socket = socket;
-			this.socket.setSoTimeout(20*1000);
-			socketOut = new ObjectOutputStream(this.socket.getOutputStream());
-			socketIn = new ObjectInputStream(this.socket.getInputStream());
-			try{
-				name = (String)socketIn.readObject();
-			}catch(SocketTimeoutException e){
-				System.out.println("The client is connected but it didn't insert its name in time");
-				this.socket.close();
-			}
-			socket.setSoTimeout(0);
-		
+			this.handler=new SocketConnectionHandler(socket);
+			this.name=handler.getName();
 	}
 
 	/**
@@ -49,7 +41,7 @@ public class ServerSocketView extends View implements Runnable
 		while (true)
 		{
 			try {
-				Request line = (Request)socketIn.readUnshared();
+				Request line = (Request)handler.receiveFromClient();
 				this.notifyObservers(line);
 			} catch (ClassNotFoundException e) {
 				System.out.println(e.getMessage()+"  "+e.getCause());
@@ -60,9 +52,7 @@ public class ServerSocketView extends View implements Runnable
 			}
 			catch(IllegalArgumentException | IllegalStateException e1){
 				try {
-					this.socketOut.reset();
-					this.socketOut.writeObject(e1.getMessage());
-					this.socketOut.flush();
+					handler.sendToClient(e1.getMessage());
 				} catch (IOException e) {
 					
 				}
@@ -78,9 +68,7 @@ public class ServerSocketView extends View implements Runnable
 	public void update(Change change){
 		
 		try {
-			this.socketOut.reset();
-			this.socketOut.writeUnshared(change);
-			this.socketOut.flush();
+			handler.sendToClient(change);
 		} catch (IOException e) {
 			
 		}
@@ -91,19 +79,12 @@ public class ServerSocketView extends View implements Runnable
 	public void setID(int serialID){
 		this.ID = serialID;
 		try {
-			this.socketOut.writeUnshared(new Integer(serialID));
-			this.socketOut.flush();
+			handler.sendToClient(new Integer(this.ID));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
-	/**
-	 * @return the socket
-	 */
-	public Socket getSocket() {
-		return socket;
-	}
 
 	/**
 	 * @return the name
@@ -119,20 +100,9 @@ public class ServerSocketView extends View implements Runnable
 		this.name = name;
 	}
 
-	/**
-	 * @return the socketIn
-	 */
-	public ObjectInputStream getSocketIn() {
-		return socketIn;
+	public SocketConnectionHandler getHandler() {
+		return handler;
 	}
-
-	/**
-	 * @return the socketOut
-	 */
-	public ObjectOutputStream getSocketOut() {
-		return socketOut;
-	}
-
 	
 
 	

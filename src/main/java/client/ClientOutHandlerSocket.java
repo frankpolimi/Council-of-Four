@@ -21,13 +21,14 @@ public class ClientOutHandlerSocket implements Runnable
 {
 	private int ID;
 	private Request request; 
-	private ObjectOutputStream socketOut;
+	//private ObjectOutputStream socketOut;
+	private ConnectionHandler handler;
 	private LocalStorage memoryContainer;
 	private Game game;
 
-	public ClientOutHandlerSocket(ObjectOutputStream socketOut, LocalStorage container, int ID) {
+	public ClientOutHandlerSocket(ConnectionHandler handler, LocalStorage container, int ID) {
 	
-		this.socketOut = socketOut;
+		this.handler=handler;
 		this.memoryContainer=container;
 		this.game = memoryContainer.getGameRef();
 		this.ID = ID;
@@ -46,33 +47,20 @@ public class ClientOutHandlerSocket implements Runnable
 		System.err.println("game ricevuto");
 		while (true) 
 		{
-			/*
-			synchronized(this){
-				try {
-					this.wait();
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}*/
-			
+
 			synchronized (memoryContainer) {
 				game=memoryContainer.getGameRef();
 				isUpdated=memoryContainer.isUpdated();
 			}
 			
-			
-			
 			if(game.getGameState()!=null&&isUpdated&&game.getCurrentPlayer().getPlayerID()==ID){
 								
-				
-				String inputLine = this.start(stdin);
-				if(inputLine.equals("")){
+				ClientView view = new ClientView(game, memoryContainer, ID);
+				request = view.start(); 
+				if(request!=null){
 					try {
 						if(!memoryContainer.getGameRef().getGameState().getClass().equals(EndState.class)){
-							socketOut.reset();
-							socketOut.writeUnshared(request);
-							socketOut.flush();
+							handler.sendToServer(request);
 							synchronized (memoryContainer) {
 								memoryContainer.setUpdated(false);
 							}
@@ -84,24 +72,17 @@ public class ClientOutHandlerSocket implements Runnable
 					} catch (IllegalArgumentException | IllegalStateException c){
 						System.out.println("Error in performing action: "+c.getMessage());
 					}
-				}else if(inputLine.equals("quit")){
-					System.out.println("Are you sure? Type 'YES' is you agree, otherwise type anything else");
-					Scanner scanner=new Scanner(System.in);
-					if(scanner.nextLine().equalsIgnoreCase("yes")){
-						System.err.println("You have been disconnected");
-						try {
-							socketOut.reset();
-							socketOut.writeObject(new QuitRequest(this.ID));
-							socketOut.flush();
-							socketOut.close();
-							break;
-						} catch (IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-						
+				}
+				
+				if(request.getClass().equals(QuitRequest.class)){
+					try {
+						handler.closeConnection();
+						System.err.println("THE GAME IS FINISHED, BYE BYE");
+						break;
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 					}
-					scanner.close();
 				}
 				
 				/*
@@ -125,79 +106,7 @@ public class ClientOutHandlerSocket implements Runnable
 	 * @param stdin the standard input to input the selection
 	 * @return 
 	 */
-	public String start(Scanner stdin){
-		int actionType;
-		ClientView view = new ClientView(game, memoryContainer, ID);
-		if(game.isLastTurn())
-			System.err.println("THIS IS YOUR LAST TURN");
-		if(this.game.getGameState().getClass().equals(StartState.class)){
-			if(!memoryContainer.getBonus().isEmpty())
-				request = view.bonus(stdin);
-			else if(!memoryContainer.getPermits().isEmpty())
-				request = view.permit(stdin);
-			else{	
-				game.getGameState().display();
-				actionType= view.selector(1, 4, stdin);
-				switch (actionType) {
-				case 1:
-					request = view.mainAction(stdin);
-					break;
-				case 2:
-					request = view.quickAction(stdin);
-					break;
-				case 3:
-					request = new ActionRequest(new SkipAction(), this.ID);
-					break;
-				case 4:
-					return "quit";
-				}
-				if(request == null)
-					return "impossible";
-				return "";
-			}
-		}
-		else if(game.getGameState().getClass().equals(MarketSellingState.class)){
-			game.getGameState().display();
-			actionType = view.selector(1, 3, stdin);
-			switch(actionType){
-			case 1:
-				request = view.addProduct(stdin);
-				break;
-			case 2:
-				request = new ActionRequest(new SkipAction(), ID);
-				break;
-			case 3:
-				return "quit";
-			}
-			return "";
-		}
-		else if(game.getGameState().getClass().equals(MarketBuyingState.class)){
-			game.getGameState().display();
-			actionType = view.selector(1, 3, stdin);
-			switch(actionType){
-			case 1:
-				request = view.buyProducts(stdin);
-				break;
-			case 2: 
-				request = new ActionRequest(new SkipAction(), ID);
-				break;
-			case 3:
-				return "quit";
-			}
-			if(request == null)
-				return "impossible";
-			return "";
-		}else if(game.getGameState().getClass().equals(EndState.class)){
-			game.getGameState().display();
-			try {
-				socketOut.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			return "";
-		}
-		return "not ready";
-	}
+	
 
 	/**
 	 * get the request to the server
