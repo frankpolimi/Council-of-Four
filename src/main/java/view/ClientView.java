@@ -1,5 +1,6 @@
 package view;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -13,6 +14,7 @@ import model.actions.ElectCouncillor;
 import model.actions.ElectCouncillorByAssistant;
 import model.actions.EngageAssistant;
 import model.actions.ExtraMainAction;
+import model.actions.SkipAction;
 import model.bonus.Bonus;
 import model.game.BuildingPermit;
 import model.game.Game;
@@ -27,15 +29,15 @@ import model.game.topology.City;
 import model.market.Assistant;
 import model.market.MarketObject;
 
-public class ClientView{
+public class ClientView extends View{
 	
 	private Game game;
-	private LocalStorage storage;
+	private LocalStorage memoryContainer;
 	private int ID;
 	
 	public ClientView(Game game, LocalStorage memoryContainer, int ID) {
 		this.game=game;
-		this.storage = memoryContainer;
+		this.memoryContainer = memoryContainer;
 		this.ID = ID;
 	}
 	
@@ -379,11 +381,11 @@ public class ClientView{
 	 */
 	public Request permit(Scanner stdin) {
 		System.out.println("Select the permit you want to acquire");
-		storage.getPermits().forEach(System.out::println);
-		int selection=this.selector(1, storage.getPermitsLenght(), stdin);
+		memoryContainer.getPermits().forEach(System.out::println);
+		int selection=this.selector(1, memoryContainer.getPermitsLenght(), stdin);
 		PermitsRequest request = new PermitsRequest(this.ID);
-		request.addPermit(storage.retrievePermit(selection-1));
-		storage.setPermits(new ArrayList<BuildingPermit>());
+		request.addPermit(memoryContainer.retrievePermit(selection-1));
+		memoryContainer.setPermits(new ArrayList<BuildingPermit>());
 		return request;
 	}
 
@@ -394,11 +396,11 @@ public class ClientView{
 	 */
 	public Request bonus(Scanner stdin) {
 		System.out.println("Select the bonus you want to acquire");
-		storage.getBonus().forEach(System.out::println);
-		int selection=this.selector(1, storage.getBonusLenght(), stdin);
+		memoryContainer.getBonus().forEach(System.out::println);
+		int selection=this.selector(1, memoryContainer.getBonusLenght(), stdin);
 		BonusRequest request = new BonusRequest(this.ID);
-		request.addBonus(storage.retrieveBonus(selection-1));
-		storage.setBonus(new ArrayList<Bonus>());
+		request.addBonus(memoryContainer.retrieveBonus(selection-1));
+		memoryContainer.setBonus(new ArrayList<Bonus>());
 		return request;
 	}
 
@@ -419,41 +421,78 @@ public class ClientView{
 		return selection;	
 	}
 	
-	private void stampModel(){
-		System.out.println("GAME");
-		System.out.println(game.toString());
+	public Request start(){
+		int actionType;
+		Request request=null;
+		Scanner stdin=new Scanner(System.in);
+		if(game.isLastTurn())
+			System.err.println("THIS IS YOUR LAST TURN");
+		if(this.game.getGameState().getClass().equals(StartState.class)){
+			if(!memoryContainer.getBonus().isEmpty())
+				request = this.bonus(stdin);
+			else if(!memoryContainer.getPermits().isEmpty())
+				request = this.permit(stdin);
+			else{	
+				game.getGameState().display();
+				actionType= this.selector(1, 4, stdin);
+				switch (actionType) {
+				case 1:
+					request = this.mainAction(stdin);
+					break;
+				case 2:
+					request = this.quickAction(stdin);
+					break;
+				case 3:
+					request = new ActionRequest(new SkipAction(), this.ID);
+					break;
+				case 4:
+					return this.quitter();
+				}
+			}
+		}
+		else if(game.getGameState().getClass().equals(MarketSellingState.class)){
+			game.getGameState().display();
+			actionType = this.selector(1, 3, stdin);
+			switch(actionType){
+			case 1:
+				request = this.addProduct(stdin);
+				break;
+			case 2:
+				request = new ActionRequest(new SkipAction(), ID);
+				break;
+			case 3:
+				return this.quitter();
+			}
+			
+		}
+		else if(game.getGameState().getClass().equals(MarketBuyingState.class)){
+			game.getGameState().display();
+			actionType = this.selector(1, 3, stdin);
+			switch(actionType){
+			case 1:
+				request = this.buyProducts(stdin);
+				break;
+			case 2: 
+				request = new ActionRequest(new SkipAction(), ID);
+				break;
+			case 3:
+				return this.quitter();
+			}
+		}else if(game.getGameState().getClass().equals(EndState.class)){
+			game.getGameState().display();
+			stdin.close();
+			return new QuitRequest(this.ID);
+		}
+		return request;
 	}
 	
-	private Game getGame() {
-		return game;
+	private Request quitter(){
+		System.out.println("Are you sure? Type 'YES' is you agree, otherwise type anything else");
+		Scanner scanner=new Scanner(System.in);
+		if(scanner.nextLine().equalsIgnoreCase("yes")){
+			System.err.println("You have been disconnected");
+			return new QuitRequest(this.ID);
+		}	
+		return null;
 	}
-	
-	
-	/*
-	 * TODO move to server view
-	 * 
-	@Override
-	public void update() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void update(String communication) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void update(Change change) {
-		if(change.getClass().equals(StateChange.class))
-			this.setState(((StateChange)change).getStateChanged());
-		else if(change.getClass().equals(BonusChange.class))
-			this.setState(new BonusState(
-					((BonusChange)change).getBonusList()));
-		else if(change.getClass().equals(PermitsChange.class))
-			this.setState(new PermitsState(
-					((PermitsChange)change).getPermits()));
-	}
-	*/
 }

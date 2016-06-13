@@ -19,6 +19,7 @@ import java.util.concurrent.*;
 import org.jdom2.*;
 
 import client.ConfigReader;
+import client.SocketConnectionHandler;
 import controller.*;
 import model.game.Game;
 import model.game.Player;
@@ -87,12 +88,10 @@ public class Server
 				Socket socket = serverSocket.accept();
 				try{
 					ServerSocketView view = new ServerSocketView(socket);
+					SocketConnectionHandler handler=view.getHandler();
 					System.out.println("CONNECTION ACCEPTED "+serialID+" "+view.getName());
-					view.getSocketOut().reset();
-					view.getSocketOut().writeUnshared(game);
-					view.getSocketOut().flush();
-					this.addClient(view);
-					//this.addSocketClient(view, new Player(view.getName(), serialID));
+					handler.sendToClient(game);
+					this.addSocketClient(view, new Player(view.getName(), serialID));
 					serialID++;
 					executor.submit(view);
 				}catch(IOException e){
@@ -119,7 +118,6 @@ public class Server
 		this.startTimer();
 	}
 	
-	/*
 	public synchronized void addRMIClient(ServerRMIView view) throws JDOMException, IOException{
 		view.setID(serialID);
 		Player p = new Player(view.getClient().getName(), serialID);
@@ -146,7 +144,6 @@ public class Server
 	public List<Player> getLobby(){
 		return this.oneRoomLobby;
 	}
-	*/
 	
 	public static void main(String[] args) throws JDOMException, IOException {
 		

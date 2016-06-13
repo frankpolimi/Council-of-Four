@@ -35,6 +35,7 @@ public class QuitRequest extends Request {
 		game.getPlayers().remove(user);
 		game.getShuffledPlayers().remove(user);
 		game.getDisconnectedPlayers().add(user);
+		game.decrementLastRemainingPlayers();
 		
 	}
 

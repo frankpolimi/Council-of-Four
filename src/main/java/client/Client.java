@@ -56,7 +56,7 @@ public class Client {
 				}catch (UnknownHostException e){
 					System.out.println("Sorry! Errors Occurred. Terminating");
 				} catch (IOException e) {
-					System.out.println("Sorry! Errors Occurred. Terminating");
+					e.printStackTrace();
 				} 
 				break;
 			}

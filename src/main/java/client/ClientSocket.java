@@ -45,27 +45,25 @@ public class ClientSocket
 		Socket socket = new Socket(ip, port);
 		System.out.println("Connection Established");
 		ExecutorService executor = Executors.newFixedThreadPool(2);
-		
+		SocketConnectionHandler handler = new SocketConnectionHandler(socket);
 		System.out.println("Aspetto gioco");
-		ObjectOutputStream socketOut=new ObjectOutputStream(socket.getOutputStream());
+		//ObjectOutputStream socketOut=new ObjectOutputStream(socket.getOutputStream());
 		
 		Scanner stdin = new Scanner(System.in);
 		System.out.println("Insert your name: ");
 		String name = stdin.nextLine();
 		try {
-			socketOut.reset();
-			socketOut.writeUnshared(name);
-			socketOut.flush();
+			handler.sendToServer(name);
 		} catch (IOException e1) {
 			System.err.println("You didn't insert your name in time. You are disconnected");
 			System.exit(0);
 		}
 		System.out.println("Waiting for other players");
-		ObjectInputStream socketIn=new ObjectInputStream(socket.getInputStream());
+		//ObjectInputStream socketIn=new ObjectInputStream(socket.getInputStream());
 		try{
-			Game game=(Game)socketIn.readUnshared();
+			Game game=(Game)handler.receiveFromServer();
 			this.game=game;
-			int id=(Integer)socketIn.readUnshared();
+			int id=(Integer)handler.receiveFromServer();
 			this.ID=id;
 			//System.out.println("gioco "+game);
 		}catch(ClassNotFoundException e){
@@ -74,9 +72,9 @@ public class ClientSocket
 		System.out.println("ID: "+this.ID);
 		memoryContainer.setGameRef(game);
 		
-		executor.submit(new ClientOutHandlerSocket(socketOut, 
+		executor.submit(new ClientOutHandlerSocket(handler, 
 				 memoryContainer, ID));
-		executor.submit(new ClientInHandlerSocket(socketIn, memoryContainer, ID));
+		executor.submit(new ClientInHandlerSocket(handler, memoryContainer, ID));
 		
 	}
 }
