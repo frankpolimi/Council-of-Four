@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.*;
 
 import org.jdom2.*;
@@ -112,15 +113,7 @@ public class Server
 		System.out.println("CONNECTION ACCEPTED "+serialID+" "+view.getClient().getName());
 		view.getClient().printChange(new ModelChange(game));
 		serialID++;
-		if(oneRoomLobby.size()>=2){
-			if(timer==null){
-				timer=new Timer();
-				System.out.println("START TIMER");
-				timer.schedule(new StartingGameTimerTask(oneRoomLobby, playersView, game, controller, timer) ,20*1000);
-				if(oneRoomLobby.isEmpty()) 
-					serialID=1;
-			}
-		}	
+		this.startTimer();
 	}
 	
 	public synchronized void addSocketClient(ServerSocketView view, Player player) throws JDOMException, IOException
@@ -130,20 +123,13 @@ public class Server
 		game.registerObserver(view);
 		oneRoomLobby.add(player);
 		playersView.put(player, view);
-		if(oneRoomLobby.size()>=2){
-			if(timer==null){
-				timer=new Timer();
-				System.out.println("START TIMER");
-				timer.schedule(new StartingGameTimerTask(oneRoomLobby, playersView, game, controller, timer) ,20*1000);
-				if(oneRoomLobby.isEmpty()) 
-					serialID=1;
-			}
-		}	
+		this.startTimer();
 	}
 	
 	public List<Player> getLobby(){
 		return this.oneRoomLobby;
 	}
+
 	
 	public static void main(String[] args) throws JDOMException, IOException {
 		
@@ -161,5 +147,31 @@ public class Server
 			e.printStackTrace();
 		}
 	}
-
+	
+	public void resetGame() throws JDOMException, IOException{
+		game.setPlayers(oneRoomLobby);
+		game.getPlayers().stream().forEach(System.out::println);
+		this.game=new Game();
+		this.controller=new Controller(game);
+		this.serialID=1;
+	}
+	
+	public void resetTimer(){
+		this.timer.cancel();
+		this.timer=null;
+	}
+	
+	private void startTimer(){
+		if(oneRoomLobby.size()>=2){
+			if(timer==null){
+				timer=new Timer();
+				System.out.println("START TIMER");
+				timer.schedule(new StartingGameTimerTask(this,oneRoomLobby, playersView),20*1000);
+			}
+		}	
+	}
+	
 }
+
+
+
