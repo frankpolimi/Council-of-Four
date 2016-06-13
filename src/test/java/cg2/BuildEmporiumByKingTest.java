@@ -87,6 +87,7 @@ public class BuildEmporiumByKingTest {
 			}
 			
 			player.setRemainingEmporiums(10);
+			player.setAssistants(10);
 			assertTrue(action.takeAction(game));
 			assertTrue(city.hasPlayerBuilt(player));
 			
