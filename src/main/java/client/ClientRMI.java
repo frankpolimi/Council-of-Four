@@ -69,13 +69,17 @@ public class ClientRMI extends UnicastRemoteObject implements Serializable{
 		
 		boolean isUpdated;
 		
+		while(rmiView.getMemoryContainer().getGameRef()==null);
+		
 		while(true){
 			synchronized (rmiView.getMemoryContainer()) {
 				game = rmiView.getMemoryContainer().getGameRef();
 			}
 			isUpdated = rmiView.getMemoryContainer().isUpdated();
 			
-			if(game.getGameState()!=null&&isUpdated&&game.getCurrentPlayer().getPlayerID()==rmiView.getID()){
+			if(game.getGameState()!=null&&
+					isUpdated&&
+					game.getCurrentPlayer().getPlayerID()==rmiView.getID()){
 				try {
 					Thread.sleep(2000);
 				} catch (InterruptedException e1) {

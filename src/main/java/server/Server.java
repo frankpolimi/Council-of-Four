@@ -91,7 +91,8 @@ public class Server
 					view.getSocketOut().reset();
 					view.getSocketOut().writeUnshared(game);
 					view.getSocketOut().flush();
-					this.addSocketClient(view, new Player(view.getName(), serialID));
+					this.addClient(view);
+					//this.addSocketClient(view, new Player(view.getName(), serialID));
 					serialID++;
 					executor.submit(view);
 				}catch(IOException e){
@@ -103,6 +104,22 @@ public class Server
 		}
 	}
 	
+	public synchronized void addClient(View view) throws RemoteException, JDOMException, IOException{
+		view.setID(serialID);
+		Player p;
+		if(view.getClass().equals(ServerRMIView.class))
+			p = new Player(((ServerRMIView)view).getClient().getName(), serialID);
+		else
+			p = new Player(((ServerSocketView)view).getName(), serialID);
+		oneRoomLobby.add(p);
+		playersView.put(p, view);
+		view.registerObserver(controller);
+		game.registerObserver(view);
+		serialID++;
+		this.startTimer();
+	}
+	
+	/*
 	public synchronized void addRMIClient(ServerRMIView view) throws JDOMException, IOException{
 		view.setID(serialID);
 		Player p = new Player(view.getClient().getName(), serialID);
@@ -129,7 +146,7 @@ public class Server
 	public List<Player> getLobby(){
 		return this.oneRoomLobby;
 	}
-
+	*/
 	
 	public static void main(String[] args) throws JDOMException, IOException {
 		

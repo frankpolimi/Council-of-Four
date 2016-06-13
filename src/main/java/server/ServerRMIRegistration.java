@@ -27,7 +27,7 @@ public class ServerRMIRegistration implements ServerRMIRegistrationRemote {
 	@Override
 	public ServerRMIViewRemote register(ClientRMIRemote client) throws AlreadyBoundException, JDOMException, IOException {
 		ServerRMIView view = new ServerRMIView(client);
-		server.addRMIClient(view);
+		server.addClient(view);
 		return view;
 	}
 

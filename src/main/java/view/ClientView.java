@@ -94,7 +94,7 @@ public class ClientView{
 			System.out.println("Select the cards that you would to spend for corrupting a council - max 4 cards");
 			System.out.println("Select 0 if you want to change main action");
 			System.out.println("Insert -1 if you want to terminate this drawing step");
-			i=0;
+			i=1;
 			int cardsIndex=this.selector(-1, ownedCards.size(), stdin);
 			while(cardsIndex!=0&&cardsIndex!=-1&&i<4){
 				PoliticsCard card=ownedCards.get(cardsIndex-1);
