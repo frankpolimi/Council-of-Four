@@ -5,8 +5,10 @@ package client;
 
 import java.io.IOException;
 import java.rmi.AlreadyBoundException;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.Scanner;
 
 import org.jdom2.JDOMException;
 
@@ -17,10 +19,17 @@ import controller.MarketChange;
 import controller.ModelChange;
 import controller.PermitsChange;
 import controller.StateChange;
+import model.actions.SkipAction;
 import server.ServerRMIRegistrationRemote;
 import server.ServerRMIViewRemote;
+import view.ActionRequest;
+import view.ClientView;
+import view.EndState;
 import view.LocalStorage;
+import view.MarketBuyingState;
+import view.MarketSellingState;
 import view.Request;
+import view.StartState;
 import view.State;
 
 /**
@@ -95,8 +104,8 @@ public class ClientRMIView extends UnicastRemoteObject implements ClientRMIRemot
 	 * @see client.RMIClientRemote#printInt(int)
 	 */
 	@Override
-	public void printInt(int value) throws RemoteException {
-		this.ID = value;
+	public void printInt(Integer value) throws RemoteException {
+		this.ID = value.intValue();
 	}
 	
 	/* (non-Javadoc)
@@ -123,5 +132,4 @@ public class ClientRMIView extends UnicastRemoteObject implements ClientRMIRemot
 	public void sendRequestToServerView(Request request) throws RemoteException {
 		serverView.receiveRequest(request);
 	}
-
 }

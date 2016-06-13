@@ -3,11 +3,14 @@
  */
 package server;
 
+import java.io.IOException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
 import client.ClientRMIRemote;
+import client.RMIConnectionHandler;
 import controller.Change;
+import view.QuitRequest;
 import view.Request;
 import view.View;
 
@@ -17,12 +20,12 @@ import view.View;
  */
 public class ServerRMIView extends View implements ServerRMIViewRemote{
 
-	private ClientRMIRemote client;
+	private RMIConnectionHandler client;
 	private int ID;
 	
 	public ServerRMIView(ClientRMIRemote client) throws RemoteException{
 		UnicastRemoteObject.exportObject(this, 1099);
-		this.client = client;
+		this.client = new RMIConnectionHandler(client);
 	}
 
 	@Override
@@ -30,23 +33,34 @@ public class ServerRMIView extends View implements ServerRMIViewRemote{
 		try{
 			this.notifyObservers(request);
 		}catch (IllegalArgumentException | IllegalStateException e1){
-			this.client.printString(e1.getMessage());
+			try {
+				this.client.sendToClient(e1.getMessage());
+			} catch (IOException e) {
+				System.out.println("The client"+this.ID+" has been disconnected and removed in the game model");
+				this.notifyObservers(new QuitRequest(this.ID));
+			}
 		}
 	}
 
 	@Override
 	public void update(Change c){
 		try {
-			client.printChange(c);
+			this.client.sendToClient(c);
 		} catch (RemoteException e) {
+			System.out.println("The client"+this.ID+" has been disconnected and removed in the game model");
+			this.notifyObservers(new QuitRequest(this.ID));
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 	
 	public void update(String s){
 		try {
-			client.printString(s);
+			this.client.sendToClient(s);
 		} catch (RemoteException e) {
+			System.out.println("The client"+this.ID+" has been disconnected and removed in the game model");
+			this.notifyObservers(new QuitRequest(this.ID));
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
@@ -55,22 +69,24 @@ public class ServerRMIView extends View implements ServerRMIViewRemote{
 	public void setID(int iD){
 		this.ID = iD;
 		try {
-			client.printInt(iD);
+			this.client.sendToClient(new Integer(iD));
 		} catch (RemoteException e) {
+			System.out.println("The client"+this.ID+" has been disconnected and removed in the game model");
+			this.notifyObservers(new QuitRequest(this.ID));
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 	
 	public ClientRMIRemote getClient(){
-		return client;
+		return client.getRmiView();
 	}
 	
 	@Override
 	public String getName() {
 		try {
-			return client.getName();
+			return client.getRmiView().getName();
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return "";

@@ -10,7 +10,7 @@ public interface ClientRMIRemote extends Remote{
 	
 	public void printChange(Change change) throws RemoteException;
 	public void printString(String string) throws RemoteException;
-	public void printInt(int value) throws RemoteException;
+	public void printInt(Integer value) throws RemoteException;
 	
 	public void sendRequestToServerView(Request request) throws RemoteException;
 	

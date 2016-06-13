@@ -39,9 +39,10 @@ public class ClientRMI extends UnicastRemoteObject implements Serializable{
 	private final String host;
 	private final int rmiPort;
 	
-	ClientRMIView rmiView;
-	Request request;
-	Registry registry;
+	private ClientRMIView rmiView;
+	private ConnectionHandler handler;
+	private Request request;
+	private Registry registry;
 	
 	private String name = "game";
 	
@@ -67,6 +68,8 @@ public class ClientRMI extends UnicastRemoteObject implements Serializable{
 		
 		rmiView = new ClientRMIView(nome, serverRegistration);
 		
+		handler = new RMIConnectionHandler(rmiView);
+		
 		boolean isUpdated;
 		
 		while(rmiView.getMemoryContainer().getGameRef()==null);
@@ -86,109 +89,32 @@ public class ClientRMI extends UnicastRemoteObject implements Serializable{
 					e1.printStackTrace();
 				}
 				
-				String inputLine = this.start(stdin);
-				if(inputLine.equals("")){
+				ClientView view = new ClientView(game, rmiView.getMemoryContainer(), rmiView.getID());
+				request = view.start();
+				if(request != null){
 					try {
 						if(!rmiView.getMemoryContainer().getGameRef().getGameState().getClass().equals(EndState.class)){
-							rmiView.sendRequestToServerView(request);
+							handler.sendToServer(request);
 							isUpdated = false;
 						}
 					} catch (IOException e) {
 						if(e.getMessage().equals("Socket closed"))
-						System.err.println("THE GAME IS FINISHED, BYE BYE");
+							System.err.println("THE GAME IS FINISHED, BYE BYE");
 						break;
 					} catch (IllegalArgumentException | IllegalStateException c){
 						System.out.println("Error in performing action: "+c.getMessage());
 					}
-				}else if(inputLine.equals("quit")){
-					System.out.println("Are you sure? Type 'YES' is you agree, otherwise type anything else");
-					Scanner scanner=new Scanner(System.in);
-					if(scanner.nextLine().equalsIgnoreCase("yes")){
-						System.err.println("You have been disconnected");
-						try {
-							rmiView.sendRequestToServerView(new QuitRequest(rmiView.getID()));
-							registry.unbind(name);
-							break;
-						} catch (IOException e) {
-							e.printStackTrace();
-						}
+				}
+				if(request.getClass().equals(QuitRequest.class)){
+					try {
+						handler.closeConnection();
+						System.err.println("THE GAME IS FINISHED, BYE BYE");
+						break;
+					} catch (IOException e) {
+						e.printStackTrace();
 					}
-					scanner.close();
 				}
 			}
 		}		
 	}
-
-	private String start(Scanner stdin) throws RemoteException, NotBoundException {
-		int actionType;
-		ClientView view = new ClientView(game, rmiView.getMemoryContainer(), rmiView.getID());
-		if(game.isLastTurn())
-			System.err.println("THIS IS YOUR LAST TURN");
-		if(this.game.getGameState().getClass().equals(StartState.class)){
-			if(!rmiView.getMemoryContainer().getBonus().isEmpty())
-				request = view.bonus(stdin);
-			else if(!rmiView.getMemoryContainer().getPermits().isEmpty())
-				request = view.permit(stdin);
-			else{	
-				game.getGameState().display();
-				actionType= view.selector(1, 4, stdin);
-				switch (actionType) {
-				case 1:
-					request = view.mainAction(stdin);
-					break;
-				case 2:
-					request = view.quickAction(stdin);
-					break;
-				case 3:
-					request = new ActionRequest(new SkipAction(), rmiView.getID());
-					break;
-				case 4:
-					return "quit";
-				}
-				if(request == null)
-					return "impossible";
-				return "";
-			}
-		}
-		else if(game.getGameState().getClass().equals(MarketSellingState.class)){
-			game.getGameState().display();
-			actionType = view.selector(1, 3, stdin);
-			switch(actionType){
-			case 1:
-				request = view.addProduct(stdin);
-				break;
-			case 2:
-				request = new ActionRequest(new SkipAction(), rmiView.getID());
-				break;
-			case 3:
-				return "quit";
-			}
-			return "";
-		}
-		else if(game.getGameState().getClass().equals(MarketBuyingState.class)){
-			game.getGameState().display();
-			actionType = view.selector(1, 3, stdin);
-			switch(actionType){
-			case 1:
-				request = view.buyProducts(stdin);
-				break;
-			case 2: 
-				request = new ActionRequest(new SkipAction(), rmiView.getID());
-				break;
-			case 3:
-				return "quit";
-			}
-			return "";
-		}else if(game.getGameState().getClass().equals(EndState.class)){
-			game.getGameState().display();
-			try {
-				registry.unbind(name);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			return "";
-		}
-		return "not ready";
-	}
-
 }
