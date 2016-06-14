@@ -78,6 +78,7 @@ public class Client {
 				break;
 			}else if(input.equalsIgnoreCase("GUI") || Integer.parseInt(input) == 2){
 				StartScreen screen=new StartScreen();
+				screen.startGUI();
 				break;
 			}	
 		}while(true);
