@@ -41,7 +41,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 	private final String pathLand="src/main/resources/Immagini/mareA.jpg";
 	private final String pathHill="src/main/resources/Immagini/collinaA.jpg";
 	private final String pathMountain="src/main/resources/Immagini/montagnaA.jpg";
-	private final String pathNobility="src/main/resources/Immagini/nobility.png";
+	private final String pathNobility="src/main/resources/Immagini/nobility.jpg";
 
 	/**
 	 * Launch the application.
@@ -61,12 +61,13 @@ public class GUI extends JFrame implements ClientViewInterface {
 	
 	public GUI()
 	{
+		setAlwaysOnTop(true);
 		
 		Dimension monitorDimension=Toolkit.getDefaultToolkit().getScreenSize();
 		Dimension cardBoardDimension=new Dimension((monitorDimension.width/160*105), (monitorDimension.height));
-		Dimension regionPanelDimension=new Dimension(cardBoardDimension.width, cardBoardDimension.height/90*63);
+		Dimension regionPanelDimension=new Dimension(cardBoardDimension.width, cardBoardDimension.height/90*53);
 		Dimension singleRegionDimension=new Dimension(regionPanelDimension.width/3, regionPanelDimension.height);
-		Dimension nobilityPanelDimension=new Dimension(cardBoardDimension.width, cardBoardDimension.height/90*37);
+		Dimension nobilityPanelDimension=new Dimension(cardBoardDimension.width, cardBoardDimension.height/90*35);
 		
 		this.setSize(monitorDimension);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
