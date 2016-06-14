@@ -8,7 +8,7 @@ public interface ClientViewInterface {
 	public Request start();
 	public void updateModel(Game game);
 	public int getId();
-	public int setId(int id);
+	public void setId(int id);
 	public void stampMessage(String message);
 	public void setGame(Game game);
 	public void setMemoryContainer(LocalStorage memoryLocator);

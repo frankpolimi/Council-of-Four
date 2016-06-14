@@ -63,8 +63,8 @@ public class ClientView implements ClientViewInterface{
 	}
 	
 	@Override
-	public int setId(int id) {
-		return this.ID;
+	public void setId(int id) {
+		this.ID=id;
 	}
 	
 	/**

@@ -21,12 +21,22 @@ import javax.swing.GroupLayout.Alignment;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
 import javax.swing.border.LineBorder;
+
+import client.ClientViewInterface;
+import model.game.Game;
+import view.LocalStorage;
+import view.Request;
+
 import java.awt.Color;
 import java.awt.GridBagLayout;
 
-public class GUI extends JFrame {
+public class GUI extends JFrame implements ClientViewInterface {
 	
-
+	private Game game;
+	private LocalStorage memoryContainer;
+	private int ID;
+	
+	
 	private JPanel contentPane;
 	private final String pathLand="src/main/resources/Immagini/mareA.jpg";
 	private final String pathHill="src/main/resources/Immagini/collinaA.jpg";
@@ -155,6 +165,45 @@ public class GUI extends JFrame {
 	public BufferedImage getImage(String path) throws IOException{
 		File file=new File(path);
 		return ImageIO.read(file);
+	}
+
+	@Override
+	public Request start() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void updateModel(Game game) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public int getId() {
+		return this.ID;
+	}
+
+	@Override
+	public void setId(int id) {
+		this.ID=id;
+	}
+
+	@Override
+	public void stampMessage(String message) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setGame(Game game) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setMemoryContainer(LocalStorage memoryLocator) {
+		this.memoryContainer=memoryLocator;
 	}
 
 

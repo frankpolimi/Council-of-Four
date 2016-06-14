@@ -5,7 +5,6 @@ import java.net.*;
 import java.util.Scanner;
 import java.util.concurrent.*;
 import model.game.*;
-import view.ClientView;
 import view.LocalStorage;
 
 public class ClientSocket 
@@ -15,13 +14,15 @@ public class ClientSocket
 	private Game game;
 	private LocalStorage memoryContainer;
 	private int ID;
+	private ClientViewInterface clientView;
 	
 	
-	public ClientSocket(String ip, int port) {
+	public ClientSocket(String ip, int port, ClientViewInterface view) {
 		super();
 		this.ip = ip;
 		this.port = port;
 		this.memoryContainer=new LocalStorage();
+		this.clientView=view;
 	}
 
 	/**
@@ -67,10 +68,12 @@ public class ClientSocket
 		}
 		
 		memoryContainer.setGameRef(game);
-		ClientView view=new ClientView(game, memoryContainer, this.ID);
+		this.clientView.setGame(game);
+		this.clientView.setId(this.ID);
+		this.clientView.setMemoryContainer(memoryContainer);
 		executor.submit(new ClientOutHandlerSocket(handler, 
-				 memoryContainer, view));
-		executor.submit(new ClientInHandlerSocket(handler, memoryContainer, view));
+				 memoryContainer, clientView));
+		executor.submit(new ClientInHandlerSocket(handler, memoryContainer, clientView));
 		
 	}
 	
