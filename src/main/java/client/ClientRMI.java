@@ -13,17 +13,11 @@ import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.Scanner;
 import org.jdom2.JDOMException;
-import model.actions.SkipAction;
 import model.game.Game;
 import server.ServerRMIRegistrationRemote;
-import view.ActionRequest;
-import view.ClientView;
 import view.EndState;
-import view.MarketBuyingState;
-import view.MarketSellingState;
 import view.QuitRequest;
 import view.Request;
-import view.StartState;
 
 /**
  * @author Francesco Vetrò
@@ -55,7 +49,6 @@ public class ClientRMI extends UnicastRemoteObject implements Serializable{
 		this.host = host;
 		this.rmiPort = rmiPort;
 		this.view = view;
-		
 	}
 	
 	public void startClient() throws NotBoundException, JDOMException, IOException, AlreadyBoundException{
@@ -80,8 +73,9 @@ public class ClientRMI extends UnicastRemoteObject implements Serializable{
 		boolean isUpdated;
 		while(handler.getRmiView().getMemoryContainer().getGameRef()==null);
 		
-		ClientView view = new ClientView(game, handler.getRmiView().getMemoryContainer(), handler.getRmiView().getID());
-
+		view.setId(handler.getRmiView().getID());
+		view.setMemoryContainer(handler.getRmiView().getMemoryContainer());
+		view.setGame(handler.getRmiView().getMemoryContainer().getGameRef());
 		
 		while(true){
 			synchronized (handler.getRmiView().getMemoryContainer()) {
