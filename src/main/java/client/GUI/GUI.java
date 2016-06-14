@@ -192,14 +192,12 @@ public class GUI extends JFrame implements ClientViewInterface {
 
 	@Override
 	public void stampMessage(String message) {
-		// TODO Auto-generated method stub
-		
+		JOptionPane.showInputDialog(message);
 	}
 
 	@Override
 	public void setGame(Game game) {
-		// TODO Auto-generated method stub
-		
+		this.game=game;
 	}
 
 	@Override

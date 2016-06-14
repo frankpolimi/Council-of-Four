@@ -52,6 +52,18 @@ public class StartScreen extends JFrame {
 		});
 	}
 
+	public void start(){
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					StartScreen frame = new StartScreen();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
 	/**
 	 * Create the frame.
 	 * @throws IOException 
