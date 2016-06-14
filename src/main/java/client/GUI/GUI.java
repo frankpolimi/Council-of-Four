@@ -28,7 +28,7 @@ public class GUI extends JFrame {
 
 	private JPanel contentPane;
 	private final String pathLand="src/main/resources/Immagini/mareA.jpg";
-	private final String pathHil="src/main/resources/Immagini/collinaA.jpg";
+	private final String pathHill="src/main/resources/Immagini/collinaA.jpg";
 	private final String pathMountain="src/main/resources/Immagini/montagnaA.jpg";
 	private final String pathNobility1="src/main/resources/Immagini/nobiltaA.jpg";
 	private final String pathNobility2="src/main/resources/Immagini/nobiltaB.jpg";
@@ -72,16 +72,16 @@ public class GUI extends JFrame {
 		cardBoard.setLayout(new BoxLayout(cardBoard, BoxLayout.Y_AXIS));
 		
 		JPanel regions=new JPanel();
-		//regions.setLayout(new FlowLayout());
+		regions.setLayout(new FlowLayout());
 		regions.setSize(regionPanelDimension);
 		regions.setAutoscrolls(true);
 		cardBoard.add(regions);
 	
-		ImagePanel seaside=new ImagePanel(pathHil, singleRegionDimension);
+		ImagePanel seaside=new ImagePanel(pathLand, singleRegionDimension);
 		seaside.setSize(singleRegionDimension);
 		regions.add(seaside);
 		
-		ImagePanel hill=new ImagePanel(pathHil, singleRegionDimension);
+		ImagePanel hill=new ImagePanel(pathHill, singleRegionDimension);
 		hill.setSize(singleRegionDimension);
 		regions.add(hill);
 		
