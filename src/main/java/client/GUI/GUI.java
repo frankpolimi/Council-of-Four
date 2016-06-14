@@ -1,25 +1,15 @@
 package client.GUI;
 
-import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 
-import javax.swing.border.Border;
-import javax.swing.border.EmptyBorder;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import java.awt.GridLayout;
-import java.awt.Insets;
-import java.awt.Rectangle;
 import java.awt.Toolkit;
 
-import javax.swing.GroupLayout.Alignment;
-import java.awt.FlowLayout;
-import java.awt.Graphics;
 import javax.swing.border.LineBorder;
 
 import client.ClientViewInterface;
@@ -28,7 +18,10 @@ import view.LocalStorage;
 import view.Request;
 
 import java.awt.Color;
-import java.awt.GridBagLayout;
+import javax.swing.border.MatteBorder;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.SystemColor;
 
 public class GUI extends JFrame implements ClientViewInterface {
 	
@@ -42,6 +35,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 	private final String pathHill="src/main/resources/Immagini/collinaA.jpg";
 	private final String pathMountain="src/main/resources/Immagini/montagnaA.jpg";
 	private final String pathNobility="src/main/resources/Immagini/nobility.jpg";
+	private final String pathAction="src/main/resources/Immagini/action_table.jpg";
 
 	/**
 	 * Launch the application.
@@ -73,6 +67,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		contentPane = new JPanel();
+		contentPane.setMinimumSize(new Dimension(1366, 768));
 		contentPane.setBorder(new LineBorder(Color.BLACK));
 		contentPane.setSize(monitorDimension);
 		setContentPane(contentPane);
@@ -121,6 +116,109 @@ public class GUI extends JFrame implements ClientViewInterface {
 		cardBoard.add(nobility);
 		nobility.setLayout(null);
 		nobility.setBounds(0, singleRegionDimension.height, nobilityPanelDimension.width, nobilityPanelDimension.height);
+		
+		ImagePanel actions = new ImagePanel(pathAction, new Dimension(510, 281));
+		actions.setBounds(840, 425, 510, 281);
+		contentPane.add(actions);
+		actions.setPreferredSize(new Dimension(510, 281));
+		actions.setLayout(null);
+		
+		JButton acquirePermit = new JButton("");
+		acquirePermit.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
+		acquirePermit.setBackground(SystemColor.control);
+		acquirePermit.setContentAreaFilled(false);
+		acquirePermit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(contentPane, "acquirePermit");
+			}
+		});
+		acquirePermit.setBounds(10, 66, 245, 57);
+		actions.add(acquirePermit);
+		
+		JButton buildEmporiumByKing = new JButton("");
+		buildEmporiumByKing.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
+		buildEmporiumByKing.setBackground(SystemColor.control);
+		buildEmporiumByKing.setContentAreaFilled(false);
+		buildEmporiumByKing.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(contentPane, "buildEmporiumByKing");
+			}
+		});
+		buildEmporiumByKing.setBounds(10, 122, 245, 57);
+		actions.add(buildEmporiumByKing);
+		
+		JButton electCouncillor = new JButton("");
+		electCouncillor.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
+		electCouncillor.setBackground(SystemColor.control);
+		electCouncillor.setContentAreaFilled(false);
+		electCouncillor.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(contentPane, "electCouncillor");
+			}
+		});
+		electCouncillor.setBounds(10, 180, 245, 47);
+		actions.add(electCouncillor);
+		
+		JButton buildEmporiumByPermit = new JButton("");
+		buildEmporiumByPermit.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
+		buildEmporiumByPermit.setBackground(SystemColor.control);
+		buildEmporiumByPermit.setContentAreaFilled(false);
+		buildEmporiumByPermit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(contentPane, "buildEmporiumByPermit");
+			}
+		});
+		buildEmporiumByPermit.setBounds(10, 231, 245, 47);
+		actions.add(buildEmporiumByPermit);
+		
+		JButton engageAssistant = new JButton("");
+		engageAssistant.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(contentPane, "engageAssistant");
+			}
+		});
+		engageAssistant.setContentAreaFilled(false);
+		engageAssistant.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
+		engageAssistant.setBackground(SystemColor.menu);
+		engageAssistant.setBounds(265, 66, 245, 57);
+		actions.add(engageAssistant);
+		
+		JButton changeFaceUpPermits = new JButton("");
+		changeFaceUpPermits.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(contentPane, "changeFaceUpPermits");
+			}
+		});
+		changeFaceUpPermits.setContentAreaFilled(false);
+		changeFaceUpPermits.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
+		changeFaceUpPermits.setBackground(SystemColor.menu);
+		changeFaceUpPermits.setBounds(265, 122, 245, 57);
+		actions.add(changeFaceUpPermits);
+		
+		JButton electCouncillorByAssistant = new JButton("");
+		electCouncillorByAssistant.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(contentPane, "electCouncillorByAssistant");
+			}
+		});
+		electCouncillorByAssistant.setContentAreaFilled(false);
+		electCouncillorByAssistant.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
+		electCouncillorByAssistant.setBackground(SystemColor.menu);
+		electCouncillorByAssistant.setBounds(265, 180, 245, 47);
+		actions.add(electCouncillorByAssistant);
+		
+		JButton extraMainAction = new JButton("");
+		extraMainAction.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(contentPane, "extraMainAction");
+			}
+		});
+		extraMainAction.setContentAreaFilled(false);
+		extraMainAction.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
+		extraMainAction.setBackground(SystemColor.menu);
+		extraMainAction.setBounds(265, 231, 245, 47);
+		actions.add(extraMainAction);
+		
 	}
 
 	/**
@@ -204,6 +302,4 @@ public class GUI extends JFrame implements ClientViewInterface {
 	public void setMemoryContainer(LocalStorage memoryLocator) {
 		this.memoryContainer=memoryLocator;
 	}
-
-
 }
