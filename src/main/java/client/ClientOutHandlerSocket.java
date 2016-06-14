@@ -19,19 +19,19 @@ import view.StartState;
 
 public class ClientOutHandlerSocket implements Runnable 
 {
-	private int ID;
+	private ClientViewInterface clientView;
 	private Request request; 
 	//private ObjectOutputStream socketOut;
 	private ConnectionHandler handler;
 	private LocalStorage memoryContainer;
 	private Game game;
 
-	public ClientOutHandlerSocket(ConnectionHandler handler, LocalStorage container, int ID) {
+	public ClientOutHandlerSocket(ConnectionHandler handler, LocalStorage container, ClientViewInterface view) {
 	
 		this.handler=handler;
 		this.memoryContainer=container;
 		this.game = memoryContainer.getGameRef();
-		this.ID = ID;
+		this.clientView=view;
 	}
 
 	/**
@@ -53,10 +53,8 @@ public class ClientOutHandlerSocket implements Runnable
 				isUpdated=memoryContainer.isUpdated();
 			}
 			
-			if(game.getGameState()!=null&&isUpdated&&game.getCurrentPlayer().getPlayerID()==ID){
-								
-				ClientView view = new ClientView(game, memoryContainer, ID);
-				request = view.start(); 
+			if(game.getGameState()!=null&&isUpdated&&game.getCurrentPlayer().getPlayerID()==this.clientView.getId()){
+				request = clientView.start(); 
 				if(request!=null){
 					try {
 						if(!memoryContainer.getGameRef().getGameState().getClass().equals(EndState.class)){
@@ -67,23 +65,25 @@ public class ClientOutHandlerSocket implements Runnable
 						}
 					} catch (IOException e) {
 						if(e.getMessage().equals("Socket closed"))
-						System.err.println("THE GAME IS FINISHED, BYE BYE");
+						clientView.stampMessage("THE GAME IS FINISHED, BYE BYE");
 						break;
 					} catch (IllegalArgumentException | IllegalStateException c){
 						System.out.println("Error in performing action: "+c.getMessage());
 					}
-				}
-				
-				if(request.getClass().equals(QuitRequest.class)){
-					try {
-						handler.closeConnection();
-						System.err.println("THE GAME IS FINISHED, BYE BYE");
-						break;
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+					
+					if(request.getClass().equals(QuitRequest.class)){
+						try {
+							handler.closeConnection();
+							clientView.stampMessage("THE GAME IS FINISHED, BYE BYE");
+							break;
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 					}
 				}
+				
+				
 				
 				/*
 				try {

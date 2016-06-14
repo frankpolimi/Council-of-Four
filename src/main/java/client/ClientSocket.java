@@ -5,6 +5,7 @@ import java.net.*;
 import java.util.Scanner;
 import java.util.concurrent.*;
 import model.game.*;
+import view.ClientView;
 import view.LocalStorage;
 
 public class ClientSocket 
@@ -71,10 +72,10 @@ public class ClientSocket
 		}
 		System.out.println("ID: "+this.ID);
 		memoryContainer.setGameRef(game);
-		
+		ClientView view=new ClientView(game, memoryContainer, this.ID);
 		executor.submit(new ClientOutHandlerSocket(handler, 
-				 memoryContainer, ID));
-		executor.submit(new ClientInHandlerSocket(handler, memoryContainer, ID));
+				 memoryContainer, view));
+		executor.submit(new ClientInHandlerSocket(handler, memoryContainer, view));
 		
 	}
 }

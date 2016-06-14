@@ -17,15 +17,15 @@ public class ClientInHandlerSocket implements Runnable
 	private ConnectionHandler handler;
 	private Game gameLocalCopy;
 	private LocalStorage memoryContainer;
-	private int iD;
+	private ClientViewInterface clientView;
 	
 	public ClientInHandlerSocket(ConnectionHandler handler,
-			LocalStorage container, int iD) 
+			LocalStorage container, ClientViewInterface clientView) 
 	{
 		this.handler=handler;
 		this.memoryContainer=container;
 		this.gameLocalCopy = memoryContainer.getGameRef();
-		this.iD = iD;
+		this.clientView=clientView;
 	}
 
 	@Override
@@ -40,26 +40,26 @@ public class ClientInHandlerSocket implements Runnable
 				System.out.println("THE GAME IS FINISHED - BYE BYE");
 				break;
 			}
+			/*
 			if(x.getClass().equals(Integer.class)){
-				this.iD = ((Integer)x).intValue();
-				System.out.println(this.iD);
-			}
-			else if(x.getClass().equals(String.class)){
-				System.out.println((String)x);
+				this.clientView.setId(((Integer)x).intValue());
+				System.out.println(this.clientView.getId());
+			}*/
+			if(x.getClass().equals(String.class)){
+				this.clientView.stampMessage((String)x);
 				this.memoryContainer.setUpdated(true);
 			}
 			else if(x.getClass().equals(BonusChange.class) || 
 					x.getClass().equals(PermitsChange.class)){
-				System.out.println(x.toString());
+				this.clientView.stampMessage(x.toString());
 				memoryContainer = new LocalStorage((Change)x, this.gameLocalCopy);
 			}
 			else if(x.getClass().equals(ModelChange.class)){
 				this.gameLocalCopy = ((ModelChange)x).getGame();
-				System.out.println(this.gameLocalCopy);
+				this.clientView.updateModel(this.gameLocalCopy);
 			}else if(x.getClass().equals(ErrorChange.class)){
 				ErrorChange error=(ErrorChange)x;
-				System.err.println("WARNING!!");
-				System.err.println(error.getMessage());
+				this.clientView.stampMessage("WARNING!!"+error.getMessage());
 			}else if(x.getClass().equals(MarketChange.class)){
 				MarketChange market=(MarketChange)x;
 				this.gameLocalCopy.setMarket(market.getMarket());
