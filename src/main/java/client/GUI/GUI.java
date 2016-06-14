@@ -31,8 +31,7 @@ public class GUI extends JFrame {
 	private final String pathLand="src/main/resources/Immagini/mareA.jpg";
 	private final String pathHill="src/main/resources/Immagini/collinaA.jpg";
 	private final String pathMountain="src/main/resources/Immagini/montagnaA.jpg";
-	private final String pathNobility1="src/main/resources/Immagini/nobiltaA.jpg";
-	private final String pathNobility2="src/main/resources/Immagini/nobiltaB.jpg";
+	private final String pathNobility="src/main/resources/Immagini/nobility.png";
 
 	/**
 	 * Launch the application.
@@ -52,6 +51,7 @@ public class GUI extends JFrame {
 	
 	public GUI()
 	{
+		
 		Dimension monitorDimension=Toolkit.getDefaultToolkit().getScreenSize();
 		Dimension cardBoardDimension=new Dimension((monitorDimension.width/160*105), (monitorDimension.height));
 		Dimension regionPanelDimension=new Dimension(cardBoardDimension.width, cardBoardDimension.height/90*63);
@@ -68,42 +68,48 @@ public class GUI extends JFrame {
 		contentPane.setLayout(null);
 		
 		JPanel cardBoard = new JPanel();
-		cardBoard.setLocation(1, 1);
-		cardBoard.setSize(new Dimension(1348, 728));
+		//cardBoard.setLocation(1, 1);
+		cardBoard.setSize(cardBoardDimension);
 		cardBoard.setBorder(new LineBorder(Color.BLACK));
 		contentPane.add(cardBoard);
 		cardBoard.setLayout(null);
+		cardBoard.setBounds(0, 0, cardBoardDimension.width, cardBoardDimension.height);
 		
 		JPanel regions=new JPanel();
 		regions.setLocation(1, 1);
-		regions.setSize(new Dimension(1346, 367));
+		regions.setSize(regionPanelDimension);
 		regions.setAutoscrolls(true);
 		cardBoard.add(regions);
+		regions.setBounds(0, 0, regionPanelDimension.width, regionPanelDimension.height);
 		regions.setLayout(null);
 	
 		ImagePanel seaside=new ImagePanel(pathLand, singleRegionDimension);
-		seaside.setLocation(0, 0);
-		seaside.setSize(new Dimension(448, 367));
+		//seaside.setLocation(0, 0);
+		seaside.setSize(singleRegionDimension);
 		regions.add(seaside);
 		seaside.setLayout(null);
+		seaside.setBounds(0, 0, singleRegionDimension.width, singleRegionDimension.height);
 		
 		ImagePanel hill=new ImagePanel(pathHill, singleRegionDimension);
-		hill.setLocation(448, 0);
-		hill.setSize(new Dimension(448, 367));
+		//hill.setLocation(448, 0);
+		hill.setSize(singleRegionDimension);
 		regions.add(hill);
 		hill.setLayout(null);
+		hill.setBounds(singleRegionDimension.width, 0, singleRegionDimension.width, singleRegionDimension.height);
 		
 		ImagePanel mountain=new ImagePanel(pathMountain, singleRegionDimension);
-		mountain.setLocation(896, 0);
-		mountain.setSize(new Dimension(448, 367));
+		//mountain.setLocation(896, 0);
+		mountain.setSize(singleRegionDimension);
 		regions.add(mountain);
 		mountain.setLayout(null);
+		mountain.setBounds(2*singleRegionDimension.width, 0, singleRegionDimension.width, singleRegionDimension.height);
 		
-		ImagePanel nobility = new ImagePanel(pathNobility1, nobilityPanelDimension);
-		nobility.setLocation(1, 368);
-		nobility.setSize(new Dimension(1346, 358));
-		cardBoard.add(nobility);		
-		nobility.setLayout(new BoxLayout(nobility, BoxLayout.X_AXIS));
+		ImagePanel nobility = new ImagePanel(pathNobility, nobilityPanelDimension);
+		//nobility.setLocation(1, 368);
+		nobility.setSize(nobilityPanelDimension);
+		cardBoard.add(nobility);
+		nobility.setLayout(null);
+		nobility.setBounds(0, singleRegionDimension.height, nobilityPanelDimension.width, nobilityPanelDimension.height);
 	}
 
 	/**

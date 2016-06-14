@@ -1,6 +1,7 @@
 package client;
 
 import model.game.Game;
+import view.LocalStorage;
 import view.Request;
 
 public interface ClientViewInterface {
@@ -9,4 +10,6 @@ public interface ClientViewInterface {
 	public int getId();
 	public int setId(int id);
 	public void stampMessage(String message);
+	public void setGame(Game game);
+	public void setMemoryContainer(LocalStorage memoryLocator);
 }
