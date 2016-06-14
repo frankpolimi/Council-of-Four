@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.ArrayBlockingQueue;
 import org.jdom2.JDOMException;
+
+import client.ClientView;
 import controller.BonusChange;
 import controller.Change;
 import controller.Controller;
