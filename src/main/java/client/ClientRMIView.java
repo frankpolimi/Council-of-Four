@@ -17,7 +17,6 @@ import controller.MarketChange;
 import controller.ModelChange;
 import controller.PermitsChange;
 import controller.StateChange;
-import model.game.Game;
 import server.ServerRMIRegistrationRemote;
 import server.ServerRMIViewRemote;
 import view.LocalStorage;

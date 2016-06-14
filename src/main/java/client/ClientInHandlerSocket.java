@@ -1,7 +1,6 @@
 package client;
 
 import java.io.IOException;
-import java.io.ObjectInputStream;
 
 import controller.BonusChange;
 import controller.Change;
