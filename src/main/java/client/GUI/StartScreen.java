@@ -123,7 +123,7 @@ public class StartScreen extends JFrame {
 			public void mouseClicked(MouseEvent arg0) {
 				JRadioButton connectionSelected=(JRadioButton) getRadioSelected(connectionGroup);
 				String name=txtInsertYourName.getText();
-				ClientSocket client=new ClientSocket(host, socketPort);
+				ClientSocket client=new ClientSocket(host, socketPort, new GUI());
 				try {
 					client.runClient(name);
 				} catch (IOException e) {

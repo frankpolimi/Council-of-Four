@@ -1,4 +1,4 @@
-package view;
+package client;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -6,7 +6,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
-import client.ClientViewInterface;
 import model.actions.AcquirePermit;
 import model.actions.Action;
 import model.actions.BuildEmporiumByKing;
@@ -30,6 +29,17 @@ import model.game.politics.PoliticsCard;
 import model.game.topology.City;
 import model.market.Assistant;
 import model.market.MarketObject;
+import view.ActionRequest;
+import view.BonusRequest;
+import view.EndState;
+import view.LocalStorage;
+import view.MarketBuyingState;
+import view.MarketRequest;
+import view.MarketSellingState;
+import view.PermitsRequest;
+import view.QuitRequest;
+import view.Request;
+import view.StartState;
 
 public class ClientView implements ClientViewInterface{
 	
@@ -37,10 +47,14 @@ public class ClientView implements ClientViewInterface{
 	private LocalStorage memoryContainer;
 	private int ID;
 	
-	public ClientView(Game game, LocalStorage memoryContainer, int ID) {
-		this.game=game;
+	@Override
+	public void setMemoryContainer(LocalStorage memoryContainer) {
 		this.memoryContainer = memoryContainer;
-		this.ID = ID;
+	}
+	
+	@Override
+	public void setGame(Game game) {
+		this.game = game;
 	}
 	
 	@Override
@@ -49,8 +63,8 @@ public class ClientView implements ClientViewInterface{
 	}
 	
 	@Override
-	public int setId(int id) {
-		return this.ID;
+	public void setId(int id) {
+		this.ID=id;
 	}
 	
 	/**
