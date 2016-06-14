@@ -17,5 +17,5 @@ public interface ClientRMIRemote extends Remote{
 	
 	public String getName() throws RemoteException;
 	public int getID() throws RemoteException;
-	public LocalStorage getMemoryContainer();
+	public LocalStorage getMemoryContainer() throws RemoteException;
 }
