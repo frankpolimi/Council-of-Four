@@ -13,17 +13,11 @@ import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.Scanner;
 import org.jdom2.JDOMException;
-import model.actions.SkipAction;
 import model.game.Game;
 import server.ServerRMIRegistrationRemote;
-import view.ActionRequest;
-import view.ClientView;
 import view.EndState;
-import view.MarketBuyingState;
-import view.MarketSellingState;
 import view.QuitRequest;
 import view.Request;
-import view.StartState;
 
 /**
  * @author Francesco Vetrò
@@ -43,15 +37,18 @@ public class ClientRMI extends UnicastRemoteObject implements Serializable{
 	private Request request;
 	private Registry registry;
 	
+	private ClientViewInterface view;
+	
 	private String name = "game";
 	
 	private Game game;
 	
 	
-	public ClientRMI(String host, int rmiPort) throws NotBoundException, JDOMException, IOException{
+	public ClientRMI(String host, int rmiPort, ClientViewInterface view) throws NotBoundException, JDOMException, IOException{
 		super();
 		this.host = host;
 		this.rmiPort = rmiPort;
+		this.view = view;
 	}
 	
 	public void startClient() throws NotBoundException, JDOMException, IOException, AlreadyBoundException{
@@ -65,19 +62,27 @@ public class ClientRMI extends UnicastRemoteObject implements Serializable{
 		System.out.println("Insert your name:");
 		String nome = stdin.nextLine();
 		
-		ClientRMIRemote viewtmp = new ClientRMIView(nome, serverRegistration);
+		ClientRMIRemote viewtmp = new ClientRMIView(nome, serverRegistration, view);
 		handler = new RMIConnectionHandler(viewtmp);
 		
-		boolean isUpdated;
+		this.run();
+	}		
+	
+	public void run() throws RemoteException{
 		
+		boolean isUpdated;
 		while(handler.getRmiView().getMemoryContainer().getGameRef()==null);
+		
+		view.setId(handler.getRmiView().getID());
+		view.setMemoryContainer(handler.getRmiView().getMemoryContainer());
+		view.setGame(handler.getRmiView().getMemoryContainer().getGameRef());
 		
 		while(true){
 			synchronized (handler.getRmiView().getMemoryContainer()) {
 				game = handler.getRmiView().getMemoryContainer().getGameRef();
 			}
 			isUpdated = handler.getRmiView().getMemoryContainer().isUpdated();
-			
+
 			if(game.getGameState()!=null&&
 					isUpdated&&
 					game.getCurrentPlayer().getPlayerID()==handler.getRmiView().getID()){
@@ -86,8 +91,7 @@ public class ClientRMI extends UnicastRemoteObject implements Serializable{
 				} catch (InterruptedException e1) {
 					e1.printStackTrace();
 				}
-				
-				ClientView view = new ClientView(game, handler.getRmiView().getMemoryContainer(), handler.getRmiView().getID());
+
 				request = view.start();
 				if(request != null){
 					try {
@@ -113,6 +117,6 @@ public class ClientRMI extends UnicastRemoteObject implements Serializable{
 					}
 				}
 			}
-		}		
+		}
 	}
 }

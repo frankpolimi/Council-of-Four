@@ -17,6 +17,7 @@ import controller.MarketChange;
 import controller.ModelChange;
 import controller.PermitsChange;
 import controller.StateChange;
+import model.game.Game;
 import server.ServerRMIRegistrationRemote;
 import server.ServerRMIViewRemote;
 import view.LocalStorage;
@@ -37,12 +38,14 @@ public class ClientRMIView extends UnicastRemoteObject implements ClientRMIRemot
 	private LocalStorage memoryContainer;
 	private int ID;
 	private String name;
+	private ClientViewInterface view;
 	
-	public ClientRMIView(String name, ServerRMIRegistrationRemote serverRegistration) throws AlreadyBoundException, JDOMException, IOException{
+	public ClientRMIView(String name, ServerRMIRegistrationRemote serverRegistration, ClientViewInterface view) throws AlreadyBoundException, JDOMException, IOException{
 		super();
 		this.memoryContainer = new LocalStorage();
 		this.name = name;
 		this.serverView = serverRegistration.register(this);
+		this.view = view;
 	}
 	
 	/* (non-Javadoc)
@@ -52,7 +55,7 @@ public class ClientRMIView extends UnicastRemoteObject implements ClientRMIRemot
 	public void printChange(Change change) throws RemoteException {
 		if(change.getClass().equals(BonusChange.class) || 
 				change.getClass().equals(PermitsChange.class)){
-			System.out.println(change.toString());
+			this.view.stampMessage(change.toString());
 			synchronized (memoryContainer) {
 				memoryContainer = new LocalStorage(change, memoryContainer.getGameRef());
 			}
@@ -62,7 +65,7 @@ public class ClientRMIView extends UnicastRemoteObject implements ClientRMIRemot
 				memoryContainer.setGameRef(((ModelChange)change).getGame());
 			}
 			memoryContainer.setUpdated(true);
-			System.out.println(memoryContainer.getGameRef());
+			this.view.updateModel(memoryContainer.getGameRef());
 		}
 		else if(change.getClass().equals(StateChange.class)){
 			State y = ((StateChange)change).getStateChanged();
@@ -72,8 +75,8 @@ public class ClientRMIView extends UnicastRemoteObject implements ClientRMIRemot
 		}
 		else if(change.getClass().equals(ErrorChange.class)){
 			ErrorChange error=(ErrorChange)change;
-			System.err.println("WARNING!!");
-			System.err.println(error.getMessage());
+			this.view.stampMessage("WARNING!!");
+			this.view.stampMessage(error.getMessage());
 		}
 		else if(change.getClass().equals(MarketChange.class)){
 			MarketChange market=(MarketChange)change;

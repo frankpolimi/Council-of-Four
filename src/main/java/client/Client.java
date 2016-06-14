@@ -59,7 +59,7 @@ public class Client {
 					}
 					else if(input.equalsIgnoreCase("RMI") || Integer.parseInt(input) == 2){
 						try{
-							ClientRMI cr = new ClientRMI(host, rmi);
+							ClientRMI cr = new ClientRMI(host, rmi, clientView);
 							cr.startClient();
 						}catch (NotBoundException e){
 							System.out.println("Sorry! Errors Occurred. Terminating");
@@ -78,7 +78,9 @@ public class Client {
 				break;
 			}else if(input.equalsIgnoreCase("GUI") || Integer.parseInt(input) == 2){
 				StartScreen screen=new StartScreen();
+
 				screen.start();
+
 				break;
 			}	
 		}while(true);
