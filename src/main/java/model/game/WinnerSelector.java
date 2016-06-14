@@ -9,6 +9,11 @@ public class WinnerSelector{
 	private List<Player> players;
 	
 	public WinnerSelector(List<Player> players) {
+		if(players==null)
+			throw new NullPointerException("Players must not be null");
+		if(players.isEmpty()){
+			throw new IllegalArgumentException("Players must not be empty");
+		}
 		this.players=players;
 	}
 	

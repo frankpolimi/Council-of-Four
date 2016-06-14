@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.ArrayBlockingQueue;
 import org.jdom2.JDOMException;
+
+import client.ClientView;
 import controller.BonusChange;
 import controller.Change;
 import controller.Controller;
@@ -87,7 +89,8 @@ public class ViewProva extends View {
 		}else if(change.getClass().equals(ModelChange.class)){
 			System.out.println(((ModelChange)change).getGame().getCurrentPlayer());
 			
-			ClientView view=new ClientView(game, new LocalStorage(), game.getCurrentPlayer().getPlayerID());
+			ClientView view=null;
+					//new ClientView(game, new LocalStorage(), game.getCurrentPlayer().getPlayerID());
 			if(game.getGameState().getClass().equals(MarketSellingState.class)){
 				game.getGameState().display();
 				int scelta=scanner.nextInt();
