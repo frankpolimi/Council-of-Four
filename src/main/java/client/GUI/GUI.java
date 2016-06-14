@@ -51,6 +51,7 @@ public class GUI extends JFrame {
 	
 	public GUI()
 	{
+		
 		Dimension monitorDimension=Toolkit.getDefaultToolkit().getScreenSize();
 		Dimension cardBoardDimension=new Dimension((monitorDimension.width/160*105), (monitorDimension.height));
 		Dimension regionPanelDimension=new Dimension(cardBoardDimension.width, cardBoardDimension.height/90*63);

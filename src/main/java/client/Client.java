@@ -48,10 +48,12 @@ public class Client {
 		System.out.println("1 - Socket");
 		System.out.println("2 - Remote Method Invocation (RMI)");
 		do{
+			ClientView clientView=new ClientView();
 			String input = in.nextLine();
 			if(input.equalsIgnoreCase("socket") || Integer.parseInt(input) == 1){
 				try {
-					ClientSocket cs = new ClientSocket(host, socket);
+					
+					ClientSocket cs = new ClientSocket(host, socket, clientView);
 					cs.startClient();
 				}catch (UnknownHostException e){
 					System.out.println("Sorry! Errors Occurred. Terminating");
