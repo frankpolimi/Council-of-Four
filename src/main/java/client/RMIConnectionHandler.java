@@ -1,16 +1,20 @@
 package client;
 
 import java.io.IOException;
+import java.rmi.AlreadyBoundException;
+
+import org.jdom2.JDOMException;
 
 import controller.Change;
+import server.ServerRMIRegistrationRemote;
 import view.Request;
 
 public class RMIConnectionHandler implements ConnectionHandler {
 	
 	private ClientRMIRemote rmiView;
 
-	public RMIConnectionHandler(ClientRMIRemote rmiView) {
-		this.rmiView = rmiView;
+	public RMIConnectionHandler(ClientRMIRemote clientRMIView) {
+		this.rmiView = clientRMIView;
 	}
 
 	@Override

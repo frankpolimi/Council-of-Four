@@ -65,7 +65,8 @@ public class ClientRMI extends UnicastRemoteObject implements Serializable{
 		System.out.println("Insert your name:");
 		String nome = stdin.nextLine();
 		
-		handler = new RMIConnectionHandler(new ClientRMIView(nome, serverRegistration));
+		ClientRMIRemote viewtmp = new ClientRMIView(nome, serverRegistration);
+		handler = new RMIConnectionHandler(viewtmp);
 		
 		boolean isUpdated;
 		
@@ -101,14 +102,14 @@ public class ClientRMI extends UnicastRemoteObject implements Serializable{
 					} catch (IllegalArgumentException | IllegalStateException c){
 						System.out.println("Error in performing action: "+c.getMessage());
 					}
-				}
-				if(request.getClass().equals(QuitRequest.class)){
-					try {
-						handler.closeConnection();
-						System.err.println("THE GAME IS FINISHED, BYE BYE");
-						break;
-					} catch (IOException e) {
-						e.printStackTrace();
+					if(request.getClass().equals(QuitRequest.class)){
+						try {
+							handler.closeConnection();
+							System.err.println("THE GAME IS FINISHED, BYE BYE");
+							break;
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
 					}
 				}
 			}
