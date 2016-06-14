@@ -1,5 +1,6 @@
 package client.GUI;
 
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -19,7 +20,7 @@ public class ImagePanel extends JPanel {
 	private static final long serialVersionUID = 5111117694587342614L;
 	private Image image;
 	
-	public ImagePanel(String path) {
+	public ImagePanel(String path, Dimension dimension) {
 		File file=new File(path);
 		try {
 			image=ImageIO.read(file);
@@ -27,7 +28,7 @@ public class ImagePanel extends JPanel {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		image=this.getScaledImage(image, 300, 300);
+		image=this.getScaledImage(image, dimension.width, dimension.height);
 		this.setLayout(new FlowLayout());
 		this.setVisible(true);
 	}

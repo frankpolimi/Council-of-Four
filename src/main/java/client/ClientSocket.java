@@ -41,25 +41,20 @@ public class ClientSocket
 	/**
 	 * @throws IOException
 	 */
-	public void startClient() throws IOException 
+	public void runClient(String name) throws IOException 
 	{
 		Socket socket = new Socket(ip, port);
-		System.out.println("Connection Established");
+		
 		ExecutorService executor = Executors.newFixedThreadPool(2);
 		SocketConnectionHandler handler = new SocketConnectionHandler(socket);
-		System.out.println("Aspetto gioco");
-		//ObjectOutputStream socketOut=new ObjectOutputStream(socket.getOutputStream());
 		
-		Scanner stdin = new Scanner(System.in);
-		System.out.println("Insert your name: ");
-		String name = stdin.nextLine();
+		//ObjectOutputStream socketOut=new ObjectOutputStream(socket.getOutputStream());
 		try {
 			handler.sendToServer(name);
 		} catch (IOException e1) {
-			System.err.println("You didn't insert your name in time. You are disconnected");
-			System.exit(0);
+			throw new IOException("You didn't insert your name in time. You are disconnected");
 		}
-		System.out.println("Waiting for other players");
+		
 		//ObjectInputStream socketIn=new ObjectInputStream(socket.getInputStream());
 		try{
 			Game game=(Game)handler.receiveFromServer();
@@ -70,12 +65,27 @@ public class ClientSocket
 		}catch(ClassNotFoundException e){
 			e.printStackTrace();
 		}
-		System.out.println("ID: "+this.ID);
+		
 		memoryContainer.setGameRef(game);
 		ClientView view=new ClientView(game, memoryContainer, this.ID);
 		executor.submit(new ClientOutHandlerSocket(handler, 
 				 memoryContainer, view));
 		executor.submit(new ClientInHandlerSocket(handler, memoryContainer, view));
 		
+	}
+	
+	public void startClient() throws IOException{
+		Scanner stdin = new Scanner(System.in);
+		System.out.println("Insert your name: ");
+		String name = stdin.nextLine();
+		try{
+		this.runClient(name);
+		}catch(IOException e){
+			System.out.println(e.getMessage());
+		}
+		System.out.println("Connection Established");
+		System.out.println("Aspetto gioco");
+		System.out.println("Waiting for other players");
+		System.out.println("ID: "+this.ID);
 	}
 }
