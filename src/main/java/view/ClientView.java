@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
+
+import client.ClientViewInterface;
 import model.actions.AcquirePermit;
 import model.actions.Action;
 import model.actions.BuildEmporiumByKing;
@@ -29,7 +31,7 @@ import model.game.topology.City;
 import model.market.Assistant;
 import model.market.MarketObject;
 
-public class ClientView{
+public class ClientView implements ClientViewInterface{
 	
 	private Game game;
 	private LocalStorage memoryContainer;
@@ -41,6 +43,15 @@ public class ClientView{
 		this.ID = ID;
 	}
 	
+	@Override
+	public int getId() {
+		return ID;
+	}
+	
+	@Override
+	public int setId(int id) {
+		return this.ID;
+	}
 	
 	/**
 	 * display the main actions and then guides the player through the 
@@ -494,5 +505,17 @@ public class ClientView{
 			return new QuitRequest(this.ID);
 		}	
 		return null;
+	}
+
+
+	@Override
+	public void updateModel(Game game) {
+		System.out.println(game);
+		this.game=game;
+	}
+
+	@Override
+	public void stampMessage(String message) {
+		System.out.println(message);
 	}
 }
