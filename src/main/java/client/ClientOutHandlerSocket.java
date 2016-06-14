@@ -42,7 +42,9 @@ public class ClientOutHandlerSocket implements Runnable
 	{
 		boolean isUpdated;
 		Scanner stdin=new Scanner(System.in);
-		while(game==null);
+		while(game==null){
+			game=this.memoryContainer.getGameRef();
+		}
 		System.err.println("game ricevuto");
 		while (true) 
 		{
@@ -57,10 +59,10 @@ public class ClientOutHandlerSocket implements Runnable
 				if(request!=null){
 					try {
 						if(!memoryContainer.getGameRef().getGameState().getClass().equals(EndState.class)){
-							handler.sendToServer(request);
-							synchronized (memoryContainer) {
-								memoryContainer.setUpdated(false);
+							synchronized (this.memoryContainer) {
+								this.memoryContainer.setUpdated(false);
 							}
+							handler.sendToServer(request);
 						}
 					} catch (IOException e) {
 						if(e.getMessage().equals("Socket closed"))

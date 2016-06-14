@@ -12,6 +12,9 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.Scanner;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 import org.jdom2.JDOMException;
 import model.game.Game;
 import server.ServerRMIRegistrationRemote;
@@ -64,8 +67,11 @@ public class ClientRMI extends UnicastRemoteObject implements Serializable{
 		
 		ClientRMIRemote viewtmp = new ClientRMIView(nome, serverRegistration, view);
 		handler = new RMIConnectionHandler(viewtmp);
-		
-		this.run();
+		this.view.setGame(viewtmp.getMemoryContainer().getGameRef());
+		this.view.setId(viewtmp.getID());
+		this.view.setMemoryContainer(viewtmp.getMemoryContainer());
+		ExecutorService executors=Executors.newFixedThreadPool(1);
+		executors.submit(new ClientOutHandlerSocket(handler, viewtmp.getMemoryContainer(), view));
 	}		
 	
 	public void run() throws RemoteException{

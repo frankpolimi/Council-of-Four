@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<map>
+	<regions>
+		<region name="mountain">
+			<cities>
+			<city name="Kultos" initial="K" RGB="255,255,0"></city>  <!-- Vedere se inizializzare già qua i bonus -->
+			<city name="Lyrum" initial="L" RGB="190,190,190"></city>
+			<city name="Naris" initial="N" RGB="255,0,0"></city>
+			<city name="Oslum" initial="O" RGB="255,255,0"></city>
+			<city name="Merkatim" initial="M" RGB="0,0,255"></city>
+			</cities>
+		</region>
+	</regions>
+</map>
