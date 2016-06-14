@@ -1,14 +1,23 @@
 
+
 <map>
-	<regions>
-	<region name="land">
+	
+	<region name="land" path="src/main/resources/Immagini/mareA.jpg">
 		<cities>
-			<city name="Arhon" initial="A" RGB="0,0,255"></city>  <!-- Vedere se inizializzare già qua i bonus -->
-			<city name="Burgon" initial="B" RGB="255,255,0"></city>
+			<city name="Arkon" initial="A" RGB="255,255,0"></city>  <!-- Vedere se inizializzare già qua i bonus -->
+			<city name="Burgen" initial="B" RGB="255,0,0"></city>
 			<city name="Castrum" initial="C" RGB="190,190,190"></city>
-			<city name="Dodul" initial="D" RGB="190,190,190"></city>
-			<city name="Esti" initial="E" RGB="255,0,0"></city>
+			<city name="Dorful" initial="D" RGB="0,0,190"></city>
+			<city name="Esti" initial="E" RGB="190,190,190"></city>
 		</cities>
 	</region>
-	</regions>
+	
+	
+	<links>
+		<edge city1="A" city2="C"></edge>
+		<edge city1="B" city2="E"></edge>
+		<edge city1="C" city2="D" city3="F"></edge>
+		<edge city1="D" city2="C" city3="G"></edge>
+		<edge city1="E" city2="H" city3="B"></edge>
+	</links>
 </map>

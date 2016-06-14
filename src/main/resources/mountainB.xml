@@ -2,22 +2,22 @@
 
 <map>
 	
-		<region name="mountain" path="src/main/resources/Immagini/montagnaA.jpg">
+		<region name="mountain" path="src/main/resources/Immagini/montagnaB.jpg">
 			<cities>
 			<city name="Kultos" initial="K" RGB="255,255,0"></city>  <!-- Vedere se inizializzare già qua i bonus -->
-			<city name="Lyram" initial="L" RGB="0,0,255"></city>
+			<city name="Lyram" initial="L" RGB="190,190,190"></city>
 			<city name="Naris" initial="N" RGB="255,0,0"></city>
 			<city name="Osium" initial="O" RGB="255,255,0"></city>
-			<city name="Merkatim" initial="M" RGB="190,190,190"></city>
+			<city name="Merkatim" initial="M" RGB="0,0,255"></city>
 			</cities>
 		</region>
 	
 	
 	<links>
-		<edge city1="K" city2="L" city3="I"></edge>
-		<edge city1="L" city2="N"></edge><!-- Informazione city3 dipendente da hill -->
+		<edge city1="K" city2="N" city3="I"></edge>
+		<edge city1="L" city2="O"></edge><!-- Informazione city3 dipendente da hill -->
 		<edge city1="M" city2="O"></edge><!-- Informazione city3 dipendente da hill -->
-		<edge city1="N" city2="L"></edge>	
-		<edge city1="O" city2="M"></edge>
+		<edge city1="N" city2="O" city3="K"></edge>	
+		<edge city1="O" city2="M" city3="L"></edge>
 	</links>
 </map>
