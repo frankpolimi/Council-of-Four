@@ -1,20 +1,13 @@
 package client;
 
 import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.util.Scanner;
 
 
-import model.actions.*;
 import model.game.Game;
-import view.ActionRequest;
 import view.EndState;
 import view.LocalStorage;
-import view.MarketBuyingState;
-import view.MarketSellingState;
 import view.QuitRequest;
 import view.Request;
-import view.StartState;
 
 public class ClientOutHandlerSocket implements Runnable 
 {
@@ -26,7 +19,6 @@ public class ClientOutHandlerSocket implements Runnable
 	private Game game;
 
 	public ClientOutHandlerSocket(ConnectionHandler handler, LocalStorage container, ClientViewInterface view) {
-	
 		this.handler=handler;
 		this.memoryContainer=container;
 		this.game = memoryContainer.getGameRef();
@@ -41,7 +33,6 @@ public class ClientOutHandlerSocket implements Runnable
 	public void run() 
 	{
 		boolean isUpdated;
-		Scanner stdin=new Scanner(System.in);
 		while(game==null){
 			game=this.memoryContainer.getGameRef();
 		}
@@ -78,36 +69,13 @@ public class ClientOutHandlerSocket implements Runnable
 							clientView.stampMessage("THE GAME IS FINISHED, BYE BYE");
 							break;
 						} catch (IOException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 					}
 				}
-				
-				
-				
-				/*
-				try {
-					Thread.currentThread().wait();
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}*/
-				
-
 			}
 		}
 	}
-
-	/**
-	 * first level of input where the player can choose what to do
-	 * exceptional cases when the input required is a bonus or a permit
-	 * that are sent by the server as a change due to a certain score on
-	 * on the nobility lane
-	 * @param stdin the standard input to input the selection
-	 * @return 
-	 */
-	
 
 	/**
 	 * get the request to the server

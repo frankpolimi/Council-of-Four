@@ -81,8 +81,9 @@ public class ClientSocket
 		Scanner stdin = new Scanner(System.in);
 		System.out.println("Insert your name: ");
 		String name = stdin.nextLine();
+		stdin.close();
 		try{
-		this.runClient(name);
+			this.runClient(name);
 		}catch(IOException e){
 			System.out.println(e.getMessage());
 		}

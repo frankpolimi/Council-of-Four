@@ -64,6 +64,7 @@ public class ClientRMI extends UnicastRemoteObject implements Serializable{
 		
 		System.out.println("Insert your name:");
 		String nome = stdin.nextLine();
+		stdin.close();
 		
 		ClientRMIRemote viewtmp = new ClientRMIView(nome, serverRegistration, view);
 		handler = new RMIConnectionHandler(viewtmp);

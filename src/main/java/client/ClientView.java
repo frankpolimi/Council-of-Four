@@ -1,6 +1,5 @@
 package client;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -70,15 +69,15 @@ public class ClientView implements ClientViewInterface{
 	/**
 	 * display the main actions and then guides the player through the 
 	 * selection & the configuration of the action to send to the controller
-	 * @param stdin the standard input for the different selections
 	 */
-	public Request mainAction(Scanner stdin) {
+	public Request mainAction() {
+		Scanner scanner1 = new Scanner(System.in);
 		System.out.println("Select now the main action to perform");
 		System.out.println("1. To Elect a councillor");
 		System.out.println("2. To Acquire a Building Permit");
 		System.out.println("3. To Build an Emporium by permit");
 		System.out.println("4. To Build an Emporium under the consense of the king");
-		int select = this.selector(1, 4, stdin);
+		int select = this.selector(1, 4);
 	
 		Action action = null;
 		switch(select){
@@ -92,7 +91,7 @@ public class ClientView implements ClientViewInterface{
 				System.out.println((i+1)+"- "+councillors.get(i).toString());
 			}
 			System.out.println("Select the councillor you would like");
-			int councillorIndex=this.selector(0,councillors.size(), stdin);
+			int councillorIndex=this.selector(0,councillors.size());
 			if(councillorIndex==0) break;
 			Councillor councillorSelected=councillors.get(councillorIndex-1);
 			System.out.println("Now select the council");
@@ -101,11 +100,12 @@ public class ClientView implements ClientViewInterface{
 			for(int i=0;i<councils.size();i++){
 				System.out.println((i+1)+"- "+councils.get(i).getCouncillors());
 			}
-			int councilIndex=this.selector(0, councils.size(), stdin);
+			int councilIndex=this.selector(0, councils.size());
 			if(councilIndex==0) break;
 			Council council=councils.get(councilIndex-1);
 			//action
 			action=new ElectCouncillor(councillorSelected, council);
+			scanner1.close();
 			return new ActionRequest(action, ID);
 		case 2:
 			//acquire permit
@@ -122,12 +122,12 @@ public class ClientView implements ClientViewInterface{
 			System.out.println("Select 0 if you want to change main action");
 			System.out.println("Insert -1 if you want to terminate this drawing step");
 			i=1;
-			int cardsIndex=this.selector(-1, ownedCards.size(), stdin);
+			int cardsIndex=this.selector(-1, ownedCards.size());
 			while(cardsIndex!=0&&cardsIndex!=-1&&i<4){
 				PoliticsCard card=ownedCards.get(cardsIndex-1);
 				selectedCards.add(card);
 				i++;
-				cardsIndex=this.selector(-1, ownedCards.size(), stdin);
+				cardsIndex=this.selector(-1, ownedCards.size());
 			}
 			if(cardsIndex==0) break;
 			//select council
@@ -136,7 +136,7 @@ public class ClientView implements ClientViewInterface{
 			for(i=0;i<regionalCouncils.size();i++){
 				System.out.println((i+1)+"- "+regionalCouncils.get(i).getCouncillors());
 			}
-			councilIndex=this.selector(0, regionalCouncils.size(), stdin);
+			councilIndex=this.selector(0, regionalCouncils.size());
 			if(councilIndex==0) break;
 			RegionalCouncil councilCorrupted=regionalCouncils.get(councilIndex-1);
 			System.out.println("Select the permit to acquire");
@@ -147,9 +147,10 @@ public class ClientView implements ClientViewInterface{
 				System.out.println(i+"- "+it.next().toString());
 				i++;
 			}
-			int permitIndex=this.selector(1, 2, stdin);
+			int permitIndex=this.selector(1, 2);
 			BuildingPermit chosenPermit=councilDeck.giveAFaceUpPermit(permitIndex-1);
 			action=new AcquirePermit(councilCorrupted, selectedCards, chosenPermit);
+			scanner1.close();
 			return new ActionRequest(action, ID);
 		case 3:
 			//build emporium by permit
@@ -165,7 +166,7 @@ public class ClientView implements ClientViewInterface{
 			for(i=0;i<player.getBuildingPermits().size();i++){
 				System.out.println((i+1)+"- "+player.getBuildingPermits().get(i).toString());
 			}
-			permitIndex=this.selector(0, player.getBuildingPermits().size(), stdin);
+			permitIndex=this.selector(0, player.getBuildingPermits().size());
 			if(permitIndex==0) break;
 			chosenPermit=player.getBuildingPermits().get(permitIndex-1);
 			System.out.println("Now type the initial of the city in which you would to build");
@@ -174,7 +175,7 @@ public class ClientView implements ClientViewInterface{
 				City city=cityIt.next();
 				System.out.println(city.getName()+" "+city.getFirstChar());
 			}
-			String initialChosen=stdin.next();
+			String initialChosen=scanner1.next();
 			City cityChosen=game.getMap().getVertexByKey(initialChosen);
 			if(cityChosen==null){
 				System.out.println("The input contains a not valid value");
@@ -182,6 +183,7 @@ public class ClientView implements ClientViewInterface{
 			}else{
 				action=new BuildEmporiumByPermit(chosenPermit, cityChosen);
 			}
+			scanner1.close();
 			return new ActionRequest(action, ID);
 		case 4: 
 			//build emporium by king
@@ -197,12 +199,12 @@ public class ClientView implements ClientViewInterface{
 			System.out.println("Select 0 if you want to change the main action");
 			System.out.println("Select -1 if you want to terminate the drawing step and to confirm your selected cards");
 			i=1;
-			cardsIndex=this.selector(-1, ownedCards.size(), stdin);
+			cardsIndex=this.selector(-1, ownedCards.size());
 			while(cardsIndex!=0&&cardsIndex!=-1&&i<4){
 				PoliticsCard card=ownedCards.get(cardsIndex-1);
 				selectedCards.add(card);
 				i++;
-				cardsIndex=this.selector(-1, ownedCards.size(), stdin);
+				cardsIndex=this.selector(-1, ownedCards.size());
 			}
 			if(cardsIndex==0) break;
 			KingsCouncil kingsCouncil=game.getKingsCouncil();
@@ -217,7 +219,7 @@ public class ClientView implements ClientViewInterface{
 				System.out.println(c.getBonus());
 				i++;
 			}
-			initialChosen=stdin.next();
+			initialChosen=scanner1.next();
 			cityChosen=game.getMap().getVertexByKey(initialChosen);
 			if(cityChosen==null){
 				System.out.println("The input contains a not valid value");
@@ -225,23 +227,25 @@ public class ClientView implements ClientViewInterface{
 			}else{
 				action=new BuildEmporiumByKing(kingsCouncil, selectedCards, cityChosen);
 			}
+			scanner1.close();
 			return new ActionRequest(action, ID);
 		}
+		scanner1.close();
 		return null;
 	}
 
 	/**
 	 * display the quick actions and then guides the player through the 
 	 * selection & the configuration of the action to send to the controller
-	 * @param stdin the standard input for the different selections
 	 */
-	public Request quickAction(Scanner stdin) {
+	public Request quickAction() {
+		Scanner scanner2 = new Scanner(System.in);
 		System.out.println("Select now the quick action to perform");
 		System.out.println("1. To Engage a new Assistant");
 		System.out.println("2. To Change Face Up permits using an assistant");
 		System.out.println("3. To Elect a councillor using an assistant");
 		System.out.println("4. To obtain an extra main action");
-		int select = this.selector(1, 4, stdin);
+		int select = this.selector(1, 4);
 		
 		Action action = null;
 		switch(select){
@@ -249,6 +253,7 @@ public class ClientView implements ClientViewInterface{
 			//engage assistant
 			System.out.println("Action Chosen: To engage a new assistant");
 			action=new EngageAssistant();
+			scanner2.close();
 			return new ActionRequest(action, ID);
 		case 2:
 			//change face up permits
@@ -261,10 +266,11 @@ public class ClientView implements ClientViewInterface{
 			}
 			System.out.println("Select the deck you would to change");
 			System.out.println("Select 0 if you want to change your action");
-			int deckIndex=this.selector(0, regionalCouncils.size(), stdin);
+			int deckIndex=this.selector(0, regionalCouncils.size());
 			if(deckIndex==0) break;
 			PermitsDeck deckChosen=regionalCouncils.get(deckIndex-1).getPermitsDeck();
 			action=new ChangeFaceUpPermits(deckChosen);
+			scanner2.close();
 			return new ActionRequest(action, ID);
 		case 3:
 			//elect councillor by assistant
@@ -277,7 +283,7 @@ public class ClientView implements ClientViewInterface{
 			}
 			System.out.println("Select the councillor you would like");
 			System.out.println("Select 0 if you want to change the action");
-			int councillorIndex=this.selector(0,councillors.size(), stdin);
+			int councillorIndex=this.selector(0,councillors.size());
 			if(councillorIndex==0) break;
 			Councillor councillorSelected=councillors.get(councillorIndex-1);
 			List<Council> councils= game.getAllCouncils();
@@ -287,26 +293,29 @@ public class ClientView implements ClientViewInterface{
 			}
 			System.out.println("Select the council in which you want to elect the councillor");
 			System.out.println("Select 0 if you want to change the action");
-			int councilIndex=this.selector(0, councils.size(), stdin);
+			int councilIndex=this.selector(0, councils.size());
 			if(councilIndex==0) break;
 			Council council=councils.get(councilIndex-1);
 			action=new ElectCouncillorByAssistant(council, councillorSelected);
+			scanner2.close();
 			return new ActionRequest(action, ID);
 		case 4: 
 			//extra main action
 			System.out.println("Action Chosen: To obtain an extra main action");
 			action=new ExtraMainAction();
+			scanner2.close();
 			return new ActionRequest(action, ID);
 		}
+		scanner2.close();
 		return null;
 	}
 	
 	/**
 	 * this method generate the request of buying an object within
 	 * the market by displaying and selecting the object
-	 * @param stdin the standard input
 	 */
-	public Request buyProducts(Scanner stdin) {
+	public Request buyProducts() {
+		Scanner scanner3 = new Scanner(System.in);
 		System.out.println("These are the object for sale now!");
 		int i=0;
 		Player buyer=game.getPlayerByID(this.ID);
@@ -315,30 +324,29 @@ public class ClientView implements ClientViewInterface{
 			System.out.println(i+"- "+obj.toString());
 		}
 		System.out.println("Are you interested from something? Y/N");
-		Scanner scanner=new Scanner(System.in);
-		String answer=scanner.nextLine();
+		String answer=scanner3.nextLine();
 		if(answer.equalsIgnoreCase("N")){
-			scanner.close();
+			scanner3.close();
 			return null;
 		}else if(answer.equalsIgnoreCase("Y")){
 			System.out.println("Select the product you want to buy");
 			int selection = this.selector(1, 
-					game.getMarket().getLengthAvailableProducts(buyer), scanner);
+					game.getMarket().getLengthAvailableProducts(buyer));
+			scanner3.close();
 			return new MarketRequest<>(
 					game.getMarket().getAvailableProducts(buyer).get(selection-1),ID);
 		}else{
 			System.out.println("You are insert a not valid value");
 		}
-		scanner.close();
+		scanner3.close();
 		return null;
 	}
 
 	/**
 	 * this method will generate a request to sell an object
 	 * and put it available in the market for other players
-	 * @param stdin the standard input
 	 */
-	public Request addProduct(Scanner stdin) {
+	public Request addProduct() {
 		int i;
 		System.out.println("ADD A PRODUCT");
 		System.out.println("These are the product you could sell");
@@ -356,27 +364,27 @@ public class ClientView implements ClientViewInterface{
 		System.out.println("1. Politic Cards");
 		System.out.println("2. Building Permits");
 		System.out.println("3. Assistants");
-		int catIndex=this.selector(1, 3, stdin);
+		int catIndex=this.selector(1, 3);
 		switch(catIndex){
 		case 1: 
 			System.out.println("Insert the number of politic card that interested you");
-			int cardIndex=this.selector(1, seller.getCardsOwned().size(), stdin);
+			int cardIndex=this.selector(1, seller.getCardsOwned().size());
 			PoliticsCard card=seller.getCardsOwned().get(cardIndex-1);
-			int price=this.priceInsertion(stdin);
+			int price=this.priceInsertion();
 			return new MarketRequest<PoliticsCard>(
 					new MarketObject<PoliticsCard>(card,seller, price),ID);
 		case 2:
 			System.out.println("Insert the number of building permit that interested you");
-			int permitIndex=this.selector(1, seller.getBuildingPermits().size(), stdin);
+			int permitIndex=this.selector(1, seller.getBuildingPermits().size());
 			BuildingPermit permit=seller.getBuildingPermits().get(permitIndex-1);
-			price=this.priceInsertion(stdin);
+			price=this.priceInsertion();
 			return new MarketRequest<BuildingPermit>(
 					new MarketObject<BuildingPermit>(permit, seller, price),ID);
 		case 3:
 			System.out.println("Insert the amount of assistant you would sell");
-			int assistantNumber=this.selector(1, seller.getAssistants(), stdin);
+			int assistantNumber=this.selector(1, seller.getAssistants());
 			System.out.println("Insert the price");
-			price=this.priceInsertion(stdin);
+			price=this.priceInsertion();
 			Assistant assistant= new Assistant(assistantNumber);
 			return new MarketRequest<Assistant>(
 					new MarketObject<Assistant>(assistant, seller, price),ID);
@@ -387,27 +395,27 @@ public class ClientView implements ClientViewInterface{
 	/**
 	 * method that allows to enter a price for a specific
 	 * object in the market
-	 * @param stdin
 	 * @return the price of the object
 	 */
-	private int priceInsertion(Scanner stdin) {
+	private int priceInsertion() {
+		Scanner scanner4 = new Scanner(System.in);
 		System.out.println("Insert the price");
-		int price=stdin.nextInt();
+		int price=scanner4.nextInt();
 		while(price<0){
 			System.out.println("You cannot insert a negative value of price, try again");
 		}
+		scanner4.close();
 		return price;
 	}
 
 	/**
 	 * display the permits and then guides the player through the 
 	 * selection of the permit to send to the controller
-	 * @param stdin the standard input for the different selections
 	 */
-	public Request permit(Scanner stdin) {
+	public Request permit() {
 		System.out.println("Select the permit you want to acquire");
 		memoryContainer.getPermits().forEach(System.out::println);
-		int selection=this.selector(1, memoryContainer.getPermitsLenght(), stdin);
+		int selection=this.selector(1, memoryContainer.getPermitsLenght());
 		PermitsRequest request = new PermitsRequest(this.ID);
 		request.addPermit(memoryContainer.retrievePermit(selection-1));
 		memoryContainer.setPermits(new ArrayList<BuildingPermit>());
@@ -417,12 +425,11 @@ public class ClientView implements ClientViewInterface{
 	/**
 	 * display the bonuses and then guides the player through the 
 	 * selection of the bonus to send to the controller
-	 * @param stdin the standard input for the different selections
 	 */
-	public Request bonus(Scanner stdin) {
+	public Request bonus() {
 		System.out.println("Select the bonus you want to acquire");
 		memoryContainer.getBonus().forEach(System.out::println);
-		int selection=this.selector(1, memoryContainer.getBonusLenght(), stdin);
+		int selection=this.selector(1, memoryContainer.getBonusLenght());
 		BonusRequest request = new BonusRequest(this.ID);
 		request.addBonus(memoryContainer.retrieveBonus(selection-1));
 		memoryContainer.setBonus(new ArrayList<Bonus>());
@@ -434,15 +441,16 @@ public class ClientView implements ClientViewInterface{
 	 * min value and a max value via the standard input
 	 * @param min the minimum value to input
 	 * @param max the maximum value to input
-	 * @param stdin the standard input
-	 * @returnn the integer selected to use in methods
+	 * @return the integer selected to use in methods
 	 */
-	public int selector(int min, int max, Scanner stdin){
-		int selection=stdin.nextInt();
+	public int selector(int min, int max){
+		Scanner scanner5 = new Scanner(System.in);
+		int selection=scanner5.nextInt();
 		while(selection<min||selection>max){
 			System.out.println("The input cointains a not valid value. Please, try Again");
-			selection=stdin.nextInt();
+			selection=scanner5.nextInt();
 		}
+		scanner5.close();
 		return selection;	
 	}
 	
@@ -454,53 +462,56 @@ public class ClientView implements ClientViewInterface{
 			System.err.println("THIS IS YOUR LAST TURN");
 		if(this.game.getGameState().getClass().equals(StartState.class)){
 			if(!memoryContainer.getBonus().isEmpty())
-				request = this.bonus(stdin);
+				request = this.bonus();
 			else if(!memoryContainer.getPermits().isEmpty())
-				request = this.permit(stdin);
+				request = this.permit();
 			else{	
 				game.getGameState().display();
-				actionType= this.selector(1, 4, stdin);
+				actionType= this.selector(1, 4);
 				switch (actionType) {
 				case 1:
-					request = this.mainAction(stdin);
+					request = this.mainAction();
 					break;
 				case 2:
-					request = this.quickAction(stdin);
+					request = this.quickAction();
 					break;
 				case 3:
 					request = new ActionRequest(new SkipAction(), this.ID);
 					break;
 				case 4:
+					stdin.close();
 					return this.quitter();
 				}
 			}
 		}
 		else if(game.getGameState().getClass().equals(MarketSellingState.class)){
 			game.getGameState().display();
-			actionType = this.selector(1, 3, stdin);
+			actionType = this.selector(1, 3);
 			switch(actionType){
 			case 1:
-				request = this.addProduct(stdin);
+				request = this.addProduct();
 				break;
 			case 2:
 				request = new ActionRequest(new SkipAction(), ID);
 				break;
 			case 3:
+				stdin.close();
 				return this.quitter();
 			}
 			
 		}
 		else if(game.getGameState().getClass().equals(MarketBuyingState.class)){
 			game.getGameState().display();
-			actionType = this.selector(1, 3, stdin);
+			actionType = this.selector(1, 3);
 			switch(actionType){
 			case 1:
-				request = this.buyProducts(stdin);
+				request = this.buyProducts();
 				break;
 			case 2: 
 				request = new ActionRequest(new SkipAction(), ID);
 				break;
 			case 3:
+				stdin.close();
 				return this.quitter();
 			}
 		}else if(game.getGameState().getClass().equals(EndState.class)){
@@ -508,16 +519,19 @@ public class ClientView implements ClientViewInterface{
 			stdin.close();
 			return null;
 		}
+		stdin.close();
 		return request;
 	}
 	
 	private Request quitter(){
 		System.out.println("Are you sure? Type 'YES' is you agree, otherwise type anything else");
-		Scanner scanner=new Scanner(System.in);
-		if(scanner.nextLine().equalsIgnoreCase("yes")){
+		Scanner scanner6 = new Scanner(System.in);
+		if(scanner6.nextLine().equalsIgnoreCase("yes")){
 			System.err.println("You have been disconnected");
+			scanner6.close();
 			return new QuitRequest(this.ID);
 		}	
+		scanner6.close();
 		return null;
 	}
 

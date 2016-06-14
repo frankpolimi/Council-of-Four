@@ -96,7 +96,7 @@ public class ViewProva extends View {
 				int scelta=scanner.nextInt();
 				while(scelta!=2){
 					scanner.reset();
-					this.notifica(view.addProduct(scanner));
+					this.notifica(view.addProduct());
 					game.getGameState().display();
 					scelta=scanner.nextInt();
 				}
@@ -105,7 +105,7 @@ public class ViewProva extends View {
 				int scelta=scanner.nextInt();
 				while(scelta!=2){
 					scanner.reset();
-					this.notifica(view.buyProducts(scanner));
+					this.notifica(view.buyProducts());
 					game.getGameState().display();
 					scelta=scanner.nextInt();
 				}
