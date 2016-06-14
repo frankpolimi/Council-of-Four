@@ -45,9 +45,19 @@ public class Server
 	 */
 	private static Registry registry;
 	
+	private ServerRMIRegistrationRemote gameRegister;
+	private ServerRMIRegistrationRemote gameRemote;
+	
 	private List<Player> oneRoomLobby;
 	private Map<Player, View> playersView;
 	
+	/**
+	 * constructor for a server with both connections: RMI & socket
+	 * @param socketPort the port on which the socket will listen for connections
+	 * @param RMIPort the port on which the server will retrieve the remote methods of a client
+	 * @throws JDOMException when file reading fails
+	 * @throws IOException when writing to client fails
+	 */
 	public Server(int socketPort, int RMIPort) throws JDOMException, IOException
 	{
 		this.SOCKETPORT = socketPort;
@@ -61,6 +71,14 @@ public class Server
 		playersView=new HashMap<>();
 	}
 	
+	/**
+	 * method to start both rmi & socket servers
+	 * @throws AlreadyBoundException if servers already exists
+	 * @throws IOException if connections fails
+	 * @throws ClassNotFoundException
+	 * @throws JDOMException
+	 * @throws AccessException
+	 */
 	public void start() throws AlreadyBoundException, IOException, 
 		ClassNotFoundException, JDOMException, AccessException
 	{
@@ -70,11 +88,10 @@ public class Server
 	
 	private void startRMI() throws AccessException, RemoteException, AlreadyBoundException{
 		System.out.println("Constructing RMI server");
-		ServerRMIRegistrationRemote game = new ServerRMIRegistration(this);
 		
-		ServerRMIRegistrationRemote gameRemote = 
-				(ServerRMIRegistrationRemote) UnicastRemoteObject
-				.exportObject(game, 0);
+		gameRegister = new ServerRMIRegistration(this);
+		
+		gameRemote = (ServerRMIRegistrationRemote) UnicastRemoteObject.exportObject(game, 0);
 		registry.bind(NAME, gameRemote);
 	}
 	
