@@ -22,6 +22,7 @@ import java.awt.FlowLayout;
 import java.awt.Graphics;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
+import java.awt.GridBagLayout;
 
 public class GUI extends JFrame {
 	
@@ -64,34 +65,45 @@ public class GUI extends JFrame {
 		contentPane.setBorder(new LineBorder(Color.BLACK));
 		contentPane.setSize(monitorDimension);
 		setContentPane(contentPane);
+		contentPane.setLayout(null);
 		
 		JPanel cardBoard = new JPanel();
-		cardBoard.setSize(cardBoardDimension);
+		cardBoard.setLocation(1, 1);
+		cardBoard.setSize(new Dimension(1348, 728));
 		cardBoard.setBorder(new LineBorder(Color.BLACK));
 		contentPane.add(cardBoard);
-		cardBoard.setLayout(new BoxLayout(cardBoard, BoxLayout.Y_AXIS));
+		cardBoard.setLayout(null);
 		
 		JPanel regions=new JPanel();
-		regions.setLayout(new FlowLayout());
-		regions.setSize(regionPanelDimension);
+		regions.setLocation(1, 1);
+		regions.setSize(new Dimension(1346, 367));
 		regions.setAutoscrolls(true);
 		cardBoard.add(regions);
+		regions.setLayout(null);
 	
 		ImagePanel seaside=new ImagePanel(pathLand, singleRegionDimension);
-		seaside.setSize(singleRegionDimension);
+		seaside.setLocation(0, 0);
+		seaside.setSize(new Dimension(448, 367));
 		regions.add(seaside);
+		seaside.setLayout(null);
 		
 		ImagePanel hill=new ImagePanel(pathHill, singleRegionDimension);
-		hill.setSize(singleRegionDimension);
+		hill.setLocation(448, 0);
+		hill.setSize(new Dimension(448, 367));
 		regions.add(hill);
+		hill.setLayout(null);
 		
 		ImagePanel mountain=new ImagePanel(pathMountain, singleRegionDimension);
-		mountain.setSize(singleRegionDimension);
+		mountain.setLocation(896, 0);
+		mountain.setSize(new Dimension(448, 367));
 		regions.add(mountain);
+		mountain.setLayout(null);
 		
 		ImagePanel nobility = new ImagePanel(pathNobility1, nobilityPanelDimension);
-		nobility.setSize(nobilityPanelDimension);
+		nobility.setLocation(1, 368);
+		nobility.setSize(new Dimension(1346, 358));
 		cardBoard.add(nobility);		
+		nobility.setLayout(new BoxLayout(nobility, BoxLayout.X_AXIS));
 	}
 
 	/**
