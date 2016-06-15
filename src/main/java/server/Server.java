@@ -91,7 +91,7 @@ public class Server
 		
 		gameRegister = new ServerRMIRegistration(this);
 		
-		gameRemote = (ServerRMIRegistrationRemote) UnicastRemoteObject.exportObject(game, 0);
+		gameRemote = (ServerRMIRegistrationRemote) UnicastRemoteObject.exportObject(gameRegister, 0);
 		registry.bind(NAME, gameRemote);
 	}
 	
