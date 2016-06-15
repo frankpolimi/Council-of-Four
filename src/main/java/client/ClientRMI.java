@@ -68,62 +68,16 @@ public class ClientRMI extends UnicastRemoteObject implements Serializable{
 		
 		ClientRMIRemote viewtmp = new ClientRMIView(nome, serverRegistration, view);
 		handler = new RMIConnectionHandler(viewtmp);
-		this.view.setGame(viewtmp.getMemoryContainer().getGameRef());
+		this.game=viewtmp.getMemoryContainer().getGameRef();
+		this.view.setGame(this.game);
 		this.view.setId(viewtmp.getID());
 		this.view.setMemoryContainer(viewtmp.getMemoryContainer());
 		ExecutorService executors=Executors.newFixedThreadPool(1);
 		executors.submit(new ClientOutHandlerSocket(handler, viewtmp.getMemoryContainer(), view));
-	}		
-	
-	public void run() throws RemoteException{
-		
-		boolean isUpdated;
-		while(handler.getRmiView().getMemoryContainer().getGameRef()==null);
-		
-		view.setId(handler.getRmiView().getID());
-		view.setMemoryContainer(handler.getRmiView().getMemoryContainer());
-		view.setGame(handler.getRmiView().getMemoryContainer().getGameRef());
-		
-		while(true){
-			synchronized (handler.getRmiView().getMemoryContainer()) {
-				game = handler.getRmiView().getMemoryContainer().getGameRef();
-			}
-			isUpdated = handler.getRmiView().getMemoryContainer().isUpdated();
-
-			if(game.getGameState()!=null&&
-					isUpdated&&
-					game.getCurrentPlayer().getPlayerID()==handler.getRmiView().getID()){
-				try {
-					Thread.sleep(2000);
-				} catch (InterruptedException e1) {
-					e1.printStackTrace();
-				}
-
-				request = view.start();
-				if(request != null){
-					try {
-						if(!handler.getRmiView().getMemoryContainer().getGameRef().getGameState().getClass().equals(EndState.class)){
-							handler.sendToServer(request);
-							isUpdated = false;
-						}
-					} catch (IOException e) {
-						if(e.getMessage().equals("Socket closed"))
-							System.err.println("THE GAME IS FINISHED, BYE BYE");
-						break;
-					} catch (IllegalArgumentException | IllegalStateException c){
-						System.out.println("Error in performing action: "+c.getMessage());
-					}
-					if(request.getClass().equals(QuitRequest.class)){
-						try {
-							handler.closeConnection();
-							System.err.println("THE GAME IS FINISHED, BYE BYE");
-							break;
-						} catch (IOException e) {
-							e.printStackTrace();
-						}
-					}
-				}
-			}
-		}
 	}
+	
+	public Game getGame(){
+		return this.game;
+	}
+	
 }

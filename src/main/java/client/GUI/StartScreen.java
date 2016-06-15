@@ -135,13 +135,22 @@ public class StartScreen extends JFrame {
 			public void mouseClicked(MouseEvent arg0) {
 				JRadioButton connectionSelected=(JRadioButton) getRadioSelected(connectionGroup);
 				String name=txtInsertYourName.getText();
-				ClientSocket client=new ClientSocket(host, socketPort, new GUI());
-				try {
-					client.runClient(name);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+				System.out.println(connectionSelected.getText());
+				if(connectionSelected.getText().equalsIgnoreCase("socket")){
+				
+					ClientSocket client=new ClientSocket(host, socketPort, new GUI());
+					try {
+						client.runClient(name);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					((GUI)client.getView()).setRegionsBackground();
+					//((GUI)client.getView()).setVisible(true);
+				}else if(connectionSelected.getText().equalsIgnoreCase("RMI")){
+					
 				}
+				
 			}
 		});
 		GridBagConstraints gbc_btnConnection = new GridBagConstraints();

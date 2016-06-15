@@ -24,6 +24,10 @@ public class ClientSocket
 		this.memoryContainer=new LocalStorage();
 		this.clientView=view;
 	}
+	
+	public ClientViewInterface getView() {
+		return this.clientView;
+	}
 
 	/**
 	 * @return the iD

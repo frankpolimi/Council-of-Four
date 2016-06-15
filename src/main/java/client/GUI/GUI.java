@@ -6,6 +6,9 @@ import java.awt.EventQueue;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Set;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.Toolkit;
@@ -14,11 +17,15 @@ import javax.swing.border.LineBorder;
 
 import client.ClientViewInterface;
 import model.game.Game;
+import model.game.topology.Region;
 import view.LocalStorage;
 import view.Request;
 
 import java.awt.Color;
 import javax.swing.border.MatteBorder;
+
+import org.jdom2.JDOMException;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.SystemColor;
@@ -27,16 +34,20 @@ import java.awt.Component;
 
 public class GUI extends JFrame implements ClientViewInterface {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5547965368598720974L;
 	private Game game;
 	private LocalStorage memoryContainer;
 	private int ID;
 	
 	
 	private JPanel contentPane;
-	private final String pathLand="src/main/resources/Immagini/mareA.jpg";
-	private final String pathHill="src/main/resources/Immagini/collinaA.jpg";
-	private final String pathMountain="src/main/resources/Immagini/montagnaA.jpg";
-	private final String pathNobility="src/main/resources/Immagini/nobility.jpg";
+	private String pathland="src/main/resources/Immagini/mareA.jpg";
+	private String pathhill="src/main/resources/Immagini/collinaA.jpg";
+	private String pathmountain="src/main/resources/Immagini/montagnaA.jpg";
+	private final static String pathNobility="src/main/resources/Immagini/nobility.jpg";
 	
 	private final String pathAction="src/main/resources/Immagini/action_table.jpg";
 	
@@ -47,6 +58,11 @@ public class GUI extends JFrame implements ClientViewInterface {
 	private final String pathCouncillorBlue="src/main/resources/Immagini/councillor_blue.jpg";
 	private final String pathCouncillorBlack="src/main/resources/Immagini/councillor_black.jpg";
 	private final String pathCouncillorOrange="src/main/resources/Immagini/councillor_orange.jpg";
+	Dimension monitorDimension=Toolkit.getDefaultToolkit().getScreenSize();
+	Dimension cardBoardDimension=new Dimension((monitorDimension.width/160*105), (monitorDimension.height));
+	Dimension regionPanelDimension=new Dimension(cardBoardDimension.width, cardBoardDimension.height/90*53);
+	Dimension singleRegionDimension=new Dimension(regionPanelDimension.width/3, regionPanelDimension.height);
+	Dimension nobilityPanelDimension=new Dimension(cardBoardDimension.width, cardBoardDimension.height/90*35);
 
 	/**
 	 * Launch the application.
@@ -56,6 +72,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 			public void run() {
 				try {
 					GUI frame = new GUI();
+					
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -64,9 +81,12 @@ public class GUI extends JFrame implements ClientViewInterface {
 		});
 	}
 	
+	
+	
 	public GUI()
 	{
-		setAlwaysOnTop(true);
+			
+		//setAlwaysOnTop(true);
 		
 		Dimension monitorDimension=Toolkit.getDefaultToolkit().getScreenSize();
 		Dimension cardBoardDimension=new Dimension((monitorDimension.width/160*105), (monitorDimension.height));
@@ -93,28 +113,29 @@ public class GUI extends JFrame implements ClientViewInterface {
 		cardBoard.setBounds(0, 0, cardBoardDimension.width, cardBoardDimension.height);
 		
 		JPanel regions=new JPanel();
+		regions.setName("regions");
 		regions.setLocation(1, 1);
 		regions.setSize(regionPanelDimension);
 		regions.setAutoscrolls(true);
 		cardBoard.add(regions);
 		regions.setBounds(0, 0, regionPanelDimension.width, regionPanelDimension.height);
 		regions.setLayout(null);
-	
-		ImagePanel seaside=new ImagePanel(pathLand, singleRegionDimension);
+		
+		ImagePanel seaside=new ImagePanel(pathland, singleRegionDimension);
 		//seaside.setLocation(0, 0);
 		seaside.setSize(singleRegionDimension);
 		regions.add(seaside);
 		seaside.setLayout(null);
 		seaside.setBounds(0, 0, singleRegionDimension.width, singleRegionDimension.height);
 		
-		ImagePanel hill=new ImagePanel(pathHill, singleRegionDimension);
+		ImagePanel hill=new ImagePanel(pathhill, singleRegionDimension);
 		//hill.setLocation(448, 0);
 		hill.setSize(singleRegionDimension);
 		regions.add(hill);
 		hill.setLayout(null);
 		hill.setBounds(singleRegionDimension.width, 0, singleRegionDimension.width, singleRegionDimension.height);
 		
-		ImagePanel mountain=new ImagePanel(pathMountain, singleRegionDimension);
+		ImagePanel mountain=new ImagePanel(pathmountain, singleRegionDimension);
 		//mountain.setLocation(896, 0);
 		mountain.setSize(singleRegionDimension);
 		regions.add(mountain);
@@ -368,6 +389,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 			}
 		});
 		
+		setVisible(true);
 	}
 
 	/**
@@ -414,6 +436,37 @@ public class GUI extends JFrame implements ClientViewInterface {
 		File file=new File(path);
 		return ImageIO.read(file);
 	}
+	
+	public void setRegionsBackground(){
+		Set<Region> regionSet=this.game.getRegions();
+		this.pathhill=regionSet.stream().filter(e->e.getName().equals("hill")).map(e->e.getImagePath()).findFirst().get();
+		this.pathmountain=regionSet.stream().filter(e->e.getName().equals("mountain")).map(e->e.getImagePath()).findFirst().get();
+		this.pathland=regionSet.stream().filter(e->e.getName().equals("land")).map(e->e.getImagePath()).findFirst().get();
+		
+		JPanel regions=(JPanel)this.contentPane.getComponents()[0].getComponentAt(0, 0);
+		regions.removeAll();
+		ImagePanel seaside=new ImagePanel(pathland, singleRegionDimension);
+		//seaside.setLocation(0, 0);
+		seaside.setSize(singleRegionDimension);
+		regions.add(seaside);
+		seaside.setLayout(null);
+		seaside.setBounds(0, 0, singleRegionDimension.width, singleRegionDimension.height);
+		
+		ImagePanel hill=new ImagePanel(pathhill, singleRegionDimension);
+		//hill.setLocation(448, 0);
+		hill.setSize(singleRegionDimension);
+		regions.add(hill);
+		hill.setLayout(null);
+		hill.setBounds(singleRegionDimension.width, 0, singleRegionDimension.width, singleRegionDimension.height);
+		
+		ImagePanel mountain=new ImagePanel(pathmountain, singleRegionDimension);
+		//mountain.setLocation(896, 0);
+		mountain.setSize(singleRegionDimension);
+		regions.add(mountain);
+		mountain.setLayout(null);
+		mountain.setBounds(2*singleRegionDimension.width, 0, singleRegionDimension.width, singleRegionDimension.height);
+		
+	}
 
 	@Override
 	public Request start() {
@@ -423,8 +476,8 @@ public class GUI extends JFrame implements ClientViewInterface {
 
 	@Override
 	public void updateModel(Game game) {
-		// TODO Auto-generated method stub
-		
+		this.game=game;	
+		System.out.println("changed");
 	}
 
 	@Override
@@ -439,7 +492,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 
 	@Override
 	public void stampMessage(String message) {
-		JOptionPane.showInputDialog(message);
+		JOptionPane.showMessageDialog(null, message);
 	}
 
 	@Override
