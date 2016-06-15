@@ -19,8 +19,15 @@ public class Region implements Serializable
 	private ArrayList<City> cities;
 	private final RegionalCouncil council;
 	private final PermitsDeck permitsDeck;
+	private final String imagePath;
 	
-	
+	/**
+	 * @return the imagePath
+	 */
+	public String getImagePath() {
+		return imagePath;
+	}
+
 	public String getName() 
 	{
 		return name;
@@ -31,12 +38,13 @@ public class Region implements Serializable
 		return cities;
 	}
 
-	public Region(String name, ArrayList<City> cities, RegionalCouncil council, PermitsDeck permitsDeck) 
+	public Region(String name, ArrayList<City> cities, RegionalCouncil council, PermitsDeck permitsDeck, String path) 
 	{
 		this.name = name;
 		this.cities = cities;
 		this.council = council;
 		this.permitsDeck= permitsDeck;
+		this.imagePath=path;
 	}
 	
 	

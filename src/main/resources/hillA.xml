@@ -1,14 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
 
 <map>
-	<regions>
 		<region name="hill" path="src/main/resources/Immagini/collinaA.jpg">
 			<cities>
-			<city name="Franick" initial="F" RGB="255,255,0"></city>  <!-- Vedere se inizializzare già qua i bonus -->
+			<city name="Framek" initial="F" RGB="255,255,0"></city>  <!-- Vedere se inizializzare già qua i bonus -->
 			<city name="Indur" initial="I" RGB="255,0,0"></city>
-			<city name="Gruden" initial="G" RGB="190,190,190"></city>
-			<city name="Juvelar" initial="J" RGB="160,32,240"></city>
+			<city name="Graden" initial="G" RGB="160,32,240"></city>
+			<city name="Juvelar" initial="J" RGB="190,190,190"></city>
 			<city name="Hellar" initial="H" RGB="255,255,0"></city>
 		</cities>
+		<kingCity initial="G"></kingCity>
 		</region>
-	</regions>
+	<links>
+		<edge city1="F" city2="I" city3="C"></edge>
+		<edge city1="G" city2="J" city3="D" city4="A"></edge>
+		<edge city1="H" city2="J" city3="E" city4="M"></edge>
+		<edge city1="J" city2="G" city3="I" city4="H" city5="L"></edge>
+		<edge city1="I" city2="F" city3="J" city4="K"></edge>
+	</links>
 </map>
