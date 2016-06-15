@@ -9,7 +9,7 @@ public class Councillor implements Serializable
 {
 	private static final long serialVersionUID = 8744419618457004020L;
 	private final Color color;
-	private final String imagePath;
+	private String imagePath;
 
 	public Councillor(Color color, String imagePath)
 	{
@@ -20,6 +20,14 @@ public class Councillor implements Serializable
 			throw new NullPointerException();
 	}
 	
+	public Councillor(Color color)
+	{
+		if(color!=null){
+			this.color = color;
+		
+		}else
+			throw new NullPointerException();
+	}
 	
 	
 	/**

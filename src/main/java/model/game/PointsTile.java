@@ -17,7 +17,7 @@ public abstract class PointsTile implements Serializable{
 	 * The second one is a link for handling the lists of Tessere Punti Vittoria in the game.
 	 */
 	private final int VPs;
-	private final String imagePath;
+	private String imagePath;
 	/**
 	 * 
 	 * @param amount
@@ -26,6 +26,15 @@ public abstract class PointsTile implements Serializable{
 		VPs=amount;
 		this.imagePath=imagePath;
 	}
+	
+	/**
+	 * 
+	 * @param amount
+	 */
+	public PointsTile(int amount){
+		VPs=amount;
+	}
+	
 	
 	
 	/**

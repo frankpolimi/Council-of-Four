@@ -34,6 +34,16 @@ public class RegionTile extends PointsTile {
 			throw new NullPointerException("The region cannot be null");
 		this.region=region;
 	}
+	
+	public RegionTile(int amount, Region region) {
+		super(amount);
+		if(amount<=0)
+			throw new IllegalArgumentException("The amount cannot be negative or zero");
+		if(region == null)
+			throw new NullPointerException("The region cannot be null");
+		this.region=region;
+	}
+	
 	/**
 	 * @return the region
 	 */

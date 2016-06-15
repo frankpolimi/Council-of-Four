@@ -25,6 +25,13 @@ public class KingTile extends PointsTile{
 			throw new IllegalArgumentException("The amount cannot be negative or zero");
 		}
 	}
+	
+	public KingTile(int amount){
+		super(amount);
+		if(amount<=0){
+			throw new IllegalArgumentException("The amount cannot be negative or zero");
+		}
+	}
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()

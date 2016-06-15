@@ -26,7 +26,7 @@ public class City  extends Bonusable implements Serializable{
 	private final Color cityColor;
 	private ArrayList<Emporium> emporiums;
 	private final List<Bonus> bonusList;
-	private final String bonusImagePath;
+	private String bonusImagePath;
 
 	public City(String name, Color color, List<Bonus> bonus, String path){
 		super();
@@ -36,6 +36,19 @@ public class City  extends Bonusable implements Serializable{
 		bonusList = bonus;
 		emporiums=new ArrayList<>();
 		this.bonusImagePath=path;
+		/*
+		for(Bonus b: bonus)
+			this.registerBonus(b);*/
+		 
+	}
+	
+	public City(String name, Color color, List<Bonus> bonus){
+		super();
+		this.name=name;
+		firstChar=name.toUpperCase().charAt(0);
+		cityColor=color;
+		bonusList = bonus;
+		emporiums=new ArrayList<>();
 		/*
 		for(Bonus b: bonus)
 			this.registerBonus(b);*/

@@ -28,6 +28,18 @@ public class ColorTile extends PointsTile implements Serializable{
 		}
 		cityColor=color;
 	}
+	
+	public ColorTile(int amount, Color color) {
+		super(amount);
+		if(amount<=0){
+			throw new IllegalArgumentException("The amount cannot be negative or zero");
+		}
+		
+		if(color==null){
+			throw new NullPointerException("The color cannot be null");
+		}
+		cityColor=color;
+	}
 
 	/**
 	 * @return the cityColor

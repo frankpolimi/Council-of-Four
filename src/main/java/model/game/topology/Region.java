@@ -19,8 +19,8 @@ public class Region implements Serializable
 	private ArrayList<City> cities;
 	private final RegionalCouncil council;
 	private final PermitsDeck permitsDeck;
-	private final String imagePath;
-	private final char type;
+	private String imagePath;
+	private char type;
 	
 	/**
 	 * @return the imagePath
@@ -47,6 +47,14 @@ public class Region implements Serializable
 		this.permitsDeck= permitsDeck;
 		this.imagePath=path;
 		this.type=type;
+	}
+	
+	public Region(String name, ArrayList<City> cities, RegionalCouncil council, PermitsDeck permitsDeck) 
+	{
+		this.name = name;
+		this.cities = cities;
+		this.council = council;
+		this.permitsDeck= permitsDeck;
 	}
 	
 	public char getType() {

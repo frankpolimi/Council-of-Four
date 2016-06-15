@@ -9,7 +9,9 @@ public abstract class PoliticsCard  implements CouncillorPayment, Serializable
 {
 	private static final long serialVersionUID = -7103641605489942648L;
 	
-	private final String imagePath;
+	private String imagePath;
+	
+	public PoliticsCard(){}
 	
 	public PoliticsCard(String imagePath) {
 		this.imagePath=imagePath;

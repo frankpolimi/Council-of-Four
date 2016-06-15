@@ -21,6 +21,14 @@ public class ColoredPoliticsCard extends PoliticsCard
 		else
 			throw new NullPointerException();
 	}
+	
+	public ColoredPoliticsCard(Color color) 
+	{
+		if(color!=null)
+			this.color = color;
+		else
+			throw new NullPointerException();
+	}
 
 	public Color getColor() 
 	{

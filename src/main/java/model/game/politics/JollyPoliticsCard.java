@@ -9,6 +9,8 @@ public class JollyPoliticsCard extends PoliticsCard
 		super(imagePath);
 		// TODO Auto-generated constructor stub
 	}
+	
+	public JollyPoliticsCard() {}
 
 	private static final long serialVersionUID = 4275233909860022900L;
 
