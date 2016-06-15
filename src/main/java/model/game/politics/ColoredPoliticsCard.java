@@ -13,9 +13,10 @@ public class ColoredPoliticsCard extends PoliticsCard
 	private static final long serialVersionUID = 8208852678516588048L;
 	private final Color color;
 
-	public ColoredPoliticsCard(Color color) 
+	public ColoredPoliticsCard(Color color, String imagePath) 
 	{
-		if(color!=null)
+		super(imagePath);
+		if(color!=null&&imagePath!=null)
 			this.color = color;
 		else
 			throw new NullPointerException();

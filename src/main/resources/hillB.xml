@@ -6,8 +6,8 @@
 			<cities>
 			<city name="Framek" initial="F" RGB="255,255,0"></city>  <!-- Vedere se inizializzare già qua i bonus -->
 			<city name="Indur" initial="I" RGB="255,0,0"></city>
-			<city name="Graden" initial="G" RGB="190,190,190"></city>
-			<city name="Juvelar" initial="J" RGB="160,32,240"></city>
+			<city name="Graden" initial="G" RGB="160,32,240"></city>
+			<city name="Juvelar" initial="J" RGB="190,190,190"></city>
 			<city name="Hellar" initial="H" RGB="255,255,0"></city>
 			</cities>
 			<kingCity initial="G"></kingCity>

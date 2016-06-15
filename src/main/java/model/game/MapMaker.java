@@ -25,7 +25,8 @@ public class MapMaker {
 	private final Map<Character, City> cityMap;
 	private final List<Councillor> extractedCouncillors;
 	private final List<List<Bonus>> extractedCityBonus;
-	
+	private final static String XMLPATH="src/main/resources/map.xml";
+	private final static String PATH="src/main/resources/";
 	//Constructor
 	/**
 	 * This class is used to extract the necessary objects used to initialize and play a game.
@@ -48,15 +49,16 @@ public class MapMaker {
 	 *@throws java.io.IOException - when an I/O error prevents a document from being fully parsed
 	 */
 	private void fillExtractedCouncillors() throws JDOMException, IOException{
-		Element root=this.getRootFromFile();
+		Element root=this.getRootFromFile(XMLPATH);
 		List<Element> avCouncillors=root.getChild("decks").getChild("avaliableCouncillors").getChildren();
 		Iterator<Element> avIt=avCouncillors.iterator();
 		while(avIt.hasNext()){
 			Element councillorEl=avIt.next();
 			int num=Integer.parseInt(councillorEl.getAttributeValue("number"));
+			String imagePath=councillorEl.getAttributeValue("path");
 			for(int i=0;i<num;i++){
 				Color color=this.convert(councillorEl.getAttributeValue("RGB"));
-				Councillor cons= new Councillor(color);
+				Councillor cons= new Councillor(color,imagePath);
 				extractedCouncillors.add(cons);
 			}
 		}
@@ -67,13 +69,17 @@ public class MapMaker {
 	 *@throws JDOMException - when errors occur in parsing
 	 *@throws java.io.IOException - when an I/O error prevents a document from being fully parsed
 	 *@return a List of bonus extracted random
-	 */
-	private List<Bonus> extractNewRandomicBonus(){
+	 *
+	private List<Bonus> extractNewRandomicBonus() throws JDOMException, IOException{
 		Random random = new Random();
-		List<Bonus> bonusList=extractedCityBonus.remove(random.nextInt(extractedCityBonus.size()));
+		Element root=this.getRootFromFile(XMLPATH);
+		int childChosen=random.nextInt(extractedCityBonus.size());
+		Element child=root.getChild("cityBonusList").getChildren().stream().filter(e->Integer.parseInt(e.getAttribute("id"))==childChosen).findFirst().get();
+		List<Bonus> bonusList=extractedCityBonus.remove(childChosen);
+		
 		return bonusList;
 	}
-	
+	*/
 	
 	
 	/**
@@ -136,7 +142,7 @@ public class MapMaker {
 	 * @throws IOException
 	 */
 	private void fillExtractedCityBonuses() throws JDOMException, IOException{
-		Element root=this.getRootFromFile();
+		Element root=this.getRootFromFile(XMLPATH);
 		List<Element> bonusList=root.getChild("decks").getChild("cityBonusList").getChildren();
 		Iterator<Element> bonusListIt=bonusList.iterator();
 		while(bonusListIt.hasNext()){
@@ -218,18 +224,25 @@ public class MapMaker {
 		//inizializzazione grafo
 		ExtendedGraph<City, DefaultEdge> graph=new ExtendedGraph<>(DefaultEdge.class);
 		//XML Reader objects needed
-		Element root=this.getRootFromFile();
-		List<Element> children=root.getChildren();
+		
 		Set<Region> regions=regionSet;
 		Iterator<Region> regionIt=regions.iterator();
+		List<Element> links =new ArrayList<>();
+		int i=0;
 		while(regionIt.hasNext()){
 			Region reg=regionIt.next();
+			Element cityRoot=this.getRootFromFile(PATH+reg.getName()+reg.getType()+".xml");
 			for(City c:reg.getCities()){
 				graph.addVertex(c);
 			}
+			
+			for(Element e:cityRoot.getChild("links").getChildren())
+				links.add(e);
+				
+			i++;
 		}
 		//extraction and creation of edges
-		List<Element> links=children.get(1).getChildren();
+		
 		Iterator<Element> edgeIt=links.iterator();
 		while(edgeIt.hasNext()){
 			Element edge=edgeIt.next();
@@ -259,7 +272,7 @@ public class MapMaker {
 	 * @throws IOException
 	 */
 	public int getEmporiumsAvaliableNumber() throws JDOMException, IOException{
-		Element root=this.getRootFromFile();
+		Element root=this.getRootFromFile(XMLPATH);
 	
 		return root.getChild("emporiums").getAttribute("number").getIntValue();
 	}
@@ -272,22 +285,23 @@ public class MapMaker {
 	public PoliticsDeck createPoliticsDeck() throws JDOMException, IOException{
 		PoliticsDeck politicsCards;
 		ArrayList<PoliticsCard> cards=new ArrayList<>();
-		Element root=getRootFromFile();
+		Element root=getRootFromFile(XMLPATH);
 		List<Element> cardChild=root.getChild("decks").getChild("politicsDeck").getChildren();
 		Iterator<Element> cardIt=cardChild.iterator();
 		while(cardIt.hasNext()){
 			Element card=cardIt.next();
 			int num=Integer.parseInt(card.getAttributeValue("number"));
 			String rgb=card.getAttributeValue("RGB");
+			String imagePath=card.getAttributeValue("path");
 			if(!rgb.equals("")){
 				Color color=this.convert(rgb);
 				for(int i=0;i<num;i++){
-					ColoredPoliticsCard cpc=new ColoredPoliticsCard(color);
+					ColoredPoliticsCard cpc=new ColoredPoliticsCard(color, imagePath);
 					cards.add(cpc);
 				}
 			}else{
 				for(int i=0;i<num;i++){
-					JollyPoliticsCard jpc=new JollyPoliticsCard();
+					JollyPoliticsCard jpc=new JollyPoliticsCard(imagePath);
 					cards.add(jpc);
 				}
 			}
@@ -348,22 +362,23 @@ public class MapMaker {
 		
 		
 		List<PointsTile> tilesList =new ArrayList<>();
-		Element root=this.getRootFromFile();
+		Element root=this.getRootFromFile(XMLPATH);
 		List<Element> colorTileList = root.getChild("decks").getChild(type).getChildren();
 		Iterator<Element> colorIt=colorTileList.iterator();
 		while(colorIt.hasNext()){
 			Element tile=colorIt.next();
+			String imagePath=tile.getAttributeValue("path");
 			PointsTile ct;
 			int points=Integer.parseInt(tile.getAttributeValue("points"));
 			if(type.equals("colorTileList")){
 				Color color=this.convert(tile.getAttributeValue("RGB"));
-				ct=new ColorTile(points, color);
+				ct=new ColorTile(points, color, imagePath);
 			}else if(type.equals("regionTileList")){
 				String name=tile.getAttributeValue("name");
 				Region region=this.getSpecificRegionByName(regions, name);
-				ct=new RegionTile(points, region);
+				ct=new RegionTile(points, region, imagePath);
 			}else{
-				ct=new KingTile(points);
+				ct=new KingTile(points, imagePath);
 			}
 			tilesList.add(ct);
 		}
@@ -396,10 +411,15 @@ public class MapMaker {
 			Element permit=permitIt.next();
 			List<Attribute> permitCities=permit.getAttributes();
 			Iterator<Attribute> permitCitiesAttr=permitCities.iterator();
+			String imagePath="";
 			while(permitCitiesAttr.hasNext()){
 				Attribute attr=permitCitiesAttr.next();
+				if(!attr.getName().equals("path")){
 				City c=cityMap.get(attr.getValue().charAt(0));
 				avCities.add(c);
+				}else{
+					imagePath=attr.getValue();
+				}
 			}
 			List<Element> permitBonus=permit.getChildren();
 			Iterator<Element> permitBonusIt=permitBonus.iterator();
@@ -410,11 +430,16 @@ public class MapMaker {
 				bonusList.add(obj);
 				}catch(Exception e){e.printStackTrace();}
 			}
-			building=new BuildingPermit(avCities, bonusList);
+			building=new BuildingPermit(avCities, bonusList, imagePath);
 			permits.add(building);
 		}
 		PermitsDeck pd=new PermitsDeck(permits);
 		return pd;
+	}
+	
+	public String getCityBonusPath(int position) throws JDOMException, IOException{
+		List<Element> bonusList=this.getRootFromFile(XMLPATH).getChild("decks").getChild("cityBonusList").getChildren();
+		return bonusList.stream().filter(e->Integer.parseInt(e.getAttributeValue("id"))==position+1).findFirst().get().getAttributeValue("path");
 	}
 	
 	/**
@@ -423,36 +448,45 @@ public class MapMaker {
 	 * @throws JDOMException when errors occur in parsing
 	 * @throws IOException  when an I/O error prevents a document from being fully parsed
 	 */
-	public Set<Region> createRegionSet() throws JDOMException, IOException{
-		Element root=this.getRootFromFile();
+	public Set<Region> createRegionSet(String extracted) throws JDOMException, IOException{
+		Element root=this.getRootFromFile(XMLPATH);
 		List<Element> children=root.getChildren();
 		List<Element> regions=children.get(0).getChildren();
 		Iterator<Element> iterator=regions.iterator();
 		Set<Region> allRegions=new HashSet<>();
+		
 		//extraction of cities informations from XML file and insertion into graph map.
+		int i=0;
 		while(iterator.hasNext()){
 			Element region=iterator.next();
 			Region r;
 			String regionName=region.getAttributeValue("name");
 			ArrayList<City> arrayCity=new ArrayList<>();
-			List<Element> cities=region.getChild("cities").getChildren();
+			char type=extracted.toUpperCase().charAt(i);
+			Element cityRoot=this.getRootFromFile(PATH+regionName+type+".xml");
+			String regionPathName=cityRoot.getChild("region").getAttribute("path").getValue();
+			List<Element> cities=cityRoot.getChild("region").getChild("cities").getChildren();
 			Iterator<Element> cityIt=cities.iterator();
+			Random random=new Random();
 			while(cityIt.hasNext()){
+				int randomBonusPosition=random.nextInt(this.extractedCityBonus.size());
+				List<Bonus> bonusChosen=this.extractedCityBonus.remove(randomBonusPosition);
+				String imagePath=this.getCityBonusPath(randomBonusPosition);
 				Element city=cityIt.next();
 				City c;
 				Color color;
 				String name=city.getAttributeValue("name");
 				color=this.convert(city.getAttributeValue("RGB"));
-				c=new City(name,color,this.extractNewRandomicBonus());
+				c=new City(name,color,bonusChosen,imagePath);
 				arrayCity.add(c);
 				cityMap.put(c.getFirstChar(), c);
 			}
 			
-			
 			RegionalCouncil rc=(RegionalCouncil)this.extractNewCouncil(region,"regional");
 			PermitsDeck permits= rc.getPermitsDeck();
-			r=new Region(regionName, arrayCity, rc, permits);
+			r=new Region(regionName, arrayCity, rc, permits,regionPathName, type);
 			allRegions.add(r);
+			i++;
 		}
 			return allRegions;
 		
@@ -465,7 +499,7 @@ public class MapMaker {
 	 * @throws IOException
 	 */
 	public NobilityLane createNobilityLane() throws JDOMException, IOException{
-		Element root=this.getRootFromFile();
+		Element root=this.getRootFromFile(XMLPATH);
 		List<Element> nobilityPosition=root.getChild("nobilityLane").getChildren();
 		Iterator<Element> nobIt=nobilityPosition.iterator();
 		NobilityLane lane=new NobilityLane();
@@ -497,20 +531,35 @@ public class MapMaker {
 	 * @throws JDOMException
 	 * @throws IOException
 	 */
-	private Element getRootFromFile() throws JDOMException, IOException{
+	private Element getRootFromFile(String path) throws JDOMException, IOException{
 		//my choise: the XML file pathname is imposed by me to don't improve any errors with the 
 		//file opening. The map is always avaliable at that pathname and it is not allowed to change it.
 		SAXBuilder builder=new SAXBuilder();
-		Document document= builder.build(new File("src/main/resources/map.xml"));
+		Document document= builder.build(new File(path));
 		return document.getRootElement();
+	}
+	
+	public int getRegionNumber() throws JDOMException, IOException{
+		Element root=this.getRootFromFile(XMLPATH);
+		return root.getChild("regions").getChildren().size();
+	}
+	
+	
+	public City getKingCity(Set<Region> regions, ExtendedGraph<City,DefaultEdge> map) throws JDOMException, IOException{
+		Region hill=regions.stream().filter(e->e.getName().equals("hill")).findFirst().get();
+		Element root=this.getRootFromFile(PATH+"hill"+hill.getType()+".xml");
+		
+		return map.getVertexByKey(root.getChild("region").getChild("kingCity").getAttribute("initial").getValue());
+		
 	}
 	
 	public static void main(String[] args)throws IOException, JDOMException {
 		MapMaker mp=new MapMaker();
-		Set<Region> set=mp.createRegionSet();
-		set.stream().forEach(System.out::println);
-		ExtendedGraph<City, DefaultEdge> graph=mp.generateMap(set);
-		set.stream().map(e -> e.getPermitsDeck()).forEach(System.out::println);
+		Set<Region> reg=mp.createRegionSet("ABA");
+		ExtendedGraph<City, DefaultEdge> map=mp.generateMap(reg);
+		map.vertexSet().stream().forEach(System.out::println);
+		System.out.println(map.toString());
+		
 	}
 	
 

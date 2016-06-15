@@ -8,4 +8,15 @@ import java.io.Serializable;
 public abstract class PoliticsCard  implements CouncillorPayment, Serializable
 {
 	private static final long serialVersionUID = -7103641605489942648L;
+	
+	private final String imagePath;
+	
+	public PoliticsCard(String imagePath) {
+		this.imagePath=imagePath;
+	}
+	
+	public String getImagePath() {
+		return imagePath;
+	}
+	
 }

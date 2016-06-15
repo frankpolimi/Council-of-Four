@@ -17,8 +17,8 @@ public class ColorTile extends PointsTile implements Serializable{
 	 * @throws NullPointerException if color is null
 	 * @throws IllegalArgumentException if amount is negative or zero
 	 */
-	public ColorTile(int amount, Color color) {
-		super(amount);
+	public ColorTile(int amount, Color color, String imagePath) {
+		super(amount, imagePath);
 		if(amount<=0){
 			throw new IllegalArgumentException("The amount cannot be negative or zero");
 		}

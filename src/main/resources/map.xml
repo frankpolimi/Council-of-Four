@@ -3,200 +3,179 @@
 <map>
 	<regions>
 	<region name="land">
-		<cities>
-			<city name="Arhon" initial="A" RGB="0,0,255"></city>  <!-- Vedere se inizializzare già qua i bonus -->
-			<city name="Burgon" initial="B" RGB="255,255,0"></city>
-			<city name="Castrum" initial="C" RGB="190,190,190"></city>
-			<city name="Dodul" initial="D" RGB="190,190,190"></city>
-			<city name="Esti" initial="E" RGB="255,0,0"></city>
-		</cities>
 		<permitsDeck>
-			<permit initial1="A" initial2="B" initial3="C">
+			<permit initial1="A" initial2="B" initial3="C" path="src/main/resources/Immagini/permits_abc.jpg">
 				<bonus className="AssistantBonus" amount="2"></bonus>
 			</permit>
-			<permit initial1="C">
+			<permit initial1="C" path="src/main/resources/Immagini/permits_c.jpg">
 				<bonus className="AssistantBonus" amount="2"></bonus>
 				<bonus className="CoinBonus" amount="3"></bonus>
 			</permit>
-			<permit initial1="B" initial2="C" initial3="D">
+			<permit initial1="B" initial2="C" initial3="D" path="src/main/resources/Immagini/permits_bcd.jpg">
 				<bonus className="AssistantBonus" amount="1"></bonus>
 				<bonus className="PointBonus" amount="1"></bonus>
 			</permit>
-			<permit initial1="A" initial2="B">
+			<permit initial1="A" initial2="B" path="src/main/resources/Immagini/permits_ab.jpg">
 				<bonus className="CoinBonus" amount="3"></bonus>
 				<bonus className="GetPoliticBonus" amount="1"></bonus>
 			</permit>
-			<permit initial1="A" initial2="B" initial3="E">
+			<permit initial1="A" initial2="B" initial3="E" path="src/main/resources/Immagini/permits_abe.jpg">
 				<bonus className="CoinBonus" amount="3"></bonus>
 			</permit>
-			<permit initial1="E">
+			<permit initial1="E" path="src/main/resources/Immagini/permits_e.jpg">
 				<bonus className="CoinBonus" amount="2"></bonus>
 				<bonus className="MainActionBonus" amount="1"></bonus>
 			</permit>
-			<permit initial1="B" initial2="C">
+			<permit initial1="B" initial2="C" path="src/main/resources/Immagini/permits_bc.jpg">
 				<bonus className="CoinBonus" amount="3"></bonus>
 				<bonus className="PointBonus" amount="3"></bonus>
 			</permit>
-			<permit initial1="D">
+			<permit initial1="D" path="src/main/resources/Immagini/permits_d.jpg">
 				<bonus className="PointBonus" amount="7"></bonus>
 			</permit>
-			<permit initial1="C" initial2="D" initial3="E">
+			<permit initial1="C" initial2="D" initial3="E" path="src/main/resources/Immagini/permits_cde.jpg">
 				<bonus className="GetPoliticBonus" amount="1"></bonus>
 				<bonus className="NobilityBonus" amount="1"></bonus>
 			</permit>
-			<permit initial1="A" initial2="E">
+			<permit initial1="A" initial2="E" path="src/main/resources/Immagini/permits_ae.jpg">
 				<bonus className="NobilityBonus" amount="2"></bonus>
 			</permit>
-			<permit initial1="C" initial2="D">
+			<permit initial1="C" initial2="D" path="src/main/resources/Immagini/permits_cd.jpg">
 				<bonus className="PointBonus" amount="3"></bonus>
 				<bonus className="AssistantBonus" amount="1"></bonus>
 			</permit>
-			<permit initial1="A" initial2="D" initial3="E">
+			<permit initial1="A" initial2="D" initial3="E" path="src/main/resources/Immagini/permits_ade.jpg">
 				<bonus className="CoinBonus" amount="1"></bonus>
 				<bonus className="PointBonus" amount="2"></bonus>
 			</permit>
-			<permit initial1="B">
+			<permit initial1="B" path="src/main/resources/Immagini/permits_b.jpg">
 				<bonus className="GetPoliticBonus" amount="3"></bonus>
 				<bonus className="AssistantBonus" amount="1"></bonus>
 			</permit>
-			<permit initial1="D" initial2="E">
+			<permit initial1="D" initial2="E" path="src/main/resources/Immagini/permits_de.jpg">
 				<bonus className="PointBonus" amount="3"></bonus>
 				<bonus className="AssistantBonus" amount="1"></bonus>
 			</permit>
-			<permit initial1="A">
+			<permit initial1="A" path="src/main/resources/Immagini/permits_a.jpg">
 				<bonus className="PointBonus" amount="4"></bonus>
 				<bonus className="CoinBonus" amount="3"></bonus>
 			</permit>
 		</permitsDeck>
 	</region>
 	<region name="hill">
-		<cities>
-			<city name="Franick" initial="F" RGB="255,255,0"></city>  <!-- Vedere se inizializzare già qua i bonus -->
-			<city name="Indur" initial="I" RGB="255,0,0"></city>
-			<city name="Gruden" initial="G" RGB="190,190,190"></city>
-			<city name="Juvelar" initial="J" RGB="160,32,240"></city>
-			<city name="Hellar" initial="H" RGB="255,255,0"></city>
-		</cities>
 		<permitsDeck>
-			<permit initial1="F" initial2="G" initial3="H">
+			<permit initial1="F" initial2="G" initial3="H" path="src/main/resources/Immagini/permits_fgh.jpg">
 				<bonus className="NobilityBonus" amount="1"></bonus>
 				<bonus className="CoinBonus" amount="1"></bonus>
 			</permit>
-			<permit initial1="H" initial2="I">
+			<permit initial1="H" initial2="I" path="src/main/resources/Immagini/permits_hi.jpg">
 				<bonus className="PointBonus" amount="5"></bonus>
 			</permit>
-			<permit initial1="F">
+			<permit initial1="F" path="src/main/resources/Immagini/permits_f.jpg">
 				<bonus className="GetPoliticBonus" amount="2"></bonus>
 				<bonus className="CoinBonus" amount="4"></bonus>
 			</permit>
-			<permit initial1="I" initial2="J">
+			<permit initial1="I" initial2="J" path="src/main/resources/Immagini/permits_ij.jpg">
 				<bonus className="NobilityBonus" amount="1"></bonus>
 				<bonus className="GetPoliticBonus" amount="2"></bonus>
 			</permit>
-			<permit initial1="I">
+			<permit initial1="I" path="src/main/resources/Immagini/permits_i.jpg">
 				<bonus className="GetPoliticBonus" amount="2"></bonus>
 				<bonus className="AssistantBonus" amount="2"></bonus>
 			</permit>
-			<permit initial1="I" initial2="J" initial3="H">
+			<permit initial1="I" initial2="J" initial3="H" path="src/main/resources/Immagini/permits_ijh.jpg">
 				<bonus className="GetPoliticBonus" amount="2"></bonus>
 			</permit>
-			<permit initial1="F" initial2="G">
+			<permit initial1="F" initial2="G" path="src/main/resources/Immagini/permits_fg.jpg">
 				<bonus className="CoinBonus" amount="5"></bonus>
 			</permit>
-			<permit initial1="H" initial2="G">
+			<permit initial1="H" initial2="G" path="src/main/resources/Immagini/permits_hg.jpg">
 				<bonus className="AssistantBonus" amount="3"></bonus>
 			</permit>
-			<permit initial1="J">
+			<permit initial1="J" path="src/main/resources/Immagini/permits_j.jpg">
 				<bonus className="PointBonus" amount="2"></bonus>
 				<bonus className="MainActionBonus" amount="1"></bonus>
 			</permit>
-			<permit initial1="G">
+			<permit initial1="G" path="src/main/resources/Immagini/permits_g.jpg">
 				<bonus className="NobilityBonus" amount="1"></bonus>
 				<bonus className="AssistantBonus" amount="2"></bonus>
 				<bonus className="PointBonus" amount="2"></bonus>
 			</permit>
-			<permit initial1="H">
+			<permit initial1="H" path="src/main/resources/Immagini/permits_h.jpg">
 				<bonus className="AssistantBonus" amount="4"></bonus>
 			</permit>
-			<permit initial1="F" initial2="G" initial3="H">
+			<permit initial1="F" initial2="G" initial3="H" path="src/main/resources/Immagini/permits_fgh.jpg">
 				<bonus className="CoinBonus" amount="2"></bonus>
 				<bonus className="PointBonus" amount="1"></bonus>
 			</permit>
-			<permit initial1="F" initial2="I" initial3="J">
+			<permit initial1="F" initial2="I" initial3="J" path="src/main/resources/Immagini/permits_fij.jpg">
 				<bonus className="NobilityBonus" amount="1"></bonus>
 				<bonus className="AssistantBonus" amount="1"></bonus>
 			</permit>
-			<permit initial1="F" initial2="J">
+			<permit initial1="F" initial2="J" path="src/main/resources/Immagini/permits_fj.jpg">
 				<bonus className="CoinBonus" amount="1"></bonus>
 				<bonus className="AssistantBonus" amount="2"></bonus>
 			</permit>
-			<permit initial1="G" initial2="I" initial3="H">
+			<permit initial1="G" initial2="I" initial3="H" path="src/main/resources/Immagini/permits_ghi.jpg">
 				<bonus className="AssistantBonus" amount="1"></bonus>
 				<bonus className="GetPoliticBonus" amount="1"></bonus>
 			</permit>
 		</permitsDeck>
 	</region>
 	<region name="mountain">
-		<cities>
-			<city name="Kultos" initial="K" RGB="255,255,0"></city>  <!-- Vedere se inizializzare già qua i bonus -->
-			<city name="Lyrum" initial="L" RGB="190,190,190"></city>
-			<city name="Naris" initial="N" RGB="255,0,0"></city>
-			<city name="Oslum" initial="O" RGB="255,255,0"></city>
-			<city name="Merkatim" initial="M" RGB="0,0,255"></city>
-		</cities>
 		<permitsDeck>
-			<permit initial1="M" initial2="N">
+			<permit initial1="M" initial2="N" path="src/main/resources/Immagini/permits_mn.jpg">
 				<bonus className="MainActionBonus" amount="1"></bonus>
 			</permit>
-			<permit initial1="M" initial2="L">
+			<permit initial1="M" initial2="L" path="src/main/resources/Immagini/permits_ml.jpg">
 				<bonus className="GetPoliticBonus" amount="3"></bonus>
 			</permit>
-			<permit initial1="M">
+			<permit initial1="M" path="src/main/resources/Immagini/permits_m.jpg">
 				<bonus className="PointBonus" amount="5"></bonus>
 				<bonus className="NobilityBonus" amount="1"></bonus>
 			</permit>
-			<permit initial1="K">
+			<permit initial1="K" path="src/main/resources/Immagini/permits_k.jpg">
 				<bonus className="GetPoliticBonus" amount="4"></bonus>
 			</permit>
-			<permit initial1="K" initial2="L">
+			<permit initial1="K" initial2="L" path="src/main/resources/Immagini/permits_kl.jpg">
 				<bonus className="GetPoliticBonus" amount="1"></bonus>
 				<bonus className="AssistantBonus" amount="2"></bonus>
 			</permit>
-			<permit initial1="K" initial2="L" initial3="O">
+			<permit initial1="K" initial2="L" initial3="O" path="src/main/resources/Immagini/permits_klo.jpg">
 				<bonus className="GetPoliticBonus" amount="1"></bonus>
 				<bonus className="CoinBonus" amount="1"></bonus>
 			</permit>
-			<permit initial1="K" initial2="L" initial3="M">
+			<permit initial1="K" initial2="L" initial3="M" path="src/main/resources/Immagini/permits_klm.jpg">
 				<bonus className="CoinBonus" amount="1"></bonus>
 				<bonus className="AssistantBonus" amount="1"></bonus>
 			</permit>
-			<permit initial1="N" initial2="O">
+			<permit initial1="N" initial2="O" path="src/main/resources/Immagini/permits_no.jpg">
 				<bonus className="PointBonus" amount="2"></bonus>
 				<bonus className="GetPoliticBonus" amount="2"></bonus>
 			</permit>
-			<permit initial1="M" initial2="N" initial3="O">
+			<permit initial1="M" initial2="N" initial3="O" path="src/main/resources/Immagini/permits_mno.jpg">
 				<bonus className="PointBonus" amount="1"></bonus>
 				<bonus className="NobilityBonus" amount="1"></bonus>
 			</permit>
-			<permit initial1="M" initial2="N" initial3="L">
+			<permit initial1="M" initial2="N" initial3="L" path="src/main/resources/Immagini/permits_lmn.jpg">
 				<bonus className="PointBonus" amount="3"></bonus>
 			</permit>
-			<permit initial1="K" initial2="N" initial3="O">
+			<permit initial1="K" initial2="N" initial3="O" path="src/main/resources/Immagini/permits_kno.jpg">
 				<bonus className="PointBonus" amount="1"></bonus>
 				<bonus className="GetPoliticBonus" amount="1"></bonus>
 			</permit>
-			<permit initial1="O" initial2="K">
+			<permit initial1="O" initial2="K" path="src/main/resources/Immagini/permits_ok.jpg">
 				<bonus className="GetPoliticBonus" amount="2"></bonus>
 				<bonus className="NobilityBonus" amount="1"></bonus>
 			</permit>
-			<permit initial1="O">
+			<permit initial1="O" path="src/main/resources/Immagini/permits_o.jpg">
 				<bonus className="NobilityBonus" amount="1"></bonus>
 				<bonus className="GetPoliticBonus" amount="3"></bonus>
 			</permit>
-			<permit initial1="N">
+			<permit initial1="N" path="src/main/resources/Immagini/permits_n.jpg">
 				<bonus className="CoinBonus" amount="7"></bonus>
 			</permit>
-			<permit initial1="L">
+			<permit initial1="L" path="src/main/resources/Immagini/permits_l.jpg">
 				<bonus className="AssistantBonus" amount="3"></bonus>
 				<bonus className="CoinBonus" amount="1"></bonus>
 			</permit>
@@ -204,112 +183,94 @@
 	</region>
 	</regions>
 	
-	<links>
-		<edge city1="A" city2="B" city3="C"></edge>
-		<edge city1="B" city2="D" city3="E" city4="A"></edge>
-		<edge city1="C" city2="F" city3="A"></edge>
-		<edge city1="D" city2="G" city3="B"></edge>
-		<edge city1="E" city2="H" city3="B"></edge>
-		<edge city1="F" city2="I" city3="C"></edge>
-		<edge city1="G" city2="D" city3="J"></edge>
-		<edge city1="H" city2="J" city3="E" city4="M"></edge>
-		<edge city1="I" city2="J" city3="F" city4="K"></edge>
-		<edge city1="J" city2="I" city3="G" city4="L" city5="H"></edge>
-		<edge city1="K" city2="I" city3="N"></edge>
-		<edge city1="L" city2="J" city3="O"></edge>
-		<edge city1="M" city2="O" city3="H"></edge>
-		<edge city1="N" city2="K" city3="O"></edge>	
-		<edge city1="O" city2="M" city3="L" city4="N"></edge>
-	</links>
-	
 	<decks>
 		<politicsDeck name="politics">
-			<card type="coloured" RGB="255,20,147" number="13"></card><!-- dark pink -->
-			<card type="coloured" RGB="255,255,255" number="13"></card><!-- white -->
-			<card type="coloured" RGB="255,165,0" number="13"></card><!-- orange -->
-			<card type="coloured" RGB="0,0,0" number="13"></card><!-- black -->
-			<card type="coloured" RGB="128,0,128" number="13"></card><!-- purple -->
-			<card type="coloured" RGB="0,0,255" number="13"></card><!-- blue -->
-			<card type="jolly" RGB="" number="13"></card>
+			<card type="coloured" RGB="255,20,147" number="13" path="src/main/resources/Immagini/pink_politic.jpg"></card><!-- dark pink -->
+			<card type="coloured" RGB="255,255,255" number="13" path="src/main/resources/Immagini/grey_politic.jpg"></card><!-- white -->
+			<card type="coloured" RGB="255,165,0" number="13" path="src/main/resources/Immagini/orange_politic.jpg"></card><!-- orange -->
+			<card type="coloured" RGB="0,0,0" number="13" path="src/main/resources/Immagini/black_politic.jpg"></card><!-- black -->
+			<card type="coloured" RGB="128,0,128" number="13" path="src/main/resources/Immagini/purple_politic.jpg"></card><!-- purple -->
+			<card type="coloured" RGB="0,0,255" number="13" path="src/main/resources/Immagini/blue_politic.jpg"></card><!-- blue -->
+			<card type="jolly" RGB="" number="13" path="src/main/resources/Immagini/jolly_politic.jpg"></card>
 		</politicsDeck>
 		<helperDeck name="helper">
 			<helper number="30"></helper>
 		</helperDeck>
 		<colorTileList name="colorTileList">
-			<tile type="colorTile" RGB="255,255,0" points="20"></tile>
-			<tile type="colorTile" RGB="190,190,190" points="12"></tile>
-			<tile type="colorTile" RGB="255,0,0" points="8"></tile>
-			<tile type="colorTile" RGB="0,0,255" points="5"></tile>
+			<tile type="colorTile" RGB="255,255,0" points="20" path="src/main/resources/Immagini/color_tile_yellow.jpg"></tile>
+			<tile type="colorTile" RGB="190,190,190" points="12" path="src/main/resources/Immagini/color_tile_grey.jpg"></tile>
+			<tile type="colorTile" RGB="255,0,0" points="8" path="src/main/resources/Immagini/color_tile_orange.jpg"></tile>
+			<tile type="colorTile" RGB="0,0,255" points="5" path="src/main/resources/Immagini/color_tile_blue.jpg"></tile>
 		</colorTileList>
 		<regionTileList name="regionTileList">
-			<tile type="regionTile" name="land" points="5"></tile>
-			<tile type="regionTile" name="hill" points="5"></tile>
-			<tile type="regionTile" name="mountain" points="5"></tile>
+			<tile type="regionTile" name="land" points="5" path="src/main/resources/Immagini/region_tile_land.jpg"></tile>
+			<tile type="regionTile" name="hill" points="5" path="src/main/resources/Immagini/region_tile_hill.jpg"></tile>
+			<tile type="regionTile" name="mountain" points="5" path="src/main/resources/Immagini/region_tile_mountain.jpg"></tile>
 		</regionTileList> 
 		<kingTileList name="kingTileList">
-			<tile type="kingTile" points="25"></tile>
-			<tile type="kingTile" points="18"></tile>
-			<tile type="kingTile"  points="12"></tile>
-			<tile type="kingTile" points="7"></tile>
-			<tile type="kingTile" points="3"></tile>
+			<tile type="kingTile" points="25" path="src/main/resources/Immagini/king_tile_1.jpg"></tile>
+			<tile type="kingTile" points="18" path="src/main/resources/Immagini/king_tile_2.jpg"></tile>
+			<tile type="kingTile"  points="12" path="src/main/resources/Immagini/king_tile_3.jpg"></tile>
+			<tile type="kingTile" points="7" path="src/main/resources/Immagini/king_tile_4.jpg"></tile>
+			<tile type="kingTile" points="3" path="src/main/resources/Immagini/king_tile_5.jpg"></tile>
 		</kingTileList>
 		<cityBonusList>
-			<cityBonus>
+			<cityBonus id="1" path="src/main/resources/Immagini/nobility_token.jpg">
 				<bonus className="NobilityBonus" amount="1"></bonus>
 			</cityBonus>
-			<cityBonus>
+			<cityBonus id="2" path="src/main/resources/Immagini/nobility_token.jpg">
 				<bonus className="NobilityBonus" amount="1"></bonus>
 			</cityBonus>
-			<cityBonus>
+			<cityBonus id="3" path="src/main/resources/Immagini/nobility_token.jpg">
 				<bonus className="NobilityBonus" amount="1"></bonus>
 			</cityBonus>
-			<cityBonus>
+			<cityBonus id="4" path="src/main/resources/Immagini/assistant_politic_token.jpg">
 				<bonus className="GetPoliticBonus" amount="1"></bonus>
 				<bonus className="AssistantBonus" amount="1"></bonus>
 			</cityBonus>
-			<cityBonus>
+			<cityBonus id="5" path="src/main/resources/Immagini/2points_token.jpg">
 				<bonus className="PointBonus" amount="2"></bonus>
 			</cityBonus>
-			<cityBonus>
+			<cityBonus id="6" path="src/main/resources/Immagini/politic_token.jpg">
 				<bonus className="GetPoliticBonus" amount="1"></bonus>
 			</cityBonus>
-			<cityBonus>
+			<cityBonus id="7" path="src/main/resources/Immagini/3coins_token.jpg">
 				<bonus className="CoinBonus" amount="3"></bonus>
 			</cityBonus>
-			<cityBonus>
+			<cityBonus id="8" path="src/main/resources/Immagini/politic_point_token.jpg">
 				<bonus className="GetPoliticBonus" amount="1"></bonus>
 				<bonus className="PointBonus" amount="1"></bonus>
 			</cityBonus>
-			<cityBonus>
+			<cityBonus id="9" path="src/main/resources/Immagini/1coin_token.jpg">
 				<bonus className="CoinBonus" amount="1"></bonus>
 			</cityBonus>
-			<cityBonus>
+			<cityBonus id="10" path="src/main/resources/Immagini/2assistants_token.jpg">
 				<bonus className="AssistantBonus" amount="2"></bonus>
 			</cityBonus>
-			<cityBonus>
+			<cityBonus id="11" path="src/main/resources/Immagini/1point_token.jpg">
 				<bonus className="PointBonus" amount="1"></bonus>
 			</cityBonus>
-			<cityBonus>
+			<cityBonus id="12" path="src/main/resources/Immagini/3points_token.jpg">
 				<bonus className="PointBonus" amount="3"></bonus>
 			</cityBonus>
-			<cityBonus>
+			<cityBonus id="13" path="src/main/resources/Immagini/assistant_token.jpg">
 				<bonus className="AssistantBonus" amount="1"></bonus>
 			</cityBonus>
-			<cityBonus>
+			<cityBonus id="14" path="src/main/resources/Immagini/assistant_coin_token.jpg">
 				<bonus className="AssistantBonus" amount="1"></bonus>
 				<bonus className="CoinBonus" amount="1"></bonus>
 			</cityBonus>
-			<cityBonus>
+			<cityBonus id="15" path="src/main/resources/Immagini/2coins_token.jpg">
 				<bonus className="CoinBonus" amount="2"></bonus>
 			</cityBonus>
 		</cityBonusList>
 		<avaliableCouncillors>
-			<councillor type="coloured" RGB="255,20,147" number="4"></councillor><!-- dark pink -->
-			<councillor type="coloured" RGB="255,255,255" number="4"></councillor><!-- white -->
-			<councillor type="coloured" RGB="255,165,0" number="4"></councillor><!-- orange -->
-			<councillor type="coloured" RGB="0,0,0" number="4"></councillor><!-- black -->
-			<councillor type="coloured" RGB="128,0,128" number="4"></councillor><!-- purple -->
-			<councillor type="coloured" RGB="0,0,255" number="4"></councillor><!-- blue -->
+			<councillor type="coloured" RGB="255,20,147" number="4" path="src/main/resources/Immagini/councillor_pink.jpg"></councillor><!-- dark pink -->
+			<councillor type="coloured" RGB="255,255,255" number="4" path="src/main/resources/Immagini/councillor_white.jpg"></councillor><!-- white -->
+			<councillor type="coloured" RGB="255,165,0" number="4" path="src/main/resources/Immagini/councillor_orange.jpg"></councillor><!-- orange -->
+			<councillor type="coloured" RGB="0,0,0" number="4" path="src/main/resources/Immagini/councillor_black.jpg"></councillor><!-- black -->
+			<councillor type="coloured" RGB="128,0,128" number="4" path="src/main/resources/Immagini/councillor_purple.jpg"></councillor><!-- purple -->
+			<councillor type="coloured" RGB="0,0,255" number="4" path="src/main/resources/Immagini/councillor_blue.jpg"></councillor><!-- blue -->
 		</avaliableCouncillors>
 	</decks>
 	

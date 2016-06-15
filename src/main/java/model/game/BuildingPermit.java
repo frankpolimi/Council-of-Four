@@ -22,6 +22,7 @@ public class BuildingPermit extends Bonusable implements Serializable{
 	private final Set<Character> firstChars;
 	private final Set<Bonus> bonusList;
 	private final Set<City> buildingAvaliableCities;
+	private final String imagePath;
 
 	
 	/**
@@ -31,7 +32,7 @@ public class BuildingPermit extends Bonusable implements Serializable{
 	 * @throws NullPointerException if ba or bonus is null
 	 * @throws IllegalArgumentException if ba or bonus is empty.
 	 */
-	public BuildingPermit(Set<City> ba, Set<Bonus> bonus){
+	public BuildingPermit(Set<City> ba, Set<Bonus> bonus, String imagePath){
 		if(ba==null||bonus==null){
 			throw new NullPointerException("One either buildingAvaliableCities or bonusList is null");
 		}
@@ -40,6 +41,7 @@ public class BuildingPermit extends Bonusable implements Serializable{
 			throw new IllegalArgumentException("The parameters cannot be empty");
 		}
 		
+		this.imagePath=imagePath;
 		buildingAvaliableCities=ba;
 		firstChars=new HashSet<>();
 		this.bonusList = bonus;

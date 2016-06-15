@@ -26,20 +26,30 @@ public class City  extends Bonusable implements Serializable{
 	private final Color cityColor;
 	private ArrayList<Emporium> emporiums;
 	private final List<Bonus> bonusList;
+	private final String bonusImagePath;
 
-	public City(String name, Color color, List<Bonus> bonus){
+	public City(String name, Color color, List<Bonus> bonus, String path){
 		super();
 		this.name=name;
 		firstChar=name.toUpperCase().charAt(0);
 		cityColor=color;
 		bonusList = bonus;
 		emporiums=new ArrayList<>();
+		this.bonusImagePath=path;
 		/*
 		for(Bonus b: bonus)
 			this.registerBonus(b);*/
 		 
 	}
 	
+	/**
+	 * @return the bonusImagePath
+	 */
+	public String getBonusImagePath() {
+		return bonusImagePath;
+	}
+	
+
 	/**
 	 * This method add an emporium in this city. 
 	 * @param player is the player that would to build the emporium

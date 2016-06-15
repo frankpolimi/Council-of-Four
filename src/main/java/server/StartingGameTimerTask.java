@@ -30,7 +30,7 @@ public class StartingGameTimerTask extends TimerTask {
 
 
 	@Override
-	public void run() {
+	public synchronized void run() {
 
 		if(oneRoomLobby.size()>=2){
 			int i=0;

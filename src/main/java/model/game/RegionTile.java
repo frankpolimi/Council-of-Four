@@ -26,8 +26,8 @@ public class RegionTile extends PointsTile {
 	 * @throws IllegalArgumentException if the amount of points is below or equals to zero
 	 * @throws NullPointerException if the region is null
 	 */
-	public RegionTile(int amount, Region region) {
-		super(amount);
+	public RegionTile(int amount, Region region, String imagePath) {
+		super(amount, imagePath);
 		if(amount<=0)
 			throw new IllegalArgumentException("The amount cannot be negative or zero");
 		if(region == null)

@@ -5,6 +5,11 @@ import model.game.council.Councillor;
  */
 public class JollyPoliticsCard extends PoliticsCard 
 {	
+	public JollyPoliticsCard(String imagePath) {
+		super(imagePath);
+		// TODO Auto-generated constructor stub
+	}
+
 	private static final long serialVersionUID = 4275233909860022900L;
 
 	@Override

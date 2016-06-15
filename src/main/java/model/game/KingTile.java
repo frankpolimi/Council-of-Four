@@ -19,8 +19,8 @@ public class KingTile extends PointsTile{
 	 * @param amount the amount of points given by this tile
 	 * @throws IllegalArgumentException if the amount is below or equals to zero
 	 */
-	public KingTile(int amount){
-		super(amount);
+	public KingTile(int amount, String imagePath){
+		super(amount, imagePath);
 		if(amount<=0){
 			throw new IllegalArgumentException("The amount cannot be negative or zero");
 		}

@@ -156,7 +156,7 @@ public class ViewProva extends View {
 		}
 		
 		for(int i=0;i<carte2.size();i++){
-			mountain.getCouncil().electCouncillor(new Councillor(carte2.get(i).getColor()));
+			//mountain.getCouncil().electCouncillor(new Councillor(carte2.get(i).getColor()));
 		}
 		ArrayBlockingQueue<BuildingPermit> array=new ArrayBlockingQueue<>(2);
 		Bonus bonus=new NobilityBonus(1);
@@ -164,11 +164,11 @@ public class ViewProva extends View {
 		cities1.add(game.getMap().getVertexByKey("K"));
 		Set<Bonus> bonuses=new HashSet<>();
 		bonuses.add(bonus);
-		BuildingPermit permessoScelto= new BuildingPermit(cities1,bonuses);
+		BuildingPermit permessoScelto= null;
 		
 		
 		array.put(permessoScelto);
-		array.put(new BuildingPermit(new HashSet<City>(game.getAllCities()),bonuses));
+		array.put(null);
 		mountain.getPermitsDeck().setFaceUpPermits(array);
 		ArrayList<PoliticsCard> carte3=new ArrayList<>();
 		carte3.addAll(carte2);
@@ -189,7 +189,7 @@ public class ViewProva extends View {
 		Set<Bonus> bonuses=new HashSet<>();
 		bonuses.add(new	GetPoliticBonus(2));
 		
-		BuildingPermit permit=new BuildingPermit(cities, bonuses);
+		BuildingPermit permit=null;//new BuildingPermit(cities, bonuses);
 		p1.getBuildingPermits().add(permit);
 		Request request=new ActionRequest(new BuildEmporiumByPermit(permit, game.getMap().getVertexByKey("C")),1);
 		view.notifica(request);

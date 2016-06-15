@@ -14,7 +14,6 @@ public abstract class TileBonus extends Bonus {
 	 * 
 	 */
 	private static final long serialVersionUID = 2968416294698944311L;
-
 	
 	/**
 	 * constructor for a basic bonus

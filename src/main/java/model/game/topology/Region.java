@@ -20,6 +20,7 @@ public class Region implements Serializable
 	private final RegionalCouncil council;
 	private final PermitsDeck permitsDeck;
 	private final String imagePath;
+	private final char type;
 	
 	/**
 	 * @return the imagePath
@@ -38,16 +39,19 @@ public class Region implements Serializable
 		return cities;
 	}
 
-	public Region(String name, ArrayList<City> cities, RegionalCouncil council, PermitsDeck permitsDeck, String path) 
+	public Region(String name, ArrayList<City> cities, RegionalCouncil council, PermitsDeck permitsDeck, String path, char type) 
 	{
 		this.name = name;
 		this.cities = cities;
 		this.council = council;
 		this.permitsDeck= permitsDeck;
 		this.imagePath=path;
+		this.type=type;
 	}
 	
-	
+	public char getType() {
+		return type;
+	}
 
 	@Override
 	public int hashCode() {

@@ -77,11 +77,12 @@ public class Game extends Observable<Change> implements Serializable, Remote{
 
 	public Game() throws JDOMException, IOException {
 		MapMaker mp=new MapMaker();
+		
 		this.lastTurn=false;
 		this.politicsDeck=mp.createPoliticsDeck();
 		this.usedPolitics=new PoliticsDeck(null);
 		this.players=new ArrayList<>();
-		this.regions=mp.createRegionSet();
+		this.regions=mp.createRegionSet(this.extractRandomMap(mp.getRegionNumber()));
 		this.map=mp.generateMap(this.regions);
 		this.kingsCouncil=mp.getKingsCouncil();
 		this.avaliableCouncillors=mp.getExtractedCouncillors();//The councils have been created yet, so these are the remaining councillors.
@@ -89,13 +90,24 @@ public class Game extends Observable<Change> implements Serializable, Remote{
 		this.colorTileList=mp.createTiles("colorTileList", this.regions);
 		this.regionTileList=mp.createTiles("regionTileList", this.regions);
 		this.nobilityLane=mp.createNobilityLane();
-		this.kingsPosition=this.map.getVertexByKey("J");
+		this.kingsPosition=mp.getKingCity(this.regions, this.map);
 		this.market=new Market(this);
 		this.shuffledPlayers=new ArrayList<>();
 		this.disconnectedPlayers=new ArrayList<>();
 		this.timer=new Timer();
 	}
 
+	private String extractRandomMap(int regionNum){
+		String extracted="";
+		for(int i=0;i<regionNum;i++){
+			Random random=new Random();
+			int sel=random.nextInt(2)+65; 
+			extracted=extracted+(char)sel;
+		}
+		System.out.println(extracted);
+		return extracted;
+		
+	}
 	
 	public void setPlayers(List<Player> players){
 		this.players.addAll(players);
@@ -476,15 +488,6 @@ public class Game extends Observable<Change> implements Serializable, Remote{
 		this.notifyObservers(new StateChange(gameState));
 	}
 	
-	
-	
-	
-
-	public static void main(String[]args) throws JDOMException, IOException{
-		Game game=new Game();
-		System.out.println(game.getGameState());
-	}
-
 
 	/**
 	 * method that check if a player deserve a PointsTile
@@ -547,4 +550,14 @@ public class Game extends Observable<Change> implements Serializable, Remote{
 	public NobilityLane getNobilityLane() {
 		return nobilityLane;
 	}
+	
+	public static void main(String[] args) throws JDOMException, IOException {
+		Game game=new Game();
+		List<Player> players=new ArrayList<>();
+		players.add(new Player("io",1));
+		players.add(new Player("tu",2));
+		game.setPlayers(players);
+		System.out.println(game.toString());
+	}
+	
 }
