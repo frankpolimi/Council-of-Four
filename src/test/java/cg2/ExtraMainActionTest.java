@@ -18,7 +18,7 @@ public class ExtraMainActionTest
 	{
 		try 
 		{
-			Game game=SupportClass.gameWithPlayersCreator("Gesualdo", "MbareGiacomo");
+			Game game=SupportClass.gameWithPlayersCreator("Gesualdo", "MbareGiacomo","Pino","Pina");
 			game.getCurrentPlayer().setAssistants(2);
 			int oldMainActions=game.getMainActionCounter();
 			Action a=new ExtraMainAction();

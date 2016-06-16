@@ -2,7 +2,8 @@ package client.GUI;
 
 import java.awt.Dimension;
 import java.awt.EventQueue;
-
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -67,6 +68,11 @@ public class GUI extends JFrame implements ClientViewInterface {
 	private final String pathCouncillorBlue="src/main/resources/Immagini/councillor_blue.jpg";
 	private final String pathCouncillorBlack="src/main/resources/Immagini/councillor_black.jpg";
 	private final String pathCouncillorOrange="src/main/resources/Immagini/councillor_orange.jpg";
+	
+	private final String pathBlueTile="src/main/resources/Immagini/color_tile_blue.jpg";
+	private final String pathOrangeTile="src/main/resources/Immagini/color_tile_orange.jpg";
+	private final String pathGreyTile="src/main/resources/Immagini/color_tile_grey.jpg";
+	private final String pathYellowTile="src/main/resources/Immagini/color_tile_yellow.jpg";
 	
 	Dimension monitorDimension=Toolkit.getDefaultToolkit().getScreenSize();
 	Dimension cardBoardDimension=new Dimension((monitorDimension.width/160*105), (monitorDimension.height));
@@ -205,6 +211,26 @@ public class GUI extends JFrame implements ClientViewInterface {
 		ImagePanel mountainDeck = new ImagePanel(pathMountainDeck, new Dimension(55, 63));
 		mountainDeck.setBounds(590, 11, 55, 63);
 		nobility.add(mountainDeck);
+		
+		ImagePanel blueTile = new ImagePanel(pathBlueTile, new Dimension(60, 50));
+		blueTile.setOpaque(false);		
+		blueTile.setBounds(621, 188, 60, 56);
+		nobility.add(blueTile);
+		
+		ImagePanel orangeTile = new ImagePanel(pathOrangeTile, new Dimension(60, 50));
+		orangeTile.setOpaque(false);
+		orangeTile.setBounds(662, 182, 60, 56);
+		nobility.add(orangeTile);
+		
+		ImagePanel greyTile = new ImagePanel(pathGreyTile, new Dimension(60, 50));
+		greyTile.setOpaque(false);
+		greyTile.setBounds(703, 176, 60, 56);
+		nobility.add(greyTile);
+		
+		ImagePanel yellowTile = new ImagePanel(pathYellowTile, new Dimension(60, 50));
+		yellowTile.setOpaque(false);
+		yellowTile.setBounds(744, 171, 60, 56);
+		nobility.add(yellowTile);
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBounds(839, 0, 511, 704);
@@ -561,7 +587,8 @@ public class GUI extends JFrame implements ClientViewInterface {
 
 	@Override
 	public void stampMessage(String message) {
-		JOptionPane.showMessageDialog(null, message);
+		if(!message.equals(""))
+			JOptionPane.showMessageDialog(null, message);
 	}
 
 	@Override

@@ -30,7 +30,7 @@ public class CoinBonusTest {
 	@Test
 	public void testAssignBonusToPlayer(){
 		try {
-			Game g = SupportClass.gameWithPlayersCreator("G1", "G2");
+			Game g = SupportClass.gameWithPlayersCreator("G1", "G2","G3","G4");
 			CoinBonus b = new CoinBonus(12);
 			int coinG1 = g.getCurrentPlayer().getCoins();
 			int coinG2 = g.getPlayers().get(1).getCoins();

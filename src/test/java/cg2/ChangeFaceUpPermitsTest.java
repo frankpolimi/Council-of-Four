@@ -21,7 +21,7 @@ public class ChangeFaceUpPermitsTest {
 	{
 		Game game;
 		try {
-			game=SupportClass.gameWithPlayersCreator("Mariello", "Ugo");
+			game=SupportClass.gameWithPlayersCreator("Mariello", "Ugo","Umberto","Santiago");
 			ArrayList<BuildingPermit> oldPermits=new ArrayList<>();
 			PermitsDeck deck=game.getAllPermitsDecks().get(0);
 			Player currentPlayer=game.getCurrentPlayer();

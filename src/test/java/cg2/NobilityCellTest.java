@@ -26,7 +26,7 @@ public class NobilityCellTest {
 		b.add(new CoinBonus(2));
 		NobilityCell nc = new NobilityCell(b);
 		try {
-			Game g = SupportClass.gameWithPlayersCreator("g1", "g2");
+			Game g = SupportClass.gameWithPlayersCreator("g1", "g2","g3","g4");
 			int c = g.getCurrentPlayer().getCoins();
 			nc.applyBonus(g);
 			assertEquals(c+2, g.getCurrentPlayer().getCoins());

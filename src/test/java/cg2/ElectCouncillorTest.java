@@ -20,7 +20,7 @@ public class ElectCouncillorTest
 	{
 		Game game;
 		try {
-			game=SupportClass.gameWithPlayersCreator("JohnFitzgerald", "Marylin");
+			game=SupportClass.gameWithPlayersCreator("JohnFitzgerald", "Marylin","Castro","Osama");
 			ArrayList<Councillor> oldCouncil=new ArrayList<>();
 			Council validCouncil=game.getAllCouncils().get(0);
 			for(Councillor co:validCouncil.getCouncillors())

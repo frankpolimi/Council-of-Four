@@ -23,7 +23,7 @@ public class ActionTest
 	public void testPayCouncil() 
 	{
 		try {
-			game=SupportClass.gameWithPlayersCreator("Giacobbe", "Salvatore");
+			game=SupportClass.gameWithPlayersCreator("Giacobbe", "Salvatore","Angelo","Gesu'");
 		} catch (JDOMException | IOException e) {
 			e.printStackTrace();
 		}

@@ -33,7 +33,7 @@ public class AssistantBonusTest {
 	public void testAssignBonusToPlayer()
 	{
 		try {
-			Game game=SupportClass.gameWithPlayersCreator("Giocatore1", "Giocatore2");
+			Game game=SupportClass.gameWithPlayersCreator("Giocatore1", "Giocatore2","Giocatore3","Giocatore 4");
 			AssistantBonus ab=new AssistantBonus(new Integer(3));
 			int presentAssistantsValuePlayer1=game.getCurrentPlayer().getAssistants();
 			int presentAssistantsValuePlayer2=game.getPlayers().get(1).getAssistants();
