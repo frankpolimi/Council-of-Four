@@ -146,6 +146,7 @@ public class StartScreen extends JFrame {
 						e.printStackTrace();
 					}
 					((GUI)client.getView()).setRegionsBackground();
+					((GUI)client.getView()).cityBonusLoader();
 					//((GUI)client.getView()).setVisible(true);
 				}else if(connectionSelected.getText().equalsIgnoreCase("RMI")){
 					
