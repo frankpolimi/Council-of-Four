@@ -24,7 +24,7 @@ public class BuildEmporiumByKingTest
 	private City city;
 	private Action action;
 	
-	public void buildPermitByKingSetup()
+	public void buildPermitByKingTestSetup()
 	{
 		try 
 		{
@@ -46,7 +46,7 @@ public class BuildEmporiumByKingTest
 	@Test
 	public void testTakeActionWithNoActionsLeft()
 	{
-		this.buildPermitByKingSetup();
+		this.buildPermitByKingTestSetup();
 		game.decrementMainActionCounter();
 		try
 		{
@@ -62,7 +62,7 @@ public class BuildEmporiumByKingTest
 	@Test
 	public void testTakeActionWithKingNotMoving()
 	{
-		this.buildPermitByKingSetup();
+		this.buildPermitByKingTestSetup();
 		city=game.getKingsPosition();
 		action=new BuildEmporiumByKing(council, list, city);
 		game.getCurrentPlayer().setCoins(0);
@@ -75,7 +75,7 @@ public class BuildEmporiumByKingTest
 	@Test
 	public void testTakeActionWithKingMoving()
 	{
-		this.buildPermitByKingSetup();
+		this.buildPermitByKingTestSetup();
 		City oldKingsCity=game.getKingsPosition();
 		assertFalse(city.hasPlayerBuilt(player));
 		assertTrue(action.takeAction(game));
@@ -86,7 +86,7 @@ public class BuildEmporiumByKingTest
 	@Test
 	public void testTakeActionWhilePlayerAlreadyBuiltInCity()
 	{
-		this.buildPermitByKingSetup();
+		this.buildPermitByKingTestSetup();
 		city.addEmporium(player);
 		try
 		{
@@ -102,7 +102,7 @@ public class BuildEmporiumByKingTest
 	@Test
 	public void testMakeActionKingMovingButNoCoins()
 	{
-		this.buildPermitByKingSetup();
+		this.buildPermitByKingTestSetup();
 		player.setCoins(0);
 		assertTrue(game.getKingsPosition()!=city);
 		try
@@ -120,7 +120,7 @@ public class BuildEmporiumByKingTest
 	public void testTakeActionWhilePlayerHasNoEmporiums()
 	{
 
-		this.buildPermitByKingSetup();
+		this.buildPermitByKingTestSetup();
 		player.setRemainingEmporiums(0);
 		try
 		{
@@ -137,7 +137,7 @@ public class BuildEmporiumByKingTest
 	public void testTakeActionWithOtherPlayerEmporiumsPresent()
 	{
 
-		this.buildPermitByKingSetup();
+		this.buildPermitByKingTestSetup();
 		city.addEmporium(game.getPlayers().get(2));
 		assertFalse(city.hasPlayerBuilt(player));
 		assertTrue(action.takeAction(game));
@@ -149,7 +149,7 @@ public class BuildEmporiumByKingTest
 	public void testTakeActionWithOtherPlayerEmporiumsPresentButNoAssistants()
 	{
 
-		this.buildPermitByKingSetup();
+		this.buildPermitByKingTestSetup();
 		city.addEmporium(game.getPlayers().get(2));
 		player.setAssistants(0);
 		assertFalse(city.hasPlayerBuilt(player));
