@@ -55,9 +55,14 @@ public class GUI extends JFrame implements ClientViewInterface {
 	private final String pathHillDeck="src/main/resources/Immagini/hill_deck.jpg";
 	private final String pathMountainDeck="src/main/resources/Immagini/mountain_deck.jpg";
 	
+	private final String pathSeasideTile="src/main/resources/Immagini/region_tile_land.jpg";
+	private final String pathHillTile="src/main/resources/Immagini/region_tile_hill.jpg";
+	private final String pathMountainTile="src/main/resources/Immagini/region_tile_mountain.jpg";
+	
 	private final String pathCouncillorBlue="src/main/resources/Immagini/councillor_blue.jpg";
 	private final String pathCouncillorBlack="src/main/resources/Immagini/councillor_black.jpg";
 	private final String pathCouncillorOrange="src/main/resources/Immagini/councillor_orange.jpg";
+	
 	Dimension monitorDimension=Toolkit.getDefaultToolkit().getScreenSize();
 	Dimension cardBoardDimension=new Dimension((monitorDimension.width/160*105), (monitorDimension.height));
 	Dimension regionPanelDimension=new Dimension(cardBoardDimension.width, cardBoardDimension.height/90*53);
@@ -128,6 +133,11 @@ public class GUI extends JFrame implements ClientViewInterface {
 		seaside.setLayout(null);
 		seaside.setBounds(0, 0, singleRegionDimension.width, singleRegionDimension.height);
 		
+		ImagePanel seasideTile = new ImagePanel(pathSeasideTile, new Dimension(51, 30));
+		seasideTile.setOpaque(false);
+		seasideTile.setBounds(211, 383, 51, 30);
+		seaside.add(seasideTile);
+		
 		ImagePanel hill=new ImagePanel(pathhill, singleRegionDimension);
 		//hill.setLocation(448, 0);
 		hill.setSize(singleRegionDimension);
@@ -135,12 +145,22 @@ public class GUI extends JFrame implements ClientViewInterface {
 		hill.setLayout(null);
 		hill.setBounds(singleRegionDimension.width, 0, singleRegionDimension.width, singleRegionDimension.height);
 		
+		ImagePanel hillTile = new ImagePanel(pathHillTile, new Dimension(51, 27));
+		hillTile.setOpaque(false);
+		hillTile.setBounds(181, 386, 51, 27);
+		hill.add(hillTile);
+		
 		ImagePanel mountain=new ImagePanel(pathmountain, singleRegionDimension);
 		//mountain.setLocation(896, 0);
 		mountain.setSize(singleRegionDimension);
 		regions.add(mountain);
 		mountain.setLayout(null);
 		mountain.setBounds(2*singleRegionDimension.width, 0, singleRegionDimension.width, singleRegionDimension.height);
+		
+		ImagePanel mountainTile = new ImagePanel(pathMountainTile, new Dimension(51, 30));
+		mountainTile.setOpaque(false);
+		mountainTile.setBounds(183, 383, 51, 30);
+		mountain.add(mountainTile);
 		
 		ImagePanel nobility = new ImagePanel(pathNobility, nobilityPanelDimension);
 		//nobility.setLocation(1, 368);
