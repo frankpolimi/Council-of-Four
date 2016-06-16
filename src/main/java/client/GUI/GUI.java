@@ -7,7 +7,11 @@ import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.imageio.ImageIO;
@@ -18,6 +22,7 @@ import javax.swing.border.LineBorder;
 
 import client.ClientViewInterface;
 import model.game.Game;
+import model.game.topology.City;
 import model.game.topology.Region;
 import view.LocalStorage;
 import view.Request;
@@ -46,8 +51,8 @@ public class GUI extends JFrame implements ClientViewInterface {
 	
 	private JPanel contentPane;
 	private String pathland="src/main/resources/Immagini/mareA.jpg";
-	private String pathhill="src/main/resources/Immagini/collinaA.jpg";
-	private String pathmountain="src/main/resources/Immagini/montagnaA.jpg";
+	private String pathhill="src/main/resources/Immagini/collinaB.jpg";
+	private String pathmountain="src/main/resources/Immagini/montagnaA2.jpg";
 	private final static String pathNobility="src/main/resources/Immagini/nobility.jpg";
 	
 	private final String pathAction="src/main/resources/Immagini/action_table.jpg";
@@ -490,10 +495,11 @@ public class GUI extends JFrame implements ClientViewInterface {
 		this.pathland=regionSet.stream().filter(e->e.getName().equals("land")).map(e->e.getImagePath()).findFirst().get();
 		
 		JPanel regions=(JPanel)this.contentPane.getComponents()[0].getComponentAt(0, 0);
-		regions.removeAll();
+		//regions.removeAll();
 		ImagePanel seaside=new ImagePanel(pathland, singleRegionDimension);
 		//seaside.setLocation(0, 0);
 		seaside.setSize(singleRegionDimension);
+		seaside.setName("landPanel");
 		regions.add(seaside);
 		seaside.setLayout(null);
 		seaside.setBounds(0, 0, singleRegionDimension.width, singleRegionDimension.height);
@@ -501,6 +507,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 		ImagePanel hill=new ImagePanel(pathhill, singleRegionDimension);
 		//hill.setLocation(448, 0);
 		hill.setSize(singleRegionDimension);
+		hill.setName("hillPanel");
 		regions.add(hill);
 		hill.setLayout(null);
 		hill.setBounds(singleRegionDimension.width, 0, singleRegionDimension.width, singleRegionDimension.height);
@@ -508,9 +515,51 @@ public class GUI extends JFrame implements ClientViewInterface {
 		ImagePanel mountain=new ImagePanel(pathmountain, singleRegionDimension);
 		//mountain.setLocation(896, 0);
 		mountain.setSize(singleRegionDimension);
+		mountain.setName("mountainPanel");
 		regions.add(mountain);
 		mountain.setLayout(null);
 		mountain.setBounds(2*singleRegionDimension.width, 0, singleRegionDimension.width, singleRegionDimension.height);
+				
+	}
+	
+	public void cityBonusLoader(){
+		Map<Character,String> bonuses=new HashMap<>();
+		for(City c:this.game.getAllCities()){
+			bonuses.put(c.getFirstChar(), c.getBonusImagePath());
+		}
+		
+		JPanel regions=(JPanel)this.contentPane.getComponents()[0].getComponentAt(0, 0);
+		JPanel land=(ImagePanel)regions.getComponent(0);
+		Dimension bonusDim=new Dimension(42, 42);
+		JPanel a=new ImagePanel(bonuses.get('A'),bonusDim);
+		land.add(a);
+		a.setOpaque(false);
+		a.setBounds(58, 47, bonusDim.width, bonusDim.height);
+		a.setName("Arkon");
+		
+		JPanel b=new ImagePanel(bonuses.get('B'),bonusDim);
+		land.add(b);
+		b.setOpaque(false);
+		b.setBounds(50, 170, bonusDim.width, bonusDim.height);
+		b.setName("Burgen");
+		
+		JPanel c=new ImagePanel(bonuses.get('C'),bonusDim);
+		land.add(c);
+		c.setOpaque(false);
+		c.setBounds(180, 82, bonusDim.width, bonusDim.height);
+		c.setName("Castrum");
+		
+		JPanel d=new ImagePanel(bonuses.get('D'),bonusDim);
+		land.add(d);
+		d.setOpaque(false);
+		d.setBounds(162, 202, bonusDim.width, bonusDim.height);
+		d.setName("Dorful");
+		
+		JPanel e=new ImagePanel(bonuses.get('E'),bonusDim);
+		land.add(e);
+		e.setOpaque(false);
+		e.setBounds(92, 294, bonusDim.width, bonusDim.height);
+		e.setName("Esti");
 		
 	}
 

@@ -465,18 +465,28 @@ public class MapMaker {
 			char type=extracted.toUpperCase().charAt(i);
 			Element cityRoot=this.getRootFromFile(PATH+regionName+type+".xml");
 			String regionPathName=cityRoot.getChild("region").getAttribute("path").getValue();
+			Element kingCity=cityRoot.getChild("region").getChild("kingCity");
 			List<Element> cities=cityRoot.getChild("region").getChild("cities").getChildren();
 			Iterator<Element> cityIt=cities.iterator();
 			Random random=new Random();
 			while(cityIt.hasNext()){
-				int randomBonusPosition=random.nextInt(this.extractedCityBonus.size());
-				List<Bonus> bonusChosen=this.extractedCityBonus.remove(randomBonusPosition);
-				String imagePath=this.getCityBonusPath(randomBonusPosition);
+				String initial="";
 				Element city=cityIt.next();
 				City c;
 				Color color;
 				String name=city.getAttributeValue("name");
 				color=this.convert(city.getAttributeValue("RGB"));
+				if(kingCity!=null){
+					initial=kingCity.getAttributeValue("initial");
+				}
+				List<Bonus> bonusChosen=new ArrayList<>();
+				String imagePath="";
+				if(initial.isEmpty()||name.charAt(0)!=initial.charAt(0)){
+					int randomBonusPosition=random.nextInt(this.extractedCityBonus.size());
+					bonusChosen=this.extractedCityBonus.remove(randomBonusPosition);
+					imagePath=this.getCityBonusPath(randomBonusPosition);
+				}
+				
 				c=new City(name,color,bonusChosen,imagePath);
 				arrayCity.add(c);
 				cityMap.put(c.getFirstChar(), c);

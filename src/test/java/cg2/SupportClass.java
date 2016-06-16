@@ -87,13 +87,17 @@ public abstract class SupportClass
 		return city;
 	}
 	
-	public static Game gameWithPlayersCreator(String playerName1,String playerName2) throws JDOMException, IOException
+	public static Game gameWithPlayersCreator(String playerName1,String playerName2,String playerName3,String playerName4) throws JDOMException, IOException
 	{
 			List<Player> players=new ArrayList<>();
 			Player p1=new Player(playerName1, 1);
 			Player p2=new Player(playerName2, 2);
+			Player p3=new Player(playerName3, 3);
+			Player p4=new Player(playerName4, 4);
 			players.add(p1);
 			players.add(p2);
+			players.add(p3);
+			players.add(p4);
 			Game game=new Game();
 			game.setPlayers(players);
 			game.setCurrentPlayer(p1);
@@ -102,7 +106,7 @@ public abstract class SupportClass
 	}
 
 	public static Region regionCreator() throws JDOMException, IOException {
-		return gameWithPlayersCreator("p1", "p2").getRegions().iterator().next();
+		return gameWithPlayersCreator("p1", "p2","p3","p4").getRegions().iterator().next();
 	}
 	
 	public static ArrayList<PoliticsCard> giveJollyHand()

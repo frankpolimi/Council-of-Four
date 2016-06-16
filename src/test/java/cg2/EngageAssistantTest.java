@@ -17,7 +17,7 @@ public class EngageAssistantTest
 	{
 		try 
 		{
-			Game game=SupportClass.gameWithPlayersCreator("Piergigi", "Marcantonio");
+			Game game=SupportClass.gameWithPlayersCreator("Piergigi", "Marcantonio","Caesar","Augusto");
 			int CurrentPlayersCurrentAssistants=game.getCurrentPlayer().getAssistants();
 			int OtherPlayerCurrentAssistants=game.getPlayers().get(1).getAssistants();
 			game.getCurrentPlayer().setCoins(1);

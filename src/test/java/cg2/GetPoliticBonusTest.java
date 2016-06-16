@@ -32,7 +32,7 @@ public class GetPoliticBonusTest {
 	@Test
 	public void testAssignBonusToPlayer(){
 		try {
-			Game g = SupportClass.gameWithPlayersCreator("G1", "G2");
+			Game g = SupportClass.gameWithPlayersCreator("G1", "G2","G3","G4");
 			GetPoliticBonus b = new GetPoliticBonus(1);
 			List<PoliticsCard> politics1 = g.getCurrentPlayer().getCardsOwned();
 			List<PoliticsCard> politics2 = g.getPlayers().get(1).getCardsOwned();
