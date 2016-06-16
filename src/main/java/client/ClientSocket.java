@@ -7,7 +7,7 @@ import java.util.concurrent.*;
 import model.game.*;
 import view.LocalStorage;
 
-public class ClientSocket 
+public class ClientSocket implements ClientInterface
 {
 	private final int port;
 	private final String ip;
@@ -25,7 +25,8 @@ public class ClientSocket
 		this.clientView=view;
 	}
 	
-	public ClientViewInterface getView() {
+	@Override
+	public ClientViewInterface getClientView() {
 		return this.clientView;
 	}
 
@@ -46,6 +47,7 @@ public class ClientSocket
 	/**
 	 * @throws IOException
 	 */
+	@Override
 	public void runClient(String name) throws IOException 
 	{
 		Socket socket = new Socket(ip, port);
@@ -81,6 +83,7 @@ public class ClientSocket
 		
 	}
 	
+	@Override
 	public void startClient() throws IOException{
 		Scanner stdin = new Scanner(System.in);
 		System.out.println("Insert your name: ");

@@ -61,6 +61,9 @@ public class WinnerSelector{
 		
 	}
 	
+	/**
+	 * This method adds the tiles' point to the respective owner.
+	 */
 	private void addTilesPoints(){
 		for(Player p:this.players){
 			Set<PointsTile> tiles=p.getTilesOwned();
@@ -70,7 +73,20 @@ public class WinnerSelector{
 		}
 	}
 	
+	/**
+	 * This metod gets the player the has the max of something like "the player who has the max number of coins, or
+	 * max number of nobility points and so on".
+	 * @param method is the what decide what kind of parameter should be analyzed for finding the player
+	 * @return the Player who has the max of the parameter passed.
+	 * @throws IllegalAccessException if there is a problem with the method's reflection so read the documentation about it
+	 * @throws IllegalArgumentException if there is a problem with the method's reflection so read the documentation about it
+	 * @throws InvocationTargetException if there is a problem with the method's reflection so read the documentation about it
+	 */
 	private Player getMax(Method method) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException{
+		if(method==null){
+			throw new NullPointerException("the method passed is null");
+		}
+		
 		Player max=this.players.get(0);
 		for(int i=1;i<this.players.size();i++){
 			Player player=this.players.get(i);
@@ -81,6 +97,17 @@ public class WinnerSelector{
 		return max;
 	}
 	
+	
+	/**
+	 * This method returns a list of player that has the same level of points about different things explained by the method passed
+	 * like "the players which has the same level of coins, or nobility points or victory points and so on
+	 * @param player indicates the player for the comparison
+	 * @param method indicates the parameter for apply the comparison
+	 * @return the list of player that has the same amount of points specified in the method
+	 * @throws IllegalAccessException if there is a problem with the method's reflection so read the documentation about it
+	 * @throws IllegalArgumentException if there is a problem with the method's reflection so read the documentation about it
+	 * @throws InvocationTargetException if there is a problem with the method's reflection so read the documentation about it
+	 */
 	private List<Player> sameLevel(Player player, Method method) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException{
 		this.players.remove(player);
 		List<Player> sameLevel=new ArrayList<>();

@@ -11,6 +11,8 @@ import javax.swing.border.EmptyBorder;
 
 import org.jdom2.JDOMException;
 
+import client.ClientInterface;
+import client.ClientRMI;
 import client.ClientSocket;
 import client.ConfigReader;
 
@@ -27,6 +29,8 @@ import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
+import java.rmi.AlreadyBoundException;
+import java.rmi.NotBoundException;
 import java.util.Enumeration;
 
 public class StartScreen extends JFrame {
@@ -136,21 +140,37 @@ public class StartScreen extends JFrame {
 				JRadioButton connectionSelected=(JRadioButton) getRadioSelected(connectionGroup);
 				String name=txtInsertYourName.getText();
 				System.out.println(connectionSelected.getText());
+				ClientInterface client=null;
 				if(connectionSelected.getText().equalsIgnoreCase("socket")){
 				
-					ClientSocket client=new ClientSocket(host, socketPort, new GUI());
+					client=new ClientSocket(host, socketPort, new GUI());
 					try {
 						client.runClient(name);
-					} catch (IOException e) {
+					} catch (IOException | NotBoundException | JDOMException | AlreadyBoundException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					((GUI)client.getView()).setRegionsBackground();
-					((GUI)client.getView()).cityBonusLoader();
+					//((GUI)client.getClientView()).setRegionsBackground();
+					//((GUI)client.getClientView()).cityBonusLoader();
 					//((GUI)client.getView()).setVisible(true);
 				}else if(connectionSelected.getText().equalsIgnoreCase("RMI")){
-					
+					try {
+						client=new ClientRMI(host, rmiPort, new GUI());
+					} catch (NotBoundException | JDOMException | IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
+				
+				try {
+					client.runClient(name);
+				} catch (IOException | NotBoundException | JDOMException | AlreadyBoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				((GUI)client.getClientView()).setRegionsBackground();
+				((GUI)client.getClientView()).cityBonusLoader();
+				//((GUI)client.getView()).setVisible(true);
 				
 			}
 		});

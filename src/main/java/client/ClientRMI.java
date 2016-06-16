@@ -26,7 +26,7 @@ import view.Request;
  * @author Francesco Vetrò
  *
  */
-public class ClientRMI extends UnicastRemoteObject implements Serializable{
+public class ClientRMI extends UnicastRemoteObject implements Serializable, ClientInterface{
 
 	/**
 	 * 
@@ -42,7 +42,7 @@ public class ClientRMI extends UnicastRemoteObject implements Serializable{
 	
 	private ClientViewInterface view;
 	
-	private String name = "game";
+	private String gameName;
 	
 	private Game game;
 	
@@ -52,23 +52,19 @@ public class ClientRMI extends UnicastRemoteObject implements Serializable{
 		this.host = host;
 		this.rmiPort = rmiPort;
 		this.view = view;
+		this.gameName= "game";
 	}
 	
-	public void startClient() throws NotBoundException, JDOMException, IOException, AlreadyBoundException{
+	@Override
+	public void runClient(String name) throws NotBoundException, JDOMException, IOException, AlreadyBoundException{
 		registry = LocateRegistry.getRegistry(host, rmiPort);
 		
 		ServerRMIRegistrationRemote serverRegistration = (ServerRMIRegistrationRemote) 
-				registry.lookup(name);
-		
-		Scanner stdin = new Scanner(System.in);
-		
-		System.out.println("Insert your name:");
-		String nome = stdin.nextLine();
-		stdin.close();
-		
-		ClientRMIRemote viewtmp = new ClientRMIView(nome, serverRegistration, view);
+				registry.lookup(this.gameName);
+		ClientRMIRemote viewtmp = new ClientRMIView(name, serverRegistration, view);
 		handler = new RMIConnectionHandler(viewtmp);
 		this.game=viewtmp.getMemoryContainer().getGameRef();
+		System.out.println(this.game);
 		this.view.setGame(this.game);
 		this.view.setId(viewtmp.getID());
 		this.view.setMemoryContainer(viewtmp.getMemoryContainer());
@@ -76,8 +72,19 @@ public class ClientRMI extends UnicastRemoteObject implements Serializable{
 		executors.submit(new ClientOutHandlerSocket(handler, viewtmp.getMemoryContainer(), view));
 	}
 	
-	public Game getGame(){
-		return this.game;
+	@Override
+	public void startClient() throws NotBoundException, JDOMException, IOException, AlreadyBoundException{
+		Scanner stdin = new Scanner(System.in);	
+		System.out.println("Insert your name:");
+		String name = stdin.nextLine();
+		stdin.close();
+		this.runClient(name);
+		
+	}
+	
+	@Override
+	public ClientViewInterface getClientView(){
+		return this.view;
 	}
 	
 }

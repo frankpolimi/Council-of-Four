@@ -1,7 +1,12 @@
 package cg2;
 
+import static org.junit.Assert.*;
+
+import java.io.IOException;
 import java.util.*;
 
+import org.jdom2.JDOMException;
+import org.junit.Assert.*;
 import org.junit.Test;
 
 import model.game.Player;
@@ -18,6 +23,16 @@ public class WinnerSelectorTest{
 	 public void emptyPlayerTest(){
 		 List<Player> players=new ArrayList<Player>();
 		 new WinnerSelector(players);
+	 }
+	 
+	 @Test
+	 public void playersWithDifferentPoints() throws JDOMException, IOException{
+		 Player p1=new Player("a",1);
+		 Player p2=new Player("b",2);
+		 Player p3=new Player("c",3);
+		 p1.setNobilityPoints(20);
+		 p2.setNobilityPoints(2);
+		 p3.setNobilityPoints(1);
 	 }
 	 
 }
