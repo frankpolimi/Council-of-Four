@@ -20,7 +20,7 @@ public class AcquirePermitTest {
 	public void testTakeAction() 
 	{
 		try {
-			Game game=SupportClass.gameWithPlayersCreator("Gianni", "Alberto");
+			Game game=SupportClass.gameWithPlayersCreator("Gianni", "Alberto","Gigi","SanFrancesco");
 			RegionalCouncil council=game.getRegionalCouncils().get(0);
 			ArrayList<PoliticsCard> list=new ArrayList<PoliticsCard>();
 			list.add(new JollyPoliticsCard());

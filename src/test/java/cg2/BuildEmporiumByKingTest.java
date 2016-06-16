@@ -14,109 +14,155 @@ import model.game.council.KingsCouncil;
 import model.game.politics.PoliticsCard;
 import model.game.topology.City;
 
-public class BuildEmporiumByKingTest {
-
-	@Test
-	public void testTakeAction() 
+public class BuildEmporiumByKingTest 
+{
+	
+	private Game game;
+	private Player player;
+	private KingsCouncil council;
+	private ArrayList<PoliticsCard> list;
+	private City city;
+	private Action action;
+	
+	public void buildPermitByKingSetup()
 	{
-		Game game;
 		try 
 		{
-			game = SupportClass.gameWithPlayersCreator("Gianni", "Alberto");
-			Player player=game.getCurrentPlayer();
-			KingsCouncil council=game.getKingsCouncil();
-			ArrayList<PoliticsCard> list=SupportClass.giveJollyHand();
-			City city=game.getAllCities().get(0);
-			Action action=new BuildEmporiumByKing(council, list, city);
-			game.decrementMainActionCounter();
-			try
-			{
-				action.takeAction(game);
-				fail("Action should launch exception");
-			}
-			catch(IllegalStateException e)
-			{
-				assertTrue(true);
-			}
-			
-			game.incrementMainActionCounter();
-			city=game.getKingsPosition();
-			action=new BuildEmporiumByKing(council, list, city);
-			game.getCurrentPlayer().setCoins(0);
-			assertFalse(city.hasPlayerBuilt(player));
-			assertTrue(action.takeAction(game));
-			assertTrue(city.hasPlayerBuilt(player));
-			assertEquals(0, game.getCurrentPlayer().getCoins());
-
+			game = SupportClass.gameWithPlayersCreator("Gianni", "Alberto","Giargianna","Lucrezio");
+			player=game.getCurrentPlayer();
+			list=SupportClass.giveJollyHand();
 			city=game.getAllCities().get(0);
-			assertFalse(city.hasPlayerBuilt(player));
-			game.incrementMainActionCounter();
-			
-			try
-			{
-				action.takeAction(game);
-				fail("Action should launch exception");
-			}
-			catch(IllegalArgumentException e)
-			{
-				assertTrue(true);
-			}
-			
+			council=game.getKingsCouncil();
 			action=new BuildEmporiumByKing(council, list, city);
-			try
-			{
-				action.takeAction(game);
-				fail("Action should launch exception");
-			}
-			catch(IllegalStateException e)
-			{
-				assertTrue(true);
-			}
-			
 			player.setCoins(100);
-			player.setRemainingEmporiums(0);
-			
-			try
-			{
-				action.takeAction(game);
-				fail("Action should launch exception");
-			}
-			catch(IllegalStateException e)
-			{
-				assertTrue(true);
-			}
-			
-			player.setRemainingEmporiums(10);
-			player.setAssistants(10);
-			assertTrue(action.takeAction(game));
-			assertTrue(city.hasPlayerBuilt(player));
-			
-			game.incrementMainActionCounter();
-			player.setCoins(100);
-			player.setAssistants(0);
-			city=game.getAllCities().get(2);
-			city.addEmporium(SupportClass.giveRandomColor());
-			city.addEmporium(SupportClass.giveRandomColor());
-			action=new BuildEmporiumByKing(council, list, city);
-			
-			try
-			{
-				action.takeAction(game);
-				fail("Action should launch exception");
-			}
-			catch(IllegalStateException e)
-			{
-				assertTrue(true);
-			}
-			
-			player.setAssistants(20);
-			assertTrue(action.takeAction(game));
-			
-		} catch (JDOMException | IOException e) {
-			fail("Game creation error");
+			player.setAssistants(100);
+		} catch (JDOMException | IOException e) 
+		{
 			e.printStackTrace();
 		}
-		
 	}
+
+	
+	@Test
+	public void testTakeActionWithNoActionsLeft()
+	{
+		this.buildPermitByKingSetup();
+		game.decrementMainActionCounter();
+		try
+		{
+			action.takeAction(game);
+			fail("Action should launch exception");
+		}
+		catch(IllegalStateException e)
+		{
+			assertTrue(true);
+		}
+	}
+	
+	@Test
+	public void testTakeActionWithKingNotMoving()
+	{
+		this.buildPermitByKingSetup();
+		city=game.getKingsPosition();
+		action=new BuildEmporiumByKing(council, list, city);
+		game.getCurrentPlayer().setCoins(0);
+		assertFalse(city.hasPlayerBuilt(player));
+		assertTrue(action.takeAction(game));
+		assertTrue(city.hasPlayerBuilt(player));
+		assertEquals(0, game.getCurrentPlayer().getCoins());
+	}
+	
+	@Test
+	public void testTakeActionWithKingMoving()
+	{
+		this.buildPermitByKingSetup();
+		City oldKingsCity=game.getKingsPosition();
+		assertFalse(city.hasPlayerBuilt(player));
+		assertTrue(action.takeAction(game));
+		assertTrue(city.hasPlayerBuilt(player));
+		assertEquals(100-game.getMap().howManyVertexPassed(oldKingsCity, city)*2,player.getCoins());
+	}
+	
+	@Test
+	public void testTakeActionWhilePlayerAlreadyBuiltInCity()
+	{
+		this.buildPermitByKingSetup();
+		city.addEmporium(player);
+		try
+		{
+			action.takeAction(game);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertTrue(true);
+		}
+	}
+	
+	@Test
+	public void testMakeActionKingMovingButNoCoins()
+	{
+		this.buildPermitByKingSetup();
+		player.setCoins(0);
+		assertTrue(game.getKingsPosition()!=city);
+		try
+		{
+			action.takeAction(game);
+			fail();
+		}
+		catch(IllegalStateException e)
+		{
+			assertTrue(true);
+		}
+	}
+	
+	@Test
+	public void testTakeActionWhilePlayerHasNoEmporiums()
+	{
+
+		this.buildPermitByKingSetup();
+		player.setRemainingEmporiums(0);
+		try
+		{
+			action.takeAction(game);
+			fail();
+		}
+		catch(IllegalStateException e)
+		{
+			assertTrue(true);
+		}
+	}
+	
+	@Test
+	public void testTakeActionWithOtherPlayerEmporiumsPresent()
+	{
+
+		this.buildPermitByKingSetup();
+		city.addEmporium(game.getPlayers().get(2));
+		assertFalse(city.hasPlayerBuilt(player));
+		assertTrue(action.takeAction(game));
+		assertEquals(99,player.getAssistants());
+		assertTrue(city.hasPlayerBuilt(player));
+	}
+	
+	@Test
+	public void testTakeActionWithOtherPlayerEmporiumsPresentButNoAssistants()
+	{
+
+		this.buildPermitByKingSetup();
+		city.addEmporium(game.getPlayers().get(2));
+		player.setAssistants(0);
+		assertFalse(city.hasPlayerBuilt(player));
+		try
+		{
+			action.takeAction(game);
+			fail();
+		}
+		catch (IllegalStateException e)
+		{
+			assertTrue(true);
+		}
+	}
+	
 
 }
