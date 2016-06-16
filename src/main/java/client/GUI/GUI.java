@@ -50,6 +50,12 @@ public class GUI extends JFrame implements ClientViewInterface {
 	
 	
 	private JPanel contentPane;
+	
+	private JTextPane playerName;
+	private JTextPane txtpnVps;
+	private JTextPane txtpnNps;
+	private JTextField chatInputMessage;	
+	
 	private String pathland="src/main/resources/Immagini/mareA.jpg";
 	private String pathhill="src/main/resources/Immagini/collinaB.jpg";
 	private String pathmountain="src/main/resources/Immagini/montagnaA2.jpg";
@@ -79,6 +85,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 	Dimension regionPanelDimension=new Dimension(cardBoardDimension.width, cardBoardDimension.height/90*53);
 	Dimension singleRegionDimension=new Dimension(regionPanelDimension.width/3, regionPanelDimension.height);
 	Dimension nobilityPanelDimension=new Dimension(cardBoardDimension.width, cardBoardDimension.height/90*35);
+	
 
 	/**
 	 * Launch the application.
@@ -240,7 +247,8 @@ public class GUI extends JFrame implements ClientViewInterface {
 		tabbedPane.addTab("Player", null, currentPlayer, null);
 		currentPlayer.setLayout(null);
 		
-		JTextPane playerName = new JTextPane();
+		playerName = new JTextPane();
+		playerName.setEditable(false);
 		playerName.setText("currentPlayerName");
 		playerName.setBounds(66, 11, 114, 20);
 		currentPlayer.add(playerName);
@@ -249,23 +257,26 @@ public class GUI extends JFrame implements ClientViewInterface {
 		lblName.setBounds(10, 11, 46, 14);
 		currentPlayer.add(lblName);
 		
-		JTextPane txtpnVps = new JTextPane();
+		txtpnVps = new JTextPane();
+		txtpnVps.setEditable(false);
+		txtpnVps.setName("txtpnVps\r\n");
 		txtpnVps.setText("VPs");
-		txtpnVps.setBounds(260, 11, 57, 20);
+		txtpnVps.setBounds(96, 49, 57, 20);
 		currentPlayer.add(txtpnVps);
 		
-		JLabel victoryPoints = new JLabel("VPs:");
-		victoryPoints.setBounds(204, 11, 46, 14);
+		JLabel victoryPoints = new JLabel("Victory Points:\r\n");
+		victoryPoints.setBounds(10, 55, 72, 14);
 		currentPlayer.add(victoryPoints);
 		
-		JTextPane textPane_1 = new JTextPane();
-		textPane_1.setText("currentPlayerName");
-		textPane_1.setBounds(413, 11, 57, 20);
-		currentPlayer.add(textPane_1);
+		txtpnNps = new JTextPane();
+		txtpnNps.setEditable(false);
+		txtpnNps.setText("NPs");
+		txtpnNps.setBounds(264, 49, 57, 20);
+		currentPlayer.add(txtpnNps);
 		
-		JLabel label_1 = new JLabel("Name:");
-		label_1.setBounds(357, 11, 113, 14);
-		currentPlayer.add(label_1);
+		JLabel nobilityPoints = new JLabel("Nobility Points:");
+		nobilityPoints.setBounds(180, 55, 78, 14);
+		currentPlayer.add(nobilityPoints);
 		
 		JPanel Game = new JPanel();
 		tabbedPane.addTab("Game", null, Game, null);
@@ -374,71 +385,24 @@ public class GUI extends JFrame implements ClientViewInterface {
 		extraMainAction.setBounds(265, 231, 245, 47);
 		actions.add(extraMainAction);
 		
-		JPanel availableCouncillors = new JPanel();
-		availableCouncillors.setBounds(0, 0, 510, 396);
-		Game.add(availableCouncillors);
-		availableCouncillors.setLayout(null);
+		JTextArea chatOutputMessges = new JTextArea();
+		chatOutputMessges.setText("chat messages zone");
+		chatOutputMessges.setBounds(0, 0, 506, 362);
+		Game.add(chatOutputMessges);
 		
-		JButton button_4 = new JButton("New button");
-		button_4.setBounds(32, 316, 89, 23);
-		availableCouncillors.add(button_4);
+		chatInputMessage = new JTextField();
+		chatInputMessage.setText("chat input message");
+		chatInputMessage.setBounds(0, 362, 426, 33);
+		Game.add(chatInputMessage);
+		chatInputMessage.setColumns(10);
 		
-		JButton button_5 = new JButton("New button");
-		button_5.setBounds(185, 316, 89, 23);
-		availableCouncillors.add(button_5);
-		
-		JButton button_6 = new JButton("New button");
-		button_6.setBounds(360, 316, 89, 23);
-		availableCouncillors.add(button_6);
-		
-		ImagePanel councillor1 = new ImagePanel(pathCouncillorBlue, new Dimension(55, 69));
-		councillor1.setBounds(32, 31, 55, 69);
-		availableCouncillors.add(councillor1);
-		councillor1.setLayout(null);
-		
-		JButton councillor1btn = new JButton("");
-		councillor1btn.setBorder(null);
-		councillor1btn.setContentAreaFilled(false);
-		councillor1btn.setBounds(0, 0, 55, 69);
-		councillor1.add(councillor1btn);
-		councillor1btn.setForeground(SystemColor.control);
-		councillor1btn.setBackground(UIManager.getColor("Button.background"));
-		
-		ImagePanel councillor2 = new ImagePanel(pathCouncillorBlack, new Dimension(55, 69));
-		councillor2.setLayout(null);
-		councillor2.setBounds(203, 31, 55, 69);
-		availableCouncillors.add(councillor2);
-		
-		JButton councillor2btn = new JButton("");
-		councillor2btn.addActionListener(new ActionListener() {
+		JButton submitChat = new JButton("Submit");
+		submitChat.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(contentPane, "BlackCouncillor: "+Color.BLACK);
 			}
 		});
-		councillor2btn.setForeground(SystemColor.menu);
-		councillor2btn.setContentAreaFilled(false);
-		councillor2btn.setBorder(null);
-		councillor2btn.setBackground(SystemColor.menu);
-		councillor2btn.setBounds(0, 0, 55, 69);
-		councillor2.add(councillor2btn);
-		
-		ImagePanel councillor3 = new ImagePanel(pathCouncillorOrange, new Dimension(55, 69));
-		councillor3.setLayout(null);
-		councillor3.setBounds(381, 31, 55, 69);
-		availableCouncillors.add(councillor3);
-		
-		JButton councillor3btn = new JButton("");
-		councillor3btn.setForeground(SystemColor.menu);
-		councillor3btn.setContentAreaFilled(false);
-		councillor3btn.setBorder(null);
-		councillor3btn.setBackground(SystemColor.menu);
-		councillor3btn.setBounds(0, 0, 55, 69);
-		councillor3.add(councillor3btn);
-		councillor1btn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(contentPane, "BlueCouncillor: "+Color.BLUE);
-			}
-		});
+		submitChat.setBounds(428, 362, 80, 33);
+		Game.add(submitChat);
 		
 		setVisible(true);
 	}
@@ -571,7 +535,10 @@ public class GUI extends JFrame implements ClientViewInterface {
 
 	@Override
 	public void updateModel(Game game) {
-		this.game=game;	
+		this.game=game;
+		this.playerName.setText(game.getPlayerByID(ID).getName());
+		this.txtpnVps.setText(Integer.toString(game.getPlayerByID(ID).getPoints()));
+		this.txtpnNps.setText(Integer.toString(game.getPlayerByID(ID).getNobilityPoints()));
 		System.out.println("changed");
 	}
 
