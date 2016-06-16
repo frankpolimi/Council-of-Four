@@ -71,14 +71,11 @@ public class GUI extends JFrame implements ClientViewInterface {
 	private final String pathHillTile="src/main/resources/Immagini/region_tile_hill.jpg";
 	private final String pathMountainTile="src/main/resources/Immagini/region_tile_mountain.jpg";
 	
-	private final String pathCouncillorBlue="src/main/resources/Immagini/councillor_blue.jpg";
-	private final String pathCouncillorBlack="src/main/resources/Immagini/councillor_black.jpg";
-	private final String pathCouncillorOrange="src/main/resources/Immagini/councillor_orange.jpg";
-	
 	private final String pathBlueTile="src/main/resources/Immagini/color_tile_blue.jpg";
 	private final String pathOrangeTile="src/main/resources/Immagini/color_tile_orange.jpg";
 	private final String pathGreyTile="src/main/resources/Immagini/color_tile_grey.jpg";
 	private final String pathYellowTile="src/main/resources/Immagini/color_tile_yellow.jpg";
+	private final String pathKingTile="src/main/resources/Immagini/king_tile_";
 	
 	Dimension monitorDimension=Toolkit.getDefaultToolkit().getScreenSize();
 	Dimension cardBoardDimension=new Dimension((monitorDimension.width/160*105), (monitorDimension.height));
@@ -238,6 +235,11 @@ public class GUI extends JFrame implements ClientViewInterface {
 		yellowTile.setOpaque(false);
 		yellowTile.setBounds(744, 171, 60, 56);
 		nobility.add(yellowTile);
+		
+		ImagePanel kingTile = new ImagePanel(pathKingTile.concat("1.jpg"), new Dimension(60, 50));
+		kingTile.setOpaque(false);
+		kingTile.setBounds(734, 118, 60, 56);
+		nobility.add(kingTile);
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBounds(839, 0, 511, 704);
