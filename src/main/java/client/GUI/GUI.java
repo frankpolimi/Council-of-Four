@@ -51,14 +51,6 @@ public class GUI extends JFrame implements ClientViewInterface {
 	
 	private JPanel contentPane;
 	
-	private JTextPane playerName;
-	private JTextPane txtpnVps;
-	private JTextPane txtpnNps;
-	private JTextPane txtpnCoins;
-	private JTextField chatInputMessage;	
-	private JTextPane txtpnAssistants;
-	private JTextPane txtpnRemainingEmporiums;
-	
 	private String pathland="src/main/resources/Immagini/mareA.jpg";
 	private String pathhill="src/main/resources/Immagini/collinaB.jpg";
 	private String pathmountain="src/main/resources/Immagini/montagnaA2.jpg";
@@ -165,7 +157,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 		
 		ImagePanel hillTile = new ImagePanel(pathHillTile, new Dimension(51, 27));
 		hillTile.setOpaque(false);
-		hillTile.setBounds(181, 386, 51, 27);
+		hillTile.setBounds(184, 383, 51, 27);
 		hill.add(hillTile);
 		
 		ImagePanel mountain=new ImagePanel(pathmountain, singleRegionDimension);
@@ -252,7 +244,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 		tabbedPane.addTab("Player", null, currentPlayer, null);
 		currentPlayer.setLayout(null);
 		
-		playerName = new JTextPane();
+		JTextPane playerName = new JTextPane();
 		playerName.setOpaque(false);
 		playerName.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
 		playerName.setEditable(false);
@@ -265,38 +257,38 @@ public class GUI extends JFrame implements ClientViewInterface {
 		lblName.setBounds(10, 11, 46, 14);
 		currentPlayer.add(lblName);
 		
-		txtpnVps = new JTextPane();
+		JTextPane txtpnVps = new JTextPane();
 		txtpnVps.setOpaque(false);
 		txtpnVps.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
 		txtpnVps.setEditable(false);
 		txtpnVps.setName("txtpnVps\r\n");
 		txtpnVps.setText("VPs");
-		txtpnVps.setBounds(96, 49, 57, 20);
+		txtpnVps.setBounds(161, 49, 57, 20);
 		currentPlayer.add(txtpnVps);
 		
 		JLabel victoryPoints = new JLabel("Victory Points:\r\n");
 		victoryPoints.setLabelFor(txtpnVps);
-		victoryPoints.setBounds(10, 55, 72, 14);
+		victoryPoints.setBounds(10, 55, 114, 14);
 		currentPlayer.add(victoryPoints);
 		
-		txtpnNps = new JTextPane();
+		JTextPane txtpnNps = new JTextPane();
 		txtpnNps.setOpaque(false);
 		txtpnNps.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
 		txtpnNps.setEditable(false);
 		txtpnNps.setText("NPs");
-		txtpnNps.setBounds(264, 49, 57, 20);
+		txtpnNps.setBounds(161, 90, 57, 20);
 		currentPlayer.add(txtpnNps);
 		
 		JLabel nobilityPoints = new JLabel("Nobility Points:");
 		nobilityPoints.setLabelFor(txtpnNps);
-		nobilityPoints.setBounds(180, 55, 78, 14);
+		nobilityPoints.setBounds(10, 90, 114, 14);
 		currentPlayer.add(nobilityPoints);
 		
 		JLabel lblCoins = new JLabel("Coins:");
-		lblCoins.setBounds(357, 55, 46, 14);
+		lblCoins.setBounds(275, 55, 72, 14);
 		currentPlayer.add(lblCoins);
 		
-		txtpnCoins = new JTextPane();
+		JTextPane txtpnCoins = new JTextPane();
 		txtpnCoins.setOpaque(false);
 		txtpnCoins.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
 		txtpnCoins.setText("Coins");
@@ -305,45 +297,44 @@ public class GUI extends JFrame implements ClientViewInterface {
 		currentPlayer.add(txtpnCoins);
 		
 		JLabel lblAssistants = new JLabel("Assistants:");
-		lblAssistants.setBounds(10, 96, 72, 14);
+		lblAssistants.setBounds(275, 90, 114, 14);
 		currentPlayer.add(lblAssistants);
 		
-		txtpnAssistants = new JTextPane();
+		JTextPane txtpnAssistants = new JTextPane();
 		txtpnAssistants.setOpaque(false);
 		txtpnAssistants.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
 		lblAssistants.setLabelFor(txtpnAssistants);
 		txtpnAssistants.setText("assistants");
 		txtpnAssistants.setName("txtpnVps\r\n");
 		txtpnAssistants.setEditable(false);
-		txtpnAssistants.setBounds(96, 90, 57, 20);
+		txtpnAssistants.setBounds(399, 90, 57, 20);
 		currentPlayer.add(txtpnAssistants);
 		
 		JLabel lblRemainingEmporiums = new JLabel("Remaining Emporiums:");
-		lblRemainingEmporiums.setBounds(180, 96, 114, 14);
+		lblRemainingEmporiums.setBounds(10, 132, 141, 14);
 		currentPlayer.add(lblRemainingEmporiums);
 		
-		txtpnRemainingEmporiums = new JTextPane();
+		JTextPane txtpnRemainingEmporiums = new JTextPane();
 		txtpnRemainingEmporiums.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
 		txtpnRemainingEmporiums.setOpaque(false);
 		lblRemainingEmporiums.setLabelFor(txtpnRemainingEmporiums);
 		txtpnRemainingEmporiums.setText("Emporiums Left");
 		txtpnRemainingEmporiums.setEditable(false);
-		txtpnRemainingEmporiums.setBounds(304, 90, 57, 20);
+		txtpnRemainingEmporiums.setBounds(161, 132, 57, 20);
 		currentPlayer.add(txtpnRemainingEmporiums);
 		
 		JLabel lblEmporiums = new JLabel("Emporiums on:");
-		lblEmporiums.setBounds(10, 140, 72, 14);
+		lblEmporiums.setBounds(10, 175, 114, 14);
 		currentPlayer.add(lblEmporiums);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		lblEmporiums.setLabelFor(scrollPane);
-		scrollPane.setBounds(120, 144, 360, 82);
+		scrollPane.setBounds(130, 175, 360, 82);
 		currentPlayer.add(scrollPane);
 		
 		JTextArea txtrCiaoSonoFrancesco = new JTextArea();
-		txtrCiaoSonoFrancesco.setEditable(false);
-		txtrCiaoSonoFrancesco.setText("ciao\r\nsono\r\nfrancesco\r\ne\r\nsto\r\nprovando\r\nla\r\nscrollpane\r\nper\r\ngli empori\r\ncioa");
 		scrollPane.setViewportView(txtrCiaoSonoFrancesco);
+		txtrCiaoSonoFrancesco.setEditable(false);
 				
 		JPanel Game = new JPanel();
 		tabbedPane.addTab("Game", null, Game, null);
@@ -457,7 +448,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 		chatOutputMessges.setBounds(0, 0, 506, 362);
 		Game.add(chatOutputMessges);
 		
-		chatInputMessage = new JTextField();
+		JTextField chatInputMessage = new JTextField();
 		chatInputMessage.setText("chat input message");
 		chatInputMessage.setBounds(0, 362, 426, 33);
 		Game.add(chatInputMessage);
@@ -627,13 +618,40 @@ public class GUI extends JFrame implements ClientViewInterface {
 		this.game=game;
 		if(this.ID==0 || this.game.getPlayerByID(ID) == null)
 			return;
+		
 		Player p = this.game.getPlayerByID(ID);
-		this.playerName.setText(p.getName());
-		this.txtpnVps.setText(Integer.toString(p.getPoints()));
-		this.txtpnNps.setText(Integer.toString(p.getNobilityPoints()));
-		this.txtpnCoins.setText(Integer.toString(p.getCoins()));
-		this.txtpnAssistants.setText(Integer.toString(p.getAssistants()));
-		this.txtpnRemainingEmporiums.setText(Integer.toString(p.getRemainingEmporiums()));
+		JTabbedPane x = (JTabbedPane)this.contentPane.getComponents()[1];
+		
+		JTextPane t = (JTextPane)x.getComponentAt(0).getComponentAt(66, 11);
+		t.setText(p.getName());
+		
+		t = (JTextPane)x.getComponentAt(0).getComponentAt(161, 49);
+		t.setText(Integer.toString(p.getPoints()));
+		
+		t = (JTextPane)x.getComponentAt(0).getComponentAt(399, 49);
+		t.setText(Integer.toString(p.getCoins()));
+		
+		t = (JTextPane)x.getComponentAt(0).getComponentAt(161, 90);
+		t.setText(Integer.toString(p.getNobilityPoints()));
+		
+		t = (JTextPane)x.getComponentAt(0).getComponentAt(399, 90);
+		t.setText(Integer.toString(p.getAssistants()));
+		
+		t = (JTextPane)x.getComponentAt(0).getComponentAt(161, 132);
+		t.setText(Integer.toString(p.getRemainingEmporiums()));
+		
+		JScrollPane s = (JScrollPane)x.getComponentAt(0).getComponentAt(130, 175);
+		JTextArea a = (JTextArea)s.getComponent(0).getComponentAt(0, 0);
+		if(!p.getEmporium().isEmpty()){
+			String support = "";
+			p.getEmporium().stream().map(e -> support.concat(e.getCity().getName()+"\r\n"));
+			a.setText(support);
+		}
+		else
+			a.setText("No emporiums built yet");
+
+		//TODO reupdate the image for the king tile
+		
 		System.out.println("changed");
 	}
 
