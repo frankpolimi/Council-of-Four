@@ -47,7 +47,6 @@ public class Client {
 					input = in.nextLine();
 					if(input.equalsIgnoreCase("socket") || Integer.parseInt(input) == 1){
 						try {
-							
 							ClientSocket cs = new ClientSocket(host, socket, clientView);
 							cs.startClient();
 						}catch (UnknownHostException e){
@@ -77,6 +76,7 @@ public class Client {
 			
 				break;
 			}else if(input.equalsIgnoreCase("GUI") || Integer.parseInt(input) == 2){
+				in.close();
 				StartScreen screen=new StartScreen();
 
 				screen.start();

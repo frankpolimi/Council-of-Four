@@ -105,7 +105,6 @@ public class ClientView implements ClientViewInterface{
 			Council council=councils.get(councilIndex-1);
 			//action
 			action=new ElectCouncillor(councillorSelected, council);
-			scanner1.close();
 			return new ActionRequest(action, ID);
 		case 2:
 			//acquire permit
@@ -150,7 +149,6 @@ public class ClientView implements ClientViewInterface{
 			int permitIndex=this.selector(1, 2);
 			BuildingPermit chosenPermit=councilDeck.giveAFaceUpPermit(permitIndex-1);
 			action=new AcquirePermit(councilCorrupted, selectedCards, chosenPermit);
-			scanner1.close();
 			return new ActionRequest(action, ID);
 		case 3:
 			//build emporium by permit
@@ -183,7 +181,6 @@ public class ClientView implements ClientViewInterface{
 			}else{
 				action=new BuildEmporiumByPermit(chosenPermit, cityChosen);
 			}
-			scanner1.close();
 			return new ActionRequest(action, ID);
 		case 4: 
 			//build emporium by king
@@ -227,10 +224,8 @@ public class ClientView implements ClientViewInterface{
 			}else{
 				action=new BuildEmporiumByKing(kingsCouncil, selectedCards, cityChosen);
 			}
-			scanner1.close();
 			return new ActionRequest(action, ID);
 		}
-		scanner1.close();
 		return null;
 	}
 
@@ -253,7 +248,6 @@ public class ClientView implements ClientViewInterface{
 			//engage assistant
 			System.out.println("Action Chosen: To engage a new assistant");
 			action=new EngageAssistant();
-			scanner2.close();
 			return new ActionRequest(action, ID);
 		case 2:
 			//change face up permits
@@ -270,7 +264,6 @@ public class ClientView implements ClientViewInterface{
 			if(deckIndex==0) break;
 			PermitsDeck deckChosen=regionalCouncils.get(deckIndex-1).getPermitsDeck();
 			action=new ChangeFaceUpPermits(deckChosen);
-			scanner2.close();
 			return new ActionRequest(action, ID);
 		case 3:
 			//elect councillor by assistant
@@ -297,16 +290,13 @@ public class ClientView implements ClientViewInterface{
 			if(councilIndex==0) break;
 			Council council=councils.get(councilIndex-1);
 			action=new ElectCouncillorByAssistant(council, councillorSelected);
-			scanner2.close();
 			return new ActionRequest(action, ID);
 		case 4: 
 			//extra main action
 			System.out.println("Action Chosen: To obtain an extra main action");
 			action=new ExtraMainAction();
-			scanner2.close();
 			return new ActionRequest(action, ID);
 		}
-		scanner2.close();
 		return null;
 	}
 	
@@ -326,19 +316,16 @@ public class ClientView implements ClientViewInterface{
 		System.out.println("Are you interested from something? Y/N");
 		String answer=scanner3.nextLine();
 		if(answer.equalsIgnoreCase("N")){
-			scanner3.close();
 			return null;
 		}else if(answer.equalsIgnoreCase("Y")){
 			System.out.println("Select the product you want to buy");
 			int selection = this.selector(1, 
 					game.getMarket().getLengthAvailableProducts(buyer));
-			scanner3.close();
 			return new MarketRequest<>(
 					game.getMarket().getAvailableProducts(buyer).get(selection-1),ID);
 		}else{
 			System.out.println("You are insert a not valid value");
 		}
-		scanner3.close();
 		return null;
 	}
 
@@ -404,7 +391,6 @@ public class ClientView implements ClientViewInterface{
 		while(price<0){
 			System.out.println("You cannot insert a negative value of price, try again");
 		}
-		scanner4.close();
 		return price;
 	}
 
@@ -444,13 +430,12 @@ public class ClientView implements ClientViewInterface{
 	 * @return the integer selected to use in methods
 	 */
 	public int selector(int min, int max){
-		Scanner scanner5 = new Scanner(System.in);
-		int selection=scanner5.nextInt();
+		Scanner scanner = new Scanner(System.in);
+		int selection = scanner.nextInt();
 		while(selection<min||selection>max){
 			System.out.println("The input cointains a not valid value. Please, try Again");
-			selection=scanner5.nextInt();
+			selection=scanner.nextInt();
 		}
-		scanner5.close();
 		return selection;	
 	}
 	
@@ -531,7 +516,6 @@ public class ClientView implements ClientViewInterface{
 			scanner6.close();
 			return new QuitRequest(this.ID);
 		}	
-		scanner6.close();
 		return null;
 	}
 

@@ -77,7 +77,6 @@ public class ClientRMI extends UnicastRemoteObject implements Serializable, Clie
 		Scanner stdin = new Scanner(System.in);	
 		System.out.println("Insert your name:");
 		String name = stdin.nextLine();
-		stdin.close();
 		this.runClient(name);
 		
 	}

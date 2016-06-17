@@ -88,7 +88,6 @@ public class ClientSocket implements ClientInterface
 		Scanner stdin = new Scanner(System.in);
 		System.out.println("Insert your name: ");
 		String name = stdin.nextLine();
-		stdin.close();
 		try{
 			this.runClient(name);
 		}catch(IOException e){
