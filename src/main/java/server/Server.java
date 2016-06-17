@@ -129,17 +129,7 @@ public class Server
 		serialID++;
 		this.startTimer();
 	}
-	/*
-	public synchronized void addSocketClient(ServerSocketView view, Player player) throws JDOMException, IOException
-	{
-		view.setID(this.serialID);
-		view.registerObserver(controller);
-		game.registerObserver(view);
-		oneRoomLobby.add(player);
-		playersView.put(player, view);
-		this.startTimer();
-	}*/
-	
+		
 	public List<Player> getLobby(){
 		return this.oneRoomLobby;
 	}
