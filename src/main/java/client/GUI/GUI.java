@@ -603,7 +603,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 	@Override
 	public void updateModel(Game game) {
 		this.game=game;
-		if(this.game.getPlayerByID(ID) == null)
+		if(this.ID==0 || this.game.getPlayerByID(ID) == null)
 			return;
 		Player p = this.game.getPlayerByID(ID);
 		this.playerName.setText(p.getName());
