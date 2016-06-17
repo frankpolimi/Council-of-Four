@@ -9,6 +9,7 @@ import java.rmi.AlreadyBoundException;
 import org.jdom2.JDOMException;
 
 import client.ClientRMIRemote;
+import controller.ModelChange;
 
 /**
  * @author Francesco Vetrò
@@ -28,6 +29,7 @@ public class ServerRMIRegistration implements ServerRMIRegistrationRemote {
 	public ServerRMIViewRemote register(ClientRMIRemote client) throws AlreadyBoundException, JDOMException, IOException {
 		ServerRMIView view = new ServerRMIView(client);
 		server.addClient(view);
+		view.update(new ModelChange(server.getGame()));
 		return view;
 	}
 

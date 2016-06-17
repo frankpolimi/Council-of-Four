@@ -183,6 +183,13 @@ public class Server
 			}
 		}	
 	}
+
+	/**
+	 * @return the game
+	 */
+	public Game getGame() {
+		return game;
+	}
 	
 }
 

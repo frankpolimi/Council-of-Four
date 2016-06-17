@@ -43,8 +43,8 @@ public class ClientRMIView extends UnicastRemoteObject implements ClientRMIRemot
 		super();
 		this.memoryContainer = new LocalStorage();
 		this.name = name;
-		this.serverView = serverRegistration.register(this);
 		this.view = view;
+		this.serverView = serverRegistration.register(this);
 	}
 	
 	/* (non-Javadoc)

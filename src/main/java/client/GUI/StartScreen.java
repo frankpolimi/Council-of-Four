@@ -35,6 +35,10 @@ import java.util.Enumeration;
 
 public class StartScreen extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -941282003726349006L;
 	private JPanel contentPane;
 	private JTextField txtInsertYourName;
 	private String host;
