@@ -559,5 +559,12 @@ public class Game extends Observable<Change> implements Serializable, Remote{
 		game.setPlayers(players);
 		System.out.println(game.toString());
 	}
+
+	/**
+	 * @return the kingTileList
+	 */
+	public List<PointsTile> getKingTileList() {
+		return kingTileList;
+	}
 	
 }

@@ -619,38 +619,44 @@ public class GUI extends JFrame implements ClientViewInterface {
 		if(this.ID==0 || this.game.getPlayerByID(ID) == null)
 			return;
 		
-		Player p = this.game.getPlayerByID(ID);
+		Player player = this.game.getPlayerByID(ID);
 		JTabbedPane x = (JTabbedPane)this.contentPane.getComponents()[1];
 		
 		JTextPane t = (JTextPane)x.getComponentAt(0).getComponentAt(66, 11);
-		t.setText(p.getName());
+		t.setText(player.getName());
 		
 		t = (JTextPane)x.getComponentAt(0).getComponentAt(161, 49);
-		t.setText(Integer.toString(p.getPoints()));
+		t.setText(Integer.toString(player.getPoints()));
 		
 		t = (JTextPane)x.getComponentAt(0).getComponentAt(399, 49);
-		t.setText(Integer.toString(p.getCoins()));
+		t.setText(Integer.toString(player.getCoins()));
 		
 		t = (JTextPane)x.getComponentAt(0).getComponentAt(161, 90);
-		t.setText(Integer.toString(p.getNobilityPoints()));
+		t.setText(Integer.toString(player.getNobilityPoints()));
 		
 		t = (JTextPane)x.getComponentAt(0).getComponentAt(399, 90);
-		t.setText(Integer.toString(p.getAssistants()));
+		t.setText(Integer.toString(player.getAssistants()));
 		
 		t = (JTextPane)x.getComponentAt(0).getComponentAt(161, 132);
-		t.setText(Integer.toString(p.getRemainingEmporiums()));
+		t.setText(Integer.toString(player.getRemainingEmporiums()));
 		
 		JScrollPane s = (JScrollPane)x.getComponentAt(0).getComponentAt(130, 175);
 		JTextArea a = (JTextArea)s.getComponent(0).getComponentAt(0, 0);
-		if(!p.getEmporium().isEmpty()){
+		if(!player.getEmporium().isEmpty()){
 			String support = "";
-			p.getEmporium().stream().map(e -> support.concat(e.getCity().getName()+"\r\n"));
+			player.getEmporium().stream().map(e -> support.concat(e.getCity().getName()+"\r\n"));
 			a.setText(support);
 		}
 		else
 			a.setText("No emporiums built yet");
 
-		//TODO reupdate the image for the king tile
+		JPanel p = (JPanel)this.contentPane.getComponent(0);
+		ImagePanel i = (ImagePanel)p.getComponent(1);
+		i = (ImagePanel)i.getComponentAt(734, 118);
+		if(!this.game.getKingTileList().isEmpty())
+			i = new ImagePanel(pathKingTile+
+					Integer.toString(5-this.game.getKingTileList().size()+1)+".jpg", 
+					new Dimension(60, 56));
 		
 		System.out.println("changed");
 	}
