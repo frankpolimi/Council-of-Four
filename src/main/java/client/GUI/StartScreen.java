@@ -174,7 +174,7 @@ public class StartScreen extends JFrame {
 				}
 				((GUI)client.getClientView()).setRegionsBackground();
 				((GUI)client.getClientView()).cityBonusLoader();
-				//((GUI)client.getView()).setVisible(true);
+				((GUI)client.getClientView()).setVisible(true);
 				
 			}
 		});
