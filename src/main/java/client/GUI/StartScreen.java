@@ -173,7 +173,12 @@ public class StartScreen extends JFrame {
 					e.printStackTrace();
 				}
 				((GUI)client.getClientView()).setRegionsBackground();
-				((GUI)client.getClientView()).cityBonusLoader();
+				try {
+					((GUI)client.getClientView()).cityBonusLoader();
+				} catch (JDOMException | IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				((GUI)client.getClientView()).setVisible(true);
 				
 			}

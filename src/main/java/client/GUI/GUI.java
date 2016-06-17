@@ -136,7 +136,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 		cardBoard.add(regions);
 		regions.setBounds(0, 0, regionPanelDimension.width, regionPanelDimension.height);
 		regions.setLayout(null);
-		
+		/*
 		ImagePanel seaside=new ImagePanel(pathland, singleRegionDimension);
 		//seaside.setLocation(0, 0);
 		seaside.setSize(singleRegionDimension);
@@ -172,7 +172,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 		mountainTile.setOpaque(false);
 		mountainTile.setBounds(183, 383, 51, 30);
 		mountain.add(mountainTile);
-		
+		*/
 		ImagePanel nobility = new ImagePanel(pathNobility, nobilityPanelDimension);
 		//nobility.setLocation(1, 368);
 		nobility.setSize(nobilityPanelDimension);
@@ -553,62 +553,8 @@ public class GUI extends JFrame implements ClientViewInterface {
 		}
 		
 		JPanel regions=(JPanel)this.contentPane.getComponents()[0].getComponentAt(0, 0);
-			
+		reader.createCitiesFromRegionPanel(regions, bonuses);	
 		
-		JPanel land=(ImagePanel)regions.getComponent(0);
-		JPanel hill=(ImagePanel)regions.getComponent(1);
-		JPanel mountain=(ImagePanel)regions.getComponent(2);
-		
-		Dimension bonusDim=new Dimension(45, 45);
-		JPanel a=new ImagePanel(bonuses.get('A'),bonusDim);
-		land.add(a);
-		a.setOpaque(false);
-		a.setBounds(58, 47, bonusDim.width, bonusDim.height);
-		a.setName("Arkon");
-		
-		JPanel b=new ImagePanel(bonuses.get('B'),bonusDim);
-		land.add(b);
-		b.setOpaque(false);
-		b.setBounds(50, 170, bonusDim.width, bonusDim.height);
-		b.setName("Burgen");
-		
-		JPanel c=new ImagePanel(bonuses.get('C'),bonusDim);
-		land.add(c);
-		c.setOpaque(false);
-		c.setBounds(180, 82, bonusDim.width, bonusDim.height);
-		c.setName("Castrum");
-		
-		JPanel d=new ImagePanel(bonuses.get('D'),bonusDim);
-		land.add(d);
-		d.setOpaque(false);
-		d.setBounds(162, 202, bonusDim.width, bonusDim.height);
-		d.setName("Dorful");
-		
-		JPanel e=new ImagePanel(bonuses.get('E'),bonusDim);
-		land.add(e);
-		e.setOpaque(false);
-		e.setBounds(92, 294, bonusDim.width, bonusDim.height);
-		e.setName("Esti");
-		
-		JPanel f=new ImagePanel(bonuses.get('F'),bonusDim);
-		hill.add(f);
-		f.setOpaque(false);
-		f.setBounds(323-land.getWidth(), 59, bonusDim.width, bonusDim.height);
-		f.setName("Framek");
-		/*
-		if(this.game.getKingsPosition().getFirstChar()=='G'){
-			JPanel j=new ImagePanel(bonuses.get('J'),bonusDim);
-			hill.add(j);
-			j.setOpaque(false);
-			j.setBounds(443-land.getWidth(), 213, bonusDim.width, bonusDim.height);
-			j.setName("Juvelar");
-		}
-		JPanel f=new ImagePanel(bonuses.get('F'),bonusDim);
-		land.add(f);
-		f.setOpaque(false);
-		f.setBounds(323, 59, bonusDim.width, bonusDim.height);
-		f.setName("Framek");
-		*/
 		
 	}
 
