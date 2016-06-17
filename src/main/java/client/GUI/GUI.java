@@ -471,7 +471,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 		submitChat.setBounds(428, 362, 80, 33);
 		Game.add(submitChat);
 		
-		setVisible(true);
+		//setVisible(true);
 	}
 
 	/**
@@ -561,7 +561,10 @@ public class GUI extends JFrame implements ClientViewInterface {
 		
 		JPanel regions=(JPanel)this.contentPane.getComponents()[0].getComponentAt(0, 0);
 		JPanel land=(ImagePanel)regions.getComponent(0);
-		Dimension bonusDim=new Dimension(42, 42);
+		JPanel hill=(ImagePanel)regions.getComponent(1);
+		JPanel mountain=(ImagePanel)regions.getComponent(2);
+		
+		Dimension bonusDim=new Dimension(45, 45);
 		JPanel a=new ImagePanel(bonuses.get('A'),bonusDim);
 		land.add(a);
 		a.setOpaque(false);
@@ -591,6 +594,25 @@ public class GUI extends JFrame implements ClientViewInterface {
 		e.setOpaque(false);
 		e.setBounds(92, 294, bonusDim.width, bonusDim.height);
 		e.setName("Esti");
+		
+		JPanel f=new ImagePanel(bonuses.get('F'),bonusDim);
+		hill.add(f);
+		f.setOpaque(false);
+		f.setBounds(323-land.getWidth(), 59, bonusDim.width, bonusDim.height);
+		f.setName("Framek");
+		/*
+		if(this.game.getKingsPosition().getFirstChar()=='G'){
+			JPanel j=new ImagePanel(bonuses.get('J'),bonusDim);
+			hill.add(j);
+			j.setOpaque(false);
+			j.setBounds(443-land.getWidth(), 213, bonusDim.width, bonusDim.height);
+			j.setName("Juvelar");
+		}
+		JPanel f=new ImagePanel(bonuses.get('F'),bonusDim);
+		land.add(f);
+		f.setOpaque(false);
+		f.setBounds(323, 59, bonusDim.width, bonusDim.height);
+		f.setName("Framek");*/
 		
 	}
 
