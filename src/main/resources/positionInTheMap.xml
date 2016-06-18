@@ -3,25 +3,25 @@
 <map>
 	<cityCoordinates>
 		<Region name="land">
-			<city name="A" x="60" y="47" width="86" height="97"></city>
-			<city name="B" x="52" y="172" width="90" height="105"></city>
-			<city name="C" x="182" y="84" width="93" height="100"></city>
-			<city name="D" x="166" y="204" width="95" height="100"></city>
-			<city name="E" x="94" y="296" width="77" height="101"></city>
+			<city name="A" xRel="0.071343639" yRel="0.061197917" x="60" y="47" width="86" height="97"></city>
+			<city name="B" xRel="0.061831153" yRel="0.223958333" x="52" y="172" width="90" height="105"></city>
+			<city name="C" xRel="0.216409037" yRel="0.109375" x="182" y="84" width="93" height="100"></city>
+			<city name="D" xRel="0.197384067" yRel="0.265625" x="166" y="204" width="95" height="100"></city>
+			<city name="E" xRel="0.1117717" yRel="0.385416667" x="94" y="296" width="77" height="101"></city>
 		</Region>
 		<Region name="hill">
-			<city name="F" x="325" y="60" width="78" height="104"></city>
-			<city name="G" x="330" y="177" width="87" height="103"></city>
-			<city name="H" x="335" y="280" width="80" height="103"></city>
-			<city name="I" x="461" y="61" width="82" height="100"></city>
-			<city name="J" x="444" y="214" width="90" height="101"></city>
+			<city name="F" xRel="0.386444709" yRel="0.078125" x="325" y="60" width="78" height="104"></city>
+			<city name="G" xRel="0.392390012" yRel="0.23046875" x="330" y="177" width="87" height="103"></city>
+			<city name="H" xRel="0.416171225" yRel="0.364583333" x="335" y="280" width="80" height="103"></city>
+			<city name="I" xRel="0.548156956" yRel="0.079427083" x="461" y="61" width="82" height="100"></city>
+			<city name="J" xRel="0.527942925" yRel="0.278645833" x="444" y="214" width="90" height="101"></city>
 		</Region>
 		<Region name="mountain">
-			<city name="K" x="600" y="50" width="85" height="105"></city>
-			<city name="L" x="576" y="183" width="93" height="98"></city>
-			<city name="M" x="568" y="312" width="98" height="96"></city>
-			<city name="N" x="708" y="121" width="85" height="102"></city>
-			<city name="O" x="712" y="255" width="75" height="104"></city>
+			<city name="K" xRel="0.713436385" yRel="0.065104167" x="600" y="50" width="85" height="105"></city>
+			<city name="L" xRel="0.68489893" yRel="0.23828125" x="576" y="183" width="93" height="98"></city>
+			<city name="M" xRel="0.675386445" yRel="0.40625" x="568" y="312" width="98" height="96"></city>
+			<city name="N" xRel="0.841854935" yRel="0.157552083" x="708" y="121" width="85" height="102"></city>
+			<city name="O" xRel="0.848989298" yRel="0.33203125" x="712" y="255" width="75" height="104"></city>
 		</Region>
 	</cityCoordinates>
 </map>

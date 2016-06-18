@@ -12,6 +12,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -21,6 +22,7 @@ import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 
 import client.GUI.ImagePanel;
+import model.game.topology.City;
 
 public class XMLReaderForClient {
 	private static final String PATH="src/main/resources/positionInTheMap.xml";
@@ -31,7 +33,7 @@ public class XMLReaderForClient {
 		return document.getRootElement();
 	}
 	
-	public void createCitiesFromRegionPanel(JPanel panel, Map<Character, String> bonuses) throws JDOMException, IOException{
+	public void createCitiesFromRegionPanel(JPanel panel, Map<Character, City> bonuses, Dimension boardDim) throws JDOMException, IOException{
 		List<Element> regions=this.getRootFromFile(PATH).getChild("cityCoordinates").getChildren();
 		Iterator<Element> regIt=regions.iterator();
 		int i=0;
@@ -49,29 +51,38 @@ public class XMLReaderForClient {
 			List<Element> cities=region.getChildren();
 			Iterator<Element> cityIt=cities.iterator();
 			while(cityIt.hasNext()){
-				Element city=cityIt.next();
+				Element cityElement=cityIt.next();
 				JPanel newPanel=new JPanel();
-				newPanel.setName(city.getAttributeValue("name"));
-				newPanel.addMouseListener(new MouseAdapter() {
-					@Override
-					public void mouseClicked(MouseEvent e) {
-						// TODO Auto-generated method stub
-						JOptionPane.showMessageDialog(null, "ciao sono "+city.getAttributeValue("name"));
-					}
-				});
-				newPanel.setOpaque(false);
-				newPanel.setBounds(Integer.parseInt(city.getAttributeValue("x"))-i*regionPanel.getWidth(), Integer.parseInt(city.getAttributeValue("y")),
-						Integer.parseInt(city.getAttributeValue("width")), Integer.parseInt(city.getAttributeValue("height")));
+				newPanel.setName(cityElement.getAttributeValue("name"));
 				
-				String bonusPath=bonuses.get(city.getAttributeValue("name").charAt(0));
-				System.out.println(bonusPath);
-				if(!bonusPath.isEmpty()){
-					JPanel bonus=new ImagePanel(bonuses.get(city.getAttributeValue("name").charAt(0)), bonusDim);
+				newPanel.setOpaque(false);
+				newPanel.setBounds((int)(Double.parseDouble(cityElement.getAttributeValue("xRel"))*boardDim.width)-i*regionPanel.getWidth(), (int)(Double.parseDouble(cityElement.getAttributeValue("yRel"))
+						*boardDim.height),
+						Integer.parseInt(cityElement.getAttributeValue("width")), Integer.parseInt(cityElement.getAttributeValue("height")));
+				
+				City city=bonuses.get(cityElement.getAttributeValue("name").charAt(0));
+				if(!city.getBonusImagePath().isEmpty()){
+					JPanel bonus=new ImagePanel(bonuses.get(cityElement.getAttributeValue("name").charAt(0)).getBonusImagePath(), bonusDim);
 					bonus.setOpaque(false);
 					bonus.setBounds(newPanel.getX(), newPanel.getY(), bonusDim.width, bonusDim.height);
 					bonus.setLayout(null);
 					regionPanel.add(bonus);
 				}
+				/*
+				newPanel.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						// TODO Auto-generated method stub
+						/*super.mouseMoved(e);
+						JPanel showEmporiums=new JPanel();
+						showEmporiums.setName(city.getFirstChar()+" emporiums");
+						showEmporiums.setBounds(newPanel.getX()+newPanel.getWidth()/2, newPanel.getY()+newPanel.getHeight()/2, newPanel.getWidth()/2, newPanel.getHeight()/2);
+						showEmporiums.setFocusable(true);
+						JLabel label=new JLabel(city.getEmporiums().toString());
+						showEmporiums.add(label);
+						System.out.println("ciao");
+					}
+				});*/
 				regionPanel.add(newPanel);
 				
 			}
