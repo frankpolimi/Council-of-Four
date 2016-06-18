@@ -438,6 +438,21 @@ public class GUI extends JFrame implements ClientViewInterface {
 		});
 		Game.add(submitChat);
 		
+		Double nobilityCellRelativeX=0.064209275;
+		Double nobilityCellRelativeY=0.7890625;
+		Double space=0.033333333;
+		Dimension cellDim=new Dimension(12, 12);
+		int dinstanceX=(int)(cardBoard.getWidth()*(nobilityCellRelativeX));
+		for(int i=0;i<=20;i++){
+			JPanel panel=new JPanel();
+			panel.setName("nobilityPos"+i);
+			panel.setBounds(dinstanceX, (int)(cardBoard.getHeight()*nobilityCellRelativeY)-regions.getHeight(),cellDim.width, cellDim.height);
+			System.out.println(dinstanceX);
+			dinstanceX+=space*cardBoard.getWidth();
+			panel.setBackground(Color.white);
+			nobility.add(panel);
+		}
+		
 		//setVisible(true);
 	}
 
