@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -159,7 +160,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 		cardBoard.add(nobility);
 		nobility.setLayout(null);
 		nobility.setBounds(0, singleRegionDimension.height, nobilityPanelDimension.width, nobilityPanelDimension.height);
-		
+				
 		ImagePanel seasideDeck = new ImagePanel(pathSeasideDeck, permitsDeckDimension);
 		seasideDeck.setBounds(55, 11, permitsDeckDimension.width, permitsDeckDimension.height);
 		nobility.add(seasideDeck);
@@ -297,6 +298,12 @@ public class GUI extends JFrame implements ClientViewInterface {
 		JTextArea txtrCiaoSonoFrancesco = new JTextArea();
 		scrollPane.setViewportView(txtrCiaoSonoFrancesco);
 		txtrCiaoSonoFrancesco.setEditable(false);
+		
+		JPanel colorPlayer = new JPanel();
+		colorPlayer.setName("colorPlayer");
+		colorPlayer.setBorder(new LineBorder(new Color(0, 0, 0), 2));
+		colorPlayer.setBounds(tabbedPane.getWidth()/2, 0, 56, 51);
+		currentPlayer.add(colorPlayer);
 				
 		JPanel Game = new JPanel();
 		tabbedPane.addTab("Game", null, Game, null);
@@ -548,6 +555,10 @@ public class GUI extends JFrame implements ClientViewInterface {
 		
 		Player player = this.game.getPlayerByID(ID);
 		JTabbedPane x = (JTabbedPane)this.contentPane.getComponents()[1];
+		JPanel playerTab=(JPanel)x.getComponent(0);
+		
+		JPanel colorPlayer=(JPanel)(Arrays.asList(playerTab.getComponents()).stream().filter(e->e.getName()!=null&&e.getName().equals("colorPlayer")).findFirst().get());
+		colorPlayer.setBackground(player.getChosenColor());
 		
 		JTextPane t = (JTextPane)x.getComponentAt(0).getComponentAt(66, 11);
 		t.setText(player.getName());
