@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -22,6 +23,7 @@ import javax.swing.border.LineBorder;
 
 import client.ClientViewInterface;
 import client.XMLReaderForClient;
+import model.game.BuildingPermit;
 import model.game.Game;
 import model.game.Player;
 import model.game.topology.City;
@@ -144,10 +146,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 		seaside.setLayout(null);
 		seaside.setBounds(0, 0, singleRegionDimension.width, singleRegionDimension.height);
 		
-		ImagePanel seasideTile = new ImagePanel(pathSeasideTile, new Dimension(51, 30));
-		seasideTile.setOpaque(false);
-		seasideTile.setBounds(211, 383, 51, 30);
-		seaside.add(seasideTile);
+		
 		
 		ImagePanel hill=new ImagePanel(pathhill, singleRegionDimension);
 		//hill.setLocation(448, 0);
@@ -156,10 +155,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 		hill.setLayout(null);
 		hill.setBounds(singleRegionDimension.width, 0, singleRegionDimension.width, singleRegionDimension.height);
 		
-		ImagePanel hillTile = new ImagePanel(pathHillTile, new Dimension(51, 27));
-		hillTile.setOpaque(false);
-		hillTile.setBounds(184, 383, 51, 27);
-		hill.add(hillTile);
+		
 		
 		ImagePanel mountain=new ImagePanel(pathmountain, singleRegionDimension);
 		//mountain.setLocation(896, 0);
@@ -168,11 +164,9 @@ public class GUI extends JFrame implements ClientViewInterface {
 		mountain.setLayout(null);
 		mountain.setBounds(2*singleRegionDimension.width, 0, singleRegionDimension.width, singleRegionDimension.height);
 		
-		ImagePanel mountainTile = new ImagePanel(pathMountainTile, new Dimension(51, 30));
-		mountainTile.setOpaque(false);
-		mountainTile.setBounds(183, 383, 51, 30);
-		mountain.add(mountainTile);
+		
 		*/
+		
 		ImagePanel nobility = new ImagePanel(pathNobility, nobilityPanelDimension);
 		//nobility.setLocation(1, 368);
 		nobility.setSize(nobilityPanelDimension);
@@ -507,6 +501,11 @@ public class GUI extends JFrame implements ClientViewInterface {
 		seaside.setLayout(null);
 		seaside.setBounds(0, 0, singleRegionDimension.width, singleRegionDimension.height);
 		
+		ImagePanel seasideTile = new ImagePanel(pathSeasideTile, new Dimension(51, 30));
+		seasideTile.setOpaque(false);
+		seasideTile.setBounds(211, 383, 51, 30);
+		seaside.add(seasideTile);
+		
 		ImagePanel hill=new ImagePanel(pathhill, singleRegionDimension);
 		//hill.setLocation(448, 0);
 		hill.setSize(singleRegionDimension);
@@ -515,6 +514,11 @@ public class GUI extends JFrame implements ClientViewInterface {
 		hill.setLayout(null);
 		hill.setBounds(singleRegionDimension.width, 0, singleRegionDimension.width, singleRegionDimension.height);
 		
+		ImagePanel hillTile = new ImagePanel(pathHillTile, new Dimension(51, 27));
+		hillTile.setOpaque(false);
+		hillTile.setBounds(184, 383, 51, 27);
+		hill.add(hillTile);
+		
 		ImagePanel mountain=new ImagePanel(pathmountain, singleRegionDimension);
 		//mountain.setLocation(896, 0);
 		mountain.setSize(singleRegionDimension);
@@ -522,6 +526,11 @@ public class GUI extends JFrame implements ClientViewInterface {
 		regions.add(mountain);
 		mountain.setLayout(null);
 		mountain.setBounds(2*singleRegionDimension.width, 0, singleRegionDimension.width, singleRegionDimension.height);
+		
+		ImagePanel mountainTile = new ImagePanel(pathMountainTile, new Dimension(51, 30));
+		mountainTile.setOpaque(false);
+		mountainTile.setBounds(183, 383, 51, 30);
+		mountain.add(mountainTile);
 				
 	}
 	
@@ -580,15 +589,35 @@ public class GUI extends JFrame implements ClientViewInterface {
 		}
 		else
 			a.setText("No emporiums built yet");
-
-		//TODO fix
+		
 		JPanel p = (JPanel)this.contentPane.getComponent(0);
-		ImagePanel i = (ImagePanel)p.getComponentAt(0, 424);
+		ImagePanel i = (ImagePanel)p.getComponentAt(1, 425);
+		
+		Iterator<Region> it = this.game.getRegions().iterator();
+		Region r = null;
+		while(it.hasNext()){
+			r = it.next();
+			if("land".equals(r.getName()))
+				break;
+		}
+				
+		Iterator<BuildingPermit> it2 = r.getPermitsDeck().getFaceUpPermits().iterator();
+		
+		ImagePanel seasideFaceupPermit1 = new ImagePanel(it2.next().getImagePath(), new Dimension(53, 62));
+		seasideFaceupPermit1.setBounds(120, 11, 53, 62);
+		i.add(seasideFaceupPermit1);
+		
+		ImagePanel seasideFaceupPermit2 = new ImagePanel(it2.next().getImagePath(), new Dimension(53, 62));
+		seasideFaceupPermit2.setBounds(183, 11, 53, 62);
+		i.add(seasideFaceupPermit2);
+
 		i = (ImagePanel)i.getComponentAt(764, 146);
 		if(!this.game.getKingTileList().isEmpty())
 			i = new ImagePanel(pathKingTile+
 					Integer.toString(5-this.game.getKingTileList().size()+1)+".jpg", 
 					new Dimension(60, 56));
+		
+		
 		
 		System.out.println("changed");
 	}
