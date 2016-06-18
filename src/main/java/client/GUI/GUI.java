@@ -584,7 +584,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 		//TODO fix
 		JPanel p = (JPanel)this.contentPane.getComponent(0);
 		ImagePanel i = (ImagePanel)p.getComponentAt(0, 424);
-		i = (ImagePanel)i.getComponentAt(734, 118);
+		i = (ImagePanel)i.getComponentAt(764, 146);
 		if(!this.game.getKingTileList().isEmpty())
 			i = new ImagePanel(pathKingTile+
 					Integer.toString(5-this.game.getKingTileList().size()+1)+".jpg", 
