@@ -74,6 +74,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 	Dimension rightPanelDimension=new Dimension((int) (monitorDimension.width-cardBoardDimension.getWidth()), monitorDimension.height);
 	Dimension colorTileDimension = new Dimension((nobilityPanelDimension.width*7/100), (nobilityPanelDimension.height*20/100));
 	Dimension actionDimension= new Dimension(rightPanelDimension.width,rightPanelDimension.width*766/1000);
+	Dimension actionButtonDimension= new Dimension(rightPanelDimension.width*48/100, rightPanelDimension.width*766/5000);
 	
 
 	/**
@@ -333,7 +334,8 @@ public class GUI extends JFrame implements ClientViewInterface {
 				JOptionPane.showMessageDialog(contentPane, "acquirePermit");
 			}
 		});
-		acquirePermit.setBounds(10, 66, 245, 57);
+		acquirePermit.setSize(actionButtonDimension);
+		acquirePermit.setLocation(actionDimension.width*19/1000, actionDimension.height*199/1000);
 		actions.add(acquirePermit);
 		
 		JButton buildEmporiumByKing = new JButton("");
@@ -345,7 +347,8 @@ public class GUI extends JFrame implements ClientViewInterface {
 				JOptionPane.showMessageDialog(contentPane, "buildEmporiumByKing");
 			}
 		});
-		buildEmporiumByKing.setBounds(10, 122, 245, 57);
+		buildEmporiumByKing.setSize(actionButtonDimension);
+		buildEmporiumByKing.setLocation(actionDimension.width*19/1000, 2*actionDimension.height*199/1000);
 		actions.add(buildEmporiumByKing);
 		
 		JButton electCouncillor = new JButton("");
@@ -357,7 +360,8 @@ public class GUI extends JFrame implements ClientViewInterface {
 				JOptionPane.showMessageDialog(contentPane, "electCouncillor");
 			}
 		});
-		electCouncillor.setBounds(10, 180, 245, 47);
+		electCouncillor.setSize(actionButtonDimension);
+		electCouncillor.setLocation(actionDimension.width*19/1000, 3*actionDimension.height*199/1000);
 		actions.add(electCouncillor);
 		
 		JButton buildEmporiumByPermit = new JButton("");
@@ -369,7 +373,8 @@ public class GUI extends JFrame implements ClientViewInterface {
 				JOptionPane.showMessageDialog(contentPane, "buildEmporiumByPermit");
 			}
 		});
-		buildEmporiumByPermit.setBounds(10, 231, 245, 47);
+		buildEmporiumByPermit.setSize(actionButtonDimension);
+		buildEmporiumByPermit.setLocation(actionDimension.width*19/1000, 4*actionDimension.height*199/1000);
 		actions.add(buildEmporiumByPermit);
 		
 		JButton engageAssistant = new JButton("");
@@ -381,7 +386,8 @@ public class GUI extends JFrame implements ClientViewInterface {
 		engageAssistant.setContentAreaFilled(false);
 		engageAssistant.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
 		engageAssistant.setBackground(SystemColor.menu);
-		engageAssistant.setBounds(265, 66, 245, 57);
+		engageAssistant.setSize(actionButtonDimension);
+		engageAssistant.setLocation(actionDimension.width*19/1000+actionButtonDimension.width, actionDimension.height*199/1000);
 		actions.add(engageAssistant);
 		
 		JButton changeFaceUpPermits = new JButton("");
@@ -393,7 +399,8 @@ public class GUI extends JFrame implements ClientViewInterface {
 		changeFaceUpPermits.setContentAreaFilled(false);
 		changeFaceUpPermits.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
 		changeFaceUpPermits.setBackground(SystemColor.menu);
-		changeFaceUpPermits.setBounds(265, 122, 245, 57);
+		changeFaceUpPermits.setSize(actionButtonDimension);
+		changeFaceUpPermits.setLocation(actionDimension.width*19/1000+actionButtonDimension.width, 2*actionDimension.height*199/1000);
 		actions.add(changeFaceUpPermits);
 		
 		JButton electCouncillorByAssistant = new JButton("");
@@ -405,7 +412,8 @@ public class GUI extends JFrame implements ClientViewInterface {
 		electCouncillorByAssistant.setContentAreaFilled(false);
 		electCouncillorByAssistant.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
 		electCouncillorByAssistant.setBackground(SystemColor.menu);
-		electCouncillorByAssistant.setBounds(265, 180, 245, 47);
+		electCouncillorByAssistant.setSize(actionButtonDimension);
+		electCouncillorByAssistant.setLocation(actionDimension.width*19/1000+actionButtonDimension.width, 3*actionDimension.height*199/1000);
 		actions.add(electCouncillorByAssistant);
 		
 		JButton extraMainAction = new JButton("");
@@ -417,7 +425,8 @@ public class GUI extends JFrame implements ClientViewInterface {
 		extraMainAction.setContentAreaFilled(false);
 		extraMainAction.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
 		extraMainAction.setBackground(SystemColor.menu);
-		extraMainAction.setBounds(265, 231, 245, 47);
+		extraMainAction.setSize(actionButtonDimension);
+		extraMainAction.setLocation(actionDimension.width*19/1000+actionButtonDimension.width, 4*actionDimension.height*199/1000);
 		actions.add(extraMainAction);
 		
 		JTextArea chatOutputMessges = new JTextArea();
