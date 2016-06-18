@@ -73,6 +73,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 	Dimension permitsDeckDimension=new Dimension((nobilityPanelDimension.width*7/100), (nobilityPanelDimension.height*22/100));
 	Dimension rightPanelDimension=new Dimension((int) (monitorDimension.width-cardBoardDimension.getWidth()), monitorDimension.height);
 	Dimension colorTileDimension = new Dimension((nobilityPanelDimension.width*7/100), (nobilityPanelDimension.height*20/100));
+	Dimension actionDimension= new Dimension(rightPanelDimension.width,rightPanelDimension.width*766/1000);
 	
 
 	/**
@@ -316,13 +317,11 @@ public class GUI extends JFrame implements ClientViewInterface {
 				
 		JPanel Game = new JPanel();
 		tabbedPane.addTab("Game", null, Game, null);
-		Game.setLayout(null);
+		Game.setLayout(new BoxLayout(Game, BoxLayout.Y_AXIS));
 			
-		ImagePanel actions = new ImagePanel(pathAction, new Dimension(510, 281));
+		ImagePanel actions = new ImagePanel(pathAction, actionDimension);
+		actions.setSize(actionDimension);
 		Game.add(actions);
-		actions.setBounds(0, 395, 510, 281);
-		actions.setMinimumSize(new Dimension(510, 281));
-		actions.setPreferredSize(new Dimension(510, 281));
 		actions.setLayout(null);
 		
 		JButton acquirePermit = new JButton("");
@@ -423,21 +422,20 @@ public class GUI extends JFrame implements ClientViewInterface {
 		
 		JTextArea chatOutputMessges = new JTextArea();
 		chatOutputMessges.setText("chat messages zone");
-		chatOutputMessges.setBounds(0, 0, 506, 362);
 		Game.add(chatOutputMessges);
+		chatOutputMessges.setVisible(false);
 		
 		JTextField chatInputMessage = new JTextField();
 		chatInputMessage.setText("chat input message");
-		chatInputMessage.setBounds(0, 362, 426, 33);
 		Game.add(chatInputMessage);
 		chatInputMessage.setColumns(10);
+		chatInputMessage.setVisible(false);
 		
 		JButton submitChat = new JButton("Submit");
 		submitChat.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		submitChat.setBounds(428, 362, 80, 33);
 		Game.add(submitChat);
 		
 		//setVisible(true);
