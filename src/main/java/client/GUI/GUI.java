@@ -72,6 +72,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 	Dimension permitsDeckDimension=new Dimension((nobilityPanelDimension.width*7/100), (nobilityPanelDimension.height*22/100));
 	Dimension rightPanelDimension=new Dimension((int) (monitorDimension.width-cardBoardDimension.getWidth()), monitorDimension.height);
 	Dimension colorTileDimension = new Dimension((nobilityPanelDimension.width*7/100), (nobilityPanelDimension.height*20/100));
+	Dimension actionDimension= new Dimension(rightPanelDimension.width,rightPanelDimension.width*766/1000);
 	
 
 	/**
@@ -310,11 +311,9 @@ public class GUI extends JFrame implements ClientViewInterface {
 		tabbedPane.addTab("Game", null, Game, null);
 		Game.setLayout(null);
 			
-		ImagePanel actions = new ImagePanel(pathAction, new Dimension(510, 281));
+		ImagePanel actions = new ImagePanel(pathAction, actionDimension);
+		actions.setSize(actionDimension);
 		Game.add(actions);
-		actions.setBounds(0, 395, 510, 281);
-		actions.setMinimumSize(new Dimension(510, 281));
-		actions.setPreferredSize(new Dimension(510, 281));
 		actions.setLayout(null);
 		
 		JButton acquirePermit = new JButton("");
