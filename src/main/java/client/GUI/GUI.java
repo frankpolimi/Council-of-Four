@@ -108,7 +108,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		contentPane = new JPanel();
-		contentPane.setMinimumSize(new Dimension(1366, 768));
+		contentPane.setMinimumSize(monitorDimension);
 		contentPane.setBorder(new LineBorder(Color.BLACK));
 		contentPane.setSize(monitorDimension);
 		setContentPane(contentPane);

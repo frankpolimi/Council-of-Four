@@ -84,15 +84,16 @@ public class StartScreen extends JFrame {
 		this.socketPort=reader.getSocketPort();
 		
 		Dimension screenSize=Toolkit.getDefaultToolkit().getScreenSize();
+		screenSize.width=screenSize.height*714/1000;
+		this.setMinimumSize(screenSize);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		this.setAlwaysOnTop(true);
 		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
-		setContentPane(contentPane);
-		Dimension backSize=new Dimension((int) (screenSize.width*0.5), screenSize.height);
-		JPanel background=new ImagePanel("src/main/resources/Immagini/locandina.jpg",backSize);
+		this.setContentPane(contentPane);
+		JPanel background=new ImagePanel("src/main/resources/Immagini/locandina.jpg",screenSize);
 		contentPane.add(background);
+		
 		GridBagLayout gbl_background = new GridBagLayout();
 		gbl_background.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gbl_background.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0};
