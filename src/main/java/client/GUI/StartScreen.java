@@ -87,9 +87,12 @@ public class StartScreen extends JFrame {
 		this.setContentPane(contentPane);
 		
 		JPanel background=new ImagePanel("src/main/resources/Immagini/locandina.jpg",screenSize);
+		background.setLayout(null);
 		contentPane.add(background);
 		
 		JPanel userInputPanel=new JPanel();
+		userInputPanel.setLocation(0, screenSize.height/2-20);
+		userInputPanel.setSize(screenSize.width, 35);
 		background.add(userInputPanel);
 		
 		JLabel lblSelect = new JLabel("Select the connection type");
