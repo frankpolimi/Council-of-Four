@@ -568,66 +568,107 @@ public class GUI extends JFrame implements ClientViewInterface {
 			return;
 		
 		Player player = this.game.getPlayerByID(ID);
-		JTabbedPane x = (JTabbedPane)this.contentPane.getComponents()[1];
-		JPanel playerTab=(JPanel)x.getComponent(0);
+		JTabbedPane tabbedPane = (JTabbedPane)this.contentPane.getComponents()[1];
+		JPanel playerTab=(JPanel)tabbedPane.getComponent(0);
 		
 		JPanel colorPlayer=(JPanel)(Arrays.asList(playerTab.getComponents()).stream().filter(e->e.getName()!=null&&e.getName().equals("colorPlayer")).findFirst().get());
 		colorPlayer.setBackground(player.getChosenColor());
 		
-		JTextPane t = (JTextPane)x.getComponentAt(0).getComponentAt(66, 11);
-		t.setText(player.getName());
+		JTextPane textPane = (JTextPane)tabbedPane.getComponentAt(0).getComponentAt(66, 11);
+		textPane.setText(player.getName());
 		
-		t = (JTextPane)x.getComponentAt(0).getComponentAt(161, 49);
-		t.setText(Integer.toString(player.getPoints()));
+		textPane = (JTextPane)tabbedPane.getComponentAt(0).getComponentAt(161, 49);
+		textPane.setText(Integer.toString(player.getPoints()));
 		
-		t = (JTextPane)x.getComponentAt(0).getComponentAt(399, 49);
-		t.setText(Integer.toString(player.getCoins()));
+		textPane = (JTextPane)tabbedPane.getComponentAt(0).getComponentAt(399, 49);
+		textPane.setText(Integer.toString(player.getCoins()));
 		
-		t = (JTextPane)x.getComponentAt(0).getComponentAt(161, 90);
-		t.setText(Integer.toString(player.getNobilityPoints()));
+		textPane = (JTextPane)tabbedPane.getComponentAt(0).getComponentAt(161, 90);
+		textPane.setText(Integer.toString(player.getNobilityPoints()));
 		
-		t = (JTextPane)x.getComponentAt(0).getComponentAt(399, 90);
-		t.setText(Integer.toString(player.getAssistants()));
+		textPane = (JTextPane)tabbedPane.getComponentAt(0).getComponentAt(399, 90);
+		textPane.setText(Integer.toString(player.getAssistants()));
 		
-		t = (JTextPane)x.getComponentAt(0).getComponentAt(161, 132);
-		t.setText(Integer.toString(player.getRemainingEmporiums()));
+		textPane = (JTextPane)tabbedPane.getComponentAt(0).getComponentAt(161, 132);
+		textPane.setText(Integer.toString(player.getRemainingEmporiums()));
 		
-		JScrollPane s = (JScrollPane)x.getComponentAt(0).getComponentAt(130, 175);
-		JTextArea a = (JTextArea)s.getComponent(0).getComponentAt(0, 0);
+		JScrollPane scrollPane = (JScrollPane)tabbedPane.getComponentAt(0).getComponentAt(130, 175);
+		JTextArea textArea = (JTextArea)scrollPane.getComponent(0).getComponentAt(0, 0);
 		if(!player.getEmporium().isEmpty()){
 			String support = "";
 			player.getEmporium().stream().map(e -> support.concat(e.getCity().getName()+"\r\n"));
-			a.setText(support);
+			textArea.setText(support);
 		}
 		else
-			a.setText("No emporiums built yet");
+			textArea.setText("No emporiums built yet");
 		
-		JPanel p = (JPanel)this.contentPane.getComponent(0);
-		ImagePanel i = (ImagePanel)p.getComponentAt(1, 425);
+		JPanel panel = (JPanel)this.contentPane.getComponent(0);
+		ImagePanel imagePanel = (ImagePanel)panel.getComponentAt(0, singleRegionDimension.height);
 		
-		Iterator<Region> it = this.game.getRegions().iterator();
-		Region r = null;
-		while(it.hasNext()){
-			r = it.next();
-			if("land".equals(r.getName()))
+		Iterator<Region> regionIterator = this.game.getRegions().iterator();
+		Region region = null;
+		while(regionIterator.hasNext()){
+			region = regionIterator.next();
+			if("land".equals(region.getName()))
 				break;
 		}
-				
-		Iterator<BuildingPermit> it2 = r.getPermitsDeck().getFaceUpPermits().iterator();
-		
-		ImagePanel seasideFaceupPermit1 = new ImagePanel(it2.next().getImagePath(), permitsDeckDimension);
+		Iterator<BuildingPermit> permitIterator = region.getPermitsDeck().getFaceUpPermits().iterator();
+		ImagePanel seasideFaceupPermit1 = new ImagePanel(permitIterator.next().getImagePath(), permitsDeckDimension);
 		seasideFaceupPermit1.setSize(permitsDeckDimension);
-		seasideFaceupPermit1.setBounds(120, 11, 53, 62);
-		i.add(seasideFaceupPermit1);
-		
-		ImagePanel seasideFaceupPermit2 = new ImagePanel(it2.next().getImagePath(), permitsDeckDimension);
+		seasideFaceupPermit1.setLocation(nobilityPanelDimension.width*143/1000, nobilityPanelDimension.height*39/1000);
+		seasideFaceupPermit1.setVisible(true);
+		imagePanel.add(seasideFaceupPermit1);
+		ImagePanel seasideFaceupPermit2 = new ImagePanel(permitIterator.next().getImagePath(), permitsDeckDimension);
 		seasideFaceupPermit2.setSize(permitsDeckDimension);
-		seasideFaceupPermit2.setBounds(183, 11, 53, 62);
-		i.add(seasideFaceupPermit2);
+		seasideFaceupPermit2.setLocation(nobilityPanelDimension.width*218/1000, nobilityPanelDimension.height*39/1000);
+		seasideFaceupPermit2.setVisible(true);
+		imagePanel.add(seasideFaceupPermit2);
 
-		i = (ImagePanel)i.getComponentAt(764, 146);
+		regionIterator = this.game.getRegions().iterator();
+		while(regionIterator.hasNext()){
+			region = regionIterator.next();
+			if("hill".equals(region.getName()))
+				break;
+		}
+		permitIterator = region.getPermitsDeck().getFaceUpPermits().iterator();
+		ImagePanel hillFaceupPermit1 = new ImagePanel(permitIterator.next().getImagePath(), permitsDeckDimension);
+		hillFaceupPermit1.setSize(permitsDeckDimension);
+		hillFaceupPermit1.setLocation(nobilityPanelDimension.width*44/100, nobilityPanelDimension.height*42/1000);
+		hillFaceupPermit1.setVisible(true);
+		imagePanel.add(hillFaceupPermit1);
+		ImagePanel hillFaceupPermit2 = new ImagePanel(permitIterator.next().getImagePath(), permitsDeckDimension);
+		hillFaceupPermit2.setSize(permitsDeckDimension);
+		hillFaceupPermit2.setLocation(nobilityPanelDimension.width*518/1000, nobilityPanelDimension.height*42/1000);
+		hillFaceupPermit2.setVisible(true);
+		imagePanel.add(hillFaceupPermit2);
+		
+		regionIterator = this.game.getRegions().iterator();
+		while(regionIterator.hasNext()){
+			region = regionIterator.next();
+			if("mountain".equals(region.getName()))
+				break;
+		}
+		permitIterator = region.getPermitsDeck().getFaceUpPermits().iterator();
+		ImagePanel mountainFaceupPermit1 = new ImagePanel(permitIterator.next().getImagePath(), permitsDeckDimension);
+		mountainFaceupPermit1.setSize(permitsDeckDimension);
+		mountainFaceupPermit1.setLocation(nobilityPanelDimension.width*44/100, nobilityPanelDimension.height*42/1000);
+		mountainFaceupPermit1.setVisible(true);
+		imagePanel.add(mountainFaceupPermit1);
+		ImagePanel mountainFaceupPermit2 = new ImagePanel(permitIterator.next().getImagePath(), permitsDeckDimension);
+		mountainFaceupPermit2.setSize(permitsDeckDimension);
+		mountainFaceupPermit2.setLocation(nobilityPanelDimension.width*518/1000, nobilityPanelDimension.height*42/1000);
+		mountainFaceupPermit2.setVisible(true);
+		imagePanel.add(mountainFaceupPermit2);
+		//TODO try bounds
+
+		
+		//39 - 42 - 43
+		
+		
+		imagePanel = (ImagePanel)imagePanel.getComponentAt(nobilityPanelDimension.width*874/1000+colorTileDimension.width/2,
+				nobilityPanelDimension.height*421/1000+colorTileDimension.height/2);
 		if(!this.game.getKingTileList().isEmpty())
-			i = new ImagePanel(pathKingTile+
+			imagePanel = new ImagePanel(pathKingTile+
 					Integer.toString(5-this.game.getKingTileList().size()+1)+".jpg", 
 					new Dimension(60, 56));
 		
