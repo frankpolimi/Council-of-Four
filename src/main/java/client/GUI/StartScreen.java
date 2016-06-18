@@ -87,9 +87,12 @@ public class StartScreen extends JFrame {
 		this.setContentPane(contentPane);
 		
 		JPanel background=new ImagePanel("src/main/resources/Immagini/locandina.jpg",screenSize);
+		background.setLayout(null);
 		contentPane.add(background);
 		
 		JPanel userInputPanel=new JPanel();
+		userInputPanel.setLocation(0, screenSize.height/2-20);
+		userInputPanel.setSize(screenSize.width, 35);
 		background.add(userInputPanel);
 		
 		JLabel lblSelect = new JLabel("Select the connection type");
@@ -125,15 +128,6 @@ public class StartScreen extends JFrame {
 				if(connectionSelected.getText().equalsIgnoreCase("socket")){
 				
 					client=new ClientSocket(host, socketPort, new GUI());
-					try {
-						client.runClient(name);
-					} catch (IOException | NotBoundException | JDOMException | AlreadyBoundException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					//((GUI)client.getClientView()).setRegionsBackground();
-					//((GUI)client.getClientView()).cityBonusLoader();
-					//((GUI)client.getView()).setVisible(true);
 				}else if(connectionSelected.getText().equalsIgnoreCase("RMI")){
 					try {
 						client=new ClientRMI(host, rmiPort, new GUI());

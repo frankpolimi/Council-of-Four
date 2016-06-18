@@ -70,7 +70,8 @@ public class GUI extends JFrame implements ClientViewInterface {
 	Dimension regionPanelDimension=new Dimension(cardBoardDimension.width, cardBoardDimension.height/90*53);
 	Dimension singleRegionDimension=new Dimension(regionPanelDimension.width/3, regionPanelDimension.height);
 	Dimension nobilityPanelDimension=new Dimension(cardBoardDimension.width, cardBoardDimension.height/90*35);
-	Dimension permitsDeckDimension=new Dimension((nobilityPanelDimension.width*6/100), (nobilityPanelDimension.height*22/100));
+	Dimension permitsDeckDimension=new Dimension((nobilityPanelDimension.width*7/100), (nobilityPanelDimension.height*22/100));
+	Dimension rightPanelDimension=new Dimension((int) (monitorDimension.width-cardBoardDimension.getWidth()), monitorDimension.height);
 	
 
 	/**
@@ -197,7 +198,8 @@ public class GUI extends JFrame implements ClientViewInterface {
 		nobility.add(kingTile);
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBounds(cardBoard.getWidth(), 0, monitorDimension.width, monitorDimension.height);
+		tabbedPane.setSize(rightPanelDimension);
+		tabbedPane.setLocation(cardBoard.getWidth(), 0);
 		contentPane.add(tabbedPane);
 		
 		JPanel currentPlayer = new JPanel();
