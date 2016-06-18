@@ -144,6 +144,7 @@ public class StartScreen extends JFrame {
 					e.printStackTrace();
 				}
 				((GUI)client.getClientView()).setRegionsBackground();
+				((GUI)client.getClientView()).setPlayerDefaultParams(name);;
 				try {
 					((GUI)client.getClientView()).cityBonusLoader();
 				} catch (JDOMException | IOException e) {

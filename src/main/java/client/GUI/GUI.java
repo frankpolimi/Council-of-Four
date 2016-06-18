@@ -219,8 +219,9 @@ public class GUI extends JFrame implements ClientViewInterface {
 		playerName.setOpaque(false);
 		playerName.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
 		playerName.setEditable(false);
-		playerName.setText("currentPlayerName");
+		playerName.setText("");
 		playerName.setBounds(66, 11, 114, 20);
+		playerName.setName("playerName");
 		currentPlayer.add(playerName);
 		
 		JLabel lblName = new JLabel("Name:");
@@ -233,7 +234,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 		txtpnVps.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
 		txtpnVps.setEditable(false);
 		txtpnVps.setName("txtpnVps\r\n");
-		txtpnVps.setText("VPs");
+		txtpnVps.setText("0");
 		txtpnVps.setBounds(161, 49, 57, 20);
 		currentPlayer.add(txtpnVps);
 		
@@ -246,7 +247,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 		txtpnNps.setOpaque(false);
 		txtpnNps.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
 		txtpnNps.setEditable(false);
-		txtpnNps.setText("NPs");
+		txtpnNps.setText("0");
 		txtpnNps.setBounds(161, 90, 57, 20);
 		currentPlayer.add(txtpnNps);
 		
@@ -262,7 +263,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 		JTextPane txtpnCoins = new JTextPane();
 		txtpnCoins.setOpaque(false);
 		txtpnCoins.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
-		txtpnCoins.setText("Coins");
+		txtpnCoins.setText("0");
 		txtpnCoins.setEditable(false);
 		txtpnCoins.setBounds(399, 49, 57, 20);
 		currentPlayer.add(txtpnCoins);
@@ -275,7 +276,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 		txtpnAssistants.setOpaque(false);
 		txtpnAssistants.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
 		lblAssistants.setLabelFor(txtpnAssistants);
-		txtpnAssistants.setText("assistants");
+		txtpnAssistants.setText("0");
 		txtpnAssistants.setName("txtpnVps\r\n");
 		txtpnAssistants.setEditable(false);
 		txtpnAssistants.setBounds(399, 90, 57, 20);
@@ -289,7 +290,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 		txtpnRemainingEmporiums.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
 		txtpnRemainingEmporiums.setOpaque(false);
 		lblRemainingEmporiums.setLabelFor(txtpnRemainingEmporiums);
-		txtpnRemainingEmporiums.setText("Emporiums Left");
+		txtpnRemainingEmporiums.setText("0");
 		txtpnRemainingEmporiums.setEditable(false);
 		txtpnRemainingEmporiums.setBounds(161, 132, 57, 20);
 		currentPlayer.add(txtpnRemainingEmporiums);
@@ -485,6 +486,13 @@ public class GUI extends JFrame implements ClientViewInterface {
 	public BufferedImage getImage(String path) throws IOException{
 		File file=new File(path);
 		return ImageIO.read(file);
+	}
+	
+	public void setPlayerDefaultParams(String name){
+		JTabbedPane x = (JTabbedPane)this.contentPane.getComponents()[1];
+		JPanel playerTab=(JPanel)x.getComponent(0);
+		JTextPane playerName=(JTextPane)(Arrays.asList(playerTab.getComponents()).stream().filter(e->e.getName()!=null&&e.getName().equals("playerName")).findFirst().get());
+		playerName.setText(name);
 	}
 	
 	public void setRegionsBackground(){
