@@ -164,15 +164,6 @@ public class StartScreen extends JFrame {
 				if(connectionSelected.getText().equalsIgnoreCase("socket")){
 				
 					client=new ClientSocket(host, socketPort, new GUI());
-					try {
-						client.runClient(name);
-					} catch (IOException | NotBoundException | JDOMException | AlreadyBoundException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					//((GUI)client.getClientView()).setRegionsBackground();
-					//((GUI)client.getClientView()).cityBonusLoader();
-					//((GUI)client.getView()).setVisible(true);
 				}else if(connectionSelected.getText().equalsIgnoreCase("RMI")){
 					try {
 						client=new ClientRMI(host, rmiPort, new GUI());

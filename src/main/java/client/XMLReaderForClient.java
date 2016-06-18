@@ -68,23 +68,8 @@ public class XMLReaderForClient {
 					bonus.setLayout(null);
 					regionPanel.add(bonus);
 				}
-				/*
-				newPanel.addMouseListener(new MouseAdapter() {
-					@Override
-					public void mouseClicked(MouseEvent e) {
-						// TODO Auto-generated method stub
-						/*super.mouseMoved(e);
-						JPanel showEmporiums=new JPanel();
-						showEmporiums.setName(city.getFirstChar()+" emporiums");
-						showEmporiums.setBounds(newPanel.getX()+newPanel.getWidth()/2, newPanel.getY()+newPanel.getHeight()/2, newPanel.getWidth()/2, newPanel.getHeight()/2);
-						showEmporiums.setFocusable(true);
-						JLabel label=new JLabel(city.getEmporiums().toString());
-						showEmporiums.add(label);
-						System.out.println("ciao");
-					}
-				});*/
 				regionPanel.add(newPanel);
-				
+							
 			}
 			i++;
 		}
