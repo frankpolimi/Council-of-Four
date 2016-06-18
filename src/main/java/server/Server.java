@@ -181,6 +181,13 @@ public class Server
 		return game;
 	}
 	
+	/**
+	 * @return the controller
+	 */
+	public Controller getController(){
+		return controller;
+	}
+	
 }
 
 

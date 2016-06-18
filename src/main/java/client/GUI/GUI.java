@@ -180,26 +180,6 @@ public class GUI extends JFrame implements ClientViewInterface {
 		nobility.setLayout(null);
 		nobility.setBounds(0, singleRegionDimension.height, nobilityPanelDimension.width, nobilityPanelDimension.height);
 		
-		JButton seasideCouncil = new JButton("seasideCouncil");
-		seasideCouncil.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
-		seasideCouncil.setBounds(117, 94, 94, 25);
-		nobility.add(seasideCouncil);
-		
-		JButton hillCouncil = new JButton("hillCouncil");
-		hillCouncil.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
-		hillCouncil.setBounds(372, 94, 94, 25);
-		nobility.add(hillCouncil);
-		
-		JButton mountainCouncil = new JButton("mountainCouncil");
-		mountainCouncil.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
-		mountainCouncil.setBounds(655, 94, 94, 25);
-		nobility.add(mountainCouncil);
-		
-		JButton kingCouncil = new JButton("kingCouncil");
-		kingCouncil.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
-		kingCouncil.setBounds(529, 127, 94, 25);
-		nobility.add(kingCouncil);
-		
 		ImagePanel seasideDeck = new ImagePanel(pathSeasideDeck, new Dimension(53, 62));
 		seasideDeck.setBounds(55, 11, 53, 62);
 		nobility.add(seasideDeck);
@@ -601,8 +581,9 @@ public class GUI extends JFrame implements ClientViewInterface {
 		else
 			a.setText("No emporiums built yet");
 
+		//TODO fix
 		JPanel p = (JPanel)this.contentPane.getComponent(0);
-		ImagePanel i = (ImagePanel)p.getComponent(1);
+		ImagePanel i = (ImagePanel)p.getComponentAt(0, 424);
 		i = (ImagePanel)i.getComponentAt(734, 118);
 		if(!this.game.getKingTileList().isEmpty())
 			i = new ImagePanel(pathKingTile+
