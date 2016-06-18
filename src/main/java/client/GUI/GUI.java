@@ -106,17 +106,11 @@ public class GUI extends JFrame implements ClientViewInterface {
 			
 		//setAlwaysOnTop(true);
 		
-		Dimension monitorDimension=Toolkit.getDefaultToolkit().getScreenSize();
-		Dimension cardBoardDimension=new Dimension((monitorDimension.width/160*105), (monitorDimension.height));
-		Dimension regionPanelDimension=new Dimension(cardBoardDimension.width, cardBoardDimension.height/90*53);
-		Dimension singleRegionDimension=new Dimension(regionPanelDimension.width/3, regionPanelDimension.height);
-		Dimension nobilityPanelDimension=new Dimension(cardBoardDimension.width, cardBoardDimension.height/90*35);
-		
 		this.setSize(monitorDimension);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		contentPane = new JPanel();
-		contentPane.setMinimumSize(new Dimension(1366, 768));
+		contentPane.setMinimumSize(monitorDimension);
 		contentPane.setBorder(new LineBorder(Color.BLACK));
 		contentPane.setSize(monitorDimension);
 		setContentPane(contentPane);
@@ -212,7 +206,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 		nobility.add(kingTile);
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBounds(839, 0, 511, 704);
+		tabbedPane.setBounds(cardBoard.getWidth(), 0, 511, 704);
 		contentPane.add(tabbedPane);
 		
 		JPanel currentPlayer = new JPanel();
@@ -536,13 +530,13 @@ public class GUI extends JFrame implements ClientViewInterface {
 	
 	public void cityBonusLoader() throws JDOMException, IOException{
 		XMLReaderForClient reader=new XMLReaderForClient();
-		Map<Character,String> bonuses=new HashMap<>();
+		Map<Character,City> bonuses=new HashMap<>();
 		for(City c:this.game.getAllCities()){
-			bonuses.put(c.getFirstChar(), c.getBonusImagePath());
+			bonuses.put(c.getFirstChar(), c);
 		}
 		
 		JPanel regions=(JPanel)this.contentPane.getComponents()[0].getComponentAt(0, 0);
-		reader.createCitiesFromRegionPanel(regions, bonuses);	
+		reader.createCitiesFromRegionPanel(regions, bonuses, cardBoardDimension);	
 		
 		
 	}
