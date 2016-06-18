@@ -1,6 +1,7 @@
 package client.GUI;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Toolkit;
@@ -32,6 +33,7 @@ import java.io.IOException;
 import java.rmi.AlreadyBoundException;
 import java.rmi.NotBoundException;
 import java.util.Enumeration;
+import java.awt.FlowLayout;
 
 public class StartScreen extends JFrame {
 
@@ -91,54 +93,67 @@ public class StartScreen extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setLayout(new BorderLayout(0, 0));
 		this.setContentPane(contentPane);
+		
 		JPanel background=new ImagePanel("src/main/resources/Immagini/locandina.jpg",screenSize);
 		contentPane.add(background);
 		
-		GridBagLayout gbl_background = new GridBagLayout();
+		JPanel userInputPanel=new JPanel();
+		background.add(userInputPanel);
+		
+		
+		/*GridBagLayout gbl_background = new GridBagLayout();
 		gbl_background.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gbl_background.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0};
 		gbl_background.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
 		gbl_background.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		background.setLayout(gbl_background);
+		background.setLayout(gbl_background);*/
 		
 		JLabel lblSelect = new JLabel("Select the connection type");
-		GridBagConstraints gbc_lblSelect = new GridBagConstraints();
+		/*GridBagConstraints gbc_lblSelect = new GridBagConstraints();
 		gbc_lblSelect.insets = new Insets(0, 0, 5, 5);
 		gbc_lblSelect.gridwidth = 2;
 		gbc_lblSelect.gridx = 5;
-		gbc_lblSelect.gridy = 2;
-		background.add(lblSelect, gbc_lblSelect);
+		gbc_lblSelect.gridy = 2;*/
+		//background.add(lblSelect, gbc_lblSelect);
+		
+		userInputPanel.add(lblSelect);
 		
 		JRadioButton rdbtnRmi = new JRadioButton("RMI");
 		rdbtnRmi.setSelected(true);
-		GridBagConstraints gbc_rdbtnRmi = new GridBagConstraints();
+		/*GridBagConstraints gbc_rdbtnRmi = new GridBagConstraints();
 		gbc_rdbtnRmi.insets = new Insets(0, 0, 5, 5);
 		gbc_rdbtnRmi.gridx = 5;
 		gbc_rdbtnRmi.gridy = 3;
-		background.add(rdbtnRmi, gbc_rdbtnRmi);
+		background.add(rdbtnRmi, gbc_rdbtnRmi);*/
+		userInputPanel.add(rdbtnRmi);
 		
 		JRadioButton rdbtnSocket = new JRadioButton("Socket");
-		GridBagConstraints gbc_rdbtnSocket = new GridBagConstraints();
+		/*GridBagConstraints gbc_rdbtnSocket = new GridBagConstraints();
 		gbc_rdbtnSocket.insets = new Insets(0, 0, 5, 5);
 		gbc_rdbtnSocket.gridx = 5;
 		gbc_rdbtnSocket.gridy = 4;
-		background.add(rdbtnSocket, gbc_rdbtnSocket);
+		background.add(rdbtnSocket, gbc_rdbtnSocket);*/
+		userInputPanel.add(rdbtnSocket);
 		
 		txtInsertYourName = new JTextField();
 		txtInsertYourName.setText("Insert your name");
-		GridBagConstraints gbc_txtInsertYourName = new GridBagConstraints();
+		/*GridBagConstraints gbc_txtInsertYourName = new GridBagConstraints();
 		gbc_txtInsertYourName.insets = new Insets(0, 0, 5, 5);
 		gbc_txtInsertYourName.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtInsertYourName.gridx = 5;
 		gbc_txtInsertYourName.gridy = 5;
-		background.add(txtInsertYourName, gbc_txtInsertYourName);
+		background.add(txtInsertYourName, gbc_txtInsertYourName);*/
 		txtInsertYourName.setColumns(10);
+		userInputPanel.add(txtInsertYourName);
+		
 
 		ButtonGroup connectionGroup = new ButtonGroup();
 		connectionGroup.add(rdbtnRmi);
 		connectionGroup.add(rdbtnSocket);
 		
+		
 		JButton btnConnection = new JButton("CONNECTION");
+		userInputPanel.add(btnConnection);
 		btnConnection.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -184,11 +199,11 @@ public class StartScreen extends JFrame {
 				
 			}
 		});
-		GridBagConstraints gbc_btnConnection = new GridBagConstraints();
+		/*GridBagConstraints gbc_btnConnection = new GridBagConstraints();
 		gbc_btnConnection.insets = new Insets(0, 0, 0, 5);
 		gbc_btnConnection.gridx = 5;
 		gbc_btnConnection.gridy = 6;
-		background.add(btnConnection, gbc_btnConnection);
+		background.add(btnConnection, gbc_btnConnection);*/
 	}
 	
 	private AbstractButton getRadioSelected(ButtonGroup group){
