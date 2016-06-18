@@ -7,7 +7,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import javax.imageio.ImageIO;
@@ -72,6 +71,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 	Dimension nobilityPanelDimension=new Dimension(cardBoardDimension.width, cardBoardDimension.height/90*35);
 	Dimension permitsDeckDimension=new Dimension((nobilityPanelDimension.width*7/100), (nobilityPanelDimension.height*22/100));
 	Dimension rightPanelDimension=new Dimension((int) (monitorDimension.width-cardBoardDimension.getWidth()), monitorDimension.height);
+	Dimension colorTileDimension = new Dimension((nobilityPanelDimension.width*7/100), (nobilityPanelDimension.height*20/100));
 	
 
 	/**
@@ -161,40 +161,48 @@ public class GUI extends JFrame implements ClientViewInterface {
 		nobility.setBounds(0, singleRegionDimension.height, nobilityPanelDimension.width, nobilityPanelDimension.height);
 		
 		ImagePanel seasideDeck = new ImagePanel(pathSeasideDeck, permitsDeckDimension);
-		seasideDeck.setBounds(55, 11, permitsDeckDimension.width, permitsDeckDimension.height);
+		seasideDeck.setSize(permitsDeckDimension);
+		seasideDeck.setLocation(nobilityPanelDimension.width*65/1000, nobilityPanelDimension.height*39/1000);
 		nobility.add(seasideDeck);
 		
 		ImagePanel hillDeck = new ImagePanel(pathHillDeck, permitsDeckDimension);
-		hillDeck.setBounds(306, 11, permitsDeckDimension.width, permitsDeckDimension.height);
+		hillDeck.setSize(permitsDeckDimension);
+		hillDeck.setLocation(nobilityPanelDimension.width*368/1000, nobilityPanelDimension.height*42/1000);
 		nobility.add(hillDeck);
 		
 		ImagePanel mountainDeck = new ImagePanel(pathMountainDeck, permitsDeckDimension);
-		mountainDeck.setBounds(590, 11, permitsDeckDimension.width, permitsDeckDimension.height);
+		mountainDeck.setSize(permitsDeckDimension);
+		mountainDeck.setLocation(nobilityPanelDimension.width*70/100, nobilityPanelDimension.height*43/1000);
 		nobility.add(mountainDeck);
 		
-		ImagePanel blueTile = new ImagePanel(pathBlueTile, new Dimension(60, 50));
-		blueTile.setOpaque(false);		
-		blueTile.setBounds(621, 188, 60, 56);
+		ImagePanel blueTile = new ImagePanel(pathBlueTile, colorTileDimension);
+		blueTile.setOpaque(false);	
+		blueTile.setSize(colorTileDimension);
+		blueTile.setLocation(nobilityPanelDimension.width*739/1000, nobilityPanelDimension.height*660/1000);
 		nobility.add(blueTile);
 		
-		ImagePanel orangeTile = new ImagePanel(pathOrangeTile, new Dimension(60, 50));
+		ImagePanel orangeTile = new ImagePanel(pathOrangeTile, colorTileDimension);
 		orangeTile.setOpaque(false);
-		orangeTile.setBounds(662, 182, 60, 56);
+		orangeTile.setSize(colorTileDimension);
+		orangeTile.setLocation(nobilityPanelDimension.width*790/1000, nobilityPanelDimension.height*650/1000);
 		nobility.add(orangeTile);
 		
-		ImagePanel greyTile = new ImagePanel(pathGreyTile, new Dimension(60, 50));
+		ImagePanel greyTile = new ImagePanel(pathGreyTile, colorTileDimension);
 		greyTile.setOpaque(false);
-		greyTile.setBounds(703, 176, 60, 56);
+		greyTile.setSize(colorTileDimension);
+		greyTile.setLocation(nobilityPanelDimension.width*837/1000, nobilityPanelDimension.height*628/1000);
 		nobility.add(greyTile);
 		
-		ImagePanel yellowTile = new ImagePanel(pathYellowTile, new Dimension(60, 50));
+		ImagePanel yellowTile = new ImagePanel(pathYellowTile, colorTileDimension);
 		yellowTile.setOpaque(false);
-		yellowTile.setBounds(744, 171, 60, 56);
+		yellowTile.setSize(colorTileDimension);
+		yellowTile.setLocation(nobilityPanelDimension.width*886/1000, nobilityPanelDimension.height*611/1000);
 		nobility.add(yellowTile);
 		
-		ImagePanel kingTile = new ImagePanel(pathKingTile.concat("1.jpg"), new Dimension(60, 50));
+		ImagePanel kingTile = new ImagePanel(pathKingTile.concat("1.jpg"), colorTileDimension);
 		kingTile.setOpaque(false);
-		kingTile.setBounds(734, 118, 60, 56);
+		kingTile.setSize(colorTileDimension);
+		kingTile.setLocation(nobilityPanelDimension.width*874/1000, nobilityPanelDimension.height*421/1000);
 		nobility.add(kingTile);
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
@@ -590,11 +598,13 @@ public class GUI extends JFrame implements ClientViewInterface {
 				
 		Iterator<BuildingPermit> it2 = r.getPermitsDeck().getFaceUpPermits().iterator();
 		
-		ImagePanel seasideFaceupPermit1 = new ImagePanel(it2.next().getImagePath(), new Dimension(53, 62));
+		ImagePanel seasideFaceupPermit1 = new ImagePanel(it2.next().getImagePath(), permitsDeckDimension);
+		seasideFaceupPermit1.setSize(permitsDeckDimension);
 		seasideFaceupPermit1.setBounds(120, 11, 53, 62);
 		i.add(seasideFaceupPermit1);
 		
-		ImagePanel seasideFaceupPermit2 = new ImagePanel(it2.next().getImagePath(), new Dimension(53, 62));
+		ImagePanel seasideFaceupPermit2 = new ImagePanel(it2.next().getImagePath(), permitsDeckDimension);
+		seasideFaceupPermit2.setSize(permitsDeckDimension);
 		seasideFaceupPermit2.setBounds(183, 11, 53, 62);
 		i.add(seasideFaceupPermit2);
 
