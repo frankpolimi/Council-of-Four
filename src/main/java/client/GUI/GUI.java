@@ -2,24 +2,16 @@ package client.GUI;
 
 import java.awt.Dimension;
 import java.awt.EventQueue;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.Toolkit;
-
 import javax.swing.border.LineBorder;
-
 import client.ClientViewInterface;
 import client.XMLReaderForClient;
 import model.game.Game;
@@ -28,12 +20,9 @@ import model.game.topology.City;
 import model.game.topology.Region;
 import view.LocalStorage;
 import view.Request;
-
 import java.awt.Color;
 import javax.swing.border.MatteBorder;
-
 import org.jdom2.JDOMException;
-
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.SystemColor;
@@ -57,7 +46,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 	private String pathmountain="src/main/resources/Immagini/montagnaAridim.jpg";
 	private final static String pathNobility="src/main/resources/Immagini/nobility.jpg";
 	
-	private final String pathAction="src/main/resources/Immagini/action_table.jpg";
+	private final String pathAction="src/main/resources/Immagini/Rules.jpg";
 	
 	private final String pathSeasideDeck="src/main/resources/Immagini/seaside_deck.jpg";
 	private final String pathHillDeck="src/main/resources/Immagini/hill_deck.jpg";
@@ -212,7 +201,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 		nobility.add(kingTile);
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBounds(cardBoard.getWidth(), 0, 511, 704);
+		tabbedPane.setBounds(cardBoard.getWidth(), 0, monitorDimension.width, monitorDimension.height);
 		contentPane.add(tabbedPane);
 		
 		JPanel currentPlayer = new JPanel();
