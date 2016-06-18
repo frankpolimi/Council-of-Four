@@ -218,7 +218,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 		nobility.add(kingTile);
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBounds(839, 0, 511, 704);
+		tabbedPane.setBounds(cardBoard.getWidth(), 0, 511, 704);
 		contentPane.add(tabbedPane);
 		
 		JPanel currentPlayer = new JPanel();
