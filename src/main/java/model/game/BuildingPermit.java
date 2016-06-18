@@ -116,4 +116,10 @@ public class BuildingPermit extends Bonusable implements Serializable{
 		return x;
 	}
 
+	/**
+	 * @return the imagePath
+	 */
+	public String getImagePath() {
+		return imagePath;
+	}
 }
