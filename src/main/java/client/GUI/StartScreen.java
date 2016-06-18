@@ -91,7 +91,7 @@ public class StartScreen extends JFrame {
 		contentPane.add(background);
 		
 		JPanel userInputPanel=new JPanel();
-		userInputPanel.setLocation(0, screenSize.height/2-20);
+		userInputPanel.setLocation(0, screenSize.height/3+30);
 		userInputPanel.setSize(screenSize.width, 35);
 		background.add(userInputPanel);
 		
