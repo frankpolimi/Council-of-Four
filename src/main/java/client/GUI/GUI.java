@@ -80,6 +80,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 	Dimension regionPanelDimension=new Dimension(cardBoardDimension.width, cardBoardDimension.height/90*53);
 	Dimension singleRegionDimension=new Dimension(regionPanelDimension.width/3, regionPanelDimension.height);
 	Dimension nobilityPanelDimension=new Dimension(cardBoardDimension.width, cardBoardDimension.height/90*35);
+	Dimension permitsDeckDimension=new Dimension((nobilityPanelDimension.width*6/100), (nobilityPanelDimension.height*22/100));
 	
 
 	/**
@@ -168,16 +169,16 @@ public class GUI extends JFrame implements ClientViewInterface {
 		nobility.setLayout(null);
 		nobility.setBounds(0, singleRegionDimension.height, nobilityPanelDimension.width, nobilityPanelDimension.height);
 		
-		ImagePanel seasideDeck = new ImagePanel(pathSeasideDeck, new Dimension(53, 62));
-		seasideDeck.setBounds(55, 11, 53, 62);
+		ImagePanel seasideDeck = new ImagePanel(pathSeasideDeck, permitsDeckDimension);
+		seasideDeck.setBounds(55, 11, permitsDeckDimension.width, permitsDeckDimension.height);
 		nobility.add(seasideDeck);
 		
-		ImagePanel hillDeck = new ImagePanel(pathHillDeck, new Dimension(60, 62));
-		hillDeck.setBounds(306, 11, 60, 62);
+		ImagePanel hillDeck = new ImagePanel(pathHillDeck, permitsDeckDimension);
+		hillDeck.setBounds(306, 11, permitsDeckDimension.width, permitsDeckDimension.height);
 		nobility.add(hillDeck);
 		
-		ImagePanel mountainDeck = new ImagePanel(pathMountainDeck, new Dimension(55, 63));
-		mountainDeck.setBounds(590, 11, 55, 63);
+		ImagePanel mountainDeck = new ImagePanel(pathMountainDeck, permitsDeckDimension);
+		mountainDeck.setBounds(590, 11, permitsDeckDimension.width, permitsDeckDimension.height);
 		nobility.add(mountainDeck);
 		
 		ImagePanel blueTile = new ImagePanel(pathBlueTile, new Dimension(60, 50));
