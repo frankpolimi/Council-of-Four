@@ -447,7 +447,6 @@ public class GUI extends JFrame implements ClientViewInterface {
 			JPanel panel=new JPanel();
 			panel.setName("nobilityPos"+i);
 			panel.setBounds(dinstanceX, (int)(cardBoard.getHeight()*nobilityCellRelativeY)-regions.getHeight(),cellDim.width, cellDim.height);
-			System.out.println(dinstanceX);
 			dinstanceX+=space*cardBoard.getWidth();
 			panel.setBackground(Color.white);
 			nobility.add(panel);
