@@ -121,6 +121,7 @@ public class StartScreen extends JFrame {
 		btnConnection.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
+				btnConnection.setEnabled(false);
 				JRadioButton connectionSelected=(JRadioButton) getRadioSelected(connectionGroup);
 				String name=txtInsertYourName.getText();
 				System.out.println(connectionSelected.getText());
@@ -152,7 +153,7 @@ public class StartScreen extends JFrame {
 					e.printStackTrace();
 				}
 				((GUI)client.getClientView()).setVisible(true);
-				
+				setVisible(false);
 			}
 		});
 		

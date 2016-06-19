@@ -2,6 +2,8 @@ package client.GUI;
 
 import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.Rectangle;
+import java.awt.Scrollbar;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -19,6 +21,7 @@ import client.XMLReaderForClient;
 import model.game.BuildingPermit;
 import model.game.Game;
 import model.game.Player;
+import model.game.politics.PoliticsCard;
 import model.game.topology.City;
 import model.game.topology.Region;
 import view.LocalStorage;
@@ -209,8 +212,8 @@ public class GUI extends JFrame implements ClientViewInterface {
 		nobility.add(kingTile);
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setSize(rightPanelDimension);
-		tabbedPane.setLocation(cardBoard.getWidth(), 0);
+		tabbedPane.setSize(new Dimension(510, 730));
+		tabbedPane.setLocation(840, 0);
 		contentPane.add(tabbedPane);
 		
 		JPanel currentPlayer = new JPanel();
@@ -315,6 +318,23 @@ public class GUI extends JFrame implements ClientViewInterface {
 		colorPlayer.setBorder(new LineBorder(new Color(0, 0, 0), 2));
 		colorPlayer.setBounds(tabbedPane.getWidth()/2, 0, 56, 51);
 		currentPlayer.add(colorPlayer);
+		
+		Double politicRelX=0.0686275;
+		Double politicRelY=0.39726;
+		Dimension politicDim=new Dimension((int)(0.89*tabbedPane.getWidth()),(int)(0.2288*tabbedPane.getHeight()));
+		
+		
+		JScrollPane politicCards=new JScrollPane();
+		politicCards.setName("politicCards");
+		politicCards.setBounds((int)(politicRelX*tabbedPane.getWidth()),(int)(politicRelY*tabbedPane.getHeight()), politicDim.width, politicDim.height);
+		currentPlayer.add(politicCards);
+		
+		Double buildingRelY=0.6849315;
+		JScrollPane buildingPermits = new JScrollPane();
+		buildingPermits.setBounds((int)(politicRelX*tabbedPane.getWidth()),(int)(buildingRelY*tabbedPane.getHeight()), politicDim.width, politicDim.height);
+		currentPlayer.add(buildingPermits);
+		buildingPermits.setName("buildingPermits");
+		
 				
 		JPanel Game = new JPanel();
 		tabbedPane.addTab("Game", null, Game, null);
@@ -594,6 +614,22 @@ public class GUI extends JFrame implements ClientViewInterface {
 		Player player = this.game.getPlayerByID(ID);
 		JTabbedPane tabbedPane = (JTabbedPane)this.contentPane.getComponents()[1];
 		JPanel playerTab=(JPanel)tabbedPane.getComponent(0);
+		JScrollPane politicsCard=(JScrollPane)(Arrays.asList(playerTab.getComponents()).stream().filter(e->e.getName()!=null&&e.getName().equals("politicCards")).findFirst().get());
+		JViewport politicsCards=politicsCard.getViewport();
+		politicsCards.setViewSize(politicsCard.getSize());
+		int dinstanceX=(int)(0.028634*politicsCard.getWidth());
+		int dinstanceY=(int)(0.02395*politicsCard.getHeight());
+		int space=(int)(0.028634*politicsCard.getWidth());
+		Dimension cardDim=new Dimension((int)(0.22026*politicsCard.getWidth()),(int)(0.91018*politicsCard.getHeight()));
+		for(int i=0;i<player.getCardsOwned().size();i++){
+			JPanel card=new ImagePanel(player.getCardsOwned().get(i).getImagePath(),cardDim);
+			card.setName("politicsCard"+i);
+			card.setBounds(dinstanceX, dinstanceY, cardDim.width, cardDim.height);
+			dinstanceX+=cardDim.width+space;
+			card.setOpaque(true);
+			politicsCards.add(card);
+		}
+		
 		
 		JPanel colorPlayer=(JPanel)(Arrays.asList(playerTab.getComponents()).stream().filter(e->e.getName()!=null&&e.getName().equals("colorPlayer")).findFirst().get());
 		colorPlayer.setBackground(player.getChosenColor());
