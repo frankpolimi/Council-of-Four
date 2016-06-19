@@ -674,19 +674,14 @@ public class GUI extends JFrame implements ClientViewInterface {
 		permitIterator = region.getPermitsDeck().getFaceUpPermits().iterator();
 		ImagePanel mountainFaceupPermit1 = new ImagePanel(permitIterator.next().getImagePath(), permitsDeckDimension);
 		mountainFaceupPermit1.setSize(permitsDeckDimension);
-		mountainFaceupPermit1.setLocation(nobilityPanelDimension.width*44/100, nobilityPanelDimension.height*42/1000);
+		mountainFaceupPermit1.setLocation(nobilityPanelDimension.width*778/1000, nobilityPanelDimension.height*43/1000);
 		mountainFaceupPermit1.setVisible(true);
 		imagePanel.add(mountainFaceupPermit1);
 		ImagePanel mountainFaceupPermit2 = new ImagePanel(permitIterator.next().getImagePath(), permitsDeckDimension);
 		mountainFaceupPermit2.setSize(permitsDeckDimension);
-		mountainFaceupPermit2.setLocation(nobilityPanelDimension.width*518/1000, nobilityPanelDimension.height*42/1000);
+		mountainFaceupPermit2.setLocation(nobilityPanelDimension.width*854/1000, nobilityPanelDimension.height*43/1000);
 		mountainFaceupPermit2.setVisible(true);
 		imagePanel.add(mountainFaceupPermit2);
-		//TODO try bounds
-
-		
-		//39 - 42 - 43
-		
 		
 		imagePanel = (ImagePanel)imagePanel.getComponentAt(nobilityPanelDimension.width*874/1000+colorTileDimension.width/2,
 				nobilityPanelDimension.height*421/1000+colorTileDimension.height/2);
