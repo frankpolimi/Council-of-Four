@@ -82,6 +82,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 	Dimension colorTileDimension = new Dimension((nobilityPanelDimension.width*7/100), (nobilityPanelDimension.height*20/100));
 	Dimension actionDimension= new Dimension(rightPanelDimension.width,rightPanelDimension.width*766/1000);
 	Dimension actionButtonDimension= new Dimension(rightPanelDimension.width*48/100, rightPanelDimension.width*766/5000);
+	Dimension councilDimension = new Dimension(nobilityPanelDimension.width*109/1000, nobilityPanelDimension.height*875/10000);
 	
 
 	/**
@@ -214,6 +215,25 @@ public class GUI extends JFrame implements ClientViewInterface {
 		kingTile.setSize(colorTileDimension);
 		kingTile.setLocation(nobilityPanelDimension.width*874/1000, nobilityPanelDimension.height*421/1000);
 		nobility.add(kingTile);
+		
+		JPanel seasideCouncil = new JPanel();
+		seasideCouncil.setSize(councilDimension);
+		seasideCouncil.setBounds(114, 98, 92, 21);
+		nobility.add(seasideCouncil);
+		
+		JPanel hillCouncil = new JPanel();
+		hillCouncil.setSize(councilDimension);
+		hillCouncil.setBounds(369, 98, 92, 21);
+		nobility.add(hillCouncil);
+		
+		JPanel mountainCouncil = new JPanel();
+		mountainCouncil.setSize(councilDimension);
+		mountainCouncil.setBounds(649, 98, 92, 21);
+		nobility.add(mountainCouncil);
+		
+		JPanel kingCouncil = new JPanel();
+		kingCouncil.setBounds(529, 128, 92, 21);
+		nobility.add(kingCouncil);
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setSize(rightPanelDimension);
