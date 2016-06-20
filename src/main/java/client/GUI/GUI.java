@@ -220,6 +220,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 		
 		JPanel seasideCouncil = new JPanel();
 		seasideCouncil.setOpaque(false);
+		seasideCouncil.setLayout(null);
 		seasideCouncil.setName("seaside council");
 		seasideCouncil.setSize(councilDimension);
 		seasideCouncil.setLocation(nobilityPanelDimension.width*136/1000, nobilityPanelDimension.height*35/100);
@@ -227,6 +228,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 		
 		JPanel hillCouncil = new JPanel();
 		hillCouncil.setOpaque(false);
+		hillCouncil.setLayout(null);
 		hillCouncil.setName("hill council");
 		hillCouncil.setSize(councilDimension);
 		hillCouncil.setLocation(nobilityPanelDimension.width*439/1000, nobilityPanelDimension.height*35/100);
@@ -234,6 +236,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 		
 		JPanel mountainCouncil = new JPanel();
 		mountainCouncil.setOpaque(false);
+		mountainCouncil.setLayout(null);
 		mountainCouncil.setName("mountain council");
 		mountainCouncil.setSize(councilDimension);
 		mountainCouncil.setLocation(nobilityPanelDimension.width*773/1000, nobilityPanelDimension.height*35/100);
@@ -241,6 +244,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 		
 		JPanel kingCouncil = new JPanel();
 		kingCouncil.setOpaque(false);
+		seasideCouncil.setLayout(null);
 		kingCouncil.setName("king council");
 		kingCouncil.setSize(councilDimension);
 		kingCouncil.setLocation(nobilityPanelDimension.width*630/1000, nobilityPanelDimension.height*457/1000);
@@ -785,6 +789,8 @@ public class GUI extends JFrame implements ClientViewInterface {
 		
 		
 		this.paintCouncil("seaside council");
+		this.paintCouncil("hill council");
+		this.paintCouncil("mountain council");
 		System.out.println("changed");
 	}
 
@@ -817,17 +823,17 @@ public class GUI extends JFrame implements ClientViewInterface {
 		council.add(councillor1);
 		JPanel councillor2 = new JPanel();
 		councillor2.setSize(councilDimension.width/4, councilDimension.height);
-		councillor2.setLocation(councilDimension.width/4,councilDimension.height/4);
+		councillor2.setLocation(councilDimension.width/4, 0);
 		councillor2.setBackground(gameCouncillor.next().getColor());
 		council.add(councillor2);
 		JPanel councillor3 = new JPanel();
 		councillor3.setSize(councilDimension.width/4, councilDimension.height);
-		councillor3.setLocation(councilDimension.width/2,councilDimension.height/2);
+		councillor3.setLocation(councilDimension.width/2, 0);
 		councillor3.setBackground(gameCouncillor.next().getColor());
 		council.add(councillor3);
 		JPanel councillor4 = new JPanel();
 		councillor4.setSize(councilDimension.width/4, councilDimension.height);
-		councillor4.setLocation(councilDimension.width*3/4,councilDimension.height*3/4);
+		councillor4.setLocation(councilDimension.width*3/4, 0);
 		councillor4.setBackground(gameCouncillor.next().getColor());
 		council.add(councillor4);
 	}
