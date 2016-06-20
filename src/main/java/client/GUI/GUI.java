@@ -365,6 +365,14 @@ public class GUI extends JFrame implements ClientViewInterface {
 		colorPlayer.setBounds(tabbedPane.getWidth()/2, 0, 56, 51);
 		currentPlayer.add(colorPlayer);
 		
+		JLabel turnIndicator=new JLabel("The game is not started yet");
+		turnIndicator.setName("turnIndicator");
+		turnIndicator.setBounds(colorPlayer.getX()+colorPlayer.getWidth()+20,0,150,38);
+		turnIndicator.setBorder(new LineBorder(Color.BLACK));
+		currentPlayer.add(turnIndicator);
+		
+		
+		
 				
 		JPanel Game = new JPanel();
 		tabbedPane.addTab("Game", null, Game, null);
@@ -645,7 +653,8 @@ public class GUI extends JFrame implements ClientViewInterface {
 	@Override
 	public Request start() {
 		request=null;
-		while(request==null);
+		System.out.println("Sono entrato in start e ho resettato la richiesta");
+		while(request==null){System.out.println("ciao");}//non so perché ma se lo tolgo non mi funziona! domani vedo!
 		System.out.println("Richiesta arrivata "+request);
 		return request;
 	}
@@ -702,6 +711,12 @@ public class GUI extends JFrame implements ClientViewInterface {
 		JPanel colorPlayer=(JPanel)(Arrays.asList(playerTab.getComponents()).stream().filter(e->e.getName()!=null&&e.getName().equals("colorPlayer")).findFirst().get());
 		colorPlayer.setBackground(player.getChosenColor());
 		
+		JLabel turnIndicator=(JLabel)(Arrays.asList(playerTab.getComponents()).stream().filter(e->e.getName()!=null&&e.getName().equals("turnIndicator")).findFirst().get());
+		if(game.getCurrentPlayer().getPlayerID()==this.ID){
+			turnIndicator.setText("It's your turn");
+		}else{
+			turnIndicator.setText("It's "+game.getCurrentPlayer().getName()+" - "+game.getCurrentPlayer().getPlayerID()+"turn");
+		}
 		
 		JTextPane textPane = (JTextPane)Arrays.asList(playerTab.getComponents()).stream().filter(e -> e.getName()!=null&&e.getName().equals("playerName")).findFirst().get();
 		textPane.setText(player.getName());
@@ -802,6 +817,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 		this.paintCouncil("mountain council");
 		this.paintCouncil("king council");
 		System.out.println("changed");
+		this.repaint();
 	}
 
 	private void paintCouncil(String councilName) {
@@ -810,6 +826,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 		JPanel council = (JPanel)Arrays.
 					asList(map.getComponents()).stream()
 					.filter(e->e.getName()!=null&&e.getName().equals(councilName)).findFirst().get();
+		council.removeAll();//è di prova!!
 		Region r = null;
 		Iterator<Councillor> gameCouncillor = null;
 		switch(councilName){
@@ -835,22 +852,22 @@ public class GUI extends JFrame implements ClientViewInterface {
 
 		JPanel councillor1 = new JPanel();
 		councillor1.setSize(councilDimension.width/4, councilDimension.height);
-		councillor1.setLocation(0,0);
+		councillor1.setLocation(councilDimension.width*3/4, 0);
 		councillor1.setBackground(gameCouncillor.next().getColor());
 		council.add(councillor1);
 		JPanel councillor2 = new JPanel();
 		councillor2.setSize(councilDimension.width/4, councilDimension.height);
-		councillor2.setLocation(councilDimension.width/4, 0);
+		councillor2.setLocation(councilDimension.width/2, 0);
 		councillor2.setBackground(gameCouncillor.next().getColor());
 		council.add(councillor2);
 		JPanel councillor3 = new JPanel();
 		councillor3.setSize(councilDimension.width/4, councilDimension.height);
-		councillor3.setLocation(councilDimension.width/2, 0);
+		councillor3.setLocation(councilDimension.width/4, 0);
 		councillor3.setBackground(gameCouncillor.next().getColor());
 		council.add(councillor3);
 		JPanel councillor4 = new JPanel();
 		councillor4.setSize(councilDimension.width/4, councilDimension.height);
-		councillor4.setLocation(councilDimension.width*3/4, 0);
+		councillor4.setLocation(0,0);
 		councillor4.setBackground(gameCouncillor.next().getColor());
 		council.add(councillor4);
 	}
