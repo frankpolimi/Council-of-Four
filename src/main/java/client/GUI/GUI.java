@@ -9,6 +9,7 @@ import java.awt.Scrollbar;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -23,6 +24,7 @@ import client.XMLReaderForClient;
 import model.game.BuildingPermit;
 import model.game.Game;
 import model.game.Player;
+import model.game.council.Councillor;
 import model.game.politics.PoliticsCard;
 import model.game.topology.City;
 import model.game.topology.Region;
@@ -217,22 +219,31 @@ public class GUI extends JFrame implements ClientViewInterface {
 		nobility.add(kingTile);
 		
 		JPanel seasideCouncil = new JPanel();
+		seasideCouncil.setOpaque(false);
+		seasideCouncil.setName("seaside council");
 		seasideCouncil.setSize(councilDimension);
-		seasideCouncil.setBounds(114, 98, 92, 21);
+		seasideCouncil.setLocation(nobilityPanelDimension.width*136/1000, nobilityPanelDimension.height*35/100);
 		nobility.add(seasideCouncil);
 		
 		JPanel hillCouncil = new JPanel();
+		hillCouncil.setOpaque(false);
+		hillCouncil.setName("hill council");
 		hillCouncil.setSize(councilDimension);
-		hillCouncil.setBounds(369, 98, 92, 21);
+		hillCouncil.setLocation(nobilityPanelDimension.width*439/1000, nobilityPanelDimension.height*35/100);
 		nobility.add(hillCouncil);
 		
 		JPanel mountainCouncil = new JPanel();
+		mountainCouncil.setOpaque(false);
+		mountainCouncil.setName("mountain council");
 		mountainCouncil.setSize(councilDimension);
-		mountainCouncil.setBounds(649, 98, 92, 21);
+		mountainCouncil.setLocation(nobilityPanelDimension.width*773/1000, nobilityPanelDimension.height*35/100);
 		nobility.add(mountainCouncil);
 		
 		JPanel kingCouncil = new JPanel();
-		kingCouncil.setBounds(529, 128, 92, 21);
+		kingCouncil.setOpaque(false);
+		kingCouncil.setName("king council");
+		kingCouncil.setSize(councilDimension);
+		kingCouncil.setLocation(nobilityPanelDimension.width*630/1000, nobilityPanelDimension.height*457/1000);
 		nobility.add(kingCouncil);
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
@@ -263,7 +274,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 		txtpnVps.setOpaque(false);
 		txtpnVps.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
 		txtpnVps.setEditable(false);
-		txtpnVps.setName("txtpnVps\r\n");
+		txtpnVps.setName("victory points");
 		txtpnVps.setText("0");
 		txtpnVps.setBounds(161, 49, 57, 20);
 		currentPlayer.add(txtpnVps);
@@ -276,6 +287,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 		JTextPane txtpnNps = new JTextPane();
 		txtpnNps.setOpaque(false);
 		txtpnNps.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
+		txtpnNps.setName("nobility points");
 		txtpnNps.setEditable(false);
 		txtpnNps.setText("0");
 		txtpnNps.setBounds(161, 90, 57, 20);
@@ -294,6 +306,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 		txtpnCoins.setOpaque(false);
 		txtpnCoins.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
 		txtpnCoins.setText("0");
+		txtpnCoins.setName("coins");
 		txtpnCoins.setEditable(false);
 		txtpnCoins.setBounds(399, 49, 57, 20);
 		currentPlayer.add(txtpnCoins);
@@ -307,7 +320,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 		txtpnAssistants.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
 		lblAssistants.setLabelFor(txtpnAssistants);
 		txtpnAssistants.setText("0");
-		txtpnAssistants.setName("txtpnVps\r\n");
+		txtpnAssistants.setName("assistants");
 		txtpnAssistants.setEditable(false);
 		txtpnAssistants.setBounds(399, 90, 57, 20);
 		currentPlayer.add(txtpnAssistants);
@@ -321,6 +334,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 		txtpnRemainingEmporiums.setOpaque(false);
 		lblRemainingEmporiums.setLabelFor(txtpnRemainingEmporiums);
 		txtpnRemainingEmporiums.setText("0");
+		txtpnRemainingEmporiums.setName("remaining emporiums");
 		txtpnRemainingEmporiums.setEditable(false);
 		txtpnRemainingEmporiums.setBounds(161, 132, 57, 20);
 		currentPlayer.add(txtpnRemainingEmporiums);
@@ -330,13 +344,15 @@ public class GUI extends JFrame implements ClientViewInterface {
 		currentPlayer.add(lblEmporiums);
 		
 		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setName("scroll pane");
 		lblEmporiums.setLabelFor(scrollPane);
 		scrollPane.setBounds(130, 175, 360, 82);
 		currentPlayer.add(scrollPane);
 		
-		JTextArea txtrCiaoSonoFrancesco = new JTextArea();
-		scrollPane.setViewportView(txtrCiaoSonoFrancesco);
-		txtrCiaoSonoFrancesco.setEditable(false);
+		JTextArea txtrEmporiums = new JTextArea();
+		txtrEmporiums.setName("emporiums");
+		scrollPane.setViewportView(txtrEmporiums);
+		txtrEmporiums.setEditable(false);
 		
 		JPanel colorPlayer = new JPanel();
 		colorPlayer.setName("colorPlayer");
@@ -365,8 +381,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 				/*ActionInput input = new ActionInput();
 				input.setVisible(true);
 				input.setAutoRequestFocus(true);
-				input.council();*/
-				/*
+				input.council();
 				input.permits();
 				input.politicsCard();
 				*/
@@ -671,25 +686,26 @@ public class GUI extends JFrame implements ClientViewInterface {
 		JPanel colorPlayer=(JPanel)(Arrays.asList(playerTab.getComponents()).stream().filter(e->e.getName()!=null&&e.getName().equals("colorPlayer")).findFirst().get());
 		colorPlayer.setBackground(player.getChosenColor());
 		
-		JTextPane textPane = (JTextPane)tabbedPane.getComponentAt(0).getComponentAt(66, 11);
+		
+		JTextPane textPane = (JTextPane)Arrays.asList(playerTab.getComponents()).stream().filter(e -> e.getName()!=null&&e.getName().equals("playerName")).findFirst().get();
 		textPane.setText(player.getName());
 		
-		textPane = (JTextPane)tabbedPane.getComponentAt(0).getComponentAt(161, 49);
+		textPane = (JTextPane)Arrays.asList(playerTab.getComponents()).stream().filter(e -> e.getName()!=null&&e.getName().equals("victory points")).findFirst().get();
 		textPane.setText(Integer.toString(player.getPoints()));
 		
-		textPane = (JTextPane)tabbedPane.getComponentAt(0).getComponentAt(399, 49);
+		textPane = (JTextPane)Arrays.asList(playerTab.getComponents()).stream().filter(e -> e.getName()!=null&&e.getName().equals("coins")).findFirst().get();
 		textPane.setText(Integer.toString(player.getCoins()));
 		
-		textPane = (JTextPane)tabbedPane.getComponentAt(0).getComponentAt(161, 90);
+		textPane = (JTextPane)Arrays.asList(playerTab.getComponents()).stream().filter(e -> e.getName()!=null&&e.getName().equals("nobility points")).findFirst().get();
 		textPane.setText(Integer.toString(player.getNobilityPoints()));
 		
-		textPane = (JTextPane)tabbedPane.getComponentAt(0).getComponentAt(399, 90);
+		textPane = (JTextPane)Arrays.asList(playerTab.getComponents()).stream().filter(e -> e.getName()!=null&&e.getName().equals("assistants")).findFirst().get();
 		textPane.setText(Integer.toString(player.getAssistants()));
 		
-		textPane = (JTextPane)tabbedPane.getComponentAt(0).getComponentAt(161, 132);
+		textPane = (JTextPane)Arrays.asList(playerTab.getComponents()).stream().filter(e -> e.getName()!=null&&e.getName().equals("remaining emporiums")).findFirst().get();
 		textPane.setText(Integer.toString(player.getRemainingEmporiums()));
 		
-		JScrollPane scrollPane = (JScrollPane)tabbedPane.getComponentAt(0).getComponentAt(130, 175);
+		JScrollPane scrollPane = (JScrollPane)Arrays.asList(playerTab.getComponents()).stream().filter(e -> e.getName()!=null&&e.getName().equals("scroll pane")).findFirst().get();
 		JTextArea textArea = (JTextArea)scrollPane.getComponent(0).getComponentAt(0, 0);
 		if(!player.getEmporium().isEmpty()){
 			String support = "";
@@ -765,9 +781,55 @@ public class GUI extends JFrame implements ClientViewInterface {
 					new Dimension(60, 56));
 		
 		
-		
+		this.paintCouncil("seaside council");
 		System.out.println("changed");
 	}
+
+	private void paintCouncil(String councilName) {
+		JPanel map = (JPanel)contentPane.getComponents()[0];
+		map = (JPanel)map.getComponents()[1];
+		JPanel council = (JPanel)Arrays.
+					asList(map.getComponents()).stream()
+					.filter(e->e.getName()!=null&&e.getName().equals(councilName)).findFirst().get();
+		Region r = null;
+		switch(councilName){
+			case "seaside council":{
+				r = game.getRegions().stream().filter(e->e.getName().equals("land")).findFirst().get();
+				break;
+			}
+			case "hill council":{
+				r = game.getRegions().stream().filter(e->e.getName().equals("hill")).findFirst().get();
+				break;
+			}
+			case "mountain council":{
+				r = game.getRegions().stream().filter(e->e.getName().equals("mountain")).findFirst().get();
+				break;
+			}
+		}
+		Iterator<Councillor> gameCouncillor = r.getCouncil().getCouncillors().iterator();
+		JPanel councillor1 = new JPanel();
+		councillor1.setSize(councilDimension.width/4, councilDimension.height);
+		councillor1.setLocation(0,0);
+		councillor1.setBackground(gameCouncillor.next().getColor());
+		council.add(councillor1);
+		JPanel councillor2 = new JPanel();
+		councillor2.setSize(councilDimension.width/4, councilDimension.height);
+		councillor2.setLocation(councilDimension.width/4,councilDimension.height/4);
+		councillor2.setBackground(gameCouncillor.next().getColor());
+		council.add(councillor2);
+		JPanel councillor3 = new JPanel();
+		councillor3.setSize(councilDimension.width/4, councilDimension.height);
+		councillor3.setLocation(councilDimension.width/2,councilDimension.height/2);
+		councillor3.setBackground(gameCouncillor.next().getColor());
+		council.add(councillor3);
+		JPanel councillor4 = new JPanel();
+		councillor4.setSize(councilDimension.width/4, councilDimension.height);
+		councillor4.setLocation(councilDimension.width*3/4,councilDimension.height*3/4);
+		councillor4.setBackground(gameCouncillor.next().getColor());
+		council.add(councillor4);
+	}
+
+
 
 	@Override
 	public int getId() {
