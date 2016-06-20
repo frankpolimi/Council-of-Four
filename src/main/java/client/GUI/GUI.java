@@ -356,7 +356,14 @@ public class GUI extends JFrame implements ClientViewInterface {
 		acquirePermit.setContentAreaFilled(false);
 		acquirePermit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(contentPane, "acquirePermit");
+				//JOptionPane.showMessageDialog(contentPane, "acquirePermit");
+				//TODO wip
+				ActionInput input = new ActionInput();
+				input.setVisible(true);
+				input.setAutoRequestFocus(true);
+				input.council();
+				input.permits();
+				input.politicsCard();
 			}
 		});
 		acquirePermit.setSize(actionButtonDimension);
