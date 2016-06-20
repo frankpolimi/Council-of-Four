@@ -216,8 +216,9 @@ public class GUI extends JFrame implements ClientViewInterface {
 		nobility.add(kingTile);
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setSize(new Dimension(510, 730));
-		tabbedPane.setLocation(840, 0);
+		tabbedPane.setSize(rightPanelDimension);
+		tabbedPane.setLocation(cardBoard.getWidth(), 0);
+
 		contentPane.add(tabbedPane);
 		
 		JPanel currentPlayer = new JPanel();
@@ -456,7 +457,6 @@ public class GUI extends JFrame implements ClientViewInterface {
 		Game.add(submitChat);
 		
 		Double nobilityCellRelativeX=0.064209275;
-		Double nobilityCellRelativeY=0.7890625;
 		Double space=0.033333333;
 		Dimension cellDim=new Dimension(12, 12);
 		int cellYPosition=(int) (nobilityPanelDimension.getHeight()*705/1000);
