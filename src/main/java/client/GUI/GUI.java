@@ -3,6 +3,7 @@ package client.GUI;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.Rectangle;
 import java.awt.Scrollbar;
 import java.awt.image.BufferedImage;
@@ -322,24 +323,6 @@ public class GUI extends JFrame implements ClientViewInterface {
 		colorPlayer.setBounds(tabbedPane.getWidth()/2, 0, 56, 51);
 		currentPlayer.add(colorPlayer);
 		
-		Double politicRelX=0.0686275;
-		Double politicRelY=0.39726;
-		Dimension politicDim=new Dimension((int)(0.89*tabbedPane.getWidth()),(int)(0.2288*tabbedPane.getHeight()));
-		
-		
-		JLabel politicCards=new JLabel();
-		JScrollPane scrollCards=new JScrollPane(politicCards);
-		scrollCards.setName("scrollCards");
-		politicCards.setName("politicCards");
-		scrollCards.setBounds((int)(politicRelX*tabbedPane.getWidth()),(int)(politicRelY*tabbedPane.getHeight()), politicDim.width, politicDim.height);
-		currentPlayer.add(scrollCards);
-		
-		Double buildingRelY=0.6849315;
-		JScrollPane buildingPermits = new JScrollPane();
-		buildingPermits.setBounds((int)(politicRelX*tabbedPane.getWidth()),(int)(buildingRelY*tabbedPane.getHeight()), politicDim.width, politicDim.height);
-		currentPlayer.add(buildingPermits);
-		buildingPermits.setName("buildingPermits");
-		
 				
 		JPanel Game = new JPanel();
 		tabbedPane.addTab("Game", null, Game, null);
@@ -619,10 +602,25 @@ public class GUI extends JFrame implements ClientViewInterface {
 		Player player = this.game.getPlayerByID(ID);
 		JTabbedPane tabbedPane = (JTabbedPane)this.contentPane.getComponents()[1];
 		JPanel playerTab=(JPanel)tabbedPane.getComponent(0);
-		JScrollPane scrollCards=(JScrollPane)(Arrays.asList(playerTab.getComponents()).stream().filter(e->e.getName()!=null&&e.getName().equals("scrollCards")).findFirst().get());
-		//JViewport viewportCards=scrollCards.getViewport();
-		//JLabel politicsCards=(JLabel)viewportCards.getComponent(0);
-		JLabel politicsCards=new JLabel();
+				
+		Double politicRelX=0.0686275;
+		Double politicRelY=0.39726;
+		Dimension politicDim=new Dimension((int)(0.89*tabbedPane.getWidth()),(int)(0.2288*tabbedPane.getHeight()));
+		
+		JScrollPane scrollCards=new JScrollPane();
+		scrollCards.setName("scrollCards");
+		scrollCards.setBounds((int)(politicRelX*tabbedPane.getWidth()),(int)(politicRelY*tabbedPane.getHeight()), politicDim.width, politicDim.height);
+		playerTab.add(scrollCards);
+		
+		/*
+		Double buildingRelY=0.6849315;
+		JScrollPane buildingPermits = new JScrollPane();
+		buildingPermits.setBounds((int)(politicRelX*tabbedPane.getWidth()),(int)(buildingRelY*tabbedPane.getHeight()), politicDim.width, politicDim.height);
+		playerTab.add(buildingPermits);
+		buildingPermits.setName("buildingPermits");*/
+		
+		JPanel politicsCards=new JPanel();
+		politicsCards.setLayout(new GridLayout(1, player.getCardsOwned().size()));
 		politicsCards.setName("politicsCards");
 		int dinstanceX=(int)(0.028634*scrollCards.getWidth());
 		int dinstanceY=(int)(0.02395*scrollCards.getHeight());
