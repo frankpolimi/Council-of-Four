@@ -382,10 +382,11 @@ public class GUI extends JFrame implements ClientViewInterface {
 			public void actionPerformed(ActionEvent e) {
 				//JOptionPane.showMessageDialog(contentPane, "acquirePermit");
 				//TODO wip
-				/*ActionInput input = new ActionInput();
+				AcquirePermitGUI input = new AcquirePermitGUI();
 				input.setVisible(true);
 				input.setAutoRequestFocus(true);
-				input.council();
+				input.council(game.getRegions());
+				/*
 				input.permits();
 				input.politicsCard();
 				*/
@@ -795,7 +796,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 		System.out.println("changed");
 	}
 
-	protected void paintCouncil(String councilName) {
+	private void paintCouncil(String councilName) {
 		JPanel map = (JPanel)contentPane.getComponents()[0];
 		map = (JPanel)map.getComponents()[1];
 		JPanel council = (JPanel)Arrays.
