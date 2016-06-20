@@ -244,7 +244,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 		
 		JPanel kingCouncil = new JPanel();
 		kingCouncil.setOpaque(false);
-		seasideCouncil.setLayout(null);
+		kingCouncil.setLayout(null);
 		kingCouncil.setName("king council");
 		kingCouncil.setSize(councilDimension);
 		kingCouncil.setLocation(nobilityPanelDimension.width*630/1000, nobilityPanelDimension.height*457/1000);
@@ -802,21 +802,28 @@ public class GUI extends JFrame implements ClientViewInterface {
 					asList(map.getComponents()).stream()
 					.filter(e->e.getName()!=null&&e.getName().equals(councilName)).findFirst().get();
 		Region r = null;
+		Iterator<Councillor> gameCouncillor = null;
 		switch(councilName){
 			case "seaside council":{
 				r = game.getRegions().stream().filter(e->e.getName().equals("land")).findFirst().get();
+				gameCouncillor = r.getCouncil().getCouncillors().iterator();
 				break;
 			}
 			case "hill council":{
 				r = game.getRegions().stream().filter(e->e.getName().equals("hill")).findFirst().get();
+				gameCouncillor = r.getCouncil().getCouncillors().iterator();
 				break;
 			}
 			case "mountain council":{
 				r = game.getRegions().stream().filter(e->e.getName().equals("mountain")).findFirst().get();
+				gameCouncillor = r.getCouncil().getCouncillors().iterator();
 				break;
 			}
+			default:{
+				gameCouncillor = game.getKingsCouncil().getCouncillors().iterator();
+			}
 		}
-		Iterator<Councillor> gameCouncillor = r.getCouncil().getCouncillors().iterator();
+
 		JPanel councillor1 = new JPanel();
 		councillor1.setSize(councilDimension.width/4, councilDimension.height);
 		councillor1.setLocation(0,0);
