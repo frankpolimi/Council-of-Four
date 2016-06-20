@@ -49,7 +49,8 @@ public class GUI extends JFrame implements ClientViewInterface {
 	private Game game;
 	private LocalStorage memoryContainer;
 	private int ID;
-	
+	private Request request=null;
+	private GUI thisObj=this;
 	
 	private JPanel contentPane;
 	
@@ -414,7 +415,8 @@ public class GUI extends JFrame implements ClientViewInterface {
 		electCouncillor.setContentAreaFilled(false);
 		electCouncillor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(contentPane, "electCouncillor");
+				ElectCouncillorFrame electCouncillor=new ElectCouncillorFrame(game, thisObj);
+				electCouncillor.setVisible(true);
 			}
 		});
 		electCouncillor.setSize(actionButtonDimension);
@@ -561,6 +563,10 @@ public class GUI extends JFrame implements ClientViewInterface {
 		
 	}*/
 	
+	public void setRequest(Request request) {
+		this.request = request;
+	}
+	
 	public BufferedImage getImage(String path) throws IOException{
 		File file=new File(path);
 		return ImageIO.read(file);
@@ -637,8 +643,10 @@ public class GUI extends JFrame implements ClientViewInterface {
 
 	@Override
 	public Request start() {
-		// TODO Auto-generated method stub
-		return null;
+		request=null;
+		while(request==null);
+		System.out.println("Richiesta arrivata "+request);
+		return request;
 	}
 
 	@Override
