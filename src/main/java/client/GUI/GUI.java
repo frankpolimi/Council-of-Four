@@ -791,6 +791,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 		this.paintCouncil("seaside council");
 		this.paintCouncil("hill council");
 		this.paintCouncil("mountain council");
+		this.paintCouncil("king council");
 		System.out.println("changed");
 	}
 
