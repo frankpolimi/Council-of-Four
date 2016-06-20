@@ -363,8 +363,10 @@ public class GUI extends JFrame implements ClientViewInterface {
 				input.setVisible(true);
 				input.setAutoRequestFocus(true);
 				input.council();
+				/*
 				input.permits();
 				input.politicsCard();
+				*/
 			}
 		});
 		acquirePermit.setSize(actionButtonDimension);
