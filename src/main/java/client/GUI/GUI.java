@@ -795,7 +795,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 		System.out.println("changed");
 	}
 
-	private void paintCouncil(String councilName) {
+	protected void paintCouncil(String councilName) {
 		JPanel map = (JPanel)contentPane.getComponents()[0];
 		map = (JPanel)map.getComponents()[1];
 		JPanel council = (JPanel)Arrays.
