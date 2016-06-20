@@ -680,8 +680,11 @@ public class GUI extends JFrame implements ClientViewInterface {
 			card.setOpaque(true);
 			politicsCards.add(card);
 		}
-		politicsCards.setBounds((int)(politicRelX*tabbedPane.getWidth()), (int)(politicRelY*tabbedPane.getHeight()), dinstanceX, politicDim.height);
-		playerTab.add(politicsCards);
+		//politicsCards.setBounds((int)(politicRelX*tabbedPane.getWidth()), (int)(politicRelY*tabbedPane.getHeight()), dinstanceX, politicDim.height);
+		//playerTab.add(politicsCards);
+		JScrollPane scrollCards=new JScrollPane(politicsCards);
+		scrollCards.setBounds((int)(politicRelX*tabbedPane.getWidth()), (int)(politicRelY*tabbedPane.getHeight()), politicDim.width, politicDim.height);
+		playerTab.add(scrollCards);
 		
 		JPanel colorPlayer=(JPanel)(Arrays.asList(playerTab.getComponents()).stream().filter(e->e.getName()!=null&&e.getName().equals("colorPlayer")).findFirst().get());
 		colorPlayer.setBackground(player.getChosenColor());
