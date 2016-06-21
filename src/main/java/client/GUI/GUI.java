@@ -437,7 +437,8 @@ public class GUI extends JFrame implements ClientViewInterface {
 		buildEmporiumByKing.setContentAreaFilled(false);
 		buildEmporiumByKing.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(contentPane, "buildEmporiumByKing");
+				BuildEmporiumByKingFrame kingFrame=new BuildEmporiumByKingFrame(game, thisObj);
+				kingFrame.setVisible(true);
 			}
 		});
 		buildEmporiumByKing.setSize(actionButtonDimension);
@@ -697,7 +698,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 		Player player = this.game.getPlayerByID(ID);
 		JTabbedPane tabbedPane = (JTabbedPane)this.contentPane.getComponents()[1];
 		JPanel playerTab=(JPanel)tabbedPane.getComponent(0);
-				
+		
 		Double politicRelX=0.0686275;
 		Double politicRelY=0.39726;
 		Dimension politicDim=new Dimension((int)(0.89*tabbedPane.getWidth()),(int)(0.2288*tabbedPane.getHeight()));
@@ -714,6 +715,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 			//card.setSize(cardDim);
 			politicsCards.add(card);
 		}
+		playerTab.remove(playerTab.getComponentAt(politicsCards.getX(), politicsCards.getY()));
 		playerTab.add(politicsCards);
 		JScrollPane scrollCards=new JScrollPane(politicsCards);
 		scrollCards.setBounds(politicsCards.getBounds());
@@ -730,6 +732,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 			//card.setSize(cardDim);
 			politicsCards.add(permit);
 		}
+		playerTab.remove(playerTab.getComponentAt(buildingPermits.getX(), buildingPermits.getY()));
 		playerTab.add(buildingPermits);
 		JScrollPane scrollPermits=new JScrollPane(buildingPermits,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		scrollPermits.setBounds(buildingPermits.getBounds());
@@ -768,7 +771,10 @@ public class GUI extends JFrame implements ClientViewInterface {
 		JTextArea textArea = (JTextArea)scrollPane.getComponent(0).getComponentAt(0, 0);
 		if(!player.getEmporium().isEmpty()){
 			String support = "";
-			player.getEmporium().stream().map(e -> support.concat(e.getCity().getName()+"\r\n"));
+			Iterator<String> it=player.getEmporium().stream().map(e -> e.getCity().getName()+"\r\n").iterator();
+			while(it.hasNext()){
+				support=support.concat(it.next());
+			}
 			textArea.setText(support);
 		}
 		else

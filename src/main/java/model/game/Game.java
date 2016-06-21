@@ -557,7 +557,13 @@ public class Game extends Observable<Change> implements Serializable, Remote{
 		players.add(new Player("io",1));
 		players.add(new Player("tu",2));
 		game.setPlayers(players);
-		System.out.println(game.toString());
+		City source=game.getKingsPosition();
+		City target=null;
+		for(City c:game.getAllCities()){
+			if(c.getFirstChar()=='H')
+				target=c;
+		}
+		System.out.println(game.getMap().howManyVertexPassed(source, target));
 	}
 
 	/**
