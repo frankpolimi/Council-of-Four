@@ -1,9 +1,12 @@
 package client.GUI;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Point;
 import java.awt.Toolkit;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -11,15 +14,22 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.MatteBorder;
 
+import model.actions.AcquirePermit;
+import model.actions.ElectCouncillor;
+import model.game.BuildingPermit;
+import model.game.Game;
+import model.game.council.Council;
 import model.game.council.Councillor;
+import model.game.council.RegionalCouncil;
+import model.game.politics.PoliticsCard;
 import model.game.topology.Region;
+import view.ActionRequest;
+import view.View;
 
-import javax.swing.AbstractButton;
-import javax.swing.ButtonGroup;
-import javax.swing.JButton;
-
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import java.awt.event.ActionEvent;
@@ -36,11 +46,24 @@ public class AcquirePermitGUI extends JFrame {
 	
 	private JPanel contentPane;
 	private Dimension monitorDimension=Toolkit.getDefaultToolkit().getScreenSize();
-	private Dimension frameDimension=new Dimension(monitorDimension.width*9/10, monitorDimension.height*3/4); 
+	private Dimension frameDimension=new Dimension(monitorDimension.width/2, monitorDimension.height/2); 
+	private Dimension councilsDim = new Dimension(frameDimension.width*987/1000, frameDimension.height/3);
+	private Dimension councilDimension = new Dimension(councilsDim.width*154/1000, councilsDim.height/2);
 	
-	public AcquirePermitGUI() {
+	private RegionalCouncil councilSelected;
+	private BuildingPermit permitSelected;
+	private ArrayList<PoliticsCard> cardsSelected;
+	private Game game;
+	private GUI gui;
+	
+	public AcquirePermitGUI(Game game, GUI gui) {
+		this.game = game;
+		this.gui = gui;
+		
 		this.setSize(frameDimension);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		cardsSelected = new ArrayList<PoliticsCard>();
 		
 		contentPane = new JPanel();
 		contentPane.setMinimumSize(frameDimension);
@@ -52,7 +75,14 @@ public class AcquirePermitGUI extends JFrame {
 		btnSend.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
+				if(permitSelected==null||councilSelected==null){
+					JOptionPane.showMessageDialog(null, "You have to choise one council and one permit", "Error", JOptionPane.ERROR_MESSAGE);
+				}else{
+					if(JOptionPane.showConfirmDialog(null, "Do you want to confirm your choise?", "Action", JOptionPane.YES_NO_OPTION)==0){		
+						gui.setRequest(new ActionRequest(new AcquirePermit(councilSelected, cardsSelected, permitSelected), gui.getId()));
+						setVisible(false);
+					}		
+				}
 			}
 		});
 		btnSend.setSize(frameDimension.width*72/1000, frameDimension.height*399/10000);
@@ -66,97 +96,70 @@ public class AcquirePermitGUI extends JFrame {
 		*/
 	}
 
-	public void council(Set<Region> regions) {
+	public void council() {
 		JPanel councils = new JPanel();
-		Dimension councilsDim = new Dimension(frameDimension.width*987/1000, frameDimension.height/3);
-		Dimension councilDimension = new Dimension(councilsDim.width*154/1000, councilsDim.height/2);
+		
 		councils.setBounds(0, 0, councilsDim.width, councilsDim.height);
 		contentPane.add(councils);
 		councils.setLayout(null);
-			
-		JButton region1 = new JButton();
-		region1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(contentPane, "land council");
-			}
-		});
-		region1.setName("land");
-		region1.setSize(councilDimension);
-		region1.setLocation(councilsDim.width*54/1000, councilsDim.height*146/1000);
-		councils.add(this.paintCouncil(region1, 
-					regions.stream().filter(e->e.getName()
-							.equals(region1.getName())).findFirst().get()));
-		region1.setContentAreaFilled(false);
-		region1.setVisible(true);
-		region1.setBorder(new MatteBorder(1, 1, 1, 1, new Color(0, 0, 0)));
-		councils.add(region1);
 		
-		JButton region2 = new JButton();
-		region2.setName("hill");
-		region2.setSize(councilDimension);
-		region2.setLocation(councilsDim.width*385/1000, councilsDim.height*146/1000);
-		councils.add(this.paintCouncil(region2, 
-					regions.stream().filter(e->e.getName()
-							.equals(region2.getName())).findFirst().get()));
-		region2.setContentAreaFilled(false);
-		region2.setVisible(true);
-		councils.add(region2);
-		
-		JButton region3 = new JButton();
-		region3.setName("mountain");
-		region3.setSize(councilDimension);
-		region3.setLocation(councilsDim.width*745/1000, councilsDim.height*146/1000);
-		councils.add(this.paintCouncil(region3, 
-				regions.stream().filter(e->e.getName()
-						.equals(region3.getName())).findFirst().get()));
-		region3.setContentAreaFilled(false);
-		region3.setBorder(new BevelBorder(0));
-		region3.setVisible(true);
-		councils.add(region3);
+		Region region = game.getRegions().stream().filter(e->e.getName().equalsIgnoreCase("land")).findFirst().get();
+		this.paintCouncil(councils, region, new Point(councilsDim.width*54/1000, councilsDim.height*146/1000));
+		region = game.getRegions().stream().filter(e->e.getName().equalsIgnoreCase("hill")).findFirst().get();
+		this.paintCouncil(councils, region, new Point(councilsDim.width*385/1000, councilsDim.height*146/1000));
+		region = game.getRegions().stream().filter(e->e.getName().equalsIgnoreCase("mountain")).findFirst().get();
+		this.paintCouncil(councils, region, new Point(councilsDim.width*745/1000, councilsDim.height*146/1000));
 	}
 	
-	private JPanel paintCouncil(JButton button, Region region) {
-		JPanel council = new JPanel();
+	private void paintCouncil(JPanel panel, Region region, Point p) {
 		Iterator<Councillor> gameCouncillor = region.getCouncil().getCouncillors().iterator();
-		Dimension councillorDimension = new Dimension(button.getWidth()/4, button.getHeight());
-		council.setSize(button.getSize());
-		council.setLocation(button.getLocation().x, button.getLocation().y);
+		Dimension councillorDimension = new Dimension(councilDimension.width/4, councilDimension.height);
+		
+		JPanel council = new JPanel();
+		council.setSize(councilDimension);
+		council.setLocation(p);
 		council.setLayout(null);
 		council.setVisible(true);
+		council.setName(region.getName()+"Council");
+		council.setVisible(true);
+		council.setBorder(new LineBorder(Color.BLACK));
+		panel.add(council);
 		
 		ImagePanel councillor1 = new ImagePanel(gameCouncillor.next().getImagePath(), councillorDimension);
 		councillor1.setSize(councillorDimension);
-		councillor1.setLocation(0,0);
+		councillor1.setLocation(panel.getWidth()*3/4,0);
 		councillor1.setVisible(true);
 		council.add(councillor1);
 		ImagePanel councillor2 = new ImagePanel(gameCouncillor.next().getImagePath(), councillorDimension);
 		councillor2.setSize(councillorDimension);
-		councillor2.setLocation(button.getWidth()/4, 0);
+		councillor2.setLocation(panel.getWidth()/2, 0);
 		councillor2.setVisible(true);
 		council.add(councillor2);
 		ImagePanel councillor3 = new ImagePanel(gameCouncillor.next().getImagePath(), councillorDimension);
 		councillor3.setSize(councillorDimension);
-		councillor3.setLocation(button.getWidth()/2, 0);
+		councillor3.setLocation(panel.getWidth()/4, 0);
 		councillor3.setVisible(true);
 		council.add(councillor3);
 		ImagePanel councillor4 = new ImagePanel(gameCouncillor.next().getImagePath(), councillorDimension);
 		councillor4.setSize(councillorDimension);
-		councillor4.setLocation(button.getWidth()*3/4, 0);
+		councillor4.setLocation(0, 0);
 		councillor4.setVisible(true);
 		council.add(councillor4);
-		return council;
-	}
+		council.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				for(Component c:contentPane.getComponents()){
+					if(c.getName()!=null&&c.getName().contains("Council"))
+						for(Component c2:((JPanel)c).getComponents()){
+							((JPanel)c2).setBorder(new LineBorder(Color.black,1));
+						}
+				}
 
-	private AbstractButton getRadioSelected(ButtonGroup group){
-		if(group==null)
-			throw new NullPointerException("Group is null");
-		Enumeration<AbstractButton> buttons=group.getElements();
-		AbstractButton button=buttons.nextElement();
-		if(button.isSelected()) return button;
-		while(buttons.hasMoreElements()){
-			button= buttons.nextElement();
-			if(button.isSelected()) return button;
-		}
-		return null;
+				for(Component c:council.getComponents()){
+					((JPanel)c).setBorder(new LineBorder(Color.yellow,3));
+				}
+				councilSelected=region.getCouncil();
+			}
+		});
 	}
 }

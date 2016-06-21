@@ -417,10 +417,9 @@ public class GUI extends JFrame implements ClientViewInterface {
 			public void actionPerformed(ActionEvent e) {
 				//JOptionPane.showMessageDialog(contentPane, "acquirePermit");
 				//TODO wip
-				AcquirePermitGUI input = new AcquirePermitGUI();
+				AcquirePermitGUI input = new AcquirePermitGUI(game, thisObj);
 				input.setVisible(true);
 				input.setAutoRequestFocus(true);
-				input.council(game.getRegions());
 				/*
 				input.permits();
 				input.politicsCard();
