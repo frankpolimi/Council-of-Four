@@ -61,7 +61,7 @@ public class AcquirePermitGUI extends JFrame {
 		this.gui = gui;
 		
 		this.setSize(frameDimension);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 		cardsSelected = new ArrayList<PoliticsCard>();
 		
@@ -71,6 +71,7 @@ public class AcquirePermitGUI extends JFrame {
 		contentPane.setSize(frameDimension);
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		this.council();
 		JButton btnSend = new JButton("Send");
 		btnSend.addMouseListener(new MouseAdapter() {
 			@Override
@@ -103,48 +104,23 @@ public class AcquirePermitGUI extends JFrame {
 		contentPane.add(councils);
 		councils.setLayout(null);
 		
-		Region region = game.getRegions().stream().filter(e->e.getName().equalsIgnoreCase("land")).findFirst().get();
-		this.paintCouncil(councils, region, new Point(councilsDim.width*54/1000, councilsDim.height*146/1000));
-		region = game.getRegions().stream().filter(e->e.getName().equalsIgnoreCase("hill")).findFirst().get();
-		this.paintCouncil(councils, region, new Point(councilsDim.width*385/1000, councilsDim.height*146/1000));
-		region = game.getRegions().stream().filter(e->e.getName().equalsIgnoreCase("mountain")).findFirst().get();
-		this.paintCouncil(councils, region, new Point(councilsDim.width*745/1000, councilsDim.height*146/1000));
+		this.createCouncilPanel(councils, new Point(councilsDim.width*54/1000, councilsDim.height*146/1000), "land");
+		this.createCouncilPanel(councils, new Point(councilsDim.width*385/1000, councilsDim.height*146/1000), "hill");
+		this.createCouncilPanel(councils, new Point(councilsDim.width*745/1000, councilsDim.height*146/1000), "mountain");
 	}
 	
-	private void paintCouncil(JPanel panel, Region region, Point p) {
-		Iterator<Councillor> gameCouncillor = region.getCouncil().getCouncillors().iterator();
-		Dimension councillorDimension = new Dimension(councilDimension.width/4, councilDimension.height);
-		
+	private void createCouncilPanel(JPanel panel, Point p, String name) {
 		JPanel council = new JPanel();
 		council.setSize(councilDimension);
 		council.setLocation(p);
 		council.setLayout(null);
 		council.setVisible(true);
-		council.setName(region.getName()+"Council");
+		council.setName(name);
 		council.setVisible(true);
 		council.setBorder(new LineBorder(Color.BLACK));
+		gui.paintCouncil(council, councilDimension);
 		panel.add(council);
 		
-		ImagePanel councillor1 = new ImagePanel(gameCouncillor.next().getImagePath(), councillorDimension);
-		councillor1.setSize(councillorDimension);
-		councillor1.setLocation(panel.getWidth()*3/4,0);
-		councillor1.setVisible(true);
-		council.add(councillor1);
-		ImagePanel councillor2 = new ImagePanel(gameCouncillor.next().getImagePath(), councillorDimension);
-		councillor2.setSize(councillorDimension);
-		councillor2.setLocation(panel.getWidth()/2, 0);
-		councillor2.setVisible(true);
-		council.add(councillor2);
-		ImagePanel councillor3 = new ImagePanel(gameCouncillor.next().getImagePath(), councillorDimension);
-		councillor3.setSize(councillorDimension);
-		councillor3.setLocation(panel.getWidth()/4, 0);
-		councillor3.setVisible(true);
-		council.add(councillor3);
-		ImagePanel councillor4 = new ImagePanel(gameCouncillor.next().getImagePath(), councillorDimension);
-		councillor4.setSize(councillorDimension);
-		councillor4.setLocation(0, 0);
-		councillor4.setVisible(true);
-		council.add(councillor4);
 		council.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -158,7 +134,7 @@ public class AcquirePermitGUI extends JFrame {
 				for(Component c:council.getComponents()){
 					((JPanel)c).setBorder(new LineBorder(Color.yellow,3));
 				}
-				councilSelected=region.getCouncil();
+				councilSelected=game.getRegions().stream().filter(t->t.getName().equals(council.getName())).findFirst().get().getCouncil();
 			}
 		});
 	}
