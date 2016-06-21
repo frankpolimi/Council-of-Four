@@ -701,12 +701,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 		Double politicRelX=0.0686275;
 		Double politicRelY=0.39726;
 		Dimension politicDim=new Dimension((int)(0.89*tabbedPane.getWidth()),(int)(0.2288*tabbedPane.getHeight()));
-		/*
-		Double buildingRelY=0.6849315;
-		JScrollPane buildingPermits = new JScrollPane();
-		buildingPermits.setBounds((int)(politicRelX*tabbedPane.getWidth()),(int)(buildingRelY*tabbedPane.getHeight()), politicDim.width, politicDim.height);
-		playerTab.add(buildingPermits);
-		buildingPermits.setName("buildingPermits");*/
+		Double buildingRelY=0.65;
 		
 		JPanel politicsCards=new JPanel();
 		politicsCards.setBounds((int)(politicRelX*tabbedPane.getWidth()), (int)(politicRelY*tabbedPane.getHeight()), politicDim.width, politicDim.height);
@@ -723,6 +718,23 @@ public class GUI extends JFrame implements ClientViewInterface {
 		JScrollPane scrollCards=new JScrollPane(politicsCards);
 		scrollCards.setBounds(politicsCards.getBounds());
 		playerTab.add(scrollCards);
+		
+		JPanel buildingPermits=new JPanel();
+		buildingPermits.setBounds((int)(politicRelX*tabbedPane.getWidth()),(int)(buildingRelY*tabbedPane.getHeight()), politicDim.width, politicDim.height);
+		buildingPermits.setLayout(new BoxLayout(buildingPermits,BoxLayout.X_AXIS));
+		buildingPermits.setName("buildingPermits");
+		Dimension buildingDim=new Dimension((int)((0.9*politicDim.height)*(235/258)),(int)(0.90*politicDim.height));
+		for(int i=0;i<player.getBuildingPermits().size();i++){
+			JLabel permit=new ImageLabel(player.getBuildingPermits().get(i).getImagePath(),buildingDim);
+			permit.setName("buildingPermit"+i);
+			//card.setSize(cardDim);
+			politicsCards.add(permit);
+		}
+		playerTab.add(buildingPermits);
+		JScrollPane scrollPermits=new JScrollPane(buildingPermits,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		scrollPermits.setBounds(buildingPermits.getBounds());
+		playerTab.add(scrollPermits);
+		
 		
 		JPanel colorPlayer=(JPanel)(Arrays.asList(playerTab.getComponents()).stream().filter(e->e.getName()!=null&&e.getName().equals("colorPlayer")).findFirst().get());
 		colorPlayer.setBackground(player.getChosenColor());
