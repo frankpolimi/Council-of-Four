@@ -60,7 +60,14 @@ public class BuildEmporiumByKing extends MainAction
 			}
 		
 		int distancePayment=2;
-		distancePayment*=game.getMap().howManyVertexPassed(game.getKingsPosition(), city);
+		for(City c:game.getAllCities())
+		{
+			if(c.equals(city))
+			{
+				distancePayment*=game.getMap().howManyVertexPassed(game.getKingsPosition(), c);
+				break;
+			}
+		}
 		if(!game.getCurrentPlayer().checkCoins(distancePayment))
 		{
 			throw new IllegalStateException("Not enough coins to move king. The Player needs:" +distancePayment+" coins to pay, 2 for each step");
