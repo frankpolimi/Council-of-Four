@@ -57,7 +57,7 @@ public class Controller implements Observer<Request>{
 		}
 		
 		//EFFETTUARE CONTROLLO SU GIOCATORE CORRENTE!!
-		if(request.getID()!=game.getCurrentPlayer().getPlayerID()){
+		if(request.getID()!=game.getCurrentPlayer().getPlayerID() && !request.getClass().equals(QuitRequest.class)){
 			throw new IllegalArgumentException("It's not your turn!");
 		}else{
 			game.getTimer().cancel();
