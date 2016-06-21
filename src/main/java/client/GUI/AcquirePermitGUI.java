@@ -122,11 +122,14 @@ public class AcquirePermitGUI extends JFrame {
 		regionalPermits.setName(string+"Permit");
 		regionalPermits.setBorder(new LineBorder(Color.BLACK));
 		permits.add(regionalPermits);
+		
 		Iterator<BuildingPermit> faceUps = game.getRegions().stream().filter(e->e.getName().equals(string))
 											.findFirst().get().getPermitsDeck().getFaceUpPermits().iterator();
+		
 		JPanel faceUp2 = new ImagePanel(faceUps.next().getImagePath(), faceUpDimension);
 		faceUp2.setVisible(true);
 		faceUp2.setName("faceUp2"+string);
+		faceUp2.setLocation(faceUpDimension.width, 0);
 		faceUp2.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -143,9 +146,11 @@ public class AcquirePermitGUI extends JFrame {
 							.findFirst().get().getPermitsDeck().getFaceUpPermits().iterator().next();
 			}
 		});
+		
 		JPanel faceUp1 = new ImagePanel(faceUps.next().getImagePath(), faceUpDimension);
 		faceUp1.setVisible(true);
 		faceUp1.setName("faceUp1"+string);
+		faceUp1.setLocation(0,0);
 		faceUp1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -164,6 +169,9 @@ public class AcquirePermitGUI extends JFrame {
 				permitSelected = tmp.next();
 			}
 		});
+		
+		permits.add(faceUp1);
+		permits.add(faceUp2);
 		
 	}
 

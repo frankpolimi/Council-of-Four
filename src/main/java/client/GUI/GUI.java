@@ -778,13 +778,8 @@ public class GUI extends JFrame implements ClientViewInterface {
 		JPanel panel = (JPanel)this.contentPane.getComponent(0);
 		ImagePanel imagePanel = (ImagePanel)panel.getComponentAt(0, singleRegionDimension.height);
 		
-		Iterator<Region> regionIterator = this.game.getRegions().iterator();
-		Region region = null;
-		while(regionIterator.hasNext()){
-			region = regionIterator.next();
-			if("land".equals(region.getName()))
-				break;
-		}
+		 
+		Region region = this.game.getRegions().stream().filter(e->e.getName().equals("land")).findFirst().get();
 		Iterator<BuildingPermit> permitIterator = region.getPermitsDeck().getFaceUpPermits().iterator();
 		ImagePanel seasideFaceupPermit1 = new ImagePanel(permitIterator.next().getImagePath(), permitsDeckDimension);
 		seasideFaceupPermit1.setSize(permitsDeckDimension);
@@ -797,12 +792,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 		seasideFaceupPermit2.setVisible(true);
 		imagePanel.add(seasideFaceupPermit2);
 
-		regionIterator = this.game.getRegions().iterator();
-		while(regionIterator.hasNext()){
-			region = regionIterator.next();
-			if("hill".equals(region.getName()))
-				break;
-		}
+		region = this.game.getRegions().stream().filter(e->e.getName().equals("hill")).findFirst().get();
 		permitIterator = region.getPermitsDeck().getFaceUpPermits().iterator();
 		ImagePanel hillFaceupPermit1 = new ImagePanel(permitIterator.next().getImagePath(), permitsDeckDimension);
 		hillFaceupPermit1.setSize(permitsDeckDimension);
@@ -815,12 +805,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 		hillFaceupPermit2.setVisible(true);
 		imagePanel.add(hillFaceupPermit2);
 		
-		regionIterator = this.game.getRegions().iterator();
-		while(regionIterator.hasNext()){
-			region = regionIterator.next();
-			if("mountain".equals(region.getName()))
-				break;
-		}
+		region = this.game.getRegions().stream().filter(e->e.getName().equals("mountain")).findFirst().get();
 		permitIterator = region.getPermitsDeck().getFaceUpPermits().iterator();
 		ImagePanel mountainFaceupPermit1 = new ImagePanel(permitIterator.next().getImagePath(), permitsDeckDimension);
 		mountainFaceupPermit1.setSize(permitsDeckDimension);
