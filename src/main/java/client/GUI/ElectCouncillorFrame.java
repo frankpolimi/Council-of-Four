@@ -84,7 +84,7 @@ public class ElectCouncillorFrame extends JFrame {
 		Region land=game.getRegions().stream().filter(e->e.getName().equalsIgnoreCase("land")).findFirst().get();
 		Region hill=game.getRegions().stream().filter(e->e.getName().equalsIgnoreCase("hill")).findFirst().get();
 		Region mountain=game.getRegions().stream().filter(e->e.getName().equalsIgnoreCase("mountain")).findFirst().get();
-		Dimension regionDimension=new Dimension((int)((119/XREF)*getWidth()), (int)((39/YREF)*getHeight()));
+		Dimension regionDimension=new Dimension((int)((116/XREF)*getWidth()), (int)((39/YREF)*getHeight()));
 		int x=(int)((23/XREF)*getWidth());
 		this.createCouncilPanel(land.getName(),land.getCouncil(), x, regionDimension);
 		x+=(int)((160/XREF)*getWidth());

@@ -631,6 +631,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 		seaside.setBounds(0, 0, singleRegionDimension.width, singleRegionDimension.height);
 		
 		ImagePanel seasideTile = new ImagePanel(pathSeasideTile, new Dimension(51, 30));
+		seasideTile.setName("landTile");
 		seasideTile.setOpaque(false);
 		seasideTile.setBounds(211, 383, 51, 30);
 		seaside.add(seasideTile);
@@ -645,6 +646,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 		
 		ImagePanel hillTile = new ImagePanel(pathHillTile, new Dimension(51, 27));
 		hillTile.setOpaque(false);
+		hillTile.setName("hillTile");
 		hillTile.setBounds(184, 383, 51, 27);
 		hill.add(hillTile);
 		
@@ -660,6 +662,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 		mountainTile.setOpaque(false);
 		mountainTile.setBounds(183, 383, 51, 30);
 		mountain.add(mountainTile);
+		mountainTile.setName("mountainTile");
 				
 	}
 	
@@ -692,18 +695,33 @@ public class GUI extends JFrame implements ClientViewInterface {
 	}
 	
 	private Component getComponentByName(String name, JPanel targetPanel){
-		return Arrays.asList(targetPanel.getComponents()).stream().filter(e->e.getName()!=null&&e.getName().equalsIgnoreCase(name)).findFirst().get();
-	}
-	
-	private JPanel getCityPanel(String name, JPanel regions){
-		City kingPosition=game.getKingsPosition();
-		for(Component regs:regions.getComponents()){
-			JPanel region=(JPanel)regs;
-			for(Component reg:region.getComponents()){
-				System.out.println(this.getComponentByName(name, (JPanel)reg));
-			}
+		for(Component c:targetPanel.getComponents()){
+			if(c.getName()!=null&&c.getName().equalsIgnoreCase(name))
+				return c;
 		}
 		return null;
+	}
+	
+	private void updateCityPanel(String name, JPanel regions){
+		for(Component regs:regions.getComponents()){
+			JPanel region=(JPanel)regs;
+			for(Component city:region.getComponents()){
+				JPanel kingPanel=(JPanel)this.getComponentByName("kingPanel", (JPanel)city);
+				if(kingPanel!=null){
+					JPanel newKingPanel;
+					if(city.getName().equalsIgnoreCase(name)){
+						newKingPanel=new ImagePanel("src/main/resources/Immagini/corona.png",kingPanel.getSize());
+					}else{
+						newKingPanel=new JPanel();
+					}
+					newKingPanel.setBounds(kingPanel.getBounds());
+					newKingPanel.setOpaque(false);
+					newKingPanel.setName(kingPanel.getName());
+					((JPanel)city).remove(kingPanel);
+					((JPanel)city).add(newKingPanel);
+				}
+			}
+		}
 	}
 
 	@Override
@@ -713,7 +731,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 			return;
 		
 		JPanel regions=(JPanel)this.contentPane.getComponents()[0].getComponentAt(0, 0);
-		this.getCityPanel(String.valueOf(game.getKingsPosition().getFirstChar()), regions);
+		this.updateCityPanel(String.valueOf(game.getKingsPosition().getFirstChar()), regions);
 		
 		
 		Player player = this.game.getPlayerByID(ID);

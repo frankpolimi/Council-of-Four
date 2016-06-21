@@ -70,12 +70,13 @@ public class XMLReaderForClient {
 				if(!city.getBonusImagePath().isEmpty()){
 					JPanel bonus=new ImagePanel(bonuses.get(cityElement.getAttributeValue("name").charAt(0)).getBonusImagePath(), bonusDim);
 					bonus.setOpaque(false);
-					bonus.setBounds(newPanel.getX(), newPanel.getY(), bonusDim.width, bonusDim.height);
+					bonus.setBounds(0, 0, bonusDim.width, bonusDim.height);
 					bonus.setLayout(null);
-					regionPanel.add(bonus);
+					newPanel.add(bonus);
 					kingPanel=new JPanel();
 				}else{
 					kingPanel=new ImagePanel("src/main/resources/Immagini/corona.png",kingDim);
+					kingPanel.setOpaque(false);
 				}
 				
 				kingPanel.setName("kingPanel");
