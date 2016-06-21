@@ -229,7 +229,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 		JPanel seasideCouncil = new JPanel();
 		seasideCouncil.setOpaque(false);
 		seasideCouncil.setLayout(null);
-		seasideCouncil.setName("land");
+		seasideCouncil.setName("landCouncil");
 		seasideCouncil.setSize(councilDimension);
 		seasideCouncil.setLocation(nobilityPanelDimension.width*136/1000, nobilityPanelDimension.height*35/100);
 		nobility.add(seasideCouncil);
@@ -237,7 +237,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 		JPanel hillCouncil = new JPanel();
 		hillCouncil.setOpaque(false);
 		hillCouncil.setLayout(null);
-		hillCouncil.setName("hill");
+		hillCouncil.setName("hillCouncil");
 		hillCouncil.setSize(councilDimension);
 		hillCouncil.setLocation(nobilityPanelDimension.width*439/1000, nobilityPanelDimension.height*35/100);
 		nobility.add(hillCouncil);
@@ -245,7 +245,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 		JPanel mountainCouncil = new JPanel();
 		mountainCouncil.setOpaque(false);
 		mountainCouncil.setLayout(null);
-		mountainCouncil.setName("mountain");
+		mountainCouncil.setName("mountainCouncil");
 		mountainCouncil.setSize(councilDimension);
 		mountainCouncil.setLocation(nobilityPanelDimension.width*773/1000, nobilityPanelDimension.height*35/100);
 		nobility.add(mountainCouncil);
@@ -845,15 +845,15 @@ public class GUI extends JFrame implements ClientViewInterface {
 		
 		JPanel council = (JPanel)Arrays.
 				asList(map.getComponents()).stream()
-				.filter(e->e.getName()!=null&&e.getName().equals("land")).findFirst().get();
+				.filter(e->e.getName()!=null&&e.getName().equals("landCouncil")).findFirst().get();
 		this.paintCouncil(council, this.councilDimension);
 		council = (JPanel)Arrays.
 				asList(map.getComponents()).stream()
-				.filter(e->e.getName()!=null&&e.getName().equals("hill")).findFirst().get();
+				.filter(e->e.getName()!=null&&e.getName().equals("hillCouncil")).findFirst().get();
 		this.paintCouncil(council, this.councilDimension);
 		council = (JPanel)Arrays.
 				asList(map.getComponents()).stream()
-				.filter(e->e.getName()!=null&&e.getName().equals("mountain")).findFirst().get();
+				.filter(e->e.getName()!=null&&e.getName().equals("mountainCouncil")).findFirst().get();
 		this.paintCouncil(council, this.councilDimension);
 		council = (JPanel)Arrays.
 				asList(map.getComponents()).stream()
@@ -869,17 +869,17 @@ public class GUI extends JFrame implements ClientViewInterface {
 		Region r = null;
 		Iterator<Councillor> gameCouncillor = null;
 		switch(council.getName()){
-			case "land":{
+			case "landCouncil":{
 				r = game.getRegions().stream().filter(e->e.getName().equals("land")).findFirst().get();
 				gameCouncillor = r.getCouncil().getCouncillors().iterator();
 				break;
 			}
-			case "hill":{
+			case "hillCouncil":{
 				r = game.getRegions().stream().filter(e->e.getName().equals("hill")).findFirst().get();
 				gameCouncillor = r.getCouncil().getCouncillors().iterator();
 				break;
 			}
-			case "mountain":{
+			case "mountainCouncil":{
 				r = game.getRegions().stream().filter(e->e.getName().equals("mountain")).findFirst().get();
 				gameCouncillor = r.getCouncil().getCouncillors().iterator();
 				break;
@@ -892,18 +892,22 @@ public class GUI extends JFrame implements ClientViewInterface {
 		JPanel councillor1 = new ImagePanel(gameCouncillor.next().getImagePath(), councillorDimension);
 		councillor1.setSize(councillorDimension);
 		councillor1.setLocation(councilDimension.width*3/4, 0);
+		councillor1.setOpaque(false);
 		council.add(councillor1);
 		JPanel councillor2 = new ImagePanel(gameCouncillor.next().getImagePath(), councillorDimension);
 		councillor2.setSize(councillorDimension);
 		councillor2.setLocation(councilDimension.width/2, 0);
+		councillor2.setOpaque(false);
 		council.add(councillor2);
 		JPanel councillor3 = new ImagePanel(gameCouncillor.next().getImagePath(), councillorDimension);
 		councillor3.setSize(councillorDimension);
 		councillor3.setLocation(councilDimension.width/4, 0);
+		councillor3.setOpaque(false);
 		council.add(councillor3);
 		JPanel councillor4 = new ImagePanel(gameCouncillor.next().getImagePath(), councillorDimension);
 		councillor4.setSize(councillorDimension);
 		councillor4.setLocation(0,0);
+		councillor4.setOpaque(false);
 		council.add(councillor4);
 	}
 

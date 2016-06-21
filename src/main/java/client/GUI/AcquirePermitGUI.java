@@ -47,8 +47,9 @@ public class AcquirePermitGUI extends JFrame {
 	private JPanel contentPane;
 	private Dimension monitorDimension=Toolkit.getDefaultToolkit().getScreenSize();
 	private Dimension frameDimension=new Dimension(monitorDimension.width/2, monitorDimension.height/2); 
-	private Dimension councilsDim = new Dimension(frameDimension.width*987/1000, frameDimension.height/3);
-	private Dimension councilDimension = new Dimension(councilsDim.width*154/1000, councilsDim.height/2);
+	private Dimension sectionDimension = new Dimension(frameDimension.width*987/1000, frameDimension.height*26/100);
+	private Dimension councilDimension = new Dimension(sectionDimension.width*154/1000, sectionDimension.height/2);
+	private Dimension permitsDimension = new Dimension(sectionDimension.width/5, sectionDimension.height/2);
 	
 	private RegionalCouncil councilSelected;
 	private BuildingPermit permitSelected;
@@ -71,7 +72,6 @@ public class AcquirePermitGUI extends JFrame {
 		contentPane.setSize(frameDimension);
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		this.council();
 		JButton btnSend = new JButton("Send");
 		btnSend.addMouseListener(new MouseAdapter() {
 			@Override
@@ -87,36 +87,93 @@ public class AcquirePermitGUI extends JFrame {
 			}
 		});
 		btnSend.setSize(frameDimension.width*72/1000, frameDimension.height*399/10000);
-		btnSend.setLocation(frameDimension.width*820/1000, frameDimension.height*873/1000);
-		contentPane.add(btnSend);		
-		/*
-		JButton btnAbort = new JButton("Abort");
-		btnAbort.setSize(frameDimension.width*72/1000, frameDimension.height*399/10000);
-		btnAbort.setLocation(frameDimension.width*906/1000, frameDimension.height*873/1000);
-		contentPane.add(btnAbort);
-		*/
-	}
-
-	public void council() {
-		JPanel councils = new JPanel();
+		btnSend.setLocation(frameDimension.width*82/100, frameDimension.height*823/1000);
+		contentPane.add(btnSend);
 		
-		councils.setBounds(0, 0, councilsDim.width, councilsDim.height);
+		JPanel councils = new JPanel();
+		councils.setBounds(0, 0, sectionDimension.width, sectionDimension.height);
 		contentPane.add(councils);
 		councils.setLayout(null);
+		this.createCouncilPanel(councils, new Point(sectionDimension.width*54/1000, sectionDimension.height*146/1000), "land");
+		this.createCouncilPanel(councils, new Point(sectionDimension.width*385/1000, sectionDimension.height*146/1000), "hill");
+		this.createCouncilPanel(councils, new Point(sectionDimension.width*745/1000, sectionDimension.height*146/1000), "mountain");
 		
-		this.createCouncilPanel(councils, new Point(councilsDim.width*54/1000, councilsDim.height*146/1000), "land");
-		this.createCouncilPanel(councils, new Point(councilsDim.width*385/1000, councilsDim.height*146/1000), "hill");
-		this.createCouncilPanel(councils, new Point(councilsDim.width*745/1000, councilsDim.height*146/1000), "mountain");
+		JPanel permits = new JPanel();
+		permits.setBounds(0, sectionDimension.height, sectionDimension.width, sectionDimension.height);
+		contentPane.add(permits);
+		permits.setLayout(null);
+		this.createPermitsPanel(permits, new Point(sectionDimension.width*54/1000, sectionDimension.height*146/1000), "land");
+		this.createPermitsPanel(permits, new Point(sectionDimension.width*385/1000, sectionDimension.height*146/1000), "hill");
+		this.createPermitsPanel(permits, new Point(sectionDimension.width*745/1000, sectionDimension.height*146/1000), "mountain");
+		
+		JPanel cards = new JPanel();
+		cards.setBounds(0, 2*sectionDimension.height, sectionDimension.width, sectionDimension.height);
+		contentPane.add(cards);
+		cards.setLayout(null);
 	}
 	
+	private void createPermitsPanel(JPanel permits, Point point, String string) {
+		Dimension faceUpDimension = new Dimension(permitsDimension.width/2, permitsDimension.height);
+		JPanel regionalPermits = new JPanel();
+		regionalPermits.setSize(permitsDimension);
+		regionalPermits.setLocation(point);
+		regionalPermits.setLayout(null);
+		regionalPermits.setVisible(true);
+		regionalPermits.setName(string+"Permit");
+		regionalPermits.setBorder(new LineBorder(Color.BLACK));
+		permits.add(regionalPermits);
+		Iterator<BuildingPermit> faceUps = game.getRegions().stream().filter(e->e.getName().equals(string))
+											.findFirst().get().getPermitsDeck().getFaceUpPermits().iterator();
+		JPanel faceUp2 = new ImagePanel(faceUps.next().getImagePath(), faceUpDimension);
+		faceUp2.setVisible(true);
+		faceUp2.setName("faceUp2"+string);
+		faceUp2.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				for(Component c:contentPane.getComponents()){
+					if(c.getName()!=null&&c.getName().contains("Permit"))
+						for(Component c2:((JPanel)c).getComponents()){
+							((JPanel)c2).setBorder(new LineBorder(Color.black,1));
+						}
+				}
+				for(Component c:contentPane.getComponents())
+					if(c.getName().equalsIgnoreCase("faceup2"+string))
+						((JPanel)c).setBorder(new LineBorder(Color.yellow,3));
+				permitSelected = game.getRegions().stream().filter(t->t.getName().equals(string))
+							.findFirst().get().getPermitsDeck().getFaceUpPermits().iterator().next();
+			}
+		});
+		JPanel faceUp1 = new ImagePanel(faceUps.next().getImagePath(), faceUpDimension);
+		faceUp1.setVisible(true);
+		faceUp1.setName("faceUp1"+string);
+		faceUp1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				for(Component c:contentPane.getComponents()){
+					if(c.getName()!=null&&c.getName().contains("Permit"))
+						for(Component c2:((JPanel)c).getComponents()){
+							((JPanel)c2).setBorder(new LineBorder(Color.black,1));
+						}
+				}
+				for(Component c:contentPane.getComponents())
+					if(c.getName().equalsIgnoreCase("faceUp1"+string))
+						((JPanel)c).setBorder(new LineBorder(Color.yellow,3));
+				Iterator<BuildingPermit> tmp =game.getRegions().stream().filter(t->t.getName().equals(string))
+							.findFirst().get().getPermitsDeck().getFaceUpPermits().iterator();
+				tmp.next();
+				permitSelected = tmp.next();
+			}
+		});
+		
+	}
+
 	private void createCouncilPanel(JPanel panel, Point p, String name) {
 		JPanel council = new JPanel();
 		council.setSize(councilDimension);
 		council.setLocation(p);
 		council.setLayout(null);
 		council.setVisible(true);
-		council.setName(name);
-		council.setVisible(true);
+		council.setName(name+"Council");
 		council.setBorder(new LineBorder(Color.BLACK));
 		gui.paintCouncil(council, councilDimension);
 		panel.add(council);
