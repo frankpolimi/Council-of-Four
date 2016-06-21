@@ -178,6 +178,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 		nobility.setSize(nobilityPanelDimension);
 		cardBoard.add(nobility);
 		nobility.setLayout(null);
+		nobility.setName("nobility");
 		nobility.setBounds(0, singleRegionDimension.height, nobilityPanelDimension.width, nobilityPanelDimension.height);
 				
 		ImagePanel seasideDeck = new ImagePanel(pathSeasideDeck, permitsDeckDimension);
@@ -693,7 +694,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 		return request;
 	}
 	
-	private Component getComponentByName(String name, JPanel targetPanel){
+	public Component getComponentByName(String name, JPanel targetPanel){
 		for(Component c:targetPanel.getComponents()){
 			if(c.getName()!=null&&c.getName().equalsIgnoreCase(name))
 				return c;
@@ -879,25 +880,34 @@ public class GUI extends JFrame implements ClientViewInterface {
 					Integer.toString(5-this.game.getKingTileList().size()+1)+".jpg", 
 					new Dimension(60, 56));
 		
+		JPanel map = (JPanel)contentPane.getComponents()[0];
+		map = (JPanel)map.getComponents()[1];
 		
-		this.paintCouncil("seaside council");
-		this.paintCouncil("hill council");
-		this.paintCouncil("mountain council");
-		this.paintCouncil("king council");
+		JPanel council = (JPanel)Arrays.
+				asList(map.getComponents()).stream()
+				.filter(e->e.getName()!=null&&e.getName().equals("seaside council")).findFirst().get();
+		this.paintCouncil(council);
+		council = (JPanel)Arrays.
+				asList(map.getComponents()).stream()
+				.filter(e->e.getName()!=null&&e.getName().equals("hill council")).findFirst().get();
+		this.paintCouncil(council);
+		council = (JPanel)Arrays.
+				asList(map.getComponents()).stream()
+				.filter(e->e.getName()!=null&&e.getName().equals("mountain council")).findFirst().get();
+		this.paintCouncil(council);
+		council = (JPanel)Arrays.
+				asList(map.getComponents()).stream()
+				.filter(e->e.getName()!=null&&e.getName().equals("king council")).findFirst().get();
+		this.paintCouncil(council);
 		System.out.println("changed");
 		this.repaint();
 	}
 
-	private void paintCouncil(String councilName) {
-		JPanel map = (JPanel)contentPane.getComponents()[0];
-		map = (JPanel)map.getComponents()[1];
-		JPanel council = (JPanel)Arrays.
-					asList(map.getComponents()).stream()
-					.filter(e->e.getName()!=null&&e.getName().equals(councilName)).findFirst().get();
+	private void paintCouncil(JPanel council) {
 		council.removeAll();//è di prova!!
 		Region r = null;
 		Iterator<Councillor> gameCouncillor = null;
-		switch(councilName){
+		switch(council.getName()){
 			case "seaside council":{
 				r = game.getRegions().stream().filter(e->e.getName().equals("land")).findFirst().get();
 				gameCouncillor = r.getCouncil().getCouncillors().iterator();
