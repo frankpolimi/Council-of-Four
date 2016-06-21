@@ -21,6 +21,7 @@ import java.awt.Toolkit;
 import javax.swing.border.LineBorder;
 import client.ClientViewInterface;
 import client.XMLReaderForClient;
+import model.actions.SkipAction;
 import model.game.BuildingPermit;
 import model.game.Game;
 import model.game.Player;
@@ -28,14 +29,19 @@ import model.game.council.Councillor;
 import model.game.politics.PoliticsCard;
 import model.game.topology.City;
 import model.game.topology.Region;
+import view.ActionRequest;
 import view.LocalStorage;
 import view.Request;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
+
 import javax.swing.border.MatteBorder;
 import org.jdom2.JDOMException;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
 import java.awt.SystemColor;
 import javax.swing.border.BevelBorder;
@@ -373,11 +379,12 @@ public class GUI extends JFrame implements ClientViewInterface {
 		
 		
 		
-				
+		//ACTIONS		
 		JPanel gamePanel = new JPanel();
 		tabbedPane.addTab("Game", null, gamePanel, null);
-		gamePanel.setLayout(new BoxLayout(gamePanel, BoxLayout.Y_AXIS));
-			
+		//gamePanel.setLayout(new BoxLayout(gamePanel, BoxLayout.Y_AXIS));
+		gamePanel.setLayout(null);	
+		
 		ImagePanel actions = new ImagePanel(pathAction, actionDimension);
 		actions.setSize(actionDimension);
 		gamePanel.add(actions);
@@ -386,6 +393,20 @@ public class GUI extends JFrame implements ClientViewInterface {
 		JButton skipAction=new JButton("SKIP TO THE NEXT PLAYER");
 		skipAction.setName("skipActionButton");
 		skipAction.setBounds(0,actionDimension.height,actionDimension.width,50);
+		gamePanel.add(skipAction);
+		skipAction.addMouseListener(new MouseAdapter() {
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				super.mouseClicked(e);
+				if(JOptionPane.showConfirmDialog(null, "Are you sure you want to pass the turn?", "Passing Turn Confirmation", JOptionPane.YES_NO_OPTION)
+						==0){
+					request=new ActionRequest(new SkipAction(),ID);
+				}
+			}
+			
+		});
 		
 		
 		JButton acquirePermit = new JButton("");
@@ -651,17 +672,38 @@ public class GUI extends JFrame implements ClientViewInterface {
 		
 		JPanel regions=(JPanel)this.contentPane.getComponents()[0].getComponentAt(0, 0);
 		reader.createCitiesFromRegionPanel(regions, bonuses, cardBoardDimension);	
-		
-		
+
 	}
 
 	@Override
 	public Request start() {
 		request=null;
 		System.out.println("Sono entrato in start e ho resettato la richiesta");
-		while(request==null){System.out.println("ciao");}//non so perché ma se lo tolgo non mi funziona! domani vedo!
+		while(request==null){
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		System.out.println("Richiesta arrivata "+request);
 		return request;
+	}
+	
+	private Component getComponentByName(String name, JPanel targetPanel){
+		return Arrays.asList(targetPanel.getComponents()).stream().filter(e->e.getName()!=null&&e.getName().equalsIgnoreCase(name)).findFirst().get();
+	}
+	
+	private JPanel getCityPanel(String name, JPanel regions){
+		City kingPosition=game.getKingsPosition();
+		for(Component regs:regions.getComponents()){
+			JPanel region=(JPanel)regs;
+			for(Component reg:region.getComponents()){
+				System.out.println(this.getComponentByName(name, (JPanel)reg));
+			}
+		}
+		return null;
 	}
 
 	@Override
@@ -669,6 +711,10 @@ public class GUI extends JFrame implements ClientViewInterface {
 		this.game=game;
 		if(this.ID==0 || this.game.getPlayerByID(ID) == null)
 			return;
+		
+		JPanel regions=(JPanel)this.contentPane.getComponents()[0].getComponentAt(0, 0);
+		this.getCityPanel(String.valueOf(game.getKingsPosition().getFirstChar()), regions);
+		
 		
 		Player player = this.game.getPlayerByID(ID);
 		JTabbedPane tabbedPane = (JTabbedPane)this.contentPane.getComponents()[1];

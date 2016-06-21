@@ -38,6 +38,7 @@ public class XMLReaderForClient {
 		Iterator<Element> regIt=regions.iterator();
 		int i=0;
 		Dimension bonusDim=new Dimension(45,45);
+		Dimension kingDim=new Dimension(45,45);
 		while(regIt.hasNext()){
 			Element region=regIt.next();
 			List<Component> componentList=Arrays.asList(panel.getComponents());
@@ -54,22 +55,35 @@ public class XMLReaderForClient {
 				Element cityElement=cityIt.next();
 				JPanel newPanel=new JPanel();
 				newPanel.setName(cityElement.getAttributeValue("name"));
-				
+				newPanel.setLayout(null);
 				newPanel.setOpaque(false);
 				newPanel.setBounds((int)(Double.parseDouble(cityElement.getAttributeValue("xRel"))*boardDim.width)-i*regionPanel.getWidth(), (int)(Double.parseDouble(cityElement.getAttributeValue("yRel"))
 						*boardDim.height),
 						Integer.parseInt(cityElement.getAttributeValue("width")), Integer.parseInt(cityElement.getAttributeValue("height")));
 				
 				City city=bonuses.get(cityElement.getAttributeValue("name").charAt(0));
+				/*JPanel kingPanel=new JPanel();
+				kingPanel.setName("kingPanel");
+				kingPanel.setBounds((newPanel.getWidth()/2)-(kingDim.width/2), (newPanel.getHeight()/2)-(kingDim.height/2), kingDim.width, kingDim.height);
+				newPanel.add(kingPanel);*/
+				JPanel kingPanel;
 				if(!city.getBonusImagePath().isEmpty()){
 					JPanel bonus=new ImagePanel(bonuses.get(cityElement.getAttributeValue("name").charAt(0)).getBonusImagePath(), bonusDim);
 					bonus.setOpaque(false);
 					bonus.setBounds(newPanel.getX(), newPanel.getY(), bonusDim.width, bonusDim.height);
 					bonus.setLayout(null);
 					regionPanel.add(bonus);
+					kingPanel=new JPanel();
+				}else{
+					kingPanel=new ImagePanel("src/main/resources/Immagini/corona.png",kingDim);
 				}
+				
+				kingPanel.setName("kingPanel");
+				kingPanel.setOpaque(false);
+				kingPanel.setBounds((newPanel.getWidth()/2)-(kingDim.width/2),(newPanel.getHeight()/2)-(kingDim.height/2), kingDim.width, kingDim.height);
+				newPanel.add(kingPanel);
+					
 				regionPanel.add(newPanel);
-							
 			}
 			i++;
 		}
