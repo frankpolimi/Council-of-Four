@@ -155,33 +155,12 @@ public class BuildEmporiumByKingFrame extends JFrame {
 		Dimension cardDimension=new Dimension((int)((78/XREF)*getWidth()), (int)((120/YREF)*getHeight()));
 		List<PoliticsCard> cardList=player.getCardsOwned();
 		cardsPanel.setLayout(new BoxLayout(cardsPanel,BoxLayout.X_AXIS));
-		//int distanceX=(int)((5/XREF)*getWidth());
-		//int distanceY=(int)((5/YREF)*getHeight());
 		for(PoliticsCard card:cardList){
 			JLabel cardImage=new ImageLabel(card.getImagePath(),cardDimension);
 			cardImage.setSize(cardDimension);
-			
-			//cardImage.setBounds(distanceX, distanceY, cardDimension.width, cardDimension.height);
-			//distanceX+=cardDimension.width+distanceY;
 			cardsPanel.add(cardImage);
 			cardsPanel.add(Box.createHorizontalStrut(5));
-			cardImage.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseClicked(MouseEvent e) {
-					// TODO Auto-generated method stub
-					super.mouseClicked(e);
-					if(cardImage.getBorder()==null){
-						if(selectedCards.size()<4){
-							cardImage.setBorder(new LineBorder(Color.yellow,2));
-							selectedCards.add(card);
-						}
-					}else{
-						cardImage.setBorder(null);
-						selectedCards.remove(card);
-					}
-				}
-				
-			});
+			cardImage.addMouseListener(new MouseAdapterImplementation(cardImage, card));
 		}
 	}
 	
@@ -224,6 +203,31 @@ public class BuildEmporiumByKingFrame extends JFrame {
 				}
 			});
 		}
+	}
+	
+	private class MouseAdapterImplementation extends MouseAdapter{
+			
+		private JLabel cardImage;
+		private PoliticsCard card;
+		public MouseAdapterImplementation(JLabel cardImage, PoliticsCard card) {
+			this.cardImage=cardImage;
+			this.card=card;
+		}
+
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			super.mouseClicked(e);
+			if(cardImage.getBorder()==null){
+				if(selectedCards.size()<4){
+					cardImage.setBorder(new LineBorder(Color.yellow,2));
+					selectedCards.add(card);
+				}
+			}else{
+				cardImage.setBorder(null);
+				selectedCards.remove(card);
+			}
+		}
+		
 	}
 }
 

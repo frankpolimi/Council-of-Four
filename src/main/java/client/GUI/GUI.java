@@ -31,7 +31,9 @@ import model.game.topology.City;
 import model.game.topology.Region;
 import view.ActionRequest;
 import view.LocalStorage;
+import view.MarketSellingState;
 import view.Request;
+import view.StartState;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -386,155 +388,6 @@ public class GUI extends JFrame implements ClientViewInterface {
 		//gamePanel.setLayout(new BoxLayout(gamePanel, BoxLayout.Y_AXIS));
 		gamePanel.setLayout(null);	
 		
-		ImagePanel actions = new ImagePanel(pathAction, actionDimension);
-		actions.setSize(actionDimension);
-		gamePanel.add(actions);
-		actions.setLayout(null);
-		
-		JButton skipAction=new JButton("SKIP TO THE NEXT PLAYER");
-		skipAction.setName("skipActionButton");
-		skipAction.setBounds(0,actionDimension.height,actionDimension.width,50);
-		gamePanel.add(skipAction);
-		skipAction.addMouseListener(new MouseAdapter() {
-			
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				// TODO Auto-generated method stub
-				super.mouseClicked(e);
-				if(JOptionPane.showConfirmDialog(null, "Are you sure you want to pass the turn?", "Passing Turn Confirmation", JOptionPane.YES_NO_OPTION)
-						==0){
-					request=new ActionRequest(new SkipAction(),ID);
-				}
-			}
-			
-		});
-		
-		
-		JButton acquirePermit = new JButton("");
-		acquirePermit.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
-		acquirePermit.setBackground(SystemColor.control);
-		acquirePermit.setContentAreaFilled(false);
-		acquirePermit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//JOptionPane.showMessageDialog(contentPane, "acquirePermit");
-				//TODO wip
-				AcquirePermitGUI input = new AcquirePermitGUI(game, thisObj);
-				input.setVisible(true);
-				input.setAutoRequestFocus(true);
-				/*
-				input.permits();
-				input.politicsCard();
-				*/
-			}
-		});
-		acquirePermit.setSize(actionButtonDimension);
-		acquirePermit.setLocation(actionDimension.width*19/1000, actionDimension.height*199/1000);
-		actions.add(acquirePermit);
-		
-		JButton buildEmporiumByKing = new JButton("");
-		buildEmporiumByKing.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
-		buildEmporiumByKing.setBackground(SystemColor.control);
-		buildEmporiumByKing.setContentAreaFilled(false);
-		buildEmporiumByKing.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				BuildEmporiumByKingFrame kingFrame=new BuildEmporiumByKingFrame(game, thisObj);
-				kingFrame.setVisible(true);
-			}
-		});
-		buildEmporiumByKing.setSize(actionButtonDimension);
-		buildEmporiumByKing.setLocation(actionDimension.width*19/1000, 2*actionDimension.height*199/1000);
-		actions.add(buildEmporiumByKing);
-		
-		JButton electCouncillor = new JButton("");
-		electCouncillor.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
-		electCouncillor.setBackground(SystemColor.control);
-		electCouncillor.setContentAreaFilled(false);
-		electCouncillor.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				ElectCouncillorFrame electCouncillor=new ElectCouncillorFrame(game, thisObj);
-				electCouncillor.setVisible(true);
-			}
-		});
-		electCouncillor.setSize(actionButtonDimension);
-		electCouncillor.setLocation(actionDimension.width*19/1000, 3*actionDimension.height*199/1000);
-		actions.add(electCouncillor);
-		
-		JButton buildEmporiumByPermit = new JButton("");
-		buildEmporiumByPermit.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
-		buildEmporiumByPermit.setBackground(SystemColor.control);
-		buildEmporiumByPermit.setContentAreaFilled(false);
-		buildEmporiumByPermit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(contentPane, "buildEmporiumByPermit");
-			}
-		});
-		buildEmporiumByPermit.setSize(actionButtonDimension);
-		buildEmporiumByPermit.setLocation(actionDimension.width*19/1000, 4*actionDimension.height*199/1000);
-		actions.add(buildEmporiumByPermit);
-		
-		JButton engageAssistant = new JButton("");
-		engageAssistant.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(contentPane, "engageAssistant");
-			}
-		});
-		engageAssistant.setContentAreaFilled(false);
-		engageAssistant.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
-		engageAssistant.setBackground(SystemColor.menu);
-		engageAssistant.setSize(actionButtonDimension);
-		engageAssistant.setLocation(actionDimension.width*19/1000+actionButtonDimension.width, actionDimension.height*199/1000);
-		actions.add(engageAssistant);
-		
-		JButton changeFaceUpPermits = new JButton("");
-		changeFaceUpPermits.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(contentPane, "changeFaceUpPermits");
-			}
-		});
-		changeFaceUpPermits.setContentAreaFilled(false);
-		changeFaceUpPermits.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
-		changeFaceUpPermits.setBackground(SystemColor.menu);
-		changeFaceUpPermits.setSize(actionButtonDimension);
-		changeFaceUpPermits.setLocation(actionDimension.width*19/1000+actionButtonDimension.width, 2*actionDimension.height*199/1000);
-		actions.add(changeFaceUpPermits);
-		
-		JButton electCouncillorByAssistant = new JButton("");
-		electCouncillorByAssistant.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(contentPane, "electCouncillorByAssistant");
-			}
-		});
-		electCouncillorByAssistant.setContentAreaFilled(false);
-		electCouncillorByAssistant.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
-		electCouncillorByAssistant.setBackground(SystemColor.menu);
-		electCouncillorByAssistant.setSize(actionButtonDimension);
-		electCouncillorByAssistant.setLocation(actionDimension.width*19/1000+actionButtonDimension.width, 3*actionDimension.height*199/1000);
-		actions.add(electCouncillorByAssistant);
-		
-		JButton extraMainAction = new JButton("");
-		extraMainAction.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(contentPane, "extraMainAction");
-			}
-		});
-		extraMainAction.setContentAreaFilled(false);
-		extraMainAction.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
-		extraMainAction.setBackground(SystemColor.menu);
-		extraMainAction.setSize(actionButtonDimension);
-		extraMainAction.setLocation(actionDimension.width*19/1000+actionButtonDimension.width, 4*actionDimension.height*199/1000);
-		actions.add(extraMainAction);
-		
-		JTextArea chatOutputMessges = new JTextArea();
-		chatOutputMessges.setText("chat messages zone");
-		gamePanel.add(chatOutputMessges);
-		chatOutputMessges.setVisible(false);
-		
-		JTextField chatInputMessage = new JTextField();
-		chatInputMessage.setText("chat input message");
-		gamePanel.add(chatInputMessage);
-		chatInputMessage.setColumns(10);
-		chatInputMessage.setVisible(false);
-		
 		JButton submitChat = new JButton("Submit");
 		submitChat.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -560,12 +413,206 @@ public class GUI extends JFrame implements ClientViewInterface {
 	}
 	
 	public void setRequest(Request request) {
+		if(game.getCurrentPlayer().getPlayerID()!=this.ID)
+			JOptionPane.showMessageDialog(null, "It's not your turn", "Wrong turn", JOptionPane.ERROR_MESSAGE);
 		this.request = request;
 	}
 	
 	public BufferedImage getImage(String path) throws IOException{
 		File file=new File(path);
 		return ImageIO.read(file);
+	}
+	
+	private void createActionTab(JPanel gamePanel){
+		gamePanel.removeAll();
+		if(this.game.getGameState().getClass().equals(StartState.class)){
+			
+			ImagePanel actions = new ImagePanel(pathAction, actionDimension);
+			actions.setSize(actionDimension);
+			gamePanel.add(actions);
+			actions.setLayout(null);
+
+			JButton skipAction=new JButton("SKIP TO THE NEXT PLAYER");
+			skipAction.setName("skipActionButton");
+			skipAction.setBounds(0,actionDimension.height,actionDimension.width,50);
+			gamePanel.add(skipAction);
+			skipAction.addMouseListener(new MouseAdapter() {
+
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					// TODO Auto-generated method stub
+					super.mouseClicked(e);
+					if(JOptionPane.showConfirmDialog(null, "Are you sure you want to pass the turn?", "Passing Turn Confirmation", JOptionPane.YES_NO_OPTION)
+							==0){
+						request=new ActionRequest(new SkipAction(),ID);
+					}
+				}
+
+			});
+
+
+			JButton acquirePermit = new JButton("");
+			acquirePermit.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
+			acquirePermit.setBackground(SystemColor.control);
+			acquirePermit.setContentAreaFilled(false);
+			acquirePermit.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					//JOptionPane.showMessageDialog(contentPane, "acquirePermit");
+					//TODO wip
+					AcquirePermitGUI input = new AcquirePermitGUI(game, thisObj);
+					input.setVisible(true);
+					input.setAutoRequestFocus(true);
+					/*
+				input.permits();
+				input.politicsCard();
+					 */
+				}
+			});
+			acquirePermit.setSize(actionButtonDimension);
+			acquirePermit.setLocation(actionDimension.width*19/1000, actionDimension.height*199/1000);
+			actions.add(acquirePermit);
+
+			JButton buildEmporiumByKing = new JButton("");
+			buildEmporiumByKing.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
+			buildEmporiumByKing.setBackground(SystemColor.control);
+			buildEmporiumByKing.setContentAreaFilled(false);
+			buildEmporiumByKing.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					BuildEmporiumByKingFrame kingFrame=new BuildEmporiumByKingFrame(game, thisObj);
+					kingFrame.setVisible(true);
+				}
+			});
+			buildEmporiumByKing.setSize(actionButtonDimension);
+			buildEmporiumByKing.setLocation(actionDimension.width*19/1000, 2*actionDimension.height*199/1000);
+			actions.add(buildEmporiumByKing);
+
+			JButton electCouncillor = new JButton("");
+			electCouncillor.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
+			electCouncillor.setBackground(SystemColor.control);
+			electCouncillor.setContentAreaFilled(false);
+			electCouncillor.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					ElectCouncillorFrame electCouncillor=new ElectCouncillorFrame(game, thisObj);
+					electCouncillor.setVisible(true);
+				}
+			});
+			electCouncillor.setSize(actionButtonDimension);
+			electCouncillor.setLocation(actionDimension.width*19/1000, 3*actionDimension.height*199/1000);
+			actions.add(electCouncillor);
+
+			JButton buildEmporiumByPermit = new JButton("");
+			buildEmporiumByPermit.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
+			buildEmporiumByPermit.setBackground(SystemColor.control);
+			buildEmporiumByPermit.setContentAreaFilled(false);
+			buildEmporiumByPermit.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					JOptionPane.showMessageDialog(contentPane, "buildEmporiumByPermit");
+				}
+			});
+			buildEmporiumByPermit.setSize(actionButtonDimension);
+			buildEmporiumByPermit.setLocation(actionDimension.width*19/1000, 4*actionDimension.height*199/1000);
+			actions.add(buildEmporiumByPermit);
+
+			JButton engageAssistant = new JButton("");
+			engageAssistant.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					JOptionPane.showMessageDialog(contentPane, "engageAssistant");
+				}
+			});
+			engageAssistant.setContentAreaFilled(false);
+			engageAssistant.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
+			engageAssistant.setBackground(SystemColor.menu);
+			engageAssistant.setSize(actionButtonDimension);
+			engageAssistant.setLocation(actionDimension.width*19/1000+actionButtonDimension.width, actionDimension.height*199/1000);
+			actions.add(engageAssistant);
+
+			JButton changeFaceUpPermits = new JButton("");
+			changeFaceUpPermits.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					JOptionPane.showMessageDialog(contentPane, "changeFaceUpPermits");
+				}
+			});
+			changeFaceUpPermits.setContentAreaFilled(false);
+			changeFaceUpPermits.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
+			changeFaceUpPermits.setBackground(SystemColor.menu);
+			changeFaceUpPermits.setSize(actionButtonDimension);
+			changeFaceUpPermits.setLocation(actionDimension.width*19/1000+actionButtonDimension.width, 2*actionDimension.height*199/1000);
+			actions.add(changeFaceUpPermits);
+
+			JButton electCouncillorByAssistant = new JButton("");
+			electCouncillorByAssistant.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					JOptionPane.showMessageDialog(contentPane, "electCouncillorByAssistant");
+				}
+			});
+			electCouncillorByAssistant.setContentAreaFilled(false);
+			electCouncillorByAssistant.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
+			electCouncillorByAssistant.setBackground(SystemColor.menu);
+			electCouncillorByAssistant.setSize(actionButtonDimension);
+			electCouncillorByAssistant.setLocation(actionDimension.width*19/1000+actionButtonDimension.width, 3*actionDimension.height*199/1000);
+			actions.add(electCouncillorByAssistant);
+
+			JButton extraMainAction = new JButton("");
+			extraMainAction.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					JOptionPane.showMessageDialog(contentPane, "extraMainAction");
+				}
+			});
+			extraMainAction.setContentAreaFilled(false);
+			extraMainAction.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
+			extraMainAction.setBackground(SystemColor.menu);
+			extraMainAction.setSize(actionButtonDimension);
+			extraMainAction.setLocation(actionDimension.width*19/1000+actionButtonDimension.width, 4*actionDimension.height*199/1000);
+			actions.add(extraMainAction);
+		}else{
+			JButton addProduct=new JButton("Add a product to the marketplace");
+			addProduct.setName("addProductButton");
+			addProduct.setBounds(0,0,actionDimension.width,actionDimension.height/3);
+			gamePanel.add(addProduct);
+			addProduct.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					AddProductFrame frame=new AddProductFrame(game, thisObj);
+					frame.setVisible(true);
+				}
+			});
+			
+			JButton buyProduct=new JButton("Show the other players' product to buying");
+			buyProduct.setName("buyProductButton");
+			buyProduct.setBounds(0,actionDimension.height/3,actionDimension.width,actionDimension.height/3);
+			gamePanel.add(buyProduct);
+			buyProduct.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					BuyProductFrame frame=new BuyProductFrame(game, thisObj);
+					frame.setVisible(true);
+				}
+			});
+			
+			if(game.getGameState().getClass().equals(MarketSellingState.class)){
+				buyProduct.setEnabled(false);
+			}else{
+				addProduct.setEnabled(false);
+			}
+			
+			JButton skipAction=new JButton("SKIP TO THE NEXT PLAYER");
+			skipAction.setName("skipActionButton");
+			skipAction.setBounds(0,actionDimension.height*2/3,actionDimension.width,actionDimension.height/3);
+			gamePanel.add(skipAction);
+			skipAction.addMouseListener(new MouseAdapter() {
+
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					// TODO Auto-generated method stub
+					super.mouseClicked(e);
+					if(JOptionPane.showConfirmDialog(null, "Are you sure you want to pass the turn?", "Passing Turn Confirmation", JOptionPane.YES_NO_OPTION)
+							==0){
+						request=new ActionRequest(new SkipAction(),ID);
+					}
+				}
+
+			});
+		}
 	}
 	
 	public void setPlayerDefaultParams(String name){
@@ -698,6 +745,9 @@ public class GUI extends JFrame implements ClientViewInterface {
 		Player player = this.game.getPlayerByID(ID);
 		JTabbedPane tabbedPane = (JTabbedPane)this.contentPane.getComponents()[1];
 		JPanel playerTab=(JPanel)tabbedPane.getComponent(0);
+		JPanel gameTab=(JPanel)tabbedPane.getComponent(1);
+		
+		this.createActionTab(gameTab);
 		
 		Double politicRelX=0.0686275;
 		Double politicRelY=0.39726;
