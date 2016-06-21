@@ -229,7 +229,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 		JPanel seasideCouncil = new JPanel();
 		seasideCouncil.setOpaque(false);
 		seasideCouncil.setLayout(null);
-		seasideCouncil.setName("seaside council");
+		seasideCouncil.setName("landCouncil");
 		seasideCouncil.setSize(councilDimension);
 		seasideCouncil.setLocation(nobilityPanelDimension.width*136/1000, nobilityPanelDimension.height*35/100);
 		nobility.add(seasideCouncil);
@@ -237,7 +237,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 		JPanel hillCouncil = new JPanel();
 		hillCouncil.setOpaque(false);
 		hillCouncil.setLayout(null);
-		hillCouncil.setName("hill council");
+		hillCouncil.setName("hillCouncil");
 		hillCouncil.setSize(councilDimension);
 		hillCouncil.setLocation(nobilityPanelDimension.width*439/1000, nobilityPanelDimension.height*35/100);
 		nobility.add(hillCouncil);
@@ -245,7 +245,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 		JPanel mountainCouncil = new JPanel();
 		mountainCouncil.setOpaque(false);
 		mountainCouncil.setLayout(null);
-		mountainCouncil.setName("mountain council");
+		mountainCouncil.setName("mountainCouncil");
 		mountainCouncil.setSize(councilDimension);
 		mountainCouncil.setLocation(nobilityPanelDimension.width*773/1000, nobilityPanelDimension.height*35/100);
 		nobility.add(mountainCouncil);
@@ -253,7 +253,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 		JPanel kingCouncil = new JPanel();
 		kingCouncil.setOpaque(false);
 		kingCouncil.setLayout(null);
-		kingCouncil.setName("king council");
+		kingCouncil.setName("king");
 		kingCouncil.setSize(councilDimension);
 		kingCouncil.setLocation(nobilityPanelDimension.width*630/1000, nobilityPanelDimension.height*457/1000);
 		nobility.add(kingCouncil);
@@ -418,10 +418,9 @@ public class GUI extends JFrame implements ClientViewInterface {
 			public void actionPerformed(ActionEvent e) {
 				//JOptionPane.showMessageDialog(contentPane, "acquirePermit");
 				//TODO wip
-				AcquirePermitGUI input = new AcquirePermitGUI();
+				AcquirePermitGUI input = new AcquirePermitGUI(game, thisObj);
 				input.setVisible(true);
 				input.setAutoRequestFocus(true);
-				input.council(game.getRegions());
 				/*
 				input.permits();
 				input.politicsCard();
@@ -558,46 +557,6 @@ public class GUI extends JFrame implements ClientViewInterface {
 		
 		//setVisible(true);
 	}
-
-	/**
-	 * Create the frame.
-	 */
-	
-	/*public GUI() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 925, 650);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));
-		
-		JPanel map = new JPanel();
-		contentPane.add(map);
-		map.setLayout(new BoxLayout(map, BoxLayout.X_AXIS));
-		ImagePanel land=new ImagePanel(pathLand);
-		land.setAutoscrolls(true);
-		//JLabel land = new JLabel("REGIONE");
-		map.add(land);
-	
-		JPanel hill=new ImagePanel(pathHil);
-		map.add(hill);
-		
-		JPanel mountain=new ImagePanel(pathMountain);
-		map.add(mountain);
-		
-		JPanel nobility = new JPanel();
-		contentPane.add(nobility);
-		nobility.setLayout(new BoxLayout(nobility, BoxLayout.X_AXIS));
-		
-		JPanel nobility1 =new ImagePanelNobility(pathNobility1);
-		nobility.add(nobility1);
-		nobility1.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
-		
-		JPanel nobility2 =new ImagePanelNobility(pathNobility2);
-		nobility.add(nobility2);
-		nobility2.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
-		
-	}*/
 	
 	public void setRequest(Request request) {
 		this.request = request;
@@ -818,13 +777,8 @@ public class GUI extends JFrame implements ClientViewInterface {
 		JPanel panel = (JPanel)this.contentPane.getComponent(0);
 		ImagePanel imagePanel = (ImagePanel)panel.getComponentAt(0, singleRegionDimension.height);
 		
-		Iterator<Region> regionIterator = this.game.getRegions().iterator();
-		Region region = null;
-		while(regionIterator.hasNext()){
-			region = regionIterator.next();
-			if("land".equals(region.getName()))
-				break;
-		}
+		 
+		Region region = this.game.getRegions().stream().filter(e->e.getName().equals("land")).findFirst().get();
 		Iterator<BuildingPermit> permitIterator = region.getPermitsDeck().getFaceUpPermits().iterator();
 		ImagePanel seasideFaceupPermit1 = new ImagePanel(permitIterator.next().getImagePath(), permitsDeckDimension);
 		seasideFaceupPermit1.setSize(permitsDeckDimension);
@@ -837,12 +791,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 		seasideFaceupPermit2.setVisible(true);
 		imagePanel.add(seasideFaceupPermit2);
 
-		regionIterator = this.game.getRegions().iterator();
-		while(regionIterator.hasNext()){
-			region = regionIterator.next();
-			if("hill".equals(region.getName()))
-				break;
-		}
+		region = this.game.getRegions().stream().filter(e->e.getName().equals("hill")).findFirst().get();
 		permitIterator = region.getPermitsDeck().getFaceUpPermits().iterator();
 		ImagePanel hillFaceupPermit1 = new ImagePanel(permitIterator.next().getImagePath(), permitsDeckDimension);
 		hillFaceupPermit1.setSize(permitsDeckDimension);
@@ -855,12 +804,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 		hillFaceupPermit2.setVisible(true);
 		imagePanel.add(hillFaceupPermit2);
 		
-		regionIterator = this.game.getRegions().iterator();
-		while(regionIterator.hasNext()){
-			region = regionIterator.next();
-			if("mountain".equals(region.getName()))
-				break;
-		}
+		region = this.game.getRegions().stream().filter(e->e.getName().equals("mountain")).findFirst().get();
 		permitIterator = region.getPermitsDeck().getFaceUpPermits().iterator();
 		ImagePanel mountainFaceupPermit1 = new ImagePanel(permitIterator.next().getImagePath(), permitsDeckDimension);
 		mountainFaceupPermit1.setSize(permitsDeckDimension);
@@ -885,40 +829,41 @@ public class GUI extends JFrame implements ClientViewInterface {
 		
 		JPanel council = (JPanel)Arrays.
 				asList(map.getComponents()).stream()
-				.filter(e->e.getName()!=null&&e.getName().equals("seaside council")).findFirst().get();
-		this.paintCouncil(council);
+				.filter(e->e.getName()!=null&&e.getName().equals("landCouncil")).findFirst().get();
+		this.paintCouncil(council, this.councilDimension);
 		council = (JPanel)Arrays.
 				asList(map.getComponents()).stream()
-				.filter(e->e.getName()!=null&&e.getName().equals("hill council")).findFirst().get();
-		this.paintCouncil(council);
+				.filter(e->e.getName()!=null&&e.getName().equals("hillCouncil")).findFirst().get();
+		this.paintCouncil(council, this.councilDimension);
 		council = (JPanel)Arrays.
 				asList(map.getComponents()).stream()
-				.filter(e->e.getName()!=null&&e.getName().equals("mountain council")).findFirst().get();
-		this.paintCouncil(council);
+				.filter(e->e.getName()!=null&&e.getName().equals("mountainCouncil")).findFirst().get();
+		this.paintCouncil(council, this.councilDimension);
 		council = (JPanel)Arrays.
 				asList(map.getComponents()).stream()
-				.filter(e->e.getName()!=null&&e.getName().equals("king council")).findFirst().get();
-		this.paintCouncil(council);
+				.filter(e->e.getName()!=null&&e.getName().equals("king")).findFirst().get();
+		this.paintCouncil(council, this.councilDimension);
 		System.out.println("changed");
 		this.repaint();
 	}
 
-	private void paintCouncil(JPanel council) {
+	public void paintCouncil(JPanel council, Dimension councilDimension) {
+		Dimension councillorDimension =  new Dimension(councilDimension.width/4, councilDimension.height);
 		council.removeAll();//è di prova!!
 		Region r = null;
 		Iterator<Councillor> gameCouncillor = null;
 		switch(council.getName()){
-			case "seaside council":{
+			case "landCouncil":{
 				r = game.getRegions().stream().filter(e->e.getName().equals("land")).findFirst().get();
 				gameCouncillor = r.getCouncil().getCouncillors().iterator();
 				break;
 			}
-			case "hill council":{
+			case "hillCouncil":{
 				r = game.getRegions().stream().filter(e->e.getName().equals("hill")).findFirst().get();
 				gameCouncillor = r.getCouncil().getCouncillors().iterator();
 				break;
 			}
-			case "mountain council":{
+			case "mountainCouncil":{
 				r = game.getRegions().stream().filter(e->e.getName().equals("mountain")).findFirst().get();
 				gameCouncillor = r.getCouncil().getCouncillors().iterator();
 				break;
@@ -928,25 +873,25 @@ public class GUI extends JFrame implements ClientViewInterface {
 			}
 		}
 
-		JPanel councillor1 = new JPanel();
-		councillor1.setSize(councilDimension.width/4, councilDimension.height);
+		JPanel councillor1 = new ImagePanel(gameCouncillor.next().getImagePath(), councillorDimension);
+		councillor1.setSize(councillorDimension);
 		councillor1.setLocation(councilDimension.width*3/4, 0);
-		councillor1.setBackground(gameCouncillor.next().getColor());
+		councillor1.setOpaque(false);
 		council.add(councillor1);
-		JPanel councillor2 = new JPanel();
-		councillor2.setSize(councilDimension.width/4, councilDimension.height);
+		JPanel councillor2 = new ImagePanel(gameCouncillor.next().getImagePath(), councillorDimension);
+		councillor2.setSize(councillorDimension);
 		councillor2.setLocation(councilDimension.width/2, 0);
-		councillor2.setBackground(gameCouncillor.next().getColor());
+		councillor2.setOpaque(false);
 		council.add(councillor2);
-		JPanel councillor3 = new JPanel();
-		councillor3.setSize(councilDimension.width/4, councilDimension.height);
+		JPanel councillor3 = new ImagePanel(gameCouncillor.next().getImagePath(), councillorDimension);
+		councillor3.setSize(councillorDimension);
 		councillor3.setLocation(councilDimension.width/4, 0);
-		councillor3.setBackground(gameCouncillor.next().getColor());
+		councillor3.setOpaque(false);
 		council.add(councillor3);
-		JPanel councillor4 = new JPanel();
-		councillor4.setSize(councilDimension.width/4, councilDimension.height);
+		JPanel councillor4 = new ImagePanel(gameCouncillor.next().getImagePath(), councillorDimension);
+		councillor4.setSize(councillorDimension);
 		councillor4.setLocation(0,0);
-		councillor4.setBackground(gameCouncillor.next().getColor());
+		councillor4.setOpaque(false);
 		council.add(councillor4);
 	}
 
