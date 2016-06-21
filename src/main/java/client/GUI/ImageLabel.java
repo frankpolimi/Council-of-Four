@@ -10,6 +10,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -30,6 +32,8 @@ public class ImageLabel extends JLabel {
 			e.printStackTrace();
 		}
 		image=this.getScaledImage(image, dimension.width, dimension.height);
+		Icon icon= new ImageIcon(image);
+		this.setIcon(icon);
 	}
 	
 	@Override
