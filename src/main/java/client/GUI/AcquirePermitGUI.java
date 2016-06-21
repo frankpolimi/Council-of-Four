@@ -129,6 +129,7 @@ public class AcquirePermitGUI extends JFrame {
 		JPanel faceUp2 = new ImagePanel(faceUps.next().getImagePath(), faceUpDimension);
 		faceUp2.setVisible(true);
 		faceUp2.setName("faceUp2"+string);
+		faceUp2.setSize(faceUpDimension);
 		faceUp2.setLocation(faceUpDimension.width, 0);
 		faceUp2.addMouseListener(new MouseAdapter() {
 			@Override
@@ -139,7 +140,7 @@ public class AcquirePermitGUI extends JFrame {
 							((JPanel)c2).setBorder(new LineBorder(Color.black,1));
 						}
 				}
-				for(Component c:contentPane.getComponents())
+				for(Component c:regionalPermits.getComponents())
 					if(c.getName().equalsIgnoreCase("faceup2"+string))
 						((JPanel)c).setBorder(new LineBorder(Color.yellow,3));
 				permitSelected = game.getRegions().stream().filter(t->t.getName().equals(string))
@@ -150,18 +151,19 @@ public class AcquirePermitGUI extends JFrame {
 		JPanel faceUp1 = new ImagePanel(faceUps.next().getImagePath(), faceUpDimension);
 		faceUp1.setVisible(true);
 		faceUp1.setName("faceUp1"+string);
+		faceUp1.setSize(faceUpDimension);
 		faceUp1.setLocation(0,0);
 		faceUp1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				for(Component c:contentPane.getComponents()){
+				for(Component c:regionalPermits.getComponents()){
 					if(c.getName()!=null&&c.getName().contains("Permit"))
 						for(Component c2:((JPanel)c).getComponents()){
 							((JPanel)c2).setBorder(new LineBorder(Color.black,1));
 						}
 				}
 				for(Component c:contentPane.getComponents())
-					if(c.getName().equalsIgnoreCase("faceUp1"+string))
+					if(c.getName().equalsIgnoreCase("faceup1"+string))
 						((JPanel)c).setBorder(new LineBorder(Color.yellow,3));
 				Iterator<BuildingPermit> tmp =game.getRegions().stream().filter(t->t.getName().equals(string))
 							.findFirst().get().getPermitsDeck().getFaceUpPermits().iterator();
@@ -170,9 +172,8 @@ public class AcquirePermitGUI extends JFrame {
 			}
 		});
 		
-		permits.add(faceUp1);
-		permits.add(faceUp2);
-		
+		regionalPermits.add(faceUp1);
+		regionalPermits.add(faceUp2);	
 	}
 
 	private void createCouncilPanel(JPanel panel, Point p, String name) {
