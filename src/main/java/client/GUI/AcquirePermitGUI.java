@@ -6,8 +6,11 @@ import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Toolkit;
 
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.BevelBorder;
@@ -18,6 +21,7 @@ import model.actions.AcquirePermit;
 import model.actions.ElectCouncillor;
 import model.game.BuildingPermit;
 import model.game.Game;
+import model.game.Player;
 import model.game.council.Council;
 import model.game.council.Councillor;
 import model.game.council.RegionalCouncil;
@@ -86,30 +90,21 @@ public class AcquirePermitGUI extends JFrame {
 				}
 			}
 		});
-		btnSend.setSize(frameDimension.width*72/1000, frameDimension.height*399/10000);
-		btnSend.setLocation(frameDimension.width*82/100, frameDimension.height*823/1000);
+		btnSend.setSize(frameDimension.width*100/1000, frameDimension.height*700/10000);
+		btnSend.setLocation(frameDimension.width*82/100, frameDimension.height*800/1000);
 		contentPane.add(btnSend);
 		
-		JPanel councils = new JPanel();
-		councils.setBounds(0, 0, sectionDimension.width, sectionDimension.height);
-		contentPane.add(councils);
-		councils.setLayout(null);
-		this.createCouncilPanel(councils, new Point(sectionDimension.width*54/1000, sectionDimension.height*146/1000), "land");
-		this.createCouncilPanel(councils, new Point(sectionDimension.width*385/1000, sectionDimension.height*146/1000), "hill");
-		this.createCouncilPanel(councils, new Point(sectionDimension.width*745/1000, sectionDimension.height*146/1000), "mountain");
+		String region=game.getRegions().stream().filter(e->e.getName().equalsIgnoreCase("land")).findFirst().get().getName();
+		this.createCouncilPanel(contentPane, new Point(sectionDimension.width*54/1000, sectionDimension.height*146/1000), region);
+		this.createPermitsPanel(contentPane, new Point(sectionDimension.width*54/1000, sectionDimension.height+sectionDimension.height*146/1000), region);
+		region=game.getRegions().stream().filter(e->e.getName().equalsIgnoreCase("hill")).findFirst().get().getName();;
+		this.createCouncilPanel(contentPane, new Point(sectionDimension.width*385/1000, sectionDimension.height*146/1000), region);
+		this.createPermitsPanel(contentPane, new Point(sectionDimension.width*385/1000,sectionDimension.height+sectionDimension.height*146/1000), region);
+		region=game.getRegions().stream().filter(e->e.getName().equalsIgnoreCase("mountain")).findFirst().get().getName();
+		this.createCouncilPanel(contentPane, new Point(sectionDimension.width*745/1000, sectionDimension.height*146/1000), region);
+		this.createPermitsPanel(contentPane, new Point(sectionDimension.width*745/1000,sectionDimension.height+sectionDimension.height*146/1000), region);
 		
-		JPanel permits = new JPanel();
-		permits.setBounds(0, sectionDimension.height, sectionDimension.width, sectionDimension.height);
-		contentPane.add(permits);
-		permits.setLayout(null);
-		this.createPermitsPanel(permits, new Point(sectionDimension.width*54/1000, sectionDimension.height*146/1000), "land");
-		this.createPermitsPanel(permits, new Point(sectionDimension.width*385/1000, sectionDimension.height*146/1000), "hill");
-		this.createPermitsPanel(permits, new Point(sectionDimension.width*745/1000, sectionDimension.height*146/1000), "mountain");
-		
-		JPanel cards = new JPanel();
-		cards.setBounds(0, 2*sectionDimension.height, sectionDimension.width, sectionDimension.height);
-		contentPane.add(cards);
-		cards.setLayout(null);
+		this.createCardPanel(contentPane, new Point(sectionDimension.width*54/1000, 2*sectionDimension.height+sectionDimension.height*146/1000));
 	}
 	
 	private void createPermitsPanel(JPanel permits, Point point, String string) {
@@ -141,7 +136,7 @@ public class AcquirePermitGUI extends JFrame {
 						}
 				}
 				for(Component c:regionalPermits.getComponents())
-					if(c.getName().equalsIgnoreCase("faceup2"+string))
+					if(c.getName()!=null&&c.getName().equalsIgnoreCase("faceup2"+string))
 						((JPanel)c).setBorder(new LineBorder(Color.yellow,3));
 				permitSelected = game.getRegions().stream().filter(t->t.getName().equals(string))
 							.findFirst().get().getPermitsDeck().getFaceUpPermits().iterator().next();
@@ -156,15 +151,16 @@ public class AcquirePermitGUI extends JFrame {
 		faceUp1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				for(Component c:regionalPermits.getComponents()){
+				for(Component c:contentPane.getComponents()){
 					if(c.getName()!=null&&c.getName().contains("Permit"))
 						for(Component c2:((JPanel)c).getComponents()){
 							((JPanel)c2).setBorder(new LineBorder(Color.black,1));
 						}
 				}
-				for(Component c:contentPane.getComponents())
-					if(c.getName().equalsIgnoreCase("faceup1"+string))
+				for(Component c:regionalPermits.getComponents())
+					if(c.getName()!=null&&c.getName().equalsIgnoreCase("faceup1"+string))
 						((JPanel)c).setBorder(new LineBorder(Color.yellow,3));
+				
 				Iterator<BuildingPermit> tmp =game.getRegions().stream().filter(t->t.getName().equals(string))
 							.findFirst().get().getPermitsDeck().getFaceUpPermits().iterator();
 				tmp.next();
@@ -184,7 +180,7 @@ public class AcquirePermitGUI extends JFrame {
 		council.setVisible(true);
 		council.setName(name+"Council");
 		council.setBorder(new LineBorder(Color.BLACK));
-		gui.paintCouncil(council, councilDimension);
+		this.paintCouncil(council, councilDimension);
 		panel.add(council);
 		
 		council.addMouseListener(new MouseAdapter() {
@@ -200,8 +196,92 @@ public class AcquirePermitGUI extends JFrame {
 				for(Component c:council.getComponents()){
 					((JPanel)c).setBorder(new LineBorder(Color.yellow,3));
 				}
-				councilSelected=game.getRegions().stream().filter(t->t.getName().equals(council.getName())).findFirst().get().getCouncil();
+				councilSelected=game.getRegions().stream().filter(t->t.getName().contains(name)).findFirst().get().getCouncil();
 			}
 		});
+	}
+	
+	private void paintCouncil(JPanel council, Dimension councilDimension) {
+		Dimension councillorDimension =  new Dimension(councilDimension.width/4, councilDimension.height);
+		council.removeAll();
+		Region r = null;
+		Iterator<Councillor> gameCouncillor = null;
+		switch(council.getName()){
+			case "landCouncil":{
+				r = game.getRegions().stream().filter(e->e.getName().equals("land")).findFirst().get();
+				gameCouncillor = r.getCouncil().getCouncillors().iterator();
+				break;
+			}
+			case "hillCouncil":{
+				r = game.getRegions().stream().filter(e->e.getName().equals("hill")).findFirst().get();
+				gameCouncillor = r.getCouncil().getCouncillors().iterator();
+				break;
+			}
+			case "mountainCouncil":{
+				r = game.getRegions().stream().filter(e->e.getName().equals("mountain")).findFirst().get();
+				gameCouncillor = r.getCouncil().getCouncillors().iterator();
+				break;
+			}
+			default:{
+				gameCouncillor = game.getKingsCouncil().getCouncillors().iterator();
+			}
+		}
+
+		JPanel councillor1 = new ImagePanel(gameCouncillor.next().getImagePath(), councillorDimension);
+		councillor1.setSize(councillorDimension);
+		councillor1.setLocation(councilDimension.width*3/4, 0);
+		councillor1.setOpaque(false);
+		council.add(councillor1);
+		JPanel councillor2 = new ImagePanel(gameCouncillor.next().getImagePath(), councillorDimension);
+		councillor2.setSize(councillorDimension);
+		councillor2.setLocation(councilDimension.width/2, 0);
+		councillor2.setOpaque(false);
+		council.add(councillor2);
+		JPanel councillor3 = new ImagePanel(gameCouncillor.next().getImagePath(), councillorDimension);
+		councillor3.setSize(councillorDimension);
+		councillor3.setLocation(councilDimension.width/4, 0);
+		councillor3.setOpaque(false);
+		council.add(councillor3);
+		JPanel councillor4 = new ImagePanel(gameCouncillor.next().getImagePath(), councillorDimension);
+		councillor4.setSize(councillorDimension);
+		councillor4.setLocation(0,0);
+		councillor4.setOpaque(false);
+		council.add(councillor4);
+	}
+	
+	private void createCardPanel(JPanel zone, Point point){
+		
+		List<PoliticsCard> cardList=game.getPlayerByID(gui.getId()).getCardsOwned();
+		JPanel cardsPanel = new JPanel();
+		cardsPanel.setLayout(new BoxLayout(cardsPanel,BoxLayout.X_AXIS));
+		cardsPanel.setVisible(true);
+		cardsPanel.setSize(sectionDimension.width*78/100, sectionDimension.height);
+		Dimension cardDimension = new Dimension(cardsPanel.getWidth()/15, cardsPanel.getHeight());
+		cardsPanel.setLocation(point);
+		zone.add(cardsPanel);
+		for(PoliticsCard card:cardList){
+			JLabel cardImage=new ImageLabel(card.getImagePath(),cardDimension);
+			cardImage.setSize(cardDimension);
+			cardImage.setVisible(true);
+			cardsPanel.add(cardImage);
+			cardsPanel.add(Box.createHorizontalStrut(5));
+			cardImage.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					super.mouseClicked(e);
+					if(cardImage.getBorder()==null){
+						if(cardsSelected.size()<4){
+							cardImage.setBorder(new LineBorder(Color.yellow,2));
+							cardsSelected.add(card);
+						}
+						else{
+							//qui ho lasciato così ma è da pensarci su
+							cardImage.setBorder(null);
+							cardsSelected.remove(card);
+						}
+					}
+				}
+			});
+		}
 	}
 }

@@ -504,7 +504,6 @@ public class ClientView implements ClientViewInterface{
 			stdin.close();
 			return null;
 		}
-		stdin.close();
 		return request;
 	}
 	
