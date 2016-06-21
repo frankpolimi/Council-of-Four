@@ -90,7 +90,7 @@ public class ClientRMIView extends UnicastRemoteObject implements ClientRMIRemot
 	 */
 	@Override
 	public void printString(String string) throws RemoteException {
-		System.out.println(string);
+		this.view.stampMessage(string);
 	}
 
 	/* (non-Javadoc)

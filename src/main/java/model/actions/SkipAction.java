@@ -82,6 +82,11 @@ public class SkipAction extends Action
 				game.setGameState(new EndState(game.getCurrentPlayer()));
 				game.getTimer().cancel();
 			}
+			
+			if(game.getGameState().getClass().equals(StartState.class)){
+				game.getPoliticsDeck().drawCard(game.getCurrentPlayer());
+			}
+			
 			super.takeAction(game);
 			return true;
 		}

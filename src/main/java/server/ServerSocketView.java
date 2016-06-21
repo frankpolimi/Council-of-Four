@@ -6,6 +6,7 @@ import java.net.SocketTimeoutException;
 
 import client.SocketConnectionHandler;
 import controller.Change;
+import controller.ErrorChange;
 import view.QuitRequest;
 import view.Request;
 import view.View;
@@ -52,7 +53,7 @@ public class ServerSocketView extends View implements Runnable
 			}
 			catch(IllegalArgumentException | IllegalStateException e1){
 				try {
-					handler.sendToClient(e1.getMessage());
+					handler.sendToClient(new ErrorChange(e1.getMessage()));
 				} catch (IOException e) {
 					
 				}

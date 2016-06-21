@@ -10,6 +10,7 @@ import java.rmi.server.UnicastRemoteObject;
 import client.ClientRMIRemote;
 import client.RMIConnectionHandler;
 import controller.Change;
+import controller.ErrorChange;
 import view.QuitRequest;
 import view.Request;
 import view.View;
@@ -34,7 +35,7 @@ public class ServerRMIView extends View implements ServerRMIViewRemote{
 			this.notifyObservers(request);
 		}catch (IllegalArgumentException | IllegalStateException e1){
 			try {
-				this.client.sendToClient(e1.getMessage());
+				this.client.sendToClient(new ErrorChange(e1.getMessage()));
 			} catch (IOException e) {
 				System.out.println("The client"+this.ID+" has been disconnected and removed in the game model");
 				this.notifyObservers(new QuitRequest(this.ID));
