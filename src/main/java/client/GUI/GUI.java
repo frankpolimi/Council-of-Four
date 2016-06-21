@@ -374,14 +374,19 @@ public class GUI extends JFrame implements ClientViewInterface {
 		
 		
 				
-		JPanel Game = new JPanel();
-		tabbedPane.addTab("Game", null, Game, null);
-		Game.setLayout(new BoxLayout(Game, BoxLayout.Y_AXIS));
+		JPanel gamePanel = new JPanel();
+		tabbedPane.addTab("Game", null, gamePanel, null);
+		gamePanel.setLayout(new BoxLayout(gamePanel, BoxLayout.Y_AXIS));
 			
 		ImagePanel actions = new ImagePanel(pathAction, actionDimension);
 		actions.setSize(actionDimension);
-		Game.add(actions);
+		gamePanel.add(actions);
 		actions.setLayout(null);
+		
+		JButton skipAction=new JButton("SKIP TO THE NEXT PLAYER");
+		skipAction.setName("skipActionButton");
+		skipAction.setBounds(0,actionDimension.height,actionDimension.width,50);
+		
 		
 		JButton acquirePermit = new JButton("");
 		acquirePermit.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
@@ -499,12 +504,12 @@ public class GUI extends JFrame implements ClientViewInterface {
 		
 		JTextArea chatOutputMessges = new JTextArea();
 		chatOutputMessges.setText("chat messages zone");
-		Game.add(chatOutputMessges);
+		gamePanel.add(chatOutputMessges);
 		chatOutputMessges.setVisible(false);
 		
 		JTextField chatInputMessage = new JTextField();
 		chatInputMessage.setText("chat input message");
-		Game.add(chatInputMessage);
+		gamePanel.add(chatInputMessage);
 		chatInputMessage.setColumns(10);
 		chatInputMessage.setVisible(false);
 		
@@ -513,7 +518,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		Game.add(submitChat);
+		gamePanel.add(submitChat);
 		
 		Double nobilityCellRelativeX=0.064209275;
 		Double space=0.033333333;
