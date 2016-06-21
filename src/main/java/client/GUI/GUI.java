@@ -903,7 +903,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 		this.repaint();
 	}
 
-	public void paintCouncil(JPanel council, Dimension councilDimension) {
+	private void paintCouncil(JPanel council, Dimension councilDimension) {
 		Dimension councillorDimension =  new Dimension(councilDimension.width/4, councilDimension.height);
 		council.removeAll();//è di prova!!
 		Region r = null;
@@ -929,25 +929,25 @@ public class GUI extends JFrame implements ClientViewInterface {
 			}
 		}
 
-		JPanel councillor1 = new ImagePanel(gameCouncillor.next().getImagePath(), councillorDimension);
+		JPanel councillor1 = new JPanel();
 		councillor1.setSize(councillorDimension);
 		councillor1.setLocation(councilDimension.width*3/4, 0);
-		councillor1.setOpaque(false);
+		councillor1.setBackground(gameCouncillor.next().getColor());
 		council.add(councillor1);
-		JPanel councillor2 = new ImagePanel(gameCouncillor.next().getImagePath(), councillorDimension);
+		JPanel councillor2 = new JPanel();
 		councillor2.setSize(councillorDimension);
 		councillor2.setLocation(councilDimension.width/2, 0);
-		councillor2.setOpaque(false);
+		councillor2.setBackground(gameCouncillor.next().getColor());
 		council.add(councillor2);
-		JPanel councillor3 = new ImagePanel(gameCouncillor.next().getImagePath(), councillorDimension);
+		JPanel councillor3 = new JPanel();
 		councillor3.setSize(councillorDimension);
 		councillor3.setLocation(councilDimension.width/4, 0);
-		councillor3.setOpaque(false);
+		councillor3.setBackground(gameCouncillor.next().getColor());
 		council.add(councillor3);
-		JPanel councillor4 = new ImagePanel(gameCouncillor.next().getImagePath(), councillorDimension);
+		JPanel councillor4 = new JPanel();
 		councillor4.setSize(councillorDimension);
 		councillor4.setLocation(0,0);
-		councillor4.setOpaque(false);
+		councillor4.setBackground(gameCouncillor.next().getColor());
 		council.add(councillor4);
 	}
 
