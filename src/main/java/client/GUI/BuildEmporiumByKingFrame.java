@@ -20,16 +20,21 @@ import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
+import model.actions.BuildEmporiumByKing;
+import model.actions.ElectCouncillor;
 import model.game.Game;
 import model.game.Player;
 import model.game.council.Council;
 import model.game.council.Councillor;
 import model.game.politics.PoliticsCard;
 import model.game.topology.City;
+import view.ActionRequest;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.imageio.ImageIO;
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -48,7 +53,7 @@ public class BuildEmporiumByKingFrame extends JFrame {
 	private JPanel contentPane;
 	private Game game;
 	private GUI view;
-	private List<PoliticsCard> selectedCards;
+	private ArrayList<PoliticsCard> selectedCards;
 	private City selectedCity;
 
 	/**
@@ -116,6 +121,21 @@ public class BuildEmporiumByKingFrame extends JFrame {
 		btnSend.setBounds((int)((10/XREF)*getWidth()),(int)((278/YREF)*getHeight()),(int)((89/XREF)*getWidth()),(int)((23/YREF)*getHeight()));
 		btnSend.setName("btnSend");
 		contentPane.add(btnSend);
+		btnSend.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if(selectedCards.isEmpty()||selectedCity==null){
+					JOptionPane.showMessageDialog(null, "You have to choise at least one and almost four cards and a city", "Error", JOptionPane.ERROR_MESSAGE);
+				}else{
+					if(JOptionPane.showConfirmDialog(null, "Do you want to confirm your choise?", "Action", JOptionPane.YES_NO_OPTION)==0){		
+						view.setRequest(new ActionRequest(new BuildEmporiumByKing(game.getKingsCouncil(),selectedCards,selectedCity),view.getId()));
+						setVisible(false);
+					}		
+				}
+			}
+		});
+		
+		
 		
 		JPanel cityNamePanel = new JPanel();
 		cityNamePanel.setBounds((int)((311/XREF)*getWidth()),(int)((174/YREF)*getHeight()),(int)((346/XREF)*getWidth()),(int)((161/YREF)*getHeight()));
@@ -132,16 +152,19 @@ public class BuildEmporiumByKingFrame extends JFrame {
 	
 	
 	private void populatesCardPanel(JPanel cardsPanel, Player player){
-		Dimension cardDimension=new Dimension((int)((65/XREF)*getWidth()), (int)((100/YREF)*getHeight()));
+		Dimension cardDimension=new Dimension((int)((78/XREF)*getWidth()), (int)((120/YREF)*getHeight()));
 		List<PoliticsCard> cardList=player.getCardsOwned();
-		cardsPanel.setLayout(null);
-		int distanceX=(int)((5/XREF)*getWidth());
-		int distanceY=(int)((5/YREF)*getHeight());
+		cardsPanel.setLayout(new BoxLayout(cardsPanel,BoxLayout.X_AXIS));
+		//int distanceX=(int)((5/XREF)*getWidth());
+		//int distanceY=(int)((5/YREF)*getHeight());
 		for(PoliticsCard card:cardList){
 			JLabel cardImage=new ImageLabel(card.getImagePath(),cardDimension);
-			cardImage.setBounds(distanceX, distanceY, cardDimension.width, cardDimension.height);
-			distanceX+=cardDimension.width+distanceY;
+			cardImage.setSize(cardDimension);
+			
+			//cardImage.setBounds(distanceX, distanceY, cardDimension.width, cardDimension.height);
+			//distanceX+=cardDimension.width+distanceY;
 			cardsPanel.add(cardImage);
+			cardsPanel.add(Box.createHorizontalStrut(5));
 			cardImage.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
@@ -186,17 +209,20 @@ public class BuildEmporiumByKingFrame extends JFrame {
 		c.setLayout(new BoxLayout(c,BoxLayout.Y_AXIS));
 		for(City city:cityList){
 			JLabel cityLabel=new JLabel(city.getName());
-			/*
-			Icon icon = null;
-			try {
-				icon = new ImageIcon(ImageIO.read(new File("src/main/resources/Immagini/corona.png")));
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			JLabel label=new JLabel(icon);*/
-			//JLabel label=new JLabel(city.getName());
 			c.add(cityLabel);
+			cityLabel.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					// TODO Auto-generated method stub
+					super.mouseClicked(e);
+					for(Component component:c.getComponents()){
+						((JLabel)component).setBorder(null);
+					}
+					cityLabel.setBorder(new LineBorder(Color.yellow,2));
+					cityLabel.setBackground(Color.yellow);
+					selectedCity=city;
+				}
+			});
 		}
 	}
 }
