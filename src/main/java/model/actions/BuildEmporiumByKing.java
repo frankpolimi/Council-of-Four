@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import model.game.Emporium;
 import model.game.Game;
+import model.game.Player;
 import model.game.council.Council;
 import model.game.politics.PoliticsCard;
 import model.game.topology.City;
@@ -46,13 +47,7 @@ public class BuildEmporiumByKing extends MainAction
 		{
 			throw new IllegalStateException("No avaiable emporiums");
 		}
-		if(!payCouncil(game,counc,politics))
-		{
-			throw new IllegalStateException("Not enough coins or Cards to pay the council."
-					+ " For 1 missing politics card you pay 4 additional coins, for each additional missing politics card you add 3 more");
-			//System.out.println("Council not satisfied");
-
-		}
+		
 		for(Emporium e:game.getCurrentPlayer().getEmporium())
 			if(e.getCity().equals(city))
 			{
@@ -68,9 +63,17 @@ public class BuildEmporiumByKing extends MainAction
 				break;
 			}
 		}
+		
 		if(!game.getCurrentPlayer().checkCoins(distancePayment))
 		{
 			throw new IllegalStateException("Not enough coins to move king. The Player needs:" +distancePayment+" coins to pay, 2 for each step");
+		}
+		if(!payCouncil(game,counc,politics))
+		{
+			game.getCurrentPlayer().setCoins(game.getCurrentPlayer().getCoins()+distancePayment);
+			throw new IllegalStateException("Not enough coins or Cards to pay the council."
+					+ " For 1 missing politics card you pay 4 additional coins, for each additional missing politics card you add 3 more");
+
 		}
 		
 		if(game.getCurrentPlayer().checkAssistants(city.getEmporiums().size()))
