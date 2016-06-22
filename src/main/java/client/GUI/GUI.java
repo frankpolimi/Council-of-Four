@@ -459,7 +459,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 				public void actionPerformed(ActionEvent e) {
 					//JOptionPane.showMessageDialog(contentPane, "acquirePermit");
 					//TODO wip
-					AcquirePermitGUI input = new AcquirePermitGUI(game, thisObj);
+					AcquirePermitFrame input = new AcquirePermitFrame(game, thisObj);
 					input.setVisible(true);
 					input.setAutoRequestFocus(true);
 					/*
@@ -775,12 +775,12 @@ public class GUI extends JFrame implements ClientViewInterface {
 		buildingPermits.setBounds((int)(politicRelX*tabbedPane.getWidth()),(int)(buildingRelY*tabbedPane.getHeight()), politicDim.width, politicDim.height);
 		buildingPermits.setLayout(new BoxLayout(buildingPermits,BoxLayout.X_AXIS));
 		buildingPermits.setName("buildingPermits");
-		Dimension buildingDim=new Dimension((int)((0.9*politicDim.height)*(235/258)),(int)(0.90*politicDim.height));
+		Dimension buildingDim=new Dimension((int)(0.22026*politicDim.width), (int)(0.22026*politicDim.width));
 		for(int i=0;i<player.getBuildingPermits().size();i++){
 			JLabel permit=new ImageLabel(player.getBuildingPermits().get(i).getImagePath(),buildingDim);
 			permit.setName("buildingPermit"+i);
 			//card.setSize(cardDim);
-			politicsCards.add(permit);
+			buildingPermits.add(permit);
 		}
 		playerTab.remove(playerTab.getComponentAt(buildingPermits.getX(), buildingPermits.getY()));
 		playerTab.add(buildingPermits);

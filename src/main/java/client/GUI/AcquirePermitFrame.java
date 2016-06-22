@@ -41,7 +41,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class AcquirePermitGUI extends JFrame {
+public class AcquirePermitFrame extends JFrame {
 
 	/**
 	 * 
@@ -52,8 +52,8 @@ public class AcquirePermitGUI extends JFrame {
 	private Dimension monitorDimension=Toolkit.getDefaultToolkit().getScreenSize();
 	private Dimension frameDimension=new Dimension(monitorDimension.width/2, monitorDimension.height/2); 
 	private Dimension sectionDimension = new Dimension(frameDimension.width*987/1000, frameDimension.height*26/100);
-	private Dimension councilDimension = new Dimension(sectionDimension.width*154/1000, sectionDimension.height/2);
-	private Dimension permitsDimension = new Dimension(sectionDimension.width/5, sectionDimension.height/2);
+	private Dimension councilDimension = new Dimension(sectionDimension.width*154/1000, sectionDimension.height);
+	private Dimension permitsDimension = new Dimension(sectionDimension.width/4, sectionDimension.height);
 	
 	private RegionalCouncil councilSelected;
 	private BuildingPermit permitSelected;
@@ -61,7 +61,7 @@ public class AcquirePermitGUI extends JFrame {
 	private Game game;
 	private GUI gui;
 	
-	public AcquirePermitGUI(Game game, GUI gui) {
+	public AcquirePermitFrame(Game game, GUI gui) {
 		this.game = game;
 		this.gui = gui;
 		
@@ -274,11 +274,10 @@ public class AcquirePermitGUI extends JFrame {
 							cardImage.setBorder(new LineBorder(Color.yellow,2));
 							cardsSelected.add(card);
 						}
-						else{
-							//qui ho lasciato così ma è da pensarci su
-							cardImage.setBorder(null);
-							cardsSelected.remove(card);
-						}
+					}
+					else{
+						cardImage.setBorder(null);
+						cardsSelected.remove(card);
 					}
 				}
 			});

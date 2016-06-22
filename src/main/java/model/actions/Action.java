@@ -42,6 +42,7 @@ public class Action implements Act, Serializable
 	public boolean payCouncil(Game game, Council counc, ArrayList<PoliticsCard> politics)
 	{
 			int matches=0;
+			int jollyCounter=0;
 			ArrayBlockingQueue<Councillor> councillors=new ArrayBlockingQueue<>(counc.getCouncillors().size());
 			for(Councillor councillor:counc.getCouncillors())
 			{
@@ -57,7 +58,11 @@ public class Action implements Act, Serializable
 						{
 							councillors.remove(councillor);
 						}
-						
+						else
+						{
+							councillors.remove(councillor);
+							jollyCounter++;
+						}
 						break;
 					}
 				}
@@ -86,6 +91,7 @@ public class Action implements Act, Serializable
 					break;
 				default: return false;
 			}
+			cost+=jollyCounter;
 			if(!game.getCurrentPlayer().checkCoins(cost))
 				return false;
 			else
