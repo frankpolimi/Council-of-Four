@@ -18,124 +18,90 @@ import model.game.topology.City;
 
 public class CityTest 
 {
+	City city;
+	Player player;
 	Color color2=SupportClass.giveRandomColor();
-	public City cityCreator(String s)
+	
+	public void CityTestSetup()
 	{
-		Color color=SupportClass.giveRandomColor();
-		Bonus bonus=new AssistantBonus(3);
-		Bonus bonus2=new CoinBonus(2);
-		ArrayList<Bonus> list=new ArrayList<Bonus>();
-		list.add(bonus);
-		list.add(bonus2);
-		City city=new City(s, color,list);
-		city.addEmporium(SupportClass.giveRandomColor());
-		return city;
+		city=SupportClass.cityCreator("Milano");
+		try {
+			player = new Player("Asdrubale", 12345);
+		} catch (JDOMException | IOException e) {
+			e.printStackTrace();
+		}
 	}
-
+	
 	@Test(expected=NullPointerException.class)
 	public void testCityNull() 
 	{
 		new City(null,null,null);
 	}
 
-	
 	@Ignore
 	@Test(expected=IllegalStateException.class)
 	public void testAddEmporiumPlayerSamePlayerTwice() 
 	{
-		
-		Player player;
-		try {
-			City city=this.cityCreator("Milano");
-			player = new Player("Asdrubale", 12345);
-			city.addEmporium(player);
-			city.addEmporium(player);
-		} catch (JDOMException e) {
-			assertTrue(true);
-			e.printStackTrace();
-		} catch (IOException e) {
-			assertTrue(true);
-			e.printStackTrace();
-		}
-		
+		this.CityTestSetup();
+		city.addEmporium(player);
+		city.addEmporium(player);
 	}
 	
 	@Test
 	public void testAddEmporiumPlayer() 
 	{
-		
-		Player player;
-		try {
-			City city=this.cityCreator("Milano");
-			player = new Player("Asdrubale", 12345);
-			Emporium emporium= new Emporium(city, player.getChosenColor());
-			assertFalse(city.getEmporiums().contains(emporium));
-			city.addEmporium(player);
-			assertTrue(city.getEmporiums().contains(emporium));
-		} catch (JDOMException e) {
-			assertTrue(true);
-			e.printStackTrace();
-		} catch (IOException e) {
-			assertTrue(true);
-			e.printStackTrace();
-		}
-		
+
+		this.CityTestSetup();
+		Emporium emporium= new Emporium(city, player.getChosenColor());
+		assertFalse(city.getEmporiums().contains(emporium));
+		city.addEmporium(player);
+		assertTrue(city.getEmporiums().contains(emporium));
+
 	}
 	
 	@Test
 	public void testHasPlayerBuilt()
 	{
-		Player player;
-		try {
-			City city=this.cityCreator("Milano");
-			player = new Player("Asdrubale", 12345);
-			assertFalse(city.hasPlayerBuilt(player));
-			city.addEmporium(player);
-			assertTrue(city.hasPlayerBuilt(player));
-			for(Emporium e:city.getEmporiums())	
-			{
-				assertFalse(e.getColor().equals(color2));
-			}
-			boolean built=false;
-			city.addEmporium(color2);
-			for(Emporium e:city.getEmporiums())
-			{
-				built=built||(e.getColor().equals(color2));
-			}
-			assertTrue(built);
-		}catch (JDOMException e) {
-			assertTrue(true);
-			e.printStackTrace();
-		} catch (IOException e) {
-			assertTrue(true);
-			e.printStackTrace();
+		this.CityTestSetup();
+		assertFalse(city.hasPlayerBuilt(player));
+		city.addEmporium(player);
+		assertTrue(city.hasPlayerBuilt(player));
+		for(Emporium e:city.getEmporiums())	
+		{
+			assertFalse(e.getColor().equals(color2));
 		}
+		boolean built=false;
+		city.addEmporium(color2);
+		for(Emporium e:city.getEmporiums())
+		{
+			built=built||(e.getColor().equals(color2));
+		}
+		assertTrue(built);
 
 	}
 	
 	@Test
 	public void testAddEmporiumColor()
 	{
-
-			City city=this.cityCreator("Milano");
-			for(Emporium e:city.getEmporiums())	
-			{
-				assertFalse(e.getColor().equals(color2));
-			}
-			boolean built=false;
-			city.addEmporium(color2);
-			for(Emporium e:city.getEmporiums())
-			{
-				built=built||(e.getColor().equals(color2));
-			}
-			assertTrue(built);
+		this.CityTestSetup();
+		for(Emporium e:city.getEmporiums())	
+		{
+			assertFalse(e.getColor().equals(color2));
+		}
+		boolean built=false;
+		city.addEmporium(color2);
+		for(Emporium e:city.getEmporiums())
+		{
+			built=built||(e.getColor().equals(color2));
+		}
+		assertTrue(built);
 	}
 	
 	@Ignore
 	@Test(expected=IllegalStateException.class)
 	public void testAddEmporiumColorSameColorTwice()
 	{
-		City city=this.cityCreator("Milano");
+		this.CityTestSetup();
 		city.addEmporium(color2);
 		city.addEmporium(color2);
 	}
@@ -143,7 +109,7 @@ public class CityTest
 	@Test
 	public void testGetFirstChar() 
 	{
-		City city=this.cityCreator("Milano");
+		this.CityTestSetup();
 		assertEquals(city.getFirstChar(), 'M');
 	}
 }

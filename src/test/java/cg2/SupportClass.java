@@ -29,6 +29,7 @@ import model.game.topology.Region;
 
 public abstract class SupportClass 
 {
+
 	public static Council councilCreatorByColors(Color c1, Color c2, Color c3, Color c4, String type)
 	{
 		Councillor con1=new Councillor(c1);
