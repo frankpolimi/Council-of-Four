@@ -85,17 +85,17 @@ public class GUI extends JFrame implements ClientViewInterface {
 	private final String pathYellowTile="src/main/resources/Immagini/color_tile_yellow.jpg";
 	private final String pathKingTile="src/main/resources/Immagini/king_tile_";
 	
-	Dimension monitorDimension=Toolkit.getDefaultToolkit().getScreenSize();
-	Dimension cardBoardDimension=new Dimension((monitorDimension.width/160*105), (monitorDimension.height));
-	Dimension regionPanelDimension=new Dimension(cardBoardDimension.width, cardBoardDimension.height/90*53);
-	Dimension singleRegionDimension=new Dimension(regionPanelDimension.width/3, regionPanelDimension.height);
-	Dimension nobilityPanelDimension=new Dimension(cardBoardDimension.width, cardBoardDimension.height/90*35);
-	Dimension permitsDeckDimension=new Dimension((nobilityPanelDimension.width*7/100), (nobilityPanelDimension.height*22/100));
-	Dimension rightPanelDimension=new Dimension((int) (monitorDimension.width-cardBoardDimension.getWidth()), monitorDimension.height);
-	Dimension colorTileDimension = new Dimension((nobilityPanelDimension.width*7/100), (nobilityPanelDimension.height*20/100));
-	Dimension actionDimension= new Dimension(rightPanelDimension.width,rightPanelDimension.width*766/1000);
-	Dimension actionButtonDimension= new Dimension(rightPanelDimension.width*48/100, rightPanelDimension.width*766/5000);
-	Dimension councilDimension = new Dimension(nobilityPanelDimension.width*109/1000, nobilityPanelDimension.height*875/10000);
+	public static final Dimension monitorDimension=Toolkit.getDefaultToolkit().getScreenSize();
+	public static final Dimension cardBoardDimension=new Dimension((monitorDimension.width/160*105), (monitorDimension.height));
+	public static final Dimension regionPanelDimension=new Dimension(cardBoardDimension.width, cardBoardDimension.height/90*53);
+	public static final Dimension singleRegionDimension=new Dimension(regionPanelDimension.width/3, regionPanelDimension.height);
+	public static final Dimension nobilityPanelDimension=new Dimension(cardBoardDimension.width, cardBoardDimension.height/90*35);
+	public static final Dimension permitsDeckDimension=new Dimension((nobilityPanelDimension.width*7/100), (nobilityPanelDimension.height*22/100));
+	public static final Dimension rightPanelDimension=new Dimension((int) (monitorDimension.width-cardBoardDimension.getWidth()), monitorDimension.height);
+	public static final Dimension colorTileDimension = new Dimension((nobilityPanelDimension.width*7/100), (nobilityPanelDimension.height*20/100));
+	public static final Dimension actionDimension= new Dimension(rightPanelDimension.width,rightPanelDimension.width*766/1000);
+	public static final Dimension actionButtonDimension= new Dimension(rightPanelDimension.width*48/100, rightPanelDimension.width*766/5000);
+	public static final Dimension councilDimension = new Dimension(nobilityPanelDimension.width*109/1000, nobilityPanelDimension.height*875/10000);
 	
 
 	/**
