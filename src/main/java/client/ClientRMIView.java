@@ -63,7 +63,7 @@ public class ClientRMIView extends UnicastRemoteObject implements ClientRMIRemot
 			synchronized (memoryContainer) {
 				memoryContainer.setGameRef(((ModelChange)change).getGame());
 			}
-			this.view.updateModel(memoryContainer.getGameRef());
+			this.view.updateModel(((ModelChange)change).getGame());
 		}
 		else if(change.getClass().equals(StateChange.class)){
 			State y = ((StateChange)change).getStateChanged();
