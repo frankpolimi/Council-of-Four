@@ -33,7 +33,7 @@ public class XMLReaderForClient {
 		return document.getRootElement();
 	}
 	
-	public void createCitiesFromRegionPanel(JPanel panel, Map<Character, City> bonuses, Dimension boardDim, Dimension regionDim) throws JDOMException, IOException{
+	public void createCitiesFromRegionPanel(JPanel panel, Map<Character, City> bonuses, Dimension boardDim) throws JDOMException, IOException{
 		List<Element> regions=this.getRootFromFile(PATH).getChild("cityCoordinates").getChildren();
 		Iterator<Element> regIt=regions.iterator();
 		int i=0;
@@ -54,14 +54,14 @@ public class XMLReaderForClient {
 				Element cityElement=cityIt.next();
 				
 				Dimension cityDim=new Dimension(Integer.parseInt(cityElement.getAttributeValue("width")),Integer.parseInt(cityElement.getAttributeValue("height")));
-				Dimension bonusDim=new Dimension((int)(((double)45/(double)cityDim.width)*((double)cityDim.width/(double)280)*regionDim.getWidth()),(int)(((double)45/(double)cityDim.width)*((double)cityDim.width/(double)280)*regionDim.getWidth()));
-				Dimension kingDim=new Dimension((int)(((double)45/(double)cityDim.width)*((double)cityDim.width/(double)280)*regionDim.getWidth()),(int)(((double)45/(double)cityDim.width)*((double)cityDim.width/(double)280)*regionDim.getWidth()));
+				Dimension bonusDim=new Dimension((int)(((double)45/(double)cityDim.width)*((double)cityDim.width/(double)280)*regionPanel.getWidth()),(int)(((double)45/(double)cityDim.width)*((double)cityDim.width/(double)280)*regionPanel.getWidth()));
+				Dimension kingDim=new Dimension((int)(((double)45/(double)cityDim.width)*((double)cityDim.width/(double)280)*regionPanel.getWidth()),(int)(((double)45/(double)cityDim.width)*((double)cityDim.width/(double)280)*regionPanel.getWidth()));
 				JPanel newPanel=new JPanel();
 				newPanel.setName(cityElement.getAttributeValue("name"));
 				newPanel.setLayout(null);
 				newPanel.setOpaque(false);
-				newPanel.setBounds((int)(Double.parseDouble(cityElement.getAttributeValue("xRel"))*boardDim.width)-i*regionPanel.getWidth(), (int)(Double.parseDouble(cityElement.getAttributeValue("yRel"))
-						*boardDim.height), cityDim.width,cityDim.height);
+				newPanel.setBounds((int)((Double.parseDouble(cityElement.getAttributeValue("x"))/(double)840)*boardDim.width)-i*regionPanel.getWidth(), (int)((Double.parseDouble(cityElement.getAttributeValue("y"))/(double)768)*boardDim.height), 
+						cityDim.width,cityDim.height);
 				
 				City city=bonuses.get(cityElement.getAttributeValue("name").charAt(0));
 				/*JPanel kingPanel=new JPanel();
