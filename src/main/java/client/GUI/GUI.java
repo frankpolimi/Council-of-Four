@@ -526,7 +526,8 @@ public class GUI extends JFrame implements ClientViewInterface {
 			JButton changeFaceUpPermits = new JButton("");
 			changeFaceUpPermits.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					JOptionPane.showMessageDialog(contentPane, "changeFaceUpPermits");
+					ChangeFaceUpPermitsFrame frame=new ChangeFaceUpPermitsFrame(game, thisObj);
+					frame.setVisible(true);
 				}
 			});
 			changeFaceUpPermits.setContentAreaFilled(false);

@@ -3,6 +3,7 @@ package client.GUI;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.EventQueue;
 import java.awt.Point;
 import java.awt.Toolkit;
 
@@ -42,6 +43,27 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class AcquirePermitFrame extends JFrame {
+
+	
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Game game=new Game();
+					List<Player> players=new ArrayList<>();
+					players.add(new Player("ema",1));
+					game.setPlayers(players);
+					GUI gui=new GUI();
+					gui.setId(1);
+					gui.setGame(game);
+					AcquirePermitFrame frame=new AcquirePermitFrame(game, gui);
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
 
 	/**
 	 * 
