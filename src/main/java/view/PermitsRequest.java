@@ -20,6 +20,13 @@ public class PermitsRequest extends Request {
 	
 	private final List<BuildingPermit> permits;
 
+	/**
+	 * constructor for the class that will be sent to the
+	 * controller. the class's field is the list of permits
+	 * that the player has decided to acquire when he receives
+	 * a permits change.
+	 * @param iD the ID of the player
+	 */
 	public PermitsRequest(int iD) {
 		super(iD);
 		permits = new ArrayList<BuildingPermit>();

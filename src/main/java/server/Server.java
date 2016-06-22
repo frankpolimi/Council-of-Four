@@ -86,6 +86,14 @@ public class Server
 		this.startSocket();
 	}
 	
+	/**
+	 * the method will create a registration service for the client to use
+	 * that will add the client to the new game
+	 * @throws AccessException if this registry is local and it denies the caller access to perform this operation
+	 * @throws RemoteException if the export or the communication with the registry fails
+	 * @throws AlreadyBoundException if there is already an object in the registry that possess the same name as the
+	 * 									new binded one
+	 */
 	private void startRMI() throws AccessException, RemoteException, AlreadyBoundException{
 		System.out.println("Constructing RMI server");
 		
@@ -95,6 +103,12 @@ public class Server
 		registry.bind(NAME, gameRemote);
 	}
 	
+	/**
+	 * this method will start a socket acceptance service
+	 * @throws IOException if errors occur during the socket communication
+	 * @throws JDOMException if file configuration generates errors
+	 * @throws ClassNotFoundException due to the generic handler
+	 */
 	private void startSocket() throws IOException, JDOMException, ClassNotFoundException {
 	
 		ExecutorService executor = Executors.newCachedThreadPool();
@@ -118,6 +132,16 @@ public class Server
 		}
 	}
 
+	/**
+	 * method that add a client to the game that is ready to begin
+	 * this method will also trigger the timer if two or more players
+	 * have signed up for a game
+	 * @param view the view that will be associated to a specific player in game
+	 * 				that will be registered as the point that allows to communicate
+	 * 				to the client
+	 * @throws JDOMException if file configuration generates errors
+	 * @throws IOException if reading from file generates errors
+	 */
 	public synchronized void addClient(View view) throws JDOMException, IOException{
 		view.setID(serialID);
 		Player p = new Player(view.getName(), serialID);
@@ -129,7 +153,11 @@ public class Server
 		serialID++;
 		this.startTimer();
 	}
-		
+	
+	/**
+	 * @return the list of players that signed up for the game
+	 * 			of which will be verified if are still connected or not
+	 */
 	public List<Player> getLobby(){
 		return this.oneRoomLobby;
 	}
@@ -151,6 +179,12 @@ public class Server
 		}
 	}
 	
+	/**
+	 * method that add all the available players for the game
+	 * and setup a new game ready for new players to come
+	 * @throws JDOMException if file configuration generates errors
+	 * @throws IOException if file configuration generates errors
+	 */
 	public void resetGame() throws JDOMException, IOException{
 		game.setPlayers(oneRoomLobby);
 		game.getPlayers().stream().forEach(System.out::println);
@@ -159,11 +193,21 @@ public class Server
 		this.serialID=1;
 	}
 	
+	/**
+	 * method that will reset the timer that check
+	 * if the game is able to start
+	 */
 	public void resetTimer(){
 		this.timer.cancel();
 		this.timer=null;
 	}
 	
+	/**
+	 * method that check if, for the game ready to start,
+	 * are signed up at least two clients. if so the timer
+	 * is started and will wait 20 seconds before the check
+	 * for the amount of players required for a game is satisfied
+	 */
 	private void startTimer(){
 		if(oneRoomLobby.size()>=2){
 			if(timer==null){

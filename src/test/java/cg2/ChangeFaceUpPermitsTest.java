@@ -43,9 +43,9 @@ public class ChangeFaceUpPermitsTest
 		{
 			oldPermits.add(p);
 		}
-		currentPlayer.setCoins(2);
+		currentPlayer.setAssistants(1);
 		assertTrue(action.takeAction(game));
-		assertEquals(0,currentPlayer.getCoins());
+		assertEquals(0,currentPlayer.getAssistants());
 		ArrayList<BuildingPermit> newPermits=new ArrayList<>();
 		for(BuildingPermit p:deck.getFaceUpPermits())
 		{
@@ -55,10 +55,10 @@ public class ChangeFaceUpPermitsTest
 	}
 	
 	@Test
-	public void testActionWithNoCoins()
+	public void testActionWithNoAssistants()
 	{
 		this.changeFaceUpPermitsSetup();
-		currentPlayer.setCoins(0);
+		currentPlayer.setAssistants(0);
 		try
 		{
 			action.takeAction(game);

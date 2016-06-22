@@ -24,6 +24,7 @@ public class QuickState implements State {
 	 */
 	@Override
 	public void display() {
+		/*
 		System.out.println("Insert the action's name to perform:");
 		System.out.println("- "+Commands.ENGAGE_ASSISTANTS);
 		System.out.println("- "+Commands.CHANGE_FACE_UP_PERMITS);
@@ -33,5 +34,6 @@ public class QuickState implements State {
 		System.out.println("- "+Commands.STATISTICS);
 		System.out.println("- "+Commands.BACK);
 		System.out.println("- "+Commands.QUIT);
+		*/
 	}
 }	

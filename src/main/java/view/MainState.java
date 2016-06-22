@@ -24,6 +24,7 @@ public class MainState implements State {
 	 */
 	@Override
 	public void display() {
+		/*
 		System.out.println("Insert the action's name to perform:");
 		System.out.println("- "+Commands.ACQUIRE_PERMIT);
 		System.out.println("- "+Commands.BUILD_EMPORIUM_BY_KING);
@@ -33,6 +34,7 @@ public class MainState implements State {
 		System.out.println("- "+Commands.STATISTICS);
 		System.out.println("- "+Commands.BACK);
 		System.out.println("- "+Commands.QUIT);
+		*/
 	}
 
 }

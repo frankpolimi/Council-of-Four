@@ -24,10 +24,12 @@ public class LocalStorage {
 	private boolean isUpdated;
 	
 	/**
-	 * construct the part of memory shared by the clientin 
+	 * construct the part of memory shared by the client in 
 	 * and the client out
-	 * @param list the 
-	 * @param game
+	 * @param list the list that may come from the server that 
+	 * contains the bonus or the permits from which the player can choose
+	 * @param game a copy of the game that is on the server due to a high complexity 
+	 * of the model itself
 	 */
 	public LocalStorage(Change list, Game game) {
 		if(Change.class.equals(BonusChange.class))
@@ -38,6 +40,9 @@ public class LocalStorage {
 		isUpdated=true;
 	}
 	
+	/**
+	 * constructor for the class that initialize the two lists
+	 */
 	public LocalStorage() {
 		bonus=new ArrayList<>();
 		permits=new ArrayList<>();
@@ -45,31 +50,54 @@ public class LocalStorage {
 	
 	
 	/**
-	 * @return the isUpdated
+	 * @return the flag that status of the game whether is updated or not
+	 * the flag is used after a player has performed an action to prevent 
+	 * an action to be sent when the game is in a different status on the server
+	 * than the client one
 	 */
 	public boolean isUpdated() {
 		return isUpdated;
 	}
 
 	/**
-	 * @param isUpdated the isUpdated to set
+	 * @param isUpdated the flag to set
 	 */
 	public void setUpdated(boolean isUpdated) {
 		this.isUpdated = isUpdated;
 	}
 
+	/**
+	 * method used to select the bonus desired
+	 * @param place the index of the bonus in the list
+	 * @return the desired bonus at the specified index
+	 */
 	public Bonus retrieveBonus(int place){
 		return bonus.get(place);
 	}
 	
+	/**
+	 * method used to select the permit desired
+	 * @param place the index of the permit in the list
+	 * @return the desired permit at the specified index
+	 */
 	public BuildingPermit retrievePermit(int place){
 		return permits.get(place);
 	}
 	
+	/**
+	 * method used to get the information about the length of
+	 * the bonus list
+	 * @return the length of the list that contains bonuses
+	 */
 	public int getBonusLenght(){
 		return bonus.size();
 	}
 	
+	/**
+	 * method used to get the information about the length of
+	 * the permit list
+	 * @return the length of the list that contains permits
+	 */
 	public int getPermitsLenght(){
 		return permits.size();
 	}
