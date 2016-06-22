@@ -11,6 +11,11 @@ public class QuitRequest extends Request {
 	 */
 	private static final long serialVersionUID = 7350257695776860034L;
 
+	/**
+	 * constructor for the request to quit the game
+	 * that will be sent to the server
+	 * @param ID the player id that has sent the request
+	 */
 	public QuitRequest(int ID) {
 		super(ID);
 	}

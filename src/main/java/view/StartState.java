@@ -6,7 +6,7 @@ package view;
 import java.io.Serializable;
 
 /**
- * @author Francesco Vetr�
+ * @author Francesco Vetro'
  *
  */
 public class StartState implements State, Serializable{

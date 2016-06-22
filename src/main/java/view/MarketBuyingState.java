@@ -19,6 +19,12 @@ public class MarketBuyingState implements State, Serializable {
 	/* (non-Javadoc)
 	 * @see view.State#display()
 	 */
+	/**
+	 * this method will display the correct input when the game 
+	 * reaches the second step of the market. this phase is 
+	 * recognizable by the opportunity given to the player to buy
+	 * something from the market
+	 */
 	@Override
 	public void display() {
 		System.out.println("Select the action to perform");
