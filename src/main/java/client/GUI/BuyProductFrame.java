@@ -35,10 +35,14 @@ import view.MarketSellingState;
 
 public class BuyProductFrame extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3572572155370251491L;
 	private JPanel contentPane;
 	private Game game;
 	private GUI view;
-	private Object objToBuy;
+	private MarketObject<?> objToBuy;
 	private int value;
 	private final static double XREF=683;
 	private final static double YREF=384;
@@ -121,7 +125,7 @@ public class BuyProductFrame extends JFrame {
 					JOptionPane.showMessageDialog(null, "You have to choise one item to sell", "Not Valid Insertion", JOptionPane.ERROR_MESSAGE);
 				}else{
 					if(JOptionPane.showConfirmDialog(null, "Do you confirm your buying?", "Confirmation", JOptionPane.YES_NO_OPTION)==0){
-						view.setRequest(new MarketRequest<>(new MarketObject<>(objToBuy, thisPlayer, value), view.getId()));
+						view.setRequest(new MarketRequest<>(objToBuy, view.getId()));
 						setVisible(false);
 					}
 				}
@@ -164,7 +168,7 @@ public class BuyProductFrame extends JFrame {
 			objectLabel.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					objToBuy=object;
+					objToBuy=marketObject;
 					for(Component c:productPanel.getComponents()){
 						((JLabel)c).setBorder(null);
 					}
