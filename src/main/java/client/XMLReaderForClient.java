@@ -15,17 +15,24 @@ import java.util.Map;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.border.LineBorder;
 
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 
+import client.GUI.GUI;
 import client.GUI.ImagePanel;
 import model.game.topology.City;
 
 public class XMLReaderForClient {
 	private static final String PATH="src/main/resources/positionInTheMap.xml";
+	
+	
+	private static final Dimension cityDim=new Dimension(GUI.singleRegionDimension.width*1282/10000, GUI.singleRegionDimension.width*2564/10000);
+	private static final Dimension bonusDim=new Dimension(cityDim.width, cityDim.height/2);
+	private static Dimension kingDim=bonusDim;
 	
 	private Element getRootFromFile(String path) throws JDOMException, IOException{
 		SAXBuilder builder=new SAXBuilder();
@@ -53,16 +60,19 @@ public class XMLReaderForClient {
 			while(cityIt.hasNext()){
 				Element cityElement=cityIt.next();
 				
-				Dimension cityDim=new Dimension(Integer.parseInt(cityElement.getAttributeValue("width")),Integer.parseInt(cityElement.getAttributeValue("height")));
-				Dimension bonusDim=new Dimension((int)(((double)45/(double)cityDim.width)*((double)cityDim.width/(double)280)*regionPanel.getWidth()),(int)(((double)45/(double)cityDim.width)*((double)cityDim.width/(double)280)*regionPanel.getWidth()));
-				Dimension kingDim=new Dimension((int)(((double)45/(double)cityDim.width)*((double)cityDim.width/(double)280)*regionPanel.getWidth()),(int)(((double)45/(double)cityDim.width)*((double)cityDim.width/(double)280)*regionPanel.getWidth()));
+				//Dimension cityDim=new Dimension(Integer.parseInt(cityElement.getAttributeValue("width")),Integer.parseInt(cityElement.getAttributeValue("height")));
+				//Dimension bonusDim=new Dimension((int)(((double)45/(double)cityDim.width)*((double)cityDim.width/(double)280)*regionPanel.getWidth()),(int)(((double)45/(double)cityDim.width)*((double)cityDim.width/(double)280)*regionPanel.getWidth()));
+				//Dimension kingDim=new Dimension((int)(((double)45/(double)cityDim.width)*((double)cityDim.width/(double)280)*regionPanel.getWidth()),(int)(((double)45/(double)cityDim.width)*((double)cityDim.width/(double)280)*regionPanel.getWidth()));
 				JPanel newPanel=new JPanel();
 				newPanel.setName(cityElement.getAttributeValue("name"));
 				newPanel.setLayout(null);
 				newPanel.setOpaque(false);
-				newPanel.setBounds((int)((Double.parseDouble(cityElement.getAttributeValue("x"))/(double)840)*boardDim.width)-i*regionPanel.getWidth(), (int)((Double.parseDouble(cityElement.getAttributeValue("y"))/(double)768)*boardDim.height), 
-						cityDim.width,cityDim.height);
-				
+				//newPanel.setBounds((int)((Double.parseDouble(cityElement.getAttributeValue("x"))/(double)840)*boardDim.width)-i*regionPanel.getWidth(), (int)((Double.parseDouble(cityElement.getAttributeValue("y"))/(double)768)*boardDim.height), 
+				//		cityDim.width,cityDim.height);
+				newPanel.setLocation(Integer.parseInt(cityElement.getAttributeValue("xRel"))*GUI.singleRegionDimension.width/1000, 
+						Integer.parseInt(cityElement.getAttributeValue("yRel"))*GUI.singleRegionDimension.height/1000);
+				newPanel.setSize(cityDim);
+				newPanel.setBorder(new LineBorder(Color.black));
 				City city=bonuses.get(cityElement.getAttributeValue("name").charAt(0));
 				/*JPanel kingPanel=new JPanel();
 				kingPanel.setName("kingPanel");
@@ -83,7 +93,9 @@ public class XMLReaderForClient {
 				
 				kingPanel.setName("kingPanel");
 				kingPanel.setOpaque(false);
-				kingPanel.setBounds((newPanel.getWidth()/2)-(kingDim.width/2),(newPanel.getHeight()/2)-(kingDim.height/2), kingDim.width, kingDim.height);
+				//kingPanel.setBounds((newPanel.getWidth()/2)-(kingDim.width/2),(newPanel.getHeight()/2)-(kingDim.height/2), kingDim.width, kingDim.height);
+				kingPanel.setLocation(0, bonusDim.height);
+				kingPanel.setSize(bonusDim);
 				newPanel.add(kingPanel);
 					
 				regionPanel.add(newPanel);

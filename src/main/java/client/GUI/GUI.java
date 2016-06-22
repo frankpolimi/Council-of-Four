@@ -64,7 +64,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 	
 	private JPanel contentPane;
 	
-	private String pathland="src/main/resources/Immagini/mareAridim.jpg";
+	private String pathland="src/main/resources/Immagini/mareA.jpg";
 	private String pathhill="src/main/resources/Immagini/collinaAridim.jpg";
 	private String pathmountain="src/main/resources/Immagini/montagnaAridim.jpg";
 	private final static String pathNobility="src/main/resources/Immagini/nobility.jpg";
