@@ -96,7 +96,8 @@ public class GUI extends JFrame implements ClientViewInterface {
 	public static final Dimension actionDimension= new Dimension(rightPanelDimension.width,rightPanelDimension.width*766/1000);
 	public static final Dimension actionButtonDimension= new Dimension(rightPanelDimension.width*48/100, rightPanelDimension.width*766/5000);
 	public static final Dimension councilDimension = new Dimension(nobilityPanelDimension.width*109/1000, nobilityPanelDimension.height*875/10000);
-	
+	public static Dimension regionTileDimension = new Dimension(singleRegionDimension.width*182/1000, singleRegionDimension.height*71/1000);
+
 
 	/**
 	 * Launch the application.
@@ -635,10 +636,11 @@ public class GUI extends JFrame implements ClientViewInterface {
 		seaside.setLayout(null);
 		seaside.setBounds(0, 0, singleRegionDimension.width, singleRegionDimension.height);
 		
-		ImagePanel seasideTile = new ImagePanel(pathSeasideTile, new Dimension(51, 30));
+		ImagePanel seasideTile = new ImagePanel(pathSeasideTile, regionTileDimension);
+		seasideTile.setSize(regionTileDimension);
+		seasideTile.setLocation(singleRegionDimension.width*754/1000, singleRegionDimension.height*910/1000);
 		seasideTile.setName("landTile");
 		seasideTile.setOpaque(false);
-		seasideTile.setBounds(211, 383, 51, 30);
 		seaside.add(seasideTile);
 		
 		ImagePanel hill=new ImagePanel(pathhill, singleRegionDimension);
@@ -649,10 +651,11 @@ public class GUI extends JFrame implements ClientViewInterface {
 		hill.setLayout(null);
 		hill.setBounds(singleRegionDimension.width, 0, singleRegionDimension.width, singleRegionDimension.height);
 		
-		ImagePanel hillTile = new ImagePanel(pathHillTile, new Dimension(51, 27));
+		ImagePanel hillTile = new ImagePanel(pathHillTile, regionTileDimension);
+		hillTile.setSize(regionTileDimension);
+		hillTile.setLocation(singleRegionDimension.width*657/1000, singleRegionDimension.height*915/1000);
 		hillTile.setOpaque(false);
 		hillTile.setName("hillTile");
-		hillTile.setBounds(184, 383, 51, 27);
 		hill.add(hillTile);
 		
 		ImagePanel mountain=new ImagePanel(pathmountain, singleRegionDimension);
@@ -663,9 +666,10 @@ public class GUI extends JFrame implements ClientViewInterface {
 		mountain.setLayout(null);
 		mountain.setBounds(2*singleRegionDimension.width, 0, singleRegionDimension.width, singleRegionDimension.height);
 		
-		ImagePanel mountainTile = new ImagePanel(pathMountainTile, new Dimension(51, 30));
+		ImagePanel mountainTile = new ImagePanel(pathMountainTile, regionTileDimension);
+		mountainTile.setSize(regionTileDimension);
+		mountainTile.setLocation(singleRegionDimension.width*653/1000, singleRegionDimension.height*915/1000);
 		mountainTile.setOpaque(false);
-		mountainTile.setBounds(183, 383, 51, 30);
 		mountain.add(mountainTile);
 		mountainTile.setName("mountainTile");
 				
