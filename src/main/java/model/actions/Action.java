@@ -60,24 +60,12 @@ public class Action implements Act, Serializable
 						}
 						else
 						{
-							councillors.remove(councillor);
 							jollyCounter++;
 						}
 						break;
 					}
 				}
-			/*for(PoliticsCard card:politics)
-				for(Councillor councillor:councillors)
-					if(card.payCouncillor(councillor))
-					{
-						matches++;
-						if(card.getClass()==ColoredPoliticsCard.class)
-						{
-							councillors.remove(councillor);
-						}
-						
-						break;
-					}*/
+			
 			int cost;
 			switch (counc.getCouncillors().size()-matches)
 			{
