@@ -39,6 +39,7 @@ public class AcquirePermit extends MainAction
 	{
 		if(!this.checkAction(game))
 			throw new IllegalStateException("Not enough Main actions");
+		RegionalCouncil council=game.getRegions().stream().map(e->e.getCouncil()).filter(e->e.equals(this.council)).findFirst().get();
 		if(payCouncil(game,council,politics))
 			if(council.getPermitsDeck().givePermit(game, permit))
 			{

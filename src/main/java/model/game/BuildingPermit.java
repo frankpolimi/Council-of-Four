@@ -122,4 +122,36 @@ public class BuildingPermit extends Bonusable implements Serializable{
 	public String getImagePath() {
 		return imagePath;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		BuildingPermit other = (BuildingPermit) obj;
+		if (bonusList == null) {
+			if (other.bonusList != null)
+				return false;
+		} else if (!bonusList.equals(other.bonusList))
+			return false;
+		if (buildingAvaliableCities == null) {
+			if (other.buildingAvaliableCities != null)
+				return false;
+		} else if (!buildingAvaliableCities.equals(other.buildingAvaliableCities))
+			return false;
+		if (firstChars == null) {
+			if (other.firstChars != null)
+				return false;
+		} else if (!firstChars.equals(other.firstChars))
+			return false;
+		return true;
+	}
+	
+	
 }

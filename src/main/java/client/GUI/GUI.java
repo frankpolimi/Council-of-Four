@@ -841,13 +841,14 @@ public class GUI extends JFrame implements ClientViewInterface {
 		seasideFaceupPermit1.setSize(permitsDeckDimension);
 		seasideFaceupPermit1.setLocation(nobilityPanelDimension.width*143/1000, nobilityPanelDimension.height*39/1000);
 		seasideFaceupPermit1.setVisible(true);
-		imagePanel.remove(seasideFaceupPermit1);
+		imagePanel.remove(imagePanel.getComponentAt(seasideFaceupPermit1.getX(), seasideFaceupPermit1.getY()));
 		imagePanel.add(seasideFaceupPermit1);
+		
 		ImagePanel seasideFaceupPermit2 = new ImagePanel(permitIterator.next().getImagePath(), permitsDeckDimension);
 		seasideFaceupPermit2.setSize(permitsDeckDimension);
 		seasideFaceupPermit2.setLocation(nobilityPanelDimension.width*218/1000, nobilityPanelDimension.height*39/1000);
 		seasideFaceupPermit2.setVisible(true);
-		imagePanel.remove(seasideFaceupPermit2);
+		imagePanel.remove(imagePanel.getComponentAt(seasideFaceupPermit2.getX(), seasideFaceupPermit2.getY()));
 		imagePanel.add(seasideFaceupPermit2);
 
 		region = this.game.getRegions().stream().filter(e->e.getName().equals("hill")).findFirst().get();
@@ -856,11 +857,14 @@ public class GUI extends JFrame implements ClientViewInterface {
 		hillFaceupPermit1.setSize(permitsDeckDimension);
 		hillFaceupPermit1.setLocation(nobilityPanelDimension.width*44/100, nobilityPanelDimension.height*42/1000);
 		hillFaceupPermit1.setVisible(true);
+		imagePanel.remove(imagePanel.getComponentAt(hillFaceupPermit1.getX(), hillFaceupPermit1.getY()));
 		imagePanel.add(hillFaceupPermit1);
+		
 		ImagePanel hillFaceupPermit2 = new ImagePanel(permitIterator.next().getImagePath(), permitsDeckDimension);
 		hillFaceupPermit2.setSize(permitsDeckDimension);
 		hillFaceupPermit2.setLocation(nobilityPanelDimension.width*518/1000, nobilityPanelDimension.height*42/1000);
 		hillFaceupPermit2.setVisible(true);
+		imagePanel.remove(imagePanel.getComponentAt(hillFaceupPermit2.getX(), hillFaceupPermit2.getY()));
 		imagePanel.add(hillFaceupPermit2);
 		
 		region = this.game.getRegions().stream().filter(e->e.getName().equals("mountain")).findFirst().get();
@@ -869,11 +873,13 @@ public class GUI extends JFrame implements ClientViewInterface {
 		mountainFaceupPermit1.setSize(permitsDeckDimension);
 		mountainFaceupPermit1.setLocation(nobilityPanelDimension.width*778/1000, nobilityPanelDimension.height*43/1000);
 		mountainFaceupPermit1.setVisible(true);
+		imagePanel.remove(imagePanel.getComponentAt(mountainFaceupPermit1.getX(), mountainFaceupPermit1.getY()));
 		imagePanel.add(mountainFaceupPermit1);
 		ImagePanel mountainFaceupPermit2 = new ImagePanel(permitIterator.next().getImagePath(), permitsDeckDimension);
 		mountainFaceupPermit2.setSize(permitsDeckDimension);
 		mountainFaceupPermit2.setLocation(nobilityPanelDimension.width*854/1000, nobilityPanelDimension.height*43/1000);
 		mountainFaceupPermit2.setVisible(true);
+		imagePanel.remove(imagePanel.getComponentAt(mountainFaceupPermit2.getX(), mountainFaceupPermit2.getY()));
 		imagePanel.add(mountainFaceupPermit2);
 		
 		imagePanel = (ImagePanel)imagePanel.getComponentAt(nobilityPanelDimension.width*874/1000+colorTileDimension.width/2,
