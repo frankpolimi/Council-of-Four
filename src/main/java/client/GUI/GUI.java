@@ -488,7 +488,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 			electCouncillor.setContentAreaFilled(false);
 			electCouncillor.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					ElectCouncillorFrame electCouncillor=new ElectCouncillorFrame(game, thisObj);
+					ElectCouncillorFrame electCouncillor=new ElectCouncillorFrame(game, thisObj,false);
 					electCouncillor.setVisible(true);
 				}
 			});
@@ -538,7 +538,8 @@ public class GUI extends JFrame implements ClientViewInterface {
 			JButton electCouncillorByAssistant = new JButton("");
 			electCouncillorByAssistant.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					JOptionPane.showMessageDialog(contentPane, "electCouncillorByAssistant");
+					ElectCouncillorFrame frame=new ElectCouncillorFrame(game, thisObj, true);
+					frame.setVisible(true);
 				}
 			});
 			electCouncillorByAssistant.setContentAreaFilled(false);
