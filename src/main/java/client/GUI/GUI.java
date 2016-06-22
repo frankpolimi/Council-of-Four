@@ -834,19 +834,20 @@ public class GUI extends JFrame implements ClientViewInterface {
 		
 		JPanel panel = (JPanel)this.contentPane.getComponent(0);
 		ImagePanel imagePanel = (ImagePanel)panel.getComponentAt(0, singleRegionDimension.height);
-		
-		 
+				 
 		Region region = this.game.getRegions().stream().filter(e->e.getName().equals("land")).findFirst().get();
 		Iterator<BuildingPermit> permitIterator = region.getPermitsDeck().getFaceUpPermits().iterator();
 		ImagePanel seasideFaceupPermit1 = new ImagePanel(permitIterator.next().getImagePath(), permitsDeckDimension);
 		seasideFaceupPermit1.setSize(permitsDeckDimension);
 		seasideFaceupPermit1.setLocation(nobilityPanelDimension.width*143/1000, nobilityPanelDimension.height*39/1000);
 		seasideFaceupPermit1.setVisible(true);
+		imagePanel.remove(seasideFaceupPermit1);
 		imagePanel.add(seasideFaceupPermit1);
 		ImagePanel seasideFaceupPermit2 = new ImagePanel(permitIterator.next().getImagePath(), permitsDeckDimension);
 		seasideFaceupPermit2.setSize(permitsDeckDimension);
 		seasideFaceupPermit2.setLocation(nobilityPanelDimension.width*218/1000, nobilityPanelDimension.height*39/1000);
 		seasideFaceupPermit2.setVisible(true);
+		imagePanel.remove(seasideFaceupPermit2);
 		imagePanel.add(seasideFaceupPermit2);
 
 		region = this.game.getRegions().stream().filter(e->e.getName().equals("hill")).findFirst().get();
