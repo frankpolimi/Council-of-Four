@@ -193,13 +193,8 @@ public class ElectCouncillorFrame extends JFrame {
 		Dimension councillorDim=new Dimension((int)((44/XREF)*getWidth()),(int)((100/YREF)*getHeight()));
 		JPanel councillorPanel=(JPanel)(Arrays.asList(contentPane.getComponents()).stream().filter(e->e.getName()!=null&&e.getName().equals("councillors")).findFirst().get());
 		councillorPanel.setLayout(new BoxLayout(councillorPanel,BoxLayout.X_AXIS));
-		/*int spaceX=(int)((5/XREF)*getWidth());
-		int spaceY=(int)((5/YREF)*getHeight());
-		int distanceX=spaceX;*/
 		for(Councillor c:councillors){
 			JLabel councillor=new ImageLabel(c.getImagePath(),councillorDim);
-			//councillor.setBounds(distanceX,spaceY,councillorDim.width, councillorDim.height);
-			//distanceX+=spaceX+councillorDim.width;
 			councillor.addMouseListener(new MouseAdapter() {
 				
 				@Override
