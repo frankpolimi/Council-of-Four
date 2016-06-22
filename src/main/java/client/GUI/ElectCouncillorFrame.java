@@ -19,6 +19,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
 import model.actions.ElectCouncillor;
+import model.actions.ElectCouncillorByAssistant;
 import model.game.Game;
 import model.game.council.Council;
 import model.game.council.Councillor;
@@ -58,7 +59,7 @@ public class ElectCouncillorFrame extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ElectCouncillorFrame frame = new ElectCouncillorFrame(new Game(), new GUI());
+					ElectCouncillorFrame frame = new ElectCouncillorFrame(new Game(), new GUI(), false);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -69,7 +70,7 @@ public class ElectCouncillorFrame extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public ElectCouncillorFrame(Game game, GUI view) {
+	public ElectCouncillorFrame(Game game, GUI view, boolean isByAssistant) {
 		this.game=game;
 		this.view=view;
 		
@@ -116,7 +117,11 @@ public class ElectCouncillorFrame extends JFrame {
 					JOptionPane.showMessageDialog(null, "You have to choise one council and one councillor", "Error", JOptionPane.ERROR_MESSAGE);
 				}else{
 					if(JOptionPane.showConfirmDialog(null, "Do you want to confirm your choise?", "Action", JOptionPane.YES_NO_OPTION)==0){		
-						view.setRequest(new ActionRequest(new ElectCouncillor(councillorSelected, councilSelected),view.getId()));
+						if(isByAssistant){
+							view.setRequest(new ActionRequest(new ElectCouncillorByAssistant(councilSelected, councillorSelected),view.getId()));
+						}else{
+							view.setRequest(new ActionRequest(new ElectCouncillor(councillorSelected, councilSelected),view.getId()));
+						}
 						setVisible(false);
 					}		
 				}

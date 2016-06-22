@@ -33,12 +33,11 @@ public class XMLReaderForClient {
 		return document.getRootElement();
 	}
 	
-	public void createCitiesFromRegionPanel(JPanel panel, Map<Character, City> bonuses, Dimension boardDim) throws JDOMException, IOException{
+	public void createCitiesFromRegionPanel(JPanel panel, Map<Character, City> bonuses, Dimension boardDim, Dimension regionDim) throws JDOMException, IOException{
 		List<Element> regions=this.getRootFromFile(PATH).getChild("cityCoordinates").getChildren();
 		Iterator<Element> regIt=regions.iterator();
 		int i=0;
-		Dimension bonusDim=new Dimension(45,45);
-		Dimension kingDim=new Dimension(45,45);
+		
 		while(regIt.hasNext()){
 			Element region=regIt.next();
 			List<Component> componentList=Arrays.asList(panel.getComponents());
@@ -53,13 +52,16 @@ public class XMLReaderForClient {
 			Iterator<Element> cityIt=cities.iterator();
 			while(cityIt.hasNext()){
 				Element cityElement=cityIt.next();
+				
+				Dimension cityDim=new Dimension(Integer.parseInt(cityElement.getAttributeValue("width")),Integer.parseInt(cityElement.getAttributeValue("height")));
+				Dimension bonusDim=new Dimension((int)(((double)45/(double)cityDim.width)*((double)cityDim.width/(double)280)*regionDim.getWidth()),(int)(((double)45/(double)cityDim.width)*((double)cityDim.width/(double)280)*regionDim.getWidth()));
+				Dimension kingDim=new Dimension((int)(((double)45/(double)cityDim.width)*((double)cityDim.width/(double)280)*regionDim.getWidth()),(int)(((double)45/(double)cityDim.width)*((double)cityDim.width/(double)280)*regionDim.getWidth()));
 				JPanel newPanel=new JPanel();
 				newPanel.setName(cityElement.getAttributeValue("name"));
 				newPanel.setLayout(null);
 				newPanel.setOpaque(false);
 				newPanel.setBounds((int)(Double.parseDouble(cityElement.getAttributeValue("xRel"))*boardDim.width)-i*regionPanel.getWidth(), (int)(Double.parseDouble(cityElement.getAttributeValue("yRel"))
-						*boardDim.height),
-						Integer.parseInt(cityElement.getAttributeValue("width")), Integer.parseInt(cityElement.getAttributeValue("height")));
+						*boardDim.height), cityDim.width,cityDim.height);
 				
 				City city=bonuses.get(cityElement.getAttributeValue("name").charAt(0));
 				/*JPanel kingPanel=new JPanel();
