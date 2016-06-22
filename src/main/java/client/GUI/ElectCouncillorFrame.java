@@ -190,22 +190,22 @@ public class ElectCouncillorFrame extends JFrame {
 	
 	private void createAvaliableCouncillors(){
 		List<Councillor> councillors=game.getAvaliableCouncillor();
-		Dimension councillorDim=new Dimension((int)((30/XREF)*getWidth()),(int)((100/YREF)*getHeight()));
+		Dimension councillorDim=new Dimension((int)((44/XREF)*getWidth()),(int)((100/YREF)*getHeight()));
 		JPanel councillorPanel=(JPanel)(Arrays.asList(contentPane.getComponents()).stream().filter(e->e.getName()!=null&&e.getName().equals("councillors")).findFirst().get());
-		
-		int spaceX=(int)((5/XREF)*getWidth());
+		councillorPanel.setLayout(new BoxLayout(councillorPanel,BoxLayout.X_AXIS));
+		/*int spaceX=(int)((5/XREF)*getWidth());
 		int spaceY=(int)((5/YREF)*getHeight());
-		int distanceX=spaceX;
+		int distanceX=spaceX;*/
 		for(Councillor c:councillors){
-			JPanel councillor=new ImagePanel(c.getImagePath(),councillorDim);
-			councillor.setBounds(distanceX,spaceY,councillorDim.width, councillorDim.height);
-			distanceX+=spaceX+councillorDim.width;
+			JLabel councillor=new ImageLabel(c.getImagePath(),councillorDim);
+			//councillor.setBounds(distanceX,spaceY,councillorDim.width, councillorDim.height);
+			//distanceX+=spaceX+councillorDim.width;
 			councillor.addMouseListener(new MouseAdapter() {
 				
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					for(Component c:councillorPanel.getComponents())
-						((JPanel)c).setBorder(null);
+						((JLabel)c).setBorder(null);
 					councillor.setBorder(new LineBorder(Color.yellow,2));
 					councillorSelected=c;
 				}
