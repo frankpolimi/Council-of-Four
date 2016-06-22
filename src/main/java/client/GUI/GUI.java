@@ -679,7 +679,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 		}
 		
 		JPanel regions=(JPanel)this.contentPane.getComponents()[0].getComponentAt(0, 0);
-		reader.createCitiesFromRegionPanel(regions, bonuses, cardBoardDimension);	
+		reader.createCitiesFromRegionPanel(regions, bonuses, cardBoardDimension, singleRegionDimension);	
 
 	}
 
