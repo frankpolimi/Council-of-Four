@@ -21,6 +21,8 @@ import java.awt.Toolkit;
 import javax.swing.border.LineBorder;
 import client.ClientViewInterface;
 import client.XMLReaderForClient;
+import model.actions.EngageAssistant;
+import model.actions.ExtraMainAction;
 import model.actions.SkipAction;
 import model.game.BuildingPermit;
 import model.game.Game;
@@ -457,15 +459,9 @@ public class GUI extends JFrame implements ClientViewInterface {
 			acquirePermit.setContentAreaFilled(false);
 			acquirePermit.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					//JOptionPane.showMessageDialog(contentPane, "acquirePermit");
-					//TODO wip
 					AcquirePermitFrame input = new AcquirePermitFrame(game, thisObj);
 					input.setVisible(true);
 					input.setAutoRequestFocus(true);
-					/*
-				input.permits();
-				input.politicsCard();
-					 */
 				}
 			});
 			acquirePermit.setSize(actionButtonDimension);
@@ -516,7 +512,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 			JButton engageAssistant = new JButton("");
 			engageAssistant.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					JOptionPane.showMessageDialog(contentPane, "engageAssistant");
+					setRequest(new ActionRequest(new EngageAssistant(), ID));
 				}
 			});
 			engageAssistant.setContentAreaFilled(false);
@@ -555,7 +551,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 			JButton extraMainAction = new JButton("");
 			extraMainAction.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					JOptionPane.showMessageDialog(contentPane, "extraMainAction");
+					setRequest(new ActionRequest(new ExtraMainAction(), ID));
 				}
 			});
 			extraMainAction.setContentAreaFilled(false);
