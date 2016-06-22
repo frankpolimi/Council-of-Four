@@ -7,8 +7,22 @@ import org.junit.Test;
 import model.bonus.AssistantBonus;
 import model.game.Game;
 
-public class AssistantBonusTest {
+public class AssistantBonusTest 
+{
+	Game game;
+	AssistantBonus ab;
 
+	public void AssistantBonusSetup()
+	{
+		try 
+		{
+			game=SupportClass.gameWithPlayersCreator("Giocatore1", "Giocatore2","Giocatore3","Giocatore 4");
+			ab=new AssistantBonus(new Integer(3));
+		} catch (JDOMException | IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	@Test
 	public void testCreateAssistantBonus() {
 		Integer i = new Integer(12);
@@ -32,20 +46,12 @@ public class AssistantBonusTest {
 	@Test
 	public void testAssignBonusToPlayer()
 	{
-		try {
-			Game game=SupportClass.gameWithPlayersCreator("Giocatore1", "Giocatore2","Giocatore3","Giocatore 4");
-			AssistantBonus ab=new AssistantBonus(new Integer(3));
-			int presentAssistantsValuePlayer1=game.getCurrentPlayer().getAssistants();
-			int presentAssistantsValuePlayer2=game.getPlayers().get(1).getAssistants();
-			ab.update(game);
-			assertEquals(presentAssistantsValuePlayer1+3, game.getCurrentPlayer().getAssistants());
-			assertEquals(presentAssistantsValuePlayer2, game.getPlayers().get(1).getAssistants());
-		} catch (JDOMException e) {
-			e.printStackTrace();
-			fail("Jdome");
-		} catch (IOException e) {
-			e.printStackTrace();
-			fail("IO");
-		}
+		this.AssistantBonusSetup();
+		int presentAssistantsValuePlayer1=game.getCurrentPlayer().getAssistants();
+		int presentAssistantsValuePlayer2=game.getPlayers().get(1).getAssistants();
+		ab.update(game);
+		assertEquals(presentAssistantsValuePlayer1+3, game.getCurrentPlayer().getAssistants());
+		assertEquals(presentAssistantsValuePlayer2, game.getPlayers().get(1).getAssistants());
 	}
 }
+

@@ -65,7 +65,7 @@ public class BuildEmporiumByKingTest
 		this.buildPermitByKingTestSetup();
 		city=game.getKingsPosition();
 		action=new BuildEmporiumByKing(council, list, city);
-		game.getCurrentPlayer().setCoins(0);
+		game.getCurrentPlayer().setCoins(4);
 		assertFalse(city.hasPlayerBuilt(player));
 		assertTrue(action.takeAction(game));
 		assertTrue(city.hasPlayerBuilt(player));
@@ -80,7 +80,7 @@ public class BuildEmporiumByKingTest
 		assertFalse(city.hasPlayerBuilt(player));
 		assertTrue(action.takeAction(game));
 		assertTrue(city.hasPlayerBuilt(player));
-		assertEquals(100-game.getMap().howManyVertexPassed(oldKingsCity, city)*2,player.getCoins());
+		assertEquals(100-game.getMap().howManyVertexPassed(oldKingsCity, city)*2-4,player.getCoins());
 	}
 	
 	@Test

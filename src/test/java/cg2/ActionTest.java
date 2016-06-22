@@ -19,26 +19,43 @@ public class ActionTest
 	private Council council;
 	Action action;
 
-	@Test
-	public void testPayCouncil() 
+	
+	public void ActionSetup()
 	{
 		try {
 			game=SupportClass.gameWithPlayersCreator("Giacobbe", "Salvatore","Angelo","Gesu'");
+			list=new ArrayList<>();
+			Color c1=SupportClass.giveRandomColor();
+			Color c2=SupportClass.giveRandomColor();
+			Color c3=SupportClass.giveRandomColor();
+			list.add(new ColoredPoliticsCard(c1));
+			list.add(new ColoredPoliticsCard(c2));
+			list.add(new JollyPoliticsCard());
+			list.add(new JollyPoliticsCard());
+			council=SupportClass.councilCreatorByColors(c1, c1, c2, c3, "King");
+			action=new Action();
 		} catch (JDOMException | IOException e) {
 			e.printStackTrace();
 		}
-		list=new ArrayList<>();
-		Color c1=SupportClass.giveRandomColor();
-		Color c2=SupportClass.giveRandomColor();
-		Color c3=SupportClass.giveRandomColor();
-		list.add(new ColoredPoliticsCard(c1));
-		list.add(new ColoredPoliticsCard(c2));
-		list.add(new JollyPoliticsCard());
-		list.add(new JollyPoliticsCard());
-		council=SupportClass.councilCreatorByColors(c1, c1, c2, c3, "King");
-		game.getCurrentPlayer().setCoins(1);
-		action=new Action();
+	}
+	
+	
+	
+	@Test
+	public void testPayCouncil() 
+	{
+		this.ActionSetup();
 		assertTrue(action.payCouncil(game, council, list));
+	}
+	
+	@Test
+	public void testJolliesCost1Each()
+	{
+		this.ActionSetup();
+		list=SupportClass.giveJollyHand();
+		game.getCurrentPlayer().setCoins(4);
+		assertTrue(action.payCouncil(game, council, list));
+		assertEquals(0, game.getCurrentPlayer().getCoins());
 	}
 
 }

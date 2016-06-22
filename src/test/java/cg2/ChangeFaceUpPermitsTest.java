@@ -14,7 +14,10 @@ import model.game.Game;
 import model.game.PermitsDeck;
 import model.game.Player;
 
-public class ChangeFaceUpPermitsTest {
+public class ChangeFaceUpPermitsTest 
+{
+	Game game;
+	
 
 	@Test
 	public void testTakeAction() 
