@@ -76,6 +76,11 @@ public class ServerSocketView extends View implements Runnable
 		
 	}
 	
+	/**
+	 * method to set the ID of the player related to this view
+	 * will catch a IOException if sending to client fails
+	 * @param serialID the id of the game player associated to this view
+	 */
 	@Override
 	public void setID(int serialID){
 		this.ID = serialID;
@@ -101,6 +106,10 @@ public class ServerSocketView extends View implements Runnable
 		this.name = name;
 	}
 
+	/**
+	 * @return the connection handler for the specific
+	 * 			kind of connection
+	 */
 	public SocketConnectionHandler getHandler() {
 		return handler;
 	}
