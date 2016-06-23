@@ -13,7 +13,7 @@ public abstract class Bonus extends Observable<Change> implements Bonuser, Seria
 	 */
 	private static final long serialVersionUID = 3205604308403400820L;
 	private static int IDGenerator=0;
-	private final int bonusID=IDGenerator;
+	private int bonusID=IDGenerator;
 	/**
 	 * @author Francesco Vetr�
 	 */
@@ -43,6 +43,18 @@ public abstract class Bonus extends Observable<Change> implements Bonuser, Seria
 	}
 
 	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((amount == null) ? 0 : amount.hashCode());
+		result = prime * result + bonusID;
+		return result;
+	}
+
+	/* (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -63,8 +75,7 @@ public abstract class Bonus extends Observable<Change> implements Bonuser, Seria
 			return false;
 		return true;
 	} 
-	
-	
+
 	
 	
 }

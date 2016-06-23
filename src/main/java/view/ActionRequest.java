@@ -31,6 +31,6 @@ public class ActionRequest extends Request {
 	 */
 	public Action getAction() {
 		return action;
-	}
+	}        
 
 }
