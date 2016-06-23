@@ -22,7 +22,14 @@ public class StartingGameTimerTask extends TimerTask {
 	private Server server;
 	
 	
-
+	/**
+	 * constructor for a timer task that allows the server
+	 * to recognize when a game is ready to be played 
+	 * @param server the server which is applied the timer
+	 * @param oneRoomLobby the players that will participate to the game
+	 * @param playersView the correspondence of the player participating in the game
+	 * 						with their own view
+	 */
 	public StartingGameTimerTask(Server server,List<Player> oneRoomLobby, Map<Player, View> playersView) {
 		super();
 		this.oneRoomLobby = oneRoomLobby;
@@ -30,8 +37,21 @@ public class StartingGameTimerTask extends TimerTask {
 		this.server=server;
 	}
 
-
-
+	/**
+	 * this method will perform different controls on the status 
+	 * of the server in order to start the game.
+	 * first of all will check if at least two players are connected
+	 * if so, this method will send an empty string to check if 
+	 * the client is still connected (like a ping to test if connection is 
+	 * available)
+	 * if SocketException or RemoteException are caught due to failing of
+	 * test said before, the player is removed and so the view is unregistered
+	 * from the game.
+	 * in the end the method will check if there are still at least two players left
+	 * so that the game can start. if response is positive, the server will setup a new
+	 * game and will be waiting for new players to join
+	 * as last operation the timer is reseted 
+	 */
 	@Override
 	public synchronized void run() {
 
