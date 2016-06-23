@@ -10,7 +10,9 @@ import model.bonus.CoinBonus;
 import model.game.Emporium;
 import model.game.topology.City;
 
-public class EmporiumTest {
+public class EmporiumTest 
+{
+	ArrayList<Bonus> bonusList;
 
 	@Test(expected = NullPointerException.class)
 	public void testNullConstructor(){
@@ -31,37 +33,37 @@ public class EmporiumTest {
 	
 	@Test
 	public void testNotEquals(){
-		ArrayList<Bonus> b = new ArrayList<>();
-		b.add(new CoinBonus(1));
-		Emporium e1 = new Emporium(new City("city", Color.BLACK, b), Color.BLUE);
-		b.clear();
-		b.add(new AssistantBonus(1));
-		Emporium e2 = new Emporium(new City("city2", Color.BLUE, b), Color.DARK_GRAY);
+		bonusList = new ArrayList<>();
+		bonusList.add(new CoinBonus(1));
+		Emporium e1 = new Emporium(new City("city", Color.BLACK, bonusList), Color.BLUE);
+		bonusList.clear();
+		bonusList.add(new AssistantBonus(1));
+		Emporium e2 = new Emporium(new City("city2", Color.BLUE, bonusList), Color.DARK_GRAY);
 		assertNotEquals(e1, e2);
 	}
 	
 	@Test
 	public void testEquals(){
-		ArrayList<Bonus> b = new ArrayList<>();
-		b.add(new CoinBonus(1));
-		Emporium e1 = new Emporium(new City("city", Color.BLACK, b), Color.BLUE);
-		Emporium e2 = new Emporium(new City("city", Color.BLACK, b), Color.BLUE);
+		bonusList = new ArrayList<>();
+		bonusList.add(new CoinBonus(1));
+		Emporium e1 = new Emporium(new City("city", Color.BLACK, bonusList), Color.BLUE);
+		Emporium e2 = new Emporium(new City("city", Color.BLACK, bonusList), Color.BLUE);
 		assertEquals(e1, e2);
 	}
 	
 	@Test
 	public void testColor(){
-		ArrayList<Bonus> b = new ArrayList<>();
-		b.add(new CoinBonus(1));
-		Emporium e1 = new Emporium(new City("city", Color.BLACK, b), Color.BLUE);
+		bonusList = new ArrayList<>();
+		bonusList.add(new CoinBonus(1));
+		Emporium e1 = new Emporium(new City("city", Color.BLACK, bonusList), Color.BLUE);
 		assertEquals(Color.BLUE, e1.getColor());
 	}
 	
 	@Test
 	public void testCity(){
-		ArrayList<Bonus> b = new ArrayList<>();
-		b.add(new CoinBonus(1));
-		City c = new City("city", Color.BLACK, b);
+		bonusList = new ArrayList<>();
+		bonusList.add(new CoinBonus(1));
+		City c = new City("city", Color.BLACK, bonusList);
 		Emporium e1 = new Emporium(c, Color.BLUE);
 		assertEquals(c, e1.getCity());
 	}

@@ -11,46 +11,66 @@ import model.game.Game;
 
 public class EngageAssistantTest
 {
-
-	@Test
-	public void testTakeAction()
+	Game game;
+	int CurrentPlayersCurrentAssistants;
+	int OtherPlayerCurrentAssistants;
+	Action action;
+	
+	public void EngageAssistantTestSetup()
 	{
-		try 
-		{
-			Game game=SupportClass.gameWithPlayersCreator("Piergigi", "Marcantonio","Caesar","Augusto");
-			int CurrentPlayersCurrentAssistants=game.getCurrentPlayer().getAssistants();
-			int OtherPlayerCurrentAssistants=game.getPlayers().get(1).getAssistants();
-			game.getCurrentPlayer().setCoins(1);
-			Action a=new EngageAssistant();
-			try
-			{
-				a.takeAction(game);
-				fail("Action should launch exception");
-			}
-			catch(IllegalStateException e)
-			{
-				assertTrue(true);
-			}
-			game.getCurrentPlayer().setCoins(3);
-			assertTrue(a.takeAction(game));
-			assertEquals(CurrentPlayersCurrentAssistants+1, game.getCurrentPlayer().getAssistants());
-			assertEquals(OtherPlayerCurrentAssistants, game.getPlayers().get(1).getAssistants());
-			
-			try
-			{
-				a.takeAction(game);
-				fail("Action should launch exception");
-			}
-			catch(IllegalStateException e)
-			{
-				assertTrue(true);
-			}
-			
+		try {
+			game=SupportClass.gameWithPlayersCreator("Piergigi", "Marcantonio","Caesar","Augusto");
+			CurrentPlayersCurrentAssistants=game.getCurrentPlayer().getAssistants();
+			OtherPlayerCurrentAssistants=game.getPlayers().get(1).getAssistants();
+			action=new EngageAssistant();
 		} catch (JDOMException | IOException e) {
-			fail("Errors on game's creation");
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	@Test
+	public void testActionWithNoValidMoves()
+	{
+		this.EngageAssistantTestSetup();
+		game.decrementQuickActionCounter();
+		try
+		{
+			action.takeAction(game);
+			fail("Action should launch exception");
+		}
+		catch(IllegalStateException e)
+		{
+			assertTrue(true);
+		}
+	}
+	
+	@Test
+	public void testActionWithNotEnoughCoins()
+	{
+		this.EngageAssistantTestSetup();
+		game.getCurrentPlayer().setCoins(1);
 		
+		try
+		{
+			action.takeAction(game);
+			fail("Action should launch exception");
+		}
+		catch(IllegalStateException e)
+		{
+			assertTrue(true);
+		}
+	}
+	
+	
+	@Test
+	public void testActionValid()
+	{
+		this.EngageAssistantTestSetup();	
+		game.getCurrentPlayer().setCoins(3);
+		assertTrue(action.takeAction(game));
+		assertEquals(CurrentPlayersCurrentAssistants+1, game.getCurrentPlayer().getAssistants());
+		assertEquals(OtherPlayerCurrentAssistants, game.getPlayers().get(1).getAssistants());
 	}
 
 }
