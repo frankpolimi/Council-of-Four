@@ -11,6 +11,9 @@ import view.QuitRequest;
 import view.Request;
 import view.View;
 
+/**
+ * @author Emanuele Ricciardelli
+ */
 public class ServerSocketView extends View implements Runnable
 {
 	//private final Socket socket;

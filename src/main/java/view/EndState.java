@@ -4,6 +4,10 @@ import java.io.Serializable;
 
 import model.game.Player;
 
+/**
+ * @author Emanuele Ricciardelli
+ */
+
 public class EndState implements State, Serializable {
 
 	/**

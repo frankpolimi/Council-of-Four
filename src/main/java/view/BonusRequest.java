@@ -9,7 +9,7 @@ import java.util.List;
 import model.bonus.Bonus;
 
 /**
- * @author francesco
+ * @author Francesco Vetro'
  *
  */
 public class BonusRequest extends Request {

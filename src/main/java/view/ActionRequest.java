@@ -6,7 +6,7 @@ package view;
 import model.actions.*;
 
 /**
- * @author francesco
+ * @author Francesco Vetro'
  *
  */
 public class ActionRequest extends Request {

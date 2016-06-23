@@ -8,7 +8,7 @@ import java.util.List;
 import model.game.BuildingPermit;
 
 /**
- * @author francesco
+ * @author Francesco Vetro'
  *
  */
 public class PermitsRequest extends Request {

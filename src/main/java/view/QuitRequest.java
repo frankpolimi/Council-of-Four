@@ -4,6 +4,10 @@ import model.actions.SkipAction;
 import model.game.Game;
 import model.game.Player;
 
+/**
+ * @author Emanuele Ricciardelli
+ */
+
 public class QuitRequest extends Request {
 
 	/**

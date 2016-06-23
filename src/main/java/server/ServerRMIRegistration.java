@@ -12,7 +12,7 @@ import client.ClientRMIRemote;
 import controller.ModelChange;
 
 /**
- * @author Francesco Vetrò
+ * @author Francesco Vetro'
  *
  */
 public class ServerRMIRegistration implements ServerRMIRegistrationRemote {

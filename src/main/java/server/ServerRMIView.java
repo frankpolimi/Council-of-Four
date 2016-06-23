@@ -16,7 +16,7 @@ import view.Request;
 import view.View;
 
 /**
- * @author Francesco Vetrò
+ * @author Francesco Vetro'
  *
  */
 public class ServerRMIView extends View implements ServerRMIViewRemote{

@@ -7,7 +7,7 @@ import java.util.List;
 import model.game.BuildingPermit;
 
 /**
- * @author Francesco Vetr�
+ * @author Francesco Vetro'
  *
  */
 public class PermitsState implements State {

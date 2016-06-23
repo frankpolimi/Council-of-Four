@@ -16,7 +16,7 @@ import model.game.Player;
 import model.game.politics.PoliticsCard;
 
 /**
- * @author Francesco Vetr�
+ * @author Francesco Vetro'
  * @param <T> the type of the object 
  *
  */

@@ -6,7 +6,7 @@ package view;
 import java.io.Serializable;
 
 /**
- * @author francesco
+ * @author Emanuele Ricciardelli
  *
  */
 public class MarketSellingState implements State, Serializable {

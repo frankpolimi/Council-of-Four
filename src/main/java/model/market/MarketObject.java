@@ -8,7 +8,7 @@ import java.io.Serializable;
 import model.game.Player;
 
 /**
- * @author Francesco Vetr�
+ * @author Francesco Vetro'
  * generic type <T> can be an Assistant, a PolitcsCard or a BuildingLicense
  * no aggregation of elements can be performed
  */

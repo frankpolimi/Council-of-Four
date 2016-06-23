@@ -25,6 +25,12 @@ import model.game.Game;
 import model.game.Player;
 import view.View;
 
+/**
+ * @author Vitaliy Pakholko
+ * @author Emanuele Ricciardelli
+ * @author Francesco Vetro'
+ */
+
 public class Server 
 {
 	private final int SOCKETPORT;

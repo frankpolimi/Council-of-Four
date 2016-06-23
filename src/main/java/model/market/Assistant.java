@@ -2,6 +2,10 @@ package model.market;
 
 import java.io.Serializable;
 
+/**
+ * @author Francesco Vetro'
+ */
+
 public class Assistant implements Serializable{
 	
 	/**

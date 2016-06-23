@@ -8,9 +8,10 @@ import controller.Change;
 import model.observers.*;
 
 /**
+ * @author Francesco Vetro'
+ * 
  * this class is the representation of a generic view. 
  * the view is supposed to be able to read changes
- * @author Francesco Vetro'
  */
 public abstract class View extends Observable<Request> implements Observer<Change> {
 

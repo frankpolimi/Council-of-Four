@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 
 /**
- * @author francesco
+ * @author Francesco Vetro'
  * class that is used to communicate from the client to the server
  * and the player has the ability to influence the state of the game.
  * there are different requests: 

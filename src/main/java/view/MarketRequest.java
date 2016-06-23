@@ -6,9 +6,9 @@ package view;
 import model.market.MarketObject;
 
 /**
- * @author francesco
- * @param <T>
- *
+ * @author Francesco Vetro'
+ * @param <T> is the generic type of the market object
+ * 				that a player can sell or buy from the market
  */
 public class MarketRequest<T> extends Request {
 	

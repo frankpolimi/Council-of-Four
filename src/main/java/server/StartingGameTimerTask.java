@@ -15,6 +15,9 @@ import view.View;
 
 import java.util.*;
 
+/**
+ * @author Emanuele Ricciardelli
+ */
 public class StartingGameTimerTask extends TimerTask {
 
 	private List<Player> oneRoomLobby;

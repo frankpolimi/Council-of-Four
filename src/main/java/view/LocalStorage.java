@@ -13,7 +13,7 @@ import model.game.BuildingPermit;
 import model.game.Game;
 
 /**
- * @author Francesco Vetr�
+ * @author Francesco Vetro'
  *
  */
 public class LocalStorage {
