@@ -4,6 +4,9 @@ import java.io.Serializable;
 
 /**
  * @author Francesco Vetro'
+ * 
+ * class used to sell an amount of assistants 
+ * in the market
  */
 
 public class Assistant implements Serializable{
@@ -14,6 +17,10 @@ public class Assistant implements Serializable{
 	private static final long serialVersionUID = 8084595231388031075L;
 	private final int number;
 	
+	/**
+	 * constructor for a selling amount of assistants
+	 * @param number the amount of assistants to be sold
+	 */
 	public Assistant(int number) {
 		this.number = number;
 	}

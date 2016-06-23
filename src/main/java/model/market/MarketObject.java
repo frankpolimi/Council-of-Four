@@ -22,6 +22,13 @@ public class MarketObject<T> implements Serializable{
 	private final Player sellingPlayer;
 	private final int price;
 	
+	/**
+	 * constructor for an object in the market
+	 * @param object the generic object to be sold
+	 * 					(assistants, politics card, unused permits)
+	 * @param p the player that sells the product
+	 * @param price the price of the object
+	 */
 	public MarketObject(T object, Player p, int price) {
 		this.object = object;
 		this.sellingPlayer = p;

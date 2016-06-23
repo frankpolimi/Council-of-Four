@@ -167,12 +167,14 @@ public class Market implements Serializable{
 		
 	}
 	
+	/**
+	 * method to know the length of the available products for a 
+	 * specific player
+	 * @param customer the player that has access to the market
+	 * @return the length of the products available for the player
+	 */
 	public int getLengthAvailableProducts(Player customer){
-		List<MarketObject<?>> available = new ArrayList<>();
-		for(MarketObject<?> o: products)
-			if(o.getSellingPlayer().getPlayerID() != customer.getPlayerID())
-				available.add(o);
-		return available.size();
+		return this.getAvailableProducts(customer).size();
 	}
 
 	//solo per provare.. va tolto!
