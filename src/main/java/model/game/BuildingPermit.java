@@ -143,8 +143,7 @@ public class BuildingPermit extends Bonusable implements Serializable{
 		if (buildingAvaliableCities == null) {
 			if (other.buildingAvaliableCities != null)
 				return false;
-		} else if (!buildingAvaliableCities.equals(other.buildingAvaliableCities))
-			return false;
+		}
 		if (firstChars == null) {
 			if (other.firstChars != null)
 				return false;
