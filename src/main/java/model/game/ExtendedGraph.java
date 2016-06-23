@@ -95,6 +95,10 @@ public class ExtendedGraph<V extends City,E> extends SimpleGraph<V, E> implement
 		
 	}
 
+	/**
+	 * return the copy of the graph
+	 * @return the cloned graph
+	 */
 	@Override
 	public ExtendedGraph<V,E> clone(){
 		ExtendedGraph<V,E> cloned=new ExtendedGraph<>(type);

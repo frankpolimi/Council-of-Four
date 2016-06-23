@@ -74,7 +74,12 @@ public class Game extends Observable<Change> implements Serializable, Remote{
 	private int mainActionCounter;
 	private int quickActionCounter;
 	
-
+	/**
+	 * constructor for a game of "council of four"
+	 * setup the game without the players by reading a configuration file
+	 * @throws JDOMException when errors occurs during parsing from file
+	 * @throws IOException when errors occurs during reading from file
+	 */
 	public Game() throws JDOMException, IOException {
 		MapMaker mp=new MapMaker();
 		
@@ -97,6 +102,13 @@ public class Game extends Observable<Change> implements Serializable, Remote{
 		this.timer=new Timer();
 	}
 
+	/**
+	 * randomize the map that will be used for the game
+	 * and allows to select the right configuration file
+	 * @param regionNum the number of regions that the game will contains
+	 * @return the sequence of characters that represent the kind 
+	 * 			of region that will be used for the game
+	 */
 	private String extractRandomMap(int regionNum){
 		String extracted="";
 		for(int i=0;i<regionNum;i++){
@@ -109,6 +121,14 @@ public class Game extends Observable<Change> implements Serializable, Remote{
 		
 	}
 	
+	/**
+	 * method that allows the server to setup the players
+	 * in the game. this method will also initialize the game
+	 * due to specifics: if only two players are participating,
+	 * the game will setup differently rather than when 3 or more
+	 * players are connected
+	 * @param players the list of players connected to the game
+	 */
 	public void setPlayers(List<Player> players){
 		this.players.addAll(players);
 		if(this.players.size()>2){
@@ -140,6 +160,12 @@ public class Game extends Observable<Change> implements Serializable, Remote{
 		}while(endOfGame);
 	}*/
 	
+	/**
+	 * method to initialize the game with the specific setup
+	 * for 3 or more players. this method is also capable of
+	 * disposing a sufficient number of game items so that
+	 * the game can proceed without errors or slowly
+	 */
 	public void init(){
 		int playerNumber=this.players.size();
 		int div=Math.floorDiv(playerNumber, 4);
@@ -160,6 +186,14 @@ public class Game extends Observable<Change> implements Serializable, Remote{
 		}
 	}
 	
+	/**
+	 * method that initialize the game when only two players 
+	 * are connected specifically. as rules state, a number of
+	 * random emporiums on random cities is built prior to the game
+	 * this doesn't affect players because emporiums aren't owned by anyone
+	 * but the player will follow the game rules and pay 1 extra assistants 
+	 * for each emporium built on the city he tries to build on.  
+	 */
 	public void initFor2Players(){
 		Random random=new Random();
 		this.init();
@@ -183,6 +217,10 @@ public class Game extends Observable<Change> implements Serializable, Remote{
 		
 	}
 	
+	/**
+	 * get the graph of the cities
+	 * @return the graph of the cities
+	 */
 	public ExtendedGraph<City, DefaultEdge> getMap(){
 		return this.map;
 	}
@@ -217,14 +255,35 @@ public class Game extends Observable<Change> implements Serializable, Remote{
 		this.lastTurn = true;
 	}
 	
+	/**
+	 * this will allow the game to know how many
+	 * players are left to the end of the phase,
+	 * whether is the action phase, market phase
+	 * or the end phase when all players perform 
+	 * their last actions due to another player 
+	 * building 10 emporiums
+	 */
 	public void decrementLastRemainingPlayers(){
 		this.lastTurnRemainingPlayers--;
 	}
 	
+	/**
+	 * get the amount of players left that
+	 * haven't jet performed an action
+	 * @return the number of players waiting to perform an action
+	 */
 	public int getLastTurnRemainingPlayers(){
 		return this.lastTurnRemainingPlayers;
 	}
 
+	/**
+	 * checks if a color has already been used
+	 * for a player so that the future built emporium
+	 * isn't possessed by anyone 
+	 * @param color the color to check if already used
+	 * @return true if a color has already been used
+	 * 			false otherwise
+	 */
 	private boolean isColorAlreadyCreated(Color color){
 		boolean check=false;
 		for(Player p:this.players){
@@ -235,6 +294,15 @@ public class Game extends Observable<Change> implements Serializable, Remote{
 		return check;
 	}
 	
+	/**
+	 * method that allows the game to calculate the winner
+	 * of the specific game
+	 * @throws IllegalAccessException
+	 * @throws IllegalArgumentException
+	 * @throws InvocationTargetException
+	 * @throws NoSuchMethodException
+	 * @throws SecurityException
+	 */
 	public void endOfTheGame() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException{
 		this.players.addAll(this.disconnectedPlayers);
 		List<Player> copyList=new ArrayList<>(this.players);
@@ -245,6 +313,10 @@ public class Game extends Observable<Change> implements Serializable, Remote{
 	
 	/**
 	 * @author Vitaliy Pakholko
+	 * this method allows to remove all used politic cards,
+	 * add them to the politic deck in the game and then shuffle 
+	 * the deck.
+	 * @throws NullPointerException if the used politic deck is empty
 	 */
 	public void shuffleUsedPolitics()
 	{
@@ -257,6 +329,11 @@ public class Game extends Observable<Change> implements Serializable, Remote{
 	
 	/**
 	 * @author Vitaliy Pakholko
+	 * this method allows to add a councillor to the available 
+	 * councillors that are in the game. this councillors can be used to perform
+	 * all the actions that involves the election of a councillor
+	 * @param councillor the councillor that was eliminated from a council
+	 * 						and that will be available in the game
 	 */
 	public void addCouncillor(Councillor councillor)
 	{
@@ -265,6 +342,8 @@ public class Game extends Observable<Change> implements Serializable, Remote{
 	
 	/**
 	 * @author Vitaliy Pakholko
+	 * increment by 1 the amount of quick actions 
+	 * available for a player
 	 */
 	public void incrementQuickActionCounter()
 	{
@@ -273,6 +352,8 @@ public class Game extends Observable<Change> implements Serializable, Remote{
 	
 	/**
 	 * @author Vitaliy Pakholko
+	 * decrement by 1 the amount of quick actions 
+	 * available for a player
 	 */
 	public void decrementQuickActionCounter()
 	{
@@ -281,6 +362,8 @@ public class Game extends Observable<Change> implements Serializable, Remote{
 	
 	/**
 	 * @author Vitaliy Pakholko
+	 * increment by 1 the amount of main actions 
+	 * available for a player
 	 */
 	public void incrementMainActionCounter()
 	{
@@ -289,6 +372,8 @@ public class Game extends Observable<Change> implements Serializable, Remote{
 	
 	/**
 	 * @author Vitaliy Pakholko
+	 * decrement by 1 the amount of main actions 
+	 * available for a player
 	 */
 	public void decrementMainActionCounter()
 	{
@@ -298,6 +383,8 @@ public class Game extends Observable<Change> implements Serializable, Remote{
 	
 	/**
 	 * @author Vitaliy Pakholko
+	 * get the city where the king is placed
+	 * @return the city where the king is placed
 	 */
 	public City getKingsPosition() {
 		return kingsPosition;
@@ -305,6 +392,10 @@ public class Game extends Observable<Change> implements Serializable, Remote{
 
 	/**
 	 * @author Vitaliy Pakholko
+	 * setup the position of the king. is used both when initializing
+	 * and moving the king through the map
+	 * @param kingsPosition the city where the king will be 
+	 * 						placed after this method call
 	 */
 	public void setKingsPosition(City kingsPosition) {
 		this.kingsPosition = kingsPosition;
@@ -370,6 +461,10 @@ public class Game extends Observable<Change> implements Serializable, Remote{
 		return politicsDeck;
 	}
 	
+	/**
+	 * get all the available councillors in the game
+	 * @return the availble councillors in the game
+	 */
 	public List<Councillor> getAvaliableCouncillor(){
 		return this.avaliableCouncillors;
 	}
@@ -414,6 +509,10 @@ public class Game extends Observable<Change> implements Serializable, Remote{
 				+"MAP\n"+ map + "\nKING POSITION=" + kingsPosition + "\nCURRENT PLAYER=" + currentPlayer + " ]";
 	}
 	
+	/**
+	 * get only the regional councils present in the game
+	 * @return the regional councils in the game
+	 */
 	public List<RegionalCouncil> getRegionalCouncils(){
 		Set<Region> regions=this.getRegions();
 		List<RegionalCouncil> regional=new ArrayList<>();
@@ -424,6 +523,11 @@ public class Game extends Observable<Change> implements Serializable, Remote{
 		return regional;
 	}
 	
+	/**
+	 * get all the regional councils in the game and 
+	 * the king's council
+	 * @return all the councils
+	 */
 	public List<Council> getAllCouncils(){
 		List<RegionalCouncil> regCouncils=this.getRegionalCouncils();
 		List<Council> councils=new ArrayList<>();
@@ -431,7 +535,11 @@ public class Game extends Observable<Change> implements Serializable, Remote{
 		councils.add(this.kingsCouncil);
 		return councils;
 	}
-	
+
+	/**
+	 * get the list of all the cities available in the game
+	 * @return the list of cities in each region
+	 */
 	public List<City> getAllCities()
 	{
 		List<City> list=new ArrayList<>();
@@ -442,6 +550,10 @@ public class Game extends Observable<Change> implements Serializable, Remote{
 		return list;
 	}
 	
+	/**
+	 * get all the permits deck, one for each region
+	 * @return all the permits deck in the game
+	 */
 	public List<PermitsDeck> getAllPermitsDecks()
 	{
 		List<PermitsDeck> list=new ArrayList<>();
@@ -460,6 +572,20 @@ public class Game extends Observable<Change> implements Serializable, Remote{
 		return shuffledPlayers;
 	}
 	
+	/**
+	 * method that define the rule of evolution of the FSM
+	 * that lies behind the game. the game evolves in the following 
+	 * manner: 
+	 * at the beginning the game allows the players to perform actions
+	 * (all main actions must be used, quick ones can be skipped)
+	 * when all players have performed their actions, the game goes into
+	 * the first step of the market phase: each player select items that will
+	 * be eventually bought by other players (a player can skip this phase).
+	 * when all players are done selling items, the market evolves in the second 
+	 * phase, the buying one: all players (randomized) will see a selection of objects (without
+	 * the ones that they sold) that may buy. even this phase is not mandatory.
+	 * then the game starts all over again till the end
+	 */
 	public void nextState(){
 		if(this.gameState instanceof StartState){
 			this.gameState=new MarketSellingState();

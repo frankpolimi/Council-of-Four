@@ -14,6 +14,7 @@ public class ColorTile extends PointsTile implements Serializable{
 	 * This method is the ColorTile constructor
 	 * @param amount indicates how many points the owner earns.
 	 * @param color indicates the color of the set of cities which unblock this achievement. 
+	 * @param imagePath is the path to the image of the tile
 	 * @throws NullPointerException if color is null
 	 * @throws IllegalArgumentException if amount is negative or zero
 	 */
@@ -29,6 +30,13 @@ public class ColorTile extends PointsTile implements Serializable{
 		cityColor=color;
 	}
 	
+	/**
+	 * This method is the ColorTile constructor
+	 * @param amount indicates how many points the owner earns.
+	 * @param color indicates the color of the set of cities which unblock this achievement. 
+	 * @throws NullPointerException if color is null
+	 * @throws IllegalArgumentException if amount is negative or zero
+	 */
 	public ColorTile(int amount, Color color) {
 		super(amount);
 		if(amount<=0){

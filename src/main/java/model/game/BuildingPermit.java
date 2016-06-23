@@ -29,6 +29,7 @@ public class BuildingPermit extends Bonusable implements Serializable{
 	 * This method is the BuildingPermit constructor
 	 * @param ba is a set of cities in which the owner of this permit could build an emporium
 	 * @param bonus is a set of bonus applied on the owner.
+	 * @param imagePath is the path to the image
 	 * @throws NullPointerException if ba or bonus is null
 	 * @throws IllegalArgumentException if ba or bonus is empty.
 	 */
@@ -52,6 +53,13 @@ public class BuildingPermit extends Bonusable implements Serializable{
 			this.registerBonus(b);
 	}
 	
+	/**
+	 * This method is the BuildingPermit constructor
+	 * @param ba is a set of cities in which the owner of this permit could build an emporium
+	 * @param bonus is a set of bonus applied on the owner.
+	 * @throws NullPointerException if ba or bonus is null
+	 * @throws IllegalArgumentException if ba or bonus is empty.
+	 */
 	public BuildingPermit(Set<City> ba, Set<Bonus> bonus){
 		if(ba==null||bonus==null){
 			throw new NullPointerException("One either buildingAvaliableCities or bonusList is null");

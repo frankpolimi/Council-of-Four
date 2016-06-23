@@ -23,7 +23,6 @@ public class Emporium implements Serializable{
 	private final Color color;
 	
 	/**
-	 * 
 	 * @param c is the city in which the emporium is built
 	 * @param color is the color of the emporium.
 	 * @throws NullPointerException if color or city is null
