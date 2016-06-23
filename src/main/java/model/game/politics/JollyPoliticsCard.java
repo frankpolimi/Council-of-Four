@@ -5,15 +5,30 @@ import model.game.council.Councillor;
  */
 public class JollyPoliticsCard extends PoliticsCard 
 {	
+	
+	private static final long serialVersionUID = 4275233909860022900L;
+	
+	/**
+	 * constructor for a jolly card
+	 */
+	public JollyPoliticsCard() {}
+	
+	/**
+	 * constructor for a jolly card 
+	 * @param imagePath the path for the image
+	 */
 	public JollyPoliticsCard(String imagePath) {
 		super(imagePath);
-		// TODO Auto-generated constructor stub
 	}
-	
-	public JollyPoliticsCard() {}
 
-	private static final long serialVersionUID = 4275233909860022900L;
-
+	/**
+	 * method to check if this card can pay the councillor
+	 * given as parameter
+	 * @param councillor the councillor that this card
+	 * 						tries to corrupt 
+	 * @return always true because a jolly card can
+	 * 			pay any given councillor
+	 */
 	@Override
 	public boolean payCouncillor(Councillor councillor)
 	{

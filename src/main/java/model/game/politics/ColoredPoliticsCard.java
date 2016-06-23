@@ -13,6 +13,11 @@ public class ColoredPoliticsCard extends PoliticsCard
 	private static final long serialVersionUID = 8208852678516588048L;
 	private final Color color;
 
+	/**
+	 * constructor for a colored politic card
+	 * @param color the color of the card
+	 * @param imagePath the path to the image
+	 */
 	public ColoredPoliticsCard(Color color, String imagePath) 
 	{
 		super(imagePath);
@@ -22,6 +27,10 @@ public class ColoredPoliticsCard extends PoliticsCard
 			throw new NullPointerException();
 	}
 	
+	/**
+	 * constructor for a colored politic card
+	 * @param color the color of the card
+	 */
 	public ColoredPoliticsCard(Color color) 
 	{
 		if(color!=null)
@@ -30,11 +39,24 @@ public class ColoredPoliticsCard extends PoliticsCard
 			throw new NullPointerException();
 	}
 
+	/**
+	 * get the color of the card
+	 * @return the color of the card
+	 */
 	public Color getColor() 
 	{
 		return color;
 	}
 	
+	/**
+	 * method to check if this card can pay the councillor
+	 * given as parameter
+	 * @param councillor the councillor that this card
+	 * 						tries to corrupt 
+	 * @return true if the color of the councillor is the
+	 * 				same as the color of the card
+	 * 			false otherwise
+	 */
 	@Override
 	public boolean payCouncillor(Councillor councillor)
 	{

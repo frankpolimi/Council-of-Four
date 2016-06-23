@@ -17,17 +17,31 @@ public class PoliticsDeck implements Serializable
 	private static final long serialVersionUID = -4630033173259427714L;
 	private ArrayList<PoliticsCard> deck;
 	
+	/**
+	 * constructor of a deck of politics card
+	 * @param array the list of politics card in the deck
+	 */
 	public PoliticsDeck(ArrayList<PoliticsCard> array) 
 	{
 		deck=array;
 	}
 	
+	/**
+	 * method that add the cards of the deck as parameter
+	 * to this deck
+	 * @param politicsDeck the deck of used cards
+	 */
 	public void addUsedPolitics(PoliticsDeck politicsDeck)
 	{
 		for(PoliticsCard p:politicsDeck.deck)
 			this.deck.add(p);
 	}
 	
+	/**
+	 * gives the card at the parameter position
+	 * @param i the index of the card in the deck
+	 * @return the card at the given index
+	 */
 	public PoliticsCard getCardAtIndex(int i)
 	{
 		return this.deck.get(i);
@@ -48,28 +62,46 @@ public class PoliticsDeck implements Serializable
 		throw new NullPointerException();
 	}
 	
+	/**
+	 * shuffle the deck of politics card
+	 */
 	public void shuffle()
 	{
 		Collections.shuffle(deck);
 	}
 	
+	/**
+	 * query if the deck is empty
+	 * @return true if deck is empty, false otherwise
+	 */
 	public boolean isEmpty()
 	{
 		return deck.isEmpty();
 	}
 	
+	/**
+	 * removes all the cards from the deck
+	 */
 	public void clear()
 	{
 		deck.clear();
 	}
 	
 	/**
-	 * modified by Emanuele Ricciardelli
+	 * @author Emanuele Ricciardelli
+	 * duplicate all the cards already in the deck
+	 * and adds them to the deck
 	 */
 	public void append(){
 		this.deck.addAll(this.deck);
 	}
 
+	/**
+	 * gives the player given as parameter 
+	 * the amount of cards specified in the method
+	 * @param player the player that must draw a number 
+	 * 					of cards
+	 */
 	public void drawNCards(Player player){
 		final int n=6;
 		for(int i=0;i<n;i++){
