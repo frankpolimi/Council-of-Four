@@ -11,15 +11,10 @@ public class Councillor implements Serializable
 	private final Color color;
 	private String imagePath;
 
-	public Councillor(Color color, String imagePath)
-	{
-		if(color!=null&&imagePath!=null){
-			this.color = color;
-			this.imagePath=imagePath;
-		}else
-			throw new NullPointerException();
-	}
-	
+	/**
+	 * constructor for a councillor
+	 * @param color the color of the councillor
+	 */
 	public Councillor(Color color)
 	{
 		if(color!=null){
@@ -29,6 +24,19 @@ public class Councillor implements Serializable
 			throw new NullPointerException();
 	}
 	
+	/**
+	 * constructor for a councillor
+	 * @param color the color of the councillor
+	 * @param imagePath the path to the image of the councillor 
+	 */
+	public Councillor(Color color, String imagePath)
+	{
+		if(color!=null&&imagePath!=null){
+			this.color = color;
+			this.imagePath=imagePath;
+		}else
+			throw new NullPointerException();
+	}
 	
 	/**
 	 * @return the imagePath
@@ -37,8 +45,9 @@ public class Councillor implements Serializable
 		return imagePath;
 	}
 
-
-
+	/**
+	 * @return the color of the councillor
+	 */
 	public Color getColor() 
 	{
 		return color;

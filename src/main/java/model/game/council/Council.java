@@ -14,7 +14,13 @@ public abstract class Council implements Serializable
 	private static int IDGenerator=0;
 	private final int councilID=IDGenerator;
 	
-	
+	/**
+	 * constructor for a council
+	 * @param councillors the list of councillors that are part 
+	 * 						of the council
+	 * @throws NullPointerException if the councillors given as parameter
+	 * 								is null
+	 */
 	public Council(ArrayBlockingQueue<Councillor> councillors) 
 	{
 		if (councillors!=null)
@@ -41,6 +47,11 @@ public abstract class Council implements Serializable
 		return temp;
 	}
 
+	/**
+	 * get the councillors in the council
+	 * @return the list of councillors
+	 * @throws NullPointerException if council il null
+	 */
 	public ArrayBlockingQueue<Councillor> getCouncillors() 
 	{
 		if(this.councillors!=null)
@@ -48,6 +59,10 @@ public abstract class Council implements Serializable
 		else throw new NullPointerException();
 	}
 	
+	/**
+	 * get the id of the council
+	 * @return the council id
+	 */
 	public int getCouncilID() {
 		return councilID;
 	}

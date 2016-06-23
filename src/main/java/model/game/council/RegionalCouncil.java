@@ -11,6 +11,13 @@ public class RegionalCouncil extends Council
 {
 	private static final long serialVersionUID = -8292033152540671109L;
 	private final PermitsDeck permitsDeck;
+	
+	/**
+	 * constructor for a regional council
+	 * @param councillors the councillors that are part of the council
+	 * @param permitsDeck the permits that the council holds
+	 * @throws NullPointerException if the permits are null
+	 */
 	public RegionalCouncil(ArrayBlockingQueue<Councillor> councillors, PermitsDeck permitsDeck) {
 		super(councillors);
 		if(permitsDeck!=null)

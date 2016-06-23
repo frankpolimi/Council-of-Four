@@ -12,6 +12,10 @@ public class KingsCouncil extends Council
 {
 	private static final long serialVersionUID = 273965081908435798L;
 
+	/**
+	 * constructor for a king's council
+	 * @param councillors the councillors that are part of the king's council
+	 */
 	public KingsCouncil(ArrayBlockingQueue<Councillor> councillors) 
 	{
 		super(councillors);
