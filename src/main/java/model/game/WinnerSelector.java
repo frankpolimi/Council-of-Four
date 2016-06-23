@@ -8,6 +8,13 @@ import java.util.*;
 public class WinnerSelector{
 	private List<Player> players;
 	
+	/**
+	 * constructor for the utility that calculate the 
+	 * winning player of the game
+	 * @param players the player that participated to game
+	 * 			both still connected and disconnected through the
+	 * 			game
+	 */
 	public WinnerSelector(List<Player> players) {
 		if(players==null)
 			throw new NullPointerException("Players must not be null");
@@ -17,6 +24,16 @@ public class WinnerSelector{
 		this.players=players;
 	}
 	
+	/**
+	 * method that communicate the winner of the game
+	 * @return the player that won the game
+	 * @throws IllegalAccessException if problems occurred while invoking the method via reflection
+	 * @throws IllegalArgumentException if problems occurred while invoking the method via reflection
+	 * @throws InvocationTargetException if problems occurred while invoking the method via reflection
+	 * @throws NoSuchMethodExceptionif a matching method is not found
+	 * @throws SecurityException if access is denied 
+	 * 					to the package of this class
+	 */
 	public Player getWinnerPlayer() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException{
 		final int FIRSTNOBILITYPOINTS=5;
 		final int SECONDNOBILITYPOINTS=2;
@@ -74,7 +91,7 @@ public class WinnerSelector{
 	}
 	
 	/**
-	 * This metod gets the player the has the max of something like "the player who has the max number of coins, or
+	 * This method gets the player the has the max of something like "the player who has the max number of coins, or
 	 * max number of nobility points and so on".
 	 * @param method is the what decide what kind of parameter should be analyzed for finding the player
 	 * @return the Player who has the max of the parameter passed.

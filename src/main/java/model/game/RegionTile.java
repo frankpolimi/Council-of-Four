@@ -20,9 +20,10 @@ public class RegionTile extends PointsTile {
 	/**
 	 * constructor for a region tile 
 	 * @param amount the amount of victory points given by the tile
-	 * @param region the region which the tile refers to. onche the player complete
+	 * @param region the region which the tile refers to. once the player complete
 	 * 				the construction of an emporium on all the cities of a region, 
 	 * 				this tile will be given as a copy to the player
+	 * @param imagePath the path to the image  of the tile
 	 * @throws IllegalArgumentException if the amount of points is below or equals to zero
 	 * @throws NullPointerException if the region is null
 	 */
@@ -35,6 +36,15 @@ public class RegionTile extends PointsTile {
 		this.region=region;
 	}
 	
+	/**
+	 * constructor for a region tile 
+	 * @param amount the amount of victory points given by the tile
+	 * @param region the region which the tile refers to. once the player complete
+	 * 				the construction of an emporium on all the cities of a region, 
+	 * 				this tile will be given as a copy to the player
+	 * @throws IllegalArgumentException if the amount of points is below or equals to zero
+	 * @throws NullPointerException if the region is null
+	 */
 	public RegionTile(int amount, Region region) {
 		super(amount);
 		if(amount<=0)
@@ -50,6 +60,7 @@ public class RegionTile extends PointsTile {
 	public Region getRegion() {
 		return region;
 	}
+	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */

@@ -406,6 +406,10 @@ public class Player implements Serializable{
 				usedBuildingPermits+", color: "+chosenColor;
 	}
 
+	/**
+	 * get the cities where the player has built an emporium
+	 * @return the list of cities where the player possess an emporium
+	 */
 	public Set<City> getEmporiumsCitiesSet() {
 		Set<City> cities=new HashSet<>();
 		for(Emporium e:this.emporiumsOwned){

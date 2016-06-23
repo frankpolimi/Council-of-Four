@@ -297,11 +297,12 @@ public class Game extends Observable<Change> implements Serializable, Remote{
 	/**
 	 * method that allows the game to calculate the winner
 	 * of the specific game
-	 * @throws IllegalAccessException
-	 * @throws IllegalArgumentException
-	 * @throws InvocationTargetException
-	 * @throws NoSuchMethodException
-	 * @throws SecurityException
+	 * @throws IllegalAccessException if problems occurred while invoking the method via reflection
+	 * @throws IllegalArgumentException if problems occurred while invoking the method via reflection
+	 * @throws InvocationTargetException if problems occurred while invoking the method via reflection
+	 * @throws NoSuchMethodExceptionif a matching method is not found
+	 * @throws SecurityException if access is denied 
+	 * 					to the package of this class
 	 */
 	public void endOfTheGame() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException{
 		this.players.addAll(this.disconnectedPlayers);
