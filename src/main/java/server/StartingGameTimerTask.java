@@ -5,14 +5,9 @@ import java.net.SocketException;
 import java.rmi.NoSuchObjectException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-
 import org.jdom2.JDOMException;
-
-import controller.Controller;
-import model.game.Game;
 import model.game.Player;
 import view.View;
-
 import java.util.*;
 
 /**

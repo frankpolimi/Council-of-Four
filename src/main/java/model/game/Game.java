@@ -365,7 +365,8 @@ public class Game extends Observable<Change> implements Serializable, Remote{
 	/**
 	 * @return the politicsDeck
 	 */
-	public PoliticsDeck getPoliticsDeck() {
+	public PoliticsDeck getPoliticsDeck() 
+	{
 		return politicsDeck;
 	}
 	

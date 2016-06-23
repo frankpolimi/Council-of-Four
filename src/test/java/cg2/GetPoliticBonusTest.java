@@ -10,7 +10,24 @@ import model.bonus.GetPoliticBonus;
 import model.game.Game;
 import model.game.politics.PoliticsCard;
 
-public class GetPoliticBonusTest {
+public class GetPoliticBonusTest 
+{
+	Game game;
+	GetPoliticBonus politcsBonus;
+	List<PoliticsCard> currentPlayersPolitics;
+	List<PoliticsCard> otherPlayersPolitics;
+	
+	public void politcsBonusTestSetup()
+	{
+		try {
+			game = SupportClass.gameWithPlayersCreator("G1", "G2","G3","G4");
+			politcsBonus = new GetPoliticBonus(1);
+			currentPlayersPolitics=game.getCurrentPlayer().getCardsOwned();
+			otherPlayersPolitics=game.getPlayers().get(1).getCardsOwned();
+		} catch (JDOMException | IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 	@Test
 	public void testCreatePoliticBonusCorrect() {
@@ -28,27 +45,17 @@ public class GetPoliticBonusTest {
 	public void testCreatePoliticBonusBelowZero(){
 		new GetPoliticBonus(new Integer(-54));
 	}
-	
+
 	@Test
-	public void testAssignBonusToPlayer(){
-		try {
-			Game g = SupportClass.gameWithPlayersCreator("G1", "G2","G3","G4");
-			GetPoliticBonus b = new GetPoliticBonus(1);
-			List<PoliticsCard> politics1 = g.getCurrentPlayer().getCardsOwned();
-			List<PoliticsCard> politics2 = g.getPlayers().get(1).getCardsOwned();
-			politics1.add(g.getPoliticsDeck().getCardAtIndex(0));
-			b.update(g);
-			assertEquals(politics1, g.getCurrentPlayer().getCardsOwned());
-			assertEquals(politics2, g.getPlayers().get(1).getCardsOwned());
-			assertEquals(politics1.size(), g.getCurrentPlayer().getCardsOwned().size());
-			assertEquals(politics2.size(), g.getPlayers().get(1).getCardsOwned().size());
-		} catch (JDOMException e) {
-			e.printStackTrace();
-			fail("JDome");
-		} catch (IOException e) {
-			e.printStackTrace();
-			fail("IO");
-		}
+	public void testAssignBonusToPlayer()
+	{
+		this.politcsBonusTestSetup();
+		currentPlayersPolitics.add(game.getPoliticsDeck().getCardAtIndex(0));
+		politcsBonus.update(game);
+		assertEquals(currentPlayersPolitics, game.getCurrentPlayer().getCardsOwned());
+		assertEquals(otherPlayersPolitics, game.getPlayers().get(1).getCardsOwned());
+		assertEquals(currentPlayersPolitics.size(), game.getCurrentPlayer().getCardsOwned().size());
+		assertEquals(otherPlayersPolitics.size(), game.getPlayers().get(1).getCardsOwned().size());
 	}
 
 }

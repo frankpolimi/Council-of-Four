@@ -1,6 +1,5 @@
 package client.GUI;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.util.*;
@@ -10,26 +9,17 @@ import java.awt.EventQueue;
 import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
-
 import model.actions.ElectCouncillor;
 import model.actions.ElectCouncillorByAssistant;
 import model.game.Game;
 import model.game.council.Council;
 import model.game.council.Councillor;
-import model.game.council.KingsCouncil;
-import model.game.council.RegionalCouncil;
 import model.game.topology.Region;
 import view.ActionRequest;
-
-import java.awt.GridLayout;
-import java.awt.FlowLayout;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.BoxLayout;

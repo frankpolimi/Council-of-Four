@@ -7,8 +7,6 @@ package model.market;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
-import controller.MarketChange;
 import controller.ModelChange;
 import model.game.BuildingPermit;
 import model.game.Game;

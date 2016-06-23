@@ -13,9 +13,19 @@ public class KingsCouncilTest
 	Councillor c1=new Councillor(SupportClass.giveRandomColor());
 	Councillor c2=new Councillor(SupportClass.giveRandomColor());
 	Councillor c3=new Councillor(SupportClass.giveRandomColor());
-	
 	Councillor c4=new Councillor(SupportClass.giveRandomColor());
+	ArrayList<Councillor> arrayListCouncillor;
+	ArrayBlockingQueue<Councillor> councillors;
 	
+	
+	public void KingsCouncilTestSetup()
+	{
+		arrayListCouncillor=new ArrayList<Councillor>();
+		arrayListCouncillor.add(c1);
+		arrayListCouncillor.add(c2);
+		arrayListCouncillor.add(c3);
+		councillors=new ArrayBlockingQueue<Councillor>(3, true,arrayListCouncillor);
+	}
 	
 	@Test(expected=NullPointerException.class)
 	public void testKingsCouncil() 
@@ -26,11 +36,7 @@ public class KingsCouncilTest
 	@Test
 	public void testElectCouncillor() 
 	{
-		ArrayList<Councillor> arrayListCouncillor=new ArrayList<Councillor>();
-		arrayListCouncillor.add(c1);
-		arrayListCouncillor.add(c2);
-		arrayListCouncillor.add(c3);
-		ArrayBlockingQueue<Councillor> councillors=new ArrayBlockingQueue<Councillor>(3, true,arrayListCouncillor);
+		this.KingsCouncilTestSetup();
 		KingsCouncil k=new KingsCouncil(councillors);
 		assertEquals(k.electCouncillor(c4), c1);
 		assertEquals(k.getCouncillors().element(), c2);

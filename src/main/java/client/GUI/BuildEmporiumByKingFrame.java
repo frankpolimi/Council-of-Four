@@ -1,43 +1,29 @@
 package client.GUI;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.EventQueue;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.File;
-import java.io.IOException;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
-
 import model.actions.BuildEmporiumByKing;
-import model.actions.ElectCouncillor;
 import model.game.Game;
 import model.game.Player;
-import model.game.council.Council;
 import model.game.council.Councillor;
 import model.game.politics.PoliticsCard;
 import model.game.topology.City;
 import view.ActionRequest;
-
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
-import javax.imageio.ImageIO;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.util.*;
 import java.util.concurrent.ArrayBlockingQueue;

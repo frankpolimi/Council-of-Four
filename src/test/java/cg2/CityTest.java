@@ -4,14 +4,9 @@ import static org.junit.Assert.*;
 
 import java.awt.Color;
 import java.io.IOException;
-import java.util.ArrayList;
-
 import org.jdom2.JDOMException;
 import org.junit.Ignore;
 import org.junit.Test;
-import model.bonus.AssistantBonus;
-import model.bonus.Bonus;
-import model.bonus.CoinBonus;
 import model.game.Emporium;
 import model.game.Player;
 import model.game.topology.City;

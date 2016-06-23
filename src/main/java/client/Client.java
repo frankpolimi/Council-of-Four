@@ -8,6 +8,8 @@ import java.net.UnknownHostException;
 import java.rmi.AlreadyBoundException;
 import java.rmi.NotBoundException;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.jdom2.JDOMException;
 
@@ -18,6 +20,8 @@ import client.GUI.StartScreen;
  *
  */
 public class Client {
+	
+	public final static Logger logger=Logger.getLogger(Client.class.getName());
 	
 	public static void main(String[] args) throws JDOMException, IOException {
 		
@@ -52,7 +56,8 @@ public class Client {
 						}catch (UnknownHostException e){
 							System.out.println("Sorry! Errors Occurred. Terminating");
 						} catch (IOException e) {
-							e.printStackTrace();
+							logger.log(Level.ALL, e.getMessage());
+							//e.printStackTrace();
 						} 
 						break;
 					}

@@ -2,8 +2,6 @@ package server;
 
 import java.io.*;
 import java.net.Socket;
-import java.net.SocketTimeoutException;
-
 import client.SocketConnectionHandler;
 import controller.Change;
 import controller.ErrorChange;

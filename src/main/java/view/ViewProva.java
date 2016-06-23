@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.ArrayBlockingQueue;
 import org.jdom2.JDOMException;
-
 import client.ClientView;
 import controller.BonusChange;
 import controller.Change;
@@ -21,7 +20,6 @@ import model.game.BuildingPermit;
 import model.game.Game;
 import model.game.PermitsDeck;
 import model.game.Player;
-import model.game.council.Councillor;
 import model.game.politics.ColoredPoliticsCard;
 import model.game.politics.PoliticsCard;
 import model.game.topology.City;

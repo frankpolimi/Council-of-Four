@@ -1,6 +1,5 @@
 package client.GUI;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -10,7 +9,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -18,11 +16,9 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
-
 import model.game.BuildingPermit;
 import model.game.Game;
 import model.game.Player;
@@ -31,7 +27,6 @@ import model.market.Assistant;
 import model.market.MarketObject;
 import view.MarketBuyingState;
 import view.MarketRequest;
-import view.MarketSellingState;
 
 public class BuyProductFrame extends JFrame {
 

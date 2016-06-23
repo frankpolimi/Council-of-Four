@@ -1,7 +1,7 @@
 package client;
 
 import java.io.IOException;
-
+import java.util.logging.Level;
 
 import model.game.Game;
 import view.EndState;
@@ -69,7 +69,8 @@ public class ClientOutHandlerSocket implements Runnable
 							clientView.stampMessage("THE GAME IS FINISHED, BYE BYE");
 							break;
 						} catch (IOException e) {
-							e.printStackTrace();
+							Client.logger.log(Level.ALL, e.getMessage());
+							//e.printStackTrace();
 						}
 					}
 				}

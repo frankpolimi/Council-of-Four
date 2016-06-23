@@ -6,7 +6,6 @@ import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Point;
 import java.awt.Toolkit;
-
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -14,31 +13,19 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.border.BevelBorder;
 import javax.swing.border.LineBorder;
-import javax.swing.border.MatteBorder;
-
 import model.actions.AcquirePermit;
-import model.actions.ElectCouncillor;
 import model.game.BuildingPermit;
 import model.game.Game;
 import model.game.Player;
-import model.game.council.Council;
 import model.game.council.Councillor;
 import model.game.council.RegionalCouncil;
 import model.game.politics.PoliticsCard;
 import model.game.topology.Region;
 import view.ActionRequest;
-import view.View;
-
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 

@@ -1,6 +1,5 @@
 package client.GUI;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -10,12 +9,10 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
-
 import model.actions.ChangeFaceUpPermits;
 import model.game.BuildingPermit;
 import model.game.Game;
@@ -23,7 +20,6 @@ import model.game.PermitsDeck;
 import model.game.Player;
 import model.game.topology.Region;
 import view.ActionRequest;
-
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;

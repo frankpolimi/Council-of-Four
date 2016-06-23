@@ -4,6 +4,8 @@ import java.io.*;
 import java.net.*;
 import java.util.Scanner;
 import java.util.concurrent.*;
+import java.util.logging.Level;
+
 import model.game.*;
 import view.LocalStorage;
 
@@ -70,7 +72,8 @@ public class ClientSocket implements ClientInterface
 			this.ID=id;
 			//System.out.println("gioco "+game);
 		}catch(ClassNotFoundException e){
-			e.printStackTrace();
+			Client.logger.log(Level.ALL, e.getMessage());
+			//e.printStackTrace();
 		}
 		
 		memoryContainer.setGameRef(game);

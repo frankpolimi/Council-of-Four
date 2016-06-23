@@ -24,7 +24,6 @@ public class EngageAssistantTest
 			OtherPlayerCurrentAssistants=game.getPlayers().get(1).getAssistants();
 			action=new EngageAssistant();
 		} catch (JDOMException | IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

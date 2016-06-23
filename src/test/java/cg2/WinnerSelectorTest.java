@@ -1,14 +1,10 @@
 package cg2;
 
-import static org.junit.Assert.*;
 
 import java.io.IOException;
 import java.util.*;
-
 import org.jdom2.JDOMException;
-import org.junit.Assert.*;
 import org.junit.Test;
-
 import model.game.Player;
 import model.game.WinnerSelector;
 

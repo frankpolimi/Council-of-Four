@@ -1,7 +1,6 @@
 package model.actions;
 
 import model.game.BuildingPermit;
-import model.game.Emporium;
 import model.game.Game;
 import model.game.topology.City;
 
@@ -34,17 +33,7 @@ public class BuildEmporiumByPermit extends MainAction
 	@Override
 	public boolean takeAction(Game game)
 	{
-		if(!this.checkAction(game))
-			throw new IllegalStateException("Not enough Main actions"); // ste cose comuni a build by king e permit vanno aggregate in un unico metodo
-		if (game.getCurrentPlayer().getRemainingEmporiums()<=0)
-		{
-			throw new IllegalStateException("No avaiable emporiums");
-		}
-		for(Emporium e:game.getCurrentPlayer().getEmporium())
-			if(e.getCity().equals(city))
-			{
-				throw new IllegalArgumentException("The player has already built an emporium in this city");
-			}
+		this.buildEmporiumControls(game, city);
 		
 		boolean contained=false;
 		for(City c:permit.getBuildingAvaliableCities())

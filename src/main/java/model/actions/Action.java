@@ -4,11 +4,13 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.concurrent.ArrayBlockingQueue;
 import controller.ModelChange;
+import model.game.Emporium;
 import model.game.Game;
 import model.game.council.Council;
 import model.game.council.Councillor;
 import model.game.politics.ColoredPoliticsCard;
 import model.game.politics.PoliticsCard;
+import model.game.topology.City;
 
 /**
  * @author Vitaliy Pakholko
@@ -38,6 +40,23 @@ public class Action implements Act, Serializable
 		
 		return false;
 	}
+	
+	public boolean buildEmporiumControls(Game game, City city)
+	{
+		if(!this.checkAction(game))
+			throw new IllegalStateException("Not enough Main actions"); // ste cose comuni a build by king e permit vanno aggregate in un unico metodo
+		if (game.getCurrentPlayer().getRemainingEmporiums()<=0)
+		{
+			throw new IllegalStateException("No avaiable emporiums");
+		}
+		for(Emporium e:game.getCurrentPlayer().getEmporium())
+			if(e.getCity().equals(city))
+			{
+				throw new IllegalArgumentException("The player has already built an emporium in this city");
+			}
+		return true;
+	}
+	
 	
 	public boolean payCouncil(Game game, Council counc, ArrayList<PoliticsCard> politics)
 	{

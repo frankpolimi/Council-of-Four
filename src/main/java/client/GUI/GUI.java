@@ -2,14 +2,9 @@ package client.GUI;
 
 import java.awt.Dimension;
 import java.awt.EventQueue;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
-import java.awt.Rectangle;
-import java.awt.Scrollbar;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -28,7 +23,6 @@ import model.game.BuildingPermit;
 import model.game.Game;
 import model.game.Player;
 import model.game.council.Councillor;
-import model.game.politics.PoliticsCard;
 import model.game.topology.City;
 import model.game.topology.Region;
 import view.ActionRequest;
@@ -36,11 +30,8 @@ import view.LocalStorage;
 import view.MarketSellingState;
 import view.Request;
 import view.StartState;
-
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
-
 import javax.swing.border.MatteBorder;
 import org.jdom2.JDOMException;
 import java.awt.event.ActionListener;

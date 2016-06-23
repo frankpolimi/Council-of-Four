@@ -11,7 +11,6 @@ import model.actions.Action;
 import model.game.BuildingPermit;
 import model.game.Game;
 import model.game.council.RegionalCouncil;
-import model.game.politics.JollyPoliticsCard;
 import model.game.politics.PoliticsCard;
 
 public class AcquirePermitTest 

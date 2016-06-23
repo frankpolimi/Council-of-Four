@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import model.game.Emporium;
 import model.game.Game;
-import model.game.Player;
 import model.game.council.Council;
 import model.game.politics.PoliticsCard;
 import model.game.topology.City;
@@ -41,18 +40,7 @@ public class BuildEmporiumByKing extends MainAction
 	@Override
 	public boolean takeAction(Game game)
 	{
-		if(!this.checkAction(game))
-			throw new IllegalStateException("Not enough Main actions");
-		if (game.getCurrentPlayer().getRemainingEmporiums()<=0)
-		{
-			throw new IllegalStateException("No avaiable emporiums");
-		}
-		
-		for(Emporium e:game.getCurrentPlayer().getEmporium())
-			if(e.getCity().equals(city))
-			{
-				throw new IllegalArgumentException("The current player has already built an emporium in this city");
-			}
+		this.buildEmporiumControls(game, city);
 		
 		int distancePayment=2;
 		for(City c:game.getAllCities())

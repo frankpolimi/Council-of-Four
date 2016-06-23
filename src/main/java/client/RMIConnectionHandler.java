@@ -1,14 +1,8 @@
 package client;
 
 import java.io.IOException;
-import java.rmi.AlreadyBoundException;
 import java.rmi.RemoteException;
-
-import org.jdom2.JDOMException;
-
 import controller.Change;
-import server.ServerRMIRegistrationRemote;
-import view.QuitRequest;
 import view.Request;
 
 public class RMIConnectionHandler implements ConnectionHandler {
