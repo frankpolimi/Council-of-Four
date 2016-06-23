@@ -37,6 +37,13 @@ public class Player implements Serializable{
 	private final List<BuildingPermit> buildingPermits;
 	private final List<BuildingPermit> usedBuildingPermits;
 	
+	/**
+	 * constructor for a player
+	 * @param name the player name
+	 * @param playerID the id given from the server unique for each player
+	 * @throws JDOMException if parsing from file fails
+	 * @throws IOException if parsing from file fails
+	 */
 	public Player(String name, int playerID) throws JDOMException, IOException {
 		Random random=new Random();
 		MapMaker filePointer=new MapMaker();
@@ -97,7 +104,7 @@ public class Player implements Serializable{
 	}
 
 	/**
-	 * @param emporium
+	 * @param emporium the emporium to be added
 	 * add the emporium to the set of owned emporiums
 	 */
 	public void addEmporium(Emporium e){
@@ -182,46 +189,92 @@ public class Player implements Serializable{
 	}
 	
 	
-	
+	/**
+	 * add a politic card to the player
+	 * @param pc the politic card to be added to the player
+	 */
 	public void addPoliticsCard(PoliticsCard pc){
 		cardsOwned.add(pc);
 	}
 	
+	/**
+	 * remove a politic card
+	 * @param position the index of the card in list
+	 * 			of cards that a player possess
+	 */
 	public void removePoliticsCard(int position){
 		cardsOwned.remove(position);
 	}
 	
+	/**
+	 * gives the card at the specified position
+	 * @param position the index of the card in the list of 
+	 * 			cards owned by the player
+	 * @return the politic card desired
+	 */
 	public PoliticsCard getPoliticsCard(int position){
 		return cardsOwned.get(position);
 	}
 	
+	/**
+	 * add a permit to the player
+	 * @param bl the permit to be added to the player
+	 */
 	public void addBuildingPermit(BuildingPermit bl){
 		buildingPermits.add(bl);
 	}
 	
-	
+	/**
+	 * gives the list of permits that the player has already used
+	 * to build an emporium on a city
+	 * @return the list of used building permits
+	 */
 	public List<BuildingPermit> getUsedBuildingPermits() {
 		return usedBuildingPermits;
 	}
 	
+	/**
+	 * add a tile (regional, colored or given by the king)
+	 * to the player. its point will be acquired at the end of
+	 * the game
+	 * @param tile the tile to add to the player
+	 */
 	public void addPointsTile(PointsTile tile){
 		this.pointsTileOwned.add(tile);
 	}
 	
+	/**
+	 * gives the list of tiles owned by the player
+	 * @return the list of tiles owned by the player
+	 */
 	public Set<PointsTile> getTilesOwned(){
 		return this.pointsTileOwned;
 	}
 	
-	
+	/**
+	 * remove the permit given as parameter from the unused 
+	 * list of permits owned by the player and add it to the
+	 * used one. 
+	 * @param bl the permit that the players has used to build
+	 * 			an emporium
+	 */
 	public void usePermit(BuildingPermit bl){
 		int index = buildingPermits.indexOf(bl);
 		usedBuildingPermits.add(buildingPermits.remove(index));
 	}
 	
+	/**
+	 * @return the amount of permits that a player possess
+	 * both used and unused
+	 */
 	public int howManyBuildingPermitsOwned(){
 		return this.buildingPermits.size()+this.usedBuildingPermits.size();
 	}
 	
+	/**
+	 * @return the sum of the amount of assistants and 
+	 * the amount of politics card owned by the player
+	 */
 	public int howManyAssistansAndCardsOwned(){
 		return this.assistants+this.cardsOwned.size();
 	}
@@ -229,6 +282,12 @@ public class Player implements Serializable{
 
 	/**
 	 * @author Vitaliy Pakholko
+	 * performs the check if the player possess the required 
+	 * amount of coins given as parameter
+	 * @param coins the amount of coins that a player should
+	 * 			possess in order to complete what he has required
+	 * @return true if he possess the required amount of coins
+	 * 			false otherwise
 	 */
 	public boolean checkCoins(int coins)
 	{
@@ -244,6 +303,12 @@ public class Player implements Serializable{
 	
 	/**
 	 * @author Vitaliy Pakholko
+	 * performs the check if the player possess the required 
+	 * amount of assistants given as parameter
+	 * @param assistants the amount of assistants that a player should
+	 * 			possess in order to complete what he has required
+	 * @return true if he possess the required amount of assistants
+	 * 			false otherwise
 	 */
 	public boolean checkAssistants(int assistants)
 	{
@@ -364,6 +429,10 @@ public class Player implements Serializable{
 	
 	/**
 	 * @author Vitaliy Pakholko
+	 * removes the cards specified as parameter
+	 * from the cards owned by the player
+	 * @param cards the list of cards that a player must remove
+	 * 			from his list
 	 */
 	public void removeCards(ArrayList<PoliticsCard> cards)
 	{

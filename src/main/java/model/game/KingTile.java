@@ -17,6 +17,7 @@ public class KingTile extends PointsTile{
 	/**
 	 * constructor for a kingTile
 	 * @param amount the amount of points given by this tile
+	 * @param imagePath the path for the image of the king tile
 	 * @throws IllegalArgumentException if the amount is below or equals to zero
 	 */
 	public KingTile(int amount, String imagePath){
@@ -26,6 +27,11 @@ public class KingTile extends PointsTile{
 		}
 	}
 	
+	/**
+	 * constructor for a kingTile
+	 * @param amount the amount of points given by this tile
+	 * @throws IllegalArgumentException if the amount is below or equals to zero
+	 */
 	public KingTile(int amount){
 		super(amount);
 		if(amount<=0){

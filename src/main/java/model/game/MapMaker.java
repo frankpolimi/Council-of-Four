@@ -437,13 +437,20 @@ public class MapMaker {
 		return pd;
 	}
 	
+	/**
+	 * get the path for the image of a bonus applied on the city
+	 * @param position the position inside the file for a random bonus
+	 * @return the path for the bonus image
+	 * @throws JDOMException if file reading fails
+	 * @throws IOException if file reading fails
+	 */
 	public String getCityBonusPath(int position) throws JDOMException, IOException{
 		List<Element> bonusList=this.getRootFromFile(XMLPATH).getChild("decks").getChild("cityBonusList").getChildren();
 		return bonusList.stream().filter(e->Integer.parseInt(e.getAttributeValue("id"))==position+1).findFirst().get().getAttributeValue("path");
 	}
 	
 	/**
-	 * 
+	 * creates the regions for a game
 	 * @return the set of Regions used in the game
 	 * @throws JDOMException when errors occur in parsing
 	 * @throws IOException  when an I/O error prevents a document from being fully parsed
@@ -505,8 +512,8 @@ public class MapMaker {
 	/**
 	 * This method creates the nobility lane used in the game
 	 * @return the NobilityLane instance
-	 * @throws JDOMException
-	 * @throws IOException
+	 * @throws JDOMException when errors occur while parsing the file
+	 * @throws IOException when I/O errors occurs while parsing the file
 	 */
 	public NobilityLane createNobilityLane() throws JDOMException, IOException{
 		Element root=this.getRootFromFile(XMLPATH);
@@ -538,8 +545,8 @@ public class MapMaker {
 	/**
 	 * This method returns a reference of the XML file's root
 	 * @return the root reference.
-	 * @throws JDOMException
-	 * @throws IOException
+	 * @throws JDOMException when errors occur while parsing the file
+	 * @throws IOException when I/O errors occurs while parsing the file
 	 */
 	private Element getRootFromFile(String path) throws JDOMException, IOException{
 		SAXBuilder builder=new SAXBuilder();
@@ -547,12 +554,25 @@ public class MapMaker {
 		return document.getRootElement();
 	}
 	
+	/**
+	 * this method returns the amount of regions in a file
+	 * @return the number of regions in a file
+	 * @throws JDOMException when errors occur while parsing the file
+	 * @throws IOException when I/O errors occurs while parsing the file
+	 */
 	public int getRegionNumber() throws JDOMException, IOException{
 		Element root=this.getRootFromFile(XMLPATH);
 		return root.getChild("regions").getChildren().size();
 	}
 	
-	
+	/**
+	 * return the city where the king is placed at the beginning of the game
+	 * @param regions the regions in the game
+	 * @param map the graph representing the topology of the map
+	 * @return the city where the king is placed at the beginning of the game
+	 * @throws JDOMException when errors occur while parsing the file
+	 * @throws IOException when I/O errors occurs while parsing the file
+	 */
 	public City getKingCity(Set<Region> regions, ExtendedGraph<City,DefaultEdge> map) throws JDOMException, IOException{
 		Region hill=regions.stream().filter(e->e.getName().equals("hill")).findFirst().get();
 		Element root=this.getRootFromFile(PATH+"hill"+hill.getType()+".xml");

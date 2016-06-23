@@ -9,7 +9,7 @@ import model.bonus.*;
 import model.bonus.bonusers.Bonusable;
 
 /**
- * @author Francesco Vetr�
+ * @author Francesco Vetro'
  *
  */
 public class NobilityCell extends Bonusable {

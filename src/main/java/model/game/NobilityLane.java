@@ -11,7 +11,7 @@ import model.bonus.bonusers.Bonusable;
 import model.observers.Observer;
 
 /**
- * @author Francesco Vetr�
+ * @author Francesco Vetro'
  *
  */
 public class NobilityLane extends Bonusable implements Observer<Change>{
@@ -22,6 +22,9 @@ public class NobilityLane extends Bonusable implements Observer<Change>{
 	private static final long serialVersionUID = 9161958522145141177L;
 	Map<Integer, NobilityCell> lane;
 	
+	/**
+	 * constructor for the nobility track
+	 */
 	public NobilityLane(){
 		lane = new HashMap<>();
 	}
@@ -39,13 +42,13 @@ public class NobilityLane extends Bonusable implements Observer<Change>{
 		
 		lane.put(pos, bonuses);
 	}
-
+	
 	@Override
 	public void update() {
 	}
 
 	/**
-	 * @param the player (generic)
+	 * @param change a model change
 	 * get the amounts of nobility points of the player
 	 * and apply the bonuses on the specific place
 	 * the bonuses can be null
