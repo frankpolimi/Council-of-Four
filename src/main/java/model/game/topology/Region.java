@@ -23,22 +23,14 @@ public class Region implements Serializable
 	private char type;
 	
 	/**
-	 * @return the imagePath
+	 * constructor for a region of the game
+	 * @param name the name of the region
+	 * @param cities the cities that belongs to the region
+	 * @param council the council of the region
+	 * @param permitsDeck all the permits available for this region
+	 * @param path the path for the image to load
+	 * @param type the kind of map that refers to due to configuration
 	 */
-	public String getImagePath() {
-		return imagePath;
-	}
-
-	public String getName() 
-	{
-		return name;
-	}
-	
-	public ArrayList<City> getCities() 
-	{
-		return cities;
-	}
-
 	public Region(String name, ArrayList<City> cities, RegionalCouncil council, PermitsDeck permitsDeck, String path, char type) 
 	{
 		this.name = name;
@@ -49,6 +41,13 @@ public class Region implements Serializable
 		this.type=type;
 	}
 	
+	/**
+	 * constructor for a region of the game
+	 * @param name the name of the region
+	 * @param cities the cities that belongs to the region
+	 * @param council the council of the region
+	 * @param permitsDeck all the permits available for this region
+	 */
 	public Region(String name, ArrayList<City> cities, RegionalCouncil council, PermitsDeck permitsDeck) 
 	{
 		this.name = name;
@@ -57,6 +56,32 @@ public class Region implements Serializable
 		this.permitsDeck= permitsDeck;
 	}
 	
+	/**
+	 * @return the imagePath
+	 */
+	public String getImagePath() {
+		return imagePath;
+	}
+
+	/**
+	 * @return the name of the region
+	 */
+	public String getName() 
+	{
+		return name;
+	}
+	
+	/**
+	 * @return the list of cities in the region
+	 */
+	public ArrayList<City> getCities() 
+	{
+		return cities;
+	}
+	
+	/**
+	 * @return the type of configuration
+	 */
 	public char getType() {
 		return type;
 	}

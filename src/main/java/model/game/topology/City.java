@@ -28,6 +28,14 @@ public class City  extends Bonusable implements Serializable{
 	private final List<Bonus> bonusList;
 	private String bonusImagePath;
 
+	/**
+	 * constructor for a city
+	 * @param name the name of the city
+	 * @param color the color of the city
+	 * @param bonus the list of bonuses that will be obtained if a player
+	 * 				build an emporium on this city
+	 * @param path the path to load the images for the bonus
+	 */
 	public City(String name, Color color, List<Bonus> bonus, String path){
 		super();
 		this.name=name;
@@ -42,6 +50,13 @@ public class City  extends Bonusable implements Serializable{
 		 
 	}
 	
+	/**
+	 * constructor for a city
+	 * @param name the name of the city
+	 * @param color the color of the city
+	 * @param bonus the list of bonuses that will be obtained if a player
+	 * 				build an emporium on this city
+	 */
 	public City(String name, Color color, List<Bonus> bonus){
 		super();
 		this.name=name;
@@ -78,8 +93,10 @@ public class City  extends Bonusable implements Serializable{
 		emporiums.add(e);
 		player.addEmporium(e);
 	}
+	
 	/**
-	 * This one is used only for the 2-players initialization, because it's necessary to put random emporiums not linked with any player.
+	 * This one is used only for the 2-players initialization, 
+	 * because it's necessary to put random emporiums not belonging to any player.
 	 * @param color
 	 * @throws NullPointerException if the color is null
 	 */
@@ -94,28 +111,28 @@ public class City  extends Bonusable implements Serializable{
 	
 
 	/**
-	 * @return the emporiums
+	 * @return the emporiums built on the city
 	 */
 	public ArrayList<Emporium> getEmporiums() {
 		return emporiums;
 	}
 
 	/**
-	 * @return the name
+	 * @return the name of the city
 	 */
 	public String getName() {
 		return name;
 	}
 
 	/**
-	 * @return the firstChar
+	 * @return the first letter of the city
 	 */
 	public char getFirstChar() {
 		return firstChar;
 	}
 
 	/**
-	 * @return the cityColor
+	 * @return the color of the city
 	 */
 	public Color getCityColor() {
 		return cityColor;
@@ -145,7 +162,6 @@ public class City  extends Bonusable implements Serializable{
 	}
 
 	/**
-	 * @author Francesco vetr�
 	 * @return the bonuses applied to the permit
 	 */
 	public String displayBonus() {
