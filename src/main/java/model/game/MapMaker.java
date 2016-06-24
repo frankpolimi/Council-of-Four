@@ -407,7 +407,7 @@ public class MapMaker {
 		while(permitIt.hasNext()){
 			BuildingPermit building;
 			Set<City> avCities=new HashSet<>();
-			Set<Bonus> bonusList=new HashSet<>();
+			List<Bonus> bonusList=new ArrayList<>();
 			Element permit=permitIt.next();
 			List<Attribute> permitCities=permit.getAttributes();
 			Iterator<Attribute> permitCitiesAttr=permitCities.iterator();

@@ -20,7 +20,7 @@ public class BuildingPermit extends Bonusable implements Serializable{
 	 */
 	private static final long serialVersionUID = 8442720264371098415L;
 	private final Set<Character> firstChars;
-	private final Set<Bonus> bonusList;
+	private final List<Bonus> bonusList;
 	private final Set<City> buildingAvaliableCities;
 	private String imagePath;
 
@@ -33,7 +33,7 @@ public class BuildingPermit extends Bonusable implements Serializable{
 	 * @throws NullPointerException if ba or bonus is null
 	 * @throws IllegalArgumentException if ba or bonus is empty.
 	 */
-	public BuildingPermit(Set<City> ba, Set<Bonus> bonus, String imagePath){
+	public BuildingPermit(Set<City> ba, List<Bonus> bonus, String imagePath){
 		if(ba==null||bonus==null){
 			throw new NullPointerException("One either buildingAvaliableCities or bonusList is null");
 		}
@@ -60,7 +60,7 @@ public class BuildingPermit extends Bonusable implements Serializable{
 	 * @throws NullPointerException if ba or bonus is null
 	 * @throws IllegalArgumentException if ba or bonus is empty.
 	 */
-	public BuildingPermit(Set<City> ba, Set<Bonus> bonus){
+	public BuildingPermit(Set<City> ba, List<Bonus> bonus){
 		if(ba==null||bonus==null){
 			throw new NullPointerException("One either buildingAvaliableCities or bonusList is null");
 		}
@@ -91,7 +91,7 @@ public class BuildingPermit extends Bonusable implements Serializable{
 	/**
 	 * @return the bonusList
 	 */
-	public Set<Bonus> getBonusList() {
+	public List<Bonus> getBonusList() {
 		return bonusList;
 	}
 

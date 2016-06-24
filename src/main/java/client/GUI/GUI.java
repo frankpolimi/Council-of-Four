@@ -741,6 +741,18 @@ public class GUI extends JFrame implements ClientViewInterface {
 	public Request start() {
 		request=null;
 		System.out.println("Sono entrato in start e ho resettato la richiesta");
+		if(!memoryContainer.getBonus().isEmpty()){
+			BonusPermitChangeFrame frame=new BonusPermitChangeFrame(game, this, "Bonus Selection", 
+					"Select the bonus you desire", false);
+			frame.setVisible(true);
+		}
+		
+		if(!memoryContainer.getPermits().isEmpty()){
+			BonusPermitChangeFrame frame=new BonusPermitChangeFrame(game, this, "Permit Selection", 
+					"Select the permit you wanto to acquire", true);
+			frame.setVisible(true);
+		}
+		
 		while(request==null){
 			try {
 				Thread.sleep(1000);
@@ -1035,4 +1047,15 @@ public class GUI extends JFrame implements ClientViewInterface {
 	public void setMemoryContainer(LocalStorage memoryLocator) {
 		this.memoryContainer=memoryLocator;
 	}
+
+
+
+	/**
+	 * @return the memoryContainer
+	 */
+	public LocalStorage getMemoryContainer() {
+		return memoryContainer;
+	}
+	
+	
 }

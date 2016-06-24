@@ -414,11 +414,22 @@ public class ClientView implements ClientViewInterface{
 	 */
 	public Request bonus() {
 		System.out.println("Select the bonus you want to acquire");
-		memoryContainer.getBonus().forEach(System.out::println);
-		int selection=this.selector(1, memoryContainer.getBonusLenght());
+		List<Object> bonusContainer=memoryContainer.getBonus();
+		List<List<Bonus>> bonusList=new ArrayList<>();
+		for(Object obj:bonusContainer){
+			if(obj.getClass().equals(City.class)){
+				bonusList.add(((City)obj).getBonus());
+			}else if(obj.getClass().equals(BuildingPermit.class)){
+				bonusList.add(((BuildingPermit)obj).getBonusList());
+			}
+		}
+		bonusList.forEach(System.out::println);
+		int selection=this.selector(1, bonusList.size());
 		BonusRequest request = new BonusRequest(this.ID);
-		request.addBonus(memoryContainer.retrieveBonus(selection-1));
-		memoryContainer.setBonus(new ArrayList<Bonus>());
+		for(Bonus b:bonusList.get(selection-1)){
+			request.addBonus(b);
+		}
+		memoryContainer.setBonus(new ArrayList<Object>());
 		return request;
 	}
 

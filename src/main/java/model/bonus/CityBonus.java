@@ -9,6 +9,7 @@ import java.util.List;
 import controller.BonusChange;
 import model.game.Emporium;
 import model.game.Game;
+import model.game.topology.City;
 import view.View;
 
 /**
@@ -47,13 +48,14 @@ public class CityBonus extends ActionBonus {
 	 */
 	@Override
 	public void update(Game game) {
-		List<Bonus> cities;
+		BonusChange change=new BonusChange();
 		for(int i=0; i< this.amount;i++){
-			cities = new ArrayList<Bonus>();
-			for(Emporium e : game.getCurrentPlayer().getEmporium())
-				cities.addAll(
-						super.checkNoNobility(e.getCity().getBonus()));
-			game.notifyObserver(game.getCurrentPlayer().getPlayerID(), new BonusChange(cities));
+			for(Emporium e : game.getCurrentPlayer().getEmporium()){
+				if(super.checkNoNobility(e.getCity().getBonus())){
+					change.addCityBonus(e.getCity());
+				}
+			}
+			game.notifyObserver(game.getCurrentPlayer().getPlayerID(), change);
 		}
 	}
 	

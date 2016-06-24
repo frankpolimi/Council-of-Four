@@ -44,9 +44,8 @@ public class City  extends Bonusable implements Serializable{
 		bonusList = bonus;
 		emporiums=new ArrayList<>();
 		this.bonusImagePath=path;
-		/*
 		for(Bonus b: bonus)
-			this.registerBonus(b);*/
+			this.registerBonus(b);
 		 
 	}
 	
@@ -64,9 +63,8 @@ public class City  extends Bonusable implements Serializable{
 		cityColor=color;
 		bonusList = bonus;
 		emporiums=new ArrayList<>();
-		/*
 		for(Bonus b: bonus)
-			this.registerBonus(b);*/
+			this.registerBonus(b);
 		 
 	}
 	

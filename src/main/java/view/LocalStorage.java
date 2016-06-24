@@ -18,7 +18,7 @@ import model.game.Game;
  */
 public class LocalStorage {
 	
-	private List<Bonus> bonus;
+	private List<Object> bonus;
 	private List<BuildingPermit> permits;
 	private Game gameRef;
 	private boolean isUpdated;
@@ -69,11 +69,11 @@ public class LocalStorage {
 	/**
 	 * method used to select the bonus desired
 	 * @param place the index of the bonus in the list
-	 * @return the desired bonus at the specified index
+	 * @return the object (could be only a city or a Building Permit) that contains the bonus desired
 	 */
-	public Bonus retrieveBonus(int place){
+	/*public Object retrieveBonus(int place){
 		return bonus.get(place);
-	}
+	}*/
 	
 	/**
 	 * method used to select the permit desired
@@ -105,7 +105,7 @@ public class LocalStorage {
 	/**
 	 * @return the bonus
 	 */
-	public List<Bonus> getBonus() {
+	public List<Object> getBonus() {
 		return bonus;
 	}
 
@@ -119,7 +119,7 @@ public class LocalStorage {
 	/**
 	 * @param bonus the bonus to set
 	 */
-	public void setBonus(List<Bonus> bonus) {
+	public void setBonus(List<Object> bonus) {
 		this.bonus = bonus;
 	}
 
