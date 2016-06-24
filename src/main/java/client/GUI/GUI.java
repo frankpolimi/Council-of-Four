@@ -40,6 +40,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
 import java.awt.SystemColor;
 import javax.swing.border.BevelBorder;
+import java.awt.GridLayout;
 
 public class GUI extends JFrame implements ClientViewInterface {
 	
@@ -88,6 +89,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 	public static final Dimension actionButtonDimension= new Dimension(rightPanelDimension.width*48/100, rightPanelDimension.width*766/5000);
 	public static final Dimension councilDimension = new Dimension(nobilityPanelDimension.width*109/1000, nobilityPanelDimension.height*875/10000);
 	public static Dimension regionTileDimension = new Dimension(singleRegionDimension.width*182/1000, singleRegionDimension.height*71/1000);
+	private JTable table;
 
 
 	/**
@@ -403,6 +405,43 @@ public class GUI extends JFrame implements ClientViewInterface {
 			nobility.add(panel);
 		}
 		
+		JPanel otherPlayers = new JPanel();
+		tabbedPane.addTab("Other Players", null, otherPlayers, null);
+		otherPlayers.setLayout(null);
+		
+		table = new JTable();
+		table.setBounds(0, 0, 511, 705);
+		otherPlayers.add(table);
+		
+		JLabel otherName = new JLabel("Name");
+		otherName.setBorder(new LineBorder(new Color(0, 0, 0)));
+		otherName.setName("otherName");
+		otherName.setBounds(0, 0, 75, 21);
+		table.add(otherName);
+		
+		JLabel otherPoints = new JLabel("Victory Points");
+		otherPoints.setBorder(new LineBorder(new Color(0, 0, 0)));
+		otherPoints.setName("otherPoints");
+		otherPoints.setBounds(75, 0, 75, 21);
+		table.add(otherPoints);
+		
+		JLabel otherNobility = new JLabel("Nobility Points");
+		otherNobility.setBorder(new LineBorder(new Color(0, 0, 0)));
+		otherNobility.setName("otherPoints");
+		otherNobility.setBounds(150, 0, 75, 21);
+		table.add(otherNobility);
+		
+		JLabel otherCoins = new JLabel("Coins");
+		otherCoins.setBorder(new LineBorder(new Color(0, 0, 0)));
+		otherCoins.setName("otherPoints");
+		otherCoins.setBounds(225, 0, 75, 21);
+		table.add(otherCoins);
+		
+		JLabel otherAssistants = new JLabel("Assistants");
+		otherAssistants.setBorder(new LineBorder(new Color(0, 0, 0)));
+		otherAssistants.setName("otherPoints");
+		otherAssistants.setBounds(300, 0, 75, 21);
+		table.add(otherAssistants);
 		//setVisible(true);
 	}
 	
