@@ -532,7 +532,8 @@ public class GUI extends JFrame implements ClientViewInterface {
 			buildEmporiumByPermit.setContentAreaFilled(false);
 			buildEmporiumByPermit.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					JOptionPane.showMessageDialog(contentPane, "buildEmporiumByPermit");
+					BuildEmporiumByPermitFrame frame=new BuildEmporiumByPermitFrame(game, thisObj);
+					frame.setVisible(true);
 				}
 			});
 			buildEmporiumByPermit.setSize(actionButtonDimension);
@@ -602,8 +603,10 @@ public class GUI extends JFrame implements ClientViewInterface {
 			addProduct.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					AddProductFrame frame=new AddProductFrame(game, thisObj);
-					frame.setVisible(true);
+					if(addProduct.isEnabled()){
+						AddProductFrame frame=new AddProductFrame(game, thisObj);
+						frame.setVisible(true);
+					}
 				}
 			});
 			
@@ -614,8 +617,10 @@ public class GUI extends JFrame implements ClientViewInterface {
 			buyProduct.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					BuyProductFrame frame=new BuyProductFrame(game, thisObj);
-					frame.setVisible(true);
+					if(buyProduct.isEnabled()){
+						BuyProductFrame frame=new BuyProductFrame(game, thisObj);
+						frame.setVisible(true);
+					}
 				}
 			});
 			
@@ -713,8 +718,9 @@ public class GUI extends JFrame implements ClientViewInterface {
 			bonuses.put(c.getFirstChar(), c);
 		}
 		
+		
 		JPanel regions=(JPanel)this.contentPane.getComponents()[0].getComponentAt(0, 0);
-		reader.createCitiesFromRegionPanel(regions, bonuses, cardBoardDimension);	
+		reader.createCitiesFromRegionPanel(regions, bonuses, cardBoardDimension, game.getRegions());	
 
 	}
 
