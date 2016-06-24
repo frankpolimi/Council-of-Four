@@ -199,6 +199,8 @@ public class City  extends Bonusable implements Serializable{
 	@Override
 	public boolean equals(Object city) 
 	{
+		if(city == null)
+			return false;
 		if(this.name.equals(((City) city).getName()))
 			return true;
 		return false;

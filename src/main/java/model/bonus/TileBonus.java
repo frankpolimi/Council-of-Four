@@ -4,7 +4,7 @@
 package model.bonus;
 
 /**
- * @author Francesco Vetr�
+ * @author Francesco Vetro'
  * first type of bonuses that works on the player
  */
 
@@ -26,14 +26,14 @@ public abstract class TileBonus extends Bonus {
 	}
 
 	/**
-	 * @return the importo
+	 * @return the amount of the bonus
 	 */
 	public Integer getAmount() {
 		return amount;
 	}
 
 	/**
-	 * @param importo the importo to set
+	 * @param amount the amount of bonus to set
 	 */
 	public void setAmount(Integer amount) {
 		this.amount = amount;

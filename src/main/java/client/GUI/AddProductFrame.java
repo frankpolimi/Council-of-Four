@@ -153,7 +153,6 @@ public class AddProductFrame extends JFrame {
 			cardLabel.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					// TODO Auto-generated method stub
 					super.mouseClicked(e);
 					objToSell=card;
 					for(Component component:panel.getComponents()){
@@ -172,7 +171,6 @@ public class AddProductFrame extends JFrame {
 			permitLabel.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					// TODO Auto-generated method stub
 					super.mouseClicked(e);
 					objToSell=permit;
 					for(Component component:panel.getComponents()){
@@ -191,7 +189,6 @@ public class AddProductFrame extends JFrame {
 			assistantLabel.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					// TODO Auto-generated method stub
 					super.mouseClicked(e);
 					objToSell=new Assistant(1);
 					for(Component component:panel.getComponents()){

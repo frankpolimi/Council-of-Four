@@ -12,7 +12,7 @@ import model.game.Game;
 import view.View;
 
 /**
- * @author Francesco Vetr�
+ * @author Francesco Vetro'
  *
  */
 public class CityBonus extends ActionBonus {

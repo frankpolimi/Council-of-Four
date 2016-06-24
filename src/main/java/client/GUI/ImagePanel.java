@@ -25,7 +25,6 @@ public class ImagePanel extends JPanel {
 		try {
 			image=ImageIO.read(file);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		image=this.getScaledImage(image, dimension.width, dimension.height);
@@ -35,7 +34,6 @@ public class ImagePanel extends JPanel {
 	
 	@Override
 	protected void paintComponent(Graphics g) {
-		// TODO Auto-generated method stub
 		super.paintComponent(g);
 		if(image==null)
 			return;

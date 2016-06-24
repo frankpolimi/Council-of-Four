@@ -6,6 +6,10 @@ import controller.Change;
 import model.bonus.bonusers.Bonuser;
 import model.observers.Observable;
 
+/**
+ * @author Francesco Vetro'
+ */
+
 public abstract class Bonus extends Observable<Change> implements Bonuser, Serializable{
 	
 	/**
@@ -14,9 +18,7 @@ public abstract class Bonus extends Observable<Change> implements Bonuser, Seria
 	private static final long serialVersionUID = 3205604308403400820L;
 	private static int IDGenerator=0;
 	private int bonusID=IDGenerator;
-	/**
-	 * @author Francesco Vetr�
-	 */
+	
 	
 	Integer amount;
 	

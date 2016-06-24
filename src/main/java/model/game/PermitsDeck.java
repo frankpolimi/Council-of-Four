@@ -191,6 +191,8 @@ public class PermitsDeck implements Serializable{
 
 	public boolean equals(PermitsDeck deck) 
 	{
+		if(deck == null)
+			return false;
 		if(this.deckID==deck.getDeckID())
 			return true;
 		return false;

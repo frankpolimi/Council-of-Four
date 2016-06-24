@@ -37,7 +37,6 @@ public class ActionState implements State {
 	public void display() {
 		
 
-		//TODO send to server
 		//this.notifyObservers(new ActionChange(1, action));
 
 	}

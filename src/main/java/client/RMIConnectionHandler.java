@@ -30,13 +30,11 @@ public class RMIConnectionHandler implements ConnectionHandler {
 
 	@Override
 	public Object receiveFromServer() throws ClassNotFoundException, IOException {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public Object receiveFromClient() throws ClassNotFoundException, IOException {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

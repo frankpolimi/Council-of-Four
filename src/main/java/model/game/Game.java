@@ -153,7 +153,6 @@ public class Game extends Observable<Change> implements Serializable, Remote{
 			politicsDeck.drawCard(currentPlayer);
 			do{
 				this.notifyObservers("action_phase");
-				//TODO something
 			}while(mainActionCounter != 0 && quickActionCounter != 0);
 			//this.setCurrentPlayer(); gestione dei turni in controller
 		endOfGame = checkEndOfGame();

@@ -26,7 +26,6 @@ public class ImageLabel extends JLabel {
 		try {
 			image=ImageIO.read(file);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		image=this.getScaledImage(image, dimension.width, dimension.height);
@@ -36,7 +35,6 @@ public class ImageLabel extends JLabel {
 	
 	@Override
 	protected void paintComponent(Graphics g) {
-		// TODO Auto-generated method stub
 		super.paintComponent(g);
 		if(image==null)
 			return;

@@ -133,7 +133,6 @@ public class StartScreen extends JFrame {
 					try {
 						client=new ClientRMI(host, rmiPort, new GUI());
 					} catch (NotBoundException | JDOMException | IOException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}
@@ -141,7 +140,6 @@ public class StartScreen extends JFrame {
 				try {
 					client.runClient(name);
 				} catch (IOException | NotBoundException | JDOMException | AlreadyBoundException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				((GUI)client.getClientView()).setRegionsBackground();
@@ -149,7 +147,6 @@ public class StartScreen extends JFrame {
 				try {
 					((GUI)client.getClientView()).cityBonusLoader();
 				} catch (JDOMException | IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				((GUI)client.getClientView()).setVisible(true);

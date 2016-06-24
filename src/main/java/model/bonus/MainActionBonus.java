@@ -7,7 +7,7 @@ import controller.ModelChange;
 import model.game.Game;
 
 /**
- * @author Francesco Vetr�
+ * @author Francesco Vetro'
  *
  */
 public class MainActionBonus extends ActionBonus {

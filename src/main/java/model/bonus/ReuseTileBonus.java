@@ -12,7 +12,7 @@ import model.game.Game;
 import view.*;
 
 /**
- * @author Francesco Vetr�
+ * @author Francesco Vetro'
  *
  */
 public class ReuseTileBonus extends ActionBonus {

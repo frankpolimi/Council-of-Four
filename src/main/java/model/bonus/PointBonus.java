@@ -6,7 +6,7 @@ package model.bonus;
 import model.game.Game;
 
 /**
- * @author Francesco Vetr�
+ * @author Francesco Vetro'
  *
  */
 public class PointBonus extends TileBonus {
@@ -51,8 +51,6 @@ public class PointBonus extends TileBonus {
 
 	@Override
 	public void update() {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

@@ -170,7 +170,6 @@ public class ElectCouncillorFrame extends JFrame {
 			try {
 				councillors.put(councillor);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			council1.add(panel);

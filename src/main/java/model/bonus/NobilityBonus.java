@@ -8,7 +8,7 @@ import model.game.Game;
 import model.game.NobilityLane;
 
 /**
- * @author Francesco Vetr�
+ * @author Francesco Vetro'
  */
 public class NobilityBonus extends TileBonus {
 
@@ -59,8 +59,6 @@ public class NobilityBonus extends TileBonus {
 
 	@Override
 	public void update() {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

@@ -163,7 +163,6 @@ public class BuildEmporiumByKingFrame extends JFrame {
 			try {
 				councillors.put(councillor);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			council.add(panel);
@@ -178,7 +177,6 @@ public class BuildEmporiumByKingFrame extends JFrame {
 			cityLabel.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					// TODO Auto-generated method stub
 					super.mouseClicked(e);
 					for(Component component:c.getComponents()){
 						((JLabel)component).setBorder(null);

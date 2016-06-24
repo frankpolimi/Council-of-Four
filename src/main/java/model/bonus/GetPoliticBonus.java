@@ -6,7 +6,7 @@ package model.bonus;
 import model.game.*;
 
 /**
- * @author Francesco Vetr�
+ * @author Francesco Vetro'
  *
  */
 public class GetPoliticBonus extends TileBonus {
@@ -31,8 +31,6 @@ public class GetPoliticBonus extends TileBonus {
 	 */
 	@Override
 	public void update() {
-		// TODO Auto-generated method stub
-
 	}
 
 	/* (non-Javadoc)

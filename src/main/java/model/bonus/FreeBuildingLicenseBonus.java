@@ -41,7 +41,7 @@ public class FreeBuildingLicenseBonus extends ActionBonus {
 	 * will be update by a change in the model and will get all the face-up
 	 * permits from each region and will pass it to the specific view of the 
 	 * player whose turn is.
-	 * @param playerOrGame the instance of the game that must collect
+	 * @param game the instance of the game that must collect
 	 * the permits to give to the view from which the player must choose
 	 */
 	/* (non-Javadoc)

@@ -20,8 +20,6 @@ public abstract class View extends Observable<Request> implements Observer<Chang
 	 */
 	@Override
 	public void update() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	/**
@@ -31,8 +29,6 @@ public abstract class View extends Observable<Request> implements Observer<Chang
 	 */
 	@Override
 	public void update(Change change) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	/**

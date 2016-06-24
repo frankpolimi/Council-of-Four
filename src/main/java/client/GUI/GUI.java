@@ -434,7 +434,6 @@ public class GUI extends JFrame implements ClientViewInterface {
 
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					// TODO Auto-generated method stub
 					super.mouseClicked(e);
 					if(JOptionPane.showConfirmDialog(null, "Are you sure you want to pass the turn?", "Passing Turn Confirmation", JOptionPane.YES_NO_OPTION)
 							==0){
@@ -595,7 +594,6 @@ public class GUI extends JFrame implements ClientViewInterface {
 
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					// TODO Auto-generated method stub
 					super.mouseClicked(e);
 					if(JOptionPane.showConfirmDialog(null, "Are you sure you want to pass the turn?", "Passing Turn Confirmation", JOptionPane.YES_NO_OPTION)
 							==0){
@@ -689,7 +687,6 @@ public class GUI extends JFrame implements ClientViewInterface {
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

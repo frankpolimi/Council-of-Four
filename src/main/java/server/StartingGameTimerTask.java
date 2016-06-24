@@ -87,7 +87,6 @@ public class StartingGameTimerTask extends TimerTask {
 				try {
 					server.resetGame();
 				} catch (JDOMException | IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				oneRoomLobby.clear();

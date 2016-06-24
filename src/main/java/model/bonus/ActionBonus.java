@@ -9,7 +9,7 @@ import java.util.List;
 import model.game.Game;
 
 /**
- * @author Francesco Vetrò
+ * @author Francesco Vetro'
  *
  */
 public class ActionBonus extends Bonus {
@@ -40,8 +40,6 @@ public class ActionBonus extends Bonus {
 
 	@Override
 	public void update() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	/* (non-Javadoc)
@@ -52,6 +50,13 @@ public class ActionBonus extends Bonus {
 		return "ActionBonus [amount=" + amount + "]";
 	}
 
+	/**
+	 * method that checks the bonuses from the list given as parameter 
+	 * and removes them if it contains a bonus that increment the 
+	 * amount of nobility points
+	 * @param list the list of bonuses to check
+	 * @return the list of bonuses that are not nobility bonus
+	 */
 	public List<? extends Bonus> checkNoNobility(List<Bonus> list) {
 		List<Bonus> correct = new ArrayList<Bonus>();
 		for(Bonus b: list)

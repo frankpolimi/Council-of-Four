@@ -28,6 +28,10 @@ import javax.swing.JButton;
 
 public class ChangeFaceUpPermitsFrame extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1871929784581869034L;
 	private JPanel contentPane;
 	private Game game;
 	private GUI view;
@@ -102,7 +106,6 @@ public class ChangeFaceUpPermitsFrame extends JFrame {
 		btnSend.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				// TODO Auto-generated method stub
 				super.mouseClicked(e);
 				if(selectedDeck==null){
 					JOptionPane.showMessageDialog(null, "You have to choise at least one deck", "Invalid value", JOptionPane.ERROR_MESSAGE);
@@ -132,7 +135,6 @@ public class ChangeFaceUpPermitsFrame extends JFrame {
 		panel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				// TODO Auto-generated method stub
 				super.mouseClicked(e);
 				selectedDeck=region.getPermitsDeck();
 				for(Component c:contentPane.getComponents()){

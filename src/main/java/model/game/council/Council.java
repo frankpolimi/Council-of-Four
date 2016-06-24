@@ -74,6 +74,8 @@ public abstract class Council implements Serializable
 	
 	public boolean equals(Council c)
 	{
+		if(c == null)
+			return false;
 		if(c.getCouncilID()==this.councilID)
 			return true;
 		else

@@ -5,7 +5,7 @@ package model.bonus;
 
 import model.game.Game;
 /**
- * @author Francesco Vetr�
+ * @author Francesco Vetro'
  */
 public class CoinBonus extends TileBonus {
 	/**
@@ -47,8 +47,6 @@ public class CoinBonus extends TileBonus {
 
 	@Override
 	public void update() {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

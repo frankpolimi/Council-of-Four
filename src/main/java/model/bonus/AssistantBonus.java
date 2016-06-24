@@ -6,7 +6,7 @@ package model.bonus;
 import model.game.Game;
 
 /**
- * @author Francesco Vetr�
+ * @author Francesco Vetro'
  *
  */
 public class AssistantBonus extends TileBonus {
@@ -29,7 +29,7 @@ public class AssistantBonus extends TileBonus {
 	/**
 	 * update the amount of assistants of the player as parameter
 	 * by the amount specified
-	 * @param player
+	 * @param game the game which the bonus will be applied
 	 */
 	@Override
 	public void update(Game game) {
@@ -48,8 +48,6 @@ public class AssistantBonus extends TileBonus {
 
 	@Override
 	public void update() {
-		// TODO Auto-generated method stub
-		
 	}
 	
 	
