@@ -67,9 +67,9 @@ public abstract class SupportClass
 		return cities;
 	}
 	
-	public static Set<Bonus> bonusCreator(int n1, int n2)
+	public static List<Bonus> bonusCreator(int n1, int n2)
 	{
-		Set<Bonus> bonuses=new HashSet<Bonus>();
+		List<Bonus> bonuses=new ArrayList<Bonus>();
 		bonuses.add(new AssistantBonus(n1));
 		bonuses.add(new CoinBonus(n2));
 		return bonuses;

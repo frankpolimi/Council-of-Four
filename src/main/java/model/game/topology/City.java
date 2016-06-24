@@ -138,15 +138,16 @@ public class City  extends Bonusable implements Serializable{
 	
 	/**
 	 * This method checks if a determinate player has built an emporium in this city
-	 * @param player
-	 * @return
+	 * @param player the player to check if has built on the city
+	 * @return true if the player given as parameter has built on this city
+	 * 			false otherwise
 	 */
 	public boolean hasPlayerBuilt(Player player){
 		
 		for(Emporium e:this.emporiums){
-			if(player.getEmporium().contains(e)){
-				return true;
-			}
+			for(Emporium e2:player.getEmporium())
+				if(e2.equals(e))
+					return true;
 		}
 		return false;
 	}
@@ -170,6 +171,9 @@ public class City  extends Bonusable implements Serializable{
 		return x;
 	}
 
+	/**
+	 * @return the list of bonuses applied to this city
+	 */
 	public List<Bonus> getBonus() {
 		return bonusList;
 	}
