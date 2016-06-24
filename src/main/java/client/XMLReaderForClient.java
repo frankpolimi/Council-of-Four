@@ -26,8 +26,8 @@ public class XMLReaderForClient {
 	private static final String PATH="src/main/resources/positionInTheMap.xml";
 	
 	
-	private static final Dimension cityDim=new Dimension(GUI.singleRegionDimension.width*1282/10000, GUI.singleRegionDimension.width*2564/10000);
-	private static final Dimension bonusDim=new Dimension(cityDim.width, cityDim.height/2);
+	private static final Dimension cityDim=new Dimension(GUI.singleRegionDimension.width*267/1000, GUI.singleRegionDimension.height*230/1000);
+	private static final Dimension bonusDim=new Dimension(GUI.singleRegionDimension.width*1282/10000, GUI.singleRegionDimension.width*1282/10000);
 	private static Dimension kingDim=bonusDim;
 	
 	private Element getRootFromFile(String path) throws JDOMException, IOException{
