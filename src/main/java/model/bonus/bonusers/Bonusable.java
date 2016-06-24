@@ -12,7 +12,7 @@ import model.game.Game;
 
 
 /**
- * @author Francesco Vetr�
+ * @author Francesco Vetro'
  * 
  */
 public abstract class Bonusable implements Serializable{
@@ -23,6 +23,9 @@ public abstract class Bonusable implements Serializable{
 	private static final long serialVersionUID = -2029635307372167240L;
 	private List<Bonuser> bonuses;
 	
+	/**
+	 * constructor for an object that possess some bonuses 
+	 */
 	public Bonusable(){
 		bonuses=new ArrayList<>();
 	}
@@ -43,11 +46,18 @@ public abstract class Bonusable implements Serializable{
 		this.bonuses.remove(bonus);
 	}
 	
+	/**
+	 * due to different bonuses that are on
+	 * an object in the game, this method 
+	 * allows to apply all bonuses of the object
+	 * to the game
+	 * @param game the game which the bonus is applied
+	 */
 	public void applyBonus(Game game){
 		for(Bonuser b: bonuses)
 			b.update(game);
 	}	
-	//solo d'aiuto.. lo canceller�! by ema
+	//solo d'aiuto.. lo cancellero'! by ema
 	public void stampBonusList(){
 		for(Bonuser b:this.bonuses){
 			System.out.println(b.toString());

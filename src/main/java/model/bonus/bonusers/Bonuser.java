@@ -11,7 +11,11 @@ import java.io.Serializable;
 import model.game.Game;
 
 /**
- * @author Francesco Vetr�
+ * @author Francesco Vetro'
+ * interface representing an application of the pattern
+ * observer-observable applied to the bonuses in the game
+ * this means that an object implementing this interface
+ * will be triggered when a specific object is activated
  */
 public interface Bonuser extends Serializable{
 	
