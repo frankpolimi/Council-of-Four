@@ -89,7 +89,6 @@ public class GUI extends JFrame implements ClientViewInterface {
 	public static final Dimension actionButtonDimension= new Dimension(rightPanelDimension.width*48/100, rightPanelDimension.width*766/5000);
 	public static final Dimension councilDimension = new Dimension(nobilityPanelDimension.width*109/1000, nobilityPanelDimension.height*875/10000);
 	public static Dimension regionTileDimension = new Dimension(singleRegionDimension.width*182/1000, singleRegionDimension.height*71/1000);
-	private JTable table;
 
 
 	/**
@@ -409,8 +408,10 @@ public class GUI extends JFrame implements ClientViewInterface {
 		tabbedPane.addTab("Other Players", null, otherPlayers, null);
 		otherPlayers.setLayout(null);
 		
-		table = new JTable();
-		table.setBounds(0, 0, 511, 705);
+		//TODO from here
+		JTable table = new JTable();
+		table.setSize(rightPanelDimension);
+		table.setLocation(0, 0);
 		otherPlayers.add(table);
 		
 		JLabel otherName = new JLabel("Name");
@@ -419,29 +420,41 @@ public class GUI extends JFrame implements ClientViewInterface {
 		otherName.setBounds(0, 0, 75, 21);
 		table.add(otherName);
 		
+		JLabel otherColor = new JLabel("Color");
+		otherColor.setBorder(new LineBorder(new Color(0, 0, 0)));
+		otherColor.setName("otherName");
+		otherColor.setBounds(75, 0, 50, 21);
+		table.add(otherColor);
+		
 		JLabel otherPoints = new JLabel("Victory Points");
 		otherPoints.setBorder(new LineBorder(new Color(0, 0, 0)));
 		otherPoints.setName("otherPoints");
-		otherPoints.setBounds(75, 0, 75, 21);
+		otherPoints.setBounds(125, 0, 75, 21);
 		table.add(otherPoints);
 		
 		JLabel otherNobility = new JLabel("Nobility Points");
 		otherNobility.setBorder(new LineBorder(new Color(0, 0, 0)));
 		otherNobility.setName("otherPoints");
-		otherNobility.setBounds(150, 0, 75, 21);
+		otherNobility.setBounds(200, 0, 75, 21);
 		table.add(otherNobility);
 		
 		JLabel otherCoins = new JLabel("Coins");
 		otherCoins.setBorder(new LineBorder(new Color(0, 0, 0)));
 		otherCoins.setName("otherPoints");
-		otherCoins.setBounds(225, 0, 75, 21);
+		otherCoins.setBounds(275, 0, 50, 21);
 		table.add(otherCoins);
 		
 		JLabel otherAssistants = new JLabel("Assistants");
 		otherAssistants.setBorder(new LineBorder(new Color(0, 0, 0)));
 		otherAssistants.setName("otherPoints");
-		otherAssistants.setBounds(300, 0, 75, 21);
+		otherAssistants.setBounds(325, 0, 60, 21);
 		table.add(otherAssistants);
+		
+		JLabel otherEmporiums = new JLabel("Remaining Emporiums");
+		otherEmporiums.setBorder(new LineBorder(new Color(0, 0, 0)));
+		otherEmporiums.setName("otherPoints");
+		otherEmporiums.setBounds(385, 0, 120, 21);
+		table.add(otherEmporiums);
 		//setVisible(true);
 	}
 	
@@ -930,19 +943,19 @@ public class GUI extends JFrame implements ClientViewInterface {
 		JPanel council = (JPanel)Arrays.
 				asList(map.getComponents()).stream()
 				.filter(e->e.getName()!=null&&e.getName().equals("landCouncil")).findFirst().get();
-		this.paintCouncil(council, this.councilDimension);
+		this.paintCouncil(council, councilDimension);
 		council = (JPanel)Arrays.
 				asList(map.getComponents()).stream()
 				.filter(e->e.getName()!=null&&e.getName().equals("hillCouncil")).findFirst().get();
-		this.paintCouncil(council, this.councilDimension);
+		this.paintCouncil(council, councilDimension);
 		council = (JPanel)Arrays.
 				asList(map.getComponents()).stream()
 				.filter(e->e.getName()!=null&&e.getName().equals("mountainCouncil")).findFirst().get();
-		this.paintCouncil(council, this.councilDimension);
+		this.paintCouncil(council,councilDimension);
 		council = (JPanel)Arrays.
 				asList(map.getComponents()).stream()
 				.filter(e->e.getName()!=null&&e.getName().equals("king")).findFirst().get();
-		this.paintCouncil(council, this.councilDimension);
+		this.paintCouncil(council, councilDimension);
 		System.out.println("changed");
 		this.repaint();
 	}

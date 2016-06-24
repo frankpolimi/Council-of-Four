@@ -464,7 +464,6 @@ public class ClientView implements ClientViewInterface{
 					request = new ActionRequest(new SkipAction(), this.ID);
 					break;
 				case 4:
-					stdin.close();
 					return this.quitter();
 				}
 			}
@@ -480,7 +479,6 @@ public class ClientView implements ClientViewInterface{
 				request = new ActionRequest(new SkipAction(), ID);
 				break;
 			case 3:
-				stdin.close();
 				return this.quitter();
 			}
 			
@@ -496,12 +494,10 @@ public class ClientView implements ClientViewInterface{
 				request = new ActionRequest(new SkipAction(), ID);
 				break;
 			case 3:
-				stdin.close();
 				return this.quitter();
 			}
 		}else if(game.getGameState().getClass().equals(EndState.class)){
 			game.getGameState().display();
-			stdin.close();
 			return null;
 		}
 		return request;
@@ -510,7 +506,8 @@ public class ClientView implements ClientViewInterface{
 	private Request quitter(){
 		System.out.println("Are you sure? Type 'YES' is you agree, otherwise type anything else");
 		Scanner scanner6 = new Scanner(System.in);
-		if(scanner6.nextLine().equalsIgnoreCase("yes")){
+		String yesorno = scanner6.nextLine();
+		if(yesorno.equalsIgnoreCase("yes")){
 			System.err.println("You have been disconnected");
 			scanner6.close();
 			return new QuitRequest(this.ID);

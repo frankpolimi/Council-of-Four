@@ -3,7 +3,7 @@ package controller;
 import java.io.Serializable;
 
 /**
- * @author Francesco Vetrò
+ * @author Francesco Vetro'
  */
 
 public abstract class Change implements Serializable{
