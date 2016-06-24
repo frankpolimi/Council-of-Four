@@ -983,4 +983,15 @@ public class GUI extends JFrame implements ClientViewInterface {
 	public void setMemoryContainer(LocalStorage memoryLocator) {
 		this.memoryContainer=memoryLocator;
 	}
+
+
+
+	/**
+	 * @return the memoryContainer
+	 */
+	public LocalStorage getMemoryContainer() {
+		return memoryContainer;
+	}
+	
+	
 }
