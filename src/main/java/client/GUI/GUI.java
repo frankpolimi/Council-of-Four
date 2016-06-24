@@ -504,7 +504,8 @@ public class GUI extends JFrame implements ClientViewInterface {
 			JButton engageAssistant = new JButton("");
 			engageAssistant.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					setRequest(new ActionRequest(new EngageAssistant(), ID));
+					if(JOptionPane.showConfirmDialog(null, "Do you want to confirm your choise?", "Action", JOptionPane.YES_NO_OPTION)==0)
+						setRequest(new ActionRequest(new EngageAssistant(), ID));
 				}
 			});
 			engageAssistant.setContentAreaFilled(false);
@@ -545,7 +546,8 @@ public class GUI extends JFrame implements ClientViewInterface {
 			JButton extraMainAction = new JButton("");
 			extraMainAction.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					setRequest(new ActionRequest(new ExtraMainAction(), ID));
+					if(JOptionPane.showConfirmDialog(null, "Do you want to confirm your choise?", "Action", JOptionPane.YES_NO_OPTION)==0)
+						setRequest(new ActionRequest(new ExtraMainAction(), ID));
 				}
 			});
 			extraMainAction.setContentAreaFilled(false);
