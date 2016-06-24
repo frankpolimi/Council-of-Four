@@ -82,7 +82,7 @@ public class ViewProva extends View {
 			scanner=new Scanner(System.in);
 			int scelta=scanner.nextInt();
 			BonusRequest request=new BonusRequest(game.getCurrentPlayer().getPlayerID());
-			request.addBonus(bonus.getBonusList().get(scelta-1));
+			//request.addBonus(bonus.getBonusList().get(scelta-1));
 			this.notifica(request);
 		}else if(change.getClass().equals(ModelChange.class)){
 			System.out.println(((ModelChange)change).getGame().getCurrentPlayer());

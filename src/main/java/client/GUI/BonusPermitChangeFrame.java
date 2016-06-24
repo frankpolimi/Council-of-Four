@@ -8,7 +8,6 @@ import java.awt.EventQueue;
 import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -19,8 +18,13 @@ import model.bonus.Bonus;
 import model.game.BuildingPermit;
 import model.game.Game;
 import model.game.Player;
+import model.game.topology.City;
+import view.BonusRequest;
 import view.LocalStorage;
+import view.PermitsRequest;
+
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -48,8 +52,17 @@ public class BonusPermitChangeFrame extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					BonusPermitChangeFrame frame = new BonusPermitChangeFrame();
-					frame.setVisible(true);
+					Game game=new Game();
+					List<Player> players=new ArrayList<>();
+					players.add(new Player("ema",1));
+					game.setPlayers(players);
+					GUI gui=new GUI();
+					gui.setId(1);
+					gui.setGame(game);
+					game.getPlayerByID(1).setNobilityPoints(4);
+					
+					//BonusPermitChangeFrame frame = new BonusPermitChangeFrame(game, gui);
+					//frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -58,9 +71,9 @@ public class BonusPermitChangeFrame extends JFrame {
 	}
 
 	/**
-	 * Create the frame.
+	 * if check flag is TRUE the request is a PermitRequest, otherwise is a BonusRequest
 	 */
-	public BonusPermitChangeFrame(Game game, GUI view, String title, String message) {
+	public BonusPermitChangeFrame(Game game, GUI view, String title, String message, boolean check) {
 		this.game=game;
 		this.view=view;
 		this.memory=view.getMemoryContainer();
@@ -78,7 +91,7 @@ public class BonusPermitChangeFrame extends JFrame {
 		titleLabel.setBounds((int)((29/XREF)*getWidth()),(int)((11/YREF)*getHeight()),(int)((616/XREF)*getWidth()),(int)((32/YREF)*getHeight()));
 		contentPane.add(titleLabel);
 		
-		JLabel messageLabel = new JLabel("Select the "+message+" to acquire its bonus");
+		JLabel messageLabel = new JLabel(message);
 		messageLabel.setBounds(29, 51, 616, 32);
 		messageLabel.setBounds((int)((29/XREF)*getWidth()),(int)((51/YREF)*getHeight()),(int)((616/XREF)*getWidth()),(int)((32/YREF)*getHeight()));
 		contentPane.add(messageLabel);
@@ -87,17 +100,49 @@ public class BonusPermitChangeFrame extends JFrame {
 		panel.setBounds(10, 100, 647, 180);
 		panel.setBounds((int)((10/XREF)*getWidth()),(int)((100/YREF)*getHeight()),(int)((647/XREF)*getWidth()),(int)((180/YREF)*getHeight()));
 		contentPane.add(panel);
+		this.populatePanel(panel, new Dimension((int)((175/YREF)*getHeight()),(int)((175/YREF)*getHeight())), check);
 		
 		JButton btnSend = new JButton("SEND");
-		btnSend.setBounds(10, 291, 89, 23);
 		btnSend.setBounds((int)((10/XREF)*getWidth()),(int)((291/YREF)*getHeight()),(int)((89/XREF)*getWidth()),(int)((23/YREF)*getHeight()));
 		contentPane.add(btnSend);
+		btnSend.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				super.mouseClicked(e);
+				if(selected==null){
+					JOptionPane.showMessageDialog(null, "You have to choise at least one object to apply the request", "Error", JOptionPane.ERROR_MESSAGE);
+				}else{
+					if(JOptionPane.showConfirmDialog(null, "Do you want to confirm your choise?", "Action", JOptionPane.YES_NO_OPTION)==0){
+						if(check){
+							PermitsRequest request=new PermitsRequest(view.getId());
+							request.addPermit((BuildingPermit)selected);
+							view.setRequest(request);
+						}else{
+							BonusRequest request=new BonusRequest(view.getId());
+							if(selected.getClass().equals(BuildingPermit.class)){
+								for(Bonus b:((BuildingPermit)selected).getBonusList()){
+									request.addBonus(b);
+								}
+								view.setRequest(request);
+							}else{
+								for(Bonus b:((City)selected).getBonus()){
+									request.addBonus(b);
+								}
+								view.setRequest(request);
+							}
+						}
+						setVisible(false);
+					}
+				}
+			}
+		});
 		
 	}
 	
-	public void populatePanel(JPanel panel, Dimension dim, String message){
+	public void populatePanel(JPanel panel, Dimension dim, boolean check){
 		List<?> list;
-		if(message.equals("permit")){
+		if(check){
 			list=memory.getPermits();
 		}else{
 			list=memory.getBonus();
@@ -110,18 +155,16 @@ public class BonusPermitChangeFrame extends JFrame {
 			if(obj.getClass().equals(BuildingPermit.class)){
 				label=new ImageLabel(((BuildingPermit)obj).getImagePath(),dim);
 			}else{
-				label=new ImageLabel(((Bonus)obj).getImagePath(),dim);
+				label=new ImageLabel(((City)obj).getBonusImagePath(),dim);
 			}
-			
-			
-			
+
 			panel.add(label);
 			label.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					// TODO Auto-generated method stub
 					super.mouseClicked(e);
-					selected=permit;
+					selected=obj;
 					for(Component comp:panel.getComponents()){
 						((JLabel)comp).setBorder(null);
 					}

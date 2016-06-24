@@ -57,12 +57,11 @@ public class ActionBonus extends Bonus {
 	 * @param list the list of bonuses to check
 	 * @return the list of bonuses that are not nobility bonus
 	 */
-	public List<? extends Bonus> checkNoNobility(List<Bonus> list) {
-		List<Bonus> correct = new ArrayList<Bonus>();
+	public boolean checkNoNobility(List<Bonus> list) {
 		for(Bonus b: list)
-			if(!(b.getClass().equals(NobilityBonus.class)))
-				correct.add(b);
-		return correct;
+			if(b.getClass().equals(NobilityBonus.class))
+				return false;
+		return true;
 	}
 
 	
