@@ -578,8 +578,10 @@ public class GUI extends JFrame implements ClientViewInterface {
 			buyProduct.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					BuyProductFrame frame=new BuyProductFrame(game, thisObj);
-					frame.setVisible(true);
+					if(buyProduct.isEnabled()){
+						BuyProductFrame frame=new BuyProductFrame(game, thisObj);
+						frame.setVisible(true);
+					}
 				}
 			});
 			
@@ -677,8 +679,9 @@ public class GUI extends JFrame implements ClientViewInterface {
 			bonuses.put(c.getFirstChar(), c);
 		}
 		
+		
 		JPanel regions=(JPanel)this.contentPane.getComponents()[0].getComponentAt(0, 0);
-		reader.createCitiesFromRegionPanel(regions, bonuses, cardBoardDimension);	
+		reader.createCitiesFromRegionPanel(regions, bonuses, cardBoardDimension, game.getRegions());	
 
 	}
 

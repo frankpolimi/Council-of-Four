@@ -9,6 +9,8 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 import org.jdom2.Document;
@@ -18,6 +20,7 @@ import org.jdom2.input.SAXBuilder;
 import client.GUI.GUI;
 import client.GUI.ImagePanel;
 import model.game.topology.City;
+import model.game.topology.Region;
 
 public class XMLReaderForClient {
 	private static final String PATH="src/main/resources/positionInTheMap.xml";
@@ -33,7 +36,7 @@ public class XMLReaderForClient {
 		return document.getRootElement();
 	}
 	
-	public void createCitiesFromRegionPanel(JPanel panel, Map<Character, City> bonuses, Dimension boardDim) throws JDOMException, IOException{
+	public void createCitiesFromRegionPanel(JPanel panel, Map<Character, City> bonuses, Dimension boardDim, Set<Region> regionSet) throws JDOMException, IOException{
 		List<Element> regions=this.getRootFromFile(PATH).getChild("cityCoordinates").getChildren();
 		Iterator<Element> regIt=regions.iterator();
 		int i=0;
@@ -41,14 +44,25 @@ public class XMLReaderForClient {
 		while(regIt.hasNext()){
 			Element region=regIt.next();
 			List<Component> componentList=Arrays.asList(panel.getComponents());
+			char type = 0;
 			JPanel regionPanel=null;
 			for(Component c:componentList){
 				if(c.getName()!=null&&c.getName().equals(region.getAttributeValue("name"))){
 					regionPanel=(JPanel)c;
+					type=regionSet.stream().filter(e->e.getName().equalsIgnoreCase(c.getName())).map(e->e.getType()).findFirst().get();
 					break;
 				}
-			}			
-			List<Element> cities=region.getChildren();
+			}
+
+			Element child = null;
+			for(Element c:region.getChildren()){
+				if(c.getAttributeValue("value").charAt(0)==type){
+					child=c;
+					break;
+				}
+			}
+			
+			List<Element> cities=child.getChildren();
 			Iterator<Element> cityIt=cities.iterator();
 			while(cityIt.hasNext()){
 				Element cityElement=cityIt.next();
@@ -86,9 +100,10 @@ public class XMLReaderForClient {
 				
 				kingPanel.setName("kingPanel");
 				kingPanel.setOpaque(false);
-				//kingPanel.setBounds((newPanel.getWidth()/2)-(kingDim.width/2),(newPanel.getHeight()/2)-(kingDim.height/2), kingDim.width, kingDim.height);
-				kingPanel.setLocation(0, bonusDim.height);
+				kingPanel.setBounds((newPanel.getWidth()/2)-(kingDim.width/2),(newPanel.getHeight()/2)-(kingDim.height/2), kingDim.width, kingDim.height);
+				//kingPanel.setLocation(0, bonusDim.height);
 				kingPanel.setSize(bonusDim);
+				kingPanel.setBorder(new LineBorder(Color.red,4));
 				newPanel.add(kingPanel);
 					
 				regionPanel.add(newPanel);
