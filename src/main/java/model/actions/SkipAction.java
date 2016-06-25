@@ -19,9 +19,10 @@ public class SkipAction extends Action
 	private static final long serialVersionUID = 7504135483550600131L;
 
 	/**
-	 * This action allows the player to skip the turn. If the next player is the first of the match, the gameState is changed.
-	 * @throws IllegalStateException if the player has already the main action to do.
-	 *
+	 * This action allows the player to skip the turn. 
+	 * If the next player is the first of the match, the gameState is changed.
+	 * @return true if the action succeeded
+	 * @throws IllegalStateException if the player has still main actions to do.
 	 */
 	@Override
 	public boolean takeAction(Game game)
@@ -93,6 +94,12 @@ public class SkipAction extends Action
 		
 	}
 	
+	/**
+	 * the check that this action must perform
+	 * to ensures that the player is able to skip the turn
+	 * @return true if player can skip the turn
+	 * 			false otherwise
+	 */
 	@Override
 	public boolean checkAction(Game game) {
 		if(game.getMainActionCounter()!=0){

@@ -17,6 +17,14 @@ public class ElectCouncillorByAssistant extends QuickAction
 	private static final long serialVersionUID = -1056666433218005285L;
 	private Councillor councillor;
 	private Council council;
+	
+	/**
+	 * constructor for an action that allows the player to elect
+	 * a councillor in a council (given both as parameters) 
+	 * by paying an assistants
+	 * @param council the council where the councillor will be elected
+	 * @param councillor the councillor that will be elected
+	 */
 	public ElectCouncillorByAssistant(Council council, Councillor councillor) 
 	{
 		this.council = council;
@@ -60,11 +68,19 @@ public class ElectCouncillorByAssistant extends QuickAction
 	}
 
 	
-
+	/**
+	 * get the councillor given as parameter
+	 * @return the councillor to be elected
+	 */
 	public Councillor getCouncillor() {
 		return councillor;
 	}
 
+	/**
+	 * set the councillor that will be elected
+	 * by this action
+	 * @param councillor the councillor to be elected
+	 */
 	public void setCouncillor(Councillor councillor) {
 		this.councillor = councillor;
 	}
