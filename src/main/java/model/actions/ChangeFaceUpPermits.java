@@ -14,6 +14,10 @@ public class ChangeFaceUpPermits extends QuickAction
 	private static final long serialVersionUID = 4536872089352094621L;
 	private PermitsDeck deck;
 	
+	/**
+	 * constructor for the action change face up permits
+	 * @param deck the deck that will have its face up permits changed
+	 */
 	public ChangeFaceUpPermits(PermitsDeck deck) {
 		this.deck = deck;
 	}
@@ -64,10 +68,20 @@ public class ChangeFaceUpPermits extends QuickAction
 		return "ChangeFaceUpPermits: The player pays 2 coins to swap the 2 faced up BuildingPermits of a PermitDeck with a new pair of the same deck.";
 	}
 
+	/**
+	 * get the deck to be modified
+	 * @return the deck given as field of this action
+	 */
 	public PermitsDeck getDeck() {
 		return deck;
 	}
 
+	/**
+	 * set the deck that will have its 
+	 * face up permits changed
+	 * @param deck the deck that face up permits will
+	 * be changed
+	 */
 	public void setDeck(PermitsDeck deck) {
 		this.deck = deck;
 	}

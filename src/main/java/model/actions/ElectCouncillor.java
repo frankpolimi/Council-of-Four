@@ -16,7 +16,13 @@ public class ElectCouncillor extends MainAction
 	private Councillor councillor;
 	private Council council;
 	
-	
+	/**
+	 * constructor for an action that allows the player to elect
+	 * a councillor in a council (given both as parameters) 
+	 * and gaining 4 coins
+	 * @param council the council where the councillor will be elected
+	 * @param councillor the councillor that will be elected
+	 */
 	public ElectCouncillor(Councillor councillor, Council council) {
 		this.councillor = councillor;
 		this.council = council;
@@ -56,18 +62,34 @@ public class ElectCouncillor extends MainAction
 				+ "to the board and the Player gets 4 Coins";
 	}
 
+	/**
+	 * get the councillor that will be elected
+	 * @return the councillor that will be elected
+	 */
 	public Councillor getCouncillor() {
 		return councillor;
 	}
 
+	/**
+	 * set the councillor that will be elected
+	 * @param councillor the councillor that will be elected
+	 */
 	public void setCouncillor(Councillor councillor) {
 		this.councillor = councillor;
 	}
 
+	/**
+	 * get the council that will be modified
+	 * @return the council that will be modified
+	 */
 	public Council getCouncil() {
 		return council;
 	}
 
+	/**
+	 * set the council that will be modified
+	 * @param the council that will be modified
+	 */
 	public void setCouncil(Council council) {
 		this.council = council;
 	}
