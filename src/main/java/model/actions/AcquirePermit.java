@@ -37,16 +37,26 @@ public class AcquirePermit extends MainAction
 	@Override
 	public boolean takeAction(Game game)
 	{
+		boolean permitAcquired=false;
 		if(!this.checkAction(game))
 			throw new IllegalStateException("Not enough Main actions");
 		RegionalCouncil council=game.getRegions().stream().map(e->e.getCouncil()).filter(e->e.equals(this.council)).findFirst().get();
 		if(payCouncil(game,council,politics))
-			if(council.getPermitsDeck().givePermit(game, permit))
+		{
+			try
+			{
+				permitAcquired=council.getPermitsDeck().givePermit(game, permit);
+			}catch(IllegalStateException e)
+			{
+				permitAcquired=true;
+			}
+			if(permitAcquired)
 			{
 				game.decrementMainActionCounter();
 				super.takeAction(game);
 				return true;
 			}else return false;
+		}
 		else throw new IllegalStateException("Not enough coins or Cards to pay the council. For 1 missing politics card you pay 4 additional coins,"
 				+ " for each additional missing politics card you add 3 more");
 	}

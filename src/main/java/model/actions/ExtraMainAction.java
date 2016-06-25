@@ -26,6 +26,7 @@ public class ExtraMainAction extends QuickAction
 		if(game.getCurrentPlayer().checkAssistants(3))
 		{
 			game.incrementMainActionCounter();
+			game.decrementQuickActionCounter();
 			super.takeAction(game);
 			return true;
 		}
