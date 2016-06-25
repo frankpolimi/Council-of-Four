@@ -405,10 +405,10 @@ public class GUI extends JFrame implements ClientViewInterface {
 		}
 		
 		JPanel otherPlayers = new JPanel();
+		otherPlayers.setName("others");
 		tabbedPane.addTab("Other Players", null, otherPlayers, null);
 		otherPlayers.setLayout(null);
 		
-		//TODO from here
 		JTable table = new JTable();
 		table.setSize(rightPanelDimension);
 		table.setLocation(0, 0);
@@ -968,9 +968,74 @@ public class GUI extends JFrame implements ClientViewInterface {
 				asList(map.getComponents()).stream()
 				.filter(e->e.getName()!=null&&e.getName().equals("king")).findFirst().get();
 		this.paintCouncil(council, councilDimension);
+		
+		JTabbedPane tabbed = (JTabbedPane)contentPane.getComponents()[1];
+		JPanel tableOthers = (JPanel)tabbed.getComponent(2);
+		this.updateOtherPlayers((JTable)tableOthers.getComponent(0));
+		
 		System.out.println("changed");
 		this.repaint();
+		//this.revalidate(); solo per prova
 	}
+
+	private void updateOtherPlayers(JTable tableOthers) {
+		
+		int i=0;
+		for(Player p : this.game.getPlayers())
+			if(p.getPlayerID() != this.ID){
+				i++;
+				JTextPane name = new JTextPane();
+				name.setEditable(false);
+				name.setText(p.getName());
+				name.setBorder(new LineBorder(new Color(0, 0, 0)));
+				name.setBounds(0, i*21, 75, 21);
+				tableOthers.add(name);
+				
+				JTextPane color = new JTextPane();
+				color.setEditable(false);
+				color.setBackground(p.getChosenColor());
+				color.setBorder(new LineBorder(new Color(0, 0, 0)));
+				color.setBounds(75, i*21, 50, 21);
+				tableOthers.add(color);
+				
+				JTextPane points = new JTextPane();
+				points.setEditable(false);
+				points.setText(Integer.toString(p.getPoints()));
+				points.setBounds(125, i*21, 75, 21);
+				points.setBorder(new LineBorder(new Color(0, 0, 0)));
+				tableOthers.add(points);
+				
+				JTextPane nobility = new JTextPane();
+				nobility.setEditable(false);
+				nobility.setText(Integer.toString(p.getNobilityPoints()));
+				nobility.setBounds(200, i*21, 75, 21);
+				nobility.setBorder(new LineBorder(new Color(0, 0, 0)));
+				tableOthers.add(nobility);
+				
+				JTextPane coins = new JTextPane();
+				coins.setEditable(false);
+				coins.setText(Integer.toString(p.getCoins()));
+				coins.setBounds(275, i*21, 50, 21);
+				coins.setBorder(new LineBorder(new Color(0, 0, 0)));
+				tableOthers.add(coins);
+				
+				JTextPane assistants = new JTextPane();
+				assistants.setEditable(false);
+				assistants.setText(Integer.toString(p.getAssistants()));
+				assistants.setBounds(325, i*21, 60, 21);
+				assistants.setBorder(new LineBorder(new Color(0, 0, 0)));
+				tableOthers.add(assistants);
+				
+				JTextPane emporiums = new JTextPane();
+				emporiums.setEditable(false);
+				emporiums.setText(Integer.toString(p.getRemainingEmporiums()));
+				emporiums.setBounds(385, i*21, 120, 21);
+				emporiums.setBorder(new LineBorder(new Color(0, 0, 0)));
+				tableOthers.add(emporiums);
+			}
+	}
+
+
 
 	private void paintCouncil(JPanel council, Dimension councilDimension) {
 		Dimension councillorDimension =  new Dimension(councilDimension.width/4, councilDimension.height);
