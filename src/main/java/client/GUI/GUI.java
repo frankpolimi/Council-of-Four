@@ -988,31 +988,30 @@ public class GUI extends JFrame implements ClientViewInterface {
 			for(City city:cities){
 				if(!city.getEmporiums().isEmpty())
 					System.out.println("Sono "+city.getName()+" e ho empori");
-				this.updateEmporiumsData((JPanel)this.getComponentByName(String.valueOf(city.getFirstChar()), regionPanel), city);
+				this.updateEmporiumsData(regionPanel, city);
 			}
 		}
 	}
 
-	private void updateEmporiumsData(JPanel newPanel, City city){
-		JPanel emporiumPanel=(JPanel)this.getComponentByName("emporiumPanel", newPanel);
-		//JPanel container=new JPanel();
-		//container.setBounds(emporiumPanel.getBounds());
-		Dimension labelDim=new Dimension(20,20);
-		//container.setLayout(new BoxLayout(container,BoxLayout.Y_AXIS));
-		emporiumPanel.setLayout(new BoxLayout(emporiumPanel,BoxLayout.Y_AXIS));
+	private void updateEmporiumsData(JPanel regionPanel, City city){
+		JPanel emporiumPanel=(JPanel)this.getComponentByName("emporiumPanel"+city.getFirstChar(), regionPanel);
+		emporiumPanel.removeAll();
+		JPanel container=new JPanel();
+		container.setBounds(0,0,emporiumPanel.getWidth(),emporiumPanel.getHeight());
+		Dimension labelDim=new Dimension(107*singleRegionDimension.width/1000,107*singleRegionDimension.width/1000);
+		container.setLayout(new BoxLayout(container,BoxLayout.Y_AXIS));
 		for(Emporium emporium:city.getEmporiums()){
-			JLabel empLabel=new JLabel();
-			empLabel.setBackground(emporium.getColor());
-			empLabel.setSize(labelDim);
-			//container.add(empLabel);
-			emporiumPanel.add(empLabel);
+			JPanel panel=new JPanel();
+			panel.setBackground(emporium.getColor());
+			panel.setSize(labelDim);
+			panel.setBorder(new LineBorder(Color.black,2));
+			container.add(panel);
+			container.add(Box.createRigidArea(new Dimension(0,11*singleRegionDimension.width/1000)));
 		}
-		/*JScrollPane scroll=new JScrollPane(container);
+		JScrollPane scroll=new JScrollPane(container);
 		scroll.setBounds(container.getBounds());
-		emporiumPanel.add(scroll);*/
-		JScrollPane scroll=new JScrollPane(emporiumPanel);
-		scroll.setBounds(emporiumPanel.getBounds());
-		newPanel.add(scroll);
+		emporiumPanel.add(scroll);
+		
 	}
 	
 	private void updateOtherPlayers(JTable tableOthers) {

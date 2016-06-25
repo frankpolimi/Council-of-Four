@@ -132,6 +132,8 @@ public class BonusPermitChangeFrame extends JFrame {
 								view.setRequest(request);
 							}
 						}
+						view.getMemoryContainer().setBonus(new ArrayList<>());
+						view.getMemoryContainer().setPermits(new ArrayList<>());
 						setVisible(false);
 					}
 				}

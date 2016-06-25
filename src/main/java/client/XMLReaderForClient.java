@@ -75,6 +75,7 @@ public class XMLReaderForClient {
 			while(cityIt.hasNext()){
 				Element cityElement=cityIt.next();
 				Dimension cityDim=new Dimension(GUI.singleRegionDimension.width*Integer.parseInt(cityElement.getAttributeValue("width"))/1000, GUI.singleRegionDimension.height*Integer.parseInt(cityElement.getAttributeValue("height"))/1000);
+				
 				JPanel newPanel=new JPanel();
 				newPanel.setName(cityElement.getAttributeValue("name"));
 				newPanel.setLayout(null);
@@ -100,14 +101,14 @@ public class XMLReaderForClient {
 				kingPanel.setOpaque(false);
 				kingPanel.setBounds((newPanel.getWidth()/2)-(kingDim.width/2),(newPanel.getHeight()/2)-(kingDim.height/2), kingDim.width, kingDim.height);
 				kingPanel.setSize(bonusDim);
-				
+				newPanel.setBorder(new LineBorder(Color.black));
 				newPanel.add(kingPanel);
 				JPanel emporiumPanel=new JPanel();
-				emporiumPanel.setName("emporiumPanel");
-				emporiumPanel.setBounds(kingPanel.getLocation().x+kingPanel.getWidth(), kingPanel.getLocation().y+kingPanel.getHeight(), cityDim.width, cityDim.height);
+				emporiumPanel.setName("emporiumPanel"+city.getFirstChar());
+				emporiumPanel.setBounds(newPanel.getX()+kingPanel.getLocation().x+kingPanel.getWidth(), newPanel.getY()+kingPanel.getLocation().y+kingPanel.getHeight(), 143*GUI.singleRegionDimension.width/1000, 143*GUI.singleRegionDimension.width/1000);
 				emporiumPanel.setVisible(false);
 				emporiumPanel.setBorder(new LineBorder(Color.black));
-				newPanel.add(emporiumPanel);
+				regionPanel.add(emporiumPanel);
 				final int photo=i;
 				newPanel.addMouseListener(new MouseAdapter() {
 					@Override

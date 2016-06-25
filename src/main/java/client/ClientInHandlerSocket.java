@@ -52,6 +52,7 @@ public class ClientInHandlerSocket implements Runnable
 					x.getClass().equals(PermitsChange.class)){
 				this.clientView.stampMessage(x.toString());
 				memoryContainer = new LocalStorage((Change)x, this.gameLocalCopy);
+				this.clientView.setMemoryContainer(memoryContainer);
 			}
 			else if(x.getClass().equals(ModelChange.class)){
 				this.gameLocalCopy = ((ModelChange)x).getGame();
