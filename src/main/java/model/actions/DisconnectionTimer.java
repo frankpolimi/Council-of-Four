@@ -28,8 +28,6 @@ public class DisconnectionTimer extends TimerTask implements Serializable{
 				" has been disconnected because of inactivity"));
 		QuitRequest quit=new QuitRequest(disconnected.getPlayerID());
 		quit.disconnect(game);
-		
-		
 	}
 
 }
