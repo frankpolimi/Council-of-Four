@@ -4,52 +4,52 @@
 	<cityCoordinates>
 		<Region name="land">
 		<type value="A">
-			<city name="A" xRel="210" yRel="110" x="60" y="47" width="86" height="97"></city>
-			<city name="B" xRel="181" yRel="404" x="52" y="172" width="90" height="105"></city>
-			<city name="C" xRel="646" yRel="195" x="182" y="84" width="93" height="100"></city>
-			<city name="D" xRel="588" yRel="480" x="166" y="204" width="95" height="100"></city>
-			<city name="E" xRel="332" yRel="697" x="94" y="296" width="77" height="101"></city>
+			<city name="A" xRel="210" yRel="110" x="60" y="47" width="292" height="230"></city>
+			<city name="B" xRel="181" yRel="404" x="52" y="172" width="278" height="252"></city>
+			<city name="C" xRel="646" yRel="195" x="182" y="84" width="300" height="241"></city>
+			<city name="D" xRel="588" yRel="480" x="166" y="204" width="333" height="238"></city>
+			<city name="E" xRel="332" yRel="697" x="94" y="296" width="285" height="241"></city>
 		</type>
 			
 		<type value="B">
-			<city name="A" xRel="218" yRel="111" x="60" y="47" width="86" height="97"></city>
-			<city name="B" xRel="188" yRel="404" x="52" y="172" width="90" height="105"></city>
-			<city name="C" xRel="654" yRel="198" x="182" y="84" width="93" height="100"></city>
-			<city name="D" xRel="623" yRel="481" x="166" y="204" width="95" height="100"></city>
-			<city name="E" xRel="336" yRel="698" x="94" y="296" width="77" height="101"></city>
+			<city name="A" xRel="218" yRel="111" x="60" y="47" width="292" height="230"></city>
+			<city name="B" xRel="188" yRel="404" x="52" y="172" width="252" height="252"></city>
+			<city name="C" xRel="654" yRel="198" x="182" y="84" width="300" height="240"></city>
+			<city name="D" xRel="623" yRel="481" x="166" y="204" width="304" height="238"></city>
+			<city name="E" xRel="336" yRel="698" x="94" y="296" width="270" height="240"></city>
 		</type>
 		
 		</Region>
 		<Region name="hill">
 			<type value="A">
-			<city name="F" xRel="156" yRel="141" x="325" y="60" width="78" height="104"></city>
-			<city name="G" xRel="176" yRel="416" x="330" y="177" width="87" height="103"></city>
-			<city name="H" xRel="226" yRel="660" x="335" y="280" width="80" height="103"></city>
-			<city name="I" xRel="644" yRel="142" x="461" y="61" width="82" height="100"></city>
-			<city name="J" xRel="0" yRel="0" x="444" y="214" width="90" height="101"></city>
+			<city name="F" xRel="156" yRel="141" x="325" y="60" width="284" height="246"></city>
+			<city name="G" xRel="176" yRel="416" x="330" y="177" width="295" height="243"></city>
+			<city name="H" xRel="226" yRel="660" x="335" y="280" width="291" height="245"></city>
+			<city name="I" xRel="644" yRel="142" x="461" y="61" width="294" height="238"></city>
+			<city name="J" xRel="602" yRel="475" x="444" y="214" width="295" height="271"></city>
 			</type>
 			<type value="B">
-				<city name="F" xRel="156" yRel="141" x="325" y="60" width="78" height="104"></city>
-			<city name="G" xRel="0" yRel="0" x="330" y="177" width="87" height="103"></city>
-			<city name="H" xRel="169" yRel="674" x="335" y="280" width="80" height="103"></city>
-			<city name="I" xRel="648" yRel="133" x="461" y="61" width="82" height="100"></city>
-			<city name="J" xRel="586" yRel="500" x="444" y="214" width="90" height="101"></city>
+				<city name="F" xRel="152" yRel="129" x="325" y="60" width="296" height="250"></city>
+			<city name="G" xRel="178" yRel="407" x="330" y="177" width="301" height="248"></city>
+			<city name="H" xRel="169" yRel="674" x="335" y="280" width="356" height="222"></city>
+			<city name="I" xRel="648" yRel="133" x="461" y="61" width="297" height="238"></city>
+			<city name="J" xRel="586" yRel="500" x="444" y="214" width="327" height="240"></city>
 			</type>
 		</Region>
 		<Region name="mountain">
 			<type value="A">
-			<city name="K" xRel="140" yRel="117" x="600" y="50" width="85" height="105"></city>
-			<city name="L" xRel="55" yRel="431" x="576" y="183" width="93" height="98"></city>
-			<city name="M" xRel="26" yRel="733" x="568" y="312" width="98" height="96"></city>
-			<city name="N" xRel="527" yRel="282" x="708" y="121" width="85" height="102"></city>
-			<city name="O" xRel="547" yRel="600" x="712" y="255" width="75" height="104"></city>
+			<city name="K" xRel="140" yRel="117" x="600" y="50" width="297" height="247"></city>
+			<city name="L" xRel="55" yRel="431" x="576" y="183" width="324" height="230"></city>
+			<city name="M" xRel="26" yRel="733" x="568" y="312" width="312" height="229"></city>
+			<city name="N" xRel="527" yRel="282" x="708" y="121" width="244" height="242"></city>
+			<city name="O" xRel="547" yRel="600" x="712" y="255" width="238" height="246"></city>
 			</type>
 			<type value="B">
-			<city name="K" xRel="146" yRel="123" x="600" y="50" width="85" height="105"></city>
-			<city name="L" xRel="60" yRel="437" x="576" y="183" width="93" height="98"></city>
-			<city name="M" xRel="30" yRel="739" x="568" y="312" width="98" height="96"></city>
-			<city name="N" xRel="532" yRel="289" x="708" y="121" width="85" height="102"></city>
-			<city name="O" xRel="551" yRel="607" x="712" y="255" width="75" height="104"></city>
+			<city name="K" xRel="146" yRel="123" x="600" y="50" width="296" height="248"></city>
+			<city name="L" xRel="60" yRel="437" x="576" y="183" width="324" height="232"></city>
+			<city name="M" xRel="30" yRel="739" x="568" y="312" width="314" height="230"></city>
+			<city name="N" xRel="532" yRel="289" x="708" y="121" width="244" height="242"></city>
+			<city name="O" xRel="551" yRel="607" x="712" y="255" width="238" height="246"></city>
 			</type>
 		</Region>
 	</cityCoordinates>
