@@ -34,7 +34,15 @@ public class ChangeFaceUpPermits extends QuickAction
 			{
 				if(p.equals(deck))
 				{
+					try
+					{
 					p.changeFaceUpPermits();
+					}
+					catch(IllegalStateException e)
+					{
+						game.getCurrentPlayer().setAssistants((game.getCurrentPlayer().getAssistants()+1));
+						throw new IllegalStateException("There was only 1 permit in the faceups, you cannot change them");
+					}
 					game.decrementQuickActionCounter();
 					super.takeAction(game);
 					return true;
