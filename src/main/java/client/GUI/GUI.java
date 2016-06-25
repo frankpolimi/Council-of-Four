@@ -40,7 +40,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
 import java.awt.SystemColor;
 import javax.swing.border.BevelBorder;
-import java.awt.GridLayout;
 
 public class GUI extends JFrame implements ClientViewInterface {
 	
@@ -975,7 +974,6 @@ public class GUI extends JFrame implements ClientViewInterface {
 		
 		System.out.println("changed");
 		this.repaint();
-		//this.revalidate(); solo per prova
 	}
 
 	private void updateOtherPlayers(JTable tableOthers) {

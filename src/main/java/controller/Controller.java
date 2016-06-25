@@ -51,7 +51,7 @@ public class Controller implements Observer<Request>{
 		
 		if(game.getGameState().getClass().equals(EndState.class)) return;
 		
-		if(request.getClass().equals(QuitRequest.class)&&game.getGameState()!=null){
+		if(request.getClass().equals(QuitRequest.class)&&game.getGameState()!=null&&!game.getPlayers().isEmpty()){
 			QuitRequest disconnection=(QuitRequest)request;
 			disconnection.disconnect(game);
 		}
