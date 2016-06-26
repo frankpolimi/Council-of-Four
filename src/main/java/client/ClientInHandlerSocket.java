@@ -51,6 +51,7 @@ public class ClientInHandlerSocket implements Runnable
 			else if(x.getClass().equals(BonusChange.class)){
 				synchronized (memoryContainer) {
 					this.memoryContainer.setBonus(((BonusChange)x).getBonusList());
+					this.memoryContainer.setBonusRepeat(((BonusChange)x).getRepeat());
 				}
 			}else if(x.getClass().equals(PermitsChange.class)){
 				synchronized (memoryContainer) {

@@ -23,7 +23,7 @@ public class LocalStorage {
 	private List<PermitsDeck> permits;
 	private Game gameRef;
 	private boolean isUpdated;
-	
+	private int bonusRepeat;
 	
 	public void setBonusList(List<Object> bonus){
 		this.bonus=bonus;
@@ -34,7 +34,7 @@ public class LocalStorage {
 	 */
 	public LocalStorage() {
 		bonus=new ArrayList<>();
-		permits=new ArrayList<>();;
+		permits=new ArrayList<>();
 	}
 	
 	
@@ -110,6 +110,22 @@ public class LocalStorage {
 	 */
 	public void setBonus(List<Object> bonus) {
 		this.bonus = bonus;
+	}
+	
+	
+
+	/**
+	 * @return the bonusRepeat
+	 */
+	public int getBonusRepeat() {
+		return bonusRepeat;
+	}
+
+	/**
+	 * @param bonusRepeat the bonusRepeat to set
+	 */
+	public void setBonusRepeat(int bonusRepeat) {
+		this.bonusRepeat = bonusRepeat;
 	}
 
 	/**

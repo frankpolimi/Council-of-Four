@@ -55,6 +55,7 @@ public class ClientRMIView extends UnicastRemoteObject implements ClientRMIRemot
 		if(change.getClass().equals(BonusChange.class)){
 			synchronized (memoryContainer) {
 				this.memoryContainer.setBonus(((BonusChange)change).getBonusList());
+				this.memoryContainer.setBonusRepeat(((BonusChange)change).getRepeat());
 			}
 		}else if(change.getClass().equals(PermitsChange.class)){
 			synchronized (memoryContainer) {

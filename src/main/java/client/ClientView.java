@@ -436,7 +436,13 @@ public class ClientView implements ClientViewInterface{
 		for(Bonus b:bonusList.get(selection-1)){
 			request.addBonus(b);
 		}
-		memoryContainer.setBonus(new ArrayList<Object>());
+		
+		memoryContainer.setBonusRepeat(memoryContainer.getBonusRepeat()-1);
+		if(memoryContainer.getBonusRepeat()==0){
+			memoryContainer.setBonus(new ArrayList<Object>());
+		}else{
+			memoryContainer.getBonus().remove(bonusList.get(selection-1));
+		}
 		return request;
 	}
 

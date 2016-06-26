@@ -48,15 +48,13 @@ public class CityBonus extends ActionBonus {
 	 */
 	@Override
 	public void update(Game game) {
-		BonusChange change=new BonusChange();
-		for(int i=0; i< this.amount;i++){
-			for(Emporium e : game.getCurrentPlayer().getEmporium()){
-				if(super.checkNoNobility(e.getCity().getBonus())){
-					change.addCityBonus(e.getCity());
-				}
+		BonusChange change=new BonusChange(this.amount);
+		for(Emporium e : game.getCurrentPlayer().getEmporium()){
+			if(super.checkNoNobility(e.getCity().getBonus())){
+				change.addCityBonus(e.getCity());
 			}
-			game.notifyObserver(game.getCurrentPlayer().getPlayerID(), change);
 		}
+		game.notifyObserver(game.getCurrentPlayer().getPlayerID(), change);
 	}
 	
 	/* (non-Javadoc)

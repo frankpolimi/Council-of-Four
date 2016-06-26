@@ -137,8 +137,14 @@ public class BonusPermitChangeFrame extends JFrame {
 								}
 								view.setRequest(request);
 							}
+							view.getMemoryContainer().setBonusRepeat(view.getMemoryContainer().getBonusRepeat()-1);
 						}
-						view.getMemoryContainer().setBonus(new ArrayList<>());
+						
+						if(view.getMemoryContainer().getBonusRepeat()==0){
+							view.getMemoryContainer().setBonus(new ArrayList<>());
+						}else{
+							view.getMemoryContainer().getBonus().remove((City)selected);
+						}
 						view.getMemoryContainer().setPermits(new ArrayList<>());
 						setVisible(false);
 					}

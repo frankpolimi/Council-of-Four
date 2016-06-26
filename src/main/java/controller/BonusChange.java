@@ -21,12 +21,14 @@ public class BonusChange extends Change {
 	 */
 	private static final long serialVersionUID = 3134678557158320434L;
 	private final List<Object> bonusList;
+	private final int repeat;
 	
 	/**
 	 * default constructor
 	 */
-	public BonusChange() {
+	public BonusChange(int repeat) {
 		bonusList = new ArrayList<>();
+		this.repeat=repeat;
 	}
 
 	/**
@@ -34,8 +36,18 @@ public class BonusChange extends Change {
 	 * to select a bonus to acquire
 	 * @param bonusList the list of bonuses to send to the client
 	 */
-	public BonusChange(List<Object> bonusList){
+	public BonusChange(List<Object> bonusList, int repeat){
 		this.bonusList = new ArrayList<>(bonusList);
+		this.repeat=repeat;
+	}
+
+	
+	
+	/**
+	 * @return the repeat
+	 */
+	public int getRepeat() {
+		return repeat;
 	}
 
 	/**

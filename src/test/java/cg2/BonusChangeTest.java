@@ -20,7 +20,7 @@ public class BonusChangeTest {
 		List<Bonus> b = new ArrayList<>();
 		b.add(new CoinBonus(1));
 		City c = new City("name", Color.red, b);
-		BonusChange bc = new BonusChange();
+		BonusChange bc = new BonusChange(1);
 		bc.addCityBonus(c);
 		assertEquals(b, c.getBonus());
 	}
@@ -30,7 +30,7 @@ public class BonusChangeTest {
 		List<Bonus> b = new ArrayList<>();
 		b.add(new CoinBonus(1));
 		City c = new City("name", Color.red, b);
-		BonusChange bc = new BonusChange();
+		BonusChange bc = new BonusChange(1);
 		bc.addCityBonus(c);
 		assertEquals(b, c.getBonus());
 	}

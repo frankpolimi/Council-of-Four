@@ -43,7 +43,7 @@ public class ReuseTileBonus extends ActionBonus {
 	 */
 	@Override
 	public void update(Game game) {
-		BonusChange change=new BonusChange();
+		BonusChange change=new BonusChange(1);
 		for(BuildingPermit bp:game.getCurrentPlayer().getAllPermits()){
 			change.addPermitBonus(bp);
 		}
