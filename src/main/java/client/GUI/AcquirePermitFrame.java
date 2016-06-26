@@ -231,9 +231,6 @@ public class AcquirePermitFrame extends JFrame {
 				gameCouncillor = r.getCouncil().getCouncillors().iterator();
 				break;
 			}
-			default:{
-				gameCouncillor = game.getKingsCouncil().getCouncillors().iterator();
-			}
 		}
 
 		JPanel councillor1 = new ImagePanel(gameCouncillor.next().getImagePath(), councillorDimension);
