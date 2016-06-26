@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import javax.imageio.ImageIO;
@@ -20,6 +21,7 @@ import model.actions.EngageAssistant;
 import model.actions.ExtraMainAction;
 import model.actions.SkipAction;
 import model.game.BuildingPermit;
+import model.game.Emporium;
 import model.game.Game;
 import model.game.Player;
 import model.game.council.Councillor;
@@ -40,6 +42,10 @@ import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
 import java.awt.SystemColor;
 import javax.swing.border.BevelBorder;
+import java.awt.GridLayout;
+import java.awt.MouseInfo;
+import java.awt.Point;
+import java.awt.Rectangle;
 
 public class GUI extends JFrame implements ClientViewInterface {
 	
@@ -986,8 +992,40 @@ public class GUI extends JFrame implements ClientViewInterface {
 		
 		System.out.println("changed");
 		this.repaint();
+		//this.revalidate(); solo per prova
+		for(Component component:regions.getComponents()){
+			JPanel regionPanel=(JPanel)component;
+			region=this.game.getRegions().stream().filter(e->e.getName().equals(regionPanel.getName())).findFirst().get();	
+			List<City> cities=region.getCities();
+			for(City city:cities){
+				if(!city.getEmporiums().isEmpty())
+					System.out.println("Sono "+city.getName()+" e ho empori");
+				this.updateEmporiumsData(regionPanel, city);
+			}
+		}
 	}
 
+	private void updateEmporiumsData(JPanel regionPanel, City city){
+		JPanel emporiumPanel=(JPanel)this.getComponentByName("emporiumPanel"+city.getFirstChar(), regionPanel);
+		emporiumPanel.removeAll();
+		JPanel container=new JPanel();
+		container.setBounds(0,0,emporiumPanel.getWidth(),emporiumPanel.getHeight());
+		Dimension labelDim=new Dimension(107*singleRegionDimension.width/1000,107*singleRegionDimension.width/1000);
+		container.setLayout(new BoxLayout(container,BoxLayout.Y_AXIS));
+		for(Emporium emporium:city.getEmporiums()){
+			JPanel panel=new JPanel();
+			panel.setBackground(emporium.getColor());
+			panel.setSize(labelDim);
+			panel.setBorder(new LineBorder(Color.black,2));
+			container.add(panel);
+			container.add(Box.createRigidArea(new Dimension(0,11*singleRegionDimension.width/1000)));
+		}
+		JScrollPane scroll=new JScrollPane(container);
+		scroll.setBounds(container.getBounds());
+		emporiumPanel.add(scroll);
+		
+	}
+	
 	private void updateOtherPlayers(JTable tableOthers) {
 		
 		int i=0;
