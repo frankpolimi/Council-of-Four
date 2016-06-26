@@ -817,7 +817,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 		this.createActionTab(gameTab);
 		
 		Double politicRelX=0.0686275;
-		Double politicRelY=0.39726;
+		Double politicRelY=0.35807;
 		Dimension politicDim=new Dimension((int)(0.89*tabbedPane.getWidth()),(int)(0.2288*tabbedPane.getHeight()));
 		Double buildingRelY=0.65;
 		
@@ -839,7 +839,8 @@ public class GUI extends JFrame implements ClientViewInterface {
 		playerTab.add(scrollCards);
 		
 		JPanel buildingPermits=new JPanel();
-		buildingPermits.setBounds((int)(politicRelX*tabbedPane.getWidth()),(int)(buildingRelY*tabbedPane.getHeight()), politicDim.width, politicDim.height);
+		Dimension buildingPanel=new Dimension(426*tabbedPane.getWidth()/1000,politicDim.height);
+		buildingPermits.setBounds((int)(politicRelX*tabbedPane.getWidth()),(int)(buildingRelY*tabbedPane.getHeight()), buildingPanel.width, buildingPanel.height);
 		buildingPermits.setLayout(new BoxLayout(buildingPermits,BoxLayout.X_AXIS));
 		buildingPermits.setName("buildingPermits");
 		Dimension buildingDim=new Dimension((int)(0.22026*politicDim.width), (int)(0.22026*politicDim.width));
@@ -855,6 +856,30 @@ public class GUI extends JFrame implements ClientViewInterface {
 		scrollPermits.setBounds(buildingPermits.getBounds());
 		playerTab.add(scrollPermits);
 		
+		JPanel usedBuildingPermits=new JPanel();
+		usedBuildingPermits.setBounds((int)(politicRelX*tabbedPane.getWidth())+buildingPermits.getWidth()+(38*tabbedPane.getWidth()/1000),(int)(buildingRelY*tabbedPane.getHeight()), buildingPanel.width, buildingPanel.height);
+		usedBuildingPermits.setLayout(new BoxLayout(usedBuildingPermits,BoxLayout.X_AXIS));
+		usedBuildingPermits.setName("usedBuildingPermits");
+		//Dimension buildingDim=new Dimension((int)(0.22026*politicDim.width), (int)(0.22026*politicDim.width));
+		for(int i=0;i<player.getUsedBuildingPermits().size();i++){
+			JLabel permit=new ImageLabel(player.getUsedBuildingPermits().get(i).getImagePath(),buildingDim);
+			permit.setName("buildingPermit"+i);
+			//card.setSize(cardDim);
+			usedBuildingPermits.add(permit);
+		}
+		playerTab.remove(playerTab.getComponentAt(usedBuildingPermits.getX(), usedBuildingPermits.getY()));
+		playerTab.add(usedBuildingPermits);
+		JScrollPane scrollUsedPermits=new JScrollPane(usedBuildingPermits,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		scrollUsedPermits.setBounds(usedBuildingPermits.getBounds());
+		playerTab.add(scrollUsedPermits);
+		
+		JLabel buildingPermitsLabel=new JLabel("Avaliable Building Permits");
+		buildingPermitsLabel.setBounds(buildingPermits.getX(),buildingPermits.getY()-26*tabbedPane.getHeight()/1000, buildingPermits.getWidth(),26*tabbedPane.getHeight()/1000);
+		playerTab.add(buildingPermitsLabel);
+		
+		JLabel usedBuildingPermitsLabel=new JLabel("Used Building Permits");
+		usedBuildingPermitsLabel.setBounds(usedBuildingPermits.getX(),buildingPermits.getY()-26*tabbedPane.getHeight()/1000, usedBuildingPermits.getWidth(),26*tabbedPane.getHeight()/1000);
+		playerTab.add(usedBuildingPermitsLabel);
 		
 		JPanel colorPlayer=(JPanel)(Arrays.asList(playerTab.getComponents()).stream().filter(e->e.getName()!=null&&e.getName().equals("colorPlayer")).findFirst().get());
 		colorPlayer.setBackground(player.getChosenColor());
