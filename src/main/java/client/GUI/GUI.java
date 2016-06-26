@@ -739,7 +739,6 @@ public class GUI extends JFrame implements ClientViewInterface {
 		
 		JPanel regions=(JPanel)this.contentPane.getComponents()[0].getComponentAt(0, 0);
 		reader.createCitiesFromRegionPanel(regions, bonuses, cardBoardDimension, game.getRegions());	
-
 	}
 
 	@Override
@@ -804,7 +803,8 @@ public class GUI extends JFrame implements ClientViewInterface {
 		this.game=game;
 		if(this.ID==0 || this.game.getPlayerByID(ID) == null)
 			return;
-		
+		System.out.println("gioco aggiornato "+game.toString());
+		System.out.println("tutti i giocatori "+game.getPlayers());
 		JPanel regions=(JPanel)this.contentPane.getComponents()[0].getComponentAt(0, 0);
 		this.updateCityPanel(String.valueOf(game.getKingsPosition().getFirstChar()), regions);
 		
@@ -862,6 +862,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 		JLabel turnIndicator=(JLabel)(Arrays.asList(playerTab.getComponents()).stream().filter(e->e.getName()!=null&&e.getName().equals("turnIndicator")).findFirst().get());
 		if(game.getCurrentPlayer().getPlayerID()==this.ID){
 			turnIndicator.setText("It's your turn");
+			JOptionPane.showMessageDialog(null, "It's your turn");
 		}else{
 			turnIndicator.setText("It's "+game.getCurrentPlayer().getName()+" - "+game.getCurrentPlayer().getPlayerID()+"turn");
 		}

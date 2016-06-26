@@ -156,23 +156,41 @@ public class BonusPermitChangeFrame extends JFrame {
 			JLabel label;
 			if(obj.getClass().equals(BuildingPermit.class)){
 				label=new ImageLabel(((BuildingPermit)obj).getImagePath(),dim);
+
+				panel.add(label);
+				label.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						// TODO Auto-generated method stub
+						super.mouseClicked(e);
+						selected=obj;
+						for(Component comp:panel.getComponents()){
+							((JLabel)comp).setBorder(null);
+						}
+						label.setBorder(new LineBorder(Color.red,2));
+					}
+				});
 			}else{
-				label=new ImageLabel(((City)obj).getBonusImagePath(),dim);
+				if(((City)obj).getBonusImagePath()!=null){
+					label=new ImageLabel(((City)obj).getBonusImagePath(),dim);
+
+					panel.add(label);
+					label.addMouseListener(new MouseAdapter() {
+						@Override
+						public void mouseClicked(MouseEvent e) {
+							// TODO Auto-generated method stub
+							super.mouseClicked(e);
+							selected=obj;
+							for(Component comp:panel.getComponents()){
+								((JLabel)comp).setBorder(null);
+							}
+							label.setBorder(new LineBorder(Color.red,2));
+						}
+					});
+				}
+					
 			}
 
-			panel.add(label);
-			label.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseClicked(MouseEvent e) {
-					// TODO Auto-generated method stub
-					super.mouseClicked(e);
-					selected=obj;
-					for(Component comp:panel.getComponents()){
-						((JLabel)comp).setBorder(null);
-					}
-					label.setBorder(new LineBorder(Color.red,2));
-				}
-			});
 		}
 	}
 }

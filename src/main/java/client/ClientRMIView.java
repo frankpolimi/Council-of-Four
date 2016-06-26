@@ -52,12 +52,13 @@ public class ClientRMIView extends UnicastRemoteObject implements ClientRMIRemot
 	 */
 	@Override
 	public void printChange(Change change) throws RemoteException {
-		if(change.getClass().equals(BonusChange.class) || 
-				change.getClass().equals(PermitsChange.class)){
-			this.view.stampMessage(change.toString());
+		if(change.getClass().equals(BonusChange.class)){
 			synchronized (memoryContainer) {
-				memoryContainer = new LocalStorage(change, memoryContainer.getGameRef());
-				view.setMemoryContainer(memoryContainer);
+				this.memoryContainer.setBonus(((BonusChange)change).getBonusList());
+			}
+		}else if(change.getClass().equals(PermitsChange.class)){
+			synchronized (memoryContainer) {
+				this.memoryContainer.setPermits(((PermitsChange)change).getPermits());
 			}
 		}
 		else if(change.getClass().equals(ModelChange.class)){

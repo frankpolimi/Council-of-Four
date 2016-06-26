@@ -22,22 +22,9 @@ public class LocalStorage {
 	private List<BuildingPermit> permits;
 	private Game gameRef;
 	private boolean isUpdated;
-	
-	/**
-	 * construct the part of memory shared by the client in 
-	 * and the client out
-	 * @param list the list that may come from the server that 
-	 * contains the bonus or the permits from which the player can choose
-	 * @param game a copy of the game that is on the server due to a high complexity 
-	 * of the model itself
-	 */
-	public LocalStorage(Change list, Game game) {
-		if(Change.class.equals(BonusChange.class))
-			bonus = ((BonusChange)list).getBonusList();
-		else if(Change.class.equals(PermitsChange.class))
-			permits = ((PermitsChange)list).getPermits();
-		gameRef=game;
-		isUpdated=true;
+		
+	public void setBonusList(List<Object> bonus){
+		this.bonus=bonus;
 	}
 	
 	/**

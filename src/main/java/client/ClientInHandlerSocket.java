@@ -48,11 +48,14 @@ public class ClientInHandlerSocket implements Runnable
 				this.clientView.stampMessage((String)x);
 				this.memoryContainer.setUpdated(true);
 			}
-			else if(x.getClass().equals(BonusChange.class) || 
-					x.getClass().equals(PermitsChange.class)){
-				this.clientView.stampMessage(x.toString());
-				memoryContainer = new LocalStorage((Change)x, this.gameLocalCopy);
-				this.clientView.setMemoryContainer(memoryContainer);
+			else if(x.getClass().equals(BonusChange.class)){
+				synchronized (memoryContainer) {
+					this.memoryContainer.setBonus(((BonusChange)x).getBonusList());
+				}
+			}else if(x.getClass().equals(PermitsChange.class)){
+				synchronized (memoryContainer) {
+					this.memoryContainer.setPermits(((PermitsChange)x).getPermits());
+				}
 			}
 			else if(x.getClass().equals(ModelChange.class)){
 				this.gameLocalCopy = ((ModelChange)x).getGame();
