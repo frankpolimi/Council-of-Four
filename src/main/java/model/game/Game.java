@@ -142,10 +142,6 @@ public class Game extends Observable<Change> implements Serializable, Remote{
 		this.gameState=new StartState();
 		this.mainActionCounter = 1;
 		this.quickActionCounter = 1;
-		this.getPlayerByID(1).addEmporium(new Emporium(this.getMap().getVertexByKey("K"),this.getPlayerByID(1).getChosenColor()));
-		this.getPlayerByID(1).addEmporium(new Emporium(this.getMap().getVertexByKey("J"),this.getPlayerByID(1).getChosenColor()));
-		this.getPlayerByID(1).addEmporium(new Emporium(this.getMap().getVertexByKey("G"),this.getPlayerByID(1).getChosenColor()));
-		this.getPlayerByID(1).addEmporium(new Emporium(this.getMap().getVertexByKey("K"),this.getPlayerByID(1).getChosenColor()));
 		this.notifyObservers(new ModelChange(this));
 		this.timer.schedule(new DisconnectionTimer(this), DISCONNECTION_TIME);
 	}

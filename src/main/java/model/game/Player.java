@@ -57,7 +57,7 @@ public class Player implements Serializable{
 		emporiumsOwned=new HashSet<>();
 		this.chosenColor=new Color(r,g,b);
 		this.coins = 0;
-		this.nobilityPoints = 9;
+		this.nobilityPoints = 0;
 		this.points = 0;
 		this.assistants = 0;
 		this.cardsOwned = new ArrayList<>();
