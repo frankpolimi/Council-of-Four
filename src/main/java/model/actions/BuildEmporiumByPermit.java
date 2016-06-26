@@ -16,6 +16,15 @@ public class BuildEmporiumByPermit extends MainAction
 	private BuildingPermit permit;
 	private City city;
 	
+	/**
+	 * constructor for the action that allows the player to build an
+	 * emporium on a city specified by the building permit that the player
+	 * wants to use
+	 * @param permit the permit that a player possess and is trying to use to
+	 * 				build an emporium on a specified city
+	 * @param city one of the cities that are stated on the building permit
+	 * 				on which the player is trying to build an emporium 
+	 */
 	public BuildEmporiumByPermit(BuildingPermit permit, City city) {
 		this.permit = permit;
 		this.city = city;
@@ -83,19 +92,38 @@ public class BuildEmporiumByPermit extends MainAction
 		return "BuildEmproriumByPermit: The player tries to build an Emporium in a City using the corresponding BuildingPermit he/she possesses.";
 	}
 
-	
+	/**
+	 * get the permit which the player has decided
+	 * to use to build an emporium 
+	 * @return the permit used by the player
+	 */
 	public BuildingPermit getPermit() {
 		return permit;
 	}
 
+	/**
+	 * set the permit which the player has decided
+	 * to use to build an emporium 
+	 * @param the permit used by the player
+	 */
 	public void setPermit(BuildingPermit permit) {
 		this.permit = permit;
 	}
 
+	/**
+	 * get the city on which the player has decided
+	 * to build an emporium 
+	 * @return the city where the player wants to build
+	 */
 	public City getCity() {
 		return city;
 	}
 
+	/**
+	 * set the permit which the player has decided
+	 * to an emporium 
+	 * @param the city where the player wants to build
+	 */
 	public void setCity(City city) {
 		this.city = city;
 	}

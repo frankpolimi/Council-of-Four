@@ -2,7 +2,6 @@ package model.actions;
 
 import java.util.ArrayList;
 
-import model.game.Emporium;
 import model.game.Game;
 import model.game.council.Council;
 import model.game.politics.PoliticsCard;
@@ -17,10 +16,21 @@ public class BuildEmporiumByKing extends MainAction
 	 * 
 	 */
 	private static final long serialVersionUID = 6603254653747209388L;
-	Council counc;
-	ArrayList<PoliticsCard> politics; 
-	City city;
+	private Council counc;
+	private ArrayList<PoliticsCard> politics; 
+	private City city;
 	
+	/**
+	 * constructor for an action that allows the player to build an emporium
+	 * by moving the king to the desired city without possessing a building
+	 * permit that allows to build on the desired city 
+	 * @param counc the King council that the player is trying to corrupt
+	 * 				in order to get the king moving
+	 * @param politics the list of cards that player wnats to use 
+	 * 					in order to corrupt the king council
+	 * @param city the city where the player wants to move the king
+	 * 				in order to build an emporium on 
+	 */
 	public BuildEmporiumByKing(Council counc, ArrayList<PoliticsCard> politics, City city) 
 	{
 		this.counc = counc;
@@ -98,27 +108,54 @@ public class BuildEmporiumByKing extends MainAction
 				+ "the player doesn't have to pay. Then the player proceds to build an emporium in the king's current city";
 	}
 
-	
+	/**
+	 * get the king council given to this action
+	 * @return the king council
+	 */
 	public Council getCounc() {
 		return counc;
 	}
 
+	/**
+	 * set the king council given to this action
+	 * @param counc the king council
+	 */
 	public void setCounc(Council counc) {
 		this.counc = counc;
 	}
 
+	/**
+	 * get the list of cards that a player has decided
+	 * to give in to try and corrupt the king's council
+	 * @return the list of cards that a player tried to use
+	 */
 	public ArrayList<PoliticsCard> getPolitics() {
 		return politics;
 	}
 
+	/**
+	 * set the list of cards that a player has decided
+	 * to give in to try and corrupt the king's council
+	 * @param politics the list of cards that a player tried to use
+	 */
 	public void setPolitics(ArrayList<PoliticsCard> politics) {
 		this.politics = politics;
 	}
 
+	/**
+	 * get the city on which the player has decided
+	 * to build an emporium 
+	 * @return the city where the player wants to build
+	 */
 	public City getCity() {
 		return city;
 	}
 
+	/**
+	 * set the permit which the player has decided
+	 * to an emporium 
+	 * @param the city where the player wants to build
+	 */
 	public void setCity(City city) {
 		this.city = city;
 	}
