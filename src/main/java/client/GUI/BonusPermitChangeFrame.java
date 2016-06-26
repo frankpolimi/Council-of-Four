@@ -11,12 +11,14 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
 import model.bonus.Bonus;
 import model.game.BuildingPermit;
 import model.game.Game;
+import model.game.PermitsDeck;
 import model.game.Player;
 import model.game.topology.City;
 import view.BonusRequest;
@@ -44,6 +46,8 @@ public class BonusPermitChangeFrame extends JFrame {
 	private Game game;
 	private GUI view;
 	private Object selected;
+	private PermitsDeck selectedDeck;
+	private BuildingPermit selectedPermit;
 
 	/**
 	 * Launch the application.
@@ -101,6 +105,9 @@ public class BonusPermitChangeFrame extends JFrame {
 		panel.setBounds((int)((10/XREF)*getWidth()),(int)((100/YREF)*getHeight()),(int)((647/XREF)*getWidth()),(int)((180/YREF)*getHeight()));
 		contentPane.add(panel);
 		this.populatePanel(panel, new Dimension((int)((175/YREF)*getHeight()),(int)((175/YREF)*getHeight())), check);
+		JScrollPane scroll=new JScrollPane(panel);
+		scroll.setBounds(panel.getBounds());
+		contentPane.add(scroll);
 		
 		JButton btnSend = new JButton("SEND");
 		btnSend.setBounds((int)((10/XREF)*getWidth()),(int)((291/YREF)*getHeight()),(int)((89/XREF)*getWidth()),(int)((23/YREF)*getHeight()));
@@ -110,13 +117,12 @@ public class BonusPermitChangeFrame extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				// TODO Auto-generated method stub
 				super.mouseClicked(e);
-				if(selected==null){
+				if(selected==null&&selectedPermit==null&&selectedDeck==null){
 					JOptionPane.showMessageDialog(null, "You have to choise at least one object to apply the request", "Error", JOptionPane.ERROR_MESSAGE);
 				}else{
 					if(JOptionPane.showConfirmDialog(null, "Do you want to confirm your choise?", "Action", JOptionPane.YES_NO_OPTION)==0){
 						if(check){
-							PermitsRequest request=new PermitsRequest(view.getId());
-							request.addPermit((BuildingPermit)selected);
+							PermitsRequest request=new PermitsRequest(view.getId(), selectedDeck, selectedPermit);
 							view.setRequest(request);
 						}else{
 							BonusRequest request=new BonusRequest(view.getId());
@@ -153,40 +159,59 @@ public class BonusPermitChangeFrame extends JFrame {
 		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
 		
 		for(Object obj:list){
-			JLabel label;
-			if(obj.getClass().equals(BuildingPermit.class)){
-				label=new ImageLabel(((BuildingPermit)obj).getImagePath(),dim);
-
-				panel.add(label);
-				label.addMouseListener(new MouseAdapter() {
-					@Override
-					public void mouseClicked(MouseEvent e) {
-						// TODO Auto-generated method stub
-						super.mouseClicked(e);
-						selected=obj;
-						for(Component comp:panel.getComponents()){
-							((JLabel)comp).setBorder(null);
-						}
-						label.setBorder(new LineBorder(Color.red,2));
-					}
-				});
-			}else{
-				if(((City)obj).getBonusImagePath()!=null){
-					label=new ImageLabel(((City)obj).getBonusImagePath(),dim);
-
+			if(obj.getClass().equals(PermitsDeck.class)){
+				for(BuildingPermit permit:((PermitsDeck)obj).getFaceUpPermits()){
+					JLabel label=new ImageLabel(permit.getImagePath(),dim);
 					panel.add(label);
 					label.addMouseListener(new MouseAdapter() {
 						@Override
 						public void mouseClicked(MouseEvent e) {
 							// TODO Auto-generated method stub
 							super.mouseClicked(e);
-							selected=obj;
+							
+							for(Component comp:panel.getComponents()){
+								((JLabel)comp).setBorder(null);
+							}
+							label.setBorder(new LineBorder(Color.red,2));
+							selectedDeck=(PermitsDeck)obj;
+							selectedPermit=permit;
+						}
+					});
+				}
+			}else{
+				JLabel label;
+				if(obj.getClass().equals(BuildingPermit.class)){
+					label=new ImageLabel(((BuildingPermit)obj).getImagePath(),dim);
+					panel.add(label);
+					label.addMouseListener(new MouseAdapter() {
+						@Override
+						public void mouseClicked(MouseEvent e) {
+							// TODO Auto-generated method stub
+							super.mouseClicked(e);
+							selected=(BuildingPermit)obj;
 							for(Component comp:panel.getComponents()){
 								((JLabel)comp).setBorder(null);
 							}
 							label.setBorder(new LineBorder(Color.red,2));
 						}
 					});
+				}else{
+					if(!((City)obj).getBonusImagePath().isEmpty()){
+						label=new ImageLabel(((City)obj).getBonusImagePath(),dim);
+						panel.add(label);
+						label.addMouseListener(new MouseAdapter() {
+							@Override
+							public void mouseClicked(MouseEvent e) {
+								// TODO Auto-generated method stub
+								super.mouseClicked(e);
+								selected=(City)obj;
+								for(Component comp:panel.getComponents()){
+									((JLabel)comp).setBorder(null);
+								}
+								label.setBorder(new LineBorder(Color.red,2));
+							}
+						});
+					}
 				}
 					
 			}
