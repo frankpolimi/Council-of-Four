@@ -39,7 +39,6 @@ public class MapMaker {
 		this.extractedCityBonus=new ArrayList<>();
 		this.fillExtractedCouncillors();
 		this.fillExtractedCityBonuses();
-		
 	}
 	
 	//Council
@@ -433,6 +432,7 @@ public class MapMaker {
 			building=new BuildingPermit(avCities, bonusList, imagePath);
 			permits.add(building);
 		}
+		
 		PermitsDeck pd=new PermitsDeck(permits);
 		return pd;
 	}
@@ -461,7 +461,6 @@ public class MapMaker {
 		List<Element> regions=children.get(0).getChildren();
 		Iterator<Element> iterator=regions.iterator();
 		Set<Region> allRegions=new HashSet<>();
-		
 		//extraction of cities informations from XML file and insertion into graph map.
 		int i=0;
 		while(iterator.hasNext()){
@@ -490,7 +489,11 @@ public class MapMaker {
 				String imagePath="";
 				if(initial.isEmpty()||name.charAt(0)!=initial.charAt(0)){
 					int randomBonusPosition=random.nextInt(this.extractedCityBonus.size());
-					bonusChosen=this.extractedCityBonus.remove(randomBonusPosition);
+					while(this.extractedCityBonus.get(randomBonusPosition)==null){
+						randomBonusPosition=random.nextInt(this.extractedCityBonus.size());
+					}
+					bonusChosen=this.extractedCityBonus.get(randomBonusPosition);
+					this.extractedCityBonus.set(randomBonusPosition, null);
 					imagePath=this.getCityBonusPath(randomBonusPosition);
 				}
 				
