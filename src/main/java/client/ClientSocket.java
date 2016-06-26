@@ -93,12 +93,12 @@ public class ClientSocket implements ClientInterface
 		String name = stdin.nextLine();
 		try{
 			this.runClient(name);
+			System.out.println("Connection Established");
+			System.out.println("Aspetto gioco");
+			System.out.println("Waiting for other players");
+			System.out.println("ID: "+this.ID);
 		}catch(IOException e){
 			System.out.println(e.getMessage());
 		}
-		System.out.println("Connection Established");
-		System.out.println("Aspetto gioco");
-		System.out.println("Waiting for other players");
-		System.out.println("ID: "+this.ID);
 	}
 }

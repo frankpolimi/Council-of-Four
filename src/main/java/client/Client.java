@@ -57,7 +57,6 @@ public class Client {
 							System.out.println("Sorry! Errors Occurred. Terminating");
 						} catch (IOException e) {
 							logger.log(Level.ALL, e.getMessage());
-							//e.printStackTrace();
 						} 
 						break;
 					}
@@ -71,7 +70,6 @@ public class Client {
 							System.out.println("Sorry! Errors Occurred. Terminating");
 						}catch (IOException e) {
 							System.out.println("Sorry! Errors Occurred. "+e.getMessage());
-							System.exit(0);
 						}catch (AlreadyBoundException e) {
 							System.out.println("Sorry! Errors Occurred. Terminating");
 						}
