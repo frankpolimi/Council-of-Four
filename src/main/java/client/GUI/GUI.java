@@ -862,21 +862,33 @@ public class GUI extends JFrame implements ClientViewInterface {
 		
 		JTextPane textPane = (JTextPane)Arrays.asList(playerTab.getComponents()).stream().filter(e -> e.getName()!=null&&e.getName().equals("playerName")).findFirst().get();
 		textPane.setText(player.getName());
+		playerTab.remove(textPane);
+		playerTab.add(textPane);
 		
 		textPane = (JTextPane)Arrays.asList(playerTab.getComponents()).stream().filter(e -> e.getName()!=null&&e.getName().equals("victory points")).findFirst().get();
 		textPane.setText(Integer.toString(player.getPoints()));
+		playerTab.remove(textPane);
+		playerTab.add(textPane);
 		
 		textPane = (JTextPane)Arrays.asList(playerTab.getComponents()).stream().filter(e -> e.getName()!=null&&e.getName().equals("coins")).findFirst().get();
 		textPane.setText(Integer.toString(player.getCoins()));
+		playerTab.remove(textPane);
+		playerTab.add(textPane);
 		
 		textPane = (JTextPane)Arrays.asList(playerTab.getComponents()).stream().filter(e -> e.getName()!=null&&e.getName().equals("nobility points")).findFirst().get();
 		textPane.setText(Integer.toString(player.getNobilityPoints()));
+		playerTab.remove(textPane);
+		playerTab.add(textPane);
 		
 		textPane = (JTextPane)Arrays.asList(playerTab.getComponents()).stream().filter(e -> e.getName()!=null&&e.getName().equals("assistants")).findFirst().get();
 		textPane.setText(Integer.toString(player.getAssistants()));
+		playerTab.remove(textPane);
+		playerTab.add(textPane);
 		
 		textPane = (JTextPane)Arrays.asList(playerTab.getComponents()).stream().filter(e -> e.getName()!=null&&e.getName().equals("remaining emporiums")).findFirst().get();
 		textPane.setText(Integer.toString(player.getRemainingEmporiums()));
+		playerTab.remove(textPane);
+		playerTab.add(textPane);
 		
 		JScrollPane scrollPane = (JScrollPane)Arrays.asList(playerTab.getComponents()).stream().filter(e -> e.getName()!=null&&e.getName().equals("scroll pane")).findFirst().get();
 		JTextArea textArea = (JTextArea)scrollPane.getComponent(0).getComponentAt(0, 0);
