@@ -11,6 +11,7 @@ import controller.PermitsChange;
 import model.bonus.Bonus;
 import model.game.BuildingPermit;
 import model.game.Game;
+import model.game.PermitsDeck;
 
 /**
  * @author Francesco Vetro'
@@ -19,10 +20,11 @@ import model.game.Game;
 public class LocalStorage {
 	
 	private List<Object> bonus;
-	private List<BuildingPermit> permits;
+	private List<PermitsDeck> permits;
 	private Game gameRef;
 	private boolean isUpdated;
-		
+	
+	
 	public void setBonusList(List<Object> bonus){
 		this.bonus=bonus;
 	}
@@ -32,7 +34,7 @@ public class LocalStorage {
 	 */
 	public LocalStorage() {
 		bonus=new ArrayList<>();
-		permits=new ArrayList<>();
+		permits=new ArrayList<>();;
 	}
 	
 	
@@ -67,7 +69,7 @@ public class LocalStorage {
 	 * @param place the index of the permit in the list
 	 * @return the desired permit at the specified index
 	 */
-	public BuildingPermit retrievePermit(int place){
+	public PermitsDeck retrievePermit(int place){
 		return permits.get(place);
 	}
 	
@@ -99,7 +101,7 @@ public class LocalStorage {
 	/**
 	 * @return the permits
 	 */
-	public List<BuildingPermit> getPermits() {
+	public List<PermitsDeck> getPermits() {
 		return permits;
 	}
 
@@ -113,7 +115,7 @@ public class LocalStorage {
 	/**
 	 * @param permits the permits to set
 	 */
-	public void setPermits(List<BuildingPermit> permits) {
+	public void setPermits(List<PermitsDeck> permits) {
 		this.permits = permits;
 	}
 

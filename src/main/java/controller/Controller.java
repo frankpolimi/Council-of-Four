@@ -84,9 +84,13 @@ public class Controller implements Observer<Request>{
 			for(Bonus b:action.getBonusList()){
 				b.update(game);
 			}
+			game.notifyObservers(new ModelChange(game));
 		}else if(request instanceof PermitsRequest){
 			PermitsRequest action=(PermitsRequest)request;
-			current.addBuildingPermit(action.getPermits().get(0));
+			//current.addBuildingPermit(action.getPermits().get(0));
+			PermitsDeck deck=game.getAllPermitsDecks().stream().filter(e->e.equals(action.getPermitsDeck())).findFirst().get();
+			deck.givePermit(game, action.getPermit());
+			game.notifyObservers(new ModelChange(game));
 		}
 		
 	

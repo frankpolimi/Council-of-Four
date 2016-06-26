@@ -402,9 +402,16 @@ public class ClientView implements ClientViewInterface{
 		System.out.println("Select the permit you want to acquire");
 		memoryContainer.getPermits().forEach(System.out::println);
 		int selection=this.selector(1, memoryContainer.getPermitsLenght());
-		PermitsRequest request = new PermitsRequest(this.ID);
-		request.addPermit(memoryContainer.retrievePermit(selection-1));
-		memoryContainer.setPermits(new ArrayList<BuildingPermit>());
+		PermitsDeck selected=memoryContainer.retrievePermit(selection-1);
+		for(int i=1;i<=selected.getFaceUpPermits().size();i++){
+			BuildingPermit permit=selected.giveAFaceUpPermit(i);
+			//the index starts with 1 because giveAFaceUpPermit works with 1 and 2 value.
+			System.out.println((i)+"- "+permit);
+		}
+		selection=this.selector(1, selected.getFaceUpPermits().size());
+		BuildingPermit selectedPermit=selected.giveAFaceUpPermit(selection);
+		PermitsRequest request = new PermitsRequest(this.ID,selected,selectedPermit);
+		memoryContainer.setPermits(new ArrayList<PermitsDeck>());
 		return request;
 	}
 

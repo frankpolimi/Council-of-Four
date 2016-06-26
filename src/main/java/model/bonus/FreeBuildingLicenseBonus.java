@@ -49,12 +49,9 @@ public class FreeBuildingLicenseBonus extends ActionBonus {
 	 */
 	@Override
 	public void update(Game game) {
-		List<BuildingPermit> permits = new ArrayList<BuildingPermit>();
-		for(int i=0; i< this.amount;i++){
-			for(Region r : game.getRegions())
-				permits.addAll(r.getPermitsDeck().getFaceUpPermits());
-			game.notifyObserver(game.getCurrentPlayer().getPlayerID(), new PermitsChange(permits));
-		}
+		
+		game.notifyObserver(game.getCurrentPlayer().getPlayerID(), new PermitsChange(game.getAllPermitsDecks()));
+		
 	}
 	
 	/* (non-Javadoc)

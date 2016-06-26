@@ -50,9 +50,9 @@ public class PermitsDeck implements Serializable{
 		{
 			BuildingPermit supportPermit;
 			game.getCurrentPlayer().addBuildingPermit(permit);
-			permit.applyBonus(game);
 			if(faceUpPermits.remove(permit))
 			{
+				
 				try
 				{
 					supportPermit=buildingPermitsDeck.remove(0);
@@ -65,13 +65,16 @@ public class PermitsDeck implements Serializable{
 				try
 				{
 				faceUpPermits.add(supportPermit);
+				permit.applyBonus(game);
 					return true;
 				}catch(NullPointerException e)
 				{
 					throw new IllegalStateException("Cannot add the top deck permit");
 				}
+
 			}
 			else throw new IllegalStateException("Cannot remove the permit from face ups");
+			
 		}
 		throw new IllegalArgumentException("No such permit in this deck's face up permits");		
 	}
