@@ -76,11 +76,13 @@ public class BuildEmporiumByKingTest
 	public void testTakeActionWithKingMoving()
 	{
 		this.buildPermitByKingTestSetup();
+		city.getBonus().clear();
+		city.getBonusers().clear();
 		City oldKingsCity=game.getKingsPosition();
 		assertFalse(city.hasPlayerBuilt(player));
 		assertTrue(action.takeAction(game));
 		assertTrue(city.hasPlayerBuilt(player));
-		assertEquals(100-game.getMap().howManyVertexPassed(oldKingsCity, city)*2-4,player.getCoins());
+		assertEquals(100-game.getMap().howManyVertexPassed(oldKingsCity, city)*2-4, player.getCoins());
 	}
 	
 	@Test
@@ -138,6 +140,8 @@ public class BuildEmporiumByKingTest
 	{
 
 		this.buildPermitByKingTestSetup();
+		city.getBonus().clear();
+		city.getBonusers().clear();
 		city.addEmporium(game.getPlayers().get(2));
 		assertFalse(city.hasPlayerBuilt(player));
 		assertTrue(action.takeAction(game));
