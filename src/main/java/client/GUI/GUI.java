@@ -973,12 +973,14 @@ public class GUI extends JFrame implements ClientViewInterface {
 		imagePanel.remove(imagePanel.getComponentAt(mountainFaceupPermit2.getX(), mountainFaceupPermit2.getY()));
 		imagePanel.add(mountainFaceupPermit2);
 		
-		imagePanel = (ImagePanel)imagePanel.getComponentAt(nobilityPanelDimension.width*874/1000+colorTileDimension.width/2,
+		ImagePanel kingTile = (ImagePanel)imagePanel.getComponentAt(nobilityPanelDimension.width*874/1000+colorTileDimension.width/2,
 				nobilityPanelDimension.height*421/1000+colorTileDimension.height/2);
 		if(!this.game.getKingTileList().isEmpty())
-			imagePanel = new ImagePanel(pathKingTile+
+			kingTile = new ImagePanel(pathKingTile+
 					Integer.toString(5-this.game.getKingTileList().size()+1)+".jpg", 
-					new Dimension(60, 56));
+					colorTileDimension);
+		imagePanel.remove(imagePanel.getComponentAt(kingTile.getX(), kingTile.getY()));
+		imagePanel.add(kingTile);
 		
 		JPanel map = (JPanel)contentPane.getComponents()[0];
 		map = (JPanel)map.getComponents()[1];
