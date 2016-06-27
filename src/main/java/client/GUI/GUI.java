@@ -1040,11 +1040,11 @@ public class GUI extends JFrame implements ClientViewInterface {
 	private void updateOtherPlayers(JPanel tableOthers) {
 		
 		int i=0;
-		LineBorder border = new LineBorder(new Color(0, 0, 0));
+		LineBorder border = new LineBorder(Color.black);
 		for(Player p : this.game.getPlayers())
 			if(p.getPlayerID() != this.ID){
 				if(game.getCurrentPlayer().getPlayerID() == p.getPlayerID())
-					 border = new LineBorder(new Color(0, 255, 255));
+					 border = new LineBorder(Color.yellow);
 				i++;
 				JTextPane name = new JTextPane();
 				name.setEditable(false);
