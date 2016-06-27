@@ -57,46 +57,42 @@ public class BuildEmporiumByKing extends MainAction
 		{
 			if(c.equals(city))
 			{
-				distancePayment*=game.getMap().howManyVertexPassed(game.getKingsPosition(), c);
+				distancePayment*=game.getMap().howManyVertexPassed(c, game.getKingsPosition());
 				break;
 			}
 		}
-		
+			
 		if(!game.getCurrentPlayer().checkCoins(distancePayment))
 		{
+			this.restoreAssistants(game, city.getEmporiums().size());
 			throw new IllegalStateException("Not enough coins to move king. The Player needs:" +distancePayment+" coins to pay, 2 for each step");
 		}
 		if(!payCouncil(game,counc,politics))
 		{
+			this.restoreAssistants(game, city.getEmporiums().size());
 			game.getCurrentPlayer().setCoins(game.getCurrentPlayer().getCoins()+distancePayment);
 			throw new IllegalStateException("Not enough coins or Cards to pay the council."
 					+ " For 1 missing politics card you pay 4 additional coins, for each additional missing politics card you add 3 more");
 
-		}
+		}	
+		game.decrementMainActionCounter();
 		
-		if(game.getCurrentPlayer().checkAssistants(city.getEmporiums().size()))
+		for(City c:game.getAllCities())
 		{
-			game.decrementMainActionCounter();
-			
-			for(City c:game.getAllCities())
+			if(c.equals(city))
 			{
-				if(c.equals(city))
-				{
-					c.addEmporium(game.getCurrentPlayer());
-					game.setKingsPosition(c);
-					game.getMap().applyConnectedCitiesBonus(c, 
-							game.getCurrentPlayer().getEmporiumsCitiesSet(), game);
-					game.giveTiles(game.getCurrentPlayer(), c);
-					break;
-				}
+				c.addEmporium(game.getCurrentPlayer());
+				game.setKingsPosition(c);
+				game.getMap().applyConnectedCitiesBonus(c, 
+						game.getCurrentPlayer().getEmporiumsCitiesSet(), game);
+				game.giveTiles(game.getCurrentPlayer(), c);
+				super.takeAction(game);
+				return true;
 			}
-			super.takeAction(game);
-			return true;
+		
+			
 		}
-		else
-		{
-			throw new IllegalStateException("Not enough assistants to build in this city. For each other player's emporium you have to pay 1 assistant");
-		}
+		throw new IllegalArgumentException("No such city in game");
 
 		
 	}

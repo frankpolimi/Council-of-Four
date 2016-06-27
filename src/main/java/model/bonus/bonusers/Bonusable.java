@@ -30,6 +30,11 @@ public abstract class Bonusable implements Serializable{
 		bonuses=new ArrayList<>();
 	}
 	
+	public List<Bonuser> getBonusers()
+	{
+		return bonuses;
+	}
+	
 	/**
 	 * add a bonus
 	 * @param bonus

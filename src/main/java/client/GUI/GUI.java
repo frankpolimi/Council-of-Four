@@ -415,52 +415,47 @@ public class GUI extends JFrame implements ClientViewInterface {
 		tabbedPane.addTab("Other Players", null, otherPlayers, null);
 		otherPlayers.setLayout(null);
 		
-		JTable table = new JTable();
-		table.setSize(rightPanelDimension);
-		table.setLocation(0, 0);
-		otherPlayers.add(table);
-		
 		JLabel otherName = new JLabel("Name");
 		otherName.setBorder(new LineBorder(new Color(0, 0, 0)));
 		otherName.setName("otherName");
 		otherName.setBounds(0, 0, 75, 21);
-		table.add(otherName);
+		otherPlayers.add(otherName);
 		
 		JLabel otherColor = new JLabel("Color");
 		otherColor.setBorder(new LineBorder(new Color(0, 0, 0)));
 		otherColor.setName("otherName");
 		otherColor.setBounds(75, 0, 50, 21);
-		table.add(otherColor);
+		otherPlayers.add(otherColor);
 		
 		JLabel otherPoints = new JLabel("Victory Points");
 		otherPoints.setBorder(new LineBorder(new Color(0, 0, 0)));
 		otherPoints.setName("otherPoints");
 		otherPoints.setBounds(125, 0, 75, 21);
-		table.add(otherPoints);
+		otherPlayers.add(otherPoints);
 		
 		JLabel otherNobility = new JLabel("Nobility Points");
 		otherNobility.setBorder(new LineBorder(new Color(0, 0, 0)));
 		otherNobility.setName("otherPoints");
 		otherNobility.setBounds(200, 0, 75, 21);
-		table.add(otherNobility);
+		otherPlayers.add(otherNobility);
 		
 		JLabel otherCoins = new JLabel("Coins");
 		otherCoins.setBorder(new LineBorder(new Color(0, 0, 0)));
 		otherCoins.setName("otherPoints");
 		otherCoins.setBounds(275, 0, 50, 21);
-		table.add(otherCoins);
+		otherPlayers.add(otherCoins);
 		
 		JLabel otherAssistants = new JLabel("Assistants");
 		otherAssistants.setBorder(new LineBorder(new Color(0, 0, 0)));
 		otherAssistants.setName("otherPoints");
 		otherAssistants.setBounds(325, 0, 60, 21);
-		table.add(otherAssistants);
+		otherPlayers.add(otherAssistants);
 		
 		JLabel otherEmporiums = new JLabel("Remaining Emporiums");
 		otherEmporiums.setBorder(new LineBorder(new Color(0, 0, 0)));
 		otherEmporiums.setName("otherPoints");
 		otherEmporiums.setBounds(385, 0, 120, 21);
-		table.add(otherEmporiums);
+		otherPlayers.add(otherEmporiums);
 		//setVisible(true);
 	}
 	
@@ -980,12 +975,14 @@ public class GUI extends JFrame implements ClientViewInterface {
 		imagePanel.remove(imagePanel.getComponentAt(mountainFaceupPermit2.getX(), mountainFaceupPermit2.getY()));
 		imagePanel.add(mountainFaceupPermit2);
 		
-		imagePanel = (ImagePanel)imagePanel.getComponentAt(nobilityPanelDimension.width*874/1000+colorTileDimension.width/2,
+		ImagePanel kingTile = (ImagePanel)imagePanel.getComponentAt(nobilityPanelDimension.width*874/1000+colorTileDimension.width/2,
 				nobilityPanelDimension.height*421/1000+colorTileDimension.height/2);
 		if(!this.game.getKingTileList().isEmpty())
-			imagePanel = new ImagePanel(pathKingTile+
+			kingTile = new ImagePanel(pathKingTile+
 					Integer.toString(5-this.game.getKingTileList().size()+1)+".jpg", 
-					new Dimension(60, 56));
+					colorTileDimension);
+		imagePanel.remove(imagePanel.getComponentAt(kingTile.getX(), kingTile.getY()));
+		imagePanel.add(kingTile);
 		
 		JPanel map = (JPanel)contentPane.getComponents()[0];
 		map = (JPanel)map.getComponents()[1];
@@ -1044,23 +1041,26 @@ public class GUI extends JFrame implements ClientViewInterface {
 		
 	}
 	
-	private void updateOtherPlayers(JTable tableOthers) {
+	private void updateOtherPlayers(JPanel tableOthers) {
 		
 		int i=0;
+		LineBorder border = new LineBorder(Color.black);
 		for(Player p : this.game.getPlayers())
 			if(p.getPlayerID() != this.ID){
+				if(game.getCurrentPlayer().getPlayerID() == p.getPlayerID())
+					 border = new LineBorder(Color.yellow);
 				i++;
 				JTextPane name = new JTextPane();
 				name.setEditable(false);
 				name.setText(p.getName());
-				name.setBorder(new LineBorder(new Color(0, 0, 0)));
+				name.setBorder(border);
 				name.setBounds(0, i*21, 75, 21);
 				tableOthers.add(name);
 				
 				JTextPane color = new JTextPane();
 				color.setEditable(false);
 				color.setBackground(p.getChosenColor());
-				color.setBorder(new LineBorder(new Color(0, 0, 0)));
+				color.setBorder(border);
 				color.setBounds(75, i*21, 50, 21);
 				tableOthers.add(color);
 				
@@ -1068,35 +1068,35 @@ public class GUI extends JFrame implements ClientViewInterface {
 				points.setEditable(false);
 				points.setText(Integer.toString(p.getPoints()));
 				points.setBounds(125, i*21, 75, 21);
-				points.setBorder(new LineBorder(new Color(0, 0, 0)));
+				points.setBorder(border);
 				tableOthers.add(points);
 				
 				JTextPane nobility = new JTextPane();
 				nobility.setEditable(false);
 				nobility.setText(Integer.toString(p.getNobilityPoints()));
 				nobility.setBounds(200, i*21, 75, 21);
-				nobility.setBorder(new LineBorder(new Color(0, 0, 0)));
+				nobility.setBorder(border);
 				tableOthers.add(nobility);
 				
 				JTextPane coins = new JTextPane();
 				coins.setEditable(false);
 				coins.setText(Integer.toString(p.getCoins()));
 				coins.setBounds(275, i*21, 50, 21);
-				coins.setBorder(new LineBorder(new Color(0, 0, 0)));
+				coins.setBorder(border);
 				tableOthers.add(coins);
 				
 				JTextPane assistants = new JTextPane();
 				assistants.setEditable(false);
 				assistants.setText(Integer.toString(p.getAssistants()));
 				assistants.setBounds(325, i*21, 60, 21);
-				assistants.setBorder(new LineBorder(new Color(0, 0, 0)));
+				assistants.setBorder(border);
 				tableOthers.add(assistants);
 				
 				JTextPane emporiums = new JTextPane();
 				emporiums.setEditable(false);
 				emporiums.setText(Integer.toString(p.getRemainingEmporiums()));
 				emporiums.setBounds(385, i*21, 120, 21);
-				emporiums.setBorder(new LineBorder(new Color(0, 0, 0)));
+				emporiums.setBorder(border);
 				tableOthers.add(emporiums);
 			}
 	}

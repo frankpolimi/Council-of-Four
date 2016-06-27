@@ -65,7 +65,16 @@ public class Action implements Act, Serializable
 			{
 				throw new IllegalArgumentException("The player has already built an emporium in this city");
 			}
+		if(!game.getCurrentPlayer().checkAssistants(city.getEmporiums().size()))
+		{
+			throw new IllegalStateException("Not enough assistants to build in this city. For each other player's emporium you have to pay 1 assistant");
+		}
 		return true;
+	}
+	
+	public void restoreAssistants(Game game, int assistants)
+	{
+		game.getCurrentPlayer().setAssistants(game.getCurrentPlayer().getAssistants()+assistants);
 	}
 	
 	/**

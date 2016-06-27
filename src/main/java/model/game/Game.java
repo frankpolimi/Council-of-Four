@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.rmi.Remote;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -630,29 +631,37 @@ public class Game extends Observable<Change> implements Serializable, Remote{
 	public void giveTiles(Player curr, City builtOn) {
 		
 		Iterator<Region> r = regions.iterator();
-		int i = 0;
+		boolean assigned = false;;
 		while(r.hasNext()){
 			Region x = r.next();
 			if(x.getCities().contains(builtOn) && 
 					curr.getEmporiumsCitiesSet().containsAll(x.getCities())){
-				PointsTile pt = regionTileList.get(i);
-				if(!curr.getTilesOwned().contains(pt))
-					curr.addPointsTile(pt);
-				this.giveKingTile(curr);
+				Iterator<PointsTile> rti = regionTileList.iterator();
+				while(rti.hasNext()){
+					RegionTile rt = (RegionTile)rti.next();
+					if(rt.getRegion().getName().equals(x.getName()))
+						if(!curr.getTilesOwned().contains(rt)){
+							curr.addPointsTile(rt);
+							assigned  = true;
+						}
+				}
 			}
-			i++;
 		}
 		
 		List<City> sameColorCities = new ArrayList<>();
 		for(City c : this.getAllCities())
-			if(c.getCityColor().equals(builtOn))
+			if(c.getCityColor().equals(builtOn.getCityColor()))
 				sameColorCities.add(c);
 		if(curr.getEmporiumsCitiesSet().containsAll(sameColorCities))
 			for(PointsTile pt2 : colorTileList)
 				if(((ColorTile)pt2).getCityColor().equals(builtOn.getCityColor()) && 
-						!curr.getTilesOwned().contains(pt2))
+						!curr.getTilesOwned().contains(pt2)){
 					curr.addPointsTile(pt2);
-			this.giveKingTile(curr);		
+					assigned = true;
+				}
+		
+		if(assigned)
+			this.giveKingTile(curr);
 	}
 
 	/**
