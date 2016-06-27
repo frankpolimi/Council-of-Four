@@ -269,7 +269,7 @@
 			<councillor type="coloured" RGB="255,255,255" number="4" path="src/main/resources/Immagini/councillor_white.jpg"></councillor><!-- white -->
 			<councillor type="coloured" RGB="255,165,0" number="4" path="src/main/resources/Immagini/councillor_orange.jpg"></councillor><!-- orange -->
 			<councillor type="coloured" RGB="0,0,0" number="4" path="src/main/resources/Immagini/councillor_black.jpg"></councillor><!-- black -->
-			<councillor type="coloured" RGB="128,0,128" number="4" path="src/main/resources/Immagini/councillor_purple.jpg"></councillor><!-- purple -->
+			<councillor type="coloured" RGB="128,0,128" number="4" path="src/main/resources/Immagini/councillor_purple.png"></councillor><!-- purple -->
 			<councillor type="coloured" RGB="0,0,255" number="4" path="src/main/resources/Immagini/councillor_blue.jpg"></councillor><!-- blue -->
 		</avaliableCouncillors>
 	</decks>
