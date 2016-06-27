@@ -80,6 +80,7 @@ public class ServerRMIView extends View implements ServerRMIViewRemote{
 			} catch (IOException e1) {
 			}
 			System.out.println("The client"+this.ID+" has been disconnected and removed in the game model");
+			this.notifyObservers(new QuitRequest(this.ID));
 		} catch (IOException e) {
 		}
 	}

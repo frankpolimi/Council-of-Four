@@ -225,6 +225,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 		
 		ImagePanel kingTile = new ImagePanel(pathKingTile.concat("1.jpg"), colorTileDimension);
 		kingTile.setOpaque(false);
+		kingTile.setName("kingTile");
 		kingTile.setSize(colorTileDimension);
 		kingTile.setLocation(nobilityPanelDimension.width*874/1000, nobilityPanelDimension.height*421/1000);
 		nobility.add(kingTile);
@@ -977,11 +978,17 @@ public class GUI extends JFrame implements ClientViewInterface {
 		
 		ImagePanel kingTile = (ImagePanel)imagePanel.getComponentAt(nobilityPanelDimension.width*874/1000+colorTileDimension.width/2,
 				nobilityPanelDimension.height*421/1000+colorTileDimension.height/2);
-		if(!this.game.getKingTileList().isEmpty())
+		Rectangle kingBounds=kingTile.getBounds();
+		if(!this.game.getKingTileList().isEmpty()){
+			System.out.println(pathKingTile+
+					Integer.toString(5-this.game.getKingTileList().size()+1)+".jpg");
 			kingTile = new ImagePanel(pathKingTile+
 					Integer.toString(5-this.game.getKingTileList().size()+1)+".jpg", 
 					colorTileDimension);
-		imagePanel.remove(imagePanel.getComponentAt(kingTile.getX(), kingTile.getY()));
+			kingTile.setBounds(kingBounds);
+			kingTile.setOpaque(false);
+		}
+		imagePanel.remove(imagePanel.getComponentAt(kingTile.getX()+kingTile.getWidth()/2, kingTile.getY()+kingTile.getHeight()/2));
 		imagePanel.add(kingTile);
 		
 		JPanel map = (JPanel)contentPane.getComponents()[0];
@@ -1006,7 +1013,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 		
 		JTabbedPane tabbed = (JTabbedPane)contentPane.getComponents()[1];
 		JPanel tableOthers = (JPanel)tabbed.getComponent(2);
-		this.updateOtherPlayers((JTable)tableOthers.getComponent(0));
+		this.updateOtherPlayers(tableOthers);
 
 		this.repaint();
 		for(Component component:regions.getComponents()){
