@@ -147,7 +147,7 @@ public class ChangeFaceUpPermitsFrame extends JFrame {
 			}
 		});
 		
-		JLabel landLabel = new JLabel("Land's Permits");
+		JLabel landLabel = new JLabel(region.getName()+" Permits");
 		landLabel.setBounds((int)((22/XREF)*getWidth()+space),(int)((204/YREF)*getHeight()),(int)((200/XREF)*getWidth()),(int)((21/YREF)*getHeight()));
 		contentPane.add(landLabel);
 	}

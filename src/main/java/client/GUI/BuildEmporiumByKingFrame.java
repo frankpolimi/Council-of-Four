@@ -87,6 +87,11 @@ public class BuildEmporiumByKingFrame extends JFrame {
 		contentPane.add(cardsPanel);
 		cardsPanel.setName("cardsPanel");
 		cardsPanel.setBorder(new LineBorder(Color.black));
+		Dimension cardDimension=new Dimension((int)((78/XREF)*getWidth()), (int)((120/YREF)*getHeight()));
+		this.populatesCardPanel(cardsPanel, thisPlayer, cardDimension, this.selectedCards);
+		JScrollPane scroll=new JScrollPane(cardsPanel);
+		scroll.setBounds(cardsPanel.getBounds());
+		contentPane.add(scroll);
 		
 		JLabel title = new JLabel("Build an emporium under the consence of the King ");
 		title.setHorizontalAlignment(SwingConstants.CENTER);
@@ -101,7 +106,7 @@ public class BuildEmporiumByKingFrame extends JFrame {
 		kingCouncilPanel.setBounds((int)((10/XREF)*getWidth()),(int)((174/YREF)*getHeight()),(int)((264/XREF)*getWidth()),(int)((88/YREF)*getHeight()));
 		contentPane.add(kingCouncilPanel);
 		kingCouncilPanel.setBorder(new LineBorder(Color.black));
-		this.createCouncilPanel(kingCouncilPanel, 0, game.getKingsCouncil().getCouncillors());
+		this.createCouncilPanel(kingCouncilPanel, game.getKingsCouncil().getCouncillors());
 		
 		JButton btnSend = new JButton("SEND");
 		btnSend.setBounds((int)((10/XREF)*getWidth()),(int)((278/YREF)*getHeight()),(int)((89/XREF)*getWidth()),(int)((23/YREF)*getHeight()));
@@ -128,7 +133,7 @@ public class BuildEmporiumByKingFrame extends JFrame {
 		contentPane.add(cityNamePanel);
 		cityNamePanel.setBorder(new LineBorder(Color.black));
 		this.createCityNameList(cityNamePanel, game.getAllCities());
-		this.populatesCardPanel(cardsPanel, thisPlayer);
+		
 		JScrollPane scrollPane=new JScrollPane(cityNamePanel);
 		scrollPane.setBounds(cityNamePanel.getBounds());
 		contentPane.add(scrollPane);
@@ -137,8 +142,8 @@ public class BuildEmporiumByKingFrame extends JFrame {
 	}
 	
 	
-	private void populatesCardPanel(JPanel cardsPanel, Player player){
-		Dimension cardDimension=new Dimension((int)((78/XREF)*getWidth()), (int)((120/YREF)*getHeight()));
+	public void populatesCardPanel(JPanel cardsPanel, Player player,Dimension cardDimension, List<PoliticsCard>politics){
+		
 		List<PoliticsCard> cardList=player.getCardsOwned();
 		cardsPanel.setLayout(new BoxLayout(cardsPanel,BoxLayout.X_AXIS));
 		for(PoliticsCard card:cardList){
@@ -146,11 +151,11 @@ public class BuildEmporiumByKingFrame extends JFrame {
 			cardImage.setSize(cardDimension);
 			cardsPanel.add(cardImage);
 			cardsPanel.add(Box.createHorizontalStrut(5));
-			cardImage.addMouseListener(new MouseAdapterImplementation(cardImage, card));
+			cardImage.addMouseListener(new MouseAdapterImplementation(cardImage, card, politics));
 		}
 	}
 	
-	private void createCouncilPanel(JPanel council, int x, ArrayBlockingQueue<Councillor> councillors){	
+	public void createCouncilPanel(JPanel council, ArrayBlockingQueue<Councillor> councillors){	
 		//COUNCILLORS
 		Dimension councillorInCouncilDim=new Dimension(council.getWidth()/4,council.getHeight());
 				
@@ -193,9 +198,11 @@ public class BuildEmporiumByKingFrame extends JFrame {
 			
 		private JLabel cardImage;
 		private PoliticsCard card;
-		public MouseAdapterImplementation(JLabel cardImage, PoliticsCard card) {
+		private List<PoliticsCard> selectedCards;
+		public MouseAdapterImplementation(JLabel cardImage, PoliticsCard card, List<PoliticsCard> selectedCards) {
 			this.cardImage=cardImage;
 			this.card=card;
+			this.selectedCards=selectedCards;
 		}
 
 		@Override
