@@ -28,6 +28,7 @@ import model.game.council.Councillor;
 import model.game.topology.City;
 import model.game.topology.Region;
 import view.ActionRequest;
+import view.EndState;
 import view.LocalStorage;
 import view.MarketSellingState;
 import view.Request;
@@ -803,11 +804,14 @@ public class GUI extends JFrame implements ClientViewInterface {
 		this.game=game;
 		if(this.ID==0 || this.game.getPlayerByID(ID) == null)
 			return;
-		System.out.println("gioco aggiornato "+game.toString());
-		System.out.println("tutti i giocatori "+game.getPlayers());
+		
+		if(game.getGameState().getClass().equals(EndState.class)){
+			EndFrame frame=new EndFrame(this.game,this);
+			frame.setVisible(true);
+		}
+		
 		JPanel regions=(JPanel)this.contentPane.getComponents()[0].getComponentAt(0, 0);
 		this.updateCityPanel(String.valueOf(game.getKingsPosition().getFirstChar()), regions);
-		
 		
 		Player player = this.game.getPlayerByID(ID);
 		JTabbedPane tabbedPane = (JTabbedPane)this.contentPane.getComponents()[1];
@@ -864,7 +868,6 @@ public class GUI extends JFrame implements ClientViewInterface {
 		for(int i=0;i<player.getUsedBuildingPermits().size();i++){
 			JLabel permit=new ImageLabel(player.getUsedBuildingPermits().get(i).getImagePath(),buildingDim);
 			permit.setName("buildingPermit"+i);
-			//card.setSize(cardDim);
 			usedBuildingPermits.add(permit);
 		}
 		playerTab.remove(playerTab.getComponentAt(usedBuildingPermits.getX(), usedBuildingPermits.getY()));
@@ -887,7 +890,11 @@ public class GUI extends JFrame implements ClientViewInterface {
 		JLabel turnIndicator=(JLabel)(Arrays.asList(playerTab.getComponents()).stream().filter(e->e.getName()!=null&&e.getName().equals("turnIndicator")).findFirst().get());
 		if(game.getCurrentPlayer().getPlayerID()==this.ID){
 			turnIndicator.setText("It's your turn");
-			JOptionPane.showMessageDialog(null, "It's your turn");
+			if(!this.game.isLastTurn())
+				JOptionPane.showMessageDialog(null, "It's your turn");
+			else{
+				JOptionPane.showMessageDialog(null, "LAST TURN! ");
+			}
 		}else{
 			turnIndicator.setText("It's "+game.getCurrentPlayer().getName()+" - "+game.getCurrentPlayer().getPlayerID()+"turn");
 		}
@@ -1003,17 +1010,14 @@ public class GUI extends JFrame implements ClientViewInterface {
 		JTabbedPane tabbed = (JTabbedPane)contentPane.getComponents()[1];
 		JPanel tableOthers = (JPanel)tabbed.getComponent(2);
 		this.updateOtherPlayers((JTable)tableOthers.getComponent(0));
-		
-		System.out.println("changed");
+
 		this.repaint();
-		//this.revalidate(); solo per prova
 		for(Component component:regions.getComponents()){
 			JPanel regionPanel=(JPanel)component;
 			region=this.game.getRegions().stream().filter(e->e.getName().equals(regionPanel.getName())).findFirst().get();	
 			List<City> cities=region.getCities();
 			for(City city:cities){
 				if(!city.getEmporiums().isEmpty())
-					System.out.println("Sono "+city.getName()+" e ho empori");
 				this.updateEmporiumsData(regionPanel, city);
 			}
 		}

@@ -1,5 +1,6 @@
 package model.actions;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 
@@ -80,7 +81,9 @@ public class SkipAction extends Action
 			if(game.getPlayers().size()==1){
 				game.notifyObservers(new ErrorChange("Player "+game.getCurrentPlayer().getName()+" - "+game.getCurrentPlayer().getPlayerID()+
 						", you are the last online player in this match, so the game is finished and you have won!"));
-				game.setGameState(new EndState(game.getCurrentPlayer()));
+				List<Player> partialRanking=new ArrayList<>();
+				partialRanking.add(game.getCurrentPlayer());
+				game.setGameState(new EndState(game.getCurrentPlayer(),partialRanking));
 				game.getTimer().cancel();
 			}
 			

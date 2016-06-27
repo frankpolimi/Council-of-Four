@@ -1,8 +1,10 @@
 package model.game;
 
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.*;
+
 
 
 public class WinnerSelector{
@@ -14,19 +16,24 @@ public class WinnerSelector{
 	 * @param players the player that participated to game
 	 * 			both still connected and disconnected through the
 	 * 			game
+	 * @throws SecurityException 
+	 * @throws NoSuchMethodException 
+	 * @throws InvocationTargetException 
+	 * @throws IllegalArgumentException 
+	 * @throws IllegalAccessException 
 	 */
-	public WinnerSelector(List<Player> players) {
+	public WinnerSelector(List<Player> players) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
 		if(players==null)
 			throw new NullPointerException("Players must not be null");
 		if(players.isEmpty()){
 			throw new IllegalArgumentException("Players must not be empty");
 		}
 		this.players=players;
+		this.countingPoints();
 	}
 	
 	/**
-	 * method that communicate the winner of the game
-	 * @return the player that won the game
+	 * method that counts the final points of all the players.
 	 * @throws IllegalAccessException if problems occurred while invoking the method via reflection
 	 * @throws IllegalArgumentException if problems occurred while invoking the method via reflection
 	 * @throws InvocationTargetException if problems occurred while invoking the method via reflection
@@ -34,14 +41,12 @@ public class WinnerSelector{
 	 * @throws SecurityException if access is denied 
 	 * 					to the package of this class
 	 */
-	public Player getWinnerPlayer() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException{
+	private void countingPoints() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException{
 		final int FIRSTNOBILITYPOINTS=5;
 		final int SECONDNOBILITYPOINTS=2;
 		final int PERMITSPOINTS=3;
 		final Method NOBILITYMETHOD=Player.class.getMethod("getNobilityPoints", (Class<?>[])null);
 		final Method PERMITSMETHOD=Player.class.getMethod("howManyBuildingPermitsOwned", (Class<?>[])null);
-		final Method POINTSMETHOD=Player.class.getMethod("getPoints", (Class<?>[])null);
-		final Method ASSISTANTANDCARDSMETHOD=Player.class.getMethod("howManyAssistansAndCardsOwned", (Class<?>[])null);
 		
 		this.addTilesPoints();
 		//Nobility points
@@ -67,6 +72,21 @@ public class WinnerSelector{
 		//Permits Points
 		Player firstPermits=this.getMax(PERMITSMETHOD);
 		firstPermits.setPoints(firstPermits.getPoints()+PERMITSPOINTS);
+	}
+	
+	/**
+	 * This method returns the winner of the match basing of the class calculations.
+	 * @return the winner
+	 * @throws IllegalAccessException if problems occurred while invoking the method via reflection
+	 * @throws IllegalArgumentException if problems occurred while invoking the method via reflection
+	 * @throws InvocationTargetException if problems occurred while invoking the method via reflection
+	 * @throws NoSuchMethodExceptionif a matching method is not found
+	 * @throws SecurityException if access is denied 
+	 * 					to the package of this class
+	 */
+	public Player getWinnerPlayer() throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException{
+		final Method POINTSMETHOD=Player.class.getMethod("getPoints", (Class<?>[])null);
+		final Method ASSISTANTANDCARDSMETHOD=Player.class.getMethod("howManyAssistansAndCardsOwned", (Class<?>[])null);
 		//Winning decision
 		Player theFirstOne=this.getMax(POINTSMETHOD);
 		List<Player> others=this.sameLevel(theFirstOne, POINTSMETHOD);
@@ -75,7 +95,29 @@ public class WinnerSelector{
 		}else{
 			return theFirstOne;
 		}
-		
+	}
+	
+	/**
+	 * This methods returns the ranking calculated by the class
+	 * @return the final ranking
+	 */
+	public List<Player> getRanking(){
+		//sorting by Victory Points
+		this.players.sort(new Comparator<Player>() {
+
+			@Override
+			public int compare(Player o1, Player o2) {
+				if(o1.getPoints()>o2.getPoints())
+					return -1;
+				if(o1.getPoints()==o2.getPoints())
+					return 0;
+				else
+					return 1;
+			}
+
+		});
+
+		return this.players;
 	}
 	
 	/**
@@ -139,9 +181,9 @@ public class WinnerSelector{
 
 	/*public static void main(String[]args) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, JDOMException, IOException{
 		
-		Player p1=new Player("Mario", 1, 10, 2);
-		Player p2=new Player("Marco",2,10, 2);
-		Player p3=new Player("Luigi",3,10, 2);
+		Player p1=new Player("Mario", 1);
+		Player p2=new Player("Marco",2);
+		Player p3=new Player("Luigi",3);
 		p1.setNobilityPoints(10);
 		p2.setNobilityPoints(15);
 		p3.setNobilityPoints(10);
@@ -150,7 +192,7 @@ public class WinnerSelector{
 		players.add(p2);
 		players.add(p3);
 		WinnerSelector ws=new WinnerSelector(players);
-		
+		ws.getRanking();
 		ws.getWinnerPlayer();
 		
 		
