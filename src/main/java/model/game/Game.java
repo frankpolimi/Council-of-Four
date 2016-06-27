@@ -307,8 +307,8 @@ public class Game extends Observable<Change> implements Serializable, Remote{
 		this.players.addAll(this.disconnectedPlayers);
 		List<Player> copyList=new ArrayList<>(this.players);
 		WinnerSelector winnerSelector=new WinnerSelector(copyList);
-		this.gameState=new EndState(winnerSelector.getWinnerPlayer());
-		this.notifyObservers(new StateChange(this.gameState));
+		this.gameState=new EndState(winnerSelector.getWinnerPlayer(),winnerSelector.getRanking());
+		this.notifyObservers(new ModelChange(this));
 	}
 	
 	/**
