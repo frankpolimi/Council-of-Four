@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <config>
-	<IP value="151.48.167.181"></IP>
+	<IP value="127.0.0.1"></IP>
 	<PORT>
 		<SOCKETPORT value="27312"></SOCKETPORT>
 		<RMIPORT value="34197"></RMIPORT>
