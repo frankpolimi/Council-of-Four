@@ -23,10 +23,6 @@ public class PoliticsDeck implements Serializable
 	 */
 	public PoliticsDeck(ArrayList<PoliticsCard> array)
 	{
-		if(array==null){
-			throw new NullPointerException("Array is null");
-		}
-
 		deck=array;
 	}
 	
