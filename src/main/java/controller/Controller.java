@@ -20,17 +20,10 @@ import view.*;
 public class Controller implements Observer<Request>{
 	
 	private final Game game;
-	
-	/*
-	 *
-	 * private final Set<MainAction> mainActions;
-	 * private final Set<QuickAction> quickActions;
-	 */
 
 	/**
-	 * constructor of the controller. will initialize the list of actions
-	 * with an instance of the specific actions.
-	 * @param view a client's view that want to interact with the game
+	 * constructor of the controller with the game
+	 * where the controller will be operating on
 	 * @param game the instance of one specific game 
 	 */
 	public Controller(Game game) {
@@ -43,9 +36,15 @@ public class Controller implements Observer<Request>{
 	 */
 	@Override
 	public void update() {
-		//qua update notificati senza comandi
+		//
 	}
 	
+	/**
+	 * this method allows the controller to operate and modify the game
+	 * that is under his control 
+	 * @param request a message coming from the client that must be evaluated
+	 * 					and eventually executed
+	 */
 	@Override
 	public void update(Request request) throws IllegalArgumentException, IllegalStateException{
 		
@@ -73,19 +72,19 @@ public class Controller implements Observer<Request>{
 		if(request.getClass().equals(ActionRequest.class)){
 			ActionRequest action = (ActionRequest)request;
 			action.getAction().takeAction(game);
-		}else if(request instanceof MarketRequest){
+		}else if(request.getClass().equals(MarketRequest.class)){
 			MarketRequest<?> action= (MarketRequest<?>)request;
 			if(game.getGameState().getClass().equals(MarketSellingState.class))
 				game.getMarket().addProduct(action.getObject());
 			else if(game.getGameState().getClass().equals(MarketBuyingState.class))
 				game.getMarket().buyElement(game.getCurrentPlayer(), action.getObject());
-		}else if(request instanceof BonusRequest){
+		}else if(request.getClass().equals(BonusRequest.class)){
 			BonusRequest action=(BonusRequest)request;
 			for(Bonus b:action.getBonusList()){
 				b.update(game);
 			}
 			game.notifyObservers(new ModelChange(game));
-		}else if(request instanceof PermitsRequest){
+		}else if(request.getClass().equals(PermitsRequest.class)){
 			PermitsRequest action=(PermitsRequest)request;
 			//current.addBuildingPermit(action.getPermits().get(0));
 			PermitsDeck deck=game.getAllPermitsDecks().stream().filter(e->e.equals(action.getPermitsDeck())).findFirst().get();

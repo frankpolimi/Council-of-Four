@@ -4,6 +4,9 @@ import java.io.Serializable;
 
 /**
  * @author Francesco Vetro'
+ * 
+ * abstract class that represent the message that is sent 
+ * from the server to the clients
  */
 
 public abstract class Change implements Serializable{

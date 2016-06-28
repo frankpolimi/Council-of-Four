@@ -6,13 +6,15 @@ package controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.bonus.Bonus;
 import model.game.BuildingPermit;
 import model.game.topology.City;
 
 /**
- * @author Francesco Vetr�
- *
+ * @author Francesco Vetro'
+ * 
+ * this class represents the message that a client
+ * receive only when a specific bonus on the nobility track 
+ * is triggered. 
  */
 public class BonusChange extends Change {
 	
@@ -24,7 +26,11 @@ public class BonusChange extends Change {
 	private final int repeat;
 	
 	/**
-	 * default constructor
+	 * default constructor for a bonus change
+	 * allows the player to select a repeat amount of times 
+	 * a bonus that is stored in the bonusList. each repetition the bonus chosen before
+	 * is removed from the list
+	 * @param repeat the amount of times that a bonus can be selected
 	 */
 	public BonusChange(int repeat) {
 		bonusList = new ArrayList<>();
@@ -44,7 +50,7 @@ public class BonusChange extends Change {
 	
 	
 	/**
-	 * @return the repeat
+	 * @return the amount of times the bonus can be repeated
 	 */
 	public int getRepeat() {
 		return repeat;
@@ -66,6 +72,11 @@ public class BonusChange extends Change {
 		bonusList.add(b);
 	}
 	
+	/**
+	 * method to add a bonus to the list of bonuses available 
+	 * for the client
+	 * @param c the bonus to add
+	 */
 	public void addCityBonus(City c){
 		bonusList.add(c);
 	}

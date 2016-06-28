@@ -6,7 +6,7 @@ package controller;
 import model.actions.*;
 
 /**
- * @author Francesco Vetrò
+ * @author Francesco Vetro'
  *
  */
 public class ActionChange extends Change {
@@ -18,6 +18,11 @@ public class ActionChange extends Change {
 	private final int viewID;
 	private final Action action;
 	
+	/**
+	 * constructor for an action that is sent to the client
+	 * @param viewID the id of the view
+	 * @param action the action
+	 */
 	public ActionChange(int viewID, Action action) {
 		this.viewID = viewID;
 		this.action = action;

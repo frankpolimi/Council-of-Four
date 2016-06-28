@@ -86,7 +86,7 @@ public class Game extends Observable<Change> implements Serializable, Remote{
 		
 		this.lastTurn=false;
 		this.politicsDeck=mp.createPoliticsDeck();
-		this.usedPolitics=new PoliticsDeck(new ArrayList<>());
+		this.usedPolitics=new PoliticsDeck(null);
 		this.players=new ArrayList<>();
 		this.regions=mp.createRegionSet(this.extractRandomMap(mp.getRegionNumber()));
 		this.map=mp.generateMap(this.regions);

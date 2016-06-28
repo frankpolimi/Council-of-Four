@@ -11,8 +11,8 @@ public class MarketChange extends Change {
 	
 	
 	/**
-	 * This class is used to bring the market ref through the network for updating the client's 
-	 * game ref.
+	 * This class is used to bring the market ref through
+	 * the network for updating the client's game ref.
 	 * @param market is the ref of marketObject in game.
 	 */
 	public MarketChange(Market market){
