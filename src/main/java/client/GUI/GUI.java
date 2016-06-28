@@ -980,8 +980,6 @@ public class GUI extends JFrame implements ClientViewInterface {
 				nobilityPanelDimension.height*421/1000+colorTileDimension.height/2);
 		Rectangle kingBounds=kingTile.getBounds();
 		if(!this.game.getKingTileList().isEmpty()){
-			System.out.println(pathKingTile+
-					Integer.toString(5-this.game.getKingTileList().size()+1)+".jpg");
 			kingTile = new ImagePanel(pathKingTile+
 					Integer.toString(5-this.game.getKingTileList().size()+1)+".jpg", 
 					colorTileDimension);

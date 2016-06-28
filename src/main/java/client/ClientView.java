@@ -147,7 +147,7 @@ public class ClientView implements ClientViewInterface{
 				i++;
 			}
 			int permitIndex=this.selector(1, 2);
-			BuildingPermit chosenPermit=councilDeck.giveAFaceUpPermit(permitIndex-1);
+			BuildingPermit chosenPermit=councilDeck.giveAFaceUpPermit(permitIndex);
 			action=new AcquirePermit(councilCorrupted, selectedCards, chosenPermit);
 			return new ActionRequest(action, ID);
 		case 3:
