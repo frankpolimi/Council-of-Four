@@ -3,8 +3,10 @@ package cg2;
 import java.awt.Color;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.ArrayBlockingQueue;
@@ -22,6 +24,7 @@ import model.game.council.Council;
 import model.game.council.Councillor;
 import model.game.council.KingsCouncil;
 import model.game.council.RegionalCouncil;
+import model.game.politics.ColoredPoliticsCard;
 import model.game.politics.JollyPoliticsCard;
 import model.game.politics.PoliticsCard;
 import model.game.topology.City;
@@ -106,6 +109,27 @@ public abstract class SupportClass
 	
 	}
 
+	public static Map<Color, Integer> giveColorMapInPoliticsDeck(Player p, List<Color> distincts){
+		Map<Color,Integer> colorOccurrency=new HashMap<>();
+		final Color SPECIALCOLOR=new Color(55,156,136);
+		for(Color color:distincts){
+			colorOccurrency.put(color, 0);
+		}
+		colorOccurrency.put(SPECIALCOLOR, 0);
+		
+		for(PoliticsCard card:p.getCardsOwned()){
+			Color cardsColor;
+			if(card.getClass().equals(ColoredPoliticsCard.class)){
+				cardsColor=((ColoredPoliticsCard)card).getColor();
+				
+			}else{
+				cardsColor=SPECIALCOLOR;
+			}
+			colorOccurrency.put(cardsColor, colorOccurrency.get(cardsColor)+1);
+		}
+		return colorOccurrency;
+	}
+	
 	public static Region regionCreator() throws JDOMException, IOException {
 		return gameWithPlayersCreator("p1", "p2","p3","p4").getRegions().iterator().next();
 	}

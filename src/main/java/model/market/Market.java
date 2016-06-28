@@ -29,9 +29,12 @@ public class Market implements Serializable{
 	
 	/**
 	 * constructor
-	 * no parameters needed: elements will be added at the end of each turn
+	 *@param Game is the game in which there is this market
+	 * @throws NullPointerException if param is null
 	 */
 	public Market(Game game) {
+		if(game==null)
+			throw new NullPointerException("Game passed is null");
 		this.game=game;
 		this.products = new ArrayList<>();
 	}

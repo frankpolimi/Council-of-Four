@@ -16,10 +16,6 @@ import model.game.politics.PoliticsDeck;
 
 public class PoliticsDeckTest {
 
-	@Test(expected=NullPointerException.class)
-	public void arrayPassedIsNull() {
-		PoliticsDeck deck=new PoliticsDeck(null);
-	}
 	
 	@Test
 	public void testAddUsedPolitics(){
