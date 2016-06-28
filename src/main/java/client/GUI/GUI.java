@@ -59,6 +59,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 	private int ID;
 	private Request request=null;
 	private GUI thisObj=this;
+	private int pastTurnPlayerID;
 	
 	private JPanel contentPane;
 	
@@ -120,7 +121,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 	{
 			
 		//setAlwaysOnTop(true);
-		
+		this.pastTurnPlayerID=0;
 		this.setSize(monitorDimension);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
@@ -397,19 +398,6 @@ public class GUI extends JFrame implements ClientViewInterface {
 		});
 		gamePanel.add(submitChat);
 		
-		Double nobilityCellRelativeX=0.064209275;
-		Double space=0.033333333;
-		Dimension cellDim=new Dimension(12, 12);
-		int cellYPosition=(int) (nobilityPanelDimension.getHeight()*705/1000);
-		int dinstanceX=(int)(cardBoard.getWidth()*(nobilityCellRelativeX));
-		for(int i=0;i<=20;i++){
-			JPanel panel=new JPanel();
-			panel.setName("nobilityPos"+i);
-			panel.setBounds(dinstanceX, cellYPosition,cellDim.width, cellDim.height);
-			dinstanceX+=space*cardBoard.getWidth();
-			panel.setBackground(Color.white);
-			nobility.add(panel);
-		}
 		
 		JPanel otherPlayers = new JPanel();
 		otherPlayers.setName("others");
@@ -676,7 +664,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 		this.pathhill=regionSet.stream().filter(e->e.getName().equals("hill")).map(e->e.getImagePath()).findFirst().get();
 		this.pathmountain=regionSet.stream().filter(e->e.getName().equals("mountain")).map(e->e.getImagePath()).findFirst().get();
 		this.pathland=regionSet.stream().filter(e->e.getName().equals("land")).map(e->e.getImagePath()).findFirst().get();
-		
+	
 		JPanel regions=(JPanel)this.contentPane.getComponents()[0].getComponentAt(0, 0);
 		//regions.removeAll();
 		ImagePanel seaside=new ImagePanel(pathland, singleRegionDimension);
@@ -886,14 +874,19 @@ public class GUI extends JFrame implements ClientViewInterface {
 		JLabel turnIndicator=(JLabel)(Arrays.asList(playerTab.getComponents()).stream().filter(e->e.getName()!=null&&e.getName().equals("turnIndicator")).findFirst().get());
 		if(game.getCurrentPlayer().getPlayerID()==this.ID){
 			turnIndicator.setText("It's your turn");
-			if(!this.game.isLastTurn())
+			if(!this.game.isLastTurn()){
+				if(this.ID!=this.pastTurnPlayerID){
 				JOptionPane.showMessageDialog(null, "It's your turn");
-			else{
+				}
+			}
+			else
+			{
 				JOptionPane.showMessageDialog(null, "LAST TURN! ");
 			}
 		}else{
 			turnIndicator.setText("It's "+game.getCurrentPlayer().getName()+" - "+game.getCurrentPlayer().getPlayerID()+"turn");
 		}
+		this.pastTurnPlayerID=this.game.getCurrentPlayer().getPlayerID();
 		
 		JTextPane textPane = (JTextPane)Arrays.asList(playerTab.getComponents()).stream().filter(e -> e.getName()!=null&&e.getName().equals("playerName")).findFirst().get();
 		textPane.setText(player.getName());
