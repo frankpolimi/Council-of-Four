@@ -21,8 +21,12 @@ public class PoliticsDeck implements Serializable
 	 * constructor of a deck of politics card
 	 * @param array the list of politics card in the deck
 	 */
-	public PoliticsDeck(ArrayList<PoliticsCard> array) 
+	public PoliticsDeck(ArrayList<PoliticsCard> array)
 	{
+		if(array==null){
+			throw new NullPointerException("Array is null");
+		}
+
 		deck=array;
 	}
 	
@@ -30,9 +34,13 @@ public class PoliticsDeck implements Serializable
 	 * method that add the cards of the deck as parameter
 	 * to this deck
 	 * @param politicsDeck the deck of used cards
+	 * @throws NullPointerException if param is null
 	 */
 	public void addUsedPolitics(PoliticsDeck politicsDeck)
 	{
+		if(politicsDeck==null)
+			throw new NullPointerException("used Deck passed is null");
+		
 		for(PoliticsCard p:politicsDeck.deck)
 			this.deck.add(p);
 	}
