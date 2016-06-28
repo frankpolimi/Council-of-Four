@@ -71,7 +71,9 @@ public class WinnerSelector{
 		}
 		//Permits Points
 		Player firstPermits=this.getMax(PERMITSMETHOD);
-		firstPermits.setPoints(firstPermits.getPoints()+PERMITSPOINTS);
+		List<Player> others=this.sameLevel(firstPermits, PERMITSMETHOD);
+		if(others.isEmpty())
+			firstPermits.setPoints(firstPermits.getPoints()+PERMITSPOINTS);
 	}
 	
 	/**
