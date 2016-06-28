@@ -101,7 +101,6 @@ public class XMLReaderForClient {
 				kingPanel.setOpaque(false);
 				kingPanel.setBounds((newPanel.getWidth()/2)-(kingDim.width/2),(newPanel.getHeight()/2)-(kingDim.height/2), kingDim.width, kingDim.height);
 				kingPanel.setSize(bonusDim);
-				newPanel.setBorder(new LineBorder(Color.black));
 				newPanel.add(kingPanel);
 				JPanel emporiumPanel=new JPanel();
 				emporiumPanel.setName("emporiumPanel"+city.getFirstChar());
