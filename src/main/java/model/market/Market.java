@@ -121,7 +121,9 @@ public class Market implements Serializable{
 				this.assignPoliticsCard(owner, ((PoliticsCard)o.getObject()));
 			else if(o.getObject().getClass().equals(BuildingPermit.class))
 				this.assignBuildingLicense(owner, ((BuildingPermit)o.getObject()));
+			this.products.remove(o);
 		}
+		System.out.println(this.products);
 	}
 
 	/**
