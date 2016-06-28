@@ -104,7 +104,7 @@
 			<permit initial1="H" path="src/main/resources/Immagini/permits_h.jpg">
 				<bonus className="AssistantBonus" amount="4"></bonus>
 			</permit>
-			<permit initial1="F" initial2="G" initial3="H" path="src/main/resources/Immagini/permits_fgh.jpg">
+			<permit initial1="F" initial2="G" initial3="J" path="src/main/resources/Immagini/permits_fgj.jpg">
 				<bonus className="CoinBonus" amount="2"></bonus>
 				<bonus className="PointBonus" amount="1"></bonus>
 			</permit>
