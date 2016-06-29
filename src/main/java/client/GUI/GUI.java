@@ -26,6 +26,7 @@ import model.game.Emporium;
 import model.game.Game;
 import model.game.Player;
 import model.game.PointsTile;
+import model.game.RegionTile;
 import model.game.council.Councillor;
 import model.game.topology.City;
 import model.game.topology.Region;
@@ -45,9 +46,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
 import java.awt.SystemColor;
 import javax.swing.border.BevelBorder;
-import java.awt.GridLayout;
-import java.awt.MouseInfo;
-import java.awt.Point;
 import java.awt.Rectangle;
 
 public class GUI extends JFrame implements ClientViewInterface {
@@ -64,10 +62,11 @@ public class GUI extends JFrame implements ClientViewInterface {
 	private int pastTurnPlayerID;
 	
 	private JPanel contentPane;
-	
+	/*
 	private String pathland="src/main/resources/Immagini/mareA.jpg";
 	private String pathhill="src/main/resources/Immagini/collinaAridim.jpg";
 	private String pathmountain="src/main/resources/Immagini/montagnaAridim.jpg";
+	*/
 	private final static String pathNobility="src/main/resources/Immagini/nobility.jpg";
 	
 	private final String pathAction="src/main/resources/Immagini/Rules.jpg";
@@ -196,38 +195,36 @@ public class GUI extends JFrame implements ClientViewInterface {
 		mountainDeck.setLocation(nobilityPanelDimension.width*70/100, nobilityPanelDimension.height*43/1000);
 		nobility.add(mountainDeck);
 		
-		/*
-		ImagePanel blueTile = new ImagePanel(pathBlueTile, colorTileDimension);
+		JPanel blueTile = new JPanel();
 		blueTile.setOpaque(false);	
 		blueTile.setSize(colorTileDimension);
 		blueTile.setLocation(nobilityPanelDimension.width*739/1000, nobilityPanelDimension.height*660/1000);
 		nobility.add(blueTile);
 		
-		ImagePanel orangeTile = new ImagePanel(pathOrangeTile, colorTileDimension);
+		JPanel orangeTile = new JPanel();
 		orangeTile.setOpaque(false);
 		orangeTile.setSize(colorTileDimension);
 		orangeTile.setLocation(nobilityPanelDimension.width*790/1000, nobilityPanelDimension.height*650/1000);
 		nobility.add(orangeTile);
 		
-		ImagePanel greyTile = new ImagePanel(pathGreyTile, colorTileDimension);
+		JPanel greyTile = new JPanel();
 		greyTile.setOpaque(false);
 		greyTile.setSize(colorTileDimension);
 		greyTile.setLocation(nobilityPanelDimension.width*837/1000, nobilityPanelDimension.height*628/1000);
 		nobility.add(greyTile);
 		
-		ImagePanel yellowTile = new ImagePanel(pathYellowTile, colorTileDimension);
+		JPanel yellowTile = new JPanel();
 		yellowTile.setOpaque(false);
 		yellowTile.setSize(colorTileDimension);
 		yellowTile.setLocation(nobilityPanelDimension.width*886/1000, nobilityPanelDimension.height*611/1000);
 		nobility.add(yellowTile);
 		
-		ImagePanel kingTile = new ImagePanel(pathKingTile.concat("1.jpg"), colorTileDimension);
+		JPanel kingTile = new JPanel();
 		kingTile.setOpaque(false);
 		kingTile.setName("kingTile");
 		kingTile.setSize(colorTileDimension);
 		kingTile.setLocation(nobilityPanelDimension.width*874/1000, nobilityPanelDimension.height*421/1000);
 		nobility.add(kingTile);
-		*/
 		
 		JPanel seasideCouncil = new JPanel();
 		seasideCouncil.setOpaque(false);
@@ -659,10 +656,10 @@ public class GUI extends JFrame implements ClientViewInterface {
 	
 	public void setRegionsBackground(){
 		Set<Region> regionSet=this.game.getRegions();
-		this.pathhill=regionSet.stream().filter(e->e.getName().equals("hill")).map(e->e.getImagePath()).findFirst().get();
-		this.pathmountain=regionSet.stream().filter(e->e.getName().equals("mountain")).map(e->e.getImagePath()).findFirst().get();
-		this.pathland=regionSet.stream().filter(e->e.getName().equals("land")).map(e->e.getImagePath()).findFirst().get();
-	
+		String pathhill=regionSet.stream().filter(e->e.getName().equals("hill")).map(e->e.getImagePath()).findFirst().get();
+		String pathmountain=regionSet.stream().filter(e->e.getName().equals("mountain")).map(e->e.getImagePath()).findFirst().get();
+		String pathland=regionSet.stream().filter(e->e.getName().equals("land")).map(e->e.getImagePath()).findFirst().get();
+		
 		JPanel regions=(JPanel)this.contentPane.getComponents()[0].getComponentAt(0, 0);
 		//regions.removeAll();
 		ImagePanel seaside=new ImagePanel(pathland, singleRegionDimension);
@@ -709,9 +706,44 @@ public class GUI extends JFrame implements ClientViewInterface {
 		mountainTile.setOpaque(false);
 		mountain.add(mountainTile);
 		mountainTile.setName("mountainTile");
+		
+		this.updateRegionTile(seaside);
+		this.updateRegionTile(hill);
+		this.updateRegionTile(mountain);
+		
 				
 	}
 	
+	private void updateRegionTile(ImagePanel region) {
+		
+		Iterator<PointsTile> regionTileIt = this.game.getRegionTileList().iterator();
+		
+		while(regionTileIt.hasNext()){
+			RegionTile rt = (RegionTile)regionTileIt.next();
+			if(rt.getRegion().getName().equals(region.getName())){
+				ImagePanel tile = new ImagePanel(rt.getImagePath(), regionTileDimension);
+				tile.setSize(regionTileDimension);
+				tile.setOpaque(false);
+				tile.setName(rt.getRegion().getName()+"Tile");
+				switch(rt.getRegion().getName()){
+				case "hill":{
+					break;
+				}
+				case "land":{
+					tile.setLocation(singleRegionDimension.width*754/1000, singleRegionDimension.height*910/1000);
+					break;
+				}
+				case "mountain":{
+					break;
+				}
+				}
+				region.add(tile);
+			}
+		}
+	}
+
+
+
 	public void cityBonusLoader() throws JDOMException, IOException{
 		XMLReaderForClient reader=new XMLReaderForClient();
 		Map<Character,City> bonuses=new HashMap<>();
@@ -967,7 +999,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 		imagePanel.remove(imagePanel.getComponentAt(mountainFaceupPermit2.getX(), mountainFaceupPermit2.getY()));
 		imagePanel.add(mountainFaceupPermit2);
 		
-		ImagePanel kingTile = (ImagePanel)imagePanel.getComponentAt(nobilityPanelDimension.width*874/1000+colorTileDimension.width/2,
+		JPanel kingTile = (JPanel)imagePanel.getComponentAt(nobilityPanelDimension.width*874/1000+colorTileDimension.width/2,
 				nobilityPanelDimension.height*421/1000+colorTileDimension.height/2);
 		Rectangle kingBounds=kingTile.getBounds();
 		if(!this.game.getKingTileList().isEmpty()){
@@ -1041,8 +1073,6 @@ public class GUI extends JFrame implements ClientViewInterface {
 			imagePanel.add(tile);
 		}
 	}
-
-
 
 	private void updateEmporiumsData(JPanel regionPanel, City city){
 		JPanel emporiumPanel=(JPanel)this.getComponentByName("emporiumPanel"+city.getFirstChar(), regionPanel);
