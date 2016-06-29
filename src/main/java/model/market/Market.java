@@ -29,7 +29,7 @@ public class Market implements Serializable{
 	
 	/**
 	 * constructor
-	 *@param Game is the game in which there is this market
+	 * @param game is the game in which there is this market
 	 * @throws NullPointerException if param is null
 	 */
 	public Market(Game game) {
