@@ -21,9 +21,11 @@ import model.actions.EngageAssistant;
 import model.actions.ExtraMainAction;
 import model.actions.SkipAction;
 import model.game.BuildingPermit;
+import model.game.ColorTile;
 import model.game.Emporium;
 import model.game.Game;
 import model.game.Player;
+import model.game.PointsTile;
 import model.game.council.Councillor;
 import model.game.topology.City;
 import model.game.topology.Region;
@@ -78,10 +80,6 @@ public class GUI extends JFrame implements ClientViewInterface {
 	private final String pathHillTile="src/main/resources/Immagini/region_tile_hill.jpg";
 	private final String pathMountainTile="src/main/resources/Immagini/region_tile_mountain.jpg";
 	
-	private final String pathBlueTile="src/main/resources/Immagini/color_tile_blue.jpg";
-	private final String pathOrangeTile="src/main/resources/Immagini/color_tile_orange.jpg";
-	private final String pathGreyTile="src/main/resources/Immagini/color_tile_grey.jpg";
-	private final String pathYellowTile="src/main/resources/Immagini/color_tile_yellow.jpg";
 	private final String pathKingTile="src/main/resources/Immagini/king_tile_";
 	
 	public static final Dimension monitorDimension=Toolkit.getDefaultToolkit().getScreenSize();
@@ -133,7 +131,6 @@ public class GUI extends JFrame implements ClientViewInterface {
 		contentPane.setLayout(null);
 		
 		JPanel cardBoard = new JPanel();
-		//cardBoard.setLocation(1, 1);
 		cardBoard.setSize(cardBoardDimension);
 		cardBoard.setBorder(new LineBorder(Color.BLACK));
 		contentPane.add(cardBoard);
@@ -178,7 +175,6 @@ public class GUI extends JFrame implements ClientViewInterface {
 		*/
 		
 		ImagePanel nobility = new ImagePanel(pathNobility, nobilityPanelDimension);
-		//nobility.setLocation(1, 368);
 		nobility.setSize(nobilityPanelDimension);
 		cardBoard.add(nobility);
 		nobility.setLayout(null);
@@ -200,6 +196,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 		mountainDeck.setLocation(nobilityPanelDimension.width*70/100, nobilityPanelDimension.height*43/1000);
 		nobility.add(mountainDeck);
 		
+		/*
 		ImagePanel blueTile = new ImagePanel(pathBlueTile, colorTileDimension);
 		blueTile.setOpaque(false);	
 		blueTile.setSize(colorTileDimension);
@@ -230,6 +227,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 		kingTile.setSize(colorTileDimension);
 		kingTile.setLocation(nobilityPanelDimension.width*874/1000, nobilityPanelDimension.height*421/1000);
 		nobility.add(kingTile);
+		*/
 		
 		JPanel seasideCouncil = new JPanel();
 		seasideCouncil.setOpaque(false);
@@ -982,6 +980,8 @@ public class GUI extends JFrame implements ClientViewInterface {
 		imagePanel.remove(imagePanel.getComponentAt(kingTile.getX()+kingTile.getWidth()/2, kingTile.getY()+kingTile.getHeight()/2));
 		imagePanel.add(kingTile);
 		
+		this.updateColorTile(imagePanel);
+		
 		JPanel map = (JPanel)contentPane.getComponents()[0];
 		map = (JPanel)map.getComponents()[1];
 		
@@ -1017,6 +1017,32 @@ public class GUI extends JFrame implements ClientViewInterface {
 			}
 		}
 	}
+
+	private void updateColorTile(ImagePanel imagePanel) {
+		imagePanel.remove(imagePanel.getComponentAt(nobilityPanelDimension.width*739/1000+colorTileDimension.width/2, nobilityPanelDimension.height*660/1000+colorTileDimension.height/2));
+		imagePanel.remove(imagePanel.getComponentAt(nobilityPanelDimension.width*790/1000+colorTileDimension.width/2, nobilityPanelDimension.height*650/1000+colorTileDimension.height/2));
+		imagePanel.remove(imagePanel.getComponentAt(nobilityPanelDimension.width*837/1000+colorTileDimension.width/2, nobilityPanelDimension.height*628/1000+colorTileDimension.height/2));
+		imagePanel.remove(imagePanel.getComponentAt(nobilityPanelDimension.width*886/1000+colorTileDimension.width/2, nobilityPanelDimension.height*611/1000+colorTileDimension.height/2));
+		
+		Iterator<PointsTile> pointsIterator = this.game.getColorTileList().iterator();
+		while(pointsIterator.hasNext()){
+			ColorTile ct = (ColorTile)pointsIterator.next();
+			ImagePanel tile = new ImagePanel(ct.getImagePath(), colorTileDimension);
+			tile.setOpaque(false);
+			tile.setSize(colorTileDimension);
+			if(ct.getCityColor().equals(Color.BLUE))
+				tile.setLocation(nobilityPanelDimension.width*739/1000, nobilityPanelDimension.height*660/1000);
+			else if (ct.getCityColor().equals(Color.RED))
+				tile.setLocation(nobilityPanelDimension.width*790/1000, nobilityPanelDimension.height*650/1000);
+			else if(ct.getCityColor().equals(new Color(190, 190, 190)))
+				tile.setLocation(nobilityPanelDimension.width*837/1000, nobilityPanelDimension.height*628/1000);
+			else if(ct.getCityColor().equals(Color.YELLOW))
+				tile.setLocation(nobilityPanelDimension.width*886/1000, nobilityPanelDimension.height*611/1000);
+			imagePanel.add(tile);
+		}
+	}
+
+
 
 	private void updateEmporiumsData(JPanel regionPanel, City city){
 		JPanel emporiumPanel=(JPanel)this.getComponentByName("emporiumPanel"+city.getFirstChar(), regionPanel);
