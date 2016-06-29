@@ -17,6 +17,7 @@ public class ClientSocket implements ClientInterface
 	private LocalStorage memoryContainer;
 	private int ID;
 	private ClientViewInterface clientView;
+	private ConnectionHandler handler;
 	
 	
 	public ClientSocket(String ip, int port, ClientViewInterface view) {
@@ -25,6 +26,7 @@ public class ClientSocket implements ClientInterface
 		this.port = port;
 		this.memoryContainer=new LocalStorage();
 		this.clientView=view;
+		
 	}
 	
 	@Override
@@ -55,7 +57,7 @@ public class ClientSocket implements ClientInterface
 		Socket socket = new Socket(ip, port);
 		
 		ExecutorService executor = Executors.newFixedThreadPool(2);
-		SocketConnectionHandler handler = new SocketConnectionHandler(socket);
+		this.handler = new SocketConnectionHandler(socket);
 		
 		//ObjectOutputStream socketOut=new ObjectOutputStream(socket.getOutputStream());
 		try {
@@ -100,5 +102,10 @@ public class ClientSocket implements ClientInterface
 		}catch(IOException e){
 			System.out.println(e.getMessage());
 		}
+	}
+
+	@Override
+	public ConnectionHandler getConnectionHandler() {
+		return handler;
 	}
 }

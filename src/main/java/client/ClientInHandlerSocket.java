@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import controller.BonusChange;
 import controller.Change;
+import controller.ChatChange;
 import controller.ErrorChange;
 import controller.MarketChange;
 import controller.ModelChange;
@@ -39,11 +40,11 @@ public class ClientInHandlerSocket implements Runnable
 				System.out.println("THE GAME IS FINISHED - BYE BYE");
 				break;
 			}
-			/*
-			if(x.getClass().equals(Integer.class)){
-				this.clientView.setId(((Integer)x).intValue());
-				System.out.println(this.clientView.getId());
-			}*/
+			
+			if(x.getClass().equals(ChatChange.class)){
+				ChatChange change=(ChatChange)x;
+				this.clientView.updateChat(change.getMessage(),change.getOwnersName(),change.getId());
+			}
 			if(x.getClass().equals(String.class)){
 				this.clientView.stampMessage((String)x);
 				this.memoryContainer.setUpdated(true);

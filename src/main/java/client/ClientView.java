@@ -550,4 +550,10 @@ public class ClientView implements ClientViewInterface{
 	public void stampMessage(String message) {
 		System.out.println(message);
 	}
+
+	@Override
+	public void updateChat(String message, String owner, int id) {
+		//Our choise is to not implemented a chat in the CLI Version.
+		//But we leave the possibility to do that with this method.
+	}
 }

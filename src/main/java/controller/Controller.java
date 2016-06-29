@@ -48,7 +48,14 @@ public class Controller implements Observer<Request>{
 	@Override
 	public void update(Request request) throws IllegalArgumentException, IllegalStateException{
 		
+		if(request.getClass().equals(ChatRequest.class)){
+			ChatRequest chat=(ChatRequest)request;
+			game.notifyObservers(new ChatChange(chat.getMessage(),chat.getName(),chat.getID()));
+			return;
+		}
+		
 		if(game.getGameState().getClass().equals(EndState.class)) return;
+		
 		
 		if(request.getClass().equals(QuitRequest.class)&&game.getGameState()!=null){
 			QuitRequest disconnection=(QuitRequest)request;

@@ -11,6 +11,8 @@ import client.ClientInterface;
 import client.ClientRMI;
 import client.ClientSocket;
 import client.ConfigReader;
+import client.ConnectionHandler;
+
 import javax.swing.JLabel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
@@ -23,6 +25,8 @@ import java.io.IOException;
 import java.rmi.AlreadyBoundException;
 import java.rmi.NotBoundException;
 import java.util.Enumeration;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
 
 public class StartScreen extends JFrame {
 
@@ -126,9 +130,11 @@ public class StartScreen extends JFrame {
 				String name=txtInsertYourName.getText();
 				System.out.println(connectionSelected.getText());
 				ClientInterface client=null;
+				ConnectionHandler handler;
 				if(connectionSelected.getText().equalsIgnoreCase("socket")){
 				
 					client=new ClientSocket(host, socketPort, new GUI());
+					
 				}else if(connectionSelected.getText().equalsIgnoreCase("RMI")){
 					try {
 						client=new ClientRMI(host, rmiPort, new GUI());
@@ -139,11 +145,17 @@ public class StartScreen extends JFrame {
 				
 				try {
 					client.runClient(name);
+					
 				} catch (IOException | NotBoundException | JDOMException | AlreadyBoundException e) {
 					e.printStackTrace();
 				}
+				handler=client.getConnectionHandler();
 				((GUI)client.getClientView()).setRegionsBackground();
-				((GUI)client.getClientView()).setPlayerDefaultParams(name);;
+				((GUI)client.getClientView()).setPlayerDefaultParams(name);
+				ChatHandler chatHandler=new ChatHandler(handler, ((GUI)client.getClientView()),name);
+				((GUI)client.getClientView()).setChatHandler(chatHandler);
+				((GUI)client.getClientView()).chatImplementation();
+				chatHandler.initializeChatPanel();
 				try {
 					((GUI)client.getClientView()).cityBonusLoader();
 				} catch (JDOMException | IOException e) {

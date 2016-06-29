@@ -2,6 +2,9 @@ package client.GUI;
 
 import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -11,6 +14,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TimeZone;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.Toolkit;
@@ -35,6 +40,8 @@ import view.LocalStorage;
 import view.MarketSellingState;
 import view.Request;
 import view.StartState;
+
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import javax.swing.border.MatteBorder;
@@ -46,6 +53,7 @@ import java.awt.event.ActionEvent;
 import java.awt.SystemColor;
 import javax.swing.border.BevelBorder;
 import java.awt.GridLayout;
+import java.awt.Insets;
 import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.Rectangle;
@@ -62,6 +70,8 @@ public class GUI extends JFrame implements ClientViewInterface {
 	private Request request=null;
 	private GUI thisObj=this;
 	private int pastTurnPlayerID;
+	private JPanel chat;
+	private ChatHandler chatHandler;
 	
 	private JPanel contentPane;
 	
@@ -94,6 +104,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 	public static final Dimension actionButtonDimension= new Dimension(rightPanelDimension.width*48/100, rightPanelDimension.width*766/5000);
 	public static final Dimension councilDimension = new Dimension(nobilityPanelDimension.width*109/1000, nobilityPanelDimension.height*875/10000);
 	public static Dimension regionTileDimension = new Dimension(singleRegionDimension.width*182/1000, singleRegionDimension.height*71/1000);
+	private JTextArea messageBox;
 
 
 	/**
@@ -264,7 +275,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setSize(rightPanelDimension);
 		tabbedPane.setLocation(cardBoard.getWidth(), 0);
-
+		tabbedPane.setName("tabbedPane");
 		contentPane.add(tabbedPane);
 		
 		JPanel currentPlayer = new JPanel();
@@ -443,9 +454,91 @@ public class GUI extends JFrame implements ClientViewInterface {
 		otherEmporiums.setName("otherPoints");
 		otherEmporiums.setBounds(385, 0, 120, 21);
 		otherPlayers.add(otherEmporiums);
+		
+		
 		//setVisible(true);
 	}
 	
+	public void chatImplementation(){
+		//CHAT
+		JTabbedPane tabbedPane=(JTabbedPane)this.getComponentByName("tabbedPane", contentPane);
+		chat = new JPanel();
+		tabbedPane.addTab("Chat", null, chat, null);
+		chat.setName("chat");
+		chat.setLayout(null);
+
+		JTextArea textArea = new JTextArea();
+		textArea.setBounds(0, 0, 950*tabbedPane.getWidth()/1000, 755*tabbedPane.getHeight()/1000);
+		textArea.setWrapStyleWord(true);
+		textArea.setLineWrap(true);
+		textArea.setName("textArea");
+		chat.add(textArea);
+		textArea.setEditable(false);
+		JScrollPane scrollArea=new JScrollPane(textArea);
+		scrollArea.setBounds(textArea.getBounds());
+		chat.add(scrollArea);
+		scrollArea.setName("scrollArea");
+		
+
+
+		messageBox = new JTextArea();
+		messageBox.setBounds(0, 760*tabbedPane.getHeight()/1000, 790*tabbedPane.getWidth()/1000, 105*tabbedPane.getHeight()/1000);
+		messageBox.setWrapStyleWord(true);
+		messageBox.setLineWrap(true);
+		chat.add(messageBox);
+		messageBox.setColumns(10);
+		messageBox.setName("messageBox");
+		JScrollPane scrollMessage=new JScrollPane(messageBox);
+		scrollMessage.setBounds(messageBox.getBounds());
+		chat.add(scrollMessage);
+		scrollMessage.setName("scrollMessage");
+
+
+		JButton btnSend = new JButton("Send");
+		btnSend.setBounds(800*tabbedPane.getWidth()/1000, 760*tabbedPane.getHeight()/1000, 160*tabbedPane.getWidth()/1000, 30*tabbedPane.getHeight()/1000);
+		chat.add(btnSend);
+		btnSend.addMouseListener(chatHandler);
+		
+		JButton btnClear = new JButton("Clear Chat");
+		btnClear.setBounds(800*tabbedPane.getWidth()/1000, 800*tabbedPane.getHeight()/1000, 160*tabbedPane.getWidth()/1000, 30*tabbedPane.getHeight()/1000);
+		chat.add(btnClear);
+		btnClear.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				super.mouseClicked(e);
+				textArea.setText("");
+			}
+		});
+	}
+	
+	/**
+	 * @return the chat
+	 */
+	public JPanel getChat() {
+		return chat;
+	}
+
+
+
+	/**
+	 * @return the chatHandler
+	 */
+	public ChatHandler getChatHandler() {
+		return chatHandler;
+	}
+
+
+
+	/**
+	 * @param chatHandler the chatHandler to set
+	 */
+	public void setChatHandler(ChatHandler chatHandler) {
+		this.chatHandler = chatHandler;
+	}
+
+
+
 	public void setRequest(Request request) {
 		if(game.getCurrentPlayer().getPlayerID()!=this.ID)
 			JOptionPane.showMessageDialog(null, "It's not your turn", "Wrong turn", JOptionPane.ERROR_MESSAGE);
@@ -1211,6 +1304,13 @@ public class GUI extends JFrame implements ClientViewInterface {
 	public LocalStorage getMemoryContainer() {
 		return memoryContainer;
 	}
-	
-	
+
+
+
+	@Override
+	public void updateChat(String message, String owner, int id) {
+		JScrollPane scroll=(JScrollPane)this.getComponentByName("scrollArea", this.chat);
+		JTextArea area=(JTextArea)scroll.getViewport().getView();
+		area.append("\n"+owner+" - "+id+": "+message);
+	}
 }

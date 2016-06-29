@@ -81,5 +81,10 @@ public class ClientRMI extends UnicastRemoteObject implements Serializable, Clie
 	public ClientViewInterface getClientView(){
 		return this.view;
 	}
+
+	@Override
+	public ConnectionHandler getConnectionHandler() {
+		return handler;
+	}
 	
 }

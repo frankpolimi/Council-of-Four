@@ -12,6 +12,7 @@ import org.jdom2.JDOMException;
 
 import controller.BonusChange;
 import controller.Change;
+import controller.ChatChange;
 import controller.ErrorChange;
 import controller.MarketChange;
 import controller.ModelChange;
@@ -84,6 +85,9 @@ public class ClientRMIView extends UnicastRemoteObject implements ClientRMIRemot
 			synchronized (memoryContainer) {
 				this.memoryContainer.getGameRef().setMarket(market.getMarket());
 			}
+		}else if(change.getClass().equals(ChatChange.class)){
+			ChatChange chatChange=(ChatChange)change;
+			this.view.updateChat(chatChange.getMessage(),chatChange.getOwnersName(),chatChange.getId());
 		}
 		this.memoryContainer.setUpdated(true);
 	}
