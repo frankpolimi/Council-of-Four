@@ -642,6 +642,7 @@ public class Game extends Observable<Change> implements Serializable, Remote{
 					if(rt.getRegion().getName().equals(x.getName()))
 						if(!curr.getTilesOwned().contains(rt)){
 							curr.addPointsTile(rt);
+							regionTileList.remove(rt);
 							assigned  = true;
 						}
 				}
@@ -657,6 +658,7 @@ public class Game extends Observable<Change> implements Serializable, Remote{
 				if(((ColorTile)pt2).getCityColor().equals(builtOn.getCityColor()) && 
 						!curr.getTilesOwned().contains(pt2)){
 					curr.addPointsTile(pt2);
+					colorTileList.remove(pt2);
 					assigned = true;
 				}
 		
@@ -705,6 +707,20 @@ public class Game extends Observable<Change> implements Serializable, Remote{
 	 */
 	public List<PointsTile> getKingTileList() {
 		return kingTileList;
+	}
+
+	/**
+	 * @return the colorTileList
+	 */
+	public List<PointsTile> getColorTileList() {
+		return colorTileList;
+	}
+
+	/**
+	 * @return the regionTileList
+	 */
+	public List<PointsTile> getRegionTileList() {
+		return regionTileList;
 	}
 	
 }
