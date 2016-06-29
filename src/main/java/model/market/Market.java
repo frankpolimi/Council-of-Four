@@ -122,6 +122,7 @@ public class Market implements Serializable{
 			else if(o.getObject().getClass().equals(BuildingPermit.class))
 				this.assignBuildingLicense(owner, ((BuildingPermit)o.getObject()));
 		}
+		this.products.clear();
 	}
 
 	/**

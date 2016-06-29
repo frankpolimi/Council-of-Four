@@ -127,7 +127,7 @@ public class Server
 					this.addClient(view);
 					executor.submit(view);
 				}catch(IOException e){
-					System.out.println("Client has been disconnected");
+					//System.out.println("Client has been disconnected");
 				}
 			} catch (IOException e) {
 				break;

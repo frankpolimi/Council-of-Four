@@ -2,7 +2,7 @@
 <config>
 	<IP value="127.0.0.1"></IP>
 	<PORT>
-		<SOCKETPORT value="50000"></SOCKETPORT>
-		<RMIPORT value="1099"></RMIPORT>
+		<SOCKETPORT value="27312"></SOCKETPORT>
+		<RMIPORT value="34197"></RMIPORT>
 	</PORT>
 </config>

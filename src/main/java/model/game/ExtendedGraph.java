@@ -96,6 +96,8 @@ public class ExtendedGraph<V extends City,E> extends SimpleGraph<V, E> implement
 		Set<V> connected=connectivity.connectedSetOf(newEmpVertex);
 		for(V v:connected){
 			v.applyBonus(game);
+			System.out.println("Applico a "+v);
+			System.out.println("I BONUS"+((City)v).getBonus());
 		}
 		
 	}

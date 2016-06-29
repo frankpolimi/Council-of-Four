@@ -16,6 +16,7 @@ import org.junit.Test;
 
 import model.game.BuildingPermit;
 import model.game.Game;
+import model.game.Player;
 import model.game.politics.ColoredPoliticsCard;
 import model.game.politics.JollyPoliticsCard;
 import model.game.politics.PoliticsCard;
@@ -164,6 +165,9 @@ public class MarketTest {
 		assertFalse(game.getCurrentPlayer().getAllPermits().contains(permit));
 		market.returnUnselledItems();
 		assertTrue(game.getCurrentPlayer().getAllPermits().contains(permit));
+		for(Player p:game.getPlayers()){
+			assertTrue(market.getAvailableProducts(p).isEmpty());
+		}
 	}
 	
 	
