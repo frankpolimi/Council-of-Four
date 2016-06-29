@@ -43,7 +43,7 @@ public class BuildEmporiumByPermit extends MainAction
 	public boolean takeAction(Game game)
 	{
 		this.buildEmporiumControls(game, city);
-		
+
 		boolean contained=false;
 		for(City c:permit.getBuildingAvaliableCities())
 		{
@@ -55,37 +55,24 @@ public class BuildEmporiumByPermit extends MainAction
 		}
 		if(!contained)
 			throw new IllegalArgumentException("The city where the player is trying to build is not present on the permit");
-		
-		/*if(!permit.getBuildingAvaliableCities().contains(city))
+
+		for(City c:game.getAllCities())
 		{
-			throw new IllegalArgumentException("The city where the player is trying to build is not present on the permit");
-		}*/
-		
-		int otherEmporiums=city.getEmporiums().size();
-		
-		if(game.getCurrentPlayer().checkAssistants(otherEmporiums))
-		{
-			game.decrementMainActionCounter();
-			game.getCurrentPlayer().usePermit(permit);
-			for(City c:game.getAllCities())
+			if(c.equals(city))
 			{
-				if(c.equals(city))
-				{
-					c.addEmporium(game.getCurrentPlayer());
-					game.getMap().applyConnectedCitiesBonus(c, 
-							game.getCurrentPlayer().getEmporiumsCitiesSet(), game);
-					game.giveTiles(game.getCurrentPlayer(), c);
-					break;
-				}
+				game.decrementMainActionCounter();
+				game.getCurrentPlayer().usePermit(permit);
+				c.addEmporium(game.getCurrentPlayer());
+				game.getMap().applyConnectedCitiesBonus(c, 
+						game.getCurrentPlayer().getEmporiumsCitiesSet(), game);
+				game.giveTiles(game.getCurrentPlayer(), c);
+				break;
 			}
-			super.takeAction(game);
-			return true;
 		}
-		else 
-		{
-			throw new IllegalStateException("Not enough assistants to build in this city. For each other player's emporium you have to pay 1 assistant");
-		}	
-	}
+		super.takeAction(game);
+		return true;
+
+}
 
 	@Override
 	public String toString() {
