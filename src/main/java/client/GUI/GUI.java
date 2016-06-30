@@ -2,9 +2,6 @@ package client.GUI;
 
 import java.awt.Dimension;
 import java.awt.EventQueue;
-import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -14,7 +11,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.TimeZone;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -42,7 +38,6 @@ import view.MarketSellingState;
 import view.Request;
 import view.StartState;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import javax.swing.border.MatteBorder;
@@ -53,10 +48,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
 import java.awt.SystemColor;
 import javax.swing.border.BevelBorder;
-import java.awt.GridLayout;
-import java.awt.Insets;
-import java.awt.MouseInfo;
-import java.awt.Point;
 import java.awt.Rectangle;
 
 public class GUI extends JFrame implements ClientViewInterface {
@@ -75,11 +66,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 	private ChatHandler chatHandler;
 	
 	private JPanel contentPane;
-	/*
-	private String pathland="src/main/resources/Immagini/mareA.jpg";
-	private String pathhill="src/main/resources/Immagini/collinaAridim.jpg";
-	private String pathmountain="src/main/resources/Immagini/montagnaAridim.jpg";
-	*/
+
 	private final static String pathNobility="src/main/resources/Immagini/nobility.jpg";
 	
 	private final String pathAction="src/main/resources/Immagini/Rules.jpg";
@@ -87,12 +74,6 @@ public class GUI extends JFrame implements ClientViewInterface {
 	private final String pathSeasideDeck="src/main/resources/Immagini/seaside_deck.jpg";
 	private final String pathHillDeck="src/main/resources/Immagini/hill_deck.jpg";
 	private final String pathMountainDeck="src/main/resources/Immagini/mountain_deck.jpg";
-	
-	private final String pathSeasideTile="src/main/resources/Immagini/region_tile_land.jpg";
-	private final String pathHillTile="src/main/resources/Immagini/region_tile_hill.jpg";
-	private final String pathMountainTile="src/main/resources/Immagini/region_tile_mountain.jpg";
-	
-	private final String pathKingTile="src/main/resources/Immagini/king_tile_";
 	
 	public static final Dimension monitorDimension=Toolkit.getDefaultToolkit().getScreenSize();
 	public static final Dimension cardBoardDimension=new Dimension((monitorDimension.width/160*105), (monitorDimension.height));
@@ -505,7 +486,6 @@ public class GUI extends JFrame implements ClientViewInterface {
 		btnClear.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				// TODO Auto-generated method stub
 				super.mouseClicked(e);
 				textArea.setText("");
 			}
@@ -766,13 +746,6 @@ public class GUI extends JFrame implements ClientViewInterface {
 		seaside.setLayout(null);
 		seaside.setBounds(0, 0, singleRegionDimension.width, singleRegionDimension.height);
 		
-		ImagePanel seasideTile = new ImagePanel(pathSeasideTile, regionTileDimension);
-		seasideTile.setSize(regionTileDimension);
-		seasideTile.setLocation(singleRegionDimension.width*754/1000, singleRegionDimension.height*910/1000);
-		seasideTile.setName("landTile");
-		seasideTile.setOpaque(false);
-		seaside.add(seasideTile);
-		
 		ImagePanel hill=new ImagePanel(pathhill, singleRegionDimension);
 		//hill.setLocation(448, 0);
 		hill.setSize(singleRegionDimension);
@@ -780,13 +753,6 @@ public class GUI extends JFrame implements ClientViewInterface {
 		regions.add(hill);
 		hill.setLayout(null);
 		hill.setBounds(singleRegionDimension.width, 0, singleRegionDimension.width, singleRegionDimension.height);
-		
-		ImagePanel hillTile = new ImagePanel(pathHillTile, regionTileDimension);
-		hillTile.setSize(regionTileDimension);
-		hillTile.setLocation(singleRegionDimension.width*657/1000, singleRegionDimension.height*915/1000);
-		hillTile.setOpaque(false);
-		hillTile.setName("hillTile");
-		hill.add(hillTile);
 		
 		ImagePanel mountain=new ImagePanel(pathmountain, singleRegionDimension);
 		//mountain.setLocation(896, 0);
@@ -796,33 +762,47 @@ public class GUI extends JFrame implements ClientViewInterface {
 		mountain.setLayout(null);
 		mountain.setBounds(2*singleRegionDimension.width, 0, singleRegionDimension.width, singleRegionDimension.height);
 		
-		ImagePanel mountainTile = new ImagePanel(pathMountainTile, regionTileDimension);
+		JPanel landTile = new JPanel();
+		landTile.setSize(regionTileDimension);
+		landTile.setLocation(singleRegionDimension.width*754/1000, singleRegionDimension.height*910/1000);
+		landTile.setOpaque(false);
+		
+		JPanel hillTile = new JPanel();
+		hillTile.setSize(regionTileDimension);
+		hillTile.setLocation(singleRegionDimension.width*657/1000, singleRegionDimension.height*915/1000);
+		hillTile.setOpaque(false);
+		
+		JPanel mountainTile = new JPanel();
 		mountainTile.setSize(regionTileDimension);
 		mountainTile.setLocation(singleRegionDimension.width*653/1000, singleRegionDimension.height*915/1000);
 		mountainTile.setOpaque(false);
+		
 		mountain.add(mountainTile);
-		mountainTile.setName("mountainTile");
+		hill.add(hillTile);
+		seaside.add(landTile);
 		
 		this.updateRegionTile(seaside);
 		this.updateRegionTile(hill);
 		this.updateRegionTile(mountain);
-		
-				
 	}
 	
-	private void updateRegionTile(ImagePanel region) {
+	private void updateRegionTile(JPanel jPanel) {
 		
 		Iterator<PointsTile> regionTileIt = this.game.getRegionTileList().iterator();
+		jPanel.remove(jPanel.getComponentAt(singleRegionDimension.width*657/1000, singleRegionDimension.height*915/1000));
+		jPanel.remove(jPanel.getComponentAt(singleRegionDimension.width*754/1000, singleRegionDimension.height*910/1000));
+		jPanel.remove(jPanel.getComponentAt(singleRegionDimension.width*653/1000, singleRegionDimension.height*915/1000));
 		
 		while(regionTileIt.hasNext()){
 			RegionTile rt = (RegionTile)regionTileIt.next();
-			if(rt.getRegion().getName().equals(region.getName())){
+			if(rt.getRegion().getName().equals(jPanel.getName())){
 				ImagePanel tile = new ImagePanel(rt.getImagePath(), regionTileDimension);
 				tile.setSize(regionTileDimension);
 				tile.setOpaque(false);
 				tile.setName(rt.getRegion().getName()+"Tile");
 				switch(rt.getRegion().getName()){
 				case "hill":{
+					tile.setLocation(singleRegionDimension.width*657/1000, singleRegionDimension.height*915/1000);
 					break;
 				}
 				case "land":{
@@ -830,10 +810,11 @@ public class GUI extends JFrame implements ClientViewInterface {
 					break;
 				}
 				case "mountain":{
+					tile.setLocation(singleRegionDimension.width*653/1000, singleRegionDimension.height*915/1000);
 					break;
 				}
 				}
-				region.add(tile);
+				jPanel.add(tile);
 			}
 		}
 	}
@@ -1099,8 +1080,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 				nobilityPanelDimension.height*421/1000+colorTileDimension.height/2);
 		Rectangle kingBounds=kingTile.getBounds();
 		if(!this.game.getKingTileList().isEmpty()){
-			kingTile = new ImagePanel(pathKingTile+
-					Integer.toString(5-this.game.getKingTileList().size()+1)+".jpg", 
+			kingTile = new ImagePanel(this.game.getKingTileList().get(0).getImagePath(), 
 					colorTileDimension);
 			kingTile.setBounds(kingBounds);
 			kingTile.setOpaque(false);
@@ -1108,6 +1088,9 @@ public class GUI extends JFrame implements ClientViewInterface {
 		imagePanel.remove(imagePanel.getComponentAt(kingTile.getX()+kingTile.getWidth()/2, kingTile.getY()+kingTile.getHeight()/2));
 		imagePanel.add(kingTile);
 		
+		this.updateRegionTile((JPanel)regions.getComponentAt(0, 0));
+		this.updateRegionTile((JPanel)regions.getComponentAt(singleRegionDimension.width, 0));
+		this.updateRegionTile((JPanel)regions.getComponentAt(2*singleRegionDimension.width, 0));
 		this.updateColorTile(imagePanel);
 		
 		JPanel map = (JPanel)contentPane.getComponents()[0];

@@ -113,7 +113,7 @@ public class BuildingPermit extends Bonusable implements Serializable{
 	}
 
 	/**
-	 * @author Francesco vetr�
+	 * @author Francesco vetro'
 	 * @return the bonuses applied to the permit
 	 */
 	public String displayBonus() {

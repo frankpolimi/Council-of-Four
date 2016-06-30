@@ -3,17 +3,13 @@
  */
 package model.bonus;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import controller.PermitsChange;
-import model.game.BuildingPermit;
 import model.game.Game;
-import model.game.topology.Region;
 import view.*;
 
 /**
- * @author Francesco Vetr�
+ * @author Francesco Vetro'
  *
  */
 public class FreeBuildingLicenseBonus extends ActionBonus {
@@ -38,7 +34,7 @@ public class FreeBuildingLicenseBonus extends ActionBonus {
 	}
 
 	/**
-	 * will be update by a change in the model and will get all the face-up
+	 * will be update by a change in the model and will get all the decks of
 	 * permits from each region and will pass it to the specific view of the 
 	 * player whose turn is.
 	 * @param game the instance of the game that must collect
