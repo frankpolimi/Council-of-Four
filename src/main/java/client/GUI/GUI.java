@@ -139,34 +139,6 @@ public class GUI extends JFrame implements ClientViewInterface {
 		cardBoard.add(regions);
 		regions.setBounds(0, 0, regionPanelDimension.width, regionPanelDimension.height);
 		regions.setLayout(null);
-		/*
-		ImagePanel seaside=new ImagePanel(pathland, singleRegionDimension);
-		//seaside.setLocation(0, 0);
-		seaside.setSize(singleRegionDimension);
-		regions.add(seaside);
-		seaside.setLayout(null);
-		seaside.setBounds(0, 0, singleRegionDimension.width, singleRegionDimension.height);
-		
-		
-		
-		ImagePanel hill=new ImagePanel(pathhill, singleRegionDimension);
-		//hill.setLocation(448, 0);
-		hill.setSize(singleRegionDimension);
-		regions.add(hill);
-		hill.setLayout(null);
-		hill.setBounds(singleRegionDimension.width, 0, singleRegionDimension.width, singleRegionDimension.height);
-		
-		
-		
-		ImagePanel mountain=new ImagePanel(pathmountain, singleRegionDimension);
-		//mountain.setLocation(896, 0);
-		mountain.setSize(singleRegionDimension);
-		regions.add(mountain);
-		mountain.setLayout(null);
-		mountain.setBounds(2*singleRegionDimension.width, 0, singleRegionDimension.width, singleRegionDimension.height);
-		
-		
-		*/
 		
 		ImagePanel nobility = new ImagePanel(pathNobility, nobilityPanelDimension);
 		nobility.setSize(nobilityPanelDimension);
@@ -460,8 +432,6 @@ public class GUI extends JFrame implements ClientViewInterface {
 		chat.add(scrollArea);
 		scrollArea.setName("scrollArea");
 		
-
-
 		messageBox = new JTextArea();
 		messageBox.setBounds(0, 760*tabbedPane.getHeight()/1000, 790*tabbedPane.getWidth()/1000, 105*tabbedPane.getHeight()/1000);
 		messageBox.setWrapStyleWord(true);
@@ -473,7 +443,6 @@ public class GUI extends JFrame implements ClientViewInterface {
 		scrollMessage.setBounds(messageBox.getBounds());
 		chat.add(scrollMessage);
 		scrollMessage.setName("scrollMessage");
-
 
 		JButton btnSend = new JButton("Send");
 		btnSend.setBounds(800*tabbedPane.getWidth()/1000, 760*tabbedPane.getHeight()/1000, 160*tabbedPane.getWidth()/1000, 30*tabbedPane.getHeight()/1000);
@@ -499,8 +468,6 @@ public class GUI extends JFrame implements ClientViewInterface {
 		return chat;
 	}
 
-
-
 	/**
 	 * @return the chatHandler
 	 */
@@ -508,16 +475,12 @@ public class GUI extends JFrame implements ClientViewInterface {
 		return chatHandler;
 	}
 
-
-
 	/**
 	 * @param chatHandler the chatHandler to set
 	 */
 	public void setChatHandler(ChatHandler chatHandler) {
 		this.chatHandler = chatHandler;
 	}
-
-
 
 	public void setRequest(Request request) {
 		if(game.getCurrentPlayer().getPlayerID()!=this.ID)
@@ -818,8 +781,6 @@ public class GUI extends JFrame implements ClientViewInterface {
 			}
 		}
 	}
-
-
 
 	public void cityBonusLoader() throws JDOMException, IOException{
 		XMLReaderForClient reader=new XMLReaderForClient();
@@ -1188,6 +1149,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 				name.setText(p.getName());
 				name.setBorder(border);
 				name.setBounds(0, i*21, 75, 21);
+				tableOthers.remove(tableOthers.getComponentAt(0, i*21));
 				tableOthers.add(name);
 				
 				JTextPane color = new JTextPane();
@@ -1195,6 +1157,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 				color.setBackground(p.getChosenColor());
 				color.setBorder(border);
 				color.setBounds(75, i*21, 50, 21);
+				tableOthers.remove(tableOthers.getComponentAt(75, i*21));
 				tableOthers.add(color);
 				
 				JTextPane points = new JTextPane();
@@ -1202,6 +1165,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 				points.setText(Integer.toString(p.getPoints()));
 				points.setBounds(125, i*21, 75, 21);
 				points.setBorder(border);
+				tableOthers.remove(tableOthers.getComponentAt(125, i*21));
 				tableOthers.add(points);
 				
 				JTextPane nobility = new JTextPane();
@@ -1209,6 +1173,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 				nobility.setText(Integer.toString(p.getNobilityPoints()));
 				nobility.setBounds(200, i*21, 75, 21);
 				nobility.setBorder(border);
+				tableOthers.remove(tableOthers.getComponentAt(200, i*21));
 				tableOthers.add(nobility);
 				
 				JTextPane coins = new JTextPane();
@@ -1216,6 +1181,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 				coins.setText(Integer.toString(p.getCoins()));
 				coins.setBounds(275, i*21, 50, 21);
 				coins.setBorder(border);
+				tableOthers.remove(tableOthers.getComponentAt(275, i*21));
 				tableOthers.add(coins);
 				
 				JTextPane assistants = new JTextPane();
@@ -1223,6 +1189,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 				assistants.setText(Integer.toString(p.getAssistants()));
 				assistants.setBounds(325, i*21, 60, 21);
 				assistants.setBorder(border);
+				tableOthers.remove(tableOthers.getComponentAt(325, i*21));
 				tableOthers.add(assistants);
 				
 				JTextPane emporiums = new JTextPane();
@@ -1230,11 +1197,10 @@ public class GUI extends JFrame implements ClientViewInterface {
 				emporiums.setText(Integer.toString(p.getRemainingEmporiums()));
 				emporiums.setBounds(385, i*21, 120, 21);
 				emporiums.setBorder(border);
+				tableOthers.remove(tableOthers.getComponentAt(385, i*21));
 				tableOthers.add(emporiums);
 			}
 	}
-
-
 
 	private void paintCouncil(JPanel council, Dimension councilDimension) {
 		Dimension councillorDimension =  new Dimension(councilDimension.width/4, councilDimension.height);
@@ -1284,8 +1250,6 @@ public class GUI extends JFrame implements ClientViewInterface {
 		council.add(councillor4);
 	}
 
-
-
 	@Override
 	public int getId() {
 		return this.ID;
@@ -1296,32 +1260,32 @@ public class GUI extends JFrame implements ClientViewInterface {
 		this.ID=id;
 	}
 
+	
 	@Override
 	public void stampMessage(String message) {
 		if(!message.equals(""))
 			JOptionPane.showMessageDialog(null, message);
 	}
+	
 
 	@Override
 	public void setGame(Game game) {
 		this.game=game;
 	}
 
+
 	@Override
 	public void setMemoryContainer(LocalStorage memoryLocator) {
 		this.memoryContainer=memoryLocator;
 	}
 
-
-
+	
 	/**
 	 * @return the memoryContainer
 	 */
 	public LocalStorage getMemoryContainer() {
 		return memoryContainer;
 	}
-
-
 
 	@Override
 	public void updateChat(String message, String owner, int id) {
