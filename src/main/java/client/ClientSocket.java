@@ -87,12 +87,13 @@ public class ClientSocket implements ClientInterface
 		executor.submit(new ClientInHandlerSocket(handler, memoryContainer, clientView));
 		
 	}
-	
+	/*
 	@Override
 	public void startClient() throws IOException{
 		Scanner stdin = new Scanner(System.in);
 		System.out.println("Insert your name: ");
 		String name = stdin.nextLine();
+		
 		try{
 			this.runClient(name);
 			System.out.println("Connection Established");
@@ -102,7 +103,9 @@ public class ClientSocket implements ClientInterface
 		}catch(IOException e){
 			System.out.println(e.getMessage());
 		}
-	}
+		CLIChatHandler chatHandler=new CLIChatHandler(this.handler, (ClientView)this.clientView, name);
+		Executors.newFixedThreadPool(1).submit(chatHandler);
+	}*/
 
 	@Override
 	public ConnectionHandler getConnectionHandler() {

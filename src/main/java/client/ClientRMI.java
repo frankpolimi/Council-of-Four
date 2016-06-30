@@ -67,15 +67,16 @@ public class ClientRMI extends UnicastRemoteObject implements Serializable, Clie
 		ExecutorService executors=Executors.newFixedThreadPool(1);
 		executors.submit(new ClientOutHandlerSocket(handler, viewtmp.getMemoryContainer(), view));
 	}
-	
+	/*
 	@Override
 	public void startClient() throws NotBoundException, JDOMException, IOException, AlreadyBoundException{
 		Scanner stdin = new Scanner(System.in);	
 		System.out.println("Insert your name:");
 		String name = stdin.nextLine();
 		this.runClient(name);
-		
-	}
+		CLIChatHandler chatHandler=new CLIChatHandler(this.handler, (ClientView)this.clientView, name);
+		Executors.newFixedThreadPool(1).submit(chatHandler);
+	}*/
 	
 	@Override
 	public ClientViewInterface getClientView(){

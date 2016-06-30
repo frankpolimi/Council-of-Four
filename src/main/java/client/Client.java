@@ -48,32 +48,39 @@ public class Client {
 				System.out.println("2 - Remote Method Invocation (RMI)");
 				do{
 					ClientView clientView=new ClientView();
+					
 					input = in.nextLine();
-					if(input.equalsIgnoreCase("socket") || Integer.parseInt(input) == 1){
-						try {
-							ClientSocket cs = new ClientSocket(host, socket, clientView);
-							cs.startClient();
-						}catch (UnknownHostException e){
-							System.out.println("Sorry! Errors Occurred. Terminating");
-						} catch (IOException e) {
-							logger.log(Level.ALL, e.getMessage());
-						} 
-						break;
-					}
-					else if(input.equalsIgnoreCase("RMI") || Integer.parseInt(input) == 2){
-						try{
-							ClientRMI cr = new ClientRMI(host, rmi, clientView);
-							cr.startClient();
-						}catch (NotBoundException e){
-							System.out.println("Sorry! Errors Occurred. Terminating");
-						}catch (JDOMException e) {
-							System.out.println("Sorry! Errors Occurred. Terminating");
-						}catch (IOException e) {
-							System.out.println("Sorry! Errors Occurred. "+e.getMessage());
-						}catch (AlreadyBoundException e) {
-							System.out.println("Sorry! Errors Occurred. Terminating");
+					if(!(input.equalsIgnoreCase("socket") || Integer.parseInt(input) == 1)&&!(input.equalsIgnoreCase("RMI") || Integer.parseInt(input) == 2)){
+						System.out.println("Not valid value inserted");
+					}else{
+						ClientInterface cs = null;
+						if(input.equalsIgnoreCase("socket") || Integer.parseInt(input) == 1){
+							cs = new ClientSocket(host, socket, clientView); 
+							
+						}else{
+							try{
+								cs= new ClientRMI(host, rmi, clientView);
+								
+							}catch (NotBoundException e){
+								System.out.println("Sorry! Errors Occurred. Terminating");
+								break;
+							}catch (JDOMException e) {
+								System.out.println("Sorry! Errors Occurred. Terminating");
+								break;
+							}catch (IOException e) {
+								System.out.println("Sorry! Errors Occurred. "+e.getMessage());
+								break;
+							}
+							
 						}
-						break;
+						
+						try {
+							cs.startClient();
+							break;
+						} catch (NotBoundException | AlreadyBoundException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 					}
 				}while(true);
 			
