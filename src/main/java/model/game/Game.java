@@ -637,15 +637,19 @@ public class Game extends Observable<Change> implements Serializable, Remote{
 			if(x.getCities().contains(builtOn) && 
 					curr.getEmporiumsCitiesSet().containsAll(x.getCities())){
 				Iterator<PointsTile> rti = regionTileList.iterator();
+				List<PointsTile> eliminatedTiles=new ArrayList<>();
 				while(rti.hasNext()){
-					RegionTile rt = (RegionTile)rti.next();
+					PointsTile prova=rti.next();
+					RegionTile rt = (RegionTile)prova;
 					if(rt.getRegion().getName().equals(x.getName()))
 						if(!curr.getTilesOwned().contains(rt)){
 							curr.addPointsTile(rt);
-							regionTileList.remove(rt);
+							//regionTileList.remove(rt);
+							eliminatedTiles.add(rt);
 							assigned  = true;
 						}
 				}
+				regionTileList.removeAll(eliminatedTiles);
 			}
 		}
 		
@@ -653,14 +657,20 @@ public class Game extends Observable<Change> implements Serializable, Remote{
 		for(City c : this.getAllCities())
 			if(c.getCityColor().equals(builtOn.getCityColor()))
 				sameColorCities.add(c);
-		if(curr.getEmporiumsCitiesSet().containsAll(sameColorCities))
-			for(PointsTile pt2 : colorTileList)
+		ArrayList<PointsTile> eliminatedTiles=new ArrayList<>();
+		if(curr.getEmporiumsCitiesSet().containsAll(sameColorCities)){
+			
+			for(PointsTile pt2 : colorTileList){
 				if(((ColorTile)pt2).getCityColor().equals(builtOn.getCityColor()) && 
 						!curr.getTilesOwned().contains(pt2)){
 					curr.addPointsTile(pt2);
-					colorTileList.remove(pt2);
+					//colorTileList.remove(pt2);
+					eliminatedTiles.add(pt2);
 					assigned = true;
 				}
+			}
+			colorTileList.removeAll(eliminatedTiles);
+		}
 		
 		if(assigned)
 			this.giveKingTile(curr);

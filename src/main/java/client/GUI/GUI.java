@@ -230,10 +230,14 @@ public class GUI extends JFrame implements ClientViewInterface {
 		tabbedPane.setLocation(cardBoard.getWidth(), 0);
 		tabbedPane.setName("tabbedPane");
 		contentPane.add(tabbedPane);
+		contentPane.setBackground(new Color(191, 140, 0));
+		tabbedPane.setBackground(new Color(191, 140, 0));
+		
 		
 		JPanel currentPlayer = new JPanel();
 		tabbedPane.addTab("Player", null, currentPlayer, null);
 		currentPlayer.setLayout(null);
+		currentPlayer.setBackground(new Color(191, 140, 0));
 		
 		JTextPane playerName = new JTextPane();
 		playerName.setOpaque(false);
@@ -345,27 +349,39 @@ public class GUI extends JFrame implements ClientViewInterface {
 		turnIndicator.setBorder(new LineBorder(Color.BLACK));
 		currentPlayer.add(turnIndicator);
 		
+		JPanel tilesPanel = new JPanel();
+		tilesPanel.setBounds(587*tabbedPane.getWidth()/1000, 150*tabbedPane.getHeight()/1000, 279*tabbedPane.getWidth()/1000, 66*tabbedPane.getHeight()/1000);
+		currentPlayer.add(tilesPanel);
+		JScrollPane scrollTiles=new JScrollPane(tilesPanel);
+		scrollTiles.setBounds(tilesPanel.getBounds());
+		scrollTiles.setName("scrollTiles");
+		currentPlayer.add(scrollTiles);
 		
+		JLabel lblTiles = new JLabel("Tiles:");
+		lblTiles.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTiles.setBounds(500*tabbedPane.getWidth()/1000, 172*tabbedPane.getHeight()/1000, 87*tabbedPane.getWidth()/1000, 18*tabbedPane.getHeight()/1000);
+		currentPlayer.add(lblTiles);
 		
 		//ACTIONS		
 		JPanel gamePanel = new JPanel();
 		tabbedPane.addTab("Game", null, gamePanel, null);
 		//gamePanel.setLayout(new BoxLayout(gamePanel, BoxLayout.Y_AXIS));
 		gamePanel.setLayout(null);	
-		
+		gamePanel.setBackground(new Color(191, 140, 0));
+		/*
 		JButton submitChat = new JButton("Submit");
 		submitChat.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		gamePanel.add(submitChat);
+		gamePanel.add(submitChat);*/
 		
 		
 		JPanel otherPlayers = new JPanel();
 		otherPlayers.setName("others");
 		tabbedPane.addTab("Other Players", null, otherPlayers, null);
 		otherPlayers.setLayout(null);
-		
+		otherPlayers.setBackground(new Color(191, 140, 0));
 		JLabel otherName = new JLabel("Name");
 		otherName.setBorder(new LineBorder(new Color(0, 0, 0)));
 		otherName.setName("otherName");
@@ -419,6 +435,7 @@ public class GUI extends JFrame implements ClientViewInterface {
 		tabbedPane.addTab("Chat", null, chat, null);
 		chat.setName("chat");
 		chat.setLayout(null);
+		chat.setBackground(new Color(191, 140, 0));
 
 		JTextArea textArea = new JTextArea();
 		textArea.setBounds(0, 0, 950*tabbedPane.getWidth()/1000, 755*tabbedPane.getHeight()/1000);
@@ -869,6 +886,23 @@ public class GUI extends JFrame implements ClientViewInterface {
 		JTabbedPane tabbedPane = (JTabbedPane)this.contentPane.getComponents()[1];
 		JPanel playerTab=(JPanel)tabbedPane.getComponent(0);
 		JPanel gameTab=(JPanel)tabbedPane.getComponent(1);
+		
+		//Tiles Updating
+		JScrollPane scrollTiles=(JScrollPane)this.getComponentByName("scrollTiles", playerTab);
+		JPanel viewport=(JPanel)scrollTiles.getViewport().getView();
+		
+		viewport.removeAll();
+		viewport.setLayout(new BoxLayout(viewport,BoxLayout.X_AXIS));
+		for(PointsTile tile:player.getTilesOwned()){
+			Dimension dim;
+			if(tile.getClass().equals(RegionTile.class)){
+				dim=new Dimension(143*tabbedPane.getWidth()/1000,58*tabbedPane.getHeight()/1000);
+			}else{
+				dim=new Dimension(58*tabbedPane.getHeight()/1000,58*tabbedPane.getHeight()/1000);
+			}
+			JLabel tileLabel=new ImageLabel(tile.getImagePath(),dim);
+			viewport.add(tileLabel);
+		}
 		
 		this.createActionTab(gameTab);
 		
