@@ -5,11 +5,8 @@ import static org.junit.Assert.*;
 import java.awt.Color;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
 import org.jdom2.JDOMException;
 import org.junit.Test;
@@ -32,7 +29,6 @@ public class MarketTest {
 		try {
 			game=SupportClass.gameWithPlayersCreator("a", "b", "c", "d");
 		} catch (JDOMException | IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		BuildingPermit permit=game.getAllPermitsDecks().get(0).giveAFaceUpPermit(1);
