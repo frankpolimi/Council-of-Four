@@ -1,6 +1,5 @@
 package controller;
 
-import model.game.Player;
 
 public class ChatChange extends Change {
 

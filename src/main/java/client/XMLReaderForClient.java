@@ -15,12 +15,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import javax.swing.BoxLayout;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.border.LineBorder;
 import org.jdom2.Document;
 import org.jdom2.Element;
@@ -28,7 +23,6 @@ import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 import client.GUI.GUI;
 import client.GUI.ImagePanel;
-import model.game.Emporium;
 import model.game.topology.City;
 import model.game.topology.Region;
 

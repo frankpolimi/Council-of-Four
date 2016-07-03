@@ -5,24 +5,20 @@ import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.*;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
-
 import model.game.Game;
 import model.game.Player;
 import model.game.PointsTile;
 import view.EndState;
-
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.JTable;
 import javax.swing.JButton;
-import javax.swing.JTextPane;
 
 public class EndFrame extends JFrame {
 

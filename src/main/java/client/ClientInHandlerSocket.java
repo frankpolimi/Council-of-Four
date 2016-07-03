@@ -3,7 +3,6 @@ package client;
 import java.io.IOException;
 
 import controller.BonusChange;
-import controller.Change;
 import controller.ChatChange;
 import controller.ErrorChange;
 import controller.MarketChange;

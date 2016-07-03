@@ -5,11 +5,6 @@ package view;
 
 import java.util.ArrayList;
 import java.util.List;
-import controller.BonusChange;
-import controller.Change;
-import controller.PermitsChange;
-import model.bonus.Bonus;
-import model.game.BuildingPermit;
 import model.game.Game;
 import model.game.PermitsDeck;
 

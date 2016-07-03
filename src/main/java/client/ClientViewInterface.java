@@ -1,7 +1,6 @@
 package client;
 
 import model.game.Game;
-import model.game.Player;
 import view.LocalStorage;
 import view.Request;
 

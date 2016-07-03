@@ -5,12 +5,9 @@ package model.game;
 
 import org.jgrapht.graph.SimpleGraph;
 import org.jgrapht.graph.UndirectedSubgraph;
-
 import model.bonus.Bonus;
 import model.bonus.NobilityBonus;
 import model.game.topology.City;
-
-import java.awt.Color;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.*;

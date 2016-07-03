@@ -3,13 +3,9 @@
  */
 package model.bonus;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import controller.BonusChange;
 import model.game.Emporium;
 import model.game.Game;
-import model.game.topology.City;
 import view.View;
 
 /**

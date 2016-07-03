@@ -6,12 +6,10 @@ package server;
 import java.io.IOException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-
 import client.ClientRMIRemote;
 import client.RMIConnectionHandler;
 import controller.Change;
 import controller.ErrorChange;
-import controller.ModelChange;
 import view.QuitRequest;
 import view.Request;
 import view.View;

@@ -1,6 +1,5 @@
 package client.GUI;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -8,20 +7,17 @@ import java.awt.EventQueue;
 import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
-
 import model.actions.BuildEmporiumByPermit;
 import model.game.BuildingPermit;
 import model.game.Game;
 import model.game.Player;
 import model.game.topology.City;
 import view.ActionRequest;
-
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
