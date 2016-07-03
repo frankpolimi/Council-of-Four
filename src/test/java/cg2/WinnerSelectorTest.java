@@ -19,13 +19,13 @@ public class WinnerSelectorTest {
 
 	@Test(expected=NullPointerException.class)
 	public void testNullPointerExceptionConstructor() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
-		new WinnerSelector(null);
+		WinnerSelector winner=new WinnerSelector(null);
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
 	public void testIsEmptyPlayerConstructor() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
 		List<Player> list=new ArrayList<>();
-		new WinnerSelector(list);
+		WinnerSelector winner=new WinnerSelector(list);
 	}
 	
 	@Test

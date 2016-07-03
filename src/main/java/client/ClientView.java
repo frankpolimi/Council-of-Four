@@ -71,7 +71,6 @@ public class ClientView implements ClientViewInterface{
 	 * selection & the configuration of the action to send to the controller
 	 */
 	public Request mainAction() {
-		@SuppressWarnings("resource")
 		Scanner scanner1 = new Scanner(System.in);
 		System.out.println("Select now the main action to perform");
 		System.out.println("1. To Elect a councillor");
@@ -235,6 +234,7 @@ public class ClientView implements ClientViewInterface{
 	 * selection & the configuration of the action to send to the controller
 	 */
 	public Request quickAction() {
+		Scanner scanner2 = new Scanner(System.in);
 		System.out.println("Select now the quick action to perform");
 		System.out.println("1. To Engage a new Assistant");
 		System.out.println("2. To Change Face Up permits using an assistant");
@@ -305,7 +305,6 @@ public class ClientView implements ClientViewInterface{
 	 * the market by displaying and selecting the object
 	 */
 	public Request buyProducts() {
-		@SuppressWarnings("resource")
 		Scanner scanner3 = new Scanner(System.in);
 		System.out.println("These are the object for sale now!");
 		int i=0;
@@ -386,7 +385,6 @@ public class ClientView implements ClientViewInterface{
 	 * @return the price of the object
 	 */
 	private int priceInsertion() {
-		@SuppressWarnings("resource")
 		Scanner scanner4 = new Scanner(System.in);
 		System.out.println("Insert the price");
 		int price=scanner4.nextInt();
@@ -456,7 +454,6 @@ public class ClientView implements ClientViewInterface{
 	 * @return the integer selected to use in methods
 	 */
 	public int selector(int min, int max){
-		@SuppressWarnings("resource")
 		Scanner scanner = new Scanner(System.in);
 		int selection = scanner.nextInt();
 		while(selection<min||selection>max){
@@ -469,6 +466,7 @@ public class ClientView implements ClientViewInterface{
 	public Request start(){
 		int actionType;
 		Request request=null;
+		Scanner stdin=new Scanner(System.in);
 		if(game.isLastTurn())
 			System.err.println("THIS IS YOUR LAST TURN");
 		if(this.game.getGameState().getClass().equals(StartState.class)){
@@ -529,7 +527,6 @@ public class ClientView implements ClientViewInterface{
 		return request;
 	}
 	
-	@SuppressWarnings("resource")
 	private Request quitter(){
 		System.out.println("Are you sure? Type 'YES' is you agree, otherwise type anything else");
 		Scanner scanner6 = new Scanner(System.in);

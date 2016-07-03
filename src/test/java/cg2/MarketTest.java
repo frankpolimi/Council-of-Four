@@ -45,7 +45,7 @@ public class MarketTest {
 	
 	@Test(expected=NullPointerException.class)
 	public void gameIsNull(){
-		new Market(null);
+		Market market=new Market(null);
 	}
 	
 	@Test
