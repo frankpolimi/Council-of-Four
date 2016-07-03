@@ -244,13 +244,17 @@ public class GUI extends JFrame implements ClientViewInterface {
 		playerName.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
 		playerName.setEditable(false);
 		playerName.setText("");
-		playerName.setBounds(66, 11, 114, 20);
+		//playerName.setBounds(66, 11, 114, 20);
+		playerName.setBounds(125*tabbedPane.getWidth()/1000, 14*tabbedPane.getHeight()/1000, 217*tabbedPane.getWidth()/1000, 26*tabbedPane.getHeight()/1000);
+		
 		playerName.setName("playerName");
 		currentPlayer.add(playerName);
 		
 		JLabel lblName = new JLabel("Name:");
 		lblName.setLabelFor(playerName);
-		lblName.setBounds(10, 11, 46, 14);
+		//lblName.setBounds(10, 11, 46, 14);
+		lblName.setBounds(19*tabbedPane.getWidth()/1000, 14*tabbedPane.getHeight()/1000, 87*tabbedPane.getWidth()/1000, 18*tabbedPane.getHeight()/1000);
+		
 		currentPlayer.add(lblName);
 		
 		JTextPane txtpnVps = new JTextPane();
@@ -259,12 +263,16 @@ public class GUI extends JFrame implements ClientViewInterface {
 		txtpnVps.setEditable(false);
 		txtpnVps.setName("victory points");
 		txtpnVps.setText("0");
-		txtpnVps.setBounds(161, 49, 57, 20);
+		//txtpnVps.setBounds(161, 49, 57, 20);
+		txtpnVps.setBounds(306*tabbedPane.getWidth()/1000, 64*tabbedPane.getHeight()/1000, 108*tabbedPane.getWidth()/1000, 26*tabbedPane.getHeight()/1000);
+		
 		currentPlayer.add(txtpnVps);
 		
 		JLabel victoryPoints = new JLabel("Victory Points:\r\n");
 		victoryPoints.setLabelFor(txtpnVps);
-		victoryPoints.setBounds(10, 55, 114, 14);
+		//victoryPoints.setBounds(10, 55, 114, 14);
+		victoryPoints.setBounds(19*tabbedPane.getWidth()/1000, 72*tabbedPane.getHeight()/1000, 217*tabbedPane.getWidth()/1000, 18*tabbedPane.getHeight()/1000);
+		
 		currentPlayer.add(victoryPoints);
 		
 		JTextPane txtpnNps = new JTextPane();
@@ -273,16 +281,22 @@ public class GUI extends JFrame implements ClientViewInterface {
 		txtpnNps.setName("nobility points");
 		txtpnNps.setEditable(false);
 		txtpnNps.setText("0");
-		txtpnNps.setBounds(161, 90, 57, 20);
+		//txtpnNps.setBounds(161, 90, 57, 20);
+		txtpnNps.setBounds(306*tabbedPane.getWidth()/1000, 117*tabbedPane.getHeight()/1000, 108*tabbedPane.getWidth()/1000, 26*tabbedPane.getHeight()/1000);
+		
 		currentPlayer.add(txtpnNps);
 		
 		JLabel nobilityPoints = new JLabel("Nobility Points:");
 		nobilityPoints.setLabelFor(txtpnNps);
-		nobilityPoints.setBounds(10, 90, 114, 14);
+		//nobilityPoints.setBounds(10, 90, 114, 14);
+		nobilityPoints.setBounds(19*tabbedPane.getWidth()/1000, 117*tabbedPane.getHeight()/1000, 217*tabbedPane.getWidth()/1000, 18*tabbedPane.getHeight()/1000);
+		
 		currentPlayer.add(nobilityPoints);
 		
 		JLabel lblCoins = new JLabel("Coins:");
-		lblCoins.setBounds(275, 55, 72, 14);
+		//lblCoins.setBounds(275, 55, 72, 14);
+		lblCoins.setBounds(523*tabbedPane.getWidth()/1000, 72*tabbedPane.getHeight()/1000, 137*tabbedPane.getWidth()/1000, 18*tabbedPane.getHeight()/1000);
+		
 		currentPlayer.add(lblCoins);
 		
 		JTextPane txtpnCoins = new JTextPane();
@@ -291,11 +305,15 @@ public class GUI extends JFrame implements ClientViewInterface {
 		txtpnCoins.setText("0");
 		txtpnCoins.setName("coins");
 		txtpnCoins.setEditable(false);
-		txtpnCoins.setBounds(399, 49, 57, 20);
+		//txtpnCoins.setBounds(399, 49, 57, 20);
+		txtpnCoins.setBounds(759*tabbedPane.getWidth()/1000, 64*tabbedPane.getHeight()/1000, 108*tabbedPane.getWidth()/1000, 26*tabbedPane.getHeight()/1000);
+		
 		currentPlayer.add(txtpnCoins);
 		
 		JLabel lblAssistants = new JLabel("Assistants:");
-		lblAssistants.setBounds(275, 90, 114, 14);
+		//lblAssistants.setBounds(275, 90, 114, 14);
+		lblAssistants.setBounds(527*tabbedPane.getWidth()/1000, 117*tabbedPane.getHeight()/1000, 217*tabbedPane.getWidth()/1000, 18*tabbedPane.getHeight()/1000);
+		
 		currentPlayer.add(lblAssistants);
 		
 		JTextPane txtpnAssistants = new JTextPane();
@@ -305,11 +323,15 @@ public class GUI extends JFrame implements ClientViewInterface {
 		txtpnAssistants.setText("0");
 		txtpnAssistants.setName("assistants");
 		txtpnAssistants.setEditable(false);
-		txtpnAssistants.setBounds(399, 90, 57, 20);
+		//txtpnAssistants.setBounds(399, 90, 57, 20);
+		txtpnAssistants.setBounds(759*tabbedPane.getWidth()/1000, 117*tabbedPane.getHeight()/1000, 108*tabbedPane.getWidth()/1000, 26*tabbedPane.getHeight()/1000);
+		
 		currentPlayer.add(txtpnAssistants);
 		
 		JLabel lblRemainingEmporiums = new JLabel("Remaining Emporiums:");
-		lblRemainingEmporiums.setBounds(10, 132, 141, 14);
+		//lblRemainingEmporiums.setBounds(10, 132, 141, 14);
+		lblRemainingEmporiums.setBounds(19*tabbedPane.getWidth()/1000, 172*tabbedPane.getHeight()/1000, 268*tabbedPane.getWidth()/1000, 18*tabbedPane.getHeight()/1000);
+		
 		currentPlayer.add(lblRemainingEmporiums);
 		
 		JTextPane txtpnRemainingEmporiums = new JTextPane();
@@ -319,17 +341,23 @@ public class GUI extends JFrame implements ClientViewInterface {
 		txtpnRemainingEmporiums.setText("0");
 		txtpnRemainingEmporiums.setName("remaining emporiums");
 		txtpnRemainingEmporiums.setEditable(false);
-		txtpnRemainingEmporiums.setBounds(161, 132, 57, 20);
+		//txtpnRemainingEmporiums.setBounds(161, 132, 57, 20);
+		txtpnRemainingEmporiums.setBounds(306*tabbedPane.getWidth()/1000, 172*tabbedPane.getHeight()/1000, 108*tabbedPane.getWidth()/1000, 26*tabbedPane.getHeight()/1000);
+		
 		currentPlayer.add(txtpnRemainingEmporiums);
 		
 		JLabel lblEmporiums = new JLabel("Emporiums on:");
-		lblEmporiums.setBounds(10, 175, 114, 14);
+		//lblEmporiums.setBounds(10, 175, 114, 14);
+		lblEmporiums.setBounds(19*tabbedPane.getWidth()/1000, 228*tabbedPane.getHeight()/1000, 217*tabbedPane.getWidth()/1000, 18*tabbedPane.getHeight()/1000);
+		
 		currentPlayer.add(lblEmporiums);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setName("scroll pane");
 		lblEmporiums.setLabelFor(scrollPane);
-		scrollPane.setBounds(130, 175, 360, 82);
+		//scrollPane.setBounds(130, 175, 360, 82);
+		scrollPane.setBounds(247*tabbedPane.getWidth()/1000, 228*tabbedPane.getHeight()/1000, 684*tabbedPane.getWidth()/1000, 107*tabbedPane.getHeight()/1000);
+		
 		currentPlayer.add(scrollPane);
 		
 		JTextArea txtrEmporiums = new JTextArea();
@@ -350,8 +378,8 @@ public class GUI extends JFrame implements ClientViewInterface {
 		currentPlayer.add(turnIndicator);
 		
 		JPanel tilesPanel = new JPanel();
-		//tilesPanel.setBounds(587*tabbedPane.getWidth()/1000, 150*tabbedPane.getHeight()/1000, 279*tabbedPane.getWidth()/1000, 66*tabbedPane.getHeight()/1000);
-		tilesPanel.setBounds(309, 115, 147, 51);
+		tilesPanel.setBounds(587*tabbedPane.getWidth()/1000, 150*tabbedPane.getHeight()/1000, 279*tabbedPane.getWidth()/1000, 66*tabbedPane.getHeight()/1000);
+		//tilesPanel.setBounds(309, 115, 147, 51);
 		currentPlayer.add(tilesPanel);
 		JScrollPane scrollTiles=new JScrollPane(tilesPanel);
 		scrollTiles.setBounds(tilesPanel.getBounds());
@@ -359,8 +387,8 @@ public class GUI extends JFrame implements ClientViewInterface {
 		currentPlayer.add(scrollTiles);
 		
 		JLabel lblTiles = new JLabel("Tiles:");
-		lblTiles.setHorizontalAlignment(SwingConstants.CENTER);
-		//lblTiles.setBounds(500*tabbedPane.getWidth()/1000, 172*tabbedPane.getHeight()/1000, 87*tabbedPane.getWidth()/1000, 18*tabbedPane.getHeight()/1000);
+		//lblTiles.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTiles.setBounds(500*tabbedPane.getWidth()/1000, 172*tabbedPane.getHeight()/1000, 87*tabbedPane.getWidth()/1000, 18*tabbedPane.getHeight()/1000);
 		lblTiles.setBounds(263, 132, 46, 14);
 		currentPlayer.add(lblTiles);
 		
