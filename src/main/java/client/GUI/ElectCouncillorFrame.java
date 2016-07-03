@@ -127,7 +127,7 @@ public class ElectCouncillorFrame extends JFrame {
 	
 	private void createCouncilPanel(String name,Council c, int x, Dimension regionDim){
 		JPanel council1 = new JPanel();
-		council1.setBounds((int)((x/XREF)*getWidth()), (int)((227/YREF)*getHeight()), regionDim.width, regionDim.height);
+		council1.setBounds(x, (int)((227/YREF)*getHeight()), regionDim.width, regionDim.height);
 		contentPane.add(council1);
 		council1.setName(name+"Council");
 		council1.setBorder(new LineBorder(Color.BLACK));

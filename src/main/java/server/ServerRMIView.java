@@ -54,7 +54,7 @@ public class ServerRMIView extends View implements ServerRMIViewRemote{
 				this.client.sendToClient(new ErrorChange(e1.getMessage()));
 			} catch (IOException e) {
 				System.out.println("The client"+this.ID+" has been disconnected and removed in the game model");
-				this.notifyObservers(new QuitRequest(this.ID));
+				//this.notifyObservers(new QuitRequest(this.ID));
 			}
 		}
 	}
@@ -77,8 +77,7 @@ public class ServerRMIView extends View implements ServerRMIViewRemote{
 				this.client.closeConnection();
 			} catch (IOException e1) {
 			}
-			System.out.println("The client"+this.ID+" has been disconnected and removed in the game model");
-			this.notifyObservers(new QuitRequest(this.ID));
+			//this.notifyObservers(new QuitRequest(this.ID));
 		} catch (IOException e) {
 		}
 	}
@@ -97,7 +96,6 @@ public class ServerRMIView extends View implements ServerRMIViewRemote{
 		try {
 			this.client.sendToClient(s);
 		} catch (RemoteException e) {
-			System.out.println("The client"+this.ID+" has been disconnected and removed in the game model");
 			throw new RemoteException();
 		} catch (IOException e) {
 			e.printStackTrace();

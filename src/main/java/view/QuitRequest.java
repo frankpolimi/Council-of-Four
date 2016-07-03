@@ -46,6 +46,12 @@ public class QuitRequest extends Request {
 		game.getDisconnectedPlayers().add(user);
 		game.decrementLastRemainingPlayers();
 		
+		if(game.getPlayers().isEmpty()){
+			System.out.println("All players are disconnected.");
+			game.getTimer().purge();
+			game.getTimer().cancel();
+		}
+		
 	}
 
 }

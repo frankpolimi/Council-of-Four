@@ -55,14 +55,8 @@ public class Controller implements Observer<Request>{
 		}
 		
 		if(game.getGameState().getClass().equals(EndState.class)) return;
+
 		
-		
-		if(request.getClass().equals(QuitRequest.class)&&game.getGameState()!=null){
-			QuitRequest disconnection=(QuitRequest)request;
-			disconnection.disconnect(game);
-		}
-		
-		//EFFETTUARE CONTROLLO SU GIOCATORE CORRENTE!!
 		if(request.getID()!=game.getCurrentPlayer().getPlayerID() && !request.getClass().equals(QuitRequest.class)){
 			throw new IllegalArgumentException("It's not your turn!");
 		}else{
@@ -72,7 +66,10 @@ public class Controller implements Observer<Request>{
 			game.getTimer().schedule(new DisconnectionTimer(game), Game.DISCONNECTION_TIME);
 		}
 		
-		
+		if(request.getClass().equals(QuitRequest.class)&&game.getGameState()!=null){
+			QuitRequest disconnection=(QuitRequest)request;
+			disconnection.disconnect(game);
+		}
 		
 		//TURNO AZIONE
 		Player current=game.getCurrentPlayer();
