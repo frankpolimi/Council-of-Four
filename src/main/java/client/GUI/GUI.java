@@ -350,7 +350,8 @@ public class GUI extends JFrame implements ClientViewInterface {
 		currentPlayer.add(turnIndicator);
 		
 		JPanel tilesPanel = new JPanel();
-		tilesPanel.setBounds(587*tabbedPane.getWidth()/1000, 150*tabbedPane.getHeight()/1000, 279*tabbedPane.getWidth()/1000, 66*tabbedPane.getHeight()/1000);
+		//tilesPanel.setBounds(587*tabbedPane.getWidth()/1000, 150*tabbedPane.getHeight()/1000, 279*tabbedPane.getWidth()/1000, 66*tabbedPane.getHeight()/1000);
+		tilesPanel.setBounds(309, 115, 147, 51);
 		currentPlayer.add(tilesPanel);
 		JScrollPane scrollTiles=new JScrollPane(tilesPanel);
 		scrollTiles.setBounds(tilesPanel.getBounds());
@@ -359,7 +360,8 @@ public class GUI extends JFrame implements ClientViewInterface {
 		
 		JLabel lblTiles = new JLabel("Tiles:");
 		lblTiles.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTiles.setBounds(500*tabbedPane.getWidth()/1000, 172*tabbedPane.getHeight()/1000, 87*tabbedPane.getWidth()/1000, 18*tabbedPane.getHeight()/1000);
+		//lblTiles.setBounds(500*tabbedPane.getWidth()/1000, 172*tabbedPane.getHeight()/1000, 87*tabbedPane.getWidth()/1000, 18*tabbedPane.getHeight()/1000);
+		lblTiles.setBounds(263, 132, 46, 14);
 		currentPlayer.add(lblTiles);
 		
 		//ACTIONS		
