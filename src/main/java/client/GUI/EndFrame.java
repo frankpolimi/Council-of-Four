@@ -75,7 +75,6 @@ public class EndFrame extends JFrame {
 		btnClose.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				// TODO Auto-generated method stub
 				super.mouseClicked(e);
 				JOptionPane.showMessageDialog(null, "Goodbye!");
 				view.setVisible(false);

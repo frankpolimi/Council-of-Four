@@ -3,7 +3,6 @@ package client.GUI;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -16,7 +15,6 @@ import model.bonus.Bonus;
 import model.game.BuildingPermit;
 import model.game.Game;
 import model.game.PermitsDeck;
-import model.game.Player;
 import model.game.topology.City;
 import view.BonusRequest;
 import view.LocalStorage;
@@ -43,31 +41,6 @@ public class BonusPermitChangeFrame extends JFrame {
 	private Object selected;
 	private PermitsDeck selectedDeck;
 	private BuildingPermit selectedPermit;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Game game=new Game();
-					List<Player> players=new ArrayList<>();
-					players.add(new Player("ema",1));
-					game.setPlayers(players);
-					GUI gui=new GUI();
-					gui.setId(1);
-					gui.setGame(game);
-					game.getPlayerByID(1).setNobilityPoints(4);
-					
-					//BonusPermitChangeFrame frame = new BonusPermitChangeFrame(game, gui);
-					//frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * if check flag is TRUE the request is a PermitRequest, otherwise is a BonusRequest
@@ -110,7 +83,6 @@ public class BonusPermitChangeFrame extends JFrame {
 		btnSend.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				// TODO Auto-generated method stub
 				super.mouseClicked(e);
 				if(selected==null&&selectedPermit==null&&selectedDeck==null){
 					JOptionPane.showMessageDialog(null, "You have to choise at least one object to apply the request", "Error", JOptionPane.ERROR_MESSAGE);
@@ -167,7 +139,6 @@ public class BonusPermitChangeFrame extends JFrame {
 					label.addMouseListener(new MouseAdapter() {
 						@Override
 						public void mouseClicked(MouseEvent e) {
-							// TODO Auto-generated method stub
 							super.mouseClicked(e);
 							
 							for(Component comp:panel.getComponents()){
@@ -187,7 +158,6 @@ public class BonusPermitChangeFrame extends JFrame {
 					label.addMouseListener(new MouseAdapter() {
 						@Override
 						public void mouseClicked(MouseEvent e) {
-							// TODO Auto-generated method stub
 							super.mouseClicked(e);
 							selected=(BuildingPermit)obj;
 							for(Component comp:panel.getComponents()){
@@ -203,7 +173,6 @@ public class BonusPermitChangeFrame extends JFrame {
 						label.addMouseListener(new MouseAdapter() {
 							@Override
 							public void mouseClicked(MouseEvent e) {
-								// TODO Auto-generated method stub
 								super.mouseClicked(e);
 								selected=(City)obj;
 								for(Component comp:panel.getComponents()){

@@ -106,12 +106,10 @@ public class XMLReaderForClient {
 				newPanel.addMouseListener(new MouseAdapter() {
 					@Override
 					public void mouseEntered(MouseEvent e) {
-						// TODO Auto-generated method stub
 						super.mouseEntered(e);
 						try {
 							Thread.sleep(1000);
 						} catch (InterruptedException e1) {
-							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
 						Point pointerCorrection=new Point((int)(MouseInfo.getPointerInfo().getLocation().x-photo*GUI.singleRegionDimension.getWidth()), MouseInfo.getPointerInfo().getLocation().y);
@@ -123,7 +121,6 @@ public class XMLReaderForClient {
 					
 					@Override
 					public void mouseExited(MouseEvent e) {
-						// TODO Auto-generated method stub
 						super.mouseExited(e);
 						emporiumPanel.setVisible(false);
 					}

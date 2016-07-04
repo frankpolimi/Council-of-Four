@@ -3,7 +3,6 @@ package client.GUI;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -41,29 +40,6 @@ public class BuildEmporiumByKingFrame extends JFrame {
 	private GUI view;
 	private ArrayList<PoliticsCard> selectedCards;
 	private City selectedCity;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Game game=new Game();
-					List<Player> players=new ArrayList<>();
-					players.add(new Player("ema",1));
-					game.setPlayers(players);
-					GUI gui=new GUI();
-					gui.setId(1);
-					gui.setGame(game);
-					BuildEmporiumByKingFrame frame = new BuildEmporiumByKingFrame(game,gui);
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.

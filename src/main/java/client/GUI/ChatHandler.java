@@ -42,7 +42,6 @@ public class ChatHandler extends MouseAdapter{
 		}catch(NullPointerException exc){
 			
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		

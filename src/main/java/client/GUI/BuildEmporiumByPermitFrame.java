@@ -3,9 +3,7 @@ package client.GUI;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.Toolkit;
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -43,31 +41,6 @@ public class BuildEmporiumByPermitFrame extends JFrame {
 	private City selectedCity;
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Game game=new Game();
-					List<Player> players=new ArrayList<>();
-					players.add(new Player("ema",1));
-					game.setPlayers(players);
-					GUI gui=new GUI();
-					gui.setId(1);
-					gui.setGame(game);
-					game.getPlayerByID(1).addBuildingPermit(game.getAllPermitsDecks().get(0).getBuildingPermitsDeck().get(2));
-					game.getPlayerByID(1).addBuildingPermit(game.getAllPermitsDecks().get(1).getBuildingPermitsDeck().get(2));
-					BuildEmporiumByPermitFrame frame = new BuildEmporiumByPermitFrame(game, gui);
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
 	 * Create the frame.
 	 */
 	public BuildEmporiumByPermitFrame(Game game, GUI view) {
@@ -103,7 +76,6 @@ public class BuildEmporiumByPermitFrame extends JFrame {
 		btnSEND.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				// TODO Auto-generated method stub
 				super.mouseClicked(e);
 				if(selectedCity==null){
 					JOptionPane.showMessageDialog(null, "You have to choose the city in which you want to build", "No selection", JOptionPane.ERROR_MESSAGE);
@@ -150,7 +122,6 @@ public class BuildEmporiumByPermitFrame extends JFrame {
 				cityLabel.addMouseListener(new MouseAdapter() {
 					@Override
 					public void mouseClicked(MouseEvent e) {
-						// TODO Auto-generated method stub
 						super.mouseClicked(e);
 						for(Component comp:permitPanel.getComponents()){
 							JPanel otherContainer=(JPanel)comp;

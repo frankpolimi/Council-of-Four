@@ -3,10 +3,7 @@ package client.GUI;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.Toolkit;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -38,8 +35,8 @@ public class AddProductFrame extends JFrame {
 	 */
 	private static final long serialVersionUID = -2423042084984267944L;
 	private JPanel contentPane;
-	private Object game;
-	private Object view;
+	private Game game;
+	private GUI view;
 	private Object objToSell;
 	private int cost;
 	private JTextField textField;
@@ -47,35 +44,12 @@ public class AddProductFrame extends JFrame {
 	private final static double YREF=384;
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Game game=new Game();
-					List<Player> players=new ArrayList<>();
-					players.add(new Player("ema",1));
-					game.setPlayers(players);
-					GUI gui=new GUI();
-					gui.setId(1);
-					gui.setGame(game);
-					AddProductFrame frame = new AddProductFrame(game,gui);
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
 	 * Create the frame.
 	 */
 	public AddProductFrame(Game game, GUI view) {
 		this.game=game;
 		this.view=view;
-		Player thisPlayer=game.getPlayerByID(view.getId());
+		Player thisPlayer=this.game.getPlayerByID(this.view.getId());
 				
 		Dimension screenSize=Toolkit.getDefaultToolkit().getScreenSize();
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);

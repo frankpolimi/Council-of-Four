@@ -14,12 +14,12 @@ import org.jdom2.JDOMException;
 import client.GUI.StartScreen;
 
 /**
- * @author Francesco Vetrò
+ * @author Francesco Vetro'
  *
  */
 public class Client {
 	
-	public final static Logger logger=Logger.getLogger(Client.class.getName());
+	public static final Logger logger=Logger.getLogger(Client.class.getName());
 	
 	public static void main(String[] args) throws JDOMException, IOException {
 		
@@ -76,7 +76,6 @@ public class Client {
 							cs.startClient();
 							break;
 						} catch (NotBoundException | AlreadyBoundException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 					}
