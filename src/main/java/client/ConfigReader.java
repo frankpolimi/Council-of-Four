@@ -12,7 +12,7 @@ import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 
 /**
- * @author Francesco Vetrò
+ * @author Francesco Vetro'
  *
  */
 public class ConfigReader {
