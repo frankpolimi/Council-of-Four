@@ -9,9 +9,7 @@ import model.game.council.Councillor;
  */
 public class ElectCouncillor extends MainAction 
 {
-	/**
-	 * We considered the 
-	 */
+	
 	private static final long serialVersionUID = -3153051699153428116L;
 	private Councillor councillor;
 	private Council council;

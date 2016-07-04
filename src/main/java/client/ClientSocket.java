@@ -58,23 +58,19 @@ public class ClientSocket implements ClientInterface
 		ExecutorService executor = Executors.newFixedThreadPool(2);
 		this.handler = new SocketConnectionHandler(socket);
 		
-		//ObjectOutputStream socketOut=new ObjectOutputStream(socket.getOutputStream());
 		try {
 			handler.sendToServer(name);
 		} catch (IOException e1) {
 			throw new IOException("You didn't insert your name in time. You are disconnected");
 		}
 		
-		//ObjectInputStream socketIn=new ObjectInputStream(socket.getInputStream());
 		try{
 			Game game=(Game)handler.receiveFromServer();
 			this.game=game;
 			int id=(Integer)handler.receiveFromServer();
 			this.ID=id;
-			//System.out.println("gioco "+game);
 		}catch(ClassNotFoundException e){
 			Client.logger.log(Level.ALL, e.getMessage());
-			//e.printStackTrace();
 		}
 		
 		memoryContainer.setGameRef(game);
@@ -86,25 +82,6 @@ public class ClientSocket implements ClientInterface
 		executor.submit(new ClientInHandlerSocket(handler, memoryContainer, clientView));
 		
 	}
-	/*
-	@Override
-	public void startClient() throws IOException{
-		Scanner stdin = new Scanner(System.in);
-		System.out.println("Insert your name: ");
-		String name = stdin.nextLine();
-		
-		try{
-			this.runClient(name);
-			System.out.println("Connection Established");
-			System.out.println("Aspetto gioco");
-			System.out.println("Waiting for other players");
-			System.out.println("ID: "+this.ID);
-		}catch(IOException e){
-			System.out.println(e.getMessage());
-		}
-		CLIChatHandler chatHandler=new CLIChatHandler(this.handler, (ClientView)this.clientView, name);
-		Executors.newFixedThreadPool(1).submit(chatHandler);
-	}*/
 
 	@Override
 	public ConnectionHandler getConnectionHandler() {

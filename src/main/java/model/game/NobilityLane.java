@@ -20,7 +20,7 @@ public class NobilityLane extends Bonusable implements Observer<Change>{
 	 * 
 	 */
 	private static final long serialVersionUID = 9161958522145141177L;
-	Map<Integer, NobilityCell> lane;
+	private Map<Integer, NobilityCell> lane;
 	
 	/**
 	 * constructor for the nobility track
