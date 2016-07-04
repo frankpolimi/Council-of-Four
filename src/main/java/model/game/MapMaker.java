@@ -582,15 +582,6 @@ public class MapMaker {
 		
 	}
 	
-	public static void main(String[] args)throws IOException, JDOMException {
-		MapMaker mp=new MapMaker();
-		Set<Region> reg=mp.createRegionSet("ABA");
-		ExtendedGraph<City, DefaultEdge> map=mp.generateMap(reg);
-		map.vertexSet().stream().forEach(System.out::println);
-		System.out.println(map.toString());
-		
-	}
-	
 
 }
  

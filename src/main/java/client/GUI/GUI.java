@@ -799,9 +799,10 @@ public class GUI extends JFrame implements ClientViewInterface {
 	private void updateRegionTile(JPanel jPanel) {
 		
 		Iterator<PointsTile> regionTileIt = this.game.getRegionTileList().iterator();
+		/*System.out.println(singleRegionDimension);
 		jPanel.remove(jPanel.getComponentAt(singleRegionDimension.width*657/1000, singleRegionDimension.height*915/1000));
 		jPanel.remove(jPanel.getComponentAt(singleRegionDimension.width*754/1000, singleRegionDimension.height*910/1000));
-		jPanel.remove(jPanel.getComponentAt(singleRegionDimension.width*653/1000, singleRegionDimension.height*915/1000));
+		jPanel.remove(jPanel.getComponentAt(singleRegionDimension.width*653/1000, singleRegionDimension.height*915/1000));*/
 		
 		while(regionTileIt.hasNext()){
 			RegionTile rt = (RegionTile)regionTileIt.next();
@@ -812,14 +813,17 @@ public class GUI extends JFrame implements ClientViewInterface {
 				tile.setName(rt.getRegion().getName()+"Tile");
 				switch(rt.getRegion().getName()){
 				case "hill":{
+					jPanel.remove(jPanel.getComponentAt(singleRegionDimension.width*657/1000, singleRegionDimension.height*915/1000));
 					tile.setLocation(singleRegionDimension.width*657/1000, singleRegionDimension.height*915/1000);
 					break;
 				}
 				case "land":{
+					jPanel.remove(jPanel.getComponentAt(singleRegionDimension.width*754/1000, singleRegionDimension.height*910/1000));
 					tile.setLocation(singleRegionDimension.width*754/1000, singleRegionDimension.height*910/1000);
 					break;
 				}
 				case "mountain":{
+					jPanel.remove(jPanel.getComponentAt(singleRegionDimension.width*653/1000, singleRegionDimension.height*915/1000));
 					tile.setLocation(singleRegionDimension.width*653/1000, singleRegionDimension.height*915/1000);
 					break;
 				}

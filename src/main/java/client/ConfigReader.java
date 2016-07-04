@@ -26,7 +26,7 @@ public class ConfigReader {
 	}
 
 	public String getIP(){
-		return ((String)root.getChild("IP").getAttributeValue("value"));
+		return (root.getChild("IP").getAttributeValue("value"));
 	}
 	
 	public int getSocketPort(){
@@ -37,5 +37,9 @@ public class ConfigReader {
 	public int getRMIPort(){
 		return Integer.parseInt(root.getChild("PORT").getChild("RMIPORT")
 				.getAttributeValue("value"));
+	}
+	
+	public int getDisconnectionTimer(){
+		return Integer.parseInt(root.getChild("DISC_TIME").getAttributeValue("value"));
 	}
 }

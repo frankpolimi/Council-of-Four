@@ -53,20 +53,22 @@ public class Server
 	
 	private List<Player> oneRoomLobby;
 	private Map<Player, View> playersView;
+	private final int DISC_TIMER;
 	
 	/**
 	 * constructor for a server with both connections: RMI & socket
 	 * @param socketPort the port on which the socket will listen for connections
 	 * @param RMIPort the port on which the server will retrieve the remote methods of a client
+	 * @param discTimer indicates the amount of seconds for the turn's timer
 	 * @throws JDOMException when file reading fails
 	 * @throws IOException when writing to client fails
 	 */
-	public Server(int socketPort, int RMIPort) throws JDOMException, IOException
+	public Server(int socketPort, int RMIPort, int discTimer) throws JDOMException, IOException
 	{
 		this.SOCKETPORT = socketPort;
 		this.RMIPORT = RMIPort;
-		
-		game=new Game();
+		this.DISC_TIMER=discTimer*1000;
+		game=new Game(this.DISC_TIMER);
 		controller=new Controller(game);
 		registry = LocateRegistry.createRegistry(RMIPORT);
 		
@@ -170,7 +172,7 @@ public class Server
 		
 		ConfigReader c = new ConfigReader();
 		
-		Server server = new Server(c.getSocketPort(), c.getRMIPort());
+		Server server = new Server(c.getSocketPort(), c.getRMIPort(), c.getDisconnectionTimer());
 
 		try {
 			server.start();
@@ -192,7 +194,7 @@ public class Server
 	public void resetGame() throws JDOMException, IOException{
 		game.setPlayers(oneRoomLobby);
 		game.getPlayers().stream().forEach(System.out::println);
-		this.game=new Game();
+		this.game=new Game(this.DISC_TIMER);
 		this.controller=new Controller(game);
 		this.serialID=1;
 	}

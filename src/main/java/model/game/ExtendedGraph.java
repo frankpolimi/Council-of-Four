@@ -92,8 +92,6 @@ public class ExtendedGraph<V extends City,E> extends SimpleGraph<V, E> implement
 		Set<V> connected=connectivity.connectedSetOf(newEmpVertex);
 		for(V v:connected){
 			v.applyBonus(game);
-			System.out.println("Applico a "+v);
-			System.out.println("I BONUS"+((City)v).getBonus());
 		}
 		
 	}
@@ -133,20 +131,6 @@ public class ExtendedGraph<V extends City,E> extends SimpleGraph<V, E> implement
 		return visual;
 	}
 	
-	
-	public static void main(String[]args) throws JDOMException, IOException{
-		
-		Game game=new Game();
-		List<Player> players=new ArrayList<>();
-		players.add(new Player("io",1));
-		players.add(new Player("lui",2));
-		game.setPlayers(players);
-		game.getMap().getVertexByKey("K").registerBonus(new NobilityBonus(1));
-		System.out.println("BONUS"+game.getMap().getVertexByKey("K").displayBonus());
-		game.getMap().getVertexByKey("K").addEmporium(game.getPlayerByID(1));
-		System.out.println(game.getPlayerByID(1));
-		game.getMap().applyConnectedCitiesBonus(game.getMap().getVertexByKey("K"), game.getPlayerByID(1).getEmporiumsCitiesSet(), game);
-		System.out.println(game.getPlayerByID(1));
-	}
+
 }
 

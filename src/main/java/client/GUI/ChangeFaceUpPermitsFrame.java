@@ -39,28 +39,6 @@ public class ChangeFaceUpPermitsFrame extends JFrame {
 	private final static double YREF=384;
 	private PermitsDeck selectedDeck;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Game game=new Game();
-					List<Player> players=new ArrayList<>();
-					players.add(new Player("ema",1));
-					game.setPlayers(players);
-					GUI gui=new GUI();
-					gui.setId(1);
-					gui.setGame(game);
-					ChangeFaceUpPermitsFrame frame = new ChangeFaceUpPermitsFrame(game,gui);
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.

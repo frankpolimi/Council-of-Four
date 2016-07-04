@@ -42,40 +42,6 @@ public class BuyProductFrame extends JFrame {
 	private final static double XREF=683;
 	private final static double YREF=384;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Game game=new Game();
-					List<Player> players=new ArrayList<>();
-					players.add(new Player("ema",1));
-					players.add(new Player("fra",2));
-					game.setPlayers(players);
-					
-					
-					List<PoliticsCard> p1=game.getPlayerByID(1).getCardsOwned();
-					List<PoliticsCard> p2=game.getPlayerByID(2).getCardsOwned();
-					game.getMarket().addProduct(new MarketObject<>(p1.get(0), game.getPlayerByID(1), 10));
-					game.getMarket().addProduct(new MarketObject<>(p1.get(3), game.getPlayerByID(1), 20));
-					game.getMarket().addProduct(new MarketObject<>(new Assistant(1), game.getPlayerByID(1), 5));
-					game.setCurrentPlayer(game.getPlayerByID(2));
-					game.getMarket().addProduct(new MarketObject<>(p2.get(0), game.getPlayerByID(2), 3));
-					game.getMarket().addProduct(new MarketObject<>(p2.get(2), game.getPlayerByID(2), 5));
-					game.setGameState(new MarketBuyingState());
-					GUI gui=new GUI();
-					gui.setId(2);
-					gui.setGame(game);
-					BuyProductFrame frame = new BuyProductFrame(game,gui);
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.

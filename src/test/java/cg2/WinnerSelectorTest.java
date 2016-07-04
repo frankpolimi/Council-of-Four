@@ -158,7 +158,7 @@ public class WinnerSelectorTest {
 	
 	@Test
 	public void permitsWhenOnlyOnePlayerHasMoreBuildingPermit() throws JDOMException, IOException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException{
-		Game game=new Game();
+		Game game=new Game(100000);
 		List<Player> player=new ArrayList<>();
 		Player p1=new Player("p1",1);
 		Player p2=new Player("p2",2);
@@ -190,7 +190,7 @@ public class WinnerSelectorTest {
 	
 	@Test
 	public void permitsWhenManyPlayersHaveMoreBuildingPermit() throws JDOMException, IOException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException{
-		Game game=new Game();
+		Game game=new Game(10000000);
 		List<Player> player=new ArrayList<>();
 		Player p1=new Player("p1",1);
 		Player p2=new Player("p2",2);

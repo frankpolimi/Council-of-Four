@@ -42,21 +42,7 @@ public class ElectCouncillorFrame extends JFrame {
 	private Council councilSelected;
 	private final static double XREF=683;
 	private final static double YREF=384;
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ElectCouncillorFrame frame = new ElectCouncillorFrame(new Game(), new GUI(), false);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
+	
 	/**
 	 * Create the frame.
 	 */

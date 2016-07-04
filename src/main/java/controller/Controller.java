@@ -63,7 +63,7 @@ public class Controller implements Observer<Request>{
 			game.getTimer().cancel();
 			game.getTimer().purge();
 			game.setTimer(new Timer());
-			game.getTimer().schedule(new DisconnectionTimer(game), Game.DISCONNECTION_TIME);
+			game.getTimer().schedule(new DisconnectionTimer(game), game.getDISCONNECTION_TIME());
 		}
 		
 		if(request.getClass().equals(QuitRequest.class)&&game.getGameState()!=null){

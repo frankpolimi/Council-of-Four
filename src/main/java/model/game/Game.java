@@ -43,7 +43,7 @@ public class Game extends Observable<Change> implements Serializable, Remote{
 	 */
 	private static final long serialVersionUID = -6566029665416943724L;
 	
-	public final static int DISCONNECTION_TIME=600*1000;
+	public final int DISCONNECTION_TIME;
 	private State gameState;
 	private int lastTurnRemainingPlayers;
 	private boolean lastTurn;
@@ -63,14 +63,7 @@ public class Game extends Observable<Change> implements Serializable, Remote{
 	private final ExtendedGraph<City,DefaultEdge> map;
 	private Market market;
 	private City kingsPosition;
-	
-	/*
-	private final Set<MainAction> mainAction = null; //just for avoiding errors
-	private final Set<QuickAction> quickAction = null;
-	*/
-
 	private Player currentPlayer;
-	
 	private int mainActionCounter;
 	private int quickActionCounter;
 	
@@ -80,9 +73,9 @@ public class Game extends Observable<Change> implements Serializable, Remote{
 	 * @throws JDOMException when errors occurs during parsing from file
 	 * @throws IOException when errors occurs during reading from file
 	 */
-	public Game() throws JDOMException, IOException {
+	public Game(int disconnectionTime) throws JDOMException, IOException {
 		MapMaker mp=new MapMaker();
-		
+		this.DISCONNECTION_TIME=disconnectionTime;
 		this.lastTurn=false;
 		this.politicsDeck=mp.createPoliticsDeck();
 		this.usedPolitics=new PoliticsDeck(null);
@@ -140,6 +133,14 @@ public class Game extends Observable<Change> implements Serializable, Remote{
 		this.lastTurnRemainingPlayers=this.players.size();
 		this.shuffledPlayers.addAll(this.players);
 		this.gameState=new StartState();
+		this.players.get(0).addEmporium(new Emporium(this.map.getVertexByKey("a"), this.players.get(0).getChosenColor()));
+		this.players.get(0).addEmporium(new Emporium(this.map.getVertexByKey("b"), this.players.get(0).getChosenColor()));
+		this.players.get(0).addEmporium(new Emporium(this.map.getVertexByKey("c"), this.players.get(0).getChosenColor()));
+		this.players.get(0).addEmporium(new Emporium(this.map.getVertexByKey("d"), this.players.get(0).getChosenColor()));
+		this.players.get(0).addEmporium(new Emporium(this.map.getVertexByKey("f"), this.players.get(0).getChosenColor()));
+		this.getAllPermitsDecks().get(2).givePermit(this, this.getAllPermitsDecks().get(2).giveAFaceUpPermit(1));
+		this.getAllPermitsDecks().get(2).givePermit(this, this.getAllPermitsDecks().get(2).giveAFaceUpPermit(1));
+		this.getAllPermitsDecks().get(2).givePermit(this, this.getAllPermitsDecks().get(2).giveAFaceUpPermit(1));
 		this.mainActionCounter = 1;
 		this.quickActionCounter = 1;
 		this.notifyObservers(new ModelChange(this));
@@ -697,18 +698,12 @@ public class Game extends Observable<Change> implements Serializable, Remote{
 	public NobilityLane getNobilityLane() {
 		return nobilityLane;
 	}
-	
-	public static void main(String[] args) throws JDOMException, IOException {
-		Game game=new Game();
-		List<Player> players=new ArrayList<>();
-		players.add(new Player("io",1));
-		players.add(new Player("tu",2));
-		game.setPlayers(players);
-		for(City c:game.getMap().vertexSet()){
-			System.out.println("Nome città: "+c.getName());
-			System.out.println("Bonus "+c.getBonus());
-			System.out.println("Immagine "+c.getBonusImagePath());
-		}
+
+	/**
+	 * @return the dISCONNECTION_TIME
+	 */
+	public int getDISCONNECTION_TIME() {
+		return DISCONNECTION_TIME;
 	}
 
 	/**

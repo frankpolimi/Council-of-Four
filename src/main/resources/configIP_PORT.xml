@@ -5,4 +5,5 @@
 		<SOCKETPORT value="27312"></SOCKETPORT>
 		<RMIPORT value="34197"></RMIPORT>
 	</PORT>
+	<DISC_TIME value="600"/>
 </config>

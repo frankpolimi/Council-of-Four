@@ -102,7 +102,7 @@ public abstract class SupportClass
 			players.add(p2);
 			players.add(p3);
 			players.add(p4);
-			Game game=new Game();
+			Game game=new Game(1000000);
 			game.setPlayers(players);
 			game.setCurrentPlayer(p1);
 			return game;
