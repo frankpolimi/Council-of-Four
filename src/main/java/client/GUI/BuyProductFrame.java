@@ -3,11 +3,9 @@ package client.GUI;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -25,7 +23,6 @@ import model.game.Player;
 import model.game.politics.PoliticsCard;
 import model.market.Assistant;
 import model.market.MarketObject;
-import view.MarketBuyingState;
 import view.MarketRequest;
 
 public class BuyProductFrame extends JFrame {
