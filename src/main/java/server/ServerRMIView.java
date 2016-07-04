@@ -10,7 +10,6 @@ import client.ClientRMIRemote;
 import client.RMIConnectionHandler;
 import controller.Change;
 import controller.ErrorChange;
-import view.QuitRequest;
 import view.Request;
 import view.View;
 

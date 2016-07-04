@@ -38,7 +38,6 @@ public class AddProductFrame extends JFrame {
 	private Game game;
 	private GUI view;
 	private Object objToSell;
-	private int cost;
 	private JTextField textField;
 	private final static double XREF=683;
 	private final static double YREF=384;

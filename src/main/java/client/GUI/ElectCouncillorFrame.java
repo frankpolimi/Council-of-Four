@@ -24,7 +24,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-
+@SuppressWarnings("unused")
 public class ElectCouncillorFrame extends JFrame {
 
 	/**

@@ -5,7 +5,6 @@ package model.game;
 
 import org.jgrapht.graph.SimpleGraph;
 import org.jgrapht.graph.UndirectedSubgraph;
-import model.bonus.Bonus;
 import model.bonus.NobilityBonus;
 import model.game.topology.City;
 import java.io.IOException;
@@ -142,7 +141,6 @@ public class ExtendedGraph<V extends City,E> extends SimpleGraph<V, E> implement
 		players.add(new Player("io",1));
 		players.add(new Player("lui",2));
 		game.setPlayers(players);
-		List<Bonus> bonus=new ArrayList<>();
 		game.getMap().getVertexByKey("K").registerBonus(new NobilityBonus(1));
 		System.out.println("BONUS"+game.getMap().getVertexByKey("K").displayBonus());
 		game.getMap().getVertexByKey("K").addEmporium(game.getPlayerByID(1));

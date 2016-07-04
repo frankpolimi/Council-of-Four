@@ -10,6 +10,7 @@ import org.jdom2.JDOMException;
 public interface ClientInterface {
 	public void runClient(String name) throws IOException, NotBoundException, JDOMException, AlreadyBoundException;
 	public default void startClient() throws IOException, NotBoundException, JDOMException, AlreadyBoundException{
+		@SuppressWarnings("resource")
 		Scanner stdin = new Scanner(System.in);	
 		System.out.println("Insert your name:");
 		String name = stdin.nextLine();
