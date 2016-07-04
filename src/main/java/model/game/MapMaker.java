@@ -227,7 +227,6 @@ public class MapMaker {
 		Set<Region> regions=regionSet;
 		Iterator<Region> regionIt=regions.iterator();
 		List<Element> links =new ArrayList<>();
-		int i=0;
 		while(regionIt.hasNext()){
 			Region reg=regionIt.next();
 			Element cityRoot=this.getRootFromFile(PATH+reg.getName()+reg.getType()+".xml");
@@ -238,7 +237,6 @@ public class MapMaker {
 			for(Element e:cityRoot.getChild("links").getChildren())
 				links.add(e);
 				
-			i++;
 		}
 		//extraction and creation of edges
 		

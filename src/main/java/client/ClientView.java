@@ -39,7 +39,7 @@ import view.PermitsRequest;
 import view.QuitRequest;
 import view.Request;
 import view.StartState;
-
+@SuppressWarnings("resource")
 public class ClientView implements ClientViewInterface{
 	
 	private Game game;
@@ -234,7 +234,6 @@ public class ClientView implements ClientViewInterface{
 	 * selection & the configuration of the action to send to the controller
 	 */
 	public Request quickAction() {
-		Scanner scanner2 = new Scanner(System.in);
 		System.out.println("Select now the quick action to perform");
 		System.out.println("1. To Engage a new Assistant");
 		System.out.println("2. To Change Face Up permits using an assistant");
@@ -454,6 +453,7 @@ public class ClientView implements ClientViewInterface{
 	 * @return the integer selected to use in methods
 	 */
 	public int selector(int min, int max){
+		
 		Scanner scanner = new Scanner(System.in);
 		int selection = scanner.nextInt();
 		while(selection<min||selection>max){
@@ -466,7 +466,6 @@ public class ClientView implements ClientViewInterface{
 	public Request start(){
 		int actionType;
 		Request request=null;
-		Scanner stdin=new Scanner(System.in);
 		if(game.isLastTurn())
 			System.err.println("THIS IS YOUR LAST TURN");
 		if(this.game.getGameState().getClass().equals(StartState.class)){

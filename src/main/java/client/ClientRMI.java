@@ -15,7 +15,6 @@ import java.util.concurrent.Executors;
 import org.jdom2.JDOMException;
 import model.game.Game;
 import server.ServerRMIRegistrationRemote;
-import view.Request;
 
 /**
  * @author Francesco Vetrò
@@ -32,7 +31,6 @@ public class ClientRMI extends UnicastRemoteObject implements Serializable, Clie
 	private final int rmiPort;
 	
 	private RMIConnectionHandler handler;
-	private Request request;
 	private Registry registry;
 	
 	private ClientViewInterface view;

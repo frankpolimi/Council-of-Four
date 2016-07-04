@@ -25,7 +25,7 @@ import javax.swing.SwingConstants;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import java.util.*;
-
+@SuppressWarnings("unused")
 public class BonusPermitChangeFrame extends JFrame {
 
 	/**

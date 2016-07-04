@@ -25,7 +25,7 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-
+@SuppressWarnings("unused")
 public class ChangeFaceUpPermitsFrame extends JFrame {
 
 	/**

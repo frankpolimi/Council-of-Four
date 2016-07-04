@@ -115,6 +115,7 @@ public class Server
 	private void startSocket() throws IOException, JDOMException, ClassNotFoundException {
 	
 		ExecutorService executor = Executors.newCachedThreadPool();
+		@SuppressWarnings("resource")
 		ServerSocket serverSocket = new ServerSocket(SOCKETPORT);
 		System.out.println("Server socket ready on port: " + SOCKETPORT);
 		while (true) {
