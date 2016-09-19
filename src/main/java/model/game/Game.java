@@ -133,14 +133,6 @@ public class Game extends Observable<Change> implements Serializable, Remote{
 		this.lastTurnRemainingPlayers=this.players.size();
 		this.shuffledPlayers.addAll(this.players);
 		this.gameState=new StartState();
-		this.players.get(0).addEmporium(new Emporium(this.map.getVertexByKey("a"), this.players.get(0).getChosenColor()));
-		this.players.get(0).addEmporium(new Emporium(this.map.getVertexByKey("b"), this.players.get(0).getChosenColor()));
-		this.players.get(0).addEmporium(new Emporium(this.map.getVertexByKey("c"), this.players.get(0).getChosenColor()));
-		this.players.get(0).addEmporium(new Emporium(this.map.getVertexByKey("d"), this.players.get(0).getChosenColor()));
-		this.players.get(0).addEmporium(new Emporium(this.map.getVertexByKey("f"), this.players.get(0).getChosenColor()));
-		this.getAllPermitsDecks().get(2).givePermit(this, this.getAllPermitsDecks().get(2).giveAFaceUpPermit(1));
-		this.getAllPermitsDecks().get(2).givePermit(this, this.getAllPermitsDecks().get(2).giveAFaceUpPermit(1));
-		this.getAllPermitsDecks().get(2).givePermit(this, this.getAllPermitsDecks().get(2).giveAFaceUpPermit(1));
 		this.mainActionCounter = 1;
 		this.quickActionCounter = 1;
 		this.notifyObservers(new ModelChange(this));
