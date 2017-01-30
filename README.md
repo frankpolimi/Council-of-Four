@@ -1,5 +1,7 @@
 # README #
 
+# Council of Four #
+
 ### How do I get set up? ###
 
 Instructions to start the game:
